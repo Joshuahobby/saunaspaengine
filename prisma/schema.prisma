@@ -1,0 +1,342 @@
+// Sauna SPA Engine — Database Schema
+// Target: PostgreSQL via Prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ──────────────────────────────────────────────
+
+enum UserRole {
+  ADMIN
+  OWNER
+  EMPLOYEE
+}
+
+enum ClientType {
+  MEMBER
+  WALK_IN
+}
+
+enum MembershipType {
+  SUBSCRIPTION
+  LIST_PASS
+  FREE_PASS
+}
+
+enum PaymentMode {
+  CASH
+  MOMO
+  POS
+}
+
+enum ServiceRecordStatus {
+  CREATED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum EntityStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum LoyaltyTier {
+  BRONZE
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+
+// ─── Corporate (CEO View) ────────────────────────────────
+
+model Corporate {
+  id           String       @id @default(cuid())
+  name         String
+  taxId        String?
+  headquarters String?
+  status       EntityStatus @default(ACTIVE)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  businesses Business[]
+
+  @@map("corporates")
+}
+
+// ─── Business (Branch View) ──────────────────────────────
+
+model Business {
+  id          String       @id @default(cuid())
+  name        String
+  address     String?
+  phone       String?
+  email       String?
+  logo        String?
+  status      EntityStatus @default(ACTIVE)
+  corporateId String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  corporate          Corporate?         @relation(fields: [corporateId], references: [id])
+  users              User[]
+  employeeCategories EmployeeCategory[]
+  employees          Employee[]
+  clients            Client[]
+  membershipCategories MembershipCategory[]
+  services           Service[]
+  serviceRecords     ServiceRecord[]
+  auditLogs          AuditLog[]
+  inventory          Inventory[]
+  loyaltyPrograms    LoyaltyProgram?
+
+  @@map("businesses")
+}
+
+
+// ─── User (Auth) ────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  username      String    @unique
+  email         String    @unique
+  passwordHash  String
+  fullName      String
+  role          UserRole  @default(EMPLOYEE)
+  status        EntityStatus @default(ACTIVE)
+  businessId    String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  business   Business? @relation(fields: [businessId], references: [id])
+  auditLogs  AuditLog[]
+
+  @@map("users")
+}
+
+// ─── Employee Category ──────────────────────────────────
+
+model EmployeeCategory {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  status      EntityStatus @default(ACTIVE)
+  businessId  String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  business  Business   @relation(fields: [businessId], references: [id])
+  employees Employee[]
+
+  @@map("employee_categories")
+}
+
+// ─── Employee ───────────────────────────────────────────
+
+model Employee {
+  id          String       @id @default(cuid())
+  fullName    String
+  phone       String?
+  status      EntityStatus @default(ACTIVE)
+  categoryId  String
+  businessId  String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  category       EmployeeCategory @relation(fields: [categoryId], references: [id])
+  business       Business         @relation(fields: [businessId], references: [id])
+  serviceRecords ServiceRecord[]
+
+  @@map("employees")
+}
+
+// ─── Client ─────────────────────────────────────────────
+
+model Client {
+  id          String       @id @default(cuid())
+  fullName    String
+  phone       String?
+  clientType  ClientType   @default(WALK_IN)
+  qrCode      String?      @unique
+  status      EntityStatus @default(ACTIVE)
+  businessId  String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  business       Business       @relation(fields: [businessId], references: [id])
+  memberships    Membership[]
+  serviceRecords ServiceRecord[]
+  loyaltyPoints  LoyaltyPoint[]
+
+  @@map("clients")
+}
+
+
+// ─── Membership Category ────────────────────────────────
+
+model MembershipCategory {
+  id          String         @id @default(cuid())
+  name        String
+  type        MembershipType
+  description String?
+  price       Float          @default(0)
+  durationDays Int?          // for SUBSCRIPTION type
+  usageLimit  Int?           // for LIST_PASS type
+  status      EntityStatus   @default(ACTIVE)
+  businessId  String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  business    Business      @relation(fields: [businessId], references: [id])
+  memberships Membership[]
+
+  @@map("membership_categories")
+}
+
+// ─── Membership ─────────────────────────────────────────
+
+model Membership {
+  id          String   @id @default(cuid())
+  clientId    String
+  categoryId  String
+  startDate   DateTime @default(now())
+  endDate     DateTime?
+  balance     Int?     // remaining uses for LIST_PASS
+  status      EntityStatus @default(ACTIVE)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  client   Client             @relation(fields: [clientId], references: [id])
+  category MembershipCategory @relation(fields: [categoryId], references: [id])
+
+  @@map("memberships")
+}
+
+// ─── Service ────────────────────────────────────────────
+
+model Service {
+  id          String       @id @default(cuid())
+  name        String
+  category    String?
+  price       Float
+  duration    Int          // in minutes
+  status      EntityStatus @default(ACTIVE)
+  businessId  String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  business       Business        @relation(fields: [businessId], references: [id])
+  serviceRecords ServiceRecord[]
+
+  @@map("services")
+}
+
+// ─── Service Record (Core Transaction) ──────────────────
+
+model ServiceRecord {
+  id           String              @id @default(cuid())
+  clientId     String
+  serviceId    String
+  employeeId   String?
+  businessId   String
+  boxNumber    String?
+  paymentMode  PaymentMode         @default(CASH)
+  amount       Float               @default(0)
+  comment      String?
+  status       ServiceRecordStatus @default(CREATED)
+  completedAt  DateTime?
+  overrideReason String?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+
+  client   Client   @relation(fields: [clientId], references: [id])
+  service  Service  @relation(fields: [serviceId], references: [id])
+  employee Employee? @relation(fields: [employeeId], references: [id])
+  business Business @relation(fields: [businessId], references: [id])
+
+  @@map("service_records")
+}
+
+// ─── Inventory ──────────────────────────────────────────
+
+model Inventory {
+  id          String       @id @default(cuid())
+  productName String
+  stockCount  Int          @default(0)
+  minThreshold Int         @default(5)
+  unit        String       @default("pcs") // e.g. "bottles", "towels"
+  supplierId  String?
+  businessId  String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  business Business @relation(fields: [businessId], references: [id])
+
+  @@map("inventory")
+}
+
+// ─── Loyalty & Rewards ──────────────────────────────────
+
+model LoyaltyProgram {
+  id          String   @id @default(cuid())
+  businessId  String   @unique
+  pointsPerRwf Float   @default(0.01) // e.g. 1 point per 100 RWF
+  status      EntityStatus @default(ACTIVE)
+
+  business Business @relation(fields: [businessId], references: [id])
+
+  @@map("loyalty_programs")
+}
+
+model LoyaltyPoint {
+  id         String      @id @default(cuid())
+  clientId   String
+  points     Int         @default(0)
+  tier       LoyaltyTier @default(BRONZE)
+  businessId String
+  updatedAt  DateTime    @updatedAt
+
+  client   Client   @relation(fields: [clientId], references: [id])
+
+  @@map("loyalty_points")
+}
+
+// ─── Regional Compliance ────────────────────────────────
+
+model Compliance {
+  id          String   @id @default(cuid())
+  region      String   @unique // e.g. "RWANDA", "UGANDA"
+  taxRate     Float    @default(18.0) // VAT
+  gdprFlag    Boolean  @default(false)
+  currency    String   @default("RWF")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("compliance_settings")
+}
+
+// ─── Audit Log ──────────────────────────────────────────
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String
+  action     String   // e.g. "CREATE", "UPDATE", "DELETE", "OVERRIDE"
+  entity     String   // e.g. "ServiceRecord", "Client"
+  entityId   String
+  details    String?  // JSON string with change details
+  reason     String?  // for overrides
+  businessId String?
+  createdAt  DateTime @default(now())
+
+  user     User      @relation(fields: [userId], references: [id])
+  business Business? @relation(fields: [businessId], references: [id])
+
+  @@map("audit_logs")
+}
+
