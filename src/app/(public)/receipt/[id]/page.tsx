@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { SpaIndicator } from "@/components/ui/spa-indicator";
 
-export default function ReceiptPage({ params }: { params: { id: string } }) {
-    // In a real app, you would fetch receipt data based on params.id
+export default async function ReceiptPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    // In a real app, you would fetch receipt data based on id
     return (
         <div className="flex flex-col items-center gap-8 py-8">
             {/* Success Notification */}
@@ -50,7 +51,7 @@ export default function ReceiptPage({ params }: { params: { id: string } }) {
                             Receipt Number
                         </p>
                         <p className="font-mono text-lg font-bold text-slate-900 dark:text-slate-100">
-                            #REC-{params.id || "8492-B7X"}
+                            #REC-{id || "8492-B7X"}
                         </p>
                     </div>
                 </div>
