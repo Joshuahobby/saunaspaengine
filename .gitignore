@@ -60,3 +60,5 @@ lint-results-current.txt
 lint_final_raw.txt
 lint_full_output.txt
 lint_output.txt
+
+.vercel

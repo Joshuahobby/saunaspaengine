@@ -95,8 +95,7 @@ export default async function BranchComparisonPage() {
                                         <div className="flex flex-col items-center gap-2">
                                             <div className="w-24 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                                                 <div
-                                                    className="h-full bg-indigo-500 transition-all duration-500"
-                                                    style={{ "--utilization-width": b.name.includes("Kigali") ? '85%' : '62%' } as React.CSSProperties}
+                                                    className={`h-full bg-indigo-500 transition-all duration-500 ${b.name.includes("Kigali") ? 'w-[85%]' : 'w-[62%]'}`}
                                                 />
                                             </div>
                                             <span className="text-xs font-bold">{b.name.includes("Kigali") ? '85%' : '62%'}</span>

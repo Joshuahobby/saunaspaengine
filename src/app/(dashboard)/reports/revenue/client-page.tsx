@@ -20,6 +20,7 @@ interface RevenueMetrics {
 }
 
 const COLORS = ['#FF7F32', '#6366F1', '#10B981', '#F59E0B', '#EF4444'];
+const COLORS_BG = ['bg-[#FF7F32]', 'bg-[#6366F1]', 'bg-[#10B981]', 'bg-[#F59E0B]', 'bg-[#EF4444]'];
 
 export default function ReportsRevenueClientPage({ metrics }: { metrics: RevenueMetrics }) {
     // Format payment distribution for the pie chart
@@ -133,7 +134,7 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
                                 <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
                                 <Tooltip
                                     contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                                    formatter={(value: any) => [`RWF ${(Number(value) || 0).toLocaleString()}`, 'Revenue']}
+                                    formatter={(value: number | string | undefined) => [`RWF ${(Number(value) || 0).toLocaleString()}`, 'Revenue']}
                                 />
                                 <Area type="monotone" dataKey="revenue" stroke="var(--color-primary)" strokeWidth={3} fillOpacity={1} fill="url(#colorRev)" />
                             </AreaChart>
@@ -167,10 +168,8 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
                         {paymentModeData.map((mode, i) => (
                             <div key={i} className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 transition-colors">
                                 <div className="flex items-center gap-3">
-                                    {/* eslint-disable-next-line react/forbid-dom-props */}
                                     <div
-                                        className="w-3 h-3 rounded-full"
-                                        style={{ backgroundColor: COLORS[i % COLORS.length] } as React.CSSProperties}
+                                        className={`w-3 h-3 rounded-full ${COLORS_BG[i % COLORS_BG.length]}`}
                                     ></div>
                                     <span className="text-sm font-bold text-slate-700 capitalize">{mode.name.toLowerCase()}</span>
                                 </div>

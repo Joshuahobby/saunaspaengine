@@ -98,8 +98,7 @@ export default async function ExecutiveDashboard() {
                                                 <div className="flex items-center gap-2">
                                                     <div className="flex-1 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                                                         <div
-                                                            className="h-full bg-[var(--color-primary)] transition-all duration-500"
-                                                            style={{ "--efficiency-width": '75%' } as React.CSSProperties}
+                                                            className="h-full bg-[var(--color-primary)] transition-all duration-500 w-[75%]"
                                                         />
                                                     </div>
                                                     <span className="text-xs text-slate-500">75%</span>
