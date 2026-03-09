@@ -21,7 +21,7 @@ export default async function ExecutiveDashboard() {
         include: {
             serviceRecords: {
                 where: { status: "COMPLETED" },
-                select: { totalPrice: true }
+                select: { amount: true }
             },
             clients: true,
             employees: true,
@@ -29,7 +29,7 @@ export default async function ExecutiveDashboard() {
     });
 
     const totalRevenue = businesses.reduce((acc, b) =>
-        acc + b.serviceRecords.reduce((sum, r) => sum + (r.totalPrice || 0), 0), 0
+        acc + b.serviceRecords.reduce((sum, r) => sum + (r.amount || 0), 0), 0
     );
 
     const totalClients = businesses.reduce((acc, b) => acc + b.clients.length, 0);
@@ -89,7 +89,7 @@ export default async function ExecutiveDashboard() {
                             </thead>
                             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                                 {businesses.map((b) => {
-                                    const revenue = b.serviceRecords.reduce((sum, r) => sum + (r.totalPrice || 0), 0);
+                                    const revenue = b.serviceRecords.reduce((sum, r) => sum + (r.amount || 0), 0);
                                     return (
                                         <tr key={b.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
                                             <td className="px-4 py-3 font-medium">{b.name}</td>
