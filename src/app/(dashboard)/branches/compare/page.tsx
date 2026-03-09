@@ -16,7 +16,7 @@ export default async function BranchComparisonPage() {
         include: {
             serviceRecords: {
                 where: { status: "COMPLETED" },
-                select: { totalPrice: true }
+                select: { amount: true }
             },
             clients: true,
             employees: true,
@@ -58,7 +58,7 @@ export default async function BranchComparisonPage() {
                             <tr className="bg-slate-50/30 dark:bg-slate-800/20 font-semibold text-slate-900 dark:text-slate-100">
                                 <td className="px-6 py-3">Completed Revenue</td>
                                 {businesses.map(b => {
-                                    const revenue = b.serviceRecords.reduce((sum, r) => sum + (r.totalPrice || 0), 0);
+                                    const revenue = b.serviceRecords.reduce((sum, r) => sum + (r.amount || 0), 0);
                                     return (
                                         <td key={b.id} className="px-6 py-3 text-center text-[var(--color-primary)]">
                                             {formatCurrency(revenue)}
