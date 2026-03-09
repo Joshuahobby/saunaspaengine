@@ -1,31 +1,13 @@
-import NextAuth, { DefaultSession } from "next-auth";
-import type { NextAuthConfig } from "next-auth";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { authConfig } from "@/auth.config";
 
-declare module "next-auth" {
-    interface Session {
-        user: {
-            id: string;
-            role: "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE";
-            businessId?: string | null;
-            corporateId?: string | null;
-            fullName: string;
-        } & DefaultSession["user"];
-    }
-
-    interface User {
-        id: string;
-        role: "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE";
-        businessId?: string | null;
-        corporateId?: string | null;
-        fullName: string;
-    }
-}
-
-export const authConfig: NextAuthConfig = {
+export const { handlers, auth, signIn, signOut } = NextAuth({
+    ...authConfig,
     providers: [
+        ...authConfig.providers,
         CredentialsProvider({
             name: "Credentials",
             credentials: {
@@ -66,59 +48,9 @@ export const authConfig: NextAuthConfig = {
                     fullName: user.fullName,
                     role: user.role,
                     businessId: user.businessId,
+                    corporateId: user.corporateId || null,
                 };
             },
         }),
     ],
-    pages: {
-        signIn: "/login",
-    },
-    callbacks: {
-        async jwt({ token, user }) {
-            if (user) {
-                token.id = user.id;
-                token.role = user.role;
-                token.businessId = user.businessId;
-                token.corporateId = user.corporateId;
-                token.fullName = user.fullName;
-            }
-            return token;
-        },
-        async session({ session, token }) {
-            if (token) {
-                session.user.id = token.id as string;
-                session.user.role = token.role as "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE";
-                session.user.businessId = token.businessId as string | null;
-                session.user.corporateId = token.corporateId as string | null;
-                session.user.fullName = token.fullName as string;
-            }
-            return session;
-        },
-        authorized({ auth, request: { nextUrl } }) {
-            const isLoggedIn = !!auth?.user;
-            const isAuthPage = nextUrl.pathname.startsWith("/login");
-            const isApiAuthRoute = nextUrl.pathname.startsWith("/api/auth");
-            const isPublicRoute = ["/help", "/security", "/privacy", "/terms"].includes(nextUrl.pathname);
-
-            if (isApiAuthRoute) return true;
-
-            if (isAuthPage) {
-                if (isLoggedIn) {
-                    return Response.redirect(new URL("/dashboard", nextUrl));
-                }
-                return true;
-            }
-
-            if (!isLoggedIn && !isPublicRoute) {
-                return false; // Redirects to login page
-            }
-
-            return true;
-        },
-    },
-    session: {
-        strategy: "jwt",
-    },
-};
-
-export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);
+});
