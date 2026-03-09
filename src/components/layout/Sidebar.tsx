@@ -29,19 +29,28 @@ const ownerNavItems: NavItem[] = [
 ];
 
 const adminNavItems: NavItem[] = [
-    { label: "Admin Panel", href: "/admin", icon: "admin_panel_settings" },
+    { label: "Admin Panel", href: "/admin/dashboard", icon: "admin_panel_settings" },
     { label: "Analytics", href: "/admin/analytics", icon: "insights" },
-    { label: "Businesses", href: "/admin", icon: "store" },
-    { label: "Branches", href: "/admin/branches", icon: "corporate_fare" }, // Added Branches link
+    { label: "Members", href: "/admin/members", icon: "groups" },
+
+    { label: "Branches", href: "/admin/branches", icon: "corporate_fare" },
     { label: "Subscriptions", href: "/admin/subscriptions", icon: "payments" },
-    { label: "Settings", href: "/settings/roles", icon: "settings" },
     { label: "System Health", href: "/admin/health", icon: "monitor_heart" },
     { label: "Broadcasts", href: "/admin/broadcasts", icon: "campaign" },
+    { label: "Audit Logs", href: "/admin/audit", icon: "history" },
     { label: "Settings", href: "/admin/settings", icon: "settings" },
 ];
 
+const corporateNavItems: NavItem[] = [
+    { label: "Corporate Dashboard", href: "/executive/dashboard", icon: "dashboard" },
+    { label: "Branch Comparison", href: "/branches/compare", icon: "compare_arrows" },
+    { label: "Aggregated Reports", href: "/reports/aggregated", icon: "analytics" },
+    { label: "Business Directory", href: "/admin/branches", icon: "corporate_fare" },
+    { label: "Audit Log", href: "/audit", icon: "history" },
+];
+
 interface SidebarProps {
-    userRole?: "ADMIN" | "OWNER" | "EMPLOYEE";
+    userRole?: "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE";
     businessName?: string;
 }
 
@@ -50,7 +59,11 @@ export default function Sidebar({
     businessName,
 }: SidebarProps) {
     const pathname = usePathname();
-    const navItems = userRole === "ADMIN" ? adminNavItems : ownerNavItems;
+    const navItems = userRole === "ADMIN"
+        ? adminNavItems
+        : userRole === "CORPORATE"
+            ? corporateNavItems
+            : ownerNavItems;
 
     return (
         <aside className="w-64 border-r border-[var(--color-border-light)] bg-[var(--color-surface-light)] flex flex-col h-screen sticky top-0 hidden lg:flex">

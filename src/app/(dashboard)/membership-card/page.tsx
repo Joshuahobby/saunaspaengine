@@ -24,6 +24,7 @@ export default async function DigitalMembershipCardPage() {
                     <div className="relative group">
                         <div className="w-full aspect-[1.6/1] rounded-3xl overflow-hidden shadow-2xl relative bg-slate-900 p-8 flex flex-col justify-between text-white ring-1 ring-white/20">
                             <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)]/30 to-black/80 z-0"></div>
+                            {/* eslint-disable-next-line react/forbid-dom-props */}
                             <div className="absolute inset-0 opacity-10 z-0" style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMCcgaGVpZ2h0PSczMCc+PHJlY3QgZmlsbD0nbm9uZScgc3Ryb2tlPScjZmZmJyBzdHJva2Utb3BhY2l0eT0nMC4xJyB3aWR0aD0nMzAnIGhlaWdodD0nMzAnLz48L3N2Zz4=')" }}></div>
                             <div className="relative z-10 flex justify-between items-start">
                                 <div className="flex flex-col gap-1">

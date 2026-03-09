@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface CheckInFormProps {
     clients: { id: string; fullName: string }[];
@@ -11,9 +11,19 @@ interface CheckInFormProps {
 
 export default function CheckInForm({ clients, services, employees }: CheckInFormProps) {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
     const [selectedService, setSelectedService] = useState("");
+    const [selectedClient, setSelectedClient] = useState("");
+
+    // Handle initial client from URL
+    useEffect(() => {
+        const clientId = searchParams.get("clientId");
+        if (clientId && clients.find(c => c.id === clientId)) {
+            setSelectedClient(clientId);
+        }
+    }, [searchParams, clients]);
 
     const serviceInfo = services.find(s => s.id === selectedService);
 
@@ -77,6 +87,8 @@ export default function CheckInForm({ clients, services, employees }: CheckInFor
                             name="clientId"
                             required
                             aria-label="Select Client"
+                            value={selectedClient}
+                            onChange={(e) => setSelectedClient(e.target.value)}
                             className="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[var(--color-primary)]/50 focus:border-[var(--color-primary)] transition-all"
                         >
                             <option value="" disabled>Choose a client...</option>

@@ -17,7 +17,13 @@ export default async function DashboardLayout({
     }
 
     let businessName = "Sauna SPA Engine";
-    if (session.user.businessId) {
+    if (session.user.role === "CORPORATE" && session.user.corporateId) {
+        const corporate = await prisma.corporate.findUnique({
+            where: { id: session.user.corporateId },
+            select: { name: true }
+        });
+        if (corporate) businessName = corporate.name;
+    } else if (session.user.businessId) {
         const business = await prisma.business.findUnique({
             where: { id: session.user.businessId },
             select: { name: true }
@@ -28,7 +34,7 @@ export default async function DashboardLayout({
     return (
         <div className="flex h-screen overflow-hidden bg-[var(--color-bg-light)]">
             <Sidebar
-                userRole={session.user.role as any}
+                userRole={session.user.role as "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE"}
                 businessName={businessName}
             />
             <main className="flex-1 overflow-y-auto pb-20 lg:pb-0 relative">

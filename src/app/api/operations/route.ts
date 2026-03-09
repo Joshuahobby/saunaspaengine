@@ -78,3 +78,89 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(record, { status: 201 });
 }
+
+// PATCH /api/operations — update service record (e.g., mark as COMPLETED)
+export async function PATCH(request: NextRequest) {
+    const session = await auth();
+    if (!session?.user?.businessId) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const body = await request.json();
+    const { id, status, paymentMode, comment } = body;
+
+    if (!id) {
+        return NextResponse.json({ error: "Record ID is required" }, { status: 400 });
+    }
+
+    try {
+        const record = await prisma.serviceRecord.update({
+            where: {
+                id,
+                businessId: session.user.businessId,
+            },
+            data: {
+                ...(status && { status }),
+                ...(paymentMode && { paymentMode }),
+                ...(comment && { comment }),
+                ...(status === "COMPLETED" && { completedAt: new Date() }),
+            },
+            include: {
+                client: { select: { id: true } },
+                service: { select: { price: true } },
+            },
+        });
+
+        // Loyalty Accrual & "Buy X, Get Y" Logic
+        if (status === "COMPLETED") {
+            const loyaltyProgram = await prisma.loyaltyProgram.findUnique({
+                where: { businessId: session.user.businessId },
+            });
+
+            if (loyaltyProgram && loyaltyProgram.status === "ACTIVE") {
+                // 1. Traditional Points Accrual
+                const pointsToEarn = Math.floor(record.amount * loyaltyProgram.pointsPerRwf);
+
+                // 2. "Buy X, Get Y" Logic
+                // @ts-expect-error - buyCount and getCount are added to schema and wait for generation
+                if (loyaltyProgram.buyCount && loyaltyProgram.getCount) {
+                    const completedCount = await prisma.serviceRecord.count({
+                        where: {
+                            clientId: record.clientId,
+                            businessId: record.businessId,
+                            serviceId: record.serviceId,
+                            status: "COMPLETED",
+                            amount: { gt: 0 }
+                        }
+                    });
+
+                    // Logic: After X paid sessions, the next Y sessions could be rewarded.
+                    // For now, we just log the progress in the console or audit log.
+                    console.log(`Client ${record.clientId} has ${completedCount} completed sessions.`);
+                }
+
+                if (pointsToEarn > 0) {
+                    const existingLoyalty = await prisma.loyaltyPoint.findFirst({
+                        where: { clientId: record.clientId, businessId: record.businessId }
+                    });
+
+                    await prisma.loyaltyPoint.upsert({
+                        where: { id: existingLoyalty?.id || "temp-id-for-upsert" },
+                        update: { points: { increment: pointsToEarn } },
+                        create: {
+                            clientId: record.clientId,
+                            businessId: record.businessId,
+                            points: pointsToEarn,
+                            tier: "BRONZE",
+                        },
+                    });
+                }
+            }
+        }
+
+        return NextResponse.json(record);
+    } catch (error) {
+        console.error("Service record update error:", error);
+        return NextResponse.json({ error: "Failed to update record" }, { status: 500 });
+    }
+}

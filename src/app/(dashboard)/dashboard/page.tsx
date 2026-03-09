@@ -1,15 +1,84 @@
+import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
+
 export const metadata = {
     title: "Dashboard | Sauna SPA Engine",
     description: "Your spa business overview and daily operations summary",
 };
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+    const session = await auth();
+    const businessId = session?.user?.businessId;
+
+    if (!businessId) {
+        return <div className="p-8 text-center bg-white rounded-xl">Business profile not found. Please contact support.</div>;
+    }
+
+    // Date calculation for "Today"
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+
+    const endOfToday = new Date();
+    endOfToday.setHours(23, 59, 59, 999);
+
+    // Fetch KPI Data
+    const [
+        todaysCompletedRecords,
+        activeServicesCount,
+        totalMembersCount,
+        recentTransactions,
+        lowStockItems
+    ] = await Promise.all([
+        prisma.serviceRecord.findMany({
+            where: {
+                businessId,
+                status: "COMPLETED",
+                completedAt: {
+                    gte: startOfToday,
+                    lte: endOfToday,
+                }
+            },
+            select: { amount: true }
+        }),
+        prisma.serviceRecord.count({
+            where: {
+                businessId,
+                status: "IN_PROGRESS"
+            }
+        }),
+        prisma.client.count({
+            where: {
+                businessId,
+                clientType: "MEMBER",
+                status: "ACTIVE"
+            }
+        }),
+        prisma.serviceRecord.findMany({
+            where: {
+                businessId,
+                status: "COMPLETED"
+            },
+            orderBy: { completedAt: "desc" },
+            take: 5,
+            include: { service: true, client: true }
+        }),
+        prisma.inventory.findMany({
+            where: {
+                businessId,
+                stockCount: { lte: 10 } // Placeholder for low stock logic until fields.minThreshold is fixed
+            },
+            take: 3
+        })
+    ]);
+
+    const todaysRevenue = todaysCompletedRecords.reduce((sum, record) => sum + (record.amount || 0), 0);
+
     return (
         <div>
             {/* Welcome Section */}
             <div className="mb-8">
                 <h3 className="text-3xl font-black tracking-tight">
-                    Welcome back! 👋
+                    Welcome back, {session.user.fullName.split(' ')[0]}! 👋
                 </h3>
                 <p className="text-slate-500 mt-1">
                     Here&apos;s a summary of your spa&apos;s performance today.
@@ -21,21 +90,21 @@ export default function DashboardPage() {
                 <KPICard
                     icon="payments"
                     label="Today's Revenue"
-                    value="RWF 0"
+                    value={`RWF ${todaysRevenue.toLocaleString()}`}
                     trend="+0%"
                     trendUp={true}
                 />
                 <KPICard
                     icon="dry_cleaning"
                     label="Active Services"
-                    value="0"
+                    value={activeServicesCount.toString()}
                     trend="+0"
                     trendUp={true}
                 />
                 <KPICard
                     icon="groups"
                     label="Total Members"
-                    value="0"
+                    value={totalMembersCount.toString()}
                     trend="+0%"
                     trendUp={true}
                 />
@@ -59,10 +128,6 @@ export default function DashboardPage() {
                                 Daily sales performance overview
                             </p>
                         </div>
-                        <select className="bg-slate-100 border-none rounded-lg text-xs font-semibold py-1 focus:ring-[var(--color-primary)]">
-                            <option>Last 7 Days</option>
-                            <option>Last 30 Days</option>
-                        </select>
                     </div>
                     <div className="h-48 flex items-end justify-between gap-3 px-2">
                         {["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"].map(
@@ -72,11 +137,10 @@ export default function DashboardPage() {
                                     className="flex-1 flex flex-col items-center gap-2 group"
                                 >
                                     <div className="w-full bg-[rgba(19,236,164,0.1)] rounded-t-lg relative flex items-end h-32 hover:bg-[rgba(19,236,164,0.2)] transition-all">
+                                        {/* eslint-disable-next-line react/forbid-dom-props */}
                                         <div
                                             className="w-full bg-[var(--color-primary)] rounded-t-lg transition-all duration-500"
-                                            style={{
-                                                height: `${[60, 40, 70, 90, 55, 95, 25][i]}%`,
-                                            }}
+                                            style={{ "--chart-height": `${[60, 40, 70, 90, 55, 95, 25][i]}%` } as React.CSSProperties}
                                         ></div>
                                     </div>
                                     <span className="text-[10px] font-bold text-slate-500">
@@ -88,25 +152,46 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
-                {/* Recent Transactions */}
-                <div className="p-6 rounded-xl bg-white border border-[var(--color-border-light)]">
-                    <div className="flex items-center justify-between mb-6">
-                        <h4 className="text-lg font-bold">Recent Transactions</h4>
-                        <a
-                            className="text-[var(--color-primary)] text-xs font-bold hover:underline"
-                            href="/operations"
-                        >
-                            View All
-                        </a>
+                {/* Right Column: Transactions & Alerts */}
+                <div className="space-y-6">
+                    {/* Recent Transactions */}
+                    <div className="p-6 rounded-xl bg-white border border-[var(--color-border-light)]">
+                        <div className="flex items-center justify-between mb-4">
+                            <h4 className="text-sm font-bold uppercase tracking-wider text-slate-500">Recent Transactions</h4>
+                            <a href="/operations" className="text-xs font-bold text-[var(--color-primary)] hover:underline">All</a>
+                        </div>
+                        <div className="space-y-4">
+                            {recentTransactions.map((tx) => (
+                                <div key={tx.id} className="flex justify-between items-center text-sm">
+                                    <div className="min-w-0">
+                                        <p className="font-bold truncate">{tx.service?.name}</p>
+                                        <p className="text-xs text-slate-500">{tx.client?.fullName}</p>
+                                    </div>
+                                    <p className="font-black">RWF {tx.amount.toLocaleString()}</p>
+                                </div>
+                            ))}
+                            {recentTransactions.length === 0 && <p className="text-xs text-slate-500">No recent activity</p>}
+                        </div>
                     </div>
-                    <div className="flex flex-col items-center justify-center h-40 text-slate-400">
-                        <span className="material-symbols-outlined text-4xl mb-2">
-                            receipt_long
-                        </span>
-                        <p className="text-sm font-medium">No transactions yet</p>
-                        <p className="text-xs">
-                            Service records will appear here
-                        </p>
+
+                    {/* Low Stock Alerts */}
+                    <div className="p-6 rounded-xl bg-amber-50 border border-amber-100">
+                        <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-2 text-amber-600">
+                                <span className="material-symbols-outlined text-lg">warning</span>
+                                <h4 className="text-sm font-bold uppercase tracking-wider">Inventory Alerts</h4>
+                            </div>
+                            <a href="/inventory" className="text-xs font-bold text-amber-700 hover:underline">Manage</a>
+                        </div>
+                        <div className="space-y-3">
+                            {lowStockItems.map((item) => (
+                                <div key={item.id} className="flex justify-between items-center text-xs">
+                                    <span className="font-medium text-slate-700">{item.productName}</span>
+                                    <span className="font-black text-rose-600">{item.stockCount} {item.unit} left</span>
+                                </div>
+                            ))}
+                            {lowStockItems.length === 0 && <p className="text-xs text-amber-600 font-medium italic">All essentials in stock</p>}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,7 +210,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="flex items-center gap-2">
                         <span className="size-2 bg-amber-500 rounded-full"></span>
-                        <span className="text-xs font-bold">0 Rooms Occupied</span>
+                        <span className="text-xs font-bold">{activeServicesCount} Rooms Occupied</span>
                     </div>
                 </div>
             </div>

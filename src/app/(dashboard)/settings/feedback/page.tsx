@@ -86,6 +86,7 @@ export default function FeedbackManagementPage() {
                                 </span>
                                 <div className="flex gap-2">
                                     <select
+                                        aria-label="Filter by Rating"
                                         value={filterRating}
                                         onChange={(e) => setFilterRating(e.target.value)}
                                         className="form-select rounded-lg border-slate-200 bg-slate-50 text-xs font-medium focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]/20 dark:border-slate-700 dark:bg-slate-800"
@@ -98,6 +99,7 @@ export default function FeedbackManagementPage() {
                                         <option>1 Star</option>
                                     </select>
                                     <select
+                                        aria-label="Filter by Service Category"
                                         value={filterCategory}
                                         onChange={(e) => setFilterCategory(e.target.value)}
                                         className="form-select rounded-lg border-slate-200 bg-slate-50 text-xs font-medium focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]/20 dark:border-slate-700 dark:bg-slate-800"
@@ -186,9 +188,10 @@ export default function FeedbackManagementPage() {
 
 function DistributionRow({ stars, percentage, color }: { stars: string; percentage: number; color: string }) {
     return (
-        <div className="grid items-center gap-4" style={{ gridTemplateColumns: "30px 1fr 45px" }}>
+        <div className="grid grid-cols-[30px_1fr_45px] items-center gap-4">
             <span className="text-xs font-bold text-slate-500">{stars}</span>
             <div className="h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+                {/* eslint-disable-next-line react/forbid-dom-props */}
                 <div className={`h-full rounded-full ${color}`} style={{ width: `${percentage}%` }}></div>
             </div>
             <span className="text-right text-xs text-slate-400">{percentage}%</span>
@@ -262,7 +265,7 @@ function ReviewCard({
                     <p className="mb-1 text-xs font-bold uppercase text-[var(--color-primary)]">
                         Your Response
                     </p>
-                    <p className="text-sm italic text-slate-600 dark:text-slate-400">"{reply}"</p>
+                    <p className="text-sm italic text-slate-600 dark:text-slate-400">&quot;{reply}&quot;</p>
                 </div>
             )}
 

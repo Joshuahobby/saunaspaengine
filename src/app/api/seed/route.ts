@@ -4,13 +4,33 @@ import bcrypt from "bcryptjs";
 
 export async function GET() {
     try {
-        // 1. Create Business
-        const business = await prisma.business.create({
+        // 1. Create Corporate
+        const corporate = await prisma.corporate.create({
+            data: {
+                name: "GetRwanda Wellness Group",
+                taxId: "CORP-RW-2026-001",
+                headquarters: "Kigali Heights, 5th Floor",
+            },
+        });
+
+        // 2. Create Businesses
+        const business1 = await prisma.business.create({
             data: {
                 name: "Kigali Oasis Spa",
                 address: "KG 9 Ave, Nyarutarama, Kigali",
                 phone: "+250788123456",
                 email: "hello@kigalioasis.rw",
+                corporateId: corporate.id,
+            },
+        });
+
+        const business2 = await prisma.business.create({
+            data: {
+                name: "Rubavu Lakeside Spa",
+                address: "Lake Kivu Waterfront, Rubavu",
+                phone: "+250788765432",
+                email: "rubavu@kigalioasis.rw",
+                corporateId: corporate.id,
             },
         });
 
@@ -26,7 +46,17 @@ export async function GET() {
                 passwordHash: adminPassword,
                 fullName: "System Administrator",
                 role: "ADMIN",
-                businessId: business.id,
+            },
+        });
+
+        await prisma.user.create({
+            data: {
+                username: "ceo",
+                email: "exec@getrwanda.rw",
+                passwordHash: ownerPassword,
+                fullName: "Kagame Paul (Group CEO)",
+                role: "CORPORATE",
+                corporateId: corporate.id,
             },
         });
 
@@ -37,7 +67,7 @@ export async function GET() {
                 passwordHash: ownerPassword,
                 fullName: "Mugisha Jean",
                 role: "OWNER",
-                businessId: business.id,
+                businessId: business1.id,
             },
         });
 
@@ -48,68 +78,53 @@ export async function GET() {
                 passwordHash: staffPassword,
                 fullName: "Uwase Aline",
                 role: "EMPLOYEE",
-                businessId: business.id,
+                businessId: business1.id,
             },
         });
 
-        // 3. Create Services
-        await prisma.service.createMany({
-            data: [
-                {
-                    name: "Sauna + Steam (Walk-in)",
-                    category: "Sauna & Steam",
-                    price: 15000,
-                    duration: 120,
-                    businessId: business.id,
-                },
-                {
-                    name: "Deep Tissue Massage",
-                    category: "Massage",
-                    price: 35000,
-                    duration: 60,
-                    businessId: business.id,
-                },
-                {
-                    name: "Swedish Massage",
-                    category: "Massage",
-                    price: 30000,
-                    duration: 60,
-                    businessId: business.id,
-                },
-                {
-                    name: "VIP Package (Sauna + Massage)",
-                    category: "Packages",
-                    price: 45000,
-                    duration: 180,
-                    businessId: business.id,
-                },
-            ],
-        });
+        // 4. Create Services for both
+        const businesses = [business1, business2];
+        for (const b of businesses) {
+            await prisma.service.createMany({
+                data: [
+                    {
+                        name: "Sauna + Steam (Walk-in)",
+                        category: "Sauna & Steam",
+                        price: 15000,
+                        duration: 120,
+                        businessId: b.id,
+                    },
+                    {
+                        name: "Deep Tissue Massage",
+                        category: "Massage",
+                        price: 35000,
+                        duration: 60,
+                        businessId: b.id,
+                    },
+                ],
+            });
+        }
 
-        // 4. Create Employee Categories & Employees
-        const therapistCat = await prisma.employeeCategory.create({
-            data: {
-                name: "Massage Therapist",
-                businessId: business.id,
-            },
-        });
+        // 5. Create Employee Categories & Employees
+        for (const b of businesses) {
+            const therapistCat = await prisma.employeeCategory.create({
+                data: {
+                    name: "Massage Therapist",
+                    businessId: b.id,
+                },
+            });
 
-        await prisma.employee.createMany({
-            data: [
-                {
-                    fullName: "Kamanzi Eric",
-                    phone: "+250789000111",
-                    categoryId: therapistCat.id,
-                    businessId: business.id,
-                },
-                {
-                    fullName: "Mutoni Sarah",
-                    phone: "+250789000222",
-                    categoryId: therapistCat.id,
-                    businessId: business.id,
-                },
-            ],
-        });
+            await prisma.employee.createMany({
+                data: [
+                    {
+                        fullName: b.name === business1.name ? "Kamanzi Eric" : "Nshuti David",
+                        phone: b.name === business1.name ? "+250789000111" : "+250789000333",
+                        categoryId: therapistCat.id,
+                        businessId: b.id,
+                    },
+                ],
+            });
+        }
 
         return NextResponse.json({ message: "Database seeded successfully!" });
     } catch (error) {

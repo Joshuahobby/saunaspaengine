@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 export default function RolesAndPermissionsPage() {
     return (
@@ -159,7 +159,7 @@ export default function RolesAndPermissionsPage() {
                             <tr className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
                                 <td className="p-4">
                                     <p className="font-bold text-slate-900 dark:text-slate-100">Update Room/Equipment Status</p>
-                                    <p className="text-xs text-slate-500 mt-1">Mark saunas as 'in maintenance' or 'cleaning required'.</p>
+                                    <p className="text-xs text-slate-500 mt-1">Mark saunas as &apos;in maintenance&apos; or &apos;cleaning required&apos;.</p>
                                 </td>
                                 <td className="p-4 text-center"><input type="checkbox" defaultChecked disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-50" /></td>
                                 <td className="p-4 text-center"><input type="checkbox" defaultChecked className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>

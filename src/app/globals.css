@@ -151,3 +151,24 @@ body {
   background-color: rgba(59, 130, 246, 0.1);
   color: #2563eb;
 }
+
+/* ── Complex Backgrounds & Gradients ── */
+
+.membership-card-bg {
+  background-image: radial-gradient(circle at 20% 30%, rgba(19, 236, 164, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(19, 236, 164, 0.1) 0%, transparent 40%);
+}
+
+.map-overlay-gradient {
+  background: linear-gradient(180deg, rgba(16, 34, 28, 0) 0%, rgba(16, 34, 28, 0.8) 100%);
+}
+
+.performance-chart-gradient-top {
+  stop-color: var(--color-primary);
+  stop-opacity: 0.3;
+}
+
+.performance-chart-gradient-bottom {
+  stop-color: var(--color-primary);
+  stop-opacity: 0;
+}

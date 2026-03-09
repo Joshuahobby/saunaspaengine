@@ -39,12 +39,8 @@ export default function LoginPage() {
                 <div className="w-full max-w-[480px] flex flex-col gap-6">
                     {/* Branding & Hero Image Card */}
                     <div className="rounded-xl overflow-hidden shadow-sm border border-[#11d4c4]/10">
-                        <div
-                            className="bg-cover bg-center flex flex-col justify-end min-h-[180px] relative"
-                            style={{
-                                backgroundImage: `linear-gradient(0deg, rgba(16, 34, 28, 0.8) 0%, rgba(16, 34, 28, 0.2) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB_gNoR6snH9i9pBWO49YSPbEyj0SEa8-bEaOwbzuk7NCYlBAzqyA3L48hGeNnsnP1LpceIU0d_sE43ndkTrg1VXQupm5-Nu3oOLQDlReiGn17m9urIUmFDeZQOQiIx_jHn5odUGGy_A-1az_ZJTxAha30zJQ2rMwVhdqyJAkiG17lhxDM5DU_UrVZP4oasQnpg82Sih3FduwAsVNy7RPgQsSE3LZP9f4qrKXcZAKL7FZW5DRHfQdbmVm5TKrTYuSdJfxNRJLndo3Tp")`
-                            }}
-                        >
+                        {/* eslint-disable-next-line react/forbid-dom-props */}
+                        <div className="bg-cover bg-center flex flex-col justify-end min-h-[180px] relative" style={{ backgroundImage: `linear-gradient(0deg, rgba(16, 34, 28, 0.8) 0%, rgba(16, 34, 28, 0.2) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB_gNoR6snH9i9pBWO49YSPbEyj0SEa8-bEaOwbzuk7NCYlBAzqyA3L48hGeNnsnP1LpceIU0d_sE43ndkTrg1VXQupm5-Nu3oOLQDlReiGn17m9urIUmFDeZQOQiIx_jHn5odUGGy_A-1az_ZJTxAha30zJQ2rMwVhdqyJAkiG17lhxDM5DU_UrVZP4oasQnpg82Sih3FduwAsVNy7RPgQsSE3LZP9f4qrKXcZAKL7FZW5DRHfQdbmVm5TKrTYuSdJfxNRJLndo3Tp")` }}>
                             <div className="p-6">
                                 <span className="bg-[#11d4c4] text-[#10221c] text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded mb-2 inline-block font-display">
                                     Staff Portal

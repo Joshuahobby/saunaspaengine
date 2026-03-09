@@ -8,16 +8,18 @@ declare module "next-auth" {
     interface Session {
         user: {
             id: string;
-            role: "ADMIN" | "OWNER" | "EMPLOYEE";
+            role: "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE";
             businessId?: string | null;
+            corporateId?: string | null;
             fullName: string;
         } & DefaultSession["user"];
     }
 
     interface User {
         id: string;
-        role: "ADMIN" | "OWNER" | "EMPLOYEE";
+        role: "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE";
         businessId?: string | null;
+        corporateId?: string | null;
         fullName: string;
     }
 }
@@ -35,9 +37,12 @@ export const authConfig: NextAuthConfig = {
                     return null;
                 }
 
-                const user = await prisma.user.findUnique({
+                const user = await prisma.user.findFirst({
                     where: {
-                        email: credentials.email as string,
+                        OR: [
+                            { email: credentials.email as string },
+                            { username: credentials.email as string },
+                        ],
                     },
                 });
 
@@ -74,6 +79,7 @@ export const authConfig: NextAuthConfig = {
                 token.id = user.id;
                 token.role = user.role;
                 token.businessId = user.businessId;
+                token.corporateId = user.corporateId;
                 token.fullName = user.fullName;
             }
             return token;
@@ -81,8 +87,9 @@ export const authConfig: NextAuthConfig = {
         async session({ session, token }) {
             if (token) {
                 session.user.id = token.id as string;
-                session.user.role = token.role as "ADMIN" | "OWNER" | "EMPLOYEE";
+                session.user.role = token.role as "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE";
                 session.user.businessId = token.businessId as string | null;
+                session.user.corporateId = token.corporateId as string | null;
                 session.user.fullName = token.fullName as string;
             }
             return session;

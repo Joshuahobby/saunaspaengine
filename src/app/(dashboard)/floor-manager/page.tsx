@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import ActiveAlerts from "@/components/safety/active-alerts";
 
 // Demo room data (in production this would come from a rooms table)
 const ROOMS = [
@@ -79,7 +80,9 @@ export default async function FloorManagerPage() {
 
             {/* Dashboard Content */}
             <div className="p-4 lg:p-6">
-                <div className="flex items-center justify-between mb-8">
+                <ActiveAlerts />
+
+                <div className="flex items-center justify-between mb-8 mt-8">
                     <div>
                         <h2 className="text-2xl font-bold tracking-tight">Treatment Rooms Status</h2>
                         <p className="text-slate-500 text-sm">Real-time floor utilization and turnover status</p>
@@ -142,9 +145,14 @@ export default async function FloorManagerPage() {
                                         </button>
                                     ) : (
                                         <div className="mt-4 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                                            <div className="bg-[var(--color-primary)] h-full rounded-full transition-all" style={{ width: `${progress}%` }}></div>
+                                            {/* eslint-disable-next-line react/forbid-dom-props */}
+                                            <div
+                                                className="bg-[var(--color-primary)] h-full rounded-full transition-all"
+                                                style={{ "--progress-width": `${progress}%` } as React.CSSProperties}
+                                            ></div>
                                         </div>
-                                    )}
+                                    )
+                                    }
                                 </div>
                             );
                         }
@@ -190,6 +198,6 @@ export default async function FloorManagerPage() {
                     Last Refreshed: <span className="font-bold">{new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}</span>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

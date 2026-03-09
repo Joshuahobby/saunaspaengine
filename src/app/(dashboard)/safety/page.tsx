@@ -5,6 +5,28 @@ import { useState } from "react";
 export default function SafetyHubPage() {
     const [alertSent, setAlertSent] = useState(false);
     const [panicTriggered, setPanicTriggered] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const currentLocation = "Spa West Wing, Treatment Room 14";
+
+    async function triggerAlert(type: "SILENT" | "CRITICAL", message: string) {
+        setIsSubmitting(true);
+        try {
+            const res = await fetch("/api/safety/alerts", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ type, location: currentLocation, message }),
+            });
+            if (res.ok) {
+                if (type === "SILENT") setAlertSent(true);
+                else setPanicTriggered(true);
+            }
+        } catch (error) {
+            console.error("Failed to trigger alert:", error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
 
     return (
         <div className="space-y-8 max-w-4xl mx-auto">
@@ -24,12 +46,13 @@ export default function SafetyHubPage() {
                     <h3 className="text-2xl font-bold mb-2">Request Assistance</h3>
                     <p className="text-slate-500 mb-8">Sends a silent notification to the management dashboard. Use for non-critical security needs or difficult guests.</p>
                     <button
+                        disabled={isSubmitting}
                         onMouseDown={() => {
-                            const timer = setTimeout(() => setAlertSent(true), 2000);
+                            const timer = setTimeout(() => triggerAlert("SILENT", "Silent assistance requested"), 2000);
                             const up = () => { clearTimeout(timer); document.removeEventListener("mouseup", up); };
                             document.addEventListener("mouseup", up);
                         }}
-                        className="w-full group relative h-20 bg-slate-100 border-2 border-[var(--color-primary)]/30 hover:border-[var(--color-primary)] rounded-xl overflow-hidden transition-all active:scale-95 flex items-center justify-center"
+                        className="w-full group relative h-20 bg-slate-100 border-2 border-[var(--color-primary)]/30 hover:border-[var(--color-primary)] rounded-xl overflow-hidden transition-all active:scale-95 flex items-center justify-center disabled:opacity-50"
                     >
                         <span className="relative z-10 text-[var(--color-primary)] font-bold text-lg uppercase tracking-widest">Hold for 2 Seconds</span>
                         <div className="absolute inset-0 bg-[var(--color-primary)]/10 w-0 group-active:w-full transition-all duration-[2000ms] ease-linear"></div>
@@ -45,8 +68,9 @@ export default function SafetyHubPage() {
                     <h3 className="text-2xl font-bold mb-2 text-rose-600">Critical Panic Alert</h3>
                     <p className="text-slate-600 mb-8">Triggers high-priority loud alarms and notifies all security personnel. Use only in life-threatening emergencies.</p>
                     <button
-                        onClick={() => setPanicTriggered(true)}
-                        className="w-full h-20 bg-rose-600 hover:bg-rose-700 text-white rounded-xl shadow-lg shadow-rose-600/30 flex items-center justify-center gap-3 transition-all active:scale-95"
+                        disabled={isSubmitting}
+                        onClick={() => triggerAlert("CRITICAL", "CRITICAL PANIC TRIGGERED")}
+                        className="w-full h-20 bg-rose-600 hover:bg-rose-700 text-white rounded-xl shadow-lg shadow-rose-600/30 flex items-center justify-center gap-3 transition-all active:scale-95 disabled:opacity-50"
                     >
                         <span className="material-symbols-outlined font-bold">emergency_home</span>
                         <span className="font-black text-xl uppercase tracking-tighter">EMERGENCY PANIC</span>

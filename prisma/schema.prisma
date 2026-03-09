@@ -14,6 +14,7 @@ datasource db {
 
 enum UserRole {
   ADMIN
+  CORPORATE
   OWNER
   EMPLOYEE
 }
@@ -53,6 +54,17 @@ enum LoyaltyTier {
   PLATINUM
 }
 
+enum AlertType {
+  SILENT
+  CRITICAL
+}
+
+enum AlertStatus {
+  PENDING
+  ACKNOWLEDGED
+  RESOLVED
+}
+
 
 // ─── Corporate (CEO View) ────────────────────────────────
 
@@ -66,6 +78,7 @@ model Corporate {
   updatedAt    DateTime     @updatedAt
 
   businesses Business[]
+  users      User[]
 
   @@map("corporates")
 }
@@ -95,6 +108,7 @@ model Business {
   auditLogs          AuditLog[]
   inventory          Inventory[]
   loyaltyPrograms    LoyaltyProgram?
+  safetyAlerts       SafetyAlert[]
 
   @@map("businesses")
 }
@@ -111,10 +125,12 @@ model User {
   role          UserRole  @default(EMPLOYEE)
   status        EntityStatus @default(ACTIVE)
   businessId    String?
+  corporateId   String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
   business   Business? @relation(fields: [businessId], references: [id])
+  corporate  Corporate? @relation(fields: [corporateId], references: [id])
   auditLogs  AuditLog[]
 
   @@map("users")
@@ -287,6 +303,8 @@ model LoyaltyProgram {
   id          String   @id @default(cuid())
   businessId  String   @unique
   pointsPerRwf Float   @default(0.01) // e.g. 1 point per 100 RWF
+  buyCount    Int?     // For "Buy X, Get Y" rules (X)
+  getCount    Int?     // For "Buy X, Get Y" rules (Y)
   status      EntityStatus @default(ACTIVE)
 
   business Business @relation(fields: [businessId], references: [id])
@@ -340,3 +358,36 @@ model AuditLog {
   @@map("audit_logs")
 }
 
+// ─── Safety & Emergencies ──────────────────────────────
+
+model SafetyAlert {
+  id          String      @id @default(cuid())
+  type        AlertType   @default(SILENT)
+  location    String?     // e.g. "Room 14"
+  message     String?
+  status      AlertStatus @default(PENDING)
+  businessId  String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  business    Business    @relation(fields: [businessId], references: [id])
+
+  @@map("safety_alerts")
+}
+
+
+model Broadcast {
+  id        String   @id @default(cuid())
+  subject   String
+  content   String
+  level     String   // "NORMAL" or "EMERGENCY"
+  target    String   // "ALL_OWNERS", "ALL_EMPLOYEES", "BUSINESS_ID"
+  businessId String? // If targeted at a specific business
+  isDraft   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  business Business? @relation(fields: [businessId], references: [id])
+
+  @@map("broadcasts")
+}

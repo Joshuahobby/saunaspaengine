@@ -1,11 +1,52 @@
-"use client";
-
-import React from "react";
+import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import Link from "next/link";
 
-export default function LoyaltySettingsPage() {
+async function publishLoyaltyChanges(formData: FormData) {
+    "use server";
+    const session = await auth();
+    if (!session?.user?.businessId) throw new Error("Unauthorized");
+
+    const pointsPerRwf = parseFloat(formData.get("pointsPerRwf") as string);
+
+    await prisma.loyaltyProgram.upsert({
+        where: { businessId: session.user.businessId },
+        update: { pointsPerRwf },
+        create: {
+            businessId: session.user.businessId,
+            pointsPerRwf
+        }
+    });
+
+    revalidatePath("/loyalty/settings");
+}
+
+export default async function LoyaltySettingsPage() {
+    const session = await auth();
+    if (!session?.user?.businessId) redirect("/login");
+
+    const program = await prisma.loyaltyProgram.findUnique({
+        where: { businessId: session.user.businessId }
+    });
+
+    const activeMembersCount = await prisma.loyaltyPoint.count({
+        where: { businessId: session.user.businessId }
+    });
+
+    const totalPointsAgg = await prisma.loyaltyPoint.aggregate({
+        where: { businessId: session.user.businessId },
+        _sum: { points: true }
+    });
+
+    const totalPointsIssued = totalPointsAgg._sum.points || 0;
+    const formatPoints = (pts: number) => pts > 1000 ? `${(pts / 1000).toFixed(1)}k` : pts.toString();
+
+    const earningRate = program?.pointsPerRwf || 0.01;
+
     return (
-        <div className="flex flex-col lg:flex-row w-full gap-8">
+        <div className="flex flex-col lg:flex-row w-full gap-8 p-4 lg:p-8">
             {/* Inner Navigation (Optional, acts as side menu for settings) */}
             <aside className="w-full lg:w-64 flex-shrink-0 flex flex-col gap-2">
                 <div className="mb-4">
@@ -55,7 +96,7 @@ export default function LoyaltySettingsPage() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+                <form action={publishLoyaltyChanges} className="grid grid-cols-1 xl:grid-cols-3 gap-8">
                     {/* Left Column: Settings */}
                     <div className="xl:col-span-2 space-y-8">
                         {/* Earning Rules Section */}
@@ -70,18 +111,29 @@ export default function LoyaltySettingsPage() {
                                 <div className="flex items-center gap-2">
                                     <span className="text-xs font-medium text-slate-500 uppercase">Status</span>
                                     <div className="w-10 h-5 bg-[var(--color-primary)] rounded-full relative">
-                                        <div className="absolute right-1 top-1 size-3 bg-white rounded-full"></div>
+                                        <div className="absolute right-1 top-1 size-3 bg-[#102220] rounded-full"></div>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="space-y-4">
-                                <div className="flex items-center justify-between p-4 rounded-lg bg-[var(--color-surface-light)] border border-[var(--color-border-light)]">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-[var(--color-border-light)] gap-4">
                                     <div className="flex flex-col">
-                                        <span className="font-bold text-slate-900 dark:text-slate-100">Standard Earning</span>
-                                        <span className="text-sm text-slate-500">1 point for every 10,000 RWF spent on services & products</span>
+                                        <span className="font-bold text-slate-900 dark:text-slate-100">Standard Earning Base Rate</span>
+                                        <span className="text-sm text-slate-500">How many points awarded per 10,000 RWF spent</span>
                                     </div>
-                                    <button className="text-[var(--color-primary)] font-bold text-sm hover:underline">Edit</button>
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            type="number"
+                                            step="0.001"
+                                            name="pointsPerRwf"
+                                            title="Points per RWF"
+                                            placeholder="Example: 0.01"
+                                            defaultValue={earningRate}
+                                            className="w-24 px-3 py-1.5 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:ring-1 focus:ring-[var(--color-primary)] font-mono"
+                                        />
+                                        <span className="text-sm text-slate-500 font-bold">PTS / RWF</span>
+                                    </div>
                                 </div>
 
                                 <div className="flex items-center justify-between p-4 rounded-lg border border-[var(--color-border-light)]">
@@ -89,7 +141,7 @@ export default function LoyaltySettingsPage() {
                                         <span className="font-bold text-slate-900 dark:text-slate-100">New Client Bonus</span>
                                         <span className="text-sm text-slate-500">50 points awarded on first visit registration</span>
                                     </div>
-                                    <button className="text-[var(--color-primary)] font-bold text-sm hover:underline">Edit</button>
+                                    <button type="button" className="text-[var(--color-primary)] font-bold text-sm hover:underline">Edit</button>
                                 </div>
 
                                 <div className="p-4 rounded-lg bg-[var(--color-primary)]/5 border border-dashed border-[var(--color-primary)]/30 flex items-center justify-center cursor-pointer hover:bg-[var(--color-primary)]/10 transition-colors">
@@ -97,11 +149,14 @@ export default function LoyaltySettingsPage() {
                                 </div>
                             </div>
 
-                            <div className="mt-8 pt-6 border-t border-[var(--color-border-light)]">
+                            <div className="mt-8 pt-6 border-t border-[var(--color-border-light)] flex items-center justify-between">
                                 <label className="flex items-center cursor-pointer gap-3">
                                     <input defaultChecked className="w-5 h-5 rounded border-slate-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)]" type="checkbox" />
                                     <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Exclude Discounted Services from point accrual</span>
                                 </label>
+                                <button type="submit" className="px-6 py-2 rounded-lg bg-[var(--color-primary)] text-[#102220] text-sm font-bold shadow-sm hover:brightness-110 transition-all">
+                                    Save Rules
+                                </button>
                             </div>
                         </section>
 
@@ -121,7 +176,7 @@ export default function LoyaltySettingsPage() {
                                     </div>
                                     <h3 className="font-bold text-slate-900 dark:text-slate-100">100 Points</h3>
                                     <p className="text-xs text-slate-500 mb-4">5,000 RWF Off Any Service</p>
-                                    <button className="w-full py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-bold rounded-lg group-hover:bg-[var(--color-primary)] group-hover:text-[#102220] transition-colors">Manage Reward</button>
+                                    <button type="button" className="w-full py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-bold rounded-lg group-hover:bg-[var(--color-primary)] group-hover:text-[#102220] transition-colors">Manage Reward</button>
                                 </div>
 
                                 <div className="p-4 rounded-xl border-2 border-[var(--color-primary)]/20 flex flex-col items-center text-center group hover:border-[var(--color-primary)] transition-colors cursor-pointer">
@@ -130,7 +185,7 @@ export default function LoyaltySettingsPage() {
                                     </div>
                                     <h3 className="font-bold text-slate-900 dark:text-slate-100">500 Points</h3>
                                     <p className="text-xs text-slate-500 mb-4">Free 30-min Sauna Session</p>
-                                    <button className="w-full py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-bold rounded-lg group-hover:bg-[var(--color-primary)] group-hover:text-[#102220] transition-colors">Manage Reward</button>
+                                    <button type="button" className="w-full py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-bold rounded-lg group-hover:bg-[var(--color-primary)] group-hover:text-[#102220] transition-colors">Manage Reward</button>
                                 </div>
                             </div>
                         </section>
@@ -152,7 +207,7 @@ export default function LoyaltySettingsPage() {
                                     <div className="flex-1">
                                         <div className="flex justify-between items-center">
                                             <span className="font-bold text-slate-900 dark:text-slate-100">Silver Tier</span>
-                                            <span className="text-xs font-bold text-[var(--color-primary)]">0 - 999,999 RWF / year</span>
+                                            <span className="text-xs font-bold text-slate-500">0 - 999,999 RWF / year</span>
                                         </div>
                                         <p className="text-xs text-slate-500 mt-1">Standard earning rates applied.</p>
                                     </div>
@@ -187,7 +242,7 @@ export default function LoyaltySettingsPage() {
                         </section>
                     </div>
 
-                    {/* Right Column: Card Preview */}
+                    {/* Right Column: Card Preview & Stats */}
                     <div className="xl:col-span-1 space-y-8">
                         <section className="sticky top-8">
                             <div className="flex items-center gap-3 mb-6">
@@ -254,17 +309,17 @@ export default function LoyaltySettingsPage() {
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
                                         <span className="text-xs text-slate-500">Active Members</span>
-                                        <p className="text-xl font-black mt-1 text-slate-900 dark:text-slate-100">1,452</p>
+                                        <p className="text-xl font-black mt-1 text-slate-900 dark:text-slate-100">{activeMembersCount}</p>
                                     </div>
                                     <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
                                         <span className="text-xs text-slate-500">Points Issued</span>
-                                        <p className="text-xl font-black mt-1 text-[var(--color-primary)]">82k</p>
+                                        <p className="text-xl font-black mt-1 text-[var(--color-primary)]">{formatPoints(totalPointsIssued)}</p>
                                     </div>
                                 </div>
                             </div>
                         </section>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     );

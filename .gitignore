@@ -41,3 +41,22 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
+
+.vercel
+
+# logs and temp files
+lint-*.txt
+lint_*.txt
+lint-*.json
+lint_*.json
+status_lint.json
+ts-fix.txt
+tsc_errors.txt
+lint_*.txt
+lint-audit-2-utf8.txt
+lint-output.txt
+lint-raw.txt
+lint-results-current.txt
+lint_final_raw.txt
+lint_full_output.txt
+lint_output.txt

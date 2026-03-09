@@ -20,16 +20,16 @@ export default function LoginForm() {
             <form action={dispatch} className="space-y-5">
                 <div className="flex flex-col gap-1.5">
                     <label className="text-slate-700 dark:text-slate-300 text-sm font-semibold ml-1">
-                        Email Address
+                        Email or Username
                     </label>
                     <div className="relative">
                         <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">
-                            mail
+                            account_circle
                         </span>
                         <input
                             name="email"
-                            type="email"
-                            placeholder="name@saunaspa.com"
+                            type="text"
+                            placeholder="Email or username"
                             required
                             className="w-full pl-12 pr-4 py-3.5 rounded-lg border border-[#11d4c4]/20 bg-[#f6f8f7] dark:bg-[#10221c] focus:border-[#11d4c4] focus:ring-1 focus:ring-[#11d4c4] outline-none text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all font-display"
                         />

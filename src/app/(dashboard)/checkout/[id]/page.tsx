@@ -1,14 +1,38 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+
+interface CartItem {
+    id: string;
+    type: string;
+    name: string;
+    description: string;
+    price: number;
+    qty: number;
+    icon?: string;
+    bgColor?: string;
+    textColor?: string;
+    image?: string;
+    badge?: string;
+}
+
+interface ProductItem {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    image?: string;
+    badge?: string;
+}
 
 export default function CheckoutPage() {
     const params = useParams();
     const id = params?.id as string || "8842";
 
-    const [cartItems, setCartItems] = useState([
+    const [cartItems, setCartItems] = useState<CartItem[]>([
         {
             id: "1",
             type: "service",
@@ -66,7 +90,7 @@ export default function CheckoutPage() {
         setCartItems(cartItems.filter(item => item.id !== idToRemove));
     };
 
-    const handleAddItem = (item: any) => {
+    const handleAddItem = (item: ProductItem) => {
         const existingItem = cartItems.find(cartItem => cartItem.id === item.id);
         if (existingItem) {
             setCartItems(cartItems.map(cartItem =>
@@ -107,8 +131,15 @@ export default function CheckoutPage() {
                                         <span className={`material-symbols-outlined ${item.textColor} text-3xl`}>{item.icon}</span>
                                     </div>
                                 ) : (
-                                    <div className="size-16 rounded-lg bg-white dark:bg-slate-800 flex items-center justify-center shrink-0 border border-[var(--color-primary)]/20 overflow-hidden">
-                                        <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                                    <div className="size-16 rounded-lg bg-white dark:bg-slate-800 flex items-center justify-center shrink-0 border border-[var(--color-primary)]/20 overflow-hidden relative">
+                                        {item.image && (
+                                            <Image
+                                                src={item.image}
+                                                alt={item.name}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        )}
                                     </div>
                                 )}
 
@@ -185,7 +216,14 @@ export default function CheckoutPage() {
                         {suggestedItems.map((product) => (
                             <div key={product.id} className="group border border-slate-100 dark:border-slate-800 rounded-xl p-3 hover:border-[var(--color-primary)]/50 transition-colors bg-white dark:bg-slate-900">
                                 <div className="aspect-square rounded-lg bg-slate-100 dark:bg-slate-800 mb-3 relative overflow-hidden">
-                                    <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                    {product.image && (
+                                        <Image
+                                            src={product.image}
+                                            alt={product.name}
+                                            fill
+                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                    )}
                                     {product.badge && (
                                         <div className="absolute top-2 right-2 bg-white/90 dark:bg-slate-900/90 px-2 py-1 rounded text-[10px] font-black text-slate-900 dark:text-white shadow-sm">
                                             {product.badge}
@@ -215,7 +253,7 @@ export default function CheckoutPage() {
                     <div className="relative z-10">
                         <span className="text-[var(--color-primary)] text-[10px] font-black uppercase tracking-widest">Upgrade Available</span>
                         <h4 className="text-white font-bold mt-2 text-lg">Diamond Membership</h4>
-                        <p className="text-slate-300 text-xs mt-2 leading-relaxed opacity-90">Save 15% on today's session and all future retail purchases.</p>
+                        <p className="text-slate-300 text-xs mt-2 leading-relaxed opacity-90">Save 15% on today&apos;s session and all future retail purchases.</p>
 
                         <button className="mt-5 w-full bg-white text-slate-900 px-4 py-3 rounded-lg text-sm font-bold hover:bg-[var(--color-primary)] transition-colors flex items-center justify-center">
                             UPGRADE +RWF 49,000/mo

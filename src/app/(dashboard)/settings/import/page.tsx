@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 
 export default function DataImportWizardPage() {
     return (
@@ -40,7 +39,7 @@ export default function DataImportWizardPage() {
                         <p className="text-[var(--color-primary)] text-sm font-bold">66% Complete</p>
                     </div>
                     <div className="rounded-full bg-slate-100 dark:bg-slate-800 h-3 w-full overflow-hidden">
-                        <div className="h-full rounded-full bg-[var(--color-primary)] transition-all duration-500" style={{ width: "66%" }}></div>
+                        <div className="h-full w-[66%] rounded-full bg-[var(--color-primary)] transition-all duration-500"></div>
                     </div>
                     <p className="text-slate-500 dark:text-slate-400 text-sm italic">8 out of 12 fields matched. Please map the remaining required fields.</p>
                 </div>
@@ -197,10 +196,10 @@ export default function DataImportWizardPage() {
                             </h3>
                             <ul className="space-y-3">
                                 <li className="text-sm text-red-600 dark:text-red-400/80 leading-relaxed">
-                                    <strong>Phone Number:</strong> Column 'Cust_Phone' not yet mapped. This field is required to create contacts.
+                                    <strong>Phone Number:</strong> Column &apos;Cust_Phone&apos; not yet mapped. This field is required to create contacts.
                                 </li>
                                 <li className="text-sm text-red-600 dark:text-red-400/80 leading-relaxed">
-                                    <strong>Invalid Format:</strong> Row 14 contains an invalid email address (missing '@').
+                                    <strong>Invalid Format:</strong> Row 14 contains an invalid email address (missing &apos;@&apos;).
                                 </li>
                             </ul>
                         </div>
@@ -215,7 +214,7 @@ export default function DataImportWizardPage() {
                                 </div>
                                 <div className="flex gap-3">
                                     <span className="material-symbols-outlined text-[var(--color-primary)]">info</span>
-                                    <p className="text-sm text-slate-500 leading-relaxed">If you don't map a field, it will not be imported into our system.</p>
+                                    <p className="text-sm text-slate-500 leading-relaxed">If you don&apos;t map a field, it will not be imported into our system.</p>
                                 </div>
                                 <div className="flex gap-3">
                                     <span className="material-symbols-outlined text-[var(--color-primary)]">contact_support</span>

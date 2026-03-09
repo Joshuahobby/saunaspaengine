@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 
 export default function BookingSettingsPage() {
     return (
@@ -100,7 +99,7 @@ export default function BookingSettingsPage() {
                                         <span className="text-sm font-medium text-slate-900 dark:text-slate-100">Apply to all services</span>
                                         <span className="text-xs text-slate-500">Uncheck to set per-service deposits</span>
                                     </div>
-                                    <input defaultChecked className="h-5 w-5 rounded border-slate-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)] cursor-pointer" type="checkbox" />
+                                    <input aria-label="Apply to all services" defaultChecked className="h-5 w-5 rounded border-slate-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)] cursor-pointer" type="checkbox" />
                                 </div>
                             </div>
                         </div>
@@ -152,7 +151,7 @@ export default function BookingSettingsPage() {
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">Enable No-Show Charges</span>
                                     <label className="relative inline-flex cursor-pointer items-center">
-                                        <input defaultChecked className="peer sr-only" type="checkbox" />
+                                        <input aria-label="Enable No-Show Charges" defaultChecked className="peer sr-only" type="checkbox" />
                                         <div className="peer h-6 w-11 rounded-full bg-slate-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-[var(--color-primary)] peer-checked:after:translate-x-full peer-checked:after:border-[#102220] peer-focus:outline-none dark:bg-slate-700"></div>
                                     </label>
                                 </div>
@@ -196,7 +195,7 @@ export default function BookingSettingsPage() {
                                             <span className="text-xs text-slate-500">Send 2 hours before deadline</span>
                                         </div>
                                     </div>
-                                    <input defaultChecked className="h-5 w-5 rounded border-slate-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)] cursor-pointer" type="checkbox" />
+                                    <input aria-label="Enable SMS Reminders" defaultChecked className="h-5 w-5 rounded border-slate-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)] cursor-pointer" type="checkbox" />
                                 </div>
 
                                 <div className="flex items-center justify-between rounded-lg border border-[var(--color-border-light)] bg-slate-50/50 dark:bg-slate-800/50 p-4">
@@ -207,7 +206,7 @@ export default function BookingSettingsPage() {
                                             <span className="text-xs text-slate-500">Send 24 hours before deadline</span>
                                         </div>
                                     </div>
-                                    <input defaultChecked className="h-5 w-5 rounded border-slate-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)] cursor-pointer" type="checkbox" />
+                                    <input aria-label="Enable Email Reminders" defaultChecked className="h-5 w-5 rounded border-slate-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)] cursor-pointer" type="checkbox" />
                                 </div>
 
                                 <button className="w-full rounded-lg border border-[var(--color-border-light)] py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
@@ -223,7 +222,7 @@ export default function BookingSettingsPage() {
                             <h4 className="text-sm font-bold uppercase tracking-widest text-slate-400 text-center">Customer Disclosure Preview</h4>
                             <div className="bg-white dark:bg-slate-900 rounded-lg p-6 border border-[var(--color-border-light)] shadow-sm">
                                 <p className="text-sm italic text-slate-700 dark:text-slate-300 leading-relaxed text-center">
-                                    "To secure your appointment, a <span className="font-bold text-[var(--color-primary)]">50% non-refundable deposit</span> is required. Cancellations must be made at least <span className="font-bold text-[var(--color-primary)]">24 hours</span> prior to the scheduled time. Cancellations made within the 24-hour window or failure to attend (no-show) will result in <span className="font-bold text-[var(--color-primary)]">forfeiture of the deposit and a potential 100% service fee charge</span> to the card on file."
+                                    &quot;To secure your appointment, a <span className="font-bold text-[var(--color-primary)]">50% non-refundable deposit</span> is required. Cancellations must be made at least <span className="font-bold text-[var(--color-primary)]">24 hours</span> prior to the scheduled time. Cancellations made within the 24-hour window or failure to attend (no-show) will result in <span className="font-bold text-[var(--color-primary)]">forfeiture of the deposit and a potential 100% service fee charge</span> to the card on file.&quot;
                                 </p>
                             </div>
                             <p className="text-center text-xs text-slate-500">This text will be shown to customers during the final step of online booking.</p>

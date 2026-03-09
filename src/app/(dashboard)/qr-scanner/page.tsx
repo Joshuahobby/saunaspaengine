@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import ManualValidationForm from "@/components/operations/manual-validation-form";
 
 function getInitials(name: string) {
     return name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2);
@@ -31,7 +32,7 @@ export default async function QRScannerPage() {
                 <div className="lg:col-span-8 flex flex-col gap-4">
                     <div className="relative aspect-video w-full bg-slate-900 rounded-xl overflow-hidden border-2 border-[var(--color-primary)]/30">
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-64 h-64 rounded-2xl relative border-2 border-[var(--color-primary)] shadow-[0_0_20px_rgba(19,236,164,0.4)]" style={{ background: "linear-gradient(rgba(19,236,164,0.1),rgba(19,236,164,0.1))" }}>
+                            <div className="w-64 h-64 rounded-2xl relative border-2 border-[var(--color-primary)] shadow-[0_0_20px_rgba(19,236,164,0.4)] bg-[var(--color-primary)]/10">
                                 <div className="absolute h-[2px] w-full bg-[var(--color-primary)] shadow-[0_0_15px_var(--color-primary)] top-1/2"></div>
                                 <div className="absolute -top-2 -left-2 w-6 h-6 border-t-4 border-l-4 border-[var(--color-primary)] rounded-tl-lg"></div>
                                 <div className="absolute -top-2 -right-2 w-6 h-6 border-t-4 border-r-4 border-[var(--color-primary)] rounded-tr-lg"></div>
@@ -93,30 +94,7 @@ export default async function QRScannerPage() {
                             <span className="material-symbols-outlined text-[var(--color-primary)]">keyboard</span>
                             Manual Entry
                         </h3>
-                        <div className="space-y-6">
-                            <div className="flex flex-col gap-2">
-                                <label className="text-slate-600 text-sm font-medium">Client Phone Number</label>
-                                <div className="flex">
-                                    <div className="bg-slate-50 border border-slate-200 border-r-0 rounded-l-lg px-3 flex items-center text-slate-400">
-                                        <span className="material-symbols-outlined text-xl">phone</span>
-                                    </div>
-                                    <input className="w-full bg-slate-50 border border-slate-200 focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] rounded-r-lg p-3 placeholder:text-slate-400" placeholder="+250 788 000 000" type="text" />
-                                </div>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <label className="text-slate-600 text-sm font-medium">Or Member ID</label>
-                                <div className="flex">
-                                    <div className="bg-slate-50 border border-slate-200 border-r-0 rounded-l-lg px-3 flex items-center text-slate-400">
-                                        <span className="material-symbols-outlined text-xl">badge</span>
-                                    </div>
-                                    <input className="w-full bg-slate-50 border border-slate-200 focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] rounded-r-lg p-3 placeholder:text-slate-400" placeholder="SA-98234" type="text" />
-                                </div>
-                            </div>
-                            <button className="w-full bg-[var(--color-primary)] hover:opacity-90 text-[var(--color-bg-dark)] font-bold py-4 rounded-lg transition-all flex items-center justify-center gap-2 text-lg shadow-lg shadow-[var(--color-primary)]/20">
-                                <span className="material-symbols-outlined">search</span>
-                                Validate Member
-                            </button>
-                        </div>
+                        <ManualValidationForm />
                     </div>
 
                     {/* Recent History */}

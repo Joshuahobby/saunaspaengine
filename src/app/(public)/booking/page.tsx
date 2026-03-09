@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 
 type BookingStep = "service" | "datetime" | "details";
 
@@ -49,10 +48,8 @@ export default function PublicBookingPage() {
                         </span>
                     </div>
                     <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
-                        <div
-                            className="h-full bg-primary transition-all duration-500"
-                            style={{ width: getProgressWidth() }}
-                        ></div>
+                        {/* eslint-disable-next-line react/forbid-dom-props */}
+                        <div className="h-full bg-primary transition-all duration-500" style={{ width: getProgressWidth() }}></div>
                     </div>
                     <div className="mt-3 flex justify-between text-[12px] font-bold uppercase tracking-wider text-slate-400">
                         <span className={currentStep === "service" ? "text-primary" : ""}>Service</span>
@@ -183,12 +180,8 @@ export default function PublicBookingPage() {
                                 Booking Summary
                             </h3>
                             <div className="flex items-start gap-4">
-                                <div
-                                    className="h-20 w-20 shrink-0 rounded-lg bg-cover bg-center"
-                                    style={{
-                                        backgroundImage: `url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070&auto=format&fit=crop')`
-                                    }}
-                                />
+                                {/* eslint-disable-next-line react/forbid-dom-props */}
+                                <div className="h-20 w-20 shrink-0 rounded-lg bg-cover bg-center" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2070&auto=format&fit=crop')` }} />
                                 <div>
                                     <p className="font-bold text-slate-900 dark:text-slate-100">
                                         Traditional Finnish Sauna

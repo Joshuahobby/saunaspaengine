@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import CheckoutButton from "@/components/operations/checkout-button";
 
 const STATUS_STYLES: Record<string, { dot: string; text: string; label: string }> = {
     CREATED: { dot: "bg-[var(--color-primary)]", text: "text-[var(--color-primary)]", label: "Created" },
@@ -105,12 +106,13 @@ export default async function OperationsPage() {
                                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-500">Status</th>
                                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-500">Payment</th>
                                 <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-500 text-right">Amount</th>
+                                <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-slate-500 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {records.length === 0 ? (
                                 <tr>
-                                    <td colSpan={8} className="px-6 py-16 text-center">
+                                    <td colSpan={9} className="px-6 py-16 text-center">
                                         <div className="flex flex-col items-center gap-3">
                                             <span className="material-symbols-outlined text-4xl text-slate-300">receipt_long</span>
                                             <p className="text-slate-500 font-medium">No service records yet</p>
@@ -152,6 +154,9 @@ export default async function OperationsPage() {
                                             </td>
                                             <td className="px-6 py-5 text-sm text-slate-500">{record.paymentMode}</td>
                                             <td className="px-6 py-5 text-sm font-bold text-right">{formatRWF(record.amount)}</td>
+                                            <td className="px-6 py-5 text-right">
+                                                <CheckoutButton recordId={record.id} currentStatus={record.status} />
+                                            </td>
                                         </tr>
                                     );
                                 })

@@ -99,7 +99,7 @@ export default function PublicStatusPage() {
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-4">
                                                 <div className="flex-1 h-1.5 rounded-full bg-slate-200 dark:bg-[#23483c] max-w-[120px]">
-                                                    <div className="h-full rounded-full bg-primary shadow-[0_0_8px_rgba(19,236,164,0.4)]" style={{ width: '99.98%' }}></div>
+                                                    <div className="h-full rounded-full bg-primary shadow-[0_0_8px_rgba(19,236,164,0.4)] w-[99.98%]"></div>
                                                 </div>
                                                 <span className="text-slate-900 dark:text-slate-100 text-sm font-bold">99.98%</span>
                                             </div>
@@ -128,7 +128,7 @@ export default function PublicStatusPage() {
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-4">
                                                 <div className="flex-1 h-1.5 rounded-full bg-slate-200 dark:bg-[#23483c] max-w-[120px]">
-                                                    <div className="h-full rounded-full bg-primary" style={{ width: '100%' }}></div>
+                                                    <div className="h-full rounded-full bg-primary w-full"></div>
                                                 </div>
                                                 <span className="text-slate-900 dark:text-slate-100 text-sm font-bold">100.0%</span>
                                             </div>
@@ -157,7 +157,7 @@ export default function PublicStatusPage() {
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-4">
                                                 <div className="flex-1 h-1.5 rounded-full bg-slate-200 dark:bg-[#23483c] max-w-[120px]">
-                                                    <div className="h-full rounded-full bg-primary" style={{ width: '99.95%' }}></div>
+                                                    <div className="h-full rounded-full bg-primary w-[99.95%]"></div>
                                                 </div>
                                                 <span className="text-slate-900 dark:text-slate-100 text-sm font-bold">99.95%</span>
                                             </div>
@@ -186,7 +186,9 @@ export default function PublicStatusPage() {
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-4">
                                                 <div className="flex-1 h-1.5 rounded-full bg-slate-200 dark:bg-[#23483c] max-w-[120px]">
-                                                    <div className="h-full rounded-full bg-primary" style={{ width: '100%' }}></div>
+                                                    <div className="flex-1 h-1.5 rounded-full bg-slate-200 dark:bg-[#23483c] max-w-[120px]">
+                                                        <div className="h-full rounded-full bg-primary w-full"></div>
+                                                    </div>
                                                 </div>
                                                 <span className="text-slate-900 dark:text-slate-100 text-sm font-bold">100.0%</span>
                                             </div>
@@ -213,8 +215,13 @@ export default function PublicStatusPage() {
                                 <span className="text-primary font-bold text-sm bg-primary/10 px-2 py-1 rounded-md">Avg: 124ms</span>
                             </div>
                             <div className="h-32 flex items-end gap-1">
-                                {[60, 55, 70, 65, 80, 75, 90, 60, 50, 55, 40, 30, 45, 50, 60].map((height, i) => (
-                                    <div key={i} className={`flex-1 rounded-t-sm transition-all duration-300 hover:opacity-80 ${i === 6 ? 'bg-primary/40' : i === 10 ? 'bg-primary/60' : 'bg-primary/20'}`} style={{ height: `${height}%` }}></div>
+                                {['60%', '55%', '70%', '65%', '80%', '75%', '90%', '60%', '50%', '55%', '40%', '30%', '45%', '50%', '60%'].map((height, i) => (
+                                    <React.Fragment key={i}>
+                                        <div
+                                            className={`flex-1 rounded-t-sm transition-all duration-300 hover:opacity-80 ${i === 6 ? 'bg-primary/40' : i === 10 ? 'bg-primary/60' : 'bg-primary/20'}`}
+                                            style={{ height }} /* eslint-disable-line react/forbid-dom-props */
+                                        ></div>
+                                    </React.Fragment>
                                 ))}
                             </div>
                             <div className="flex justify-between mt-3 text-[10px] text-slate-500 font-bold uppercase">
@@ -270,6 +277,7 @@ export default function PublicStatusPage() {
 
                         <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
                             <input
+                                aria-label="Email Address"
                                 className="flex-1 rounded-lg bg-white dark:bg-[#10221c] border border-border dark:border-[#23483c] text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-primary/50 focus:border-primary px-4 py-2.5 outline-none shadow-sm placeholder:text-slate-400"
                                 placeholder="Email Address"
                                 type="email"
@@ -308,6 +316,6 @@ export default function PublicStatusPage() {
                     </div>
                 </div>
             </footer>
-        </div>
+        </div >
     );
 }
