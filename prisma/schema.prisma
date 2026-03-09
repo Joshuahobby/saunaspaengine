@@ -109,6 +109,7 @@ model Business {
   inventory          Inventory[]
   loyaltyPrograms    LoyaltyProgram?
   safetyAlerts       SafetyAlert[]
+  broadcasts         Broadcast[]
 
   @@map("businesses")
 }

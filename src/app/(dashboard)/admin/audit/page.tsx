@@ -187,7 +187,7 @@ async function AuditLogsView({ businessId, role }: { businessId: string | null; 
                                     </td>
                                 </tr>
                             ) : (
-                                logs.map((log) => (
+                                logs.map((log: any) => (
                                     <tr key={log.id} className={`hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors ${log.action === "OVERRIDE" ? "bg-orange-50/50 dark:bg-orange-500/5" : ""}`}>
                                         <td className="px-6 py-4 text-sm font-medium text-slate-500 dark:text-slate-400 whitespace-nowrap">
                                             {format(new Date(log.createdAt), "MMM dd, yyyy • HH:mm:ss")}
@@ -221,7 +221,7 @@ async function AuditLogsView({ businessId, role }: { businessId: string | null; 
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className="text-sm text-slate-600 dark:text-slate-300 font-semibold italic truncate block max-w-[200px]" title={log.details || ""}>
-                                                "{log.details || log.entityId}"
+                                                &quot;{log.details || log.entityId}&quot;
                                             </span>
                                             {log.reason && (
                                                 <p className="text-xs text-slate-500 mt-1">Reason: {log.reason}</p>
