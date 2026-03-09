@@ -122,7 +122,6 @@ export async function PATCH(request: NextRequest) {
                 const pointsToEarn = Math.floor(record.amount * loyaltyProgram.pointsPerRwf);
 
                 // 2. "Buy X, Get Y" Logic
-                // @ts-expect-error - buyCount and getCount are added to schema and wait for generation
                 if (loyaltyProgram.buyCount && loyaltyProgram.getCount) {
                     const completedCount = await prisma.serviceRecord.count({
                         where: {

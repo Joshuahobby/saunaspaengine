@@ -21,7 +21,7 @@ export default async function AggregatedReportsPage() {
         });
     } else if (session.user.role === "ADMIN") {
         businesses = await prisma.business.findMany();
-    } else {
+    } else if (businessId) {
         // Fallback for OWNER if they somehow get here, but they should only see their own
         businesses = await prisma.business.findMany({
             where: { id: businessId }
