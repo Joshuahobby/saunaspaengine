@@ -9,6 +9,8 @@ export function formatRWF(amount: number): string {
     return `RWF ${amount.toLocaleString("en-RW")}`;
 }
 
+export const formatCurrency = formatRWF;
+
 /**
  * Format a phone number with Rwanda +250 prefix
  */
