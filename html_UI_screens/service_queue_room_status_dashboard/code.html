@@ -1,0 +1,330 @@
+<html class="dark"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#197fe6",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111921",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-6 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary/10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-64 h-10">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-slate-100 dark:bg-slate-800">
+<div class="text-slate-500 dark:text-slate-400 flex items-center justify-center pl-3">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full border-none bg-transparent focus:ring-0 text-sm placeholder:text-slate-500 dark:placeholder:text-slate-400" placeholder="Search rooms or staff..."/>
+</div>
+</label>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-primary text-sm font-semibold" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Rooms</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Staff</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Schedule</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">settings</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full bg-primary/20 border-2 border-primary/30 flex items-center justify-center overflow-hidden">
+<img class="h-full w-full object-cover" data-alt="Profile picture of a spa staff member" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzWTX_FRJyOXZoe4_iAWoO4mlh_R0lZRfQGU7_l00ntRm6UJvbI3CZxw142gKbFBGVPdPvrdI91UsEJ-m8dPGqBix-Czz3Y_VR9gGXkbi5PpFkDL_4WNJaU3eXDfnblxxf_fYxABG_rOR7ZJd2IkFdQt8nfS6mcWSv3VSNGJs2P-JsCEDLfQagn_vKp7BnxE7E_u9UPsgfeMQwnwYr2lXv3nFXJn_KFpZHGocsgkc8qAfEqJhxzXg7cguv6OXggwjoY2zUmxoZDN5z"/>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col p-6 max-w-[1400px] mx-auto w-full gap-6">
+<!-- Dashboard Title & Filters -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="text-3xl font-bold text-slate-900 dark:text-white">Service Queue &amp; Room Status</h1>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Real-time overview of treatment rooms and service progress</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg font-bold text-sm shadow-lg shadow-primary/20 hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>New Booking</span>
+</button>
+</div>
+</div>
+<!-- Status Filters -->
+<div class="flex border-b border-slate-200 dark:border-slate-800 overflow-x-auto">
+<button class="px-6 py-4 text-sm font-bold border-b-2 border-primary text-primary whitespace-nowrap">All Rooms (12)</button>
+<button class="px-6 py-4 text-sm font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 border-b-2 border-transparent whitespace-nowrap">Occupied (5)</button>
+<button class="px-6 py-4 text-sm font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 border-b-2 border-transparent whitespace-nowrap">Cleaning (3)</button>
+<button class="px-6 py-4 text-sm font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 border-b-2 border-transparent whitespace-nowrap">Available (4)</button>
+</div>
+<!-- Room Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Occupied Room Card -->
+<div class="bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm">
+<div class="h-32 relative">
+<div class="absolute inset-0 bg-slate-200 dark:bg-slate-700">
+<img class="w-full h-full object-cover" data-alt="Zen spa massage room interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUpTV3N0zknqcH4uUdpVP8lHqFGAY-SMgfO7ue0YIM1kaB795Vx9L4IDYcPS8j3W1szbHPkgbnoL_6QAFrSnvj9xlUCQmvJocrIlO6c6eQW0aCdP6ELzthw9wcGNeGBpkOc_c3DPsByz7xTO50AnaRs0Wdg2UDYHnaTVIoIWj5Mn5K5EJRG38qu5TuqtAuvmV_OPe27VJ-q2fQZO5gNPApglfljRMcfTwiKVG5YauBXevM7KoNuMy84PibdQIknBgQx9prBIMCvEzw"/>
+</div>
+<div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+<span class="size-1.5 rounded-full bg-white"></span>
+                                Occupied
+                            </div>
+<div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-md text-white text-xs px-2 py-1 rounded-md font-mono">
+                                24:15 left
+                            </div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-slate-900 dark:text-white">Box 1</h3>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">more_vert</span>
+</div>
+<div class="space-y-3 flex-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">person</span>
+<span class="text-sm font-medium text-slate-700 dark:text-slate-300">John Doe</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">medical_services</span>
+<span class="text-sm text-slate-600 dark:text-slate-400">Deep Tissue Massage</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">badge</span>
+<span class="text-sm text-slate-600 dark:text-slate-400 italic">Therapist: Sarah W.</span>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex gap-2">
+<button class="flex-1 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-lg transition-colors">Details</button>
+<button class="flex-1 py-2 bg-primary/10 hover:bg-primary/20 text-primary text-xs font-bold rounded-lg transition-colors">Clear Room</button>
+</div>
+</div>
+</div>
+<!-- Cleaning Room Card -->
+<div class="bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm">
+<div class="h-32 relative">
+<div class="absolute inset-0 bg-slate-200 dark:bg-slate-700">
+<img class="w-full h-full object-cover brightness-75" data-alt="Close up of essential oils and spa stones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDevMQRXMr3s9FvnN8f3UnzI-E1-RKLbtFmz6A2JVPkzzZiM_HnoC3EK86xo0VkLtW-VoiWoNvPoz9G7GnQR1wTBJ_dzuYuGRlj_KlOhr3M9aeqYvWxHEE_Keg2zn__ipuc0GgFYk0EwffHndDVphPm-ij2YOC9aTPeF923bij2_HChumGnSNikLMA8w0TLA6Z4H0MJfTx7Apd1HNHBtZ-I_vtJYeU-yevgDHWVmoktdWGr1TxXFCjURqeFKQXTW9rcME2RSTRdy8lW"/>
+</div>
+<div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-blue-500 text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+<span class="size-1.5 rounded-full bg-white"></span>
+                                Cleaning
+                            </div>
+<div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-md text-white text-xs px-2 py-1 rounded-md font-mono">
+                                08:30 left
+                            </div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-slate-900 dark:text-white">Box 2</h3>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">more_vert</span>
+</div>
+<div class="space-y-3 flex-1">
+<div class="p-2 bg-slate-50 dark:bg-slate-800 rounded-lg">
+<p class="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500">Next Booking</p>
+<p class="text-sm font-semibold text-slate-700 dark:text-slate-200 mt-1">Swedish Massage - 14:00</p>
+</div>
+<div class="flex items-center gap-2 text-slate-400 dark:text-slate-500">
+<span class="material-symbols-outlined text-[18px]">cleaning_services</span>
+<span class="text-xs">Janitorial team assigned</span>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+<button class="w-full py-2 bg-primary text-white text-xs font-bold rounded-lg transition-colors">Ready Early</button>
+</div>
+</div>
+</div>
+<!-- Available Room Card -->
+<div class="bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm">
+<div class="h-32 relative">
+<div class="absolute inset-0 bg-slate-200 dark:bg-slate-700">
+<img class="w-full h-full object-cover" data-alt="Empty serene spa treatment room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiXeo6m8M3dE6Z79IFcmZz2G_HFeRrqGkWQsm71-NtRfoWjf0sSA2888YsFE5CBvkpZgCohe_klRhzZeq49Wp0-hjbivswGuQRLQYdNJeSEGScLXpiGSrtm_xjX6QjgGbKE3rIgBfKcJM4rtxRHLS0SE4Exaw_yb-3Vh7yTYWwJfovElTl51y4qLKFvR2KhbhNfvbsPAqRTHnBgUwRNsqe9GnFiazqwSQZdmmRChudZ9Cz-5tj5kXJcfkns7Y3GYFRdj5J8Wn-PTjN"/>
+</div>
+<div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+<span class="size-1.5 rounded-full bg-white"></span>
+                                Available
+                            </div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-slate-900 dark:text-white">Box 3</h3>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">more_vert</span>
+</div>
+<div class="flex flex-col items-center justify-center flex-1 text-center py-4">
+<span class="material-symbols-outlined text-4xl text-slate-300 dark:text-slate-700 mb-2">check_circle</span>
+<p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Ready for next guest</p>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+<button class="w-full py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-lg transition-colors">Assign Service</button>
+</div>
+</div>
+</div>
+<!-- VIP Room Card (Occupied) -->
+<div class="bg-white dark:bg-slate-800/50 rounded-xl border-2 border-primary/50 overflow-hidden flex flex-col shadow-lg">
+<div class="h-32 relative">
+<div class="absolute inset-0 bg-slate-200 dark:bg-slate-700">
+<img class="w-full h-full object-cover" data-alt="Luxury VIP spa suite with bathtub" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMiLAvfbvm728e_JKOMnGPN0k6nL3eS4HE8YCcBb_FL54qoA5juFrwKRzinECw0hZ2ThQ_l0GzkTS_L7iYxsSf0yI6S-Yoge-jVAI0zjt0XeXlrIPBpK0yb2Az75Kqfz0JBCoa7rdS1JBjIM-J9YSwxni6vZEmKkVdiLcFpBgz8h6JMhdsWUT-RPBziNYmSkC5RCF7ZlG0kb0jr_vqQo3EMY1yffkvPFfQTKlr3rH7Im2FiuafM0u1rj6QD3YdWqXrFu0gPTOFAtQ4"/>
+</div>
+<div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5">
+<span class="size-1.5 rounded-full bg-white animate-pulse"></span>
+                                Occupied
+                            </div>
+<div class="absolute top-3 right-3 px-2 py-1 rounded-md bg-primary text-white text-[10px] font-bold uppercase">
+                                VIP
+                            </div>
+<div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-md text-white text-xs px-2 py-1 rounded-md font-mono">
+                                45:00 left
+                            </div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-slate-900 dark:text-white">VIP Suite 1</h3>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">more_vert</span>
+</div>
+<div class="space-y-3 flex-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">person</span>
+<span class="text-sm font-medium text-slate-700 dark:text-slate-300">Jane Smith</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">relax</span>
+<span class="text-sm text-slate-600 dark:text-slate-400">Hot Stone Therapy</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">badge</span>
+<span class="text-sm text-slate-600 dark:text-slate-400 italic">Therapist: Michael R.</span>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex gap-2">
+<button class="flex-1 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-lg transition-colors">Details</button>
+<button class="flex-1 py-2 bg-primary text-white text-xs font-bold rounded-lg transition-colors">Clear Room</button>
+</div>
+</div>
+</div>
+<!-- Box 4 Card (Occupied) -->
+<div class="bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm">
+<div class="h-32 relative">
+<div class="absolute inset-0 bg-slate-200 dark:bg-slate-700">
+<img class="w-full h-full object-cover" data-alt="Massage table with towels" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5YgKCbGgpMh4Z9yZ7WK0wLzE3tsJu9GlHT38-Zrpsx8NFvefpX8tF7BUH73d9hB5OCk1WIZDcSa_ip_HypNgOpExnoEAC1DnQtdmLVFyL1CSER8TT1QK2qAbpsEjCUbML10OYYNBEUxVqa2-CWEgnzL0WynKzs2hdVTY5B1tt2OTirX7U5plToDQSSCTfGNo1y4TNp35zB1N8D2qunbrfyOw199kHzLr0RcgfVRRzryo7gHHS2vu6Gqnnip8UQYmWH74G6O0DJe4l"/>
+</div>
+<div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+<span class="size-1.5 rounded-full bg-white"></span>
+                                Occupied
+                            </div>
+<div class="absolute bottom-3 right-3 bg-black/60 backdrop-blur-md text-white text-xs px-2 py-1 rounded-md font-mono">
+                                12:30 left
+                            </div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-slate-900 dark:text-white">Box 4</h3>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">more_vert</span>
+</div>
+<div class="space-y-3 flex-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">person</span>
+<span class="text-sm font-medium text-slate-700 dark:text-slate-300">Mike Ross</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">spa</span>
+<span class="text-sm text-slate-600 dark:text-slate-400">Aromatherapy</span>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex gap-2">
+<button class="flex-1 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-lg transition-colors">Details</button>
+<button class="flex-1 py-2 bg-primary/10 hover:bg-primary/20 text-primary text-xs font-bold rounded-lg transition-colors">Clear Room</button>
+</div>
+</div>
+</div>
+<!-- Available Room Card -->
+<div class="bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm">
+<div class="h-32 relative">
+<div class="absolute inset-0 bg-slate-200 dark:bg-slate-700">
+<img class="w-full h-full object-cover" data-alt="Serene spa room with candles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBck3fXm-GHuUbxd6L1mNG7SKGB3FcW0CxTAdqQ2-8ki7glS1b6-rgRSM5zRFwuXXXQ9w9fuCyQiCF1VtsO6BihEx0juCYmSH5c9VZig0QSg2EBmlDYpapr1_eypteIkidbsdKnLCf0cSzz3vk0limH6Dbs_U_jquLEamWMOBBh36JPiNKfPwGvL6FOyGosW3Ju76XJrdRc1nCfzS34ISoPbKnUDGwLMuCUOUHtawTQWRMW4BNbIeUwbHyZsExZXNbfW2csDkZmE8R5"/>
+</div>
+<div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+<span class="size-1.5 rounded-full bg-white"></span>
+                                Available
+                            </div>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-slate-900 dark:text-white">Box 5</h3>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">more_vert</span>
+</div>
+<div class="flex flex-col items-center justify-center flex-1 text-center py-4">
+<span class="material-symbols-outlined text-4xl text-slate-300 dark:text-slate-700 mb-2">check_circle</span>
+<p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Ready for check-in</p>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+<button class="w-full py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-lg transition-colors">Assign Service</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Service Summary -->
+<div class="mt-4 bg-primary/5 border border-primary/20 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl">timer</span>
+</div>
+<div>
+<p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Next Shift Handover</p>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="text-2xl font-bold text-slate-900 dark:text-white">02</span>
+<span class="text-sm text-slate-500">hours</span>
+<span class="text-2xl font-bold text-slate-900 dark:text-white ml-2">45</span>
+<span class="text-sm text-slate-500">mins</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-8 md:gap-12">
+<div class="text-center">
+<p class="text-2xl font-bold text-primary">08</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase mt-1">Services Done</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-amber-500">05</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase mt-1">In Progress</p>
+</div>
+<div class="text-center">
+<p class="text-2xl font-bold text-emerald-500">14</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase mt-1">Waiting List</p>
+</div>
+</div>
+<button class="px-6 py-2 border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold rounded-lg transition-all text-sm">
+                        View Full Schedule
+                    </button>
+</div>
+</main>
+</div>
+</div>
+
+```</body></html>

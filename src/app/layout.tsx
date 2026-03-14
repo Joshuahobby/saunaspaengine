@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
+import { ToastProvider } from "@/components/providers/toast-provider";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { NavProvider } from "@/components/providers/NavProvider";
 import "./globals.css";
 
-const manrope = Manrope({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-manrope",
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-poppins",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -30,14 +40,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={manrope.variable}>
+    <html lang="en" className={`${inter.variable} ${poppins.variable}`} suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
         />
       </head>
-      <body className={`${manrope.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} antialiased selection:bg-[var(--color-primary)] selection:text-teal-900`}>
+        <ThemeProvider>
+          <NavProvider>
+            {children}
+          </NavProvider>
+          <ToastProvider />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

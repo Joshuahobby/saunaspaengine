@@ -4,12 +4,12 @@ import Image from "next/image";
 
 export default function DeveloperPortalPage() {
     return (
-        <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-background-light dark:bg-[#10221c] text-slate-900 dark:text-slate-100 font-[Manrope,sans-serif] transition-colors duration-300">
+        <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-background-light dark:bg-[#10221c] text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] font-[Manrope,sans-serif] transition-colors duration-300">
             <div className="layout-container flex h-full grow flex-col">
                 {/* Navigation */}
                 <header className="flex items-center justify-between whitespace-nowrap border-b border-slate-200 dark:border-primary/20 bg-white dark:bg-[#10221c] px-6 py-4 lg:px-20 sticky top-0 z-50">
                     <div className="flex items-center gap-8">
-                        <Link href="/" className="flex items-center gap-3 text-slate-900 dark:text-slate-100">
+                        <Link href="/" className="flex items-center gap-3 text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">
                             <div className="size-8 bg-primary rounded flex items-center justify-center text-[#10221c]">
                                 <span className="material-symbols-outlined font-bold text-lg">spa</span>
                             </div>
@@ -28,7 +28,7 @@ export default function DeveloperPortalPage() {
                         <div className="hidden sm:flex items-center relative">
                             <span className="material-symbols-outlined absolute left-3 text-slate-400 dark:text-slate-500 text-lg">search</span>
                             <input
-                                className="bg-slate-100 dark:bg-primary/5 border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary w-64 placeholder:text-slate-500 text-slate-900 dark:text-slate-100"
+                                className="bg-slate-100 dark:bg-primary/5 border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary w-64 placeholder:text-slate-500 text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]"
                                 placeholder="Search documentation..."
                                 type="text"
                                 aria-label="Search documentation"
@@ -84,8 +84,8 @@ export default function DeveloperPortalPage() {
                     {/* Developer Pillars */}
                     <div className="px-6 lg:px-20 py-12">
                         <div className="mb-10">
-                            <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Developer Pillars</h2>
-                            <p className="text-slate-600 dark:text-slate-400 mt-2 text-lg">Foundation for building world-class spa management solutions.</p>
+                            <h2 className="text-3xl font-extrabold tracking-tight text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Developer Pillars</h2>
+                            <p className="text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] mt-2 text-lg">Foundation for building world-class spa management solutions.</p>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {/* Pillar 1 */}
@@ -94,7 +94,7 @@ export default function DeveloperPortalPage() {
                                     <span className="material-symbols-outlined text-3xl">api</span>
                                 </div>
                                 <h3 className="text-xl font-bold mb-3">API Reference</h3>
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                                <p className="text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] leading-relaxed mb-6">
                                     Exhaustive RESTful API documentation with interactive playgrounds for testing endpoints in real-time.
                                 </p>
                                 <Link className="text-primary font-bold inline-flex items-center gap-2 group/link" href="/developer/reference">
@@ -108,7 +108,7 @@ export default function DeveloperPortalPage() {
                                     <span className="material-symbols-outlined text-3xl">webhook</span>
                                 </div>
                                 <h3 className="text-xl font-bold mb-3">Webhooks & Events</h3>
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                                <p className="text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] leading-relaxed mb-6">
                                     Stay in sync with real-time updates. Register webhooks for booking changes, payments, and staff shifts.
                                 </p>
                                 <Link className="text-primary font-bold inline-flex items-center gap-2 group/link" href="/developer/reference">
@@ -122,7 +122,7 @@ export default function DeveloperPortalPage() {
                                     <span className="material-symbols-outlined text-3xl">terminal</span>
                                 </div>
                                 <h3 className="text-xl font-bold mb-3">SDKs & Libraries</h3>
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                                <p className="text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] leading-relaxed mb-6">
                                     Official client libraries for JavaScript, Python, Go, and Ruby to speed up your development process.
                                 </p>
                                 <Link className="text-primary font-bold inline-flex items-center gap-2 group/link" href="/developer/reference">
@@ -137,7 +137,7 @@ export default function DeveloperPortalPage() {
                         <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-12 items-center">
                             <div className="w-full lg:w-1/2 space-y-6">
                                 <h2 className="text-3xl font-extrabold tracking-tight">Quick Start</h2>
-                                <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                                <p className="text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] text-lg leading-relaxed">
                                     Get your first request running in under 60 seconds. Authenticate using your developer API key and start fetching resources immediately.
                                 </p>
                                 <ul className="space-y-4">
@@ -205,7 +205,7 @@ export default function DeveloperPortalPage() {
                                 </div>
                                 <div className="space-y-3">
                                     <h3 className="text-xl font-bold">Developer Support</h3>
-                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                    <p className="text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] leading-relaxed">
                                         Need help with your integration? Our technical support engineers are available for architecture reviews and debugging.
                                     </p>
                                     <Link className="inline-flex items-center text-primary font-bold hover:underline" href="/help">
@@ -220,7 +220,7 @@ export default function DeveloperPortalPage() {
                                 </div>
                                 <div className="space-y-3">
                                     <h3 className="text-xl font-bold">Community Forum</h3>
-                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                    <p className="text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] leading-relaxed">
                                         Join the conversation with other developers. Share your projects, ask questions, and contribute to the community.
                                     </p>
                                     <a className="inline-flex items-center text-primary font-bold hover:underline" href="#">
@@ -240,7 +240,7 @@ export default function DeveloperPortalPage() {
                                 <div className="size-6 bg-primary rounded flex items-center justify-center text-background-dark">
                                     <span className="material-symbols-outlined text-base font-bold">spa</span>
                                 </div>
-                                <h2 className="text-lg font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Sauna SPA Engine</h2>
+                                <h2 className="text-lg font-extrabold tracking-tight text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Sauna SPA Engine</h2>
                             </div>
                             <p className="text-slate-500 text-sm max-w-xs leading-relaxed">
                                 Empowering the next generation of wellness centers with robust, scalable, and developer-friendly technical solutions.

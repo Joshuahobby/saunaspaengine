@@ -1,250 +1,333 @@
 "use client";
 
+import { useState } from "react";
+import { formatDateTime } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
+
+interface Broadcast {
+    id: string;
+    subject: string;
+    content: string;
+    audience: string;
+    intensity: "SERENE" | "URGENT";
+    createdAt: string | Date;
+    author: {
+        fullName: string;
+    };
+    reach: number;
+    status: "SENT" | "PENDING" | "DRAFT";
+}
+
+const INITIAL_BROADCASTS: Broadcast[] = [
+    {
+        id: "b1",
+        subject: "Platform Maintenance - Oct 12",
+        content: "We will be performing routine system maintenance on all nodes in the Northern region.",
+        audience: "Region: North",
+        intensity: "SERENE",
+        createdAt: new Date().toISOString(),
+        author: { fullName: "System Admin" },
+        reach: 240,
+        status: "SENT"
+    },
+    {
+        id: "b2",
+        subject: "New Yield Metrics Active",
+        content: "The refined yield calculation engine is now live. Please review your updated analytics.",
+        audience: "All Businesses",
+        intensity: "SERENE",
+        createdAt: new Date(Date.now() - 86400000).toISOString(),
+        author: { fullName: "Yield Warden" },
+        reach: 842,
+        status: "SENT"
+    }
+];
+
 export default function AdminBroadcastsClientPage() {
+    const [broadcasts, setBroadcasts] = useState<Broadcast[]>(INITIAL_BROADCASTS);
+    const [viewMode, setViewMode] = useState<"compose" | "archives">("compose");
+    
+    const [audience, setAudience] = useState("All Businesses");
+    const [intensity, setIntensity] = useState<"SERENE" | "URGENT">("SERENE");
+    const [subject, setSubject] = useState("");
+    const [content, setContent] = useState("");
+    const [sent, setSent] = useState(false);
+
+    function handleSend(e: React.FormEvent) {
+        e.preventDefault();
+        if (!subject.trim() || !content.trim()) return;
+
+        const newBroadcast: Broadcast = {
+            id: `b${Date.now()}`,
+            subject,
+            content,
+            audience,
+            intensity,
+            createdAt: new Date().toISOString(),
+            author: { fullName: "System Admin" },
+            reach: Math.floor(Math.random() * 500) + 50,
+            status: "SENT"
+        };
+
+        setBroadcasts(prev => [newBroadcast, ...prev]);
+        setSubject("");
+        setContent("");
+        setSent(true);
+        setTimeout(() => setSent(false), 3000);
+    }
+
     return (
-        <main className="mx-auto flex w-full max-w-[1440px] flex-1 gap-6 p-6 pb-12">
-            {/* Sidebar Navigation */}
-            <aside className="hidden w-64 flex-col gap-2 lg:flex">
-                <div className="mb-4">
-                    <h1 className="text-sm font-bold uppercase tracking-widest text-slate-400">Admin Center</h1>
-                    <p className="text-xs text-slate-500">System Management</p>
+        <div className="flex flex-col gap-8 px-4 lg:px-6 py-6 max-w-[1600px] mx-auto w-full">
+            {/* Transmission Hub Header */}
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 border-b border-[var(--border-muted)] pb-8 relative overflow-hidden group">
+                <div className="absolute top-0 left-0 w-96 h-96 bg-[var(--color-primary)] opacity-[0.03] blur-[100px] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+                
+                <div className="space-y-1 relative z-10">
+                    <h1 className="text-3xl lg:text-4xl font-serif font-bold text-white italic tracking-tight leading-tight">
+                        Transmission <span className="text-[var(--color-primary)]">Hub</span>
+                    </h1>
+                    <p className="text-sm text-[var(--text-muted)] font-medium opacity-60 italic">Global resonance distribution across the vessel network.</p>
                 </div>
-                <a className="flex items-center gap-3 rounded-lg px-4 py-3 text-slate-600 hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)] dark:text-slate-400 dark:hover:text-[var(--color-primary)] transition-colors" href="#">
-                    <span className="material-symbols-outlined text-[1.25rem]">dashboard</span>
-                    <span className="text-sm font-medium">Overview</span>
-                </a>
-                <a className="flex items-center gap-3 rounded-lg bg-[var(--color-primary)]/10 px-4 py-3 text-[var(--color-primary)]" href="#">
-                    <span className="material-symbols-outlined text-[1.25rem]">campaign</span>
-                    <span className="text-sm font-bold">Broadcast Center</span>
-                </a>
-                <a className="flex items-center gap-3 rounded-lg px-4 py-3 text-slate-600 hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)] dark:text-slate-400 dark:hover:text-[var(--color-primary)] transition-colors" href="#">
-                    <span className="material-symbols-outlined text-[1.25rem]">schedule</span>
-                    <span className="text-sm font-medium">Scheduled Alerts</span>
-                </a>
-                <a className="flex items-center gap-3 rounded-lg px-4 py-3 text-slate-600 hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)] dark:text-slate-400 dark:hover:text-[var(--color-primary)] transition-colors" href="#">
-                    <span className="material-symbols-outlined text-[1.25rem]">history</span>
-                    <span className="text-sm font-medium">Delivery History</span>
-                </a>
-                <a className="flex items-center gap-3 rounded-lg px-4 py-3 text-slate-600 hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)] dark:text-slate-400 dark:hover:text-[var(--color-primary)] transition-colors" href="#">
-                    <span className="material-symbols-outlined text-[1.25rem]">description</span>
-                    <span className="text-sm font-medium">Templates</span>
-                </a>
-            </aside>
 
-            {/* Main Content Area */}
-            <div className="flex flex-1 flex-col gap-8">
-                {/* Header Section */}
-                <section>
-                    <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Platform Broadcast Center</h2>
-                    <p className="mt-1 text-slate-500 dark:text-slate-400">Global communication and platform-wide emergency notifications.</p>
-                </section>
-
-                <div className="grid grid-cols-1 gap-8 xl:grid-cols-3">
-                    {/* Create Broadcast Form */}
-                    <div className="xl:col-span-2 flex flex-col gap-6">
-                        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white p-6 shadow-sm dark:bg-slate-900/50">
-                            <div className="mb-6 flex items-center gap-2 border-b border-slate-100 pb-4 dark:border-slate-800">
-                                <span className="material-symbols-outlined text-[var(--color-primary)]">add_circle</span>
-                                <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">Compose New Broadcast</h3>
-                            </div>
-                            <form className="space-y-5">
-                                <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                                    <div className="space-y-2 flex flex-col">
-                                        <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Target Audience</label>
-                                        <select className="flex h-10 w-full items-center justify-between rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-3 text-sm font-medium text-slate-900 dark:text-slate-100 focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none">
-                                            <option>All Business Owners</option>
-                                            <option>All Platform Employees</option>
-                                            <option>Specific Business IDs</option>
-                                            <option>Region: North America</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Broadcast Level</label>
-                                        <div className="flex gap-2 h-10">
-                                            <button className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-[var(--color-primary)] bg-[var(--color-primary)]/10 px-3 py-2 text-xs font-bold text-[var(--color-primary)] hover:bg-[var(--color-primary)]/20 transition-colors" type="button">
-                                                <span className="material-symbols-outlined text-[1.25rem]">info</span> Normal
-                                            </button>
-                                            <button className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-xs font-bold text-slate-500 hover:border-rose-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/10 transition-colors" type="button">
-                                                <span className="material-symbols-outlined text-[1.25rem]">warning</span> Emergency
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Message Subject</label>
-                                    <input className="flex h-10 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none" placeholder="e.g. Scheduled System Maintenance for Oct 12" type="text" />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">Message Content</label>
-                                    <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-700">
-                                        <div className="flex flex-wrap items-center gap-1 border-b border-slate-200 bg-slate-50 p-2 dark:border-slate-800 dark:bg-slate-900/80">
-                                            <button className="flex items-center justify-center size-8 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-[var(--color-primary)] dark:hover:text-[var(--color-primary)] transition-colors" type="button"><span className="material-symbols-outlined text-lg">format_bold</span></button>
-                                            <button className="flex items-center justify-center size-8 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-[var(--color-primary)] dark:hover:text-[var(--color-primary)] transition-colors" type="button"><span className="material-symbols-outlined text-lg">format_italic</span></button>
-                                            <button className="flex items-center justify-center size-8 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-[var(--color-primary)] dark:hover:text-[var(--color-primary)] transition-colors" type="button"><span className="material-symbols-outlined text-lg">format_list_bulleted</span></button>
-                                            <div className="mx-2 h-4 w-px bg-slate-300 dark:bg-slate-700"></div>
-                                            <button className="flex items-center justify-center size-8 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-[var(--color-primary)] dark:hover:text-[var(--color-primary)] transition-colors" type="button"><span className="material-symbols-outlined text-lg">link</span></button>
-                                            <button className="flex items-center justify-center size-8 rounded hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-[var(--color-primary)] dark:hover:text-[var(--color-primary)] transition-colors" type="button"><span className="material-symbols-outlined text-lg">image</span></button>
-                                        </div>
-                                        <textarea className="w-full resize-y min-h-[120px] border-none bg-white p-4 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:ring-0 dark:bg-slate-950 outline-none" placeholder="Write your message here..." rows={6}></textarea>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-4 gap-4">
-                                    <div className="flex items-center gap-4">
-                                        <label className="flex items-center gap-2 cursor-pointer group">
-                                            <input className="size-4 rounded border-slate-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)] bg-slate-50 dark:bg-slate-900 dark:border-slate-700" type="checkbox" />
-                                            <span className="text-xs font-medium text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">Also send as Email</span>
-                                        </label>
-                                        <label className="flex items-center gap-2 cursor-pointer group">
-                                            <input className="size-4 rounded border-slate-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)] bg-slate-50 dark:bg-slate-900 dark:border-slate-700" type="checkbox" />
-                                            <span className="text-xs font-medium text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">Push Notification</span>
-                                        </label>
-                                    </div>
-                                    <div className="flex gap-3 w-full sm:w-auto">
-                                        <button className="flex-1 sm:flex-none justify-center rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm" type="button">Save Draft</button>
-                                        <button className="flex-1 sm:flex-none justify-center rounded-lg bg-[var(--color-primary)] px-6 py-2 text-sm font-bold text-slate-900 shadow-md shadow-[var(--color-primary)]/20 hover:brightness-105 transition-all" type="button">Send Broadcast</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        {/* Scheduled Broadcasts */}
-                        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white p-6 shadow-sm dark:bg-slate-900/50">
-                            <div className="mb-6 flex items-center justify-between">
-                                <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">Upcoming Scheduled Messages</h3>
-                                <button className="text-sm font-bold text-[var(--color-primary)] hover:underline">View All</button>
-                            </div>
-                            <div className="space-y-4">
-                                {/* Scheduled Item 1 */}
-                                <div className="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50/50 p-4 dark:border-slate-800 dark:bg-slate-800/30 hover:border-[var(--color-primary)]/30 transition-colors">
-                                    <div className="flex items-center gap-4">
-                                        <div className="flex h-14 w-12 flex-col items-center justify-center rounded-lg bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 shadow-sm">
-                                            <span className="text-[10px] font-bold uppercase tracking-wider mb-0.5">Oct</span>
-                                            <span className="text-lg font-black leading-none">15</span>
-                                        </div>
-                                        <div>
-                                            <p className="font-bold text-sm text-slate-900 dark:text-slate-100">Quarterly Performance Reports Available</p>
-                                            <p className="text-xs text-slate-500 mt-0.5">Target: <span className="font-medium text-slate-700 dark:text-slate-400">All Business Owners</span> • 09:00 AM</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-4">
-                                        <span className="hidden sm:inline-flex rounded-full bg-amber-100 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 border border-amber-500/20">Pending</span>
-                                        <button className="flex items-center justify-center size-8 rounded-full text-slate-400 hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 transition-colors">
-                                            <span className="material-symbols-outlined">more_vert</span>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {/* Scheduled Item 2 */}
-                                <div className="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50/50 p-4 dark:border-slate-800 dark:bg-slate-800/30 hover:border-slate-300 dark:hover:border-slate-600 transition-colors">
-                                    <div className="flex items-center gap-4">
-                                        <div className="flex h-14 w-12 flex-col items-center justify-center rounded-lg bg-slate-200/50 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700 shadow-sm">
-                                            <span className="text-[10px] font-bold uppercase tracking-wider mb-0.5">Oct</span>
-                                            <span className="text-lg font-black leading-none">22</span>
-                                        </div>
-                                        <div>
-                                            <p className="font-bold text-sm text-slate-900 dark:text-slate-100">Winter Season Prep Checklist</p>
-                                            <p className="text-xs text-slate-500 mt-0.5">Target: <span className="font-medium text-slate-700 dark:text-slate-400">All Employees</span> • 10:30 AM</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-4">
-                                        <span className="hidden sm:inline-flex rounded-full bg-slate-200 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-600 dark:bg-slate-800 dark:text-slate-400 border border-slate-300 dark:border-slate-700">Draft</span>
-                                        <button className="flex items-center justify-center size-8 rounded-full text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
-                                            <span className="material-symbols-outlined">more_vert</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div className="flex items-center gap-4 relative z-10">
+                    <div className="flex items-center gap-2 p-1 bg-black/30 rounded-xl border border-[var(--border-muted)]">
+                        {(["compose", "archives"] as const).map((mode) => (
+                            <button
+                                key={mode}
+                                onClick={() => setViewMode(mode)}
+                                className={`px-5 py-2 rounded-lg text-[9px] font-black uppercase tracking-[0.2em] transition-all ${viewMode === mode ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20" : "text-[var(--text-muted)] hover:text-white"}`}
+                            >
+                                {mode}
+                            </button>
+                        ))}
                     </div>
-
-                    {/* Right Sidebar: History & Metrics */}
-                    <div className="flex flex-col gap-6">
-                        <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white p-6 shadow-sm dark:bg-slate-900/50">
-                            <h3 className="mb-6 text-lg font-bold text-slate-900 dark:text-slate-100">Recent Notifications</h3>
-                            <div className="space-y-6">
-                                {/* History Item 1 */}
-                                <div className="relative pl-6 before:absolute before:left-0 before:top-2 before:h-full before:w-px before:bg-slate-200 dark:before:bg-slate-800 last:before:hidden">
-                                    <span className="absolute left-[-4px] top-1.5 h-2 w-2 rounded-full bg-[var(--color-primary)] ring-4 ring-white dark:ring-slate-900/50"></span>
-                                    <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Sent 2 hours ago</p>
-                                    <p className="mt-1 text-sm font-bold text-slate-900 dark:text-slate-100">Emergency Server Downtime Notice</p>
-                                    <div className="mt-3 flex items-center justify-between rounded-lg bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/10 p-3">
-                                        <div>
-                                            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Read Rate</p>
-                                            <p className="text-lg font-black text-[var(--color-primary)]">94.2%</p>
-                                        </div>
-                                        <div className="text-right">
-                                            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Recipients</p>
-                                            <p className="text-sm font-bold text-slate-700 dark:text-slate-300">1,204</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* History Item 2 */}
-                                <div className="relative pl-6 before:absolute before:left-0 before:top-2 before:h-full before:w-px before:bg-slate-200 dark:before:bg-slate-800 last:before:hidden">
-                                    <span className="absolute left-[-4px] top-1.5 h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600 ring-4 ring-white dark:ring-slate-900/50"></span>
-                                    <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Sent Oct 09, 2023</p>
-                                    <p className="mt-1 text-sm font-bold text-slate-900 dark:text-slate-100">Update: New Spa Booking Features</p>
-                                    <div className="mt-3 flex items-center justify-between rounded-lg bg-slate-50 p-3 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                                        <div>
-                                            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Read Rate</p>
-                                            <p className="text-lg font-black text-slate-700 dark:text-slate-300">76.8%</p>
-                                        </div>
-                                        <div className="text-right">
-                                            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Recipients</p>
-                                            <p className="text-sm font-bold text-slate-700 dark:text-slate-300">892</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* History Item 3 */}
-                                <div className="relative pl-6 before:absolute before:left-0 before:top-2 before:h-full before:w-px before:bg-slate-200 dark:before:bg-slate-800 last:before:hidden">
-                                    <span className="absolute left-[-4px] top-1.5 h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600 ring-4 ring-white dark:ring-slate-900/50"></span>
-                                    <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Sent Oct 05, 2023</p>
-                                    <p className="mt-1 text-sm font-bold text-slate-900 dark:text-slate-100">Platform Maintenance Completed</p>
-                                    <div className="mt-3 flex items-center justify-between rounded-lg bg-slate-50 p-3 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-                                        <div>
-                                            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Read Rate</p>
-                                            <p className="text-lg font-black text-slate-700 dark:text-slate-300">62.1%</p>
-                                        </div>
-                                        <div className="text-right">
-                                            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Recipients</p>
-                                            <p className="text-sm font-bold text-slate-700 dark:text-slate-300">1,150</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button className="mt-6 w-full rounded-lg border border-[var(--color-primary)]/20 py-2.5 text-sm font-bold text-[var(--color-primary)] hover:bg-[var(--color-primary)]/5 transition-colors">View Full Analytics</button>
-                        </div>
-
-                        {/* System Status Card */}
-                        <div className="rounded-xl bg-slate-900 p-6 text-white shadow-lg relative overflow-hidden group">
-                            <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)]/10 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
-                            <div className="relative z-10">
-                                <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--color-primary)]">
-                                    <span className="flex h-2 w-2 animate-pulse rounded-full bg-[var(--color-primary)] ring-2 ring-[var(--color-primary)]/30"></span>
-                                    System Reach
-                                </h3>
-                                <div className="mt-5 grid grid-cols-2 gap-4">
-                                    <div>
-                                        <p className="text-3xl font-black text-white">4.8k</p>
-                                        <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-1">Total Users</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-3xl font-black text-white">12</p>
-                                        <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-1">Active Nodes</p>
-                                    </div>
-                                </div>
-                                <div className="mt-6 flex flex-col gap-2">
-                                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-800">
-                                        <div className="h-full w-4/5 bg-[var(--color-primary)] rounded-full"></div>
-                                    </div>
-                                    <p className="text-[11px] font-medium text-slate-400">Network load within optimal parameters</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
+                    <button className="px-6 py-2.5 rounded-xl bg-white text-black text-[9px] font-black uppercase tracking-[0.2em] shadow-xl hover:scale-[1.05] active:scale-[0.98] transition-all flex items-center gap-2 group/ledger">
+                         <span className="material-symbols-outlined text-sm">auto_stories</span>
+                         Recruitment Ledger
+                    </button>
                 </div>
             </div>
-        </main>
+
+            <AnimatePresence mode="wait">
+                {viewMode === "compose" ? (
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="grid grid-cols-1 xl:grid-cols-12 gap-8"
+                    >
+                        {/* Composer Section */}
+                        <div className="xl:col-span-8 space-y-8">
+                            <div className="rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-10 backdrop-blur-md shadow-sm relative overflow-hidden group">
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-primary)] opacity-[0.03] rounded-full blur-[80px] pointer-events-none" />
+                                
+                                <form onSubmit={handleSend} className="space-y-8 relative z-10">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div className="space-y-3">
+                                            <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2 italic">Audience Spectrum</label>
+                                            <div className="relative group/sel">
+                                                <select 
+                                                    title="Target Audience"
+                                                    aria-label="Target Audience Selection"
+                                                    value={audience} 
+                                                    onChange={e => setAudience(e.target.value)} 
+                                                    className="w-full h-14 bg-black/20 border border-[var(--border-muted)] rounded-2xl px-6 text-[11px] font-black text-white uppercase tracking-widest outline-none appearance-none hover:border-[var(--color-primary)]/40 transition-all cursor-pointer"
+                                                >
+                                                    <option>All Collective Nodes</option>
+                                                    <option>Legacy Tiers Only</option>
+                                                    <option>High-Yield Vessels</option>
+                                                    <option>Fragment: North Celestial</option>
+                                                </select>
+                                                <span className="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] group-hover/sel:text-[var(--color-primary)] pointer-events-none transition-colors italic">unfold_more</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-3">
+                                            <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2 italic">Intensity Level</label>
+                                            <div className="flex gap-4 h-14">
+                                                <button 
+                                                    type="button"
+                                                    onClick={() => setIntensity("SERENE")}
+                                                    className={`flex-1 flex items-center justify-center gap-3 rounded-2xl border transition-all text-[9px] font-black uppercase tracking-widest ${intensity === "SERENE" ? "bg-[var(--color-primary)]/10 border-[var(--color-primary)]/40 text-[var(--color-primary)] shadow-sm" : "bg-black/20 border-[var(--border-muted)] text-[var(--text-muted)] hover:border-[var(--color-primary)]/20 hover:text-white"}`}
+                                                >
+                                                    <span className="material-symbols-outlined text-lg">waves</span> Serene
+                                                </button>
+                                                <button 
+                                                    type="button"
+                                                    onClick={() => setIntensity("URGENT")}
+                                                    className={`flex-1 flex items-center justify-center gap-3 rounded-2xl border transition-all text-[9px] font-black uppercase tracking-widest ${intensity === "URGENT" ? "bg-rose-500/10 border-rose-500/40 text-rose-500 shadow-sm" : "bg-black/20 border-[var(--border-muted)] text-[var(--text-muted)] hover:border-rose-500/20 hover:text-rose-500"}`}
+                                                >
+                                                    <span className="material-symbols-outlined text-lg">potted_plant</span> Urgent
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2 italic">Transmission Subject</label>
+                                        <input 
+                                            value={subject}
+                                            onChange={e => setSubject(e.target.value)}
+                                            placeholder="Archetype Synchronization..."
+                                            className="w-full h-14 bg-black/20 border border-[var(--border-muted)] rounded-2xl px-6 text-sm font-serif font-bold text-white italic outline-none hover:border-[var(--color-primary)]/40 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all"
+                                        />
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2 italic">Signal Content</label>
+                                        <div className="rounded-[2rem] border border-[var(--border-muted)] bg-black/10 overflow-hidden focus-within:border-[var(--color-primary)]/40 transition-all p-1">
+                                            <div className="flex items-center gap-2 p-3 border-b border-[var(--border-muted)]/50">
+                                                {["format_bold", "format_italic", "format_list_bulleted", "link", "attachment"].map((icon) => (
+                                                    <button key={icon} type="button" className="p-2 rounded-lg hover:bg-white/5 text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-all">
+                                                        <span className="material-symbols-outlined text-lg font-bold">{icon}</span>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                            <textarea 
+                                                value={content}
+                                                onChange={e => setContent(e.target.value)}
+                                                rows={8}
+                                                placeholder="Begin transmission of platform insights..."
+                                                className="w-full bg-transparent p-6 text-base font-serif font-medium text-white/80 italic outline-none resize-none leading-relaxed"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-[var(--border-muted)]/50">
+                                        <div className="flex items-center gap-6">
+                                            <div className="flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--color-primary)] cursor-pointer transition-colors group/opt">
+                                                <span className="material-symbols-outlined text-lg font-bold">schedule</span>
+                                                <span className="text-[8px] font-black uppercase tracking-widest italic border-b border-transparent group-hover/opt:border-current">Delayed Broadcast</span>
+                                            </div>
+                                            <div className="flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--color-primary)] cursor-pointer transition-colors group/opt">
+                                                <span className="material-symbols-outlined text-lg font-bold">visibility</span>
+                                                <span className="text-[8px] font-black uppercase tracking-widest italic border-b border-transparent group-hover/opt:border-current">Signal Preview</span>
+                                            </div>
+                                        </div>
+
+                                        <button 
+                                            disabled={!subject.trim() || !content.trim()}
+                                            className={`px-10 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] transition-all flex items-center gap-3 shadow-xl ${sent ? "bg-emerald-500 text-white" : "bg-white text-black hover:scale-[1.05] active:scale-[0.98] disabled:opacity-30 disabled:hover:scale-100"}`}
+                                        >
+                                            {sent ? (
+                                                <>Signal Dispersed <span className="material-symbols-outlined text-base">task_alt</span></>
+                                            ) : (
+                                                <>Initiate Broadcast <span className="material-symbols-outlined text-lg font-black group-hover:translate-x-1 transition-transform italic">sensors</span></>
+                                            )}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        {/* Quick Metrics sidebar */}
+                        <div className="xl:col-span-4 space-y-8">
+                             <div className="rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm backdrop-blur-md relative overflow-hidden group">
+                                <h3 className="text-xl font-serif font-bold text-white italic mb-8 border-b border-[var(--border-muted)] pb-5">Signal Resonance</h3>
+                                <div className="space-y-8">
+                                    <ResonanceCard label="Total Reach" value="1,248" sub="Global Nodes" icon="groups_3" />
+                                    <ResonanceCard label="Engagement" value="94.2%" sub="Sync Rate" icon="query_stats" />
+                                    <ResonanceCard label="Signal Health" value="Optimal" sub="Low Latency" icon="verified" />
+                                </div>
+                             </div>
+
+                             <div className="rounded-[2rem] border-2 border-dashed border-[var(--border-muted)] p-10 flex flex-col items-center text-center gap-6 hover:border-[var(--color-primary)]/40 transition-all hover:bg-[var(--color-primary)]/[0.02]">
+                                <div className="size-16 rounded-full bg-white/5 flex items-center justify-center text-[var(--color-primary)] shadow-inner">
+                                    <span className="material-symbols-outlined text-3xl font-bold">bolt</span>
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-serif font-black text-white italic">Urgent Override</h4>
+                                    <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1 italic">Bypass standard distribution cycles for immediate node alert.</p>
+                                </div>
+                                <button className="w-full py-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-[9px] font-black uppercase tracking-[0.2em] hover:bg-rose-500/20 transition-all">
+                                    Activate High-Intensity Signal
+                                </button>
+                             </div>
+                        </div>
+                    </motion.div>
+                ) : (
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        className="rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 overflow-hidden shadow-sm backdrop-blur-md"
+                    >
+                        <div className="p-10 border-b border-[var(--border-muted)] flex justify-between items-center bg-black/10">
+                            <div className="space-y-1">
+                                <h3 className="text-xl font-serif font-bold text-white italic">Transmission Archives</h3>
+                                <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 italic">Historical mapping of platform communication resonance.</p>
+                            </div>
+                            <div className="flex gap-4">
+                                <button className="px-5 py-2.5 rounded-xl border border-[var(--border-muted)] bg-black/20 text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] hover:text-white transition-all">
+                                    Filter by Audience
+                                </button>
+                                <button className="px-5 py-2.5 rounded-xl border border-[var(--border-muted)] bg-black/20 text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] hover:text-white transition-all">
+                                    Export Logs
+                                </button>
+                            </div>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="w-full">
+                                <thead>
+                                    <tr className="border-b border-[var(--border-muted)]/50 bg-black/5">
+                                        {["Signal Spectrum", "Target Hub", "Impact", "Timing", "Status", "Actions"].map((h) => (
+                                            <th key={h} className="px-10 py-5 text-left text-[8px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-50 italic">{h}</th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-[var(--border-muted)]/50 text-white">
+                                    {broadcasts.map((b) => (
+                                        <tr key={b.id} className="hover:bg-white/[0.02] transition-colors group">
+                                            <td className="px-10 py-6">
+                                                <div className="flex items-center gap-5">
+                                                    <div className="size-10 rounded-xl bg-[var(--bg-surface-muted)]/20 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] group-hover:scale-110 group-hover:-rotate-6 transition-transform">
+                                                        <span className="material-symbols-outlined text-xl font-black italic">{b.intensity === 'URGENT' ? 'bolt' : 'sensors'}</span>
+                                                    </div>
+                                                    <span className="text-sm font-serif font-bold italic group-hover:text-[var(--color-primary)] transition-colors">{b.subject}</span>
+                                                </div>
+                                            </td>
+                                            <td className="px-10 py-6 text-[10px] font-black text-white/40 uppercase tracking-widest italic">{b.audience}</td>
+                                            <td className="px-10 py-6">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-[10px] font-black italic text-[var(--color-primary)]">{b.reach}</span>
+                                                    <span className="text-[8px] font-black text-white/20 uppercase tracking-widest italic">Recipients</span>
+                                                </div>
+                                            </td>
+                                            <td className="px-10 py-6 text-[10px] font-black text-white/50 italic">{formatDateTime(b.createdAt)}</td>
+                                            <td className="px-10 py-6">
+                                                <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[7px] font-black uppercase tracking-widest shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+                                                    {b.status}
+                                                </span>
+                                            </td>
+                                            <td className="px-10 py-6">
+                                                <button className="p-2 h-9 w-9 rounded-xl bg-black/20 border border-white/5 text-[var(--text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]/40 transition-all">
+                                                    <span className="material-symbols-outlined text-sm italic">open_in_new</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+}
+
+function ResonanceCard({ label, value, sub, icon }: { label: string, value: string, sub: string, icon: string }) {
+    return (
+        <div className="flex items-center gap-5 group cursor-default">
+            <div className="size-14 rounded-2xl bg-black/20 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-inner">
+                <span className="material-symbols-outlined text-2xl font-black italic">{icon}</span>
+            </div>
+            <div className="flex flex-col gap-0.5">
+                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-30 italic leading-none">{label}</p>
+                <h4 className="text-2xl font-serif font-black text-white italic tracking-tighter leading-none">{value}</h4>
+                <p className="text-[10px] font-bold text-[var(--color-primary)] opacity-60 italic leading-none mt-1">{sub}</p>
+            </div>
+        </div>
     );
 }

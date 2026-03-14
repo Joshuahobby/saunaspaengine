@@ -15,7 +15,7 @@ export default async function ReceiptPage({ params }: { params: Promise<{ id: st
                         </span>
                     </div>
                     <div>
-                        <h3 className="font-bold text-slate-900 dark:text-slate-100">
+                        <h3 className="font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">
                             Booking Confirmed
                         </h3>
                         <p className="text-sm font-medium text-primary">
@@ -40,7 +40,7 @@ export default async function ReceiptPage({ params }: { params: Promise<{ id: st
                     <div className="mb-4 text-primary">
                         <SpaIndicator />
                     </div>
-                    <h2 className="mb-1 text-2xl font-black text-slate-900 dark:text-slate-100">
+                    <h2 className="mb-1 text-2xl font-black text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">
                         Sauna SPA Engine
                     </h2>
                     <p className="text-sm text-slate-500">123 Wellness Blvd, Cloud City</p>
@@ -50,7 +50,7 @@ export default async function ReceiptPage({ params }: { params: Promise<{ id: st
                         <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
                             Receipt Number
                         </p>
-                        <p className="font-mono text-lg font-bold text-slate-900 dark:text-slate-100">
+                        <p className="font-mono text-lg font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">
                             #REC-{id || "8492-B7X"}
                         </p>
                     </div>
@@ -63,7 +63,7 @@ export default async function ReceiptPage({ params }: { params: Promise<{ id: st
                             <span className="text-[10px] font-bold uppercase tracking-wider">
                                 Date & Time
                             </span>
-                            <span className="font-medium text-slate-900 dark:text-slate-100">
+                            <span className="font-medium text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">
                                 Oct 24, 2023 • 14:30 PM
                             </span>
                         </div>
@@ -71,7 +71,7 @@ export default async function ReceiptPage({ params }: { params: Promise<{ id: st
                             <span className="text-[10px] font-bold uppercase tracking-wider">
                                 Client
                             </span>
-                            <span className="font-medium text-slate-900 dark:text-slate-100">
+                            <span className="font-medium text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">
                                 John Doe
                             </span>
                         </div>
@@ -83,10 +83,10 @@ export default async function ReceiptPage({ params }: { params: Promise<{ id: st
                     <div className="flex flex-col gap-4">
                         <div className="flex justify-between items-start">
                             <div>
-                                <p className="font-bold text-slate-900 dark:text-slate-100">Traditional Finnish Sauna</p>
+                                <p className="font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Traditional Finnish Sauna</p>
                                 <p className="text-sm text-slate-500">60 Min Session</p>
                             </div>
-                            <p className="font-bold text-slate-900 dark:text-slate-100">RWF 45,000</p>
+                            <p className="font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">RWF 45,000</p>
                         </div>
                     </div>
 
@@ -102,7 +102,7 @@ export default async function ReceiptPage({ params }: { params: Promise<{ id: st
                             <span>Tax (18%)</span>
                             <span>RWF 8,100</span>
                         </div>
-                        <div className="mt-2 flex justify-between text-lg font-black text-slate-900 dark:text-slate-100">
+                        <div className="mt-2 flex justify-between text-lg font-black text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">
                             <span>Total Paid</span>
                             <span className="text-primary">RWF 53,100</span>
                         </div>

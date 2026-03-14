@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sauna SPA Engine - Digitize Your Spa Operations</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#0fd4e6",
+              "background-light": "#f6f8f8",
+              "background-dark": "#102022",
+              "teal-900": "#0d1a1c",
+              "teal-700": "#2a4d50",
+              "teal-500": "#4b949b",
+              "teal-100": "#e7f2f3",
+            },
+            fontFamily: {
+              "display": ["Newsreader", "serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Newsreader', serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-teal-900 dark:text-slate-100">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-teal-100 dark:border-teal-900 px-10 py-4 bg-background-light/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4 text-teal-900 dark:text-primary">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg text-teal-900">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<h2 class="text-teal-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-[-0.015em]">Sauna SPA Engine</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-teal-900 dark:text-slate-200 text-sm font-medium hover:text-primary transition-colors" href="#">Features</a>
+<a class="text-teal-900 dark:text-slate-200 text-sm font-medium hover:text-primary transition-colors" href="#">Solutions</a>
+<a class="text-teal-900 dark:text-slate-200 text-sm font-medium hover:text-primary transition-colors" href="#">Pricing</a>
+<a class="text-teal-900 dark:text-slate-200 text-sm font-medium hover:text-primary transition-colors" href="#">About</a>
+</nav>
+<div class="flex gap-3">
+<button class="flex min-w-[100px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-teal-100 dark:bg-teal-900 text-teal-900 dark:text-slate-100 text-sm font-bold transition-all hover:bg-teal-200">
+<span>Login</span>
+</button>
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-teal-900 text-sm font-bold transition-all hover:opacity-90 shadow-lg shadow-primary/20">
+<span>Get Started</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-1">
+<!-- Hero Section -->
+<div class="px-4 md:px-20 lg:px-40 py-12 md:py-20">
+<div class="flex flex-col gap-10 @container">
+<div class="flex flex-col gap-8 lg:flex-row lg:items-center">
+<div class="flex flex-col gap-6 lg:w-1/2">
+<div class="flex flex-col gap-4">
+<h1 class="text-teal-900 dark:text-slate-100 text-5xl md:text-7xl font-black leading-[1.1] tracking-tight">
+                                    Digitize Your <br/><span class="text-primary italic">Spa Operations</span>
+</h1>
+<p class="text-teal-700 dark:text-slate-300 text-lg md:text-xl font-normal leading-relaxed max-w-[540px]">
+                                    Revolutionize your wellness business with QR check-ins, real-time analytics, and automated multi-branch management.
+                                </p>
+</div>
+<div class="flex flex-wrap gap-4">
+<button class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-primary text-teal-900 text-lg font-bold shadow-xl shadow-primary/30 transition-transform hover:scale-105">
+                                    Get Started
+                                </button>
+<button class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-teal-100 dark:bg-teal-900 text-teal-900 dark:text-slate-100 text-lg font-bold border border-teal-200 dark:border-teal-800 transition-colors hover:bg-teal-200">
+                                    Watch Demo
+                                </button>
+</div>
+</div>
+<div class="lg:w-1/2 relative">
+<div class="w-full aspect-[4/3] bg-teal-100 rounded-3xl overflow-hidden shadow-2xl">
+<img alt="Luxury Spa Interior" class="w-full h-full object-cover" data-alt="Modern minimalist luxury spa treatment room with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD377Rw1J3jJ50DFdv7DI9VFckbkX50HKLF-0MQoJ6UG7ZM7QXD5QnskGKx85GT7bGeapAnHwaf71_gIMa8Bn1IKNC9fmzjuWNDeiAOSqrfbQz-ihSJCxIBr1vXCAFeQ5_K_UuDdV43xr0rXle25Eyed_UiZBa4xqMi2gpUSnL6PGmkEGPq1aM2yw7UoZVN9BqvRbnVM0GFW4wzaEQms1Ok-WLoaHi6O6u2PFUCwzG_GcllwK7ks9mQhEtTATcLd2-kjcqhRPM2-B8S"/>
+</div>
+<!-- Floating Card Element -->
+<div class="absolute -bottom-6 -left-6 bg-white dark:bg-teal-900 p-6 rounded-2xl shadow-xl border border-teal-100 dark:border-teal-800 flex items-center gap-4">
+<div class="size-12 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">qr_code_2</span>
+</div>
+<div>
+<p class="text-sm font-bold text-teal-900 dark:text-slate-100">Live Check-ins</p>
+<p class="text-xs text-teal-500 font-medium">124 users today</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Social Proof / Trusted By -->
+<section class="bg-teal-100/30 dark:bg-teal-900/10 py-12">
+<h4 class="text-teal-500 text-sm font-bold uppercase tracking-widest px-4 py-2 text-center mb-8">Trusted by world-class wellness brands</h4>
+<div class="max-w-[1200px] mx-auto px-4 grid grid-cols-2 md:grid-cols-5 gap-8 items-center opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+<div class="flex justify-center">
+<div class="h-12 w-32 bg-teal-500/20 rounded-lg flex items-center justify-center font-bold text-teal-700">AURA SPA</div>
+</div>
+<div class="flex justify-center">
+<div class="h-12 w-32 bg-teal-500/20 rounded-lg flex items-center justify-center font-bold text-teal-700">ZENITH</div>
+</div>
+<div class="flex justify-center">
+<div class="h-12 w-32 bg-teal-500/20 rounded-lg flex items-center justify-center font-bold text-teal-700">LUMINA</div>
+</div>
+<div class="flex justify-center">
+<div class="h-12 w-32 bg-teal-500/20 rounded-lg flex items-center justify-center font-bold text-teal-700">SOOTHE</div>
+</div>
+<div class="flex justify-center">
+<div class="h-12 w-32 bg-teal-500/20 rounded-lg flex items-center justify-center font-bold text-teal-700">VITALITY</div>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="px-4 md:px-40 py-24">
+<div class="flex flex-col gap-12 @container">
+<div class="flex flex-col gap-4 text-center items-center">
+<h2 class="text-teal-900 dark:text-slate-100 text-4xl md:text-5xl font-black leading-tight max-w-[800px]">
+                            Powerful Features for <span class="text-teal-500">Modern Wellness</span>
+</h2>
+<p class="text-teal-700 dark:text-slate-400 text-lg font-normal leading-normal max-w-[720px]">
+                            Everything you need to run your spa enterprise efficiently in one integrated platform.
+                        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1 -->
+<div class="group flex flex-col gap-6 rounded-2xl border border-teal-100 dark:border-teal-800 bg-white dark:bg-teal-900/40 p-8 transition-all hover:shadow-2xl hover:-translate-y-2">
+<div class="size-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-teal-900 transition-colors">
+<span class="material-symbols-outlined text-3xl">qr_code_scanner</span>
+</div>
+<div class="flex flex-col gap-3">
+<h3 class="text-teal-900 dark:text-slate-100 text-2xl font-bold leading-tight">Instant QR Validation</h3>
+<p class="text-teal-700 dark:text-slate-400 text-base font-normal leading-relaxed">
+                                    Speed up check-ins with secure, instant QR code scanning for memberships and day passes. No more front desk queues.
+                                </p>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="group flex flex-col gap-6 rounded-2xl border border-teal-100 dark:border-teal-800 bg-white dark:bg-teal-900/40 p-8 transition-all hover:shadow-2xl hover:-translate-y-2">
+<div class="size-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-teal-900 transition-colors">
+<span class="material-symbols-outlined text-3xl">bar_chart_4_bars</span>
+</div>
+<div class="flex flex-col gap-3">
+<h3 class="text-teal-900 dark:text-slate-100 text-2xl font-bold leading-tight">Enterprise Reporting</h3>
+<p class="text-teal-700 dark:text-slate-400 text-base font-normal leading-relaxed">
+                                    Gain deep insights with real-time analytics on occupancy, revenue, and staff performance across all departments.
+                                </p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="group flex flex-col gap-6 rounded-2xl border border-teal-100 dark:border-teal-800 bg-white dark:bg-teal-900/40 p-8 transition-all hover:shadow-2xl hover:-translate-y-2">
+<div class="size-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-teal-900 transition-colors">
+<span class="material-symbols-outlined text-3xl">account_tree</span>
+</div>
+<div class="flex flex-col gap-3">
+<h3 class="text-teal-900 dark:text-slate-100 text-2xl font-bold leading-tight">Multi-Branch Sync</h3>
+<p class="text-teal-700 dark:text-slate-400 text-base font-normal leading-relaxed">
+                                    Manage multiple locations from a single dashboard with centralized control and synchronized customer profiles.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="bg-teal-100/20 dark:bg-teal-900/20 py-24 px-4 md:px-40">
+<div class="flex flex-col gap-12">
+<div class="text-center flex flex-col gap-4">
+<h2 class="text-teal-900 dark:text-slate-100 text-4xl md:text-5xl font-black">Simple, Transparent Pricing</h2>
+<p class="text-teal-700 dark:text-slate-400 text-lg">Choose the perfect plan for your business size.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Basic -->
+<div class="bg-white dark:bg-teal-900 rounded-3xl p-8 border border-teal-100 dark:border-teal-800 flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<h4 class="text-teal-500 font-bold uppercase tracking-widest text-sm">Basic</h4>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-black text-teal-900 dark:text-slate-100">$99</span>
+<span class="text-teal-500 text-sm font-medium">/month</span>
+</div>
+<p class="text-teal-700 dark:text-slate-400 text-sm">For single location boutique spas.</p>
+</div>
+<ul class="flex flex-col gap-4">
+<li class="flex items-center gap-3 text-teal-900 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+                                    Up to 500 Check-ins/mo
+                                </li>
+<li class="flex items-center gap-3 text-teal-900 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+                                    Basic QR Scanner
+                                </li>
+<li class="flex items-center gap-3 text-teal-900 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+                                    Email Support
+                                </li>
+</ul>
+<button class="mt-auto w-full py-4 rounded-xl border-2 border-primary text-teal-900 dark:text-slate-100 font-bold hover:bg-primary transition-colors">Start Basic</button>
+</div>
+<!-- Pro -->
+<div class="bg-teal-900 dark:bg-teal-800 rounded-3xl p-8 border-4 border-primary flex flex-col gap-8 transform md:scale-110 relative">
+<div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-primary text-teal-900 text-xs font-black px-4 py-1 rounded-full uppercase tracking-tighter">Most Popular</div>
+<div class="flex flex-col gap-2">
+<h4 class="text-primary font-bold uppercase tracking-widest text-sm">Pro</h4>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-black text-white">$249</span>
+<span class="text-teal-300 text-sm font-medium">/month</span>
+</div>
+<p class="text-teal-200 text-sm">For growing wellness centers.</p>
+</div>
+<ul class="flex flex-col gap-4">
+<li class="flex items-center gap-3 text-teal-50">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+                                    Unlimited Check-ins
+                                </li>
+<li class="flex items-center gap-3 text-teal-50">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+                                    Advanced Analytics
+                                </li>
+<li class="flex items-center gap-3 text-teal-50">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+                                    Up to 3 Branches
+                                </li>
+<li class="flex items-center gap-3 text-teal-50">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+                                    Priority Chat Support
+                                </li>
+</ul>
+<button class="mt-auto w-full py-4 rounded-xl bg-primary text-teal-900 font-black shadow-lg shadow-primary/40 hover:opacity-90 transition-all">Go Pro</button>
+</div>
+<!-- Enterprise -->
+<div class="bg-white dark:bg-teal-900 rounded-3xl p-8 border border-teal-100 dark:border-teal-800 flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<h4 class="text-teal-500 font-bold uppercase tracking-widest text-sm">Enterprise</h4>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-black text-teal-900 dark:text-slate-100">Custom</span>
+</div>
+<p class="text-teal-700 dark:text-slate-400 text-sm">For large multi-national chains.</p>
+</div>
+<ul class="flex flex-col gap-4">
+<li class="flex items-center gap-3 text-teal-900 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+                                    White-labeled App
+                                </li>
+<li class="flex items-center gap-3 text-teal-900 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+                                    Custom API Integration
+                                </li>
+<li class="flex items-center gap-3 text-teal-900 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+                                    Dedicated Account Manager
+                                </li>
+</ul>
+<button class="mt-auto w-full py-4 rounded-xl border-2 border-teal-900 dark:border-slate-100 text-teal-900 dark:text-slate-100 font-bold hover:bg-teal-900 hover:text-white transition-colors">Contact Sales</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter Section -->
+<section class="py-24 px-4">
+<div class="max-w-[960px] mx-auto bg-teal-900 rounded-[2.5rem] p-8 md:p-16 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-12">
+<div class="flex flex-col gap-4 md:w-1/2">
+<h2 class="text-white text-4xl font-black leading-tight">Stay updated with Spa Insights</h2>
+<p class="text-teal-200 text-lg">Join 5,000+ spa owners receiving our weekly operations newsletter.</p>
+</div>
+<div class="md:w-1/2 w-full">
+<form class="flex flex-col sm:flex-row gap-3">
+<input class="flex-1 rounded-xl h-14 px-6 bg-white/10 border-white/20 text-white placeholder:text-teal-300 focus:ring-primary focus:border-primary" placeholder="Your work email" type="email"/>
+<button class="bg-primary text-teal-900 h-14 px-8 rounded-xl font-bold hover:opacity-90" type="submit">Subscribe</button>
+</form>
+<p class="text-teal-400 text-xs mt-4">We respect your privacy. Unsubscribe at any time.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-teal-950 border-t border-teal-100 dark:border-teal-900 pt-20 pb-10 px-10">
+<div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3 text-teal-900 dark:text-primary">
+<span class="material-symbols-outlined text-3xl">spa</span>
+<span class="text-xl font-bold tracking-tight dark:text-slate-100">Sauna SPA Engine</span>
+</div>
+<p class="text-teal-700 dark:text-slate-400 text-sm leading-relaxed">
+                        The ultimate operations engine for modern wellness brands. Streamline your check-ins and grow your revenue.
+                    </p>
+<div class="flex gap-4">
+<a class="size-10 rounded-full bg-teal-100 dark:bg-teal-900 flex items-center justify-center text-teal-700 dark:text-teal-300 hover:bg-primary transition-colors" href="#">
+<span class="material-symbols-outlined">public</span>
+</a>
+<a class="size-10 rounded-full bg-teal-100 dark:bg-teal-900 flex items-center justify-center text-teal-700 dark:text-teal-300 hover:bg-primary transition-colors" href="#">
+<span class="material-symbols-outlined">share</span>
+</a>
+</div>
+</div>
+<div>
+<h5 class="font-bold text-teal-900 dark:text-slate-100 mb-6">Platform</h5>
+<ul class="flex flex-col gap-4 text-sm text-teal-700 dark:text-slate-400">
+<li><a class="hover:text-primary" href="#">QR Check-in</a></li>
+<li><a class="hover:text-primary" href="#">Analytics Dash</a></li>
+<li><a class="hover:text-primary" href="#">Staff Portal</a></li>
+<li><a class="hover:text-primary" href="#">Member CRM</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-teal-900 dark:text-slate-100 mb-6">Company</h5>
+<ul class="flex flex-col gap-4 text-sm text-teal-700 dark:text-slate-400">
+<li><a class="hover:text-primary" href="#">About Us</a></li>
+<li><a class="hover:text-primary" href="#">Careers</a></li>
+<li><a class="hover:text-primary" href="#">Blog</a></li>
+<li><a class="hover:text-primary" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-teal-900 dark:text-slate-100 mb-6">Support</h5>
+<ul class="flex flex-col gap-4 text-sm text-teal-700 dark:text-slate-400">
+<li><a class="hover:text-primary" href="#">Help Center</a></li>
+<li><a class="hover:text-primary" href="#">Documentation</a></li>
+<li><a class="hover:text-primary" href="#">API Status</a></li>
+<li><a class="hover:text-primary" href="#">Contact Us</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto border-t border-teal-50 dark:border-teal-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-teal-500 text-xs">© 2024 Sauna SPA Engine Inc. All rights reserved.</p>
+<div class="flex gap-6 text-xs text-teal-500">
+<a href="#">Terms</a>
+<a href="#">Cookies</a>
+<a href="#">Security</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Manager Emergency Response Overlay - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f20d0d",
+                        "background-light": "#f8f5f5",
+                        "background-dark": "#221010",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        @keyframes pulse-red {
+            0%, 100% { background-color: rgba(242, 13, 13, 1); }
+            50% { background-color: rgba(180, 10, 10, 1); }
+        }
+        .animate-pulse-red {
+            animation: pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen overflow-hidden">
+<!-- Background Dashboard (Dimmed) -->
+<div class="fixed inset-0 z-0 opacity-20 pointer-events-none grayscale">
+<div class="p-8 grid grid-cols-4 gap-6">
+<div class="h-32 bg-primary/10 rounded-xl border border-primary/20"></div>
+<div class="h-32 bg-primary/10 rounded-xl border border-primary/20"></div>
+<div class="h-32 bg-primary/10 rounded-xl border border-primary/20"></div>
+<div class="h-32 bg-primary/10 rounded-xl border border-primary/20"></div>
+<div class="col-span-3 h-96 bg-primary/10 rounded-xl border border-primary/20"></div>
+<div class="col-span-1 h-96 bg-primary/10 rounded-xl border border-primary/20"></div>
+</div>
+</div>
+<!-- Emergency Overlay Container -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-background-dark/80 backdrop-blur-sm p-4">
+<div class="layout-content-container flex flex-col max-w-[960px] w-full bg-[#341818] rounded-xl shadow-2xl border-2 border-primary overflow-hidden">
+<!-- Pulsing Header -->
+<header class="animate-pulse-red flex items-center justify-between px-8 py-6 border-b border-primary/30">
+<div class="flex items-center gap-4 text-white">
+<span class="material-symbols-outlined text-4xl">emergency_home</span>
+<h1 class="text-3xl font-black tracking-tighter uppercase">EMERGENCY ALERT: BOX 4</h1>
+</div>
+<div class="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-full">
+<span class="material-symbols-outlined text-white">schedule</span>
+<span class="text-white font-bold">ELAPSED: 00:42</span>
+</div>
+</header>
+<div class="flex flex-col md:flex-row gap-6 p-8">
+<!-- Main Alert Info -->
+<div class="flex-1 flex flex-col gap-6">
+<div class="bg-primary/10 border border-primary/30 rounded-xl p-6 flex flex-col gap-4">
+<div class="flex items-start justify-between">
+<div>
+<p class="text-primary font-bold text-sm tracking-widest uppercase mb-1">Alert Type</p>
+<h2 class="text-3xl font-extrabold text-white">Assistance Requested</h2>
+</div>
+<span class="bg-primary text-white text-xs font-black px-3 py-1 rounded uppercase">High Priority</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-center gap-3 bg-background-dark/40 p-4 rounded-lg">
+<span class="material-symbols-outlined text-primary">person</span>
+<div>
+<p class="text-slate-400 text-xs">Employee</p>
+<p class="text-white font-bold">Therapist Sarah J.</p>
+</div>
+</div>
+<div class="flex items-center gap-3 bg-background-dark/40 p-4 rounded-lg">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<div>
+<p class="text-slate-400 text-xs">Location</p>
+<p class="text-white font-bold">Box 4 - Steam Room</p>
+</div>
+</div>
+</div>
+<div class="w-full aspect-video rounded-lg bg-cover bg-center border border-primary/20 relative group" data-alt="CCTV live feed of a modern spa hallway and steam room entrance" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAdblAi76oOlEmIRyE9fstLUsrU-u2KOh3pW9sjJ7AUwRMcwE-mS6G4OvLXgdmtX6QYoIe6d4jVWD2J3gqYHRhAeYZVafm-N6hYzaroZvY2HFel7yih54tnC2PhrfdN6Np5MPtF3yXEJS6U95W4isTFuPwDHNByw0C4Mi9Fm--MEt_TV3hO0ESMV6uFx6U__wHdPfgvIZ4ALkWm1-ZNwKAfdTuSdza85IRJyCjHXg7d_fAPTgJWrwnc7F85wDxmGIWeJQ491C6OjOe_");'>
+<div class="absolute top-4 left-4 flex items-center gap-2 bg-black/60 px-2 py-1 rounded text-[10px] text-white font-mono">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> LIVE FEED - CAM_BOX4_A
+                            </div>
+</div>
+</div>
+<!-- Direct Action Buttons -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-3 h-16 bg-primary hover:bg-primary/90 text-white rounded-xl transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-2xl font-bold">check_circle</span>
+<span class="text-lg font-black uppercase tracking-tight">Confirm I am responding</span>
+</button>
+<button class="flex items-center justify-center gap-3 h-16 bg-[#492222] hover:bg-[#5a2a2a] text-white rounded-xl border border-primary/30 transition-all">
+<span class="material-symbols-outlined text-2xl">campaign</span>
+<span class="text-lg font-black uppercase tracking-tight">Broadcast to All Staff</span>
+</button>
+<button class="col-span-full flex items-center justify-center gap-3 h-16 bg-white text-primary hover:bg-slate-100 rounded-xl transition-all shadow-xl">
+<span class="material-symbols-outlined text-3xl font-bold">local_police</span>
+<span class="text-xl font-black uppercase tracking-tighter">Call Security Immediately</span>
+</button>
+</div>
+</div>
+<!-- Live Room History Side Panel -->
+<div class="w-full md:w-80 flex flex-col gap-6">
+<div class="bg-background-dark/40 rounded-xl p-6 border border-white/10 flex flex-col gap-4">
+<h3 class="text-white font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span>
+                            Live Room History
+                        </h3>
+<div class="space-y-4">
+<div class="border-l-2 border-primary pl-4 py-1">
+<p class="text-slate-400 text-xs">Current Session</p>
+<p class="text-white font-bold">Swedish Massage (Deep Tissue)</p>
+<p class="text-primary/80 text-[10px] font-bold">Started: 14:15 (25m elapsed)</p>
+</div>
+<div class="space-y-3">
+<p class="text-slate-400 text-xs font-bold uppercase tracking-widest">Authorized Occupants</p>
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-cover bg-center" data-alt="Profile photo of female therapist Sarah" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBe9JGWirzW7OzTQh8iGKGqiMJEbEiJT-GPcla59ZHjAxGYK5rNmV8AqzpfCzZMEsWKbTUPH6r5AJTbwM6jLe7IDruLZG8v2m-eP8pElgOTqjTi-EEnNrr0YVg6No957Mpj55QgFehtQ0XTPk4vLXsdi12yxBK0q2rww9q3_NKimsnizjwy3Ti4V6Z08u_S5clm0P92sxMG1nevW7WhUhYw7NVUhrOEHIQSD_9ORKBKOIYTT7hFNJMsSirZNPAMAo-EFYAMK946qLEP");'></div>
+<div class="flex-1">
+<p class="text-white text-sm font-medium">Sarah J. (Therapist)</p>
+<p class="text-green-500 text-[10px] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Verified Badge
+                                        </p>
+</div>
+</div>
+<div class="flex items-center gap-3 opacity-60">
+<div class="size-8 rounded-full bg-slate-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm">person</span>
+</div>
+<div class="flex-1">
+<p class="text-white text-sm font-medium">M. Thompson (Client)</p>
+<p class="text-slate-400 text-[10px]">Member #8821</p>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-white/5">
+<p class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Recent Logs</p>
+<div class="text-[11px] space-y-2">
+<div class="flex justify-between">
+<span class="text-slate-500">14:15</span>
+<span class="text-white">Session Started</span>
+</div>
+<div class="flex justify-between">
+<span class="text-slate-500">14:38</span>
+<span class="text-primary font-bold italic">Panic Button Triggered</span>
+</div>
+<div class="flex justify-between">
+<span class="text-slate-500">14:39</span>
+<span class="text-white">Manager Notified</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Room Status Indicator -->
+<div class="bg-primary/20 rounded-xl p-4 border border-primary/30">
+<div class="flex justify-between items-center mb-2">
+<span class="text-white text-xs font-bold">Steam Level</span>
+<span class="text-primary text-xs font-bold">CRITICAL</span>
+</div>
+<div class="w-full bg-black/40 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[92%]"></div>
+</div>
+<p class="text-[10px] text-slate-400 mt-2">Ventilation override available in controls.</p>
+</div>
+</div>
+</div>
+<!-- Footer Meta -->
+<footer class="px-8 py-4 bg-background-dark border-t border-white/5 flex justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
+<div>Device ID: MNGR-STN-01</div>
+<div class="flex gap-4">
+<span>Protocol: RED-DELTA</span>
+<span class="text-primary font-bold">Sauna SPA Engine Security</span>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

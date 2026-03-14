@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employee Safety &amp; Panic Alerts</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-primary/20 bg-background-light dark:bg-background-dark px-6 md:px-10 py-4 sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="text-primary size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold tracking-tight">Sauna SPA Engine</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Schedule</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">Safety</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Profile</a>
+</nav>
+<div class="bg-primary/20 rounded-full p-1 border border-primary/30">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8" data-alt="Portrait of a professional employee profile" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDhs8JEhyFC8AZDjsGdiCvRt13Ws2u6QJ6hYxZa9HzVH_U3Y1OqLRzrc0DuwGImkkD3hJ8L83WISW_4oy8m0d1f_nheBpAvxppj8X2ed6cjMBTjFXjkDANgGfPpGdBZgxUnaS0yLiE0yRw1e5jhsFTwLItIR7XOnwdtmxogM8sdcZpFazSwJND85Bv802JWWjXLLGdbvCZKHn9dxh632_mTVKdVIUxaa2EPWT3bmFNubn5ayMU9pYJFuUbcftxQa-bKRLOMYS34I0lH");'></div>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col md:flex-row max-w-[1440px] mx-auto w-full">
+<!-- Sidebar Menu -->
+<aside class="w-full md:w-64 border-r border-primary/10 p-6 flex flex-col gap-6 bg-slate-50 dark:bg-slate-900/50">
+<div>
+<h1 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Employee Portal</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Security Clearance: Level 2</p>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-sm font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-primary text-white rounded-lg shadow-lg shadow-primary/20" href="#">
+<span class="material-symbols-outlined">shield_with_heart</span>
+<span class="text-sm font-medium">Safety Hub</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-sm font-medium">Messages</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-primary/10">
+<div class="bg-primary/10 rounded-xl p-4">
+<p class="text-xs font-bold text-primary uppercase tracking-wider mb-1">Status</p>
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<p class="text-sm text-slate-700 dark:text-slate-300">Connected to Security</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Content Area -->
+<section class="flex-1 p-6 md:p-12 overflow-y-auto">
+<div class="max-w-4xl mx-auto flex flex-col gap-8">
+<!-- Header Section -->
+<div class="flex flex-col gap-2">
+<h2 class="text-slate-900 dark:text-slate-100 text-4xl font-black tracking-tight">Safety &amp; Assistance</h2>
+<p class="text-slate-500 dark:text-slate-400 text-lg max-w-xl">Immediate support tools. Silent alerts and critical panic controls are available 24/7 for your protection.</p>
+</div>
+<!-- Main Safety Controls -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Silent Assistance Card -->
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 flex flex-col items-center text-center shadow-xl">
+<div class="size-20 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-4xl text-primary">record_voice_over</span>
+</div>
+<h3 class="text-2xl font-bold mb-2">Request Assistance</h3>
+<p class="text-slate-500 dark:text-slate-400 mb-8">Sends a silent notification to the management dashboard. Use for non-critical security needs or difficult guests.</p>
+<button class="w-full group relative h-20 bg-slate-100 dark:bg-slate-800 border-2 border-primary/30 hover:border-primary rounded-xl overflow-hidden transition-all active:scale-95 flex items-center justify-center">
+<span class="relative z-10 text-primary font-bold text-lg uppercase tracking-widest">Hold for 2 Seconds</span>
+<div class="absolute inset-0 bg-primary/10 w-0 group-active:w-full transition-all duration-[2000ms] ease-linear"></div>
+</button>
+<p class="mt-4 text-xs text-slate-400 italic">Discreet and silent operation</p>
+</div>
+<!-- Emergency Panic Card -->
+<div class="bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/50 rounded-2xl p-8 flex flex-col items-center text-center shadow-xl shadow-rose-500/5">
+<div class="size-20 bg-rose-500/10 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-4xl text-rose-500">warning</span>
+</div>
+<h3 class="text-2xl font-bold mb-2 text-rose-600 dark:text-rose-400">Critical Panic Alert</h3>
+<p class="text-slate-600 dark:text-slate-400 mb-8">Triggers high-priority loud alarms and notifies all security personnel. Use only in life-threatening emergencies.</p>
+<button class="w-full h-20 bg-rose-600 hover:bg-rose-700 text-white rounded-xl shadow-lg shadow-rose-600/30 flex items-center justify-center gap-3 transition-all active:scale-95">
+<span class="material-symbols-outlined font-bold">emergency_home</span>
+<span class="font-black text-xl uppercase tracking-tighter">EMERGENCY PANIC</span>
+</button>
+<p class="mt-4 text-xs text-rose-500 font-semibold uppercase">Immediate Response Protocol</p>
+</div>
+</div>
+<!-- Active Confirmation Alert (Simulated Hidden/Visible State) -->
+<div class="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-xl p-6 flex items-center gap-6 shadow-lg">
+<div class="size-14 bg-emerald-500 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-white text-3xl">check_circle</span>
+</div>
+<div class="flex-1">
+<h4 class="text-emerald-800 dark:text-emerald-400 font-bold text-xl">Assistance is on the way</h4>
+<p class="text-emerald-700/80 dark:text-emerald-500 text-sm">Security was notified at 14:42. A responder is currently en route to your location.</p>
+</div>
+<div class="text-emerald-800 dark:text-emerald-400 font-mono text-sm font-bold bg-white dark:bg-emerald-900/40 px-3 py-1 rounded border border-emerald-200">
+                                02:45
+                            </div>
+</div>
+<!-- Quick Dial Contacts -->
+<div class="flex flex-col gap-4">
+<h3 class="text-slate-900 dark:text-slate-100 text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">contact_phone</span>
+                                Emergency Quick Dial
+                            </h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<button class="flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-500">local_police</span>
+<div class="text-left">
+<p class="text-sm font-bold">Local Emergency</p>
+<p class="text-xs text-slate-500 font-mono">911</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">call</span>
+</button>
+<button class="flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">security</span>
+<div class="text-left">
+<p class="text-sm font-bold">Security Desk</p>
+<p class="text-xs text-slate-500 font-mono">EXT 404</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">call</span>
+</button>
+<button class="flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-amber-500">medical_services</span>
+<div class="text-left">
+<p class="text-sm font-bold">On-site Medic</p>
+<p class="text-xs text-slate-500 font-mono">EXT 911</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">call</span>
+</button>
+</div>
+</div>
+<!-- Map / Location Info -->
+<div class="bg-slate-100 dark:bg-slate-900/80 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
+<div class="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="font-bold">Your Current Location</span>
+</div>
+<span class="text-xs text-slate-500 font-medium">Zone: Spa West Wing, Treatment Room 14</span>
+</div>
+<div class="h-48 w-full bg-slate-200 dark:bg-slate-800 relative">
+<div class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-multiply dark:mix-blend-overlay" data-alt="Abstract floor plan of a modern building" data-location="New York City" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDncIoRpEE-HQoKQzUyfuATOFAlSShXpxK7F6Tf5Z20kUhVR1ER4GtCS9tPfmAl206I1iAruqzss6NAhOgar_FxiOWs_1G_EZTgYWvfmpS403nKUM_f6hnAZNJ4g4IuzAz-TIO6MX1v7RRqjUXeSvRJOrtgFpILwNkNV7gEePyAH4e0sPna-WGaKrT42qBWYuoBSsNGJabznWaOiTY7cC9d8gDGuXce78YXWAeItxKp288feqH2uvon5i1IXqtCgvyk0TEUMjte_VFs');"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="size-6 bg-primary rounded-full ring-8 ring-primary/20 animate-pulse relative">
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] px-2 py-1 rounded whitespace-nowrap shadow-lg">You are here</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Footer -->
+<footer class="mt-auto border-t border-primary/10 bg-white dark:bg-background-dark px-10 py-6 text-center">
+<p class="text-slate-500 text-xs font-medium">© 2024 Sauna SPA Engine. Confidential &amp; Internal Use Only. Always prioritize personal safety.</p>
+</footer>
+</div>
+</div>
+</body></html>

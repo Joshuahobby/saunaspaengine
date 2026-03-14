@@ -1,0 +1,175 @@
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d4c4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 px-6 md:px-20 py-4 bg-white dark:bg-background-dark">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-slate-100 dark:bg-slate-800">
+<div class="text-slate-500 flex items-center justify-center pl-4">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 placeholder:text-slate-400 text-sm font-normal" placeholder="Search components..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Services</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Transactions</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Inbox</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg size-10 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg size-10 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="bg-slate-200 dark:bg-slate-700 rounded-full size-10 bg-cover bg-center border-2 border-primary/20" data-alt="User profile avatar portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCs8xoFgm6VeC3pOQW4NtrpAiSumnvCnTJu0-vlYyyDCJmaQK4k-CgkuT3sFXbeAMAShKBbnFtzHdmZj1lrU3CxK7zzvwdtMb8KK_Y12QL4jDc1QEV8woBipGEI-OQUQMI-fM80b2usM8scl8j68AHlLtIhi8QibbRXZx9kGiLR1oqKO7bB6pAzJrnhTgn_lv3p3xs-pS8Jk-Vdm9QmUfCsEzSM75kq4nchr8Q_NZAys2cDom9oIWCXYwvS_Ks4waixWjRM_PKRVewK");'></div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-10 px-4">
+<div class="layout-content-container flex flex-col max-w-[1024px] flex-1">
+<!-- Header Section -->
+<div class="flex flex-col gap-2 mb-10 px-4">
+<h1 class="text-slate-900 dark:text-slate-100 text-4xl font-black leading-tight tracking-tight">Empty States &amp; Onboarding</h1>
+<p class="text-slate-500 dark:text-slate-400 text-lg font-normal max-w-2xl">
+                            A collection of guidance screens for new spa owners to help them navigate the platform and take their first business actions.
+                        </p>
+</div>
+<!-- Grid of States -->
+<div class="grid grid-cols-1 gap-12">
+<!-- 1. No Services Found -->
+<section class="bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
+<div class="flex items-center gap-3 mb-8">
+<span class="bg-primary/10 text-primary font-bold px-3 py-1 rounded-full text-xs uppercase tracking-wider">Scenario 01</span>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold">No Services Found</h2>
+</div>
+<div class="flex flex-col items-center justify-center text-center py-12 px-4">
+<div class="mb-8 relative">
+<div class="w-64 h-48 bg-gradient-to-br from-primary/10 to-primary/5 rounded-3xl flex items-center justify-center relative overflow-hidden" data-alt="Stylized illustration of a peaceful spa room">
+<span class="material-symbols-outlined text-primary/40 text-8xl">self_care</span>
+<div class="absolute bottom-4 right-4 bg-white dark:bg-slate-800 p-2 rounded-lg shadow-lg">
+<span class="material-symbols-outlined text-primary">add_circle</span>
+</div>
+</div>
+</div>
+<div class="max-w-md flex flex-col gap-3">
+<h3 class="text-slate-900 dark:text-slate-100 text-2xl font-bold tracking-tight">Let's get started!</h3>
+<p class="text-slate-500 dark:text-slate-400 text-base">
+                                        You haven't added any spa services yet. Define your offerings to start booking clients and managing your schedule.
+                                    </p>
+<div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+<button class="flex items-center justify-center gap-2 px-6 py-3 bg-primary text-slate-900 font-bold rounded-xl hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+<span>Add Your First Service</span>
+</button>
+<button class="flex items-center justify-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span>Import from CSV</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. No Recent Transactions -->
+<section class="bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
+<div class="flex items-center gap-3 mb-8">
+<span class="bg-primary/10 text-primary font-bold px-3 py-1 rounded-full text-xs uppercase tracking-wider">Scenario 02</span>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold">No Recent Transactions</h2>
+</div>
+<div class="flex flex-col items-center justify-center text-center py-12 px-4">
+<div class="mb-8">
+<div class="size-32 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-primary/30" data-alt="Minimalist calendar icon with light teal accent">
+<span class="material-symbols-outlined text-6xl">calendar_today</span>
+</div>
+</div>
+<div class="max-w-md flex flex-col gap-3">
+<h3 class="text-slate-900 dark:text-slate-100 text-2xl font-bold tracking-tight">Ready for your first client?</h3>
+<p class="text-slate-500 dark:text-slate-400 text-base">
+                                        Your transaction history will appear here once you start processing payments or checking in guests.
+                                    </p>
+<div class="mt-6">
+<button class="flex items-center justify-center gap-2 px-8 py-3 bg-primary text-slate-900 font-bold rounded-xl hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">how_to_reg</span>
+<span>Check-in a Client</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. Empty Inbox -->
+<section class="bg-white dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
+<div class="flex items-center gap-3 mb-8">
+<span class="bg-primary/10 text-primary font-bold px-3 py-1 rounded-full text-xs uppercase tracking-wider">Scenario 03</span>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold">Empty Inbox</h2>
+</div>
+<div class="flex flex-col items-center justify-center text-center py-12 px-4">
+<div class="mb-8">
+<div class="size-32 bg-slate-100 dark:bg-slate-800 rounded-2xl rotate-3 flex items-center justify-center text-primary/30" data-alt="Outline icon of an empty mailbox with soft shadows">
+<span class="material-symbols-outlined text-6xl">mail</span>
+</div>
+</div>
+<div class="max-w-md flex flex-col gap-3">
+<h3 class="text-slate-900 dark:text-slate-100 text-2xl font-bold tracking-tight">All caught up!</h3>
+<p class="text-slate-500 dark:text-slate-400 text-base">
+                                        Your inbox is currently empty. We'll notify you here about new bookings, messages, and platform updates.
+                                    </p>
+<div class="mt-6">
+<a class="inline-flex items-center gap-2 px-8 py-3 bg-slate-100 dark:bg-slate-800 text-primary font-bold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" href="#">
+<span>Go to Dashboard</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Help -->
+<footer class="mt-16 py-8 border-t border-slate-200 dark:border-slate-800 text-center">
+<p class="text-slate-500 dark:text-slate-400 text-sm">
+                            Need more help setting up? <a class="text-primary font-semibold hover:underline" href="#">Visit the Help Center</a> or <a class="text-primary font-semibold hover:underline" href="#">Watch the Tutorial</a>
+</p>
+</footer>
+</div>
+</main>
+</div>
+</div>
+</body></html>

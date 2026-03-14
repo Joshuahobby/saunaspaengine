@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sauna SPA Engine | Release Notes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(19, 236, 164, 0.2);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex flex-col min-h-screen">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 border-b border-primary/10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 lg:px-12 py-4">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-10">
+<div class="flex items-center gap-3">
+<div class="bg-primary p-2 rounded-lg">
+<span class="material-symbols-outlined text-background-dark text-2xl">spa</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight">Sauna SPA <span class="text-primary">Engine</span></h1>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Operations</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Customers</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Analytics</a>
+<a class="text-sm font-semibold text-primary" href="#">Release Notes</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="bg-primary/5 border border-primary/20 rounded-full pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="Search updates..." type="text"/>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="User profile avatar icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkiADlI5uvGu41oIim-lhE30S0cHqN2omTJ9YE7Vd7B-w7Xg915Jj5gg2TCugLC2Qqm6Y0klpR-XLDLuUH_jRCWOpPYY8pp0j3NYyao1y2_m-iPKLns1Iolsdzh9JjHs4-lPWoYeSP1T0NgN7ksCgT7hNvHVlyA_V26azSCMwY_DYBmyxHX8EohBJ1R3mOS_3qbaHJN2ZhZfJYSdof3PtLlJ4NAHQZO0SDxiwMjjbxh62RBwfp-9FIMVVUcA2jp8N1n1Wt-pzZJwUB"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-7xl mx-auto w-full px-6 lg:px-12 py-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Sidebar Filters -->
+<aside class="lg:col-span-3 space-y-8">
+<div>
+<h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Filter by Category</h2>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-primary text-background-dark font-semibold" href="#">
+<span class="material-symbols-outlined text-xl">list_alt</span>
+                                All Updates
+                            </a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl text-primary">auto_awesome</span>
+                                New Features
+                            </a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl text-blue-400">trending_up</span>
+                                Improvements
+                            </a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl text-orange-400">bug_report</span>
+                                Bug Fixes
+                            </a>
+</nav>
+</div>
+<div class="p-6 rounded-xl bg-gradient-to-br from-primary/10 to-transparent border border-primary/10">
+<h3 class="font-bold mb-2">Subscribe</h3>
+<p class="text-sm text-slate-400 mb-4">Get the latest release notes delivered to your inbox.</p>
+<input class="w-full bg-background-dark border border-primary/20 rounded-lg px-4 py-2 text-sm mb-3" placeholder="Email address" type="email"/>
+<button class="w-full bg-primary text-background-dark font-bold py-2 rounded-lg text-sm hover:brightness-110 transition-all">Join Waitlist</button>
+</div>
+</aside>
+<!-- Release Feed -->
+<div class="lg:col-span-9 space-y-16">
+<header class="mb-12">
+<h1 class="text-5xl font-black mb-4">Release Notes</h1>
+<p class="text-xl text-slate-500 max-w-2xl leading-relaxed">Everything new in the Sauna SPA Engine. We’re constantly evolving to help you manage your wellness centers with precision and ease.</p>
+</header>
+<!-- Entry 1 -->
+<article class="relative pl-12">
+<!-- Timeline Element -->
+<div class="absolute left-0 top-0 bottom-0 w-px bg-primary/20">
+<div class="absolute top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-primary ring-4 ring-primary/20"></div>
+</div>
+<div class="space-y-6">
+<div class="flex flex-wrap items-center gap-4">
+<span class="text-primary font-mono font-bold text-lg">v2.4.0</span>
+<span class="text-slate-500 text-sm">•</span>
+<span class="text-slate-500 font-medium">October 24, 2023</span>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 text-xs font-bold rounded-full uppercase tracking-wider">New Feature</span>
+<span class="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-bold rounded-full uppercase tracking-wider">Improvement</span>
+</div>
+</div>
+<h2 class="text-3xl font-extrabold tracking-tight">Advanced Scheduling Engine &amp; Thermal Zone Monitoring</h2>
+<p class="text-lg text-slate-400 leading-relaxed">
+                                Our biggest update yet. Introducing the brand new scheduling engine designed specifically for high-frequency rotation spas. Plus, monitor your thermal zones in real-time.
+                            </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 rounded-xl overflow-hidden border border-primary/10">
+<div class="aspect-video bg-slate-800 relative">
+<img alt="Dashboard Preview" class="w-full h-full object-cover opacity-80" data-alt="Modern spa interior dashboard visual representation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNgivEm9n2OhYnykSpQHVRciiOH2OmBQGd2bI9NLC7h9ZUHyRZ-35bxXTkV1Y6FRIE62fYC7qhDa3UvROTn-dvxHCZkhuI1-v9RFueOxfP2dmClrvLV3HGavBgF5SPja8O9QV2AP3qVyZ39k0I2Q5O_snXRXC6wsO_Egn0zA-VBq3BydYQ32dZHkZ6SWAW6Uq2m_3iBl1MpsTWcCVLr9ZyKRrHW0lgg2xjkMnD5tqmm13ZpQOF7eDgM9qJ6HUcuQmpEAy6Dbv2phdg"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-background-dark/80 backdrop-blur p-4 rounded-lg border border-primary/20 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">play_circle</span>
+<span class="text-sm font-semibold">Watch New UI Walkthrough</span>
+</div>
+</div>
+</div>
+<div class="aspect-video bg-slate-800">
+<img alt="UI Analytics" class="w-full h-full object-cover opacity-80" data-alt="Infographic showing thermal zone temperature monitoring charts" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_hkczMwzsszwLcSdwIAGN1w_-gB-z4AXgNrzjO_HL3DTRxHOLgQDeHXySgCuCDsLC1iigcgsfm2TI8a0Bv6-GKsTSMTS_wTRJnygKr88z1yPonOw1tVbTIix9tfXTuQM649b0x-pG5Qf2CJXBmYN-xE4sV0YXXzK886slvHlzHVB77kmqsyVJTkBQl-RXTaXYyGKBTgJiWPK-LwM4FOvSJNjpdkwiF1QNZM2MpBgNwAHN5VX0DpkRIqYbODOWiPw5yTKrc98u0fUd"/>
+</div>
+</div>
+<div class="space-y-4">
+<h3 class="font-bold text-xl">What's New:</h3>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<span class="text-slate-300"><strong>Dynamic Rotation Logic:</strong> Automatically balance customer flow between saunas and cold plunges to prevent overcrowding.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<span class="text-slate-300"><strong>IoT Integration:</strong> Direct connection to Wi-Fi enabled heaters and humidity sensors for real-time dashboard alerts.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-blue-400 mt-0.5">bolt</span>
+<span class="text-slate-300"><strong>Performance:</strong> Dashboard loading speed improved by 45% for multi-location operators.</span>
+</li>
+</ul>
+</div>
+</div>
+</article>
+<!-- Entry 2 -->
+<article class="relative pl-12">
+<div class="absolute left-0 top-0 bottom-0 w-px bg-primary/20">
+<div class="absolute top-2 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-slate-600"></div>
+</div>
+<div class="space-y-6">
+<div class="flex flex-wrap items-center gap-4">
+<span class="text-slate-400 font-mono font-bold text-lg">v2.3.5</span>
+<span class="text-slate-500 text-sm">•</span>
+<span class="text-slate-500 font-medium">October 10, 2023</span>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-orange-500/10 text-orange-400 border border-orange-500/20 text-xs font-bold rounded-full uppercase tracking-wider">Bug Fix</span>
+</div>
+</div>
+<h2 class="text-2xl font-bold tracking-tight">Automated SMS Notifications &amp; Stability Fixes</h2>
+<p class="text-slate-400 leading-relaxed">
+                                This patch addresses critical bugs in the booking notification system and introduces automated SMS reminders to reduce no-shows.
+                            </p>
+<div class="space-y-4">
+<div class="bg-primary/5 border border-primary/10 rounded-xl p-6">
+<h4 class="font-bold text-sm uppercase tracking-widest text-slate-500 mb-4">Detailed Changes:</h4>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<p class="font-semibold text-orange-400 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">bug_report</span> Fixes
+                                            </p>
+<ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+<li>Fixed an issue where "Available" status didn't update after cancellation.</li>
+<li>Corrected timezone mismatch in reservation emails.</li>
+<li>Resolved mobile app crash on checkout screen.</li>
+</ul>
+</div>
+<div class="space-y-2">
+<p class="font-semibold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span> Features
+                                            </p>
+<ul class="text-sm text-slate-400 space-y-1 list-disc list-inside">
+<li>New SMS templates for reminder alerts.</li>
+<li>Custom sender ID for Enterprise plans.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- Entry 3 -->
+<article class="relative pl-12">
+<div class="absolute left-0 top-0 bottom-0 w-px bg-primary/20">
+<div class="absolute top-2 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-slate-600"></div>
+</div>
+<div class="space-y-6">
+<div class="flex flex-wrap items-center gap-4">
+<span class="text-slate-400 font-mono font-bold text-lg">v2.3.0</span>
+<span class="text-slate-500 text-sm">•</span>
+<span class="text-slate-500 font-medium">September 28, 2023</span>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 text-xs font-bold rounded-full uppercase tracking-wider">New Feature</span>
+</div>
+</div>
+<h2 class="text-2xl font-bold tracking-tight">Multi-Currency &amp; Internationalization Support</h2>
+<p class="text-slate-400 leading-relaxed">
+                                Expanding your SPA empire globally? We've added support for 15+ currencies and localized languages including German, French, and Japanese.
+                            </p>
+</div>
+</article>
+<!-- Pagination -->
+<div class="flex items-center justify-center pt-10">
+<nav class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-primary/20 text-primary hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-background-dark font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-primary/10 hover:border-primary/40 transition-colors">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-primary/10 hover:border-primary/40 transition-colors">3</button>
+<span class="px-2 text-slate-500">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-primary/10 hover:border-primary/40 transition-colors">12</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-primary/20 text-primary hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</nav>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-20 border-t border-primary/10 bg-background-light dark:bg-background-dark py-12 px-6 lg:px-12">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="bg-primary/20 p-1.5 rounded-lg">
+<span class="material-symbols-outlined text-primary text-xl">spa</span>
+</div>
+<span class="font-bold">Sauna SPA Engine</span>
+</div>
+<div class="flex gap-8 text-sm text-slate-500">
+<a class="hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="hover:text-primary transition-colors" href="#">API Reference</a>
+<a class="hover:text-primary transition-colors" href="#">System Status</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+</div>
+<div class="flex gap-4">
+<a class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-800 hover:bg-primary/20 transition-all" href="#">
+<span class="material-symbols-outlined text-sm">alternate_email</span>
+</a>
+<a class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-800 hover:bg-primary/20 transition-all" href="#">
+<span class="material-symbols-outlined text-sm">rss_feed</span>
+</a>
+</div>
+</div>
+<div class="max-w-7xl mx-auto text-center mt-8 text-xs text-slate-600">
+                © 2023 Sauna SPA Engine. All rights reserved. Version 2.4.0 (Production)
+            </div>
+</footer>
+</div>
+</body></html>

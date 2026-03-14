@@ -11,19 +11,19 @@ export default function LoginForm() {
     );
 
     return (
-        <div className="bg-white dark:bg-slate-900/50 p-6 md:p-8 rounded-xl shadow-lg border border-[#11d4c4]/5">
-            <div className="text-center mb-8">
-                <h2 className="text-slate-900 dark:text-white text-2xl font-bold font-serif">Welcome Back</h2>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-2">Access your spa operations dashboard</p>
+        <div className="bg-[var(--bg-card)] p-8 md:p-12 rounded-[2.5rem] shadow-xl shadow-black/5 border border-[var(--border-main)]">
+            <div className="text-center mb-10">
+                <h2 className="text-[var(--text-main)] text-3xl font-black font-serif italic">Welcome <span className="not-italic text-[var(--color-primary)]">Back</span></h2>
+                <p className="text-[var(--text-muted)] text-sm mt-3 font-medium">Access your spa operations dashboard</p>
             </div>
 
             <form action={dispatch} className="space-y-5">
-                <div className="flex flex-col gap-1.5">
-                    <label className="text-slate-700 dark:text-slate-300 text-sm font-semibold ml-1">
+                <div className="flex flex-col gap-2">
+                    <label className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] ml-1">
                         Email or Username
                     </label>
-                    <div className="relative">
-                        <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">
+                    <div className="relative group">
+                        <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] text-xl transition-colors group-focus-within:text-[var(--color-primary)] font-black">
                             account_circle
                         </span>
                         <input
@@ -31,25 +31,26 @@ export default function LoginForm() {
                             type="text"
                             placeholder="Email or username"
                             required
-                            className="w-full pl-12 pr-4 py-3.5 rounded-lg border border-[#11d4c4]/20 bg-[#f6f8f7] dark:bg-[#10221c] focus:border-[#11d4c4] focus:ring-1 focus:ring-[#11d4c4] outline-none text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all font-display"
+                            autoComplete="username"
+                            className="w-full pl-12 pr-4 py-4 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-surface-muted)] focus:border-[var(--color-primary)] focus:ring-4 focus:ring-[var(--color-primary)]/10 outline-none text-[var(--text-main)] placeholder:text-[var(--text-muted)] transition-all font-bold text-sm"
                         />
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-1.5">
+                <div className="flex flex-col gap-2">
                     <div className="flex justify-between items-center px-1">
-                        <label className="text-slate-700 dark:text-slate-300 text-sm font-semibold">
+                        <label className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em]">
                             Password
                         </label>
                         <Link
                             href="/forgot-password"
-                            className="text-[#11d4c4] text-xs font-bold hover:underline"
+                            className="text-[var(--color-primary)] text-[10px] font-black uppercase tracking-widest hover:underline"
                         >
                             Forgot Password?
                         </Link>
                     </div>
-                    <div className="relative">
-                        <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">
+                    <div className="relative group">
+                        <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] text-xl transition-colors group-focus-within:text-[var(--color-primary)] font-black">
                             lock
                         </span>
                         <input
@@ -57,27 +58,28 @@ export default function LoginForm() {
                             type="password"
                             placeholder="••••••••"
                             required
-                            className="w-full pl-12 pr-4 py-3.5 rounded-lg border border-[#11d4c4]/20 bg-[#f6f8f7] dark:bg-[#10221c] focus:border-[#11d4c4] focus:ring-1 focus:ring-[#11d4c4] outline-none text-slate-900 dark:text-slate-100 placeholder:text-slate-400 transition-all font-display"
+                            autoComplete="current-password"
+                            className="w-full pl-12 pr-4 py-4 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-surface-muted)] focus:border-[var(--color-primary)] focus:ring-4 focus:ring-[var(--color-primary)]/10 outline-none text-[var(--text-main)] placeholder:text-[var(--text-muted)] transition-all font-bold"
                         />
                     </div>
                 </div>
 
                 {errorMessage && (
-                    <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-3 rounded-lg flex items-center gap-2 text-red-600 dark:text-red-400 text-sm">
-                        <span className="material-symbols-outlined text-lg">error</span>
-                        <p>{errorMessage}</p>
+                    <div className="bg-red-500/5 border border-red-500/20 p-4 rounded-xl flex items-center gap-3 text-red-500 text-sm animate-fade-in">
+                        <span className="material-symbols-outlined text-lg shrink-0">error</span>
+                        <p className="font-bold">{errorMessage}</p>
                     </div>
                 )}
 
-                <div className="flex items-center gap-2 px-1">
+                <div className="flex items-center gap-3 px-1">
                     <input
                         id="remember"
                         type="checkbox"
-                        className="rounded border-[#11d4c4]/30 text-[#11d4c4] focus:ring-[#11d4c4] bg-[#f6f8f7] dark:bg-[#10221c] cursor-pointer"
+                        className="size-5 rounded-lg border-[var(--border-muted)] text-[var(--color-primary)] focus:ring-[var(--color-primary)] bg-[var(--bg-surface-muted)] cursor-pointer accent-[var(--color-primary)]"
                     />
                     <label
                         htmlFor="remember"
-                        className="text-slate-600 dark:text-slate-400 text-sm cursor-pointer select-none"
+                        className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] cursor-pointer select-none"
                     >
                         Remember this device
                     </label>
@@ -86,21 +88,21 @@ export default function LoginForm() {
                 <button
                     type="submit"
                     disabled={isPending}
-                    className="w-full py-4 bg-[#11d4c4] hover:bg-[#11d4c4]/90 text-[#10221c] font-bold rounded-lg shadow-md shadow-[#11d4c4]/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full py-5 bg-[var(--color-primary)] hover:opacity-90 text-white font-black uppercase tracking-[0.3em] rounded-2xl shadow-2xl shadow-[var(--color-primary)]/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed mt-6 text-sm"
                 >
                     {isPending ? (
-                        <span className="size-5 border-2 border-[#10221c]/30 border-t-[#10221c] rounded-full animate-spin" />
+                        <span className="material-symbols-outlined animate-spin text-xl">progress_activity</span>
                     ) : (
                         <>
-                            <span className="material-symbols-outlined">login</span>
-                            Sign In to Dashboard
+                            <span className="material-symbols-outlined font-black">login</span>
+                            Enter Sanctuary
                         </>
                     )}
                 </button>
             </form>
 
-            <div className="mt-8 pt-6 border-t border-[#11d4c4]/10 text-center">
-                <p className="text-slate-400 text-xs flex items-center justify-center gap-2 font-display">
+            <div className="mt-8 pt-6 border-t border-[var(--border-muted)] text-center">
+                <p className="text-[var(--text-muted)] text-xs flex items-center justify-center gap-2 font-medium opacity-60">
                     <span className="material-symbols-outlined text-sm">verified_user</span>
                     256-bit Encrypted Connection
                 </p>

@@ -4,199 +4,161 @@ import React from "react";
 
 export default function RolesAndPermissionsPage() {
     return (
-        <div className="p-4 lg:p-8 w-full max-w-7xl mx-auto">
-            {/* Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b border-slate-200 dark:border-slate-800 pb-6">
-                <div>
-                    <h2 className="text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Role & Permission Matrix</h2>
-                    <p className="text-slate-500 dark:text-slate-400 mt-1">Configure access levels and administrative capabilities across your organization.</p>
+        <main className="mx-auto w-full max-w-7xl px-4 py-12 md:px-10">
+            <div className="flex flex-col gap-12">
+                {/* Header */}
+                <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+                    <div>
+                        <h1 className="text-4xl font-display font-bold leading-tight tracking-tight text-[var(--text-main)]">
+                            Access <span className="text-[var(--color-primary)] opacity-50">&</span> Permission Matrix
+                        </h1>
+                        <p className="text-lg font-bold text-[var(--text-muted)] mt-2 opacity-80">
+                            Govern the digital hierarchy of your sanctuary with precision.
+                        </p>
+                    </div>
+                    <div className="flex gap-4">
+                        <button className="flex items-center justify-center gap-3 rounded-2xl border border-[var(--border-muted)] px-6 py-4 font-bold text-[var(--text-main)] transition-all hover:bg-[var(--bg-card)]">
+                            <span className="material-symbols-outlined font-bold">history</span>
+                            Audit Trail
+                        </button>
+                        <button className="flex items-center justify-center gap-3 rounded-2xl bg-[var(--text-main)] px-8 py-4 font-bold text-[var(--bg-app)] shadow-xl shadow-[var(--text-main)]/10 transition-all hover:scale-[1.05]">
+                            <span className="material-symbols-outlined font-bold">add_moderator</span>
+                            Define New Role
+                        </button>
+                    </div>
                 </div>
-                <button className="bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-4 py-2 rounded-lg font-bold text-sm hover:opacity-90 transition-opacity flex items-center gap-2 self-start md:self-auto">
-                    <span className="material-symbols-outlined text-sm">save</span>
-                    Save Changes
-                </button>
-            </div>
 
-            {/* Quick Stats / Info */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="w-10 h-10 rounded-full bg-[rgba(19,236,164,0.1)] flex items-center justify-center text-[var(--color-primary)]">
-                            <span className="material-symbols-outlined">shield_person</span>
-                        </div>
+                {/* Quick Stats */}
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                <StatCard icon="shield_person" label="Archetypes" value="4" />
+                <StatCard icon="key" label="Active Keys" value="32" />
+                <StatCard icon="admin_panel_settings" label="Governors" value="2" />
+                <StatCard icon="security" label="Trust Level" value="Premium" />
+                </div>
+
+                {/* Roles Matrix Table */}
+                <div className="overflow-hidden rounded-[2.5rem] border border-[var(--border-muted)] bg-[var(--bg-card)] shadow-sm group/matrix">
+                    <div className="flex items-center justify-between border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10 px-10 py-8">
                         <div>
-                            <p className="text-2xl font-black text-slate-900 dark:text-slate-100">4</p>
-                            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Active Roles</p>
+                            <h2 className="text-2xl font-display font-bold text-[var(--text-main)]">Authority Configuration Matrix</h2>
+                            <p className="text-sm font-bold text-[var(--text-muted)] opacity-60 mt-1">Cross-referencing operational capabilities across archetypes.</p>
+                        </div>
+                        <div className="flex gap-4">
+                            <div className="relative group">
+                                <select title="Select Environment" className="h-12 px-6 rounded-2xl border border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/50 text-xs font-bold text-[var(--text-main)] focus:outline-none focus:ring-4 focus:ring-[var(--color-primary)]/5 focus:border-[var(--color-primary)] transition-all appearance-none pr-10">
+                                    <option>Production Environment</option>
+                                    <option>Development Sandbox</option>
+                                </select>
+                                <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] pointer-events-none text-sm font-bold">expand_more</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="overflow-x-auto">
+                        <table className="w-full border-collapse text-left">
+                            <thead className="bg-[var(--bg-surface-muted)]/5">
+                                <tr className="border-b border-[var(--border-muted)]">
+                                    <th className="px-10 py-6 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)]">Foundational Modules</th>
+                                    <th className="px-6 py-6 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-main)]">Admin</th>
+                                    <th className="px-6 py-6 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-main)]">Manager</th>
+                                    <th className="px-6 py-6 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-main)]">Receptionist</th>
+                                    <th className="px-6 py-6 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-main)]">Employee</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-[var(--border-muted)]/50">
+                                <SectionDivider label="Financial Management" />
+                                <PermissionRow module="Process Refunds" admin manager reception={false} employee={false} />
+                                <PermissionRow module="View Revenue Reports" admin manager reception={false} employee={false} />
+                                <PermissionRow module="Override Pricing" admin manager={false} reception={false} employee={false} />
+                                
+                                <SectionDivider label="Operations & Logistics" />
+                                <PermissionRow module="Cancel Bookings" admin manager reception employee={false} />
+                                <PermissionRow module="Manage Inventory" admin manager reception={false} employee={false} />
+                                <PermissionRow module="Update Equipment" admin manager reception employee />
+                                
+                                <SectionDivider label="Staff & HR" />
+                                <PermissionRow module="View Audit Logs" admin manager={false} reception={false} employee={false} />
+                                <PermissionRow module="Edit Staff Profiles" admin manager={false} reception={false} employee={false} />
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="bg-[var(--bg-surface-muted)]/10 px-10 py-8 border-t border-[var(--border-muted)]">
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                            <p className="text-xs font-bold text-[var(--text-muted)] opacity-60">Architecting the flow of authority ensuring operational excellence.</p>
+                            <button className="px-10 py-3 rounded-2xl border border-[var(--border-muted)] text-[var(--text-main)] font-bold text-sm hover:bg-[var(--bg-card)] transition-all">Reset Matrix Defaults</button>
                         </div>
                     </div>
                 </div>
-                <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800">
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400">
-                            <span className="material-symbols-outlined">rule_settings</span>
-                        </div>
-                        <div>
-                            <p className="text-2xl font-black text-slate-900 dark:text-slate-100">32</p>
-                            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Permissions</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-[var(--color-primary)] shadow-[0_0_15px_rgba(19,236,164,0.1)]">
-                    <div className="flex items-start gap-3">
-                        <div className="mt-1 text-[var(--color-primary)]">
-                            <span className="material-symbols-outlined">info</span>
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-slate-900 dark:text-slate-100 text-sm">Security Best Practice</h4>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Apply the principle of least privilege. Only grant users the permissions necessary to perform their assigned duties.</p>
-                        </div>
-                    </div>
-                </div>
             </div>
+        </main>
+    );
+}
 
-            {/* Matrix Table */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left text-sm border-collapse">
-                        <thead>
-                            <tr className="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
-                                <th className="p-4 font-bold text-slate-500 dark:text-slate-400 w-1/3">Permission Detail</th>
-                                {/* Role Headers */}
-                                <th className="p-4 text-center">
-                                    <div className="flex flex-col items-center gap-1">
-                                        <div className="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
-                                            <span className="material-symbols-outlined text-sm text-red-600">admin_panel_settings</span>
-                                        </div>
-                                        <span className="font-bold text-slate-900 dark:text-slate-100">Admin</span>
-                                    </div>
-                                </th>
-                                <th className="p-4 text-center">
-                                    <div className="flex flex-col items-center gap-1">
-                                        <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
-                                            <span className="material-symbols-outlined text-sm text-blue-600">manage_accounts</span>
-                                        </div>
-                                        <span className="font-bold text-slate-900 dark:text-slate-100">Manager</span>
-                                    </div>
-                                </th>
-                                <th className="p-4 text-center border-l-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-900/50">
-                                    <div className="flex flex-col items-center gap-1">
-                                        <div className="w-8 h-8 rounded-[12px] bg-amber-100 text-amber-600 flex items-center justify-center border-2 border-amber-600/30">
-                                            <span className="material-symbols-outlined text-sm text-amber-600">front_hand</span>
-                                        </div>
-                                        <span className="font-bold text-slate-900 dark:text-slate-100">Receptionist</span>
-                                    </div>
-                                </th>
-                                <th className="p-4 text-center bg-slate-100/50 dark:bg-slate-900/50">
-                                    <div className="flex flex-col items-center gap-1">
-                                        <div className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center justify-center">
-                                            <span className="material-symbols-outlined text-sm">engineering</span>
-                                        </div>
-                                        <span className="font-bold text-slate-900 dark:text-slate-100">Employee</span>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {/* Section 1: Financial Management */}
-                            <tr className="bg-slate-100 dark:bg-slate-800/80 border-y border-slate-200 dark:border-slate-800">
-                                <td colSpan={5} className="p-3 font-black text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest pl-4">Financial Management</td>
-                            </tr>
-                            <tr className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                <td className="p-4">
-                                    <p className="font-bold text-slate-900 dark:text-slate-100">Process Refunds</p>
-                                    <p className="text-xs text-slate-500 mt-1">Issue financial refunds to client payment methods.</p>
-                                </td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-50" /></td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center border-l-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                            </tr>
-                            <tr className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                <td className="p-4">
-                                    <p className="font-bold text-slate-900 dark:text-slate-100">View Revenue Reports</p>
-                                    <p className="text-xs text-slate-500 mt-1">Access detailed financial analytics and gross revenue data.</p>
-                                </td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-50" /></td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center border-l-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                            </tr>
-                            <tr className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                <td className="p-4">
-                                    <p className="font-bold text-slate-900 dark:text-slate-100">Override Pricing / Discounts</p>
-                                    <p className="text-xs text-slate-500 mt-1">Manually adjust prices at checkout or apply unapproved discounts.</p>
-                                </td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-50" /></td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center border-l-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-30" title="System restricted for this role" /></td>
-                            </tr>
-
-                            {/* Section 2: Operations & Logistics */}
-                            <tr className="bg-slate-100 dark:bg-slate-800/80 border-y border-slate-200 dark:border-slate-800">
-                                <td colSpan={5} className="p-3 font-black text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest pl-4">Operations & Logistics</td>
-                            </tr>
-                            <tr className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                <td className="p-4">
-                                    <p className="font-bold text-slate-900 dark:text-slate-100">Cancel / Reschedule Bookings</p>
-                                    <p className="text-xs text-slate-500 mt-1">Modify existing client appointments.</p>
-                                </td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-50" /></td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center border-l-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" defaultChecked className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                            </tr>
-                            <tr className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                <td className="p-4">
-                                    <p className="font-bold text-slate-900 dark:text-slate-100">Manage Inventory Thresholds</p>
-                                    <p className="text-xs text-slate-500 mt-1">Set low-stock alerts and create purchase orders.</p>
-                                </td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-50" /></td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center border-l-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                            </tr>
-                            <tr className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                <td className="p-4">
-                                    <p className="font-bold text-slate-900 dark:text-slate-100">Update Room/Equipment Status</p>
-                                    <p className="text-xs text-slate-500 mt-1">Mark saunas as &apos;in maintenance&apos; or &apos;cleaning required&apos;.</p>
-                                </td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-50" /></td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center border-l-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" defaultChecked className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" defaultChecked className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                            </tr>
-
-                            {/* Section 3: Staff & HR */}
-                            <tr className="bg-slate-100 dark:bg-slate-800/80 border-y border-slate-200 dark:border-slate-800">
-                                <td colSpan={5} className="p-3 font-black text-xs text-slate-500 dark:text-slate-400 uppercase tracking-widest pl-4">Staff & HR</td>
-                            </tr>
-                            <tr className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                <td className="p-4">
-                                    <p className="font-bold text-slate-900 dark:text-slate-100">View Audit Logs</p>
-                                    <p className="text-xs text-slate-500 mt-1">Access system logs of all employee actions and changes.</p>
-                                </td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-50" /></td>
-                                <td className="p-4 text-center"><input type="checkbox" className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center border-l-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-30" title="System restricted for this role" /></td>
-                                <td className="p-4 text-center bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-30" title="System restricted for this role" /></td>
-                            </tr>
-                            <tr className="border-b border-slate-100 dark:border-slate-800/50 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                                <td className="p-4">
-                                    <p className="font-bold text-slate-900 dark:text-slate-100">Edit Staff Profiles / Schedules</p>
-                                    <p className="text-xs text-slate-500 mt-1">Change employee work hours, roles, and personal details.</p>
-                                </td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-50" /></td>
-                                <td className="p-4 text-center"><input type="checkbox" defaultChecked className="w-5 h-5 accent-[var(--color-primary)] cursor-pointer" /></td>
-                                <td className="p-4 text-center border-l-2 border-dashed border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-30" title="System restricted for this role" /></td>
-                                <td className="p-4 text-center bg-slate-50/30 dark:bg-slate-900/30"><input type="checkbox" disabled className="w-5 h-5 accent-[var(--color-primary)] cursor-not-allowed opacity-30" title="System restricted for this role" /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+function StatCard({ icon, label, value }: { icon: string; label: string; value: string }) {
+    return (
+        <div className="flex flex-col items-center justify-center rounded-[2.5rem] border border-[var(--border-muted)] bg-[var(--bg-card)] p-10 text-center shadow-sm group hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 transition-all duration-700 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-primary)] opacity-[0.02] rounded-full blur-2xl -mr-16 -mt-16 group-hover:opacity-[0.05] transition-opacity"></div>
+            <div className="mb-8 flex h-20 w-20 items-center justify-center rounded-3xl bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-sm relative z-10">
+                <span className="material-symbols-outlined text-4xl font-bold text-[var(--color-primary)]">{icon}</span>
             </div>
-            <div className="mt-4 text-center hidden md:block">
-                <p className="text-xs text-slate-400">Settings automatically validate against ISO 27001 compliance criteria.</p>
+            <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40 group-hover:opacity-60 transition-opacity z-10">{label}</p>
+            <p className="text-5xl font-display font-bold text-[var(--text-main)] tracking-tighter z-10">{value}</p>
+        </div>
+    );
+}
+
+function SectionDivider({ label }: { label: string }) {
+    return (
+        <tr className="bg-[var(--bg-surface-muted)]/20 border-y border-[var(--border-muted)]">
+            <td colSpan={5} className="px-10 py-4 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-80">{label}</td>
+        </tr>
+    );
+}
+
+function PermissionRow({
+    module,
+    admin,
+    manager,
+    reception,
+    employee,
+}: {
+    module: string;
+    admin: boolean;
+    manager: boolean;
+    reception: boolean;
+    employee: boolean;
+}) {
+    return (
+        <tr className="group transition-all hover:bg-[var(--bg-surface-muted)]/10">
+            <td className="px-10 py-8 text-lg font-display font-bold text-[var(--text-main)]">
+                {module}
+            </td>
+            <td className="px-6 py-8 text-center">
+                <StatusIcon active={admin} />
+            </td>
+            <td className="px-6 py-8 text-center">
+                <StatusIcon active={manager} />
+            </td>
+            <td className="px-6 py-8 text-center">
+                <StatusIcon active={reception} />
+            </td>
+            <td className="px-6 py-8 text-center">
+                <StatusIcon active={employee} />
+            </td>
+        </tr>
+    );
+}
+
+function StatusIcon({ active }: { active: boolean }) {
+    return (
+        <div className="flex justify-center group-hover:scale-110 transition-transform duration-500">
+            <div className={`p-1.5 rounded-full border-2 ${active ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10' : 'border-[var(--border-muted)] grayscale opacity-20'}`}>
+                <div className={`flex h-8 w-8 items-center justify-center rounded-full ${active ? 'bg-[var(--color-primary)] text-[var(--bg-app)]' : 'bg-[var(--bg-surface-muted)] text-[var(--text-muted)]'}`}>
+                    {active ? (
+                        <span className="material-symbols-outlined text-sm font-bold">verified</span>
+                    ) : (
+                        <span className="material-symbols-outlined text-sm font-bold">block</span>
+                    )}
+                </div>
             </div>
         </div>
     );

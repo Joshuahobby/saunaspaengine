@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#11d4c4",
+                "background-light": "#f6f8f8",
+                "background-dark": "#102220",
+              },
+              fontFamily: {
+                "display": ["Inter", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<title>User Profile &amp; Account Preferences | Sauna SPA Engine</title>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 px-6 md:px-20 py-3 bg-white dark:bg-slate-900/50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6">
+<span class="material-symbols-outlined text-3xl">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-[-0.015em]">Sauna SPA Engine</h2>
+</div>
+<label class="hidden lg:flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full overflow-hidden">
+<div class="text-primary/70 flex border-none bg-primary/5 items-center justify-center pl-4">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none border-none bg-primary/5 focus:ring-0 h-full placeholder:text-primary/50 px-4 text-base font-normal" placeholder="Search settings" value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden md:flex items-center gap-8">
+<a class="hover:text-primary transition-colors text-sm font-medium" href="#">Dashboard</a>
+<a class="hover:text-primary transition-colors text-sm font-medium" href="#">Bookings</a>
+<a class="hover:text-primary transition-colors text-sm font-medium" href="#">Inventory</a>
+<a class="hover:text-primary transition-colors text-sm font-medium" href="#">Staff</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-slate-900 dark:text-slate-100 hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-primary/10 text-slate-900 dark:text-slate-100 hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/30" data-alt="User profile avatar of Alex Johnson" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCd9OyM_8JxwN21N-Out3XSlSEZf-XU6EGnSw_rarns1IpH8dh-aeSrUKGI2UZqxFJYQoLVWSapF7cuWS4TQv6Ab-J34zsiKlxm6lWVzrH7VUsyZE58LdIxzlKrqUiwZj-dkFpUUnqFcQ2_QntET1A99VbIkESVTbyjsWn2bUfJZPzMBDAXoO2DnYgOR4qUBZZoPCtI3LcHiy1GzE06i4FQFaR33JKifS-kkhGPb_nnlUANttcHoATk2_4yTh_MFf7QM5weRTj-So9H");'></div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-10 px-4 md:px-0">
+<div class="layout-content-container flex flex-col md:flex-row max-w-[1200px] flex-1 gap-10">
+<!-- Sidebar Navigation -->
+<aside class="w-full md:w-72 shrink-0">
+<div class="flex flex-col gap-6 sticky top-10">
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-slate-100 text-xl font-bold">Account Settings</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Manage your personal preferences</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-white shadow-lg shadow-primary/20" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-sm font-semibold">Personal Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">display_settings</span>
+<span class="text-sm font-medium">Interface Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">notifications_active</span>
+<span class="text-sm font-medium">Notification Preferences</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">security</span>
+<span class="text-sm font-medium">Security &amp; Privacy</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-primary/10 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-primary transition-colors">payments</span>
+<span class="text-sm font-medium">Billing &amp; Subscription</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col gap-12">
+<!-- Page Title -->
+<div class="flex flex-col gap-2">
+<h2 class="text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100">My Account &amp; Preferences</h2>
+<p class="text-slate-500 dark:text-slate-400 max-w-2xl">Control how your account looks and feels. Manage your profile, notifications, and accessibility settings for the best experience.</p>
+</div>
+<!-- Section: Personal Profile -->
+<section class="bg-white dark:bg-slate-900/40 rounded-2xl border border-primary/10 p-8">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">account_circle</span>
+                                    Personal Profile
+                                </h3>
+<button class="px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary font-bold text-sm rounded-lg transition-all">Save Changes</button>
+</div>
+<div class="flex flex-col @[520px]:flex-row gap-8 items-start @[520px]:items-center">
+<div class="relative group">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-32 w-32 border-4 border-primary/20" data-alt="High resolution profile photo of Alex Johnson" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBgGSgjuNRK5cQNztjWY1vh7W3QkXrj9bE_-27Y7SBu4Ct08pdgUNrlCU7yT19pxu_vw_fHByW3rbpBAS4ZVTvWJE5fpGWoQiff6xiGrtU36MCUM_W2RjuEx3doDd3SKMO0T7DpmqOrxkERUtJpmKCJ3xpAzjDI7GaWcqtibBfwD3sLTwl3rmhKHFZ1zauwD73X91FEupNt9HG7MhswR-HF8rqsMCWbzRI_A3QYffcxPl6FJlHJ3CxwhJgZz_DOVsp1i_Ez4trZrDAo");'></div>
+<button class="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full shadow-lg hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+</button>
+</div>
+<div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Full Name</label>
+<input class="form-input rounded-lg border-primary/10 bg-primary/5 focus:border-primary focus:ring-primary w-full text-slate-900 dark:text-slate-100" type="text" value="Alex Johnson"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Email Address</label>
+<input class="form-input rounded-lg border-primary/10 bg-primary/5 focus:border-primary focus:ring-primary w-full text-slate-900 dark:text-slate-100" type="email" value="alex.johnson@saunaspa.com"/>
+</div>
+<div class="flex flex-col gap-1 md:col-span-2">
+<label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Password</label>
+<div class="flex gap-2">
+<input class="form-input rounded-lg border-primary/10 bg-primary/5 w-full text-slate-400 opacity-70" disabled="" type="password" value="••••••••••••"/>
+<button class="shrink-0 px-4 py-2 border border-primary/30 text-primary font-semibold text-sm rounded-lg hover:bg-primary/5 transition-colors">Change</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Interface Settings -->
+<section class="bg-white dark:bg-slate-900/40 rounded-2xl border border-primary/10 p-8">
+<h3 class="text-xl font-bold flex items-center gap-2 mb-8">
+<span class="material-symbols-outlined text-primary">palette</span>
+                                Interface Settings
+                            </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<div class="flex flex-col gap-4">
+<div>
+<h4 class="font-bold text-sm">Appearance</h4>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Customize how the platform looks</p>
+</div>
+<div class="grid grid-cols-3 gap-3">
+<button class="flex flex-col items-center gap-2 p-3 rounded-xl border-2 border-primary bg-primary/5">
+<span class="material-symbols-outlined text-primary">light_mode</span>
+<span class="text-xs font-bold">Light</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-3 rounded-xl border-2 border-transparent hover:border-primary/30 transition-all">
+<span class="material-symbols-outlined text-slate-400">dark_mode</span>
+<span class="text-xs font-bold text-slate-400">Dark</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-3 rounded-xl border-2 border-transparent hover:border-primary/30 transition-all">
+<span class="material-symbols-outlined text-slate-400">settings_brightness</span>
+<span class="text-xs font-bold text-slate-400">System</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div>
+<h4 class="font-bold text-sm">Language</h4>
+<p class="text-slate-500 dark:text-slate-400 text-xs">Set your preferred display language</p>
+</div>
+<select class="form-select rounded-xl border-primary/10 bg-primary/5 focus:border-primary focus:ring-primary w-full text-slate-900 dark:text-slate-100">
+<option selected="" value="en">English (United States)</option>
+<option value="fi">Suomi (Finland)</option>
+<option value="sv">Svenska (Sweden)</option>
+<option value="de">Deutsch (Germany)</option>
+<option value="no">Norsk (Norway)</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Section: Notification Preferences -->
+<section class="bg-white dark:bg-slate-900/40 rounded-2xl border border-primary/10 p-8">
+<h3 class="text-xl font-bold flex items-center gap-2 mb-8">
+<span class="material-symbols-outlined text-primary">notifications_active</span>
+                                Notification Preferences
+                            </h3>
+<div class="overflow-hidden">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-primary/10">
+<th class="py-3 text-xs font-bold text-slate-400 uppercase">Notification Type</th>
+<th class="py-3 px-4 text-center text-xs font-bold text-slate-400 uppercase w-20">Email</th>
+<th class="py-3 px-4 text-center text-xs font-bold text-slate-400 uppercase w-20">SMS</th>
+<th class="py-3 px-4 text-center text-xs font-bold text-slate-400 uppercase w-20">Push</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<tr>
+<td class="py-4">
+<p class="font-semibold text-sm">Booking Confirmations</p>
+<p class="text-xs text-slate-400">Receive alerts when a new booking is made</p>
+</td>
+<td class="py-4 px-4 text-center">
+<input checked="" class="rounded text-primary focus:ring-primary h-5 w-5 bg-primary/5 border-primary/20" type="checkbox"/>
+</td>
+<td class="py-4 px-4 text-center">
+<input checked="" class="rounded text-primary focus:ring-primary h-5 w-5 bg-primary/5 border-primary/20" type="checkbox"/>
+</td>
+<td class="py-4 px-4 text-center">
+<input class="rounded text-primary focus:ring-primary h-5 w-5 bg-primary/5 border-primary/20" type="checkbox"/>
+</td>
+</tr>
+<tr>
+<td class="py-4">
+<p class="font-semibold text-sm">System Maintenance</p>
+<p class="text-xs text-slate-400">Updates regarding platform uptime and features</p>
+</td>
+<td class="py-4 px-4 text-center">
+<input checked="" class="rounded text-primary focus:ring-primary h-5 w-5 bg-primary/5 border-primary/20" type="checkbox"/>
+</td>
+<td class="py-4 px-4 text-center">
+<input class="rounded text-primary focus:ring-primary h-5 w-5 bg-primary/5 border-primary/20" type="checkbox"/>
+</td>
+<td class="py-4 px-4 text-center">
+<input checked="" class="rounded text-primary focus:ring-primary h-5 w-5 bg-primary/5 border-primary/20" type="checkbox"/>
+</td>
+</tr>
+<tr>
+<td class="py-4">
+<p class="font-semibold text-sm">Customer Feedback</p>
+<p class="text-xs text-slate-400">New reviews and spa survey results</p>
+</td>
+<td class="py-4 px-4 text-center">
+<input checked="" class="rounded text-primary focus:ring-primary h-5 w-5 bg-primary/5 border-primary/20" type="checkbox"/>
+</td>
+<td class="py-4 px-4 text-center">
+<input class="rounded text-primary focus:ring-primary h-5 w-5 bg-primary/5 border-primary/20" type="checkbox"/>
+</td>
+<td class="py-4 px-4 text-center">
+<input class="rounded text-primary focus:ring-primary h-5 w-5 bg-primary/5 border-primary/20" type="checkbox"/>
+</td>
+</tr>
+<tr>
+<td class="py-4">
+<p class="font-semibold text-sm">Security Alerts</p>
+<p class="text-xs text-slate-400">Suspicious login attempts or password changes</p>
+</td>
+<td class="py-4 px-4 text-center">
+<input checked="" class="rounded text-primary focus:ring-primary h-5 w-5 bg-primary/5 border-primary/20 opacity-50 cursor-not-allowed" disabled="" type="checkbox"/>
+</td>
+<td class="py-4 px-4 text-center">
+<input checked="" class="rounded text-primary focus:ring-primary h-5 w-5 bg-primary/5 border-primary/20" type="checkbox"/>
+</td>
+<td class="py-4 px-4 text-center">
+<input checked="" class="rounded text-primary focus:ring-primary h-5 w-5 bg-primary/5 border-primary/20" type="checkbox"/>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Dangerous Zone -->
+<section class="border border-red-500/20 bg-red-50 dark:bg-red-900/10 rounded-2xl p-8 mb-10">
+<h3 class="text-red-600 dark:text-red-400 text-xl font-bold flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined">report_problem</span>
+                                Danger Zone
+                            </h3>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="max-w-md">
+<p class="text-sm font-semibold text-red-600 dark:text-red-400">Delete Account</p>
+<p class="text-xs text-red-500/70">Once you delete your account, all data including bookings and preferences will be permanently lost.</p>
+</div>
+<button class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-bold text-sm rounded-lg transition-all shadow-md shadow-red-600/20">Delete Account</button>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="border-t border-primary/10 py-10 px-20 text-center bg-white dark:bg-slate-900/50 mt-auto">
+<div class="flex flex-col items-center gap-4">
+<div class="flex items-center gap-2 text-primary opacity-50">
+<span class="material-symbols-outlined">spa</span>
+<span class="font-bold">Sauna SPA Engine</span>
+</div>
+<p class="text-slate-400 text-xs">© 2024 Sauna SPA Engine Platform. All rights reserved. Designed for professional relaxation management.</p>
+<div class="flex gap-6 text-slate-400 text-xs font-medium">
+<a class="hover:text-primary" href="#">Privacy Policy</a>
+<a class="hover:text-primary" href="#">Terms of Service</a>
+<a class="hover:text-primary" href="#">Help Center</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

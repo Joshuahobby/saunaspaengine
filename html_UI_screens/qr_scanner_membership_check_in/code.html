@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QR Scanner &amp; Membership Check-in - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                        "surface-dark": "#19332b",
+                        "border-dark": "#23483c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .scanner-overlay {
+            background: linear-gradient(rgba(19, 236, 164, 0.1) 0%, rgba(19, 236, 164, 0.1) 100%);
+            border: 2px solid #13eca4;
+            box-shadow: 0 0 20px rgba(19, 236, 164, 0.4);
+        }
+        .scan-line {
+            height: 2px;
+            background: #13eca4;
+            box-shadow: 0 0 15px #13eca4;
+            position: absolute;
+            width: 100%;
+            top: 50%;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<header class="flex items-center justify-between border-b border-border-dark px-10 py-4 bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">spa</span>
+</div>
+<h2 class="text-slate-100 text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<nav class="flex flex-1 justify-center gap-8">
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-medium border-b-2 border-primary pb-1" href="#">Check-in</a>
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Members</a>
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Staff</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-surface-dark text-slate-100 hover:bg-border-dark transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-surface-dark text-slate-100 hover:bg-border-dark transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="User profile avatar illustration" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOURd55v72rbJoR0HVthsVXZBygKlBrFgG-bE01XGGanpHZXMmG5gHNZB3BQ6MXAWUg7_RKmXkkEAYFZTECvtfK4BWnv99RMLUMyvw96os1q8EDYe2CDE2vJAT-pTtKRaHxc0NT69RU6GPhClZ-dKGdDknDdkPE2RKkNab9tLnjHzVnb6-9_0wklN0mGTXZ5CRu3EvCetPdyZh7h8O_vzribXK6q__2uv3QK17FSFSeuyhiX3Th21x52HcGZZacMPguFNOz18yaYs7"/>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col max-w-[1400px] mx-auto w-full p-8 gap-8">
+<div class="flex flex-col gap-2">
+<h1 class="text-slate-100 text-4xl font-black tracking-tight">Membership Validation</h1>
+<p class="text-slate-400 text-lg">Position a member's QR code in front of the camera or enter their details manually.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<div class="lg:col-span-8 flex flex-col gap-4">
+<div class="relative aspect-video w-full bg-black rounded-xl overflow-hidden border-2 border-border-dark group">
+<div class="absolute inset-0 bg-cover bg-center opacity-60" data-alt="Active camera viewfinder showing blurred spa background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA6HOn1izZnF8xcvHMHLbdZ_oL3XYwzzgRD9gBvSGNAmLfkpF5xtn0A2ob1qgRW6vuShAWM9cRMyteHw6NNyKTSJHRXngVJ0uNk11reQNMpgZpn1dX9g3TwaZZAoNEUzRYwgw0ulMtdgJ4I52RvGhChxKWoCvOOaDEl4qVJzw-HOIUT7ByGGtTRvLDMRqrHvp4U2elnms4BkSp35_Fnn9HReD6PSMBbUs9HXA4hSIJv6bOIXUpYJ5Bbl_0JBgQPAY3c3bZD1GiI24SL');"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-64 h-64 scanner-overlay rounded-2xl relative">
+<div class="scan-line"></div>
+<div class="absolute -top-2 -left-2 w-6 h-6 border-t-4 border-l-4 border-primary rounded-tl-lg"></div>
+<div class="absolute -top-2 -right-2 w-6 h-6 border-t-4 border-r-4 border-primary rounded-tr-lg"></div>
+<div class="absolute -bottom-2 -left-2 w-6 h-6 border-b-4 border-l-4 border-primary rounded-bl-lg"></div>
+<div class="absolute -bottom-2 -right-2 w-6 h-6 border-b-4 border-r-4 border-primary rounded-br-lg"></div>
+</div>
+</div>
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-6 py-2 rounded-full border border-primary/30 flex items-center gap-3">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+<span class="text-primary font-bold tracking-widest text-sm uppercase">Active Scanner</span>
+</div>
+<div class="absolute top-6 right-6">
+<button class="bg-black/40 hover:bg-black/60 text-white p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">flip_camera_ios</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="bg-surface-dark p-4 rounded-xl border border-border-dark flex items-center gap-4">
+<div class="p-3 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div>
+<p class="text-slate-400 text-xs uppercase font-bold tracking-wider">Scanner Status</p>
+<p class="text-slate-100 font-bold">READY TO SCAN</p>
+</div>
+</div>
+<div class="bg-surface-dark p-4 rounded-xl border border-border-dark flex items-center gap-4">
+<div class="p-3 rounded-lg bg-blue-500/10 text-blue-400">
+<span class="material-symbols-outlined">lightbulb</span>
+</div>
+<div>
+<p class="text-slate-400 text-xs uppercase font-bold tracking-wider">Auto-Focus</p>
+<p class="text-slate-100 font-bold">ENABLED</p>
+</div>
+</div>
+<div class="bg-surface-dark p-4 rounded-xl border border-border-dark flex items-center gap-4">
+<div class="p-3 rounded-lg bg-amber-500/10 text-amber-400">
+<span class="material-symbols-outlined">history</span>
+</div>
+<div>
+<p class="text-slate-400 text-xs uppercase font-bold tracking-wider">Last Check-in</p>
+<p class="text-slate-100 font-bold">2 MINS AGO</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-dark p-6 rounded-xl border border-border-dark h-fit">
+<h3 class="text-slate-100 text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">keyboard</span>
+                        Manual Entry
+                    </h3>
+<div class="space-y-6">
+<div class="flex flex-col gap-2">
+<label class="text-slate-300 text-sm font-medium">Client Phone Number</label>
+<div class="flex">
+<div class="bg-background-dark border border-border-dark border-r-0 rounded-l-lg px-3 flex items-center text-slate-400">
+<span class="material-symbols-outlined text-xl">phone</span>
+</div>
+<input class="w-full bg-background-dark border border-border-dark focus:border-primary focus:ring-1 focus:ring-primary rounded-r-lg text-slate-100 p-3 placeholder:text-slate-600" placeholder="+1 (555) 000-0000" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-slate-300 text-sm font-medium">Or Member ID</label>
+<div class="flex">
+<div class="bg-background-dark border border-border-dark border-r-0 rounded-l-lg px-3 flex items-center text-slate-400">
+<span class="material-symbols-outlined text-xl">badge</span>
+</div>
+<input class="w-full bg-background-dark border border-border-dark focus:border-primary focus:ring-1 focus:ring-primary rounded-r-lg text-slate-100 p-3 placeholder:text-slate-600" placeholder="SA-98234" type="text"/>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-4 rounded-lg transition-all flex items-center justify-center gap-2 text-lg shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">search</span>
+                            Validate Member
+                        </button>
+</div>
+</div>
+<div class="bg-surface-dark/50 p-6 rounded-xl border border-border-dark flex-1">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-slate-100 font-bold">Recent History</h3>
+<a class="text-primary text-sm hover:underline" href="#">View all</a>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 rounded-lg bg-background-dark/50 border border-border-dark/30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold">JD</div>
+<div>
+<p class="text-slate-100 text-sm font-bold">Jane Doe</p>
+<p class="text-slate-400 text-xs">Platinum Member</p>
+</div>
+</div>
+<span class="text-primary text-xs font-bold bg-primary/10 px-2 py-1 rounded">APPROVED</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-background-dark/50 border border-border-dark/30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold">MS</div>
+<div>
+<p class="text-slate-100 text-sm font-bold">Mark Smith</p>
+<p class="text-slate-400 text-xs">Day Pass</p>
+</div>
+</div>
+<span class="text-primary text-xs font-bold bg-primary/10 px-2 py-1 rounded">APPROVED</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-background-dark/50 border border-border-dark/30 opacity-60">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold">AW</div>
+<div>
+<p class="text-slate-100 text-sm font-bold">Alex Wong</p>
+<p class="text-slate-400 text-xs">Trial Session</p>
+</div>
+</div>
+<span class="text-red-400 text-xs font-bold bg-red-400/10 px-2 py-1 rounded">EXPIRED</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="p-4 border-t border-border-dark bg-background-dark text-center">
+<p class="text-slate-500 text-xs">Sauna SPA Engine Front-Desk Terminal v2.4.1 | Connected to Main Hub</p>
+</footer>
+</body></html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>API &amp; Integrations - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .code-font { font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', monospace; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<div class="flex h-screen overflow-hidden">
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 bg-primary rounded-full flex items-center justify-center text-slate-900">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<div>
+<h1 class="text-sm font-bold leading-tight">Sauna SPA Engine</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Developer Portal</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary font-semibold" href="#">
+<span class="material-symbols-outlined text-[20px]">key</span>
+<span class="text-sm">API Keys</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">webhook</span>
+<span class="text-sm">Webhooks</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">list_alt</span>
+<span class="text-sm">Integration Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="text-sm">API Docs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="bg-slate-100 dark:bg-slate-900 rounded-lg p-3">
+<p class="text-[10px] font-bold text-slate-500 uppercase mb-2">Usage Limits</p>
+<div class="h-1.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-2/3"></div>
+</div>
+<p class="text-[10px] mt-2 text-slate-500">6,540 / 10,000 calls</p>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark">
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md sticky top-0 z-10 px-8 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<h2 class="text-lg font-bold">API Keys &amp; Webhook Integrations</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold leading-none">Admin Terminal</p>
+<p class="text-[10px] text-slate-500 text-emerald-500 font-bold">● System Online</p>
+</div>
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-800 border border-primary/20 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuChdAvHhtwnPX9DlHl9rqdek0Zwq3RPxg1T3_-0poHJ4Ps_GvyvDLOd6opvwHNiaZTjKH8Khv4UUZi-gjTaBiiXoAJUOJcmnmS36fJEb9Go2InwSlgYGlfLU1bA6s63851QX1xzF8-5JfVB8gBRnFnx73-rta7rmCZvaiwIS6Exdji5kzLgN6lJNRvYb8HiqITlpt2Sc4TMxB7T4vSCaPGvB2IEdunHXeYTtv3QOzklOdBTvvFX6UZruPZ8wrdDMJLl_34zKJher7X-')"></div>
+</div>
+</div>
+</header>
+<div class="p-8 max-w-7xl mx-auto space-y-8">
+<section>
+<div class="flex items-end justify-between mb-4">
+<div>
+<h3 class="text-xl font-bold">API Access Keys</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400">Manage your secret keys for accessing the Sauna SPA Engine API.</p>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-slate-950 font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition-all text-sm">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                        Generate New Key
+                    </button>
+</div>
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+<table class="w-full text-left text-sm">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+<th class="px-6 py-4 font-bold">Name</th>
+<th class="px-6 py-4 font-bold">Token</th>
+<th class="px-6 py-4 font-bold">Permissions</th>
+<th class="px-6 py-4 font-bold">Last Used</th>
+<th class="px-6 py-4 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr>
+<td class="px-6 py-4 font-medium">Production Mobile App</td>
+<td class="px-6 py-4"><code class="code-font bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">sk_live_••••••••2x4b</code></td>
+<td class="px-6 py-4">
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Full Access</span>
+</td>
+<td class="px-6 py-4 text-slate-500">2 mins ago</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4 font-medium">Analytics Dashboard Tool</td>
+<td class="px-6 py-4"><code class="code-font bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">sk_live_••••••••8m1a</code></td>
+<td class="px-6 py-4">
+<span class="bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Read-only</span>
+</td>
+<td class="px-6 py-4 text-slate-500">14 hours ago</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section>
+<div class="flex items-end justify-between mb-4">
+<div>
+<h3 class="text-xl font-bold">Webhooks</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400">Receive real-time notifications when events occur in your SPA.</p>
+</div>
+<button class="bg-slate-900 dark:bg-slate-100 dark:text-slate-950 text-white font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition-all text-sm">
+<span class="material-symbols-outlined text-[20px]">add_link</span>
+                        Add Endpoint
+                    </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-emerald-100 dark:bg-emerald-500/10 text-emerald-500 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">hub</span>
+</div>
+<div>
+<p class="text-sm font-bold">Payment Gateway Bridge</p>
+<p class="text-[11px] text-slate-500 truncate max-w-[200px]">https://api.payments.services/hooks/sauna</p>
+</div>
+</div>
+<span class="flex h-2 w-2 rounded-full bg-emerald-500"></span>
+</div>
+<div class="space-y-2">
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">payment.completed</span>
+<span class="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">payment.failed</span>
+</div>
+<div class="pt-4 flex justify-between items-center border-t border-slate-100 dark:border-slate-800">
+<span class="text-[10px] text-slate-500">99.8% Success rate</span>
+<button class="text-xs font-bold text-primary hover:underline">Edit</button>
+</div>
+</div>
+</div>
+<div class="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-amber-100 dark:bg-amber-500/10 text-amber-500 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">hub</span>
+</div>
+<div>
+<p class="text-sm font-bold">CRM Registration Sync</p>
+<p class="text-[11px] text-slate-500 truncate max-w-[200px]">https://hooks.zapier.com/v1/user-reg</p>
+</div>
+</div>
+<span class="flex h-2 w-2 rounded-full bg-emerald-500"></span>
+</div>
+<div class="space-y-2">
+<div class="flex flex-wrap gap-2">
+<span class="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">member.registered</span>
+<span class="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">booking.created</span>
+</div>
+<div class="pt-4 flex justify-between items-center border-t border-slate-100 dark:border-slate-800">
+<span class="text-[10px] text-slate-500">100% Success rate</span>
+<button class="text-xs font-bold text-primary hover:underline">Edit</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-bold">Integration Logs</h3>
+<div class="flex gap-2">
+<button class="text-xs font-bold px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 transition-colors">Export CSV</button>
+<button class="text-xs font-bold px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">filter_list</span> Filter
+                        </button>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+<div class="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+<p class="text-xs font-bold text-slate-500 uppercase">Recent Requests</p>
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1 text-[10px] font-bold text-emerald-500">
+<span class="size-1.5 rounded-full bg-emerald-500"></span> 200 OK
+                            </span>
+<span class="flex items-center gap-1 text-[10px] font-bold text-red-500">
+<span class="size-1.5 rounded-full bg-red-500"></span> 4xx Errors
+                            </span>
+</div>
+</div>
+<div class="divide-y divide-slate-100 dark:divide-slate-800">
+<div class="px-6 py-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-4">
+<span class="text-xs font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-500/10 px-2 py-1 rounded">POST</span>
+<div>
+<p class="text-sm font-medium">/v1/bookings</p>
+<p class="text-[10px] text-slate-500 font-mono">ID: req_98a2z41</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold">200 OK</p>
+<p class="text-[10px] text-slate-500">12ms ago</p>
+</div>
+</div>
+<div class="px-6 py-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-4">
+<span class="text-xs font-bold text-emerald-500 bg-emerald-50 dark:bg-emerald-500/10 px-2 py-1 rounded">GET</span>
+<div>
+<p class="text-sm font-medium">/v1/members/me</p>
+<p class="text-[10px] text-slate-500 font-mono">ID: req_11b8v21</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold">200 OK</p>
+<p class="text-[10px] text-slate-500">4 mins ago</p>
+</div>
+</div>
+<div class="px-6 py-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-4">
+<span class="text-xs font-bold text-red-500 bg-red-50 dark:bg-red-500/10 px-2 py-1 rounded">POST</span>
+<div>
+<p class="text-sm font-medium">/v1/payments/verify</p>
+<p class="text-[10px] text-slate-500 font-mono">ID: req_05x9y99</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-red-500">401 Unauthorized</p>
+<p class="text-[10px] text-slate-500">15 mins ago</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+
+</body></html>

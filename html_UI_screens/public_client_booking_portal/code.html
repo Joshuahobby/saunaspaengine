@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Public Client Booking Portal - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2bee2b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102210",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header / Navigation -->
+<header class="flex items-center justify-between border-b border-primary/10 px-6 md:px-20 py-4 bg-white dark:bg-slate-900/50">
+<div class="flex items-center gap-3">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Our Services</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">My Bookings</a>
+</nav>
+<button class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-slate-900 text-sm font-bold shadow-sm hover:bg-primary/90 transition-all">
+                    Sign In
+                </button>
+</div>
+</header>
+<main class="flex-1 flex justify-center py-10 px-4">
+<div class="layout-content-container flex flex-col max-w-[800px] w-full gap-8">
+<!-- Page Title & Progress -->
+<div class="flex flex-col gap-6">
+<div class="text-center">
+<h1 class="text-slate-900 dark:text-slate-100 text-4xl font-black leading-tight tracking-tight mb-2">Book Your Relaxation</h1>
+<p class="text-slate-500 dark:text-slate-400 text-lg">Experience the ultimate wellness journey in just a few clicks.</p>
+</div>
+<!-- Progress Bar Component -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-primary/10 shadow-sm">
+<div class="flex justify-between items-center mb-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+<span class="text-sm font-bold">Step 2: Choose Date &amp; Time</span>
+</div>
+<span class="text-slate-400 text-sm font-medium">66% Completed</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full transition-all duration-500" style="width: 66%;"></div>
+</div>
+<div class="flex justify-between mt-3 text-[12px] uppercase tracking-wider font-bold text-slate-400">
+<span>Service</span>
+<span class="text-primary">Schedule</span>
+<span>Details</span>
+</div>
+</div>
+</div>
+<!-- Section: Step 2 Content (Date & Time) -->
+<div class="flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h2 class="text-slate-900 dark:text-slate-100 text-2xl font-bold">2. Select Your Slot</h2>
+<button class="text-primary text-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                            Back to Services
+                        </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Left: Calendar Sidebar Placeholder -->
+<div class="md:col-span-1 bg-white dark:bg-slate-900 p-4 rounded-xl border border-primary/10 flex flex-col gap-4">
+<div class="flex items-center justify-between border-b border-primary/5 pb-2">
+<span class="font-bold text-sm">October 2023</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_left</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer">chevron_right</span>
+</div>
+</div>
+<div class="grid grid-cols-7 text-center text-[10px] font-bold text-slate-400">
+<span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+</div>
+<div class="grid grid-cols-7 gap-1 text-center text-xs">
+<span class="p-2 text-slate-300">28</span><span class="p-2 text-slate-300">29</span><span class="p-2 text-slate-300">30</span>
+<span class="p-2 hover:bg-primary/10 rounded cursor-pointer">1</span>
+<span class="p-2 hover:bg-primary/10 rounded cursor-pointer">2</span>
+<span class="p-2 hover:bg-primary/10 rounded cursor-pointer">3</span>
+<span class="p-2 hover:bg-primary/10 rounded cursor-pointer">4</span>
+<span class="p-2 bg-primary text-slate-900 font-bold rounded cursor-pointer">5</span>
+<span class="p-2 hover:bg-primary/10 rounded cursor-pointer">6</span>
+<span class="p-2 hover:bg-primary/10 rounded cursor-pointer">7</span>
+<span class="p-2 hover:bg-primary/10 rounded cursor-pointer">8</span>
+<span class="p-2 hover:bg-primary/10 rounded cursor-pointer">9</span>
+<span class="p-2 hover:bg-primary/10 rounded cursor-pointer">10</span>
+<span class="p-2 hover:bg-primary/10 rounded cursor-pointer">11</span>
+</div>
+</div>
+<!-- Right: Time Slots Grid -->
+<div class="md:col-span-2 flex flex-col gap-4">
+<p class="text-sm font-semibold text-slate-500">Available slots for Thursday, Oct 5</p>
+<div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
+<button class="py-3 px-2 border border-primary/20 rounded-lg text-sm font-medium hover:bg-primary hover:text-slate-900 transition-all text-center">09:00 AM</button>
+<button class="py-3 px-2 border border-primary/20 rounded-lg text-sm font-medium hover:bg-primary hover:text-slate-900 transition-all text-center">10:30 AM</button>
+<button class="py-3 px-2 bg-primary/10 border border-primary text-primary rounded-lg text-sm font-bold text-center">11:45 AM</button>
+<button class="py-3 px-2 border border-primary/20 rounded-lg text-sm font-medium hover:bg-primary hover:text-slate-900 transition-all text-center">01:00 PM</button>
+<button class="py-3 px-2 border border-primary/20 rounded-lg text-sm font-medium hover:bg-primary hover:text-slate-900 transition-all text-center">02:15 PM</button>
+<button class="py-3 px-2 border border-primary/20 rounded-lg text-sm font-medium hover:bg-primary hover:text-slate-900 transition-all text-center">03:30 PM</button>
+<button class="py-3 px-2 border border-primary/20 rounded-lg text-sm font-medium opacity-50 cursor-not-allowed bg-slate-100 dark:bg-slate-800 line-through text-center">04:45 PM</button>
+<button class="py-3 px-2 border border-primary/20 rounded-lg text-sm font-medium hover:bg-primary hover:text-slate-900 transition-all text-center">06:00 PM</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Step 3 Preview (Final Confirmation) -->
+<div class="flex flex-col gap-6 pt-6 border-t border-primary/10">
+<h2 class="text-slate-900 dark:text-slate-100 text-2xl font-bold">3. Confirm Details</h2>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-primary/10 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Summary Card -->
+<div class="flex flex-col gap-4 p-4 bg-background-light dark:bg-slate-800/50 rounded-lg">
+<h3 class="text-sm font-bold uppercase tracking-widest text-primary">Booking Summary</h3>
+<div class="flex items-start gap-4">
+<div class="w-20 h-20 rounded-lg bg-cover bg-center shrink-0" data-alt="Close up of essential oils and steam in a sauna" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDBtfX_8fzcEdI0b16oWRUR67tDNl7hV4LBMbrhcw31evfO8PpSaPqGrM1HPxW6dlkSpoSD7BQd5JpaqnJ7lcwFxTV7m71-c7-atDW-JbwSFUHceF3xRNbCZG5PhMYKkBcqzKt9oYfFuWPQKx7IWtaS2NSKxmw4kpIVZXOPBy8IdXorj7XpGS9MtCZhjZFHbvl9Oi0wLDJSO9sZ-psr2igYZ7COlmZsHwr79vyu157xDPTD-iL0wRJlsJBOVtJ32vaL_cFNC3n29Stj');"></div>
+<div>
+<p class="font-bold text-slate-900 dark:text-slate-100">Traditional Finnish Sauna</p>
+<p class="text-sm text-slate-500">Duration: 60 min</p>
+<p class="text-sm font-bold text-primary mt-1">$45.00</p>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2 border-t border-primary/10 text-sm">
+<span class="material-symbols-outlined text-primary text-base">calendar_today</span>
+<span class="font-medium">Oct 5, 2023 at 11:45 AM</span>
+</div>
+</div>
+<!-- User Info Form -->
+<form class="flex flex-col gap-4" onsubmit="return false;">
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Full Name</label>
+<input class="w-full rounded-lg border-primary/20 bg-background-light dark:bg-slate-800 focus:border-primary focus:ring-primary text-sm h-11" placeholder="John Doe" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Phone Number</label>
+<input class="w-full rounded-lg border-primary/20 bg-background-light dark:bg-slate-800 focus:border-primary focus:ring-primary text-sm h-11" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+<div class="pt-2">
+<button class="w-full bg-primary text-slate-900 font-black py-3 rounded-lg shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                                    CONFIRM BOOKING
+                                </button>
+<p class="text-[10px] text-center text-slate-400 mt-3 px-4">By clicking confirm, you agree to our Terms of Service and Privacy Policy.</p>
+</div>
+</form>
+</div>
+</div>
+<!-- Footer Support -->
+<footer class="flex justify-center gap-6 py-8 text-slate-400 text-sm">
+<a class="hover:text-primary transition-colors" href="#">Help Center</a>
+<a class="hover:text-primary transition-colors" href="#">Cancelation Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Contact Spa</a>
+</footer>
+</div>
+</main>
+</div>
+</div>
+</body></html>

@@ -1,96 +1,58 @@
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import AggregatedReportsClientPage from "./client-page";
+import AggregatedReportsClient from "./client-page";
 
 export const dynamic = "force-dynamic";
 
 export default async function AggregatedReportsPage() {
     const session = await auth();
-    if (!session?.user || (session.user.role !== "CORPORATE" && session.user.role !== "ADMIN")) {
-        redirect("/login");
+
+    if (!session?.user || session.user.role !== "CORPORATE") {
+        redirect("/dashboard");
     }
 
-    const businessId = session.user.businessId;
-
-    // Find all businesses in the same corporate group
-    let businesses: any[] = [];
-    if (session.user.role === "CORPORATE" && session.user.corporateId) {
-        businesses = await prisma.business.findMany({
-            where: { corporateId: session.user.corporateId }
-        });
-    } else if (session.user.role === "ADMIN") {
-        businesses = await prisma.business.findMany();
-    } else if (businessId) {
-        // Fallback for OWNER if they somehow get here, but they should only see their own
-        businesses = await prisma.business.findMany({
-            where: { id: businessId }
-        });
+    const corporateId = session.user.corporateId;
+    if (!corporateId) {
+        return <div>No corporate association found.</div>;
     }
+
+    // Fetch branches and recent global activity
+    const businesses = await prisma.business.findMany({
+        where: { corporateId },
+        select: { id: true, name: true, createdAt: true },
+        orderBy: { name: "asc" }
+    });
 
     const businessIds = businesses.map(b => b.id);
 
-    // Aggregate data across all branches
-    const completedRecords = await prisma.serviceRecord.findMany({
+    // Get the most recent 50 completed service records across all branches
+    const recentRecords = await prisma.serviceRecord.findMany({
         where: {
             businessId: { in: businessIds },
-            status: 'COMPLETED'
+            status: "COMPLETED"
         },
         include: {
-            service: {
-                select: { name: true, category: true }
-            },
-            business: {
-                select: { name: true }
-            }
-        }
+            service: { select: { name: true } },
+            employee: { select: { fullName: true } },
+            business: { select: { name: true } },
+            client: { select: { fullName: true, clientType: true } },
+        },
+        orderBy: { completedAt: "desc" },
+        take: 50
     });
 
-    const totalRevenue = completedRecords.reduce((sum, r) => sum + r.amount, 0);
+    const aggregateData = recentRecords.map(r => ({
+        id: r.id,
+        businessName: r.business.name,
+        serviceName: r.service.name,
+        employeeName: r.employee?.fullName || 'Unknown',
+        clientName: r.client.fullName,
+        clientType: r.client.clientType,
+        amount: r.amount || 0,
+        paymentMode: r.paymentMode,
+        completedAt: r.completedAt ? r.completedAt.toISOString() : r.createdAt.toISOString()
+    }));
 
-    // Branch Performance
-    const branchStats = completedRecords.reduce((acc: Record<string, any>, r) => {
-        const key = r.businessId;
-        if (!acc[key]) {
-            acc[key] = {
-                name: r.business.name,
-                revenue: 0,
-                bookings: 0
-            };
-        }
-        acc[key].revenue += r.amount;
-        acc[key].bookings += 1;
-        return acc;
-    }, {});
-
-    const branchPerformance = Object.values(branchStats).sort((a: any, b: any) => b.revenue - a.revenue);
-
-    // Service Performance Group-wide
-    const serviceStats = completedRecords.reduce((acc: Record<string, any>, r) => {
-        const key = r.service.name;
-        if (!acc[key]) {
-            acc[key] = {
-                name: r.service.name,
-                revenue: 0,
-                bookings: 0
-            };
-        }
-        acc[key].revenue += r.amount;
-        acc[key].bookings += 1;
-        return acc;
-    }, {});
-
-    const topServices = Object.values(serviceStats)
-        .sort((a: any, b: any) => b.revenue - a.revenue)
-        .slice(0, 5);
-
-    const metrics = {
-        totalRevenue,
-        branchPerformance,
-        topServices,
-        totalBookings: completedRecords.length,
-        branchCount: businesses.length
-    };
-
-    return <AggregatedReportsClientPage metrics={metrics} />;
+    return <AggregatedReportsClient reports={aggregateData} businesses={businesses.map(b => b.name)} />;
 }

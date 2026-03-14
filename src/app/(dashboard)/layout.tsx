@@ -26,13 +26,21 @@ export default async function DashboardLayout({
     } else if (session.user.businessId) {
         const business = await prisma.business.findUnique({
             where: { id: session.user.businessId },
-            select: { name: true }
-        });
-        if (business) businessName = business.name;
+            select: { name: true, onboardingCompleted: true }
+        }) as any;
+        
+        if (business) {
+            businessName = business.name;
+            
+            // Redirect owners to onboarding if not completed
+            if (session.user.role === "OWNER" && !business.onboardingCompleted) {
+                redirect("/onboarding");
+            }
+        }
     }
 
     return (
-        <div className="flex h-screen overflow-hidden bg-[var(--color-bg-light)]">
+        <div className="flex h-screen overflow-hidden bg-[var(--bg-app)] text-[var(--text-main)] transition-colors duration-500">
             <Sidebar
                 userRole={session.user.role as "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE"}
                 businessName={businessName}

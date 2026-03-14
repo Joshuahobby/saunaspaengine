@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { requireRole } from "@/lib/role-guard";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import ReportsRevenueClientPage from "./client-page";
@@ -6,8 +6,8 @@ import ReportsRevenueClientPage from "./client-page";
 export const dynamic = "force-dynamic";
 
 export default async function ReportsRevenuePage() {
-    const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    const session = await requireRole(["OWNER", "ADMIN", "CORPORATE"]);
+    if (!session?.user?.businessId) redirect("/dashboard");
 
     const businessId = session.user.businessId;
 

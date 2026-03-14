@@ -31,41 +31,41 @@ export default function UserMenu({ user }: UserMenuProps) {
         <div className="relative" ref={menuRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-3 border-l border-[rgba(17,212,196,0.2)] pl-4 md:pl-6 ml-2 md:ml-4 group"
+                className="flex items-center gap-4 border-l border-[var(--color-border-light)] pl-6 ml-4 group"
             >
                 <div className="hidden md:flex flex-col items-end">
-                    <span className="text-sm font-bold leading-tight group-hover:text-[#11d4c4] transition-colors">
+                    <span className="text-sm font-bold font-serif leading-tight group-hover:text-[var(--color-primary)] transition-colors text-[var(--text-main)]">
                         {user.fullName}
                     </span>
-                    <span className="text-xs text-[#11d4c4] font-semibold">
+                    <span className="text-[9px] text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] leading-none mt-1 opacity-60">
                         {roleLabel}
                     </span>
                 </div>
-                <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-[#11d4c4] to-emerald-300 flex items-center justify-center text-[#10221c] font-black shadow-sm group-hover:scale-105 transition-transform">
+                <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-[var(--color-primary)] to-[var(--color-forest-400)] flex items-center justify-center text-white font-black shadow-lg shadow-[var(--color-primary)]/20 group-hover:ring-4 group-hover:ring-[var(--color-primary)]/10 transition-all">
                     {user.fullName.charAt(0)}
                 </div>
             </button>
 
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-56 rounded-xl bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 py-2 z-50 animate-fade-in">
-                    <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800 md:hidden">
-                        <p className="text-sm font-bold truncate">{user.fullName}</p>
-                        <p className="text-xs text-[#11d4c4] font-semibold">{roleLabel}</p>
+                <div className="absolute right-0 mt-2 w-56 glass-card border border-[var(--border-muted)] py-2 z-50 animate-fade-in shadow-xl">
+                    <div className="px-4 py-3 border-b border-[var(--border-muted)] md:hidden">
+                        <p className="text-sm font-bold font-serif text-[var(--text-main)] italic">{user.fullName}</p>
+                        <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest opacity-60">{roleLabel}</p>
                     </div>
 
-                    <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[var(--color-forest-700)] dark:text-[var(--color-forest-100)] hover:bg-[var(--color-forest-50)] dark:hover:bg-slate-800 transition-colors">
                         <span className="material-symbols-outlined text-lg">person</span>
                         My Profile
                     </button>
-                    <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                    <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[var(--color-forest-700)] dark:text-[var(--color-forest-100)] hover:bg-[var(--color-forest-50)] dark:hover:bg-slate-800 transition-colors">
                         <span className="material-symbols-outlined text-lg">notifications</span>
                         Notification Settings
                     </button>
 
-                    <div className="h-[1px] bg-slate-100 dark:border-slate-800 my-1"></div>
+                    <div className="h-[1px] bg-[var(--color-border-light)] dark:bg-[var(--color-border-dark)] my-1"></div>
 
                     <button
-                        onClick={() => signOut({ callbackUrl: "/login" })}
+                        onClick={() => signOut({ callbackUrl: "/" })}
                         className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors"
                     >
                         <span className="material-symbols-outlined text-lg">logout</span>

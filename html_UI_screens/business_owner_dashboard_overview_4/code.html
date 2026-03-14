@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Detailed Record History &amp; Audit Trail - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            bottom: 0;
+            width: 2px;
+            background: theme('colors.slate.200');
+        }
+        .dark .timeline-line::before {
+            background: theme('colors.slate.800');
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<div class="flex h-screen overflow-hidden">
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 bg-primary rounded-full flex items-center justify-center text-slate-900">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<div>
+<h1 class="text-sm font-bold leading-tight">Sauna SPA Engine</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Forensic Audit Pro</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">history_edu</span>
+<span class="text-sm">Audit Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary font-semibold" href="#">
+<span class="material-symbols-outlined text-[20px]">search_check</span>
+<span class="text-sm">Transaction Search</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+<span class="text-sm">Employees</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="text-sm">Reports</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 px-3 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg">
+<span class="material-symbols-outlined text-emerald-500 text-[20px]">verified_user</span>
+<span class="text-xs font-bold text-slate-500">Encrypted Session</span>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark">
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md sticky top-0 z-10 px-8 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div>
+<h2 class="text-lg font-bold flex items-center gap-2">
+                        Audit History: <span class="text-primary">TRX-94821</span>
+</h2>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-3 py-1.5 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-bold flex items-center gap-2 hover:bg-white dark:hover:bg-slate-900">
+<span class="material-symbols-outlined text-sm">download</span> Export PDF
+                </button>
+<div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold leading-none">Alex Rivera</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Owner</p>
+</div>
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-800 border border-primary/20 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuChdAvHhtwnPX9DlHl9rqdek0Zwq3RPxg1T3_-0poHJ4Ps_GvyvDLOd6opvwHNiaZTjKH8Khv4UUZi-gjTaBiiXoAJUOJcmnmS36fJEb9Go2InwSlgYGlfLU1bA6s63851QX1xzF8-5JfVB8gBRnFnx73-rta7rmCZvaiwIS6Exdji5kzLgN6lJNRvYb8HiqITlpt2Sc4TMxB7T4vSCaPGvB2IEdunHXeYTtv3QOzklOdBTvvFX6UZruPZ8wrdDMJLl_34zKJher7X-')"></div>
+</div>
+</div>
+</header>
+<div class="p-8 max-w-5xl mx-auto">
+<div class="mb-8 p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-6 shadow-sm">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">receipt_long</span>
+</div>
+<div>
+<p class="text-xs text-slate-500 uppercase font-black tracking-widest">Service Record</p>
+<h3 class="text-xl font-black">Swedish Massage &amp; Sauna</h3>
+</div>
+</div>
+<div class="flex gap-12">
+<div>
+<p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Current Status</p>
+<span class="px-2 py-0.5 rounded text-[10px] font-black bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400">COMPLETED</span>
+</div>
+<div>
+<p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Final Amount</p>
+<p class="text-lg font-black">$145.00</p>
+</div>
+<div>
+<p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Customer</p>
+<p class="text-sm font-bold">Emma Wilson</p>
+</div>
+</div>
+</div>
+<div class="space-y-0 relative">
+<div class="flex items-center gap-4 mb-8">
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-500 text-xl">history</span>
+</div>
+<h4 class="text-lg font-black">Transaction Timeline</h4>
+</div>
+<div class="space-y-0">
+<div class="relative pl-14 pb-12 timeline-line">
+<div class="absolute left-0 top-0 size-10 rounded-full border-4 border-background-light dark:border-background-dark bg-emerald-500 flex items-center justify-center text-white z-10 shadow-sm">
+<span class="material-symbols-outlined text-sm">add</span>
+</div>
+<div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:border-primary/30">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h5 class="font-bold text-slate-900 dark:text-white">Created by Receptionist Sarah</h5>
+<p class="text-xs text-slate-500">Booking initialized in the system</p>
+</div>
+<span class="text-[10px] font-mono font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">2023-10-24 09:12:44</span>
+</div>
+<div class="grid grid-cols-3 gap-4 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800">
+<div>
+<p class="text-[9px] text-slate-500 uppercase font-bold">Service</p>
+<p class="text-xs font-semibold">Swedish Massage</p>
+</div>
+<div>
+<p class="text-[9px] text-slate-500 uppercase font-bold">Initial Price</p>
+<p class="text-xs font-semibold">$120.00</p>
+</div>
+<div>
+<p class="text-[9px] text-slate-500 uppercase font-bold">Source</p>
+<p class="text-xs font-semibold">Desktop App</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative pl-14 pb-12 timeline-line">
+<div class="absolute left-0 top-0 size-10 rounded-full border-4 border-background-light dark:border-background-dark bg-blue-500 flex items-center justify-center text-white z-10 shadow-sm">
+<span class="material-symbols-outlined text-sm">login</span>
+</div>
+<div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:border-primary/30">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h5 class="font-bold text-slate-900 dark:text-white">Checked-in by Receptionist Michael</h5>
+<p class="text-xs text-slate-500">Client arrived and verified identity</p>
+</div>
+<span class="text-[10px] font-mono font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">2023-10-24 10:55:02</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-sm">room_service</span>
+<p class="text-xs font-medium text-slate-600 dark:text-slate-400 italic">Action: Door access code issued for Room 04</p>
+</div>
+</div>
+</div>
+<div class="relative pl-14 pb-12 timeline-line">
+<div class="absolute left-0 top-0 size-10 rounded-full border-4 border-background-light dark:border-background-dark bg-amber-500 flex items-center justify-center text-white z-10 shadow-sm">
+<span class="material-symbols-outlined text-sm">warning</span>
+</div>
+<div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-900/50 shadow-sm transition-all border-l-4 border-l-amber-500">
+<div class="flex justify-between items-start mb-3">
+<div>
+<div class="flex items-center gap-2">
+<h5 class="font-bold text-slate-900 dark:text-white">Manual Override by Owner Alex Rivera</h5>
+<span class="px-2 py-0.5 bg-amber-100 text-amber-700 text-[9px] font-black rounded uppercase">Audit Alert</span>
+</div>
+<p class="text-xs text-slate-500">Administrative price adjustment</p>
+</div>
+<span class="text-[10px] font-mono font-bold text-amber-600 bg-amber-50 dark:bg-amber-900/20 px-2 py-1 rounded">2023-10-24 11:42:15</span>
+</div>
+<div class="space-y-3">
+<div class="p-3 bg-amber-50 dark:bg-amber-900/10 rounded-lg flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<p class="text-xs font-bold text-amber-800 dark:text-amber-400">Reason for Change:</p>
+<span class="text-[10px] italic text-slate-500">Manual log entry</span>
+</div>
+<p class="text-sm text-amber-900 dark:text-amber-200 bg-white/50 dark:bg-slate-800/50 p-2 rounded italic">"Mistyped price during initial entry; corrected to match seasonal promotional rate."</p>
+</div>
+<div class="flex items-center gap-4 text-xs">
+<div class="flex flex-col">
+<span class="text-[9px] text-slate-400 uppercase font-bold">Field Changed</span>
+<span class="font-bold">Total_Price</span>
+</div>
+<span class="material-symbols-outlined text-slate-300">trending_flat</span>
+<div class="flex flex-col">
+<span class="text-[9px] text-slate-400 uppercase font-bold">Old Value</span>
+<span class="font-bold line-through text-slate-400">$120.00</span>
+</div>
+<span class="material-symbols-outlined text-slate-300">trending_flat</span>
+<div class="flex flex-col">
+<span class="text-[9px] text-slate-400 uppercase font-bold">New Value</span>
+<span class="font-bold text-emerald-500">$145.00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="relative pl-14 pb-8">
+<div class="absolute left-0 top-0 size-10 rounded-full border-4 border-background-light dark:border-background-dark bg-primary flex items-center justify-center text-slate-900 z-10 shadow-sm">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+</div>
+<div class="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:border-primary/30">
+<div class="flex justify-between items-start mb-3">
+<div>
+<h5 class="font-bold text-slate-900 dark:text-white">Transaction Completed</h5>
+<p class="text-xs text-slate-500">Payment processed and session closed</p>
+</div>
+<span class="text-[10px] font-mono font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">2023-10-24 12:30:11</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-emerald-500">credit_card</span>
+<p class="text-xs font-bold">Payment Method: Visa ending in •••• 4242</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[10px] text-slate-500">Auth ID: </span>
+<span class="text-[10px] font-mono bg-slate-100 dark:bg-slate-800 px-1">AUTH-7732</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 flex items-center justify-between p-4 bg-primary/5 rounded-xl border border-primary/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">verified</span>
+<p class="text-sm font-bold">System Integrity Verified</p>
+</div>
+<div class="text-[10px] text-slate-500 font-mono">
+                    SHA-256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+                </div>
+<button class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">print</span> Print Audit Report
+                </button>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

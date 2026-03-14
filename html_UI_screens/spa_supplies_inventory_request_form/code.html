@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#197fe6",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111921",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 lg:px-40 py-3 bg-white dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full overflow-hidden">
+<div class="text-slate-400 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-0 placeholder:text-slate-400 px-4 text-base font-normal" placeholder="Search inventory..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-semibold border-b-2 border-primary pb-1" href="#">Inventory</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Staff</a>
+<a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Reports</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20" data-alt="Staff profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB5VOwGN0w6myIjo2-zzULOq2rZTXpw_C9MrX4tL9tGGKetWog-jYhbnWJUKV2D8teQyRLh0r-zvx7BIkZqeOEULw2CmPBYgltMizcJuHiIN_z7wxOGaATNL6sWIMjBSCecE5Z9_TE9D0mGTTAbmJ-tl8IWt6IEKvE65DmeFI5MDrnlYixk_r_txV-yCUxRGXzWe1ll9VNZhW_FBwzQpzrJ9DHOwI5Awq01D_hhBa879xgt58kmrPb8fjukKfUimCVg8e5HT3kaGvlh");'></div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-10 px-4 md:px-10">
+<div class="layout-content-container flex flex-col max-w-4xl flex-1 gap-8">
+<!-- Page Header -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary font-semibold text-sm uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+                        Staff Portal
+                    </div>
+<h1 class="text-slate-900 dark:text-white text-4xl font-bold leading-tight tracking-tight">Inventory &amp; Supplies Request</h1>
+<p class="text-slate-500 dark:text-slate-400 text-lg max-w-2xl">Efficiently request items for daily spa operations. Your request will be instantly routed to the manager for approval.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Items Selection -->
+<div class="lg:col-span-2 space-y-6">
+<div class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+<h3 class="text-lg font-bold">Essential Supplies</h3>
+</div>
+<div class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Item 1 -->
+<div class="flex items-center gap-4 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-16 shrink-0 border border-slate-200 dark:border-slate-700" data-alt="Stack of clean white towels" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBK9Lw-ZEzblMfTBu9qXZqTFl-3w6afzVCa1wyteJYh615g_jlt3u5j3M0zmshbhOFnTfxtF4CJ4EPptMVQ3IW0hkr9-qbJM59jidy_4-sEE2dF_JJQ0jF748Joz_WlniA4yepvb5rgyN7KpSMBfNu6HCMF8_fx9j73KP-r-ICHRyknyaA82y0qk9EJ2Vju8ByomlbnZ23z4JsPG8PGOrZKo-bKN54hj2FWhd8NhYSkJrxbSC1Ata0byCw3OFQy7b9Xm6yisugB-LK8");'></div>
+<div class="flex flex-col flex-1">
+<p class="text-slate-900 dark:text-white text-base font-semibold">White Cotton Towels</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Large premium cotton, single use pack</p>
+</div>
+<div class="shrink-0 flex items-center gap-3">
+<button class="size-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="text-lg font-bold w-6 text-center">12</span>
+<button class="size-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-4 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-16 shrink-0 border border-slate-200 dark:border-slate-700" data-alt="Lavender essential oil bottle" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAL5jXjcNlc1z_XUZNRMlec2sFleT84jORddGOBPsC58HjUM0S2reruUT0ws3-VCgEJTEXCM9oCDKjBAYdXrl58staMhOU00Ui8S8vnY5aCdKJdnNFz8gmgtaWQ8Nztwpi0zHHJZSFz9ftxN7eTpfU8SUFc1bpsMOcTMDiLZbh3Y9w2La5EcrGt8smrzTPj3iC7bhbAyDz_KqO4ryvxcz_9hdwRmtJcJx9d4aFXAiiNkj22XfH2O-OnkHw23tfz-LT4qVoER_4oOGaF");'></div>
+<div class="flex flex-col flex-1">
+<p class="text-slate-900 dark:text-white text-base font-semibold">Massage Oil (Lavender)</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Professional grade, 500ml dispenser</p>
+</div>
+<div class="shrink-0 flex items-center gap-3">
+<button class="size-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="text-lg font-bold w-6 text-center">4</span>
+<button class="size-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-4 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-16 shrink-0 border border-slate-200 dark:border-slate-700" data-alt="Dark smooth sauna stones" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB7kCC_gH768m5ybFc9lphL-Y9XOekMpN_JKsVVJtUWgPmpc1AtGTlUIAavq228BfgSGVZLYNQ_7puoJLMayUiau1NMJxgEfLa-_YYO125xJA7IXjLjsa5iKy11IZ1pEB3f-QL03Z9sDmjHrLWERex_fuGT0RZgNWVuhfNc--nJynTVobl_V32qjF3UgYWSAxCwV5dNEQ6Deq7e-n3MvdK2mdt-Q1_YVDi7bbdvtSiCQUaf7vP9XvpKWPZZg-urRCP1YvOSZ9EQmW0s");'></div>
+<div class="flex flex-col flex-1">
+<p class="text-slate-900 dark:text-white text-base font-semibold">Sauna Stones</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Basalt volcanic rock, 10kg pack</p>
+</div>
+<div class="shrink-0 flex items-center gap-3">
+<button class="size-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="text-lg font-bold w-6 text-center">0</span>
+<button class="size-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="flex items-center gap-4 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-16 shrink-0 border border-slate-200 dark:border-slate-700" data-alt="Premium bottled water" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAdiz9XIB56fF0nXdYkGsEo8GS5NwFX2M4KERPeozGWDItA_ra1hxC7O23v9m7tcHxZzmfbDD1zWexQ7bWXL2l_42lPEOPORHbDp02AwcGF43qnQf4ZvADfLKfMgD1H0VG5ZI0GsM81Glh0adyK-N5ZxxHLuG4R6FmDmY3mJ4AnbSDgp8X72QTXbiqDTIKALlJ4-O19AOqQHHF-wfFqXB0S-arQCCAEuQgvB5h7VfGerB9Vaz5ieuUJmga4qP6pCMiOxujxk2sKi0TZ");'></div>
+<div class="flex flex-col flex-1">
+<p class="text-slate-900 dark:text-white text-base font-semibold">Artesian Mineral Water</p>
+<p class="text-slate-500 dark:text-slate-400 text-sm">330ml glass bottles, Case of 24</p>
+</div>
+<div class="shrink-0 flex items-center gap-3">
+<button class="size-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="text-lg font-bold w-6 text-center">2</span>
+<button class="size-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Notes Field -->
+<div class="flex flex-col gap-3">
+<label class="text-slate-900 dark:text-white text-lg font-bold">Special Requests &amp; Notes</label>
+<textarea class="form-textarea w-full min-h-[120px] rounded-xl bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 focus:border-primary focus:ring-1 focus:ring-primary text-slate-900 dark:text-white p-4 placeholder:text-slate-400" placeholder="e.g. Need extra large robes for the weekend retreat, or urgent replacement for steam room thermometer..."></textarea>
+</div>
+</div>
+<!-- Right Column: Summary & Submit -->
+<div class="flex flex-col gap-6">
+<div class="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm sticky top-24">
+<h3 class="text-xl font-bold mb-4">Request Summary</h3>
+<div class="space-y-4 mb-6">
+<div class="flex justify-between text-sm">
+<span class="text-slate-500 dark:text-slate-400">Selected Items</span>
+<span class="font-semibold">3 types</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-slate-500 dark:text-slate-400">Total Quantity</span>
+<span class="font-semibold">18 units</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-slate-500 dark:text-slate-400">Requesting Staff</span>
+<span class="font-semibold">Elena Rodriguez</span>
+</div>
+<div class="pt-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-sm">info</span>
+<span class="text-xs font-medium uppercase tracking-wider">Auto-notifies Owner</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-all transform active:scale-[0.98]">
+<span class="material-symbols-outlined">send</span>
+                                Submit Request
+                            </button>
+<p class="text-center text-xs text-slate-500 dark:text-slate-400 mt-4">
+                                Average response time: <span class="text-slate-900 dark:text-slate-100 font-medium">~2 hours</span>
+</p>
+</div>
+<!-- Help Card -->
+<div class="bg-primary/5 border border-primary/20 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-3 text-primary">
+<span class="material-symbols-outlined">help_center</span>
+<h4 class="font-bold">Need assistance?</h4>
+</div>
+<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                                If you don't see the item you need, please contact the inventory manager directly or add it to the notes.
+                            </p>
+<a class="text-primary text-sm font-semibold hover:underline" href="#">View Policy Guide →</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="border-t border-slate-200 dark:border-slate-800 py-8 px-10 text-center">
+<p class="text-slate-400 text-sm">© 2024 Sauna SPA Engine. All rights reserved.</p>
+</footer>
+</div>
+</body></html>

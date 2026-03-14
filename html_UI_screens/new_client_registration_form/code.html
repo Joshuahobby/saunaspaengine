@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>New Client Registration Form - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="layout-container flex h-full grow flex-col">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-10 py-3 bg-white dark:bg-slate-900">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-slate-100">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined text-2xl">spa</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Sauna SPA Engine</h2>
+</div>
+<label class="flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full overflow-hidden">
+<div class="bg-slate-100 dark:bg-slate-800 flex items-center justify-center pl-4 pr-2">
+<span class="material-symbols-outlined text-slate-500">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-slate-100 dark:bg-slate-800 focus:ring-0 h-full placeholder:text-slate-500 px-2 text-base font-normal leading-normal" placeholder="Search clients..."/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-9">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary py-1" href="#">Clients</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Bookings</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Inventory</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Reports</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary" data-alt="User profile avatar of a business manager" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC1_OR-Y691KNh54ij_HN46zjQVXPSrYrKXMElypSCkAHdPY-8kKE61DM-LcLa2a_c9VWAkS-opGNs9GllEw-3_1oKuXW5XLFaAylB4huJkAcFDrLP4EShvSCCPHrMIWryWbIJYXMw3x9TwjafRLuLO8KC_6KOX76LZ5oXqT5YQv-cFYzK6rBujfaAzwbon6XzWiyqY3S3JWt6oWyVwTbwFhva6_wedidSovn55aIFPn3um7sggvbf4ezKhr7erterLWmVS-ENeBPwN");'></div>
+</div>
+</header>
+<div class="flex flex-1">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 p-4 flex flex-col gap-2 bg-white dark:bg-slate-900">
+<div class="mb-4 px-3">
+<h1 class="text-base font-bold">Business Portal</h1>
+<p class="text-slate-500 text-xs">Branch: Helsinki Central</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<p class="text-sm font-medium">Overview</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined">group</span>
+<p class="text-sm font-medium">Client Directory</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-slate-900 dark:text-slate-100" href="#">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">person_add</span>
+<p class="text-sm font-bold">Registration</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined">card_membership</span>
+<p class="text-sm font-medium">Memberships</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined">payments</span>
+<p class="text-sm font-medium">Billing</p>
+</a>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-8 overflow-y-auto">
+<div class="max-w-4xl mx-auto">
+<div class="mb-8">
+<nav class="flex gap-2 text-sm text-slate-500 mb-4">
+<a class="hover:text-primary" href="#">Clients</a>
+<span>/</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">New Registration</span>
+</nav>
+<h2 class="text-4xl font-black tracking-tight mb-2">Register New Client</h2>
+<p class="text-slate-500">Add a new customer to your database to start managing their bookings and memberships.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Form Section -->
+<div class="lg:col-span-2 space-y-6">
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2 col-span-2">
+<label class="text-sm font-bold">Full Name</label>
+<input class="form-input rounded-lg border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:border-primary focus:ring-primary h-12" placeholder="e.g. Alexander Lindholm" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold">Phone Number</label>
+<div class="relative">
+<span class="absolute left-3 top-3 material-symbols-outlined text-slate-400">call</span>
+<input class="form-input w-full pl-10 rounded-lg border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:border-primary focus:ring-primary h-12" placeholder="+358 00 000 0000" type="tel"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold">Email Address (Optional)</label>
+<div class="relative">
+<span class="absolute left-3 top-3 material-symbols-outlined text-slate-400">mail</span>
+<input class="form-input w-full pl-10 rounded-lg border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:border-primary focus:ring-primary h-12" placeholder="alexander@example.com" type="email"/>
+</div>
+</div>
+<div class="col-span-2 py-4 border-t border-slate-100 dark:border-slate-800">
+<label class="text-sm font-bold block mb-4">Client Category</label>
+<div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl w-fit">
+<button class="px-6 py-2 rounded-lg bg-white dark:bg-slate-700 shadow-sm text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">verified_user</span>
+                                                Member
+                                            </button>
+<button class="px-6 py-2 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">directions_walk</span>
+                                                Walk-In
+                                            </button>
+</div>
+</div>
+<div class="flex flex-col gap-2 col-span-2">
+<label class="text-sm font-bold">Membership Plan Selection</label>
+<select class="form-select rounded-lg border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 focus:border-primary focus:ring-primary h-12">
+<option>Premium Annual Access (Best Value)</option>
+<option>Monthly Wellness Subscription</option>
+<option>Flexi-Pass (10 Sessions)</option>
+<option>Sauna-Only Access</option>
+</select>
+<p class="text-xs text-slate-500">Monthly billing will commence immediately upon activation.</p>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="flex-1 bg-primary text-background-dark py-4 rounded-xl font-bold text-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">how_to_reg</span>
+                                    Create Profile &amp; Activate
+                                </button>
+<button class="px-8 py-4 border border-slate-200 dark:border-slate-800 rounded-xl font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                                    Cancel
+                                </button>
+</div>
+</div>
+<!-- Success & QR Section (Simulated State) -->
+<div class="lg:col-span-1 space-y-6">
+<div class="bg-primary/10 border-2 border-primary border-dashed rounded-xl p-6 flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-background-dark mb-4">
+<span class="material-symbols-outlined text-4xl">check_circle</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Registration Success!</h3>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-6">Client profile created. Unique digital pass generated.</p>
+<div class="bg-white p-4 rounded-xl shadow-inner mb-6 relative group">
+<div class="absolute inset-0 bg-slate-50/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-xl">
+<button class="bg-slate-900 text-white px-3 py-1 text-xs rounded-full">Preview</button>
+</div>
+<img alt="Client QR Pass" class="w-40 h-40" data-alt="A clean black and white QR code for client identification" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmYYWNL95hZy7uHgsheasQe-h3FP12UKqSfTjwVcV5xBiiMwyEnjbd7GMsCDiQ05Zxqw6JlgCQ2PmyCvKkID1n4IYXlC4Bz16TxTn6W41iEkdR9RtpG3JpMdMSfL5v7gElrZzvTv6fLzXMeqvi72Trs_FWXKS-lq1s7gdePjxRBkyKbKMHw0n5ZvKNo9g46tGZz4QbRnH3NSaC6or_nP68OUoqShfcg_Uxhc95hsJ0RKjUGo2W7gKI0rXmj-vZtf3i6yKn3OuZAktz"/>
+<p class="mt-2 font-mono text-xs text-slate-400 uppercase tracking-widest">ID: SE-88219-AX</p>
+</div>
+<div class="grid grid-cols-2 gap-3 w-full">
+<button class="flex flex-col items-center justify-center gap-2 p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-primary">print</span>
+<span class="text-xs font-bold">Print ID</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-primary">share</span>
+<span class="text-xs font-bold">Send Digital</span>
+</button>
+</div>
+</div>
+<div class="bg-slate-900 text-white rounded-xl p-6">
+<h4 class="font-bold flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">tips_and_updates</span>
+                                    Next Steps
+                                </h4>
+<ul class="space-y-3 text-sm text-slate-300">
+<li class="flex gap-2">
+<span class="text-primary font-bold">01.</span>
+                                        Provide the physical RFID wristband if applicable.
+                                    </li>
+<li class="flex gap-2">
+<span class="text-primary font-bold">02.</span>
+                                        Explain locker room procedures.
+                                    </li>
+<li class="flex gap-2">
+<span class="text-primary font-bold">03.</span>
+                                        Book initial consultation session.
+                                    </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

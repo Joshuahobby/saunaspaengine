@@ -1,6 +1,6 @@
-import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { requireRole } from "@/lib/role-guard";
 import SubscriptionsClientPage from "./client-page";
+import { prisma } from "@/lib/prisma";
 
 export const metadata = {
     title: "Global Subscriptions | Admin",
@@ -8,11 +8,24 @@ export const metadata = {
 };
 
 export default async function AdminSubscriptionsPage() {
-    const session = await auth();
+    await requireRole(["ADMIN"]);
 
-    if (!session || (session.user as any).role !== "ADMIN") {
-        redirect("/login");
-    }
+    const corporates = await (prisma as any).corporate.findMany({
+        include: {
+            subscriptionPlan: true
+        },
+        orderBy: { createdAt: 'desc' },
+    });
 
-    return <SubscriptionsClientPage />;
+    const businesses = corporates.map((c: any) => ({
+        id: c.id,
+        name: c.name,
+        email: null,
+        subscriptionPlan: c.subscriptionPlan?.name || "Unassigned",
+        subscriptionCycle: c.subscriptionCycle,
+        subscriptionStatus: c.subscriptionStatus,
+        subscriptionRenewal: c.subscriptionRenewal,
+    }));
+
+    return <SubscriptionsClientPage businesses={businesses} />;
 }

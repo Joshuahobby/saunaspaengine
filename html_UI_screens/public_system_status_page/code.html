@@ -1,0 +1,294 @@
+<html class="dark"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#13eca4",
+            "background-light": "#f6f8f7",
+            "background-dark": "#10221c",
+            "neutral-dark": "#19332b",
+            "border-dark": "#23483c",
+          },
+          fontFamily: {
+            "display": ["Manrope"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-dark px-6 md:px-20 py-4 bg-background-dark">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">spa</span>
+</div>
+<h2 class="text-slate-100 text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-100 text-sm font-medium hover:text-primary transition-colors" href="#">Status</a>
+<a class="text-slate-100 text-sm font-medium hover:text-primary transition-colors" href="#">Maintenance</a>
+<a class="text-slate-100 text-sm font-medium hover:text-primary transition-colors" href="#">Uptime</a>
+<a class="text-slate-100 text-sm font-medium hover:text-primary transition-colors" href="#">History</a>
+</nav>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-background-dark text-sm font-bold hover:opacity-90 transition-opacity">
+<span class="truncate text-slate-900">Subscribe to Updates</span>
+</button>
+</div>
+</header>
+<main class="flex-1 max-w-5xl mx-auto w-full px-6 py-10">
+<!-- Hero Status Banner -->
+<section class="mb-10">
+<div class="flex flex-col md:flex-row items-center justify-between gap-6 rounded-xl border border-primary/30 bg-primary/10 p-8">
+<div class="flex items-center gap-5">
+<div class="size-14 rounded-full bg-primary flex items-center justify-center text-background-dark shadow-[0_0_20px_rgba(19,236,164,0.3)]">
+<span class="material-symbols-outlined text-3xl font-bold">check_circle</span>
+</div>
+<div>
+<h1 class="text-slate-100 text-3xl font-extrabold tracking-tight">All Systems Operational</h1>
+<p class="text-primary font-medium">Last updated: Oct 24, 2023 - 09:45 AM UTC</p>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-background-dark border border-border-dark text-slate-100 text-sm font-medium hover:bg-neutral-dark transition-colors">
+<span class="material-symbols-outlined mr-2 text-lg">history</span>
+                Service History
+              </button>
+</div>
+</div>
+</section>
+<!-- Core Services Table -->
+<section class="mb-12">
+<div class="flex items-center justify-between mb-6 px-2">
+<h3 class="text-slate-100 text-xl font-bold">Core Services</h3>
+<span class="text-slate-400 text-sm">Real-time status tracking</span>
+</div>
+<div class="overflow-hidden rounded-xl border border-border-dark bg-neutral-dark/30 backdrop-blur-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-neutral-dark/50 border-b border-border-dark">
+<th class="px-6 py-4 text-slate-300 text-xs font-bold uppercase tracking-wider">Service Name</th>
+<th class="px-6 py-4 text-slate-300 text-xs font-bold uppercase tracking-wider">Current Status</th>
+<th class="px-6 py-4 text-slate-300 text-xs font-bold uppercase tracking-wider">90-Day Uptime</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-dark">
+<!-- API Service -->
+<tr class="hover:bg-neutral-dark/20 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-100 font-semibold">REST API Service</span>
+<span class="text-slate-400 text-xs">Primary data interface</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-primary/20 text-primary border border-primary/30">
+<span class="size-2 rounded-full bg-primary mr-2"></span>
+                        Operational
+                      </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="flex-1 h-1.5 rounded-full bg-border-dark max-w-[120px]">
+<div class="h-full rounded-full bg-primary shadow-[0_0_8px_rgba(19,236,164,0.4)]" style="width: 99.98%;"></div>
+</div>
+<span class="text-slate-100 text-sm font-bold">99.98%</span>
+</div>
+</td>
+</tr>
+<!-- Dashboard -->
+<tr class="hover:bg-neutral-dark/20 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-100 font-semibold">Management Dashboard</span>
+<span class="text-slate-400 text-xs">Web administration console</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-primary/20 text-primary border border-primary/30">
+<span class="size-2 rounded-full bg-primary mr-2"></span>
+                        Operational
+                      </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="flex-1 h-1.5 rounded-full bg-border-dark max-w-[120px]">
+<div class="h-full rounded-full bg-primary" style="width: 100%;"></div>
+</div>
+<span class="text-slate-100 text-sm font-bold">100.0%</span>
+</div>
+</td>
+</tr>
+<!-- QR Engine -->
+<tr class="hover:bg-neutral-dark/20 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-100 font-semibold">QR Generation Engine</span>
+<span class="text-slate-400 text-xs">Access control &amp; Check-ins</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-primary/20 text-primary border border-primary/30">
+<span class="size-2 rounded-full bg-primary mr-2"></span>
+                        Operational
+                      </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="flex-1 h-1.5 rounded-full bg-border-dark max-w-[120px]">
+<div class="h-full rounded-full bg-primary" style="width: 99.95%;"></div>
+</div>
+<span class="text-slate-100 text-sm font-bold">99.95%</span>
+</div>
+</td>
+</tr>
+<!-- Payment Gateway -->
+<tr class="hover:bg-neutral-dark/20 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-100 font-semibold">Payment Gateway</span>
+<span class="text-slate-400 text-xs">Transaction processing</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-primary/20 text-primary border border-primary/30">
+<span class="size-2 rounded-full bg-primary mr-2"></span>
+                        Operational
+                      </span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-4">
+<div class="flex-1 h-1.5 rounded-full bg-border-dark max-w-[120px]">
+<div class="h-full rounded-full bg-primary" style="width: 100%;"></div>
+</div>
+<span class="text-slate-100 text-sm font-bold">100.0%</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- System Metrics Section -->
+<section class="mb-12">
+<h3 class="text-slate-100 text-xl font-bold mb-6 px-2">System Metrics</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- API Response Time Chart Placeholder -->
+<div class="rounded-xl border border-border-dark bg-neutral-dark/20 p-6">
+<div class="flex justify-between items-center mb-6">
+<h4 class="text-slate-300 font-bold uppercase text-xs tracking-widest">API Response Time (ms)</h4>
+<span class="text-primary font-bold text-sm">Avg: 124ms</span>
+</div>
+<div class="h-32 flex items-end gap-1">
+<div class="flex-1 bg-primary/20 h-[60%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[55%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[70%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[65%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[80%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[75%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/40 h-[90%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[60%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[50%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[55%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/60 h-[40%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[30%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[45%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[50%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[60%] rounded-t-sm"></div>
+</div>
+<div class="flex justify-between mt-2 text-[10px] text-slate-500 font-bold">
+<span>24H AGO</span>
+<span>NOW</span>
+</div>
+</div>
+<!-- Incident History Summary -->
+<div class="rounded-xl border border-border-dark bg-neutral-dark/20 p-6">
+<div class="flex justify-between items-center mb-4">
+<h4 class="text-slate-300 font-bold uppercase text-xs tracking-widest">Recent Incidents</h4>
+<a class="text-primary text-xs font-bold hover:underline" href="#">View History</a>
+</div>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<div class="mt-1 size-2 rounded-full bg-slate-500"></div>
+<div>
+<p class="text-slate-100 text-sm font-medium">No incidents reported in the last 7 days</p>
+<p class="text-slate-500 text-xs">Everything is running smoothly across all clusters.</p>
+</div>
+</div>
+<div class="border-t border-border-dark pt-4">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-slate-400">Past 30 Days</span>
+<span class="text-slate-100">1 Incident</span>
+</div>
+<div class="mt-2 flex gap-1 h-2">
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-amber-500 rounded-full"></div>
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Subscription Footer -->
+<section class="rounded-xl bg-neutral-dark/40 border border-border-dark p-8 text-center">
+<h3 class="text-slate-100 text-xl font-bold mb-2">Stay Informed</h3>
+<p class="text-slate-400 mb-6 max-w-lg mx-auto">Get automatic notifications via email or SMS whenever Sauna SPA Engine creates, updates or resolves an incident.</p>
+<div class="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto">
+<input class="flex-1 rounded-lg bg-background-dark border-border-dark text-slate-100 focus:ring-primary focus:border-primary px-4 py-2 outline-none" placeholder="Email Address" type="email"/>
+<button class="bg-primary text-background-dark font-bold px-6 py-2 rounded-lg hover:opacity-90 transition-opacity">
+              Subscribe
+            </button>
+</div>
+<div class="mt-4 flex items-center justify-center gap-4 text-xs font-bold text-slate-500 uppercase tracking-widest">
+<span class="flex items-center gap-1 hover:text-slate-300 cursor-pointer">
+<span class="material-symbols-outlined text-sm">mail</span> Email
+            </span>
+<span class="flex items-center gap-1 hover:text-slate-300 cursor-pointer">
+<span class="material-symbols-outlined text-sm">sms</span> SMS
+            </span>
+<span class="flex items-center gap-1 hover:text-slate-300 cursor-pointer">
+<span class="material-symbols-outlined text-sm">rss_feed</span> RSS
+            </span>
+<span class="flex items-center gap-1 hover:text-slate-300 cursor-pointer">
+<span class="material-symbols-outlined text-sm">webhook</span> Webhooks
+            </span>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="border-t border-border-dark bg-background-dark py-10 px-6">
+<div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2 text-slate-400">
+<span class="material-symbols-outlined">spa</span>
+<span class="text-sm">© 2023 Sauna SPA Engine. All rights reserved.</span>
+</div>
+<div class="flex gap-6">
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

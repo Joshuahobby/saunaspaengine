@@ -1,178 +1,267 @@
 "use client";
 
-import { useMemo } from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function AdminBranchesClientPage() {
+interface Business {
+    id: string;
+    name: string;
+    email?: string | null;
+    phone?: string | null;
+    address?: string | null;
+    status: string;
+    employeeCount: number;
+    serviceCount: number;
+    clientCount: number;
+    createdAt: string;
+    corporateName: string;
+}
+
+import { format } from "date-fns";
+import { EditBusinessModal } from "./EditBusinessModal";
+import { DeleteBusinessModal } from "./DeleteBusinessModal";
+
+interface BranchesProps {
+    businesses: Business[];
+    stats: {
+        totalRevenue: number;
+        totalBusinesses: number;
+        activeBusinesses: number;
+    };
+}
+
+export default function AdminBranchesClientPage({ businesses, stats }: BranchesProps) {
+    const router = useRouter();
+    const [searchTerm, setSearchTerm] = useState("");
+    const [statusFilter, setStatusFilter] = useState<string>("ALL");
+    const [toggling, setToggling] = useState<string | null>(null);
+    const [editingBusiness, setEditingBusiness] = useState<Business | null>(null);
+    const [deletingBusiness, setDeletingBusiness] = useState<Business | null>(null);
+
+    async function toggleStatus(id: string, currentStatus: string) {
+        setToggling(id);
+        try {
+            await fetch(`/api/admin/businesses/${id}`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ status: currentStatus === "ACTIVE" ? "INACTIVE" : "ACTIVE" }),
+            });
+            router.refresh();
+        } catch (err) {
+            console.error("Toggle error:", err);
+        } finally {
+            setToggling(null);
+        }
+    }
+
+    const formatRevenue = (amount: number) =>
+        new Intl.NumberFormat("en-US", { style: "currency", currency: "RWF", maximumFractionDigits: 0 }).format(amount);
+
+    const filteredBusinesses = businesses.filter(b => {
+        const matchesSearch = b.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                             b.corporateName.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesStatus = statusFilter === "ALL" || b.status === statusFilter;
+        return matchesSearch && matchesStatus;
+    });
+
     return (
-        <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6 max-w-7xl mx-auto w-full">
+        <main className="flex flex-1 flex-col px-4 lg:px-6 py-8 gap-6 max-w-[1600px] mx-auto w-full overflow-y-auto">
             {/* Header Actions */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-[var(--bg-card)]/50 border border-[var(--border-muted)] p-4 rounded-2xl backdrop-blur-sm">
                 <div className="flex flex-col gap-1">
-                    <h2 className="text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Executive Portfolio Dashboard</h2>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm font-normal">Global multi-branch strategic oversight & KPI monitoring</p>
+                    <h1 className="text-2xl font-serif font-bold text-[var(--text-main)] italic">
+                        Branch Network
+                    </h1>
+                    <p className="text-xs text-[var(--text-muted)] italic font-medium opacity-60">Architectural oversight of all physical nodes and sanctuaries.</p>
                 </div>
-                <div className="flex gap-3">
-                    <button className="flex items-center gap-2 px-4 h-10 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 text-sm font-bold hover:bg-slate-50 transition-colors">
-                        <span className="material-symbols-outlined text-lg">calendar_today</span>
-                        Last 30 Days
-                    </button>
-                    <button className="flex items-center gap-2 px-4 h-10 rounded-lg bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-sm font-bold hover:opacity-90 transition-opacity">
-                        <span className="material-symbols-outlined text-lg">file_download</span>
-                        Export Data
-                    </button>
-                </div>
-            </div>
-
-            {/* KPI Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
-                    <div className="absolute right-[-10px] top-[-10px] text-[var(--color-primary)]/5 group-hover:text-[var(--color-primary)]/10 transition-colors pointer-events-none">
-                        <span className="material-symbols-outlined text-8xl">payments</span>
+                
+                <div className="flex items-center gap-3 w-full md:w-auto">
+                    <div className="relative flex-1 md:w-64">
+                        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-sm opacity-30">search</span>
+                        <input 
+                            type="text" 
+                            placeholder="Find branch or hub..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full bg-[var(--bg-app)] border border-[var(--border-muted)] rounded-xl py-2 pl-9 pr-4 text-xs focus:border-[var(--color-primary)]/50 transition-all outline-none italic"
+                        />
                     </div>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Total Portfolio Revenue</p>
-                    <div className="flex items-baseline gap-2">
-                        <h3 className="text-3xl font-bold text-slate-900 dark:text-slate-100">$4,281,400</h3>
-                        <span className="text-[var(--color-primary)] text-sm font-bold flex items-center">
-                            <span className="material-symbols-outlined text-sm">trending_up</span> 8.2%
-                        </span>
-                    </div>
-                    <p className="text-slate-400 text-xs mt-4">Vs. $3.95M last quarter</p>
-                </div>
-
-                <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
-                    <div className="absolute right-[-10px] top-[-10px] text-[var(--color-primary)]/5 group-hover:text-[var(--color-primary)]/10 transition-colors pointer-events-none">
-                        <span className="material-symbols-outlined text-8xl">event_seat</span>
-                    </div>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Global Occupancy Rate</p>
-                    <div className="flex items-baseline gap-2">
-                        <h3 className="text-3xl font-bold text-slate-900 dark:text-slate-100">78.5%</h3>
-                        <span className="text-[var(--color-primary)] text-sm font-bold flex items-center">
-                            <span className="material-symbols-outlined text-sm">trending_up</span> 3.1%
-                        </span>
-                    </div>
-                    <p className="text-slate-400 text-xs mt-4">Across 12 worldwide locations</p>
-                </div>
-
-                <div className="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
-                    <div className="absolute right-[-10px] top-[-10px] text-[var(--color-primary)]/5 group-hover:text-[var(--color-primary)]/10 transition-colors pointer-events-none">
-                        <span className="material-symbols-outlined text-8xl">group_add</span>
-                    </div>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Net Membership Growth</p>
-                    <div className="flex items-baseline gap-2">
-                        <h3 className="text-3xl font-bold text-slate-900 dark:text-slate-100">+12.4%</h3>
-                        <span className="text-rose-500 text-sm font-bold flex items-center">
-                            <span className="material-symbols-outlined text-sm">trending_down</span> 1.5%
-                        </span>
-                    </div>
-                    <p className="text-slate-400 text-xs mt-4">Previous growth: 13.9%</p>
+                    <select 
+                        value={statusFilter}
+                        onChange={(e) => setStatusFilter(e.target.value)}
+                        title="Filter branches by status"
+                        aria-label="Filter branches by status"
+                        className="bg-[var(--bg-app)] border border-[var(--border-muted)] rounded-xl py-2 px-3 text-[10px] font-bold uppercase tracking-wider italic focus:border-[var(--color-primary)] outline-none cursor-pointer"
+                    >
+                        <option value="ALL">All Status</option>
+                        <option value="ACTIVE">Active Only</option>
+                        <option value="INACTIVE">Inactive</option>
+                    </select>
                 </div>
             </div>
 
-            {/* Main Grid */}
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                {/* Global Branch Network Map Area */}
-                <div className="xl:col-span-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col shadow-sm">
-                    <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                        <h4 className="font-bold text-slate-900 dark:text-slate-100">Global Branch Network</h4>
-                        <div className="flex gap-2">
-                            <span className="px-2 py-1 bg-[var(--color-primary)]/20 text-[var(--color-primary)] text-[10px] font-bold rounded uppercase">8 Active</span>
-                            <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold rounded uppercase">4 Pending</span>
-                        </div>
-                    </div>
-                    <div className="flex-1 min-h-[400px] relative bg-slate-50 dark:bg-slate-950/50 overflow-hidden">
-                        {/* Map Visual / Markers */}
-                        <div className="absolute inset-0 opacity-20 dark:opacity-10 grayscale pointer-events-none" style={{ backgroundImage: "url('https://placeholder.pics/svg/300')", backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+            {/* High-Density KPI Row */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <MetricCard 
+                    title="Platform Revenue"
+                    value={formatRevenue(stats.totalRevenue)}
+                    subtitle="Universal Yield"
+                    icon="account_balance_wallet"
+                />
+                <MetricCard 
+                    title="Operating Nodes"
+                    value={stats.activeBusinesses.toString()}
+                    subtitle={`OF ${stats.totalBusinesses} TOTAL`}
+                    icon="vital_signs"
+                />
+                <MetricCard 
+                    title="Total Guests"
+                    value={businesses.reduce((sum, b) => sum + b.clientCount, 0).toLocaleString()}
+                    subtitle={`${businesses.reduce((sum, b) => sum + b.employeeCount, 0)} STAFF`}
+                    icon="hub"
+                />
+            </div>
 
-                        <div className="absolute top-[30%] left-[20%] group cursor-pointer">
-                            <div className="w-4 h-4 bg-[var(--color-primary)] rounded-full animate-ping absolute opacity-75"></div>
-                            <div className="w-4 h-4 bg-[var(--color-primary)] rounded-full relative border-2 border-white dark:border-slate-900 shadow-lg"></div>
-                            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">New York HQ</div>
-                        </div>
-                        <div className="absolute top-[45%] left-[48%] group cursor-pointer">
-                            <div className="w-4 h-4 bg-[var(--color-primary)] rounded-full relative border-2 border-white dark:border-slate-900 shadow-lg"></div>
-                            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">London Central</div>
-                        </div>
-                        <div className="absolute top-[60%] left-[75%] group cursor-pointer">
-                            <div className="w-4 h-4 bg-[var(--color-primary)] rounded-full relative border-2 border-white dark:border-slate-900 shadow-lg"></div>
-                            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">Tokyo Sanctuary</div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Branch Leaderboard */}
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col shadow-sm">
-                    <div className="p-5 border-b border-slate-100 dark:border-slate-800">
-                        <h4 className="font-bold text-slate-900 dark:text-slate-100">Performance Leaderboard</h4>
-                    </div>
-                    <div className="p-4 flex flex-col gap-4 overflow-y-auto">
-                        <LeaderboardItem rank={1} name="Bali Serenity" revenue="$840k" score="4.9" active />
-                        <LeaderboardItem rank={2} name="London Central" revenue="$712k" score="4.7" />
-                        <LeaderboardItem rank={3} name="Tokyo Retreat" revenue="$655k" score="4.8" />
-                        <LeaderboardItem rank={4} name="Swiss Alpine" revenue="$590k" score="4.5" />
-                    </div>
-                    <div className="mt-auto p-4 border-t border-slate-100 dark:border-slate-800">
-                        <button className="w-full py-2 text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-[var(--color-primary)] transition-colors uppercase tracking-widest">
-                            View All Branch Rankings
-                        </button>
-                    </div>
+            {/* High-Density Management Table */}
+            <div className="flex-1 min-h-0 min-w-0 bg-[var(--bg-card)] rounded-2xl border border-[var(--border-muted)] overflow-hidden flex flex-col shadow-sm">
+                <div className="overflow-x-auto scrollbar-hide">
+                    <table className="w-full border-collapse text-left">
+                        <thead>
+                            <tr className="border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10">
+                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic">Node Identifier</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic">Corporate Hub</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic text-center">Resources</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic text-center">Operational Status</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic text-right whitespace-nowrap">Provisioned</th>
+                                <th className="px-6 py-4 text-right"></th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-[var(--border-muted)]/30">
+                            {filteredBusinesses.map((biz) => (
+                                <tr key={biz.id} className="group hover:bg-[var(--color-primary)]/[0.02] transition-colors">
+                                    <td className="px-6 py-3">
+                                        <div className="flex items-center gap-3">
+                                            <div className="size-8 rounded-lg bg-[var(--color-primary)]/10 flex items-center justify-center border border-[var(--color-primary)]/20 shrink-0">
+                                                <span className="material-symbols-outlined text-sm text-[var(--color-primary)]">location_on</span>
+                                            </div>
+                                            <div className="flex flex-col">
+                                                <span className="text-xs font-bold text-[var(--text-main)]">{biz.name}</span>
+                                                <span className="text-[10px] text-[var(--text-muted)] italic opacity-60 truncate max-w-[150px]">{biz.address || "No address"}</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="px-6 py-3">
+                                        <div className="flex items-center gap-2">
+                                            <span className="size-1.5 rounded-full bg-[var(--color-primary)]/40 shadow-sm shadow-[var(--color-primary)]/20"></span>
+                                            <span className="text-[11px] font-bold text-white/80 uppercase tracking-wide italic">{biz.corporateName}</span>
+                                        </div>
+                                    </td>
+                                    <td className="px-6 py-3">
+                                        <div className="flex items-center justify-center gap-4">
+                                            <div className="flex flex-col items-center">
+                                                <span className="text-xs font-black text-white">{biz.employeeCount}</span>
+                                                <span className="text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] italic opacity-40 leading-none">Staff</span>
+                                            </div>
+                                            <div className="w-[1px] h-4 bg-[var(--border-muted)] opacity-20"></div>
+                                            <div className="flex flex-col items-center">
+                                                <span className="text-xs font-black text-white">{biz.clientCount}</span>
+                                                <span className="text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] italic opacity-40 leading-none">Guests</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="px-6 py-3">
+                                        <div className="flex justify-center">
+                                            <button 
+                                                onClick={() => toggleStatus(biz.id, biz.status)}
+                                                disabled={toggling === biz.id}
+                                                className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest italic border transition-all ${
+                                                    biz.status === "ACTIVE" 
+                                                    ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" 
+                                                    : "bg-rose-500/10 text-rose-500 border-rose-500/20"
+                                                } ${toggling === biz.id ? "opacity-50 scale-95" : "hover:scale-105 active:scale-95 shadow-lg shadow-black/10"}`}
+                                            >
+                                                {toggling === biz.id ? "Syncing..." : biz.status}
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td className="px-6 py-3 text-right">
+                                        <span className="text-[10px] font-mono text-[var(--text-muted)] opacity-50 uppercase tracking-tighter">
+                                            {format(new Date(biz.createdAt), "MMM dd, yyyy")}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-3 text-right">
+                                        <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button 
+                                                onClick={() => setEditingBusiness(biz)}
+                                                className="p-2 hover:bg-[var(--color-primary)]/10 text-[var(--text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-all"
+                                                title="Modify Configuration"
+                                            >
+                                                <span className="material-symbols-outlined text-sm">edit_square</span>
+                                            </button>
+                                            <button 
+                                                onClick={() => setDeletingBusiness(biz)}
+                                                className="p-2 hover:bg-rose-500/10 text-[var(--text-muted)] hover:text-rose-500 rounded-lg transition-all"
+                                                title="Purge Node"
+                                            >
+                                                <span className="material-symbols-outlined text-sm">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                            {filteredBusinesses.length === 0 && (
+                                <tr>
+                                    <td colSpan={6} className="px-6 py-20 text-center">
+                                        <div className="flex flex-col items-center gap-3 opacity-20">
+                                            <span className="material-symbols-outlined text-5xl italic">database_off</span>
+                                            <p className="text-sm font-serif italic text-[var(--text-muted)]">No branches found in the network archives.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            {/* Strategic Charts */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
-                <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <h4 className="font-bold text-slate-900 dark:text-slate-100">Labor Costs vs. Total Revenue</h4>
-                    <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 bg-[var(--color-primary)] rounded-full"></div>
-                            <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Total Revenue</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 bg-slate-900 dark:bg-slate-100 rounded-full"></div>
-                            <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Labor Costs</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="p-6 h-[280px] w-full relative">
-                    <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1000 250">
-                        <defs>
-                            <linearGradient id="primaryGradientChart" x1="0%" x2="0%" y1="0%" y2="100%">
-                                <stop offset="0%" style={{ stopColor: '#13eca4', stopOpacity: 0.2 }}></stop>
-                                <stop offset="100%" style={{ stopColor: '#13eca4', stopOpacity: 0 }}></stop>
-                            </linearGradient>
-                        </defs>
-                        <path d="M0,200 L100,180 L200,190 L300,150 L400,140 L500,100 L600,110 L700,60 L800,80 L900,40 L1000,30 V250 H0 Z" fill="url(#primaryGradientChart)"></path>
-                        <path d="M0,200 L100,180 L200,190 L300,150 L400,140 L500,100 L600,110 L700,60 L800,80 L900,40 L1000,30" fill="none" stroke="#13eca4" strokeLinejoin="round" strokeWidth="4"></path>
-                        <path className="text-slate-400" d="M0,230 L100,225 L200,230 L300,210 L400,215 L500,200 L600,205 L700,180 L800,190 L900,170 L1000,165" fill="none" stroke="currentColor" strokeDasharray="8 4" strokeWidth="3"></path>
-                    </svg>
-                    <div className="flex justify-between mt-4 text-[10px] text-slate-400 font-black uppercase tracking-widest">
-                        {['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'].map(month => (
-                            <span key={month}>{month}</span>
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </div>
+            {/* Modals */}
+            {editingBusiness && (
+                <EditBusinessModal
+                    isOpen={!!editingBusiness}
+                    onClose={() => setEditingBusiness(null)}
+                    business={editingBusiness}
+                />
+            )}
+            {deletingBusiness && (
+                <DeleteBusinessModal
+                    isOpen={!!deletingBusiness}
+                    onClose={() => setDeletingBusiness(null)}
+                    business={deletingBusiness}
+                />
+            )}
+        </main>
     );
 }
 
-function LeaderboardItem({ rank, name, revenue, score, active = false }: { rank: number, name: string, revenue: string, score: string, active?: boolean }) {
+function MetricCard({ title, value, subtitle, icon }: { title: string, value: string, subtitle: string, icon: string }) {
     return (
-        <div className={`flex items-center gap-4 p-3 rounded-xl border transition-all ${active ? 'border-[var(--color-primary)]/30 bg-[var(--color-primary)]/5 shadow-sm shadow-[var(--color-primary)]/10' : 'border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:border-slate-200 dark:hover:border-slate-700'}`}>
-            <div className={`size-10 font-bold rounded-xl flex items-center justify-center text-sm ${active ? 'bg-[var(--color-primary)] text-slate-900 shadow-md shadow-[var(--color-primary)]/20' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}`}>
-                {rank}
-            </div>
-            <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate">{name}</p>
-                <p className="text-xs text-slate-500 font-medium">Revenue: <span className="text-slate-700 dark:text-slate-300">{revenue}</span></p>
-            </div>
-            <div className="text-right">
-                <div className={`flex items-center gap-1 font-bold ${active ? 'text-[var(--color-primary)]' : 'text-slate-600 dark:text-slate-400'}`}>
-                    <span className="material-symbols-outlined text-sm">star</span>
-                    <span className="text-xs">{score}</span>
+        <div className="rounded-2xl border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-5 shadow-sm hover:border-[var(--color-primary)]/30 transition-all duration-500 group relative overflow-hidden flex flex-col justify-between backdrop-blur-sm">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-primary)] opacity-[0.02] rounded-full blur-2xl -mr-12 -mt-12 group-hover:opacity-[0.05] transition-opacity"></div>
+            
+            <div className="flex justify-between items-start mb-4 relative z-10 text-emerald-500">
+                <div className="space-y-0.5">
+                    <h4 className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic opacity-50 group-hover:opacity-100 transition-opacity">{title}</h4>
+                    <p className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-tighter opacity-30 italic leading-none">{subtitle}</p>
                 </div>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">CSAT Score</p>
+                <div className="size-10 rounded-xl bg-[var(--color-primary)]/5 text-[var(--color-primary)] border border-[var(--border-muted)] flex items-center justify-center group-hover:scale-110 transition-all duration-500">
+                    <span className="material-symbols-outlined text-xl italic font-bold">{icon}</span>
+                </div>
+            </div>
+            
+            <div className="relative z-10">
+                <span className="text-3xl font-serif font-black text-white italic tracking-tighter leading-none">{value}</span>
             </div>
         </div>
     );
 }
+

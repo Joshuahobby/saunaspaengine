@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                        "neutral-surface": "#1a332b",
+                        "neutral-border": "#23483c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>Referral Dashboard | Sauna SPA Engine</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<header class="flex items-center justify-between border-b border-solid border-neutral-border px-6 py-4 lg:px-40 bg-background-dark">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl">spa</span>
+<h2 class="text-slate-100 text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<div class="hidden md:flex items-center gap-8 ml-4">
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Clients</a>
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Bookings</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">Referrals</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-neutral-surface px-3 py-1.5 rounded-lg border border-neutral-border">
+<span class="material-symbols-outlined text-slate-400 text-xl mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm text-slate-100 placeholder:text-slate-500 w-40" placeholder="Search accounts..."/>
+</div>
+<button class="p-2 rounded-lg bg-neutral-surface text-slate-100 border border-neutral-border hover:bg-neutral-border transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-primary/20 p-0.5 rounded-full">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 border-2 border-primary" data-alt="Professional user profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCaQs3HWLM2kjj3E8wCeCjqsa_0fcnqm94wx6SUt0mUZVTR265D0coSOOio7RjFFceAytc6oPMcOGYsPhdSi_IoVKxWMAp24P78M5SFOmO8jPeZi34SeTE28Ey9BjgHjqykjhkmjplQaZRAP-FO1xzOAFXvZ7kBORv2KtXiYbFqBfd1tyBvvtrr4iW2PTk9vBJiM5LDri0DacAViUXjfDdRyeOKJaKNIdDGX-YqMx3hWwxQMgbeqDtQlDQ9C6SnjMvojXVA2E8svSJB");'></div>
+</div>
+</div>
+</header>
+<main class="flex-1 px-6 lg:px-40 py-8 max-w-[1440px] mx-auto w-full">
+<section class="relative overflow-hidden rounded-xl bg-gradient-to-br from-neutral-surface to-background-dark border border-neutral-border p-8 mb-8">
+<div class="relative z-10 grid md:grid-cols-2 gap-8 items-center">
+<div class="flex flex-col gap-6">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider">
+                            Exclusive Offer
+                        </div>
+<h1 class="text-slate-100 text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight">
+                            Grow Your Network, <br/><span class="text-primary">Earn Rewards</span>
+</h1>
+<p class="text-slate-400 text-lg max-w-md">
+                            Get <span class="text-slate-100 font-bold">1 month free</span> for every spa business you refer to Sauna SPA Engine. Help the community flourish while you save.
+                        </p>
+<div class="flex flex-wrap gap-4 pt-2">
+<button class="px-6 py-3 bg-primary text-background-dark rounded-lg font-bold hover:opacity-90 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">send</span>
+                                Start Referring
+                            </button>
+<button class="px-6 py-3 bg-neutral-surface text-slate-100 border border-neutral-border rounded-lg font-bold hover:bg-neutral-border transition-all">
+                                How it works
+                            </button>
+</div>
+</div>
+<div class="hidden md:block">
+<div class="rounded-xl overflow-hidden shadow-2xl shadow-primary/10 border border-neutral-border aspect-video bg-cover bg-center" data-alt="Modern spa interior with minimalist wooden design" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBXx0fU-1FyoU3reesh8UxBfnORj0DnFlgU0y18CQZYh9tdh3sz5916LZPvw6uVhu8y2AeVL5Fp4KAJBKTrj0A7PESZgpLo8x3LXUOIck-PdHwgotsY0_PYRGkGel5Rd5c3eGo75SNGRClnhouIehN-IpJ3bXCw6KPnk0NKmtM6K1aiZqFmWUDG_Ep1iG15Drtod_t2egA7mB2NJmxAc4HFSExmeLJ7GI2N0POkm9IoZHlaegwT2ZgORh6Kh73heEz2pdh9OgmqThkM');">
+</div>
+</div>
+</div>
+<div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+</section>
+<div class="grid lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 flex flex-col gap-8">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="bg-neutral-surface p-6 rounded-xl border border-neutral-border">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">mail</span>
+<span class="text-xs text-slate-500 font-medium">Invites Sent</span>
+</div>
+<div class="text-3xl font-bold text-slate-100">42</div>
+<p class="text-xs text-slate-400 mt-1">+5 this month</p>
+</div>
+<div class="bg-neutral-surface p-6 rounded-xl border border-neutral-border">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">person_add</span>
+<span class="text-xs text-slate-500 font-medium">Successful Sign-ups</span>
+</div>
+<div class="text-3xl font-bold text-slate-100">12</div>
+<p class="text-xs text-slate-400 mt-1">28% Conversion rate</p>
+</div>
+<div class="bg-neutral-surface p-6 rounded-xl border border-neutral-border">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">payments</span>
+<span class="text-xs text-slate-500 font-medium">Rewards Earned</span>
+</div>
+<div class="text-3xl font-bold text-slate-100">$1,080</div>
+<p class="text-xs text-primary mt-1">12 Months Credit</p>
+</div>
+</div>
+<div class="bg-neutral-surface rounded-xl border border-neutral-border overflow-hidden">
+<div class="px-6 py-4 border-b border-neutral-border flex justify-between items-center">
+<h3 class="text-slate-100 font-bold">Pending Referrals</h3>
+<button class="text-primary text-sm font-medium hover:underline">View All</button>
+</div>
+<div class="divide-y divide-neutral-border">
+<div class="p-4 flex items-center justify-between hover:bg-neutral-border/30 transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 font-bold">RM</div>
+<div>
+<p class="text-sm font-bold text-slate-100">Riverside Marine &amp; Spa</p>
+<p class="text-xs text-slate-500">Sent on Oct 24, 2023</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-yellow-500/10 text-yellow-500 border border-yellow-500/20">Trialing</span>
+<p class="text-xs text-slate-400">Reward pending</p>
+</div>
+</div>
+<div class="p-4 flex items-center justify-between hover:bg-neutral-border/30 transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 font-bold">EW</div>
+<div>
+<p class="text-sm font-bold text-slate-100">Elemental Wellness Center</p>
+<p class="text-xs text-slate-500">Sent on Oct 18, 2023</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-primary/10 text-primary border border-primary/20">Sent</span>
+<p class="text-xs text-slate-400">Invite opened</p>
+</div>
+</div>
+<div class="p-4 flex items-center justify-between hover:bg-neutral-border/30 transition-colors">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 font-bold">BS</div>
+<div>
+<p class="text-sm font-bold text-slate-100">Boutique Steam Co.</p>
+<p class="text-xs text-slate-500">Sent on Oct 12, 2023</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-slate-700/50 text-slate-400 border border-slate-700">Expired</span>
+<button class="text-[10px] text-primary font-bold uppercase">Resend</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-6">
+<div class="bg-neutral-surface p-6 rounded-xl border border-neutral-border">
+<h3 class="text-slate-100 font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">share</span>
+                            Share your link
+                        </h3>
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold text-slate-500 uppercase tracking-wider">Your Unique Link</label>
+<div class="flex items-center bg-background-dark rounded-lg border border-neutral-border overflow-hidden">
+<input class="bg-transparent border-none text-sm text-slate-300 w-full focus:ring-0 px-3" readonly="" type="text" value="saunapa.io/ref/spabiz_928"/>
+<button class="bg-primary px-4 py-2 text-background-dark">
+<span class="material-symbols-outlined text-base">content_copy</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-3 mt-4">
+<button class="flex flex-col items-center gap-2 p-3 rounded-lg bg-background-dark border border-neutral-border hover:border-primary transition-colors group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">mail</span>
+<span class="text-[10px] font-medium text-slate-500">Email</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-3 rounded-lg bg-background-dark border border-neutral-border hover:border-primary transition-colors group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">hub</span>
+<span class="text-[10px] font-medium text-slate-500">LinkedIn</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-3 rounded-lg bg-background-dark border border-neutral-border hover:border-primary transition-colors group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">chat</span>
+<span class="text-[10px] font-medium text-slate-500">Twitter</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-3 rounded-lg bg-background-dark border border-neutral-border hover:border-primary transition-colors group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">public</span>
+<span class="text-[10px] font-medium text-slate-500">FB</span>
+</button>
+</div>
+<div class="mt-4 pt-6 border-t border-neutral-border">
+<h4 class="text-sm font-bold text-slate-100 mb-2">Invite by Email</h4>
+<div class="flex gap-2">
+<input class="flex-1 bg-background-dark border-neutral-border rounded-lg text-sm text-slate-300 focus:ring-primary focus:border-primary" placeholder="spa-owner@example.com" type="email"/>
+<button class="bg-primary/20 text-primary border border-primary/30 px-3 rounded-lg hover:bg-primary/30 transition-all">
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 p-6 rounded-xl border border-primary/20">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">workspace_premium</span>
+<h3 class="text-slate-100 font-bold">Top Referrer Badge</h3>
+</div>
+<p class="text-xs text-slate-400 mb-4 leading-relaxed">
+                            Refer 5 more businesses this month to unlock the <span class="text-primary font-bold">Titanium Partner</span> status and get an additional 5% lifetime discount.
+                        </p>
+<div class="w-full bg-background-dark h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[60%]"></div>
+</div>
+<div class="flex justify-between mt-2">
+<span class="text-[10px] text-slate-500">3 of 8 referred</span>
+<span class="text-[10px] text-primary font-bold">5 to go</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-auto px-6 lg:px-40 py-8 border-t border-neutral-border bg-background-dark text-slate-500">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">spa</span>
+<p class="text-xs">© 2023 Sauna SPA Engine. All rights reserved.</p>
+</div>
+<div class="flex gap-6 text-xs">
+<a class="hover:text-primary transition-colors" href="#">Program Terms</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

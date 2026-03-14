@@ -109,13 +109,13 @@ export default function CheckoutPage() {
                     <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm">
                         <Link href="/operations" className="hover:text-[var(--color-primary)] transition-colors">Operations</Link>
                         <span className="material-symbols-outlined text-sm">chevron_right</span>
-                        <span className="text-slate-900 dark:text-slate-100 font-medium tracking-tight">Checkout #{id}</span>
+                        <span className="text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] font-medium tracking-tight">Checkout #{id}</span>
                     </div>
                     <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Service Checkout</h2>
                 </div>
 
                 {/* Cart Items */}
-                <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <div className="glass-card border border-slate-200 dark:border-slate-800 overflow-hidden">
                     <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50">
                         <span className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Current Order</span>
                         <button className="text-[var(--color-primary)] text-sm font-bold flex items-center gap-1 hover:underline">
@@ -176,15 +176,15 @@ export default function CheckoutPage() {
                     {/* Summary Area */}
                     <div className="p-6 bg-slate-50 dark:bg-slate-800/40">
                         <div className="space-y-3 max-w-sm ml-auto">
-                            <div className="flex justify-between text-slate-600 dark:text-slate-400 text-sm">
+                            <div className="flex justify-between text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] text-sm">
                                 <span>Subtotal</span>
                                 <span className="font-medium">RWF {(subtotal * 1000).toLocaleString('en-RW', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                             </div>
-                            <div className="flex justify-between text-slate-600 dark:text-slate-400 text-sm">
+                            <div className="flex justify-between text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] text-sm">
                                 <span>Service Tax (8%)</span>
                                 <span className="font-medium">RWF {(serviceTax * 1000).toLocaleString('en-RW', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                             </div>
-                            <div className="flex justify-between text-slate-600 dark:text-slate-400 text-sm">
+                            <div className="flex justify-between text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] text-sm">
                                 <span>Retail Tax (5%)</span>
                                 <span className="font-medium">RWF {(retailTax * 1000).toLocaleString('en-RW', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                             </div>
@@ -206,7 +206,7 @@ export default function CheckoutPage() {
 
             {/* Right Sidebar: Recommended Retail */}
             <aside className="w-full lg:w-80 flex flex-col gap-6 shrink-0">
-                <div className="bg-white dark:bg-slate-900 rounded-xl p-5 shadow-sm border border-slate-200 dark:border-slate-800">
+                <div className="glass-card p-5 shadow-sm border border-slate-200 dark:border-slate-800">
                     <div className="flex items-center gap-2 mb-5">
                         <span className="material-symbols-outlined text-[var(--color-primary)]">stars</span>
                         <h3 className="text-slate-900 dark:text-white font-bold">Recommended for Guest</h3>
@@ -214,7 +214,7 @@ export default function CheckoutPage() {
 
                     <div className="flex flex-col gap-4">
                         {suggestedItems.map((product) => (
-                            <div key={product.id} className="group border border-slate-100 dark:border-slate-800 rounded-xl p-3 hover:border-[var(--color-primary)]/50 transition-colors bg-white dark:bg-slate-900">
+                            <div key={product.id} className="group border border-slate-100 dark:border-slate-800 rounded-xl p-3 hover:border-[var(--color-primary)]/50 transition-colors glass-card">
                                 <div className="aspect-square rounded-lg bg-slate-100 dark:bg-slate-800 mb-3 relative overflow-hidden">
                                     {product.image && (
                                         <Image

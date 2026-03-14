@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Platform-Wide Analytics &amp; Insights | Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-200">
+<div class="relative flex h-auto min-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header / TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-extrabold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+<div class="text-slate-500 dark:text-slate-400 flex items-center justify-center pl-4">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 h-full placeholder:text-slate-500 text-sm font-normal" placeholder="Search businesses, data..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-6">
+<a class="text-primary text-sm font-semibold leading-normal border-b-2 border-primary pb-1" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Businesses</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Analytics</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Subscriptions</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Settings</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg size-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg size-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+<div class="bg-primary/30 border border-primary/50 aspect-square bg-center bg-cover rounded-full size-10" data-alt="System administrator profile avatar portrait"></div>
+</div>
+</header>
+<main class="flex flex-1 flex-col px-10 py-8 gap-8 max-w-[1440px] mx-auto w-full">
+<!-- Page Title & Actions -->
+<div class="flex flex-wrap justify-between items-end gap-4">
+<div class="flex flex-col gap-1">
+<h1 class="text-slate-900 dark:text-slate-100 text-4xl font-black leading-tight tracking-tight">Platform-Wide Analytics</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal">Real-time performance insights and system-wide data trends across all regions.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold tracking-tight hover:bg-slate-300 transition-colors">
+<span class="material-symbols-outlined mr-2 text-lg">calendar_today</span>
+<span>Last 30 Days</span>
+<span class="material-symbols-outlined ml-2 text-lg">expand_more</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-primary text-background-dark text-sm font-bold tracking-tight shadow-lg shadow-primary/20 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined mr-2 text-lg">file_download</span>
+<span>Export Full Report</span>
+</button>
+</div>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Total Revenue</p>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">payments</span>
+</div>
+<p class="text-slate-900 dark:text-slate-100 text-3xl font-extrabold">$1,240,500</p>
+<div class="flex items-center gap-1 text-emerald-500 font-bold text-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+8.2%</span>
+<span class="text-slate-400 font-normal ml-1">vs last month</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Growth Rate</p>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">show_chart</span>
+</div>
+<p class="text-slate-900 dark:text-slate-100 text-3xl font-extrabold">+12.5%</p>
+<div class="flex items-center gap-1 text-emerald-500 font-bold text-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+2.1%</span>
+<span class="text-slate-400 font-normal ml-1">vs target</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Active Businesses</p>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">business</span>
+</div>
+<p class="text-slate-900 dark:text-slate-100 text-3xl font-extrabold">842</p>
+<div class="flex items-center gap-1 text-emerald-500 font-bold text-sm">
+<span class="material-symbols-outlined text-sm">group_add</span>
+<span>+4.5%</span>
+<span class="text-slate-400 font-normal ml-1">new sign-ups</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Avg Rev / Business</p>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">receipt_long</span>
+</div>
+<p class="text-slate-900 dark:text-slate-100 text-3xl font-extrabold">$1,473</p>
+<div class="flex items-center gap-1 text-rose-500 font-bold text-sm">
+<span class="material-symbols-outlined text-sm">trending_down</span>
+<span>-1.2%</span>
+<span class="text-slate-400 font-normal ml-1">per user</span>
+</div>
+</div>
+</div>
+<!-- Main Charts Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 flex flex-col gap-6 rounded-xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-center">
+<div>
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Monthly Revenue Growth</h3>
+<p class="text-slate-500 text-sm">Performance tracking for current fiscal year</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1.5">
+<div class="size-3 rounded-full bg-primary"></div>
+<span class="text-xs text-slate-500">2024</span>
+</div>
+<div class="flex items-center gap-1.5 ml-4">
+<div class="size-3 rounded-full bg-slate-300"></div>
+<span class="text-xs text-slate-500">2023</span>
+</div>
+</div>
+</div>
+<div class="h-[300px] w-full flex flex-col justify-end">
+<svg class="w-full h-full" fill="none" preserveaspectratio="none" viewbox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 160C50 150 100 120 150 130C200 140 250 80 300 90C350 100 400 30 450 40C500 50 550 100 600 80C650 60 700 20 750 10C800 0 800 0 800 0V200H0V160Z" fill="url(#chartGradient)"></path>
+<path d="M0 160C50 150 100 120 150 130C200 140 250 80 300 90C350 100 400 30 450 40C500 50 550 100 600 80C650 60 700 20 750 10" stroke="#13eca4" stroke-linecap="round" stroke-width="4"></path>
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="chartGradient" x1="400" x2="400" y1="0" y2="200">
+<stop stop-color="#13eca4" stop-opacity="0.3"></stop>
+<stop offset="1" stop-color="#13eca4" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="flex justify-between mt-4 px-2">
+<span class="text-[11px] font-bold text-slate-400">JAN</span>
+<span class="text-[11px] font-bold text-slate-400">MAR</span>
+<span class="text-[11px] font-bold text-slate-400">MAY</span>
+<span class="text-[11px] font-bold text-slate-400">JUL</span>
+<span class="text-[11px] font-bold text-slate-400">SEP</span>
+<span class="text-[11px] font-bold text-slate-400">NOV</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-6 rounded-xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-center">
+<div>
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Category Performance</h3>
+<p class="text-slate-500 text-sm">Market share by spa type</p>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-between gap-4 py-4">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-sm mb-1">
+<span class="font-medium">Hotel &amp; Resort Sauna</span>
+<span class="font-bold">42%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 42%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-sm mb-1">
+<span class="font-medium">Day Spas</span>
+<span class="font-bold">28%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+<div class="bg-primary/70 h-2 rounded-full" style="width: 28%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-sm mb-1">
+<span class="font-medium">Medical Spas</span>
+<span class="font-bold">18%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+<div class="bg-primary/50 h-2 rounded-full" style="width: 18%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-sm mb-1">
+<span class="font-medium">Wellness Centers</span>
+<span class="font-bold">12%</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2">
+<div class="bg-primary/30 h-2 rounded-full" style="width: 12%"></div>
+</div>
+</div>
+</div>
+<button class="text-primary text-sm font-bold border border-primary/30 py-2 rounded-lg hover:bg-primary/10 transition-colors">View All Categories</button>
+</div>
+</div>
+<!-- Bottom Section: Top Businesses & Activities -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-10">
+<!-- Top 5 Businesses -->
+<div class="flex flex-col rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Top 5 Performing Businesses</h3>
+<span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Revenue (MTD)</span>
+</div>
+<div class="divide-y divide-slate-100 dark:divide-slate-800">
+<div class="flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 font-bold">1</div>
+<div>
+<p class="font-bold text-sm">Nordic Sky Wellness</p>
+<p class="text-xs text-slate-500">Stockholm, SE</p>
+</div>
+</div>
+<p class="font-extrabold text-primary">$42,300</p>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 font-bold">2</div>
+<div>
+<p class="font-bold text-sm">Alpine Retreat &amp; Spa</p>
+<p class="text-xs text-slate-500">Zermatt, CH</p>
+</div>
+</div>
+<p class="font-extrabold text-primary">$38,900</p>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 font-bold">3</div>
+<div>
+<p class="font-bold text-sm">Blue Lagoon Premium</p>
+<p class="text-xs text-slate-500">Reykjavík, IS</p>
+</div>
+</div>
+<p class="font-extrabold text-primary">$35,150</p>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 font-bold">4</div>
+<div>
+<p class="font-bold text-sm">Thermal Sands Resort</p>
+<p class="text-xs text-slate-500">Dubai, UAE</p>
+</div>
+</div>
+<p class="font-extrabold text-primary">$31,800</p>
+</div>
+<div class="flex items-center justify-between p-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 font-bold">5</div>
+<div>
+<p class="font-bold text-sm">Zen Garden Spa</p>
+<p class="text-xs text-slate-500">Kyoto, JP</p>
+</div>
+</div>
+<p class="font-extrabold text-primary">$29,400</p>
+</div>
+</div>
+</div>
+<!-- Recent Activities -->
+<div class="flex flex-col rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+<h3 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Recent Platform Activities</h3>
+<button class="text-xs font-bold text-primary underline underline-offset-4">Clear All</button>
+</div>
+<div class="p-6 space-y-6">
+<div class="flex gap-4">
+<div class="flex-none">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">add_business</span>
+</div>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100">New Business Registration</p>
+<p class="text-xs text-slate-500 mt-0.5"><span class="font-semibold text-slate-700 dark:text-slate-300">Forest Haven Sauna</span> joined the platform.</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-tight">2 minutes ago</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-none">
+<div class="size-10 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-500">
+<span class="material-symbols-outlined">verified</span>
+</div>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100">High Volume Transaction</p>
+<p class="text-xs text-slate-500 mt-0.5"><span class="font-semibold text-slate-700 dark:text-slate-300">Luxe Spa NYC</span> processed a bulk payment of $12,400.</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-tight">15 minutes ago</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-none">
+<div class="size-10 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-500">
+<span class="material-symbols-outlined">report</span>
+</div>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100">System Warning</p>
+<p class="text-xs text-slate-500 mt-0.5">API Latency spike detected in the <span class="font-semibold text-slate-700 dark:text-slate-300">Western Europe</span> region.</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-tight">1 hour ago</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-none">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">upgrade</span>
+</div>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100">Subscription Upgrade</p>
+<p class="text-xs text-slate-500 mt-0.5"><span class="font-semibold text-slate-700 dark:text-slate-300">Mountain Peak Spa</span> upgraded to 'Enterprise Plan'.</p>
+<p class="text-[10px] text-slate-400 mt-1 uppercase font-bold tracking-tight">3 hours ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

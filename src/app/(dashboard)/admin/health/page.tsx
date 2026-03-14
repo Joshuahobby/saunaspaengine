@@ -1,15 +1,65 @@
-import { auth } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { requireRole } from "@/lib/role-guard";
+import { prisma } from "@/lib/prisma";
 import AdminHealthClientPage from "./client-page";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "System Pulse | Platform Health",
+    description: "Real-time diagnostics and node health monitoring for the entire platform.",
+};
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminHealthPage() {
-    const session = await auth();
+    await requireRole(["ADMIN"]);
 
-    if (!session?.user || session.user.role !== "ADMIN") {
-        redirect("/login");
-    }
+    // Gather real system health metrics
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
 
-    return <AdminHealthClientPage />;
+    const [
+        totalRecordsToday,
+        totalBusinesses,
+        activeBusinesses,
+        totalUsers,
+        totalEmployees,
+        recentLogs,
+    ] = await Promise.all([
+        prisma.serviceRecord.count({
+            where: { createdAt: { gte: startOfToday } },
+        }),
+        prisma.business.count(),
+        prisma.business.count({ where: { status: "ACTIVE" } }),
+        prisma.user.count(),
+        prisma.employee.count(),
+        prisma.auditLog.findMany({
+            take: 10,
+            orderBy: { createdAt: "desc" },
+            include: {
+                user: { select: { fullName: true } },
+            },
+        }),
+    ]);
+
+    const uptimePct = activeBusinesses > 0
+        ? ((activeBusinesses / totalBusinesses) * 100).toFixed(1)
+        : "100.0";
+
+    const healthMetrics = {
+        uptime: `${uptimePct}%`,
+        requestsToday: totalRecordsToday,
+        activeBusinesses,
+        totalUsers,
+        totalEmployees,
+    };
+
+    const logEntries = recentLogs.map((l) => ({
+        id: l.id,
+        time: new Date(l.createdAt).toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" }),
+        action: l.action,
+        resource: l.entity,
+        userName: l.user.fullName,
+    }));
+
+    return <AdminHealthClientPage metrics={healthMetrics} logEntries={logEntries} />;
 }

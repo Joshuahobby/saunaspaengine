@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employee Onboarding: Tour Completion Summary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2bee2b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102210",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .bg-pattern {
+            background-image: radial-gradient(circle at 2px 2px, #2bee2b22 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-10 py-3 sticky top-0 z-40">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-slate-100">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<label class="flex flex-col min-w-40 h-10 max-w-64 hidden md:flex">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-primary/70 flex border-none bg-primary/10 items-center justify-center pl-4 rounded-l-lg" data-icon="search">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none border-none bg-primary/10 focus:ring-0 h-full placeholder:text-primary/50 px-4 rounded-r-lg pl-2 text-base font-normal" placeholder="Search resources..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9 hidden lg:flex">
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Schedule</a>
+<a class="text-slate-900 dark:text-slate-100 text-sm font-semibold border-b-2 border-primary" href="#">Training</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Settings</a>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="Employee profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDKBNmGEo8lSd0RDTpIbX2pirkyprWtjd0QlekjYB23W3SMeNIc7eoovVP45WCy0ERGe_SH2774VzhUdRVh5FEpHpxGld-R8DwkwMaZ_QWRHTu6AzcWY7Z9OsscGMoyjohqff8ctSmEpEuROzwO0LwQuQ7rcRiNhjj3ss40DYFFd22tZW-OLlr02uUie9hlrwYbk_tS3h2wnfkQBCIu0D5DtdEaFLBcE5Ocrb-x03jsu1RST8KKgahMWoR-5dhy1eJciNYsz03eOy4M");'></div>
+</div>
+</header>
+<main class="flex-1 flex items-center justify-center p-6 bg-pattern">
+<!-- Celebratory Modal -->
+<div class="max-w-[640px] w-full bg-white dark:bg-background-dark border border-primary/20 rounded-xl shadow-2xl overflow-hidden relative">
+<!-- Background decorative element -->
+<div class="absolute top-0 left-0 w-full h-2 bg-primary"></div>
+<div class="p-8 md:p-12 flex flex-col items-center text-center">
+<!-- Badge Icon -->
+<div class="size-24 bg-primary/10 rounded-full flex items-center justify-center mb-6 relative">
+<div class="size-20 bg-primary rounded-full flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined text-4xl">verified</span>
+</div>
+<div class="absolute -top-2 -right-2 size-8 bg-yellow-400 rounded-full flex items-center justify-center text-background-dark shadow-lg">
+<span class="material-symbols-outlined text-sm font-bold">star</span>
+</div>
+</div>
+<h1 class="text-slate-900 dark:text-slate-100 tracking-tight text-4xl font-extrabold leading-tight mb-4">You're Ready!</h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg font-normal leading-relaxed max-w-md mx-auto mb-8">
+                        Congratulations! You've successfully completed the Sauna SPA Engine employee tour. You're now equipped to manage bookings, handle client check-ins, and navigate your workspace efficiently.
+                    </p>
+<!-- Stats / Progress Summary -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full mb-10">
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-primary/5 border border-primary/10">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Modules Finished</p>
+<div class="flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+<p class="text-slate-900 dark:text-slate-100 text-2xl font-bold">5/5</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-primary/5 border border-primary/10">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Tour Time</p>
+<div class="flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">timer</span>
+<p class="text-slate-900 dark:text-slate-100 text-2xl font-bold">12m</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-primary/5 border border-primary/10">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Skills Unlocked</p>
+<div class="flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">military_tech</span>
+<p class="text-slate-900 dark:text-slate-100 text-2xl font-bold">3</p>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col w-full gap-4">
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-4 px-8 rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 text-lg">
+<span>Go to My Schedule</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<div class="flex items-center justify-center gap-2 pt-2">
+<span class="text-slate-500 dark:text-slate-400 text-sm">Have more questions?</span>
+<a class="text-primary font-semibold text-sm hover:underline flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-base">help</span>
+                                Visit FAQ Center
+                            </a>
+</div>
+</div>
+</div>
+<!-- Confetti-like decoration (abstract) -->
+<div class="absolute bottom-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl text-primary">celebration</span>
+</div>
+<div class="absolute top-10 left-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-6xl text-primary rotate-12">auto_awesome</span>
+</div>
+</div>
+</main>
+<!-- Footer / Credits -->
+<footer class="py-6 px-10 border-t border-primary/10 flex justify-between items-center bg-white dark:bg-background-dark">
+<p class="text-slate-400 text-xs">© 2024 Sauna SPA Engine Professional Onboarding</p>
+<div class="flex gap-4">
+<span class="text-slate-400 text-xs">Version 2.4.0</span>
+<span class="text-primary text-xs font-bold">•</span>
+<span class="text-slate-400 text-xs">System Status: Optimal</span>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,277 @@
+<html><head><meta charset="utf-8"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#11d4c4",
+          "background-light": "#f6f8f8",
+          "background-dark": "#102220",
+        },
+        fontFamily: {
+          "display": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+</head><body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary/10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight">SpaConnect Marketing</h2>
+</div>
+<div class="hidden md:flex items-center gap-1 bg-slate-100 dark:bg-slate-800 rounded-lg px-3 py-1.5 border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-500 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 placeholder:text-slate-500" placeholder="Search campaigns..."/>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Audiences</a>
+<a class="text-primary text-sm font-semibold border-b-2 border-primary py-4 -mb-4" href="#">Campaigns</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Analytics</a>
+</nav>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-800"></div>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-400">notifications</span>
+</button>
+<div class="bg-primary/20 rounded-full size-10 border-2 border-primary flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="User profile avatar of a spa owner" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4CAtGiTrzugptcFAYJv3z6D8nOAceQxdLxeQO6m2mL_9-06M7yzcjqA9eBL97J_g6dfp7Z4NhLhDG4WcnjSZKe9AvIy-7OpNUyMjcAReylTjhmBT2djnnns9qtym3gvkpuWtYlBkbM6aMlSEMOVCGmefqh4gZEQEeL77INGaN3dy_Os373KcTZQqte0HYcjFK60pbNw3XkGyLo-0jAbynHNgwRlueXn926Akqt6vjHr7fyRKPdkmAyF4lgVpLXcMKp02BF622NETe"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-[1440px] mx-auto w-full p-6 md:p-10">
+<!-- Breadcrumbs & Header -->
+<div class="mb-8">
+<nav class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+<a class="hover:text-primary" href="#">Marketing</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">Campaign Builder</span>
+</nav>
+<div class="flex flex-wrap justify-between items-end gap-4">
+<div>
+<h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Campaign &amp; Promotion Builder</h1>
+<p class="text-slate-600 dark:text-slate-400 mt-1">Re-engage your clients with targeted messaging and exclusive offers.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-5 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 font-semibold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Save Draft</button>
+<button class="bg-primary px-5 py-2.5 rounded-lg text-slate-900 font-bold text-sm hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">send</span>
+              Review &amp; Send
+            </button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Builder Controls (Left Column) -->
+<div class="lg:col-span-7 space-y-8">
+<!-- Section 1: Audience -->
+<section class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 mb-6">
+<span class="flex items-center justify-center size-8 bg-primary rounded-full text-xs font-bold text-slate-900">1</span>
+<h2 class="text-xl font-bold">Audience Selection</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="p-4 rounded-xl border-2 border-primary bg-primary/5 flex flex-col gap-2 cursor-pointer relative overflow-hidden group">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary">person_off</span>
+<div class="size-5 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-slate-900 font-bold">check</span>
+</div>
+</div>
+<p class="font-bold text-slate-900 dark:text-white">Inactive for 30 days</p>
+<p class="text-xs text-slate-500">Clients who haven't booked in the last month.</p>
+<p class="text-sm font-semibold text-primary mt-2">142 clients</p>
+</div>
+<div class="p-4 rounded-xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-colors flex flex-col gap-2 cursor-pointer group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">loyalty</span>
+<p class="font-bold text-slate-900 dark:text-white">Low Pass Count</p>
+<p class="text-xs text-slate-500">Members with &lt; 2 passes remaining.</p>
+<p class="text-sm font-semibold text-slate-400 mt-2">87 clients</p>
+</div>
+<div class="p-4 rounded-xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/50 transition-colors flex flex-col gap-2 cursor-pointer group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">celebration</span>
+<p class="font-bold text-slate-900 dark:text-white">Birthday Soon</p>
+<p class="text-xs text-slate-500">Clients with birthdays in the next 7 days.</p>
+<p class="text-sm font-semibold text-slate-400 mt-2">12 clients</p>
+</div>
+<div class="p-4 rounded-xl border border-dashed border-slate-300 dark:border-slate-700 flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+<span class="material-symbols-outlined text-slate-400">add_circle</span>
+<p class="text-sm font-bold text-slate-500">Custom Filter</p>
+</div>
+</div>
+</section>
+<!-- Section 2: Promotion Type -->
+<section class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 mb-6">
+<span class="flex items-center justify-center size-8 bg-primary rounded-full text-xs font-bold text-slate-900">2</span>
+<h2 class="text-xl font-bold">Promotion Type</h2>
+</div>
+<div class="space-y-4">
+<label class="flex items-center gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<input checked="" class="w-5 h-5 text-primary border-slate-300 focus:ring-primary" name="promo" type="radio"/>
+<div class="flex-1">
+<p class="font-bold">% Discount</p>
+<p class="text-xs text-slate-500">Apply a percentage off any service or retail product.</p>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded text-sm font-mono font-bold">20%</div>
+</label>
+<label class="flex items-center gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<input class="w-5 h-5 text-primary border-slate-300 focus:ring-primary" name="promo" type="radio"/>
+<div class="flex-1">
+<p class="font-bold">Free Add-on</p>
+<p class="text-xs text-slate-500">Offer a complimentary upgrade like aromatherapy or foot soak.</p>
+</div>
+<span class="material-symbols-outlined text-slate-400">redeem</span>
+</label>
+<label class="flex items-center gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<input class="w-5 h-5 text-primary border-slate-300 focus:ring-primary" name="promo" type="radio"/>
+<div class="flex-1">
+<p class="font-bold">BOGO</p>
+<p class="text-xs text-slate-500">Buy one service, get the second one free or half-off.</p>
+</div>
+<span class="material-symbols-outlined text-slate-400">group</span>
+</label>
+</div>
+</section>
+<!-- Section 3: Composer -->
+<section class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 mb-6">
+<span class="flex items-center justify-center size-8 bg-primary rounded-full text-xs font-bold text-slate-900">3</span>
+<h2 class="text-xl font-bold">Message Composer</h2>
+</div>
+<div class="flex gap-4 mb-4">
+<button class="flex-1 py-2 px-4 rounded-lg bg-primary/10 text-primary border border-primary/20 text-sm font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">sms</span> SMS Blast
+              </button>
+<button class="flex-1 py-2 px-4 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 text-sm font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">mail</span> Email Blast
+              </button>
+</div>
+<div class="space-y-4">
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 text-xs font-medium cursor-pointer hover:bg-primary/20 hover:border-primary transition-colors">[Client Name]</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 text-xs font-medium cursor-pointer hover:bg-primary/20 hover:border-primary transition-colors">[Promo Code]</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 text-xs font-medium cursor-pointer hover:bg-primary/20 hover:border-primary transition-colors">[Expiry Date]</span>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700 text-xs font-medium cursor-pointer hover:bg-primary/20 hover:border-primary transition-colors">[Booking Link]</span>
+</div>
+<textarea class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-4 focus:ring-primary focus:border-primary outline-none resize-none" placeholder="Type your message here..." rows="5">Hi [Client Name]! We miss you at Serenity Spa. Use code [Promo Code] for 20% off your next facial booking before [Expiry Date]. Book here: [Booking Link]</textarea>
+<div class="flex justify-between items-center text-xs text-slate-400">
+<p>124 / 160 characters (1 SMS segment)</p>
+<p class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">auto_fix_high</span> AI Assist</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Preview Pane (Right Column) -->
+<div class="lg:col-span-5 relative">
+<div class="sticky top-24">
+<div class="bg-slate-900 rounded-[3rem] p-4 shadow-2xl border-[8px] border-slate-800 max-w-[320px] mx-auto aspect-[9/18.5] relative overflow-hidden">
+<!-- Mobile Status Bar -->
+<div class="flex justify-between items-center px-6 py-2 text-white/80 text-[10px]">
+<span>9:41</span>
+<div class="flex gap-1 items-center">
+<span class="material-symbols-outlined text-xs">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-xs">wifi</span>
+<span class="material-symbols-outlined text-xs">battery_full</span>
+</div>
+</div>
+<!-- SMS App UI -->
+<div class="h-full bg-white dark:bg-slate-900 rounded-[2rem] overflow-hidden flex flex-col">
+<div class="bg-slate-100 dark:bg-slate-800 p-4 border-b border-slate-200 dark:border-slate-700 flex flex-col items-center">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold mb-1">SS</div>
+<p class="text-[10px] font-bold text-slate-900 dark:text-white">Serenity Spa</p>
+</div>
+<div class="flex-1 p-4 space-y-4">
+<div class="text-center">
+<span class="bg-slate-200 dark:bg-slate-800 text-[8px] text-slate-500 px-2 py-0.5 rounded-full">Today 10:48 AM</span>
+</div>
+<div class="bg-slate-100 dark:bg-slate-800 rounded-2xl p-3 text-xs leading-relaxed max-w-[85%]">
+                    Hi <span class="text-primary font-semibold">Sarah</span>! We miss you at Serenity Spa. Use code <span class="text-primary font-semibold">WELCOME20</span> for 20% off your next facial booking before <span class="text-primary font-semibold">Oct 31</span>. Book here: <span class="text-blue-500 underline">spaconnect.com/b/serenity</span>
+</div>
+</div>
+<!-- Input area mimic -->
+<div class="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2">
+<div class="flex-1 h-8 bg-slate-100 dark:bg-slate-800 rounded-full px-4 flex items-center">
+<div class="h-4 w-px bg-primary animate-pulse"></div>
+</div>
+<div class="size-8 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-900 text-sm">arrow_upward</span>
+</div>
+</div>
+</div>
+<!-- Speaker/Camera Notch -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-slate-900 rounded-b-2xl"></div>
+</div>
+<!-- Campaign Stats Preview Card -->
+<div class="mt-8 bg-white dark:bg-slate-900 rounded-xl p-6 shadow-lg border border-slate-200 dark:border-slate-800 max-w-[320px] mx-auto">
+<h3 class="text-sm font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">insights</span> Estimated Reach
+              </h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<p class="text-xs text-slate-500">Recipients</p>
+<p class="text-sm font-bold">142</p>
+</div>
+<div class="flex justify-between items-center">
+<p class="text-xs text-slate-500">Est. Open Rate</p>
+<p class="text-sm font-bold text-green-500">98%</p>
+</div>
+<div class="flex justify-between items-center">
+<p class="text-xs text-slate-500">Cost per SMS</p>
+<p class="text-sm font-bold">$0.04</p>
+</div>
+<div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+<p class="text-xs font-bold">Total Cost</p>
+<p class="text-lg font-black text-primary">$5.68</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Actions Bar -->
+<div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 p-4 z-40">
+<div class="max-w-[1440px] mx-auto flex items-center justify-between">
+<div class="hidden md:flex items-center gap-4">
+<div class="flex -space-x-2">
+<img class="size-8 rounded-full border-2 border-white dark:border-slate-900 object-cover" data-alt="Client profile image 1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACq9p0rSl0lYDXtbAD6DsRJQ8Hvvn2yAnnbAGKZq0oPPf3NOUI2fYdXzJPLkOt6GRb0AN40iER_vaDVwxADtJ_MdQzT-okpkHq5LIEiETPiZzrVxPmeBEj_FQGDI_qpfMbnaHVKzbqoPXDnqoyLZjTIPZoz8h9tZi68efiYCRSXRGg1fWhgJZS4a9kc5YLk4gU98AFWcpBuQSJGcA-wQwLPqQdoReJ3w7Els4PZWOSBChlpQYP_5DTIYK5Ruhdj7AAgIQyNIEsQ1S0"/>
+<img class="size-8 rounded-full border-2 border-white dark:border-slate-900 object-cover" data-alt="Client profile image 2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZAv1avyZfONbihqHg7KCEr4YD5QeQCGgtN2mhFBY9jBXr6x-9N7r-dKLu1bUaksjxxILpl-VXoHfq4EDLWFXCDLi1vpJbj_esFL0xsLJY08ze_syNpS2qGBcwyRn1zhWpdzrHYLmVN7KOpi5-9FuYXZ45xwQyReFZZ3pB1eTTJrBL2bnm32iDc07DYRM2VnSYfvotCjB1F8zdKMkZ_-i0zdsamPjYVKzsKI5djsgAQzTZrAvPCja8hANRUWJtTxNpMU5Of8iai_Ei"/>
+<img class="size-8 rounded-full border-2 border-white dark:border-slate-900 object-cover" data-alt="Client profile image 3" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDI4hbBzU1oKh9_hyzmdEFyypj3QYsRocyMXBwC3S-AFGaSQp4Ii3QitcDhlYa5UK_ARBg1J9Kl-D0YuDHVgBRNefJLvKgHrY36m4fMmPUAfTZlUMmSc7iU7QKFXPUjliy4Ux1ceKAwnhI44ClQkb3BgYsreXOJWDgBgNONRzGQzs4lHnKusr6V1vcM1ULBUvpUXxNbg2jBdEODs-J_98ZRzy-q6VQr35_4oxiGomwI8IY8OdOk2_og2Cxly2pyRjDXfByaQgY3zKLp"/>
+<div class="size-8 rounded-full border-2 border-white dark:border-slate-900 bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[10px] font-bold">+139</div>
+</div>
+<p class="text-xs text-slate-500"><span class="font-bold text-slate-900 dark:text-white">142</span> clients selected for this SMS blast.</p>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="relative flex-1 md:flex-none">
+<select class="w-full appearance-none bg-slate-100 dark:bg-slate-800 border-none rounded-lg px-4 py-2.5 text-sm font-bold pr-10 focus:ring-primary">
+<option>Send Now</option>
+<option>Schedule for later</option>
+<option>Send in batches</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+</div>
+<button class="bg-primary px-8 py-2.5 rounded-lg text-slate-900 font-bold text-sm shadow-lg shadow-primary/20 hover:opacity-90 transition-all flex-1 md:flex-none">
+            Launch Campaign
+          </button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

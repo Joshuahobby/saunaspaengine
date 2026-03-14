@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Membership Validation Result - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header / TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-10 py-3 bg-white dark:bg-slate-900">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-slate-900 dark:text-slate-100">
+<div class="size-8 flex items-center justify-center rounded-lg bg-primary text-slate-900">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<label class="flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full overflow-hidden">
+<div class="text-slate-500 flex items-center justify-center pl-4 bg-slate-100 dark:bg-slate-800">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-slate-100 dark:bg-slate-800 focus:ring-0 h-full placeholder:text-slate-500 px-4 text-base font-normal" placeholder="Search members..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-semibold" href="#">Scanner</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#">Members</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-semibold hover:text-primary transition-colors" href="#">Reports</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary" data-alt="Staff profile portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCo7idoFuvqeqkM0oHUNxCLaaS4C6d-gfJQs-iSjYc_hEGrT7roB4IFiEDYw6Uwp4QTTpJSDdiQF2Inrz8ZmROs1vZ1FFWtTYrux8AyifAq6OKD0YV4jUW0aXu_pCOtUcVpXRQek7vHYP20Xfo_cEoQoU6fPkxTNVpmLmZPEB8_SyPFDUi3dMtmb7BE05ZzCGriEAFOg2d-hhw6uP-4Z5PSC2yNCE_p4oL4QPG7CWmPYemlsiNZGV3MHnmHDkjQp-hclJivlojmIaec");'></div>
+</div>
+</header>
+<main class="flex flex-1 overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 flex flex-col border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shrink-0">
+<div class="flex flex-col gap-1 mb-6">
+<h1 class="text-slate-900 dark:text-slate-100 text-base font-bold">Spa Admin Terminal</h1>
+<p class="text-slate-500 text-xs font-medium uppercase tracking-wider">North Branch Center</p>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-semibold">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined fill-icon">qr_code_scanner</span>
+<span class="text-sm font-bold">Live Scanner</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-semibold">Member Directory</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="text-sm font-semibold">Analytics</span>
+</a>
+<div class="my-4 border-t border-slate-100 dark:border-slate-800"></div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">help_center</span>
+<span class="text-sm font-semibold">Support</span>
+</a>
+</nav>
+</aside>
+<!-- Content Area -->
+<div class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark p-8">
+<div class="max-w-3xl mx-auto">
+<!-- Validation Card -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-xl overflow-hidden border border-slate-200 dark:border-slate-800">
+<!-- Success Banner -->
+<div class="bg-primary px-8 py-6 flex items-center justify-between">
+<div class="flex items-center gap-4 text-slate-900">
+<span class="material-symbols-outlined text-4xl font-bold">check_circle</span>
+<div>
+<h2 class="text-2xl font-extrabold tracking-tight">VALID</h2>
+<p class="text-sm font-bold opacity-80">Access Granted • Verified 14:22:05</p>
+</div>
+</div>
+<div class="bg-slate-900/10 rounded-full px-4 py-1">
+<span class="text-xs font-bold uppercase tracking-widest text-slate-900">Pass Validated</span>
+</div>
+</div>
+<!-- Result Content -->
+<div class="p-8">
+<div class="flex flex-col md:flex-row gap-10">
+<!-- Profile Section -->
+<div class="flex flex-col items-center gap-4 shrink-0">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-2xl w-40 h-40 border-4 border-white dark:border-slate-800 shadow-lg" data-alt="Customer membership profile photo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCA_DYTpma3aR-eVShexMRU3O08VdP1GKcf6Biy1bEhdHQ-NE7_7QprmFGarUS_9vjspChb5Leyh-SlQJwlJgrh6xJgj-37olNDhiuThmsOHrMMZhzdHcg3xG5_oZTGpBcJzmawSLzQqiBIGlPxU6fXTzn3XBSAsSHxARVuCohpIgM_1ky6inMcNf51xgqJ87UaRQyuui7vrF1zwIXUL3Bxqu9GiX15jMsb76HS-P9DFYvpstluLlUMV0CQ8gV4RmBiR6WQBXauqccv");'></div>
+<div class="absolute -bottom-2 -right-2 bg-primary text-slate-900 rounded-full p-2 border-4 border-white dark:border-slate-800">
+<span class="material-symbols-outlined text-xl font-bold">verified_user</span>
+</div>
+</div>
+<div class="text-center">
+<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">Alexander Thompson</h3>
+<p class="text-slate-500 font-medium">Member ID: #88291</p>
+</div>
+</div>
+<!-- Info Grid -->
+<div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Membership Type</p>
+<p class="text-lg font-bold text-slate-900 dark:text-slate-100">Subscription Pass</p>
+<p class="text-sm text-primary font-medium">VIP Unlimited</p>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Expiry Date</p>
+<p class="text-lg font-bold text-slate-900 dark:text-slate-100">Dec 31, 2024</p>
+<p class="text-sm text-slate-500 font-medium">214 days remaining</p>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Remaining Balance</p>
+<p class="text-lg font-bold text-slate-900 dark:text-slate-100">$245.50</p>
+<p class="text-sm text-slate-500 font-medium">In-store credit</p>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Last Visit</p>
+<p class="text-lg font-bold text-slate-900 dark:text-slate-100">2 days ago</p>
+<p class="text-sm text-slate-500 font-medium">May 12, 2024</p>
+</div>
+</div>
+</div>
+<!-- Additional Notes / Preferences -->
+<div class="mt-8 pt-8 border-t border-slate-100 dark:border-slate-800">
+<div class="flex items-start gap-4 p-4 bg-primary/5 rounded-xl border border-primary/20">
+<span class="material-symbols-outlined text-primary">info</span>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100">Guest Preferences</p>
+<p class="text-sm text-slate-600 dark:text-slate-400 italic">"Prefers eucalyptus scent in private sauna. Nut allergy (cashews)."</p>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="mt-10 flex flex-col sm:flex-row gap-4">
+<button class="flex-1 flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-slate-900 font-bold py-4 px-6 rounded-xl transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">directions_run</span>
+                                    Proceed to Service
+                                </button>
+<button class="flex-1 flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold py-4 px-6 rounded-xl transition-all">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+                                    Back to Scanner
+                                </button>
+</div>
+</div>
+</div>
+<!-- Recent Activity Summary (Bottom Mini-card) -->
+<div class="mt-6 flex justify-between items-center px-6 py-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">history</span>
+<span class="text-sm font-medium text-slate-600 dark:text-slate-400">Membership usage: <strong class="text-slate-900 dark:text-slate-100">12 sessions this month</strong></span>
+</div>
+<a class="text-primary text-sm font-bold hover:underline" href="#">View History</a>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

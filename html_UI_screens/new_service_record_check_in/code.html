@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2e28",
+                        "border-light": "#e2e8f0",
+                        "border-dark": "#2d3f39",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+<title>New Service Record &amp; Check-in</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark px-6 md:px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-slate-900 dark:text-slate-100">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<h2 class="text-lg font-extrabold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-semibold transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary py-1" href="#">Check-in</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-semibold transition-colors" href="#">Clients</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-semibold transition-colors" href="#">Services</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-semibold transition-colors" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<div class="hidden md:flex items-center bg-background-light dark:bg-background-dark rounded-lg px-3 py-1.5 border border-border-light dark:border-border-dark w-64">
+<span class="material-symbols-outlined text-slate-400 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-400" placeholder="Search client or record..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg size-10 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg size-10 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">settings</span>
+</button>
+</div>
+<div class="bg-primary/20 rounded-full p-0.5 border-2 border-primary">
+<img class="size-9 rounded-full object-cover" data-alt="Female receptionist avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmddpUpxf5yrcBkgxYFamPshbPJZlqpsO6vGY_9FjmWNaH0lby2J4ayN-U4ILq6DoYK1NpuicNdneqiog8kKyMbV1YmXKfgOKFNbvMPgI3hOUbHUBe-dNeOPz0eHax7J09SXF8OTRA5wkKy8kcSh6njosVtIajaUji2EcG7-UxMRIYJMNV_Gg54QTh1AIKQlqp_AvNtau_ZkciIvAqsFouGO6n3DBxyL5SgCaRm4LDjPlAS08jbV7-299tc2a_yMAGBNS1BRv90kGM"/>
+</div>
+</div>
+</header>
+<!-- Main Content Container -->
+<main class="flex-1 max-w-7xl mx-auto w-full px-6 py-8">
+<div class="mb-8">
+<h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">New Service Record &amp; Check-in</h1>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Register a client session and assign service parameters.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Scan / ID Section -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark overflow-hidden shadow-sm">
+<div class="p-5 border-b border-border-light dark:border-border-dark flex justify-between items-center">
+<h3 class="font-bold text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">qr_code_scanner</span>
+                                    1. Client Identification
+                                </h3>
+<span class="px-2 py-1 bg-primary/10 text-primary text-xs font-bold rounded">ACTIVE CAMERA</span>
+</div>
+<div class="p-6">
+<div class="relative group aspect-video rounded-xl bg-slate-900 overflow-hidden flex items-center justify-center border-2 border-dashed border-primary/30">
+<img class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay" data-alt="Abstract scanning overlay for QR code identification" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsYjYFjWIn4MckKsIYbegHfR3wdQsh-Br2zR5Z9AWVJEP-j5F2BQCkaMoEnH-RRnUbl2HNkcKYOFpTDrItug-LOdqUnAsdXKMuHUjX_S0zfSLLzsTwItPkS9U7HaiVBLjzIIY3Rp9gY6YhAreQfvnN5TDnrfF4uSueD_i5ZZJAOD2iB3M9TwUd-AaI1fGmjj8W4GsJ4f2BO42YyuKtoF3XLVnxADq-rBKlK-djs1J5OZrJDse1MijspDZMrCWObTAcIo902WAJdC_j"/>
+<!-- Scan UI Overlay -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="size-48 border-2 border-primary rounded-lg relative">
+<div class="absolute -top-1 -left-1 size-4 border-t-4 border-l-4 border-primary rounded-tl-sm"></div>
+<div class="absolute -top-1 -right-1 size-4 border-t-4 border-r-4 border-primary rounded-tr-sm"></div>
+<div class="absolute -bottom-1 -left-1 size-4 border-b-4 border-l-4 border-primary rounded-bl-sm"></div>
+<div class="absolute -bottom-1 -right-1 size-4 border-b-4 border-r-4 border-primary rounded-br-sm"></div>
+<!-- Scanning line animation simulation -->
+<div class="absolute top-0 left-0 w-full h-0.5 bg-primary/50 shadow-[0_0_15px_#13eca4]"></div>
+</div>
+</div>
+<div class="z-10 text-center px-4">
+<button class="bg-primary hover:bg-primary/90 text-background-dark font-bold py-3 px-6 rounded-full flex items-center gap-2 transition-transform active:scale-95 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">photo_camera</span>
+                                            Position QR Code in Frame
+                                        </button>
+<p class="text-white/60 text-xs mt-4 font-medium uppercase tracking-widest">or</p>
+</div>
+</div>
+<div class="mt-6 flex gap-3">
+<button class="flex-1 bg-background-light dark:bg-background-dark hover:bg-slate-200 dark:hover:bg-slate-800 border border-border-light dark:border-border-dark text-slate-700 dark:text-slate-300 font-bold py-2.5 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[20px]">upload</span>
+                                        Upload Image
+                                    </button>
+<button class="flex-1 bg-background-light dark:bg-background-dark hover:bg-slate-200 dark:hover:bg-slate-800 border border-border-light dark:border-border-dark text-slate-700 dark:text-slate-300 font-bold py-2.5 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[20px]">person_search</span>
+                                        Manual Search
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Last Activity Brief -->
+<div class="bg-primary/5 border border-primary/20 rounded-xl p-5">
+<h4 class="text-xs font-bold text-primary uppercase tracking-wider mb-3">Pending/Recent Member</h4>
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400">person</span>
+</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">Waiting for scan...</p>
+<p class="text-sm text-slate-500">Scan to auto-fill member details</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Registration Form -->
+<div class="lg:col-span-7">
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm h-full">
+<div class="p-5 border-b border-border-light dark:border-border-dark">
+<h3 class="font-bold text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">edit_note</span>
+                                    2. Service &amp; Assignment Details
+                                </h3>
+</div>
+<form class="p-6 space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Service Selection -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Select Service</label>
+<div class="relative">
+<select class="w-full appearance-none bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg px-4 py-3 pr-10 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-slate-900 dark:text-slate-100">
+<option disabled="" selected="">Choose a service...</option>
+<option>Traditional Finnish Sauna (60min)</option>
+<option>Aromatherapy Steam Bath (45min)</option>
+<option>Deep Tissue Massage (90min)</option>
+<option>Hot Stone Therapy (60min)</option>
+<option>Cold Plunge Session (15min)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">expand_more</span>
+</div>
+</div>
+<!-- Employee Assignment -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Assign Staff</label>
+<div class="relative">
+<select class="w-full appearance-none bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg px-4 py-3 pr-10 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-slate-900 dark:text-slate-100">
+<option disabled="" selected="">Select staff member...</option>
+<option>Sarah Johnson (Available)</option>
+<option>Michael Chen (Available)</option>
+<option>Elena Rodriguez (Busy - 15m left)</option>
+<option>David Smith (Available)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">person_add</span>
+</div>
+</div>
+<!-- Box / Room Number -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Box / Cabin Number</label>
+<input class="w-full bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-slate-900 dark:text-slate-100" placeholder="e.g. B-104" type="text"/>
+</div>
+<!-- Check-in Time -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Check-in Time</label>
+<div class="flex items-center gap-2">
+<input class="flex-1 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-slate-900 dark:text-slate-100" type="time" value="14:30"/>
+<button class="px-3 py-3 bg-slate-200 dark:bg-slate-800 rounded-lg text-xs font-bold uppercase hover:bg-primary/20 hover:text-primary transition-colors" type="button">Now</button>
+</div>
+</div>
+</div>
+<!-- Payment Mode Selection -->
+<div class="flex flex-col gap-3">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Payment Mode</label>
+<div class="grid grid-cols-3 gap-4">
+<label class="cursor-pointer">
+<input checked="" class="sr-only peer" name="payment" type="radio"/>
+<div class="flex flex-col items-center justify-center p-4 border border-border-light dark:border-border-dark rounded-xl bg-background-light dark:bg-background-dark peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-1 peer-checked:ring-primary transition-all">
+<span class="material-symbols-outlined text-slate-400 peer-checked:text-primary mb-2">payments</span>
+<span class="text-sm font-bold">Cash</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="sr-only peer" name="payment" type="radio"/>
+<div class="flex flex-col items-center justify-center p-4 border border-border-light dark:border-border-dark rounded-xl bg-background-light dark:bg-background-dark peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-1 peer-checked:ring-primary transition-all">
+<span class="material-symbols-outlined text-slate-400 peer-checked:text-primary mb-2">smartphone</span>
+<span class="text-sm font-bold">MoMo</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="sr-only peer" name="payment" type="radio"/>
+<div class="flex flex-col items-center justify-center p-4 border border-border-light dark:border-border-dark rounded-xl bg-background-light dark:bg-background-dark peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:ring-1 peer-checked:ring-primary transition-all">
+<span class="material-symbols-outlined text-slate-400 peer-checked:text-primary mb-2">point_of_sale</span>
+<span class="text-sm font-bold">POS / Card</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Notes area -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Special Requirements / Notes (Optional)</label>
+<textarea class="w-full bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-slate-900 dark:text-slate-100 resize-none" placeholder="e.g. Skin sensitivity, preferred temperature..." rows="2"></textarea>
+</div>
+<!-- Actions -->
+<div class="pt-6 border-t border-border-light dark:border-border-dark flex items-center justify-between gap-4">
+<button class="px-6 py-3 text-slate-500 font-bold hover:text-slate-700 dark:hover:text-slate-300 transition-colors" type="reset">Clear Form</button>
+<div class="flex gap-4">
+<button class="px-8 py-3 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" type="button">Save Draft</button>
+<button class="px-10 py-3 bg-primary text-background-dark rounded-lg font-extrabold flex items-center gap-2 hover:shadow-lg hover:shadow-primary/30 transition-all active:scale-95" type="submit">
+                                            Confirm Check-in
+                                            <span class="material-symbols-outlined">check_circle</span>
+</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+<!-- Footer Summary / Quick Stats -->
+<div class="mt-12 grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-xl border border-border-light dark:border-border-dark flex items-center gap-4">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">group</span>
+</div>
+<div>
+<p class="text-xs text-slate-500 font-bold uppercase">In-Session</p>
+<p class="text-xl font-black">12 Clients</p>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-xl border border-border-light dark:border-border-dark flex items-center gap-4">
+<div class="size-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined">sensor_door</span>
+</div>
+<div>
+<p class="text-xs text-slate-500 font-bold uppercase">Free Boxes</p>
+<p class="text-xl font-black">4 Available</p>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-xl border border-border-light dark:border-border-dark flex items-center gap-4">
+<div class="size-10 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined">badge</span>
+</div>
+<div>
+<p class="text-xs text-slate-500 font-bold uppercase">Staff On-Duty</p>
+<p class="text-xl font-black">8 Active</p>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-4 rounded-xl border border-border-light dark:border-border-dark flex items-center gap-4">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined">history</span>
+</div>
+<div>
+<p class="text-xs text-slate-500 font-bold uppercase">Daily Check-ins</p>
+<p class="text-xl font-black">42 Today</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

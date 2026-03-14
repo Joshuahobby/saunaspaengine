@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employee Productivity Report - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2e28",
+                        "accent-light": "#e7f3ef",
+                        "accent-dark": "#1e3a31",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="flex items-center justify-between border-b border-accent-light dark:border-accent-dark px-10 py-3 bg-surface-light dark:bg-surface-dark sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-slate-100">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<label class="flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full overflow-hidden">
+<div class="text-slate-500 dark:text-slate-400 flex items-center justify-center bg-accent-light dark:bg-accent-dark px-3">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="w-full border-none bg-accent-light dark:bg-accent-dark focus:ring-0 text-sm placeholder:text-slate-500" placeholder="Search insights..." type="text"/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Inventory</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Appointments</a>
+<a class="text-sm font-medium text-primary" href="#">Staff</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Reports</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-accent-light dark:bg-accent-dark hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-slate-700 dark:text-slate-200">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-accent-light dark:bg-accent-dark hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-slate-700 dark:text-slate-200">settings</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary" data-alt="Profile picture of female spa manager" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDUKZORwyw59ayiv3wCaU5Il48iOnFSnkBVk6cRAAgK0htQPwi0lROSBYbzPn9gkXKBbhtgZmyG4DTlmU7pQMIFjlE0OiPCeIlMG--nct1RXEaJMJeEy8mMliCW1qwuMtmgcmEFwd7vw66-TlWl6aOZ5iKubY8Q4MuIq0rv07Hf2SX-aN0d4-E7ejSpCxBIghDc8RTOL_JqemXirzgOShi3nW3oOuFo-DWd-xeHDeEzxgq0-8GvXQyHBEFBkJnDkSfp8cqTe27zV8eK");'></div>
+</div>
+</div>
+</header>
+<main class="flex-1 flex">
+<aside class="w-64 border-r border-accent-light dark:border-accent-dark bg-surface-light dark:bg-surface-dark p-6 hidden md:flex flex-col gap-8">
+<div class="space-y-1">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 px-3">Management Console</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-accent-light dark:hover:bg-accent-dark transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-semibold">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-accent-light dark:hover:bg-accent-dark transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-semibold">Sales Report</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary border border-primary/20" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="text-sm font-bold">Staff Performance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-accent-light dark:hover:bg-accent-dark transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-semibold">Customer Insights</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-accent-light dark:hover:bg-accent-dark transition-all" href="#">
+<span class="material-symbols-outlined">settings_suggest</span>
+<span class="text-sm font-semibold">Operations</span>
+</a>
+</div>
+<div class="mt-auto bg-primary/10 p-4 rounded-xl border border-primary/20">
+<p class="text-xs font-bold text-primary mb-1">Upgrade Available</p>
+<p class="text-xs text-slate-600 dark:text-slate-400 mb-3">Get advanced AI predictions for staff scheduling.</p>
+<button class="w-full bg-primary text-background-dark text-xs font-bold py-2 rounded-lg">View Plans</button>
+</div>
+</aside>
+<section class="flex-1 overflow-y-auto p-8 lg:px-12 bg-background-light dark:bg-background-dark">
+<div class="max-w-6xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div>
+<h1 class="text-3xl font-extrabold tracking-tight">Employee Productivity Report</h1>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Detailed performance analysis and revenue contribution by staff members.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-bold hover:bg-slate-50 dark:hover:bg-accent-dark transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+                                Export CSV
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-background-dark rounded-lg text-sm font-bold hover:brightness-95 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+                                Custom Range
+                            </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+<div class="lg:col-span-1 bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-accent-light dark:border-accent-dark shadow-sm">
+<h3 class="text-sm font-bold text-slate-500 mb-6 flex items-center gap-2 uppercase tracking-wide">
+<span class="material-symbols-outlined text-primary">event_repeat</span>
+                                Reporting Period
+                            </h3>
+<div class="flex flex-col gap-2">
+<button class="flex items-center justify-between px-4 py-3 rounded-lg border border-slate-100 dark:border-slate-700 text-sm font-medium hover:border-primary transition-all">
+                                    Daily <span>24 Oct</span>
+</button>
+<button class="flex items-center justify-between px-4 py-3 rounded-lg border-2 border-primary bg-primary/5 text-sm font-bold text-slate-900 dark:text-white transition-all">
+                                    Weekly <span>21-27 Oct</span>
+</button>
+<button class="flex items-center justify-between px-4 py-3 rounded-lg border border-slate-100 dark:border-slate-700 text-sm font-medium hover:border-primary transition-all">
+                                    Monthly <span>October</span>
+</button>
+</div>
+<div class="mt-8 border-t border-accent-light dark:border-accent-dark pt-6">
+<div class="flex items-center justify-between mb-2">
+<button class="text-slate-400 hover:text-primary transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
+<span class="font-bold text-sm">October 2023</span>
+<button class="text-slate-400 hover:text-primary transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+<div class="grid grid-cols-7 text-[10px] text-center font-bold text-slate-400 mb-2">
+<div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div><div>S</div>
+</div>
+<div class="grid grid-cols-7 gap-1 text-center">
+<div class="text-xs p-1 text-slate-300">25</div><div class="text-xs p-1 text-slate-300">26</div><div class="text-xs p-1 text-slate-300">27</div><div class="text-xs p-1 text-slate-300">28</div><div class="text-xs p-1 text-slate-300">29</div><div class="text-xs p-1 text-slate-300">30</div><div class="text-xs p-1 font-bold">1</div>
+<div class="text-xs p-1 font-bold">2</div><div class="text-xs p-1 font-bold">3</div><div class="text-xs p-1 font-bold">4</div><div class="text-xs p-1 font-bold">5</div><div class="text-xs p-1 font-bold">6</div><div class="text-xs p-1 font-bold">7</div><div class="text-xs p-1 font-bold">8</div>
+<div class="text-xs p-1 font-bold">9</div><div class="text-xs p-1 font-bold">10</div><div class="text-xs p-1 font-bold">11</div><div class="text-xs p-1 font-bold">12</div><div class="text-xs p-1 font-bold">13</div><div class="text-xs p-1 font-bold">14</div><div class="text-xs p-1 font-bold">15</div>
+<div class="text-xs p-1 font-bold">16</div><div class="text-xs p-1 font-bold">17</div><div class="text-xs p-1 font-bold">18</div><div class="text-xs p-1 font-bold">19</div><div class="text-xs p-1 font-bold">20</div><div class="text-xs p-1 font-bold bg-primary rounded-full text-background-dark">21</div><div class="text-xs p-1 font-bold bg-primary/30 rounded-full">22</div>
+<div class="text-xs p-1 font-bold bg-primary/30 rounded-full">23</div><div class="text-xs p-1 font-bold bg-primary/30 rounded-full">24</div><div class="text-xs p-1 font-bold bg-primary/30 rounded-full">25</div><div class="text-xs p-1 font-bold bg-primary/30 rounded-full">26</div><div class="text-xs p-1 font-bold bg-primary/30 rounded-full">27</div><div class="text-xs p-1 font-bold">28</div><div class="text-xs p-1 font-bold">29</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-3 bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-accent-light dark:border-accent-dark shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-sm font-bold text-slate-500 uppercase tracking-wide">Services Completed vs. Employee</h3>
+<div class="flex items-center gap-4 text-xs font-bold">
+<div class="flex items-center gap-1.5"><span class="size-2 bg-primary rounded-full"></span> This Week</div>
+<div class="flex items-center gap-1.5 text-slate-400"><span class="size-2 bg-accent-light dark:bg-accent-dark rounded-full border border-slate-300"></span> Goal</div>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-4 px-4">
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-accent-light dark:bg-accent-dark rounded-t-lg relative h-48">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-lg transition-all" style="height: 85%;"></div>
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold">42</div>
+</div>
+<span class="text-xs font-bold">Anna M.</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-accent-light dark:bg-accent-dark rounded-t-lg relative h-48">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-lg transition-all" style="height: 65%;"></div>
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold">31</div>
+</div>
+<span class="text-xs font-bold">John D.</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-accent-light dark:bg-accent-dark rounded-t-lg relative h-48">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-lg transition-all" style="height: 95%;"></div>
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold">48</div>
+</div>
+<span class="text-xs font-bold">Sarah K.</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-accent-light dark:bg-accent-dark rounded-t-lg relative h-48">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-lg transition-all" style="height: 40%;"></div>
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold">19</div>
+</div>
+<span class="text-xs font-bold">Mike P.</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-accent-light dark:bg-accent-dark rounded-t-lg relative h-48">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-lg transition-all" style="height: 75%;"></div>
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold">36</div>
+</div>
+<span class="text-xs font-bold">Emily W.</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-3">
+<div class="w-full bg-accent-light dark:bg-accent-dark rounded-t-lg relative h-48">
+<div class="absolute bottom-0 w-full bg-primary rounded-t-lg transition-all" style="height: 55%;"></div>
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold">28</div>
+</div>
+<span class="text-xs font-bold">David R.</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-accent-light dark:border-accent-dark overflow-hidden shadow-sm">
+<div class="p-6 border-b border-accent-light dark:border-accent-dark flex items-center justify-between">
+<h3 class="font-bold text-lg">Staff Performance Details</h3>
+<div class="flex gap-2">
+<button class="p-2 rounded hover:bg-slate-100 dark:hover:bg-accent-dark"><span class="material-symbols-outlined">filter_list</span></button>
+<button class="p-2 rounded hover:bg-slate-100 dark:hover:bg-accent-dark"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-accent-light/50 dark:bg-accent-dark/30 text-xs font-bold uppercase tracking-wider text-slate-500">
+<tr>
+<th class="px-6 py-4">Employee Name</th>
+<th class="px-6 py-4">Category</th>
+<th class="px-6 py-4">Total Revenue</th>
+<th class="px-6 py-4">Customer Rating</th>
+<th class="px-6 py-4">Growth</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-accent-light dark:divide-accent-dark">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 flex-shrink-0" data-alt="Portrait of Sarah K., Massage Therapist" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKd-fdV0qbwx1r4d1LyObFjy01cQ8gtlYWsCO2XYAOcwq3VTGT20-3AKk0YlJsjVki4rFSNnn_LcGck_LgjZ3xl1kbl4HIGrJKhTmO0SE0vEpnN89qwy5jnzNxYC8Y9KNv0YpGmXhINgJo50UUYiH7Y7qeM8AvltPHnKE_k-71D00Z9wyki4lXQJW1GEWiP-ggqUplRaA0bm9L6r4For22GzGgd-KltRXAAPIwyjjk8O3nDwOsGi5m6H7ad_Rg9bEcYKuvPboIlgDX'); background-size: cover;"></div>
+<span class="font-bold text-sm">Sarah Jenkins</span>
+</div>
+</td>
+<td class="px-6 py-4"><span class="px-2 py-1 rounded bg-primary/10 text-primary text-[10px] font-bold uppercase">Massage</span></td>
+<td class="px-6 py-4 font-bold text-sm">$4,250.00</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1 text-yellow-500">
+<span class="material-symbols-outlined text-sm fill-1">star</span>
+<span class="text-sm font-bold text-slate-900 dark:text-slate-100">4.9</span>
+<span class="text-xs text-slate-400 font-medium">(120 reviews)</span>
+</div>
+</td>
+<td class="px-6 py-4 text-primary font-bold text-xs">+12.4%</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 flex-shrink-0" data-alt="Portrait of David R., Skin Care Specialist" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBld2OfIP6ak-qMKa437L6xLSIhTBqjHah3_Fq85YHu7yKdzigTlZ5TJJcTlPLEvjoD7VCtzSm0MssgE_jz_BLAk5Yf-TsxesXb_Jjj9Ukq3qSCJrlxb_HfH-boaxnsnqncWAs7eMf5VqL6VhAu2Kwgy2uFYOWp7TFv8kdYbZEJlzhDX9trjQWqyNb0T5dO9egM5toULwZKqKxyOjCifdnsMyzvpNAuFlQ29csapIBPk980P-zG9TyQDHryJTAl-1A22yPlBABpYc0E'); background-size: cover;"></div>
+<span class="font-bold text-sm">David Rossi</span>
+</div>
+</td>
+<td class="px-6 py-4"><span class="px-2 py-1 rounded bg-blue-500/10 text-blue-500 text-[10px] font-bold uppercase">Skincare</span></td>
+<td class="px-6 py-4 font-bold text-sm">$3,890.00</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1 text-yellow-500">
+<span class="material-symbols-outlined text-sm fill-1">star</span>
+<span class="text-sm font-bold text-slate-900 dark:text-slate-100">4.8</span>
+<span class="text-xs text-slate-400 font-medium">(98 reviews)</span>
+</div>
+</td>
+<td class="px-6 py-4 text-primary font-bold text-xs">+5.1%</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 flex-shrink-0" data-alt="Portrait of Anna M., Sauna Specialist" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAYCgyYOCyhx5LJV0Vdq-Q4DOYW4Y88mJj0Vwz1UVfV602lgqlwr1YYT7dHpgxAGQuE3EvDrnFj0OAwWr9QBennANY_SmRhBRWZvPcTj3i9lD6H647Ia4GpemFf6bfYF4gLxpUCkdiJnwy2BbTtEFaUXHcT5EF0tb8vYwz5u7GaYfDq_2mPtZpjMVD5HQ-cekabwNqzHV5_0fYygcPHlha1xWBUdYbNabBjaT7LBiqaNKeXOvJrtr4G_wZ2cA1UAqtsYOnBS-lUxGQA'); background-size: cover;"></div>
+<span class="font-bold text-sm">Anna Mueller</span>
+</div>
+</td>
+<td class="px-6 py-4"><span class="px-2 py-1 rounded bg-orange-500/10 text-orange-500 text-[10px] font-bold uppercase">Sauna</span></td>
+<td class="px-6 py-4 font-bold text-sm">$2,100.00</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1 text-yellow-500">
+<span class="material-symbols-outlined text-sm fill-1">star</span>
+<span class="text-sm font-bold text-slate-900 dark:text-slate-100">5.0</span>
+<span class="text-xs text-slate-400 font-medium">(45 reviews)</span>
+</div>
+</td>
+<td class="px-6 py-4 text-red-500 font-bold text-xs">-2.4%</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-700 flex-shrink-0" data-alt="Portrait of John D., Body Treatment Specialist" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZNZi-yefmNy34EIB21oUUQPl7q5wVJiQUj0XRnNcwcfXVuP9ohkUaNoIsixFECWgNSTKFDJNbxNerphvImuB5es-_F-XqKlVQyZSTavsLHtcFGOJWrhOAdSxzxKp-c4DUgzQv9_6w54IPtpBTA4FoTgXGoMyddUsDxuyQeEJO27YiG7fHOKP5zHVJ_YsV5Jz8Uows0_ldee-zJ5KLHPIEPYqZwVHPkKx_-FV0eqsNHv3kRqoWxHjNY3LdKl6JAp7WRsXU-Eoq99Hm'); background-size: cover;"></div>
+<span class="font-bold text-sm">John Doe</span>
+</div>
+</td>
+<td class="px-6 py-4"><span class="px-2 py-1 rounded bg-purple-500/10 text-purple-500 text-[10px] font-bold uppercase">Treatments</span></td>
+<td class="px-6 py-4 font-bold text-sm">$5,120.00</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1 text-yellow-500">
+<span class="material-symbols-outlined text-sm fill-1">star</span>
+<span class="text-sm font-bold text-slate-900 dark:text-slate-100">4.7</span>
+<span class="text-xs text-slate-400 font-medium">(156 reviews)</span>
+</div>
+</td>
+<td class="px-6 py-4 text-primary font-bold text-xs">+8.7%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-6 bg-accent-light/30 dark:bg-accent-dark/20 border-t border-accent-light dark:border-accent-dark flex items-center justify-between">
+<span class="text-xs font-medium text-slate-500 italic">Data last updated: Oct 27, 2023 - 4:32 PM</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 text-xs border border-slate-300 dark:border-slate-600 rounded">Previous</button>
+<button class="px-3 py-1 text-xs bg-primary text-background-dark font-bold rounded">Next</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

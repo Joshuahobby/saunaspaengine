@@ -7,15 +7,15 @@ export default function BookingPortalLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+        <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light dark:bg-background-dark font-display text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">
             <div className="layout-container flex h-full grow flex-col">
                 {/* Header / Navigation */}
-                <header className="flex items-center justify-between border-b border-primary/10 px-6 py-4 bg-white dark:bg-slate-900/50 md:px-20">
+                <header className="flex items-center justify-between border-b border-primary/10 px-6 py-4 glass-card/50 md:px-20">
                     <div className="flex items-center gap-3">
                         <div className="text-primary">
                             <SpaIndicator />
                         </div>
-                        <h2 className="text-xl font-bold leading-tight tracking-tight text-slate-900 dark:text-slate-100">
+                        <h2 className="text-xl font-bold leading-tight tracking-tight text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">
                             Sauna SPA Engine
                         </h2>
                     </div>

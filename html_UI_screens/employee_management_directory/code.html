@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employee Management Directory - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 lg:px-40 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-slate-900 dark:text-slate-100">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg text-slate-900">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">Employees</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Bookings</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Inventory</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg">
+<span class="material-symbols-outlined text-slate-400 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm p-0 w-32 placeholder:text-slate-400" placeholder="Quick search..." type="text"/>
+</div>
+<button class="material-symbols-outlined p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">notifications</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="User profile avatar circle" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBlQ6cAd-msZtF5i8oULeNViMS3AITy7I-vtyFArjmUJZhmtfz5XLh82gVCNOPyRuSNIjRXVBvTlYGFTQRY_APqjPR7aiH8lu-lpHWLZ8VD3wtiPOqbp7H7lAsCNMSgnuXjI3QBF21c_hit4uzcapw7M7SqlQx9UZ4Dc6FbhOl-1MqcVFiUOaUqKhflOtrCUIvvzLBxJ4ZECGhYYhcdDaJpRjejz364ag8C4BvTwf_tx51GvGEVDOK3fn6jFSCPBM2VmWTy9Rv9hc2M");'></div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-8">
+<div class="layout-content-container flex flex-col max-w-[1200px] flex-1 px-4 lg:px-10">
+<!-- Header Section -->
+<div class="flex flex-wrap justify-between items-end gap-4 mb-8">
+<div class="flex flex-col gap-1">
+<h1 class="text-slate-900 dark:text-slate-100 text-3xl font-extrabold leading-tight tracking-tight">Employee Directory</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base">View and manage your professional staff members and their operational roles.</p>
+</div>
+<button class="flex items-center gap-2 min-w-[140px] cursor-pointer justify-center rounded-lg h-11 px-5 bg-primary text-slate-900 text-sm font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+<span>Add Employee</span>
+</button>
+</div>
+<!-- Statistics Bar -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Staff</p>
+<p class="text-2xl font-black text-slate-900 dark:text-slate-100 mt-1">42</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Now</p>
+<p class="text-2xl font-black text-primary mt-1">18</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Masseuses</p>
+<p class="text-2xl font-black text-slate-900 dark:text-slate-100 mt-1">24</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider">On Leave</p>
+<p class="text-2xl font-black text-slate-400 mt-1">3</p>
+</div>
+</div>
+<!-- Table Filters & Search -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row gap-4 items-center justify-between">
+<div class="flex border-b border-transparent gap-6 self-start md:self-center">
+<a class="flex items-center gap-2 border-b-2 border-primary text-slate-900 dark:text-slate-100 pb-3 font-bold text-sm" href="#">
+                                    All Staff <span class="bg-primary/20 text-primary text-[10px] px-1.5 py-0.5 rounded-full">42</span>
+</a>
+<a class="flex items-center gap-2 border-b-2 border-transparent text-slate-400 pb-3 font-bold text-sm hover:text-slate-600 transition-colors" href="#">
+                                    Active
+                                </a>
+<a class="flex items-center gap-2 border-b-2 border-transparent text-slate-400 pb-3 font-bold text-sm hover:text-slate-600 transition-colors" href="#">
+                                    Inactive
+                                </a>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto">
+<div class="relative flex-1 md:w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-primary focus:border-primary" placeholder="Search by name, role, or phone..." type="text"/>
+</div>
+<button class="p-2 border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-slate-500 text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Employee Table -->
+<div class="overflow-x-auto @container">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50">
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-[300px]">Employee Name</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-[200px]">Role / Category</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-[200px]">Phone Number</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-[150px]">Status</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider w-[100px] text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden border border-slate-200 dark:border-slate-700">
+<img class="w-full h-full object-cover" data-alt="Portrait of employee Anna Smith" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYxPtpJq2Omk24hs2NtMfPaYMwNmi6OWROrDKZLn2EciVB-89z5wkv0AGaxRDMWjDJ_ZhtPDLWaHp8JwrFnebp4X9OE5IwPLqXomqlIc3DlOOKUyaOUJUFkBo86VaC10kiSvxV0WzOb3c01yFFOQ3KAHhT00TPSEFlkE-VkwB47ARyIbZQohNVuSz5w8qwZVQazRxD9_4AtUV0ZmdOl8yDDN2w9prBJrfKZiVyGnrTGNUsbZ_7NSwzCDOkkTlOGGsls7zIY5yXyVE6"/>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100">Anna Smith</p>
+<p class="text-xs text-slate-400">Joined Oct 2023</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                                                Masseuse
+                                            </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+                                            +1 555-0101
+                                        </td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-xs font-semibold text-primary">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden border border-slate-200 dark:border-slate-700">
+<img class="w-full h-full object-cover" data-alt="Portrait of employee John Doe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_Zo1rS_K1EFjpmYt5WKvReluDLICBpR4jY5ahdbUkQFwebaUe3I-OPL9hIN9t7B8ffeaFk8By13quMSylPv50kd7Wno99FhfpIJ9JCZELr6Wa2MEb4hCnE5JhbuPYqI9yDBV-PrWkdc3obCJOjZ1lK20oXsb9PGjHIrPaSz5p7GVhpFKpFAAp8Q1EdPmk9mONXTOG5uuztTxRT_VMn05O7FQgAI1h4mL5WuKpuef-8HSnvmyqvDdRsmXyVyScHIYPjV8mIPRrUy4K"/>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100">John Doe</p>
+<p class="text-xs text-slate-400">Joined Jan 2024</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                                                Receptionist
+                                            </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+                                            +1 555-0102
+                                        </td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-xs font-semibold text-primary">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden border border-slate-200 dark:border-slate-700">
+<img class="w-full h-full object-cover" data-alt="Portrait of employee Maria Garcia" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF86tDtVDdPbggmKWtkED4RCMnasJZBT_Tmd6qSz_zOgJWJPeNYsAKf_8V1ESAGlscNiKQqwNl7C6qwRubSBahdvcWXd-bkns9G1RNj4iH8ie6miL0XGOcBu2TSsDfEt8vQ-lVbfa-SUAlbnDgiq1oa8nylQSfaSyL3Ge-wrAuPR5upcGONNYR2tdATbuNZICKMhPs0cTw7EoEyufus9pYk5NX_0t1fvHzq_9qwot-KHEl4agfFokV-t_ZOkKdz378RnKNd7YUyULS"/>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100">Maria Garcia</p>
+<p class="text-xs text-slate-400">Joined May 2022</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                                                Therapist
+                                            </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+                                            +1 555-0103
+                                        </td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-slate-300 dark:bg-slate-600"></div>
+<span class="text-xs font-semibold text-slate-400">Inactive</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden border border-slate-200 dark:border-slate-700">
+<img class="w-full h-full object-cover" data-alt="Portrait of employee Steve Wilson" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFt7fSJUxsc-i4jnBIPjPIM3fPzYuL-jxStO65Xbmv5S5XYpg0msPdS63PeI1fMU5qpmbVn25oFwMpfcnqjVnwqc4bqvoTRzNWHHjWdJm4aA-OZNGuM-yNfNZ2N__aaccAhC5HyBde69pCXFOANDyQIXLftgbZSwp-3WyvN4nrpmupwcl6bUlUTv7hvf-za5Nju6AGYaeps_VSu1zOtDJGK7d6cW29tgfU79r_XgCIKCIc_YGqqQM6Zu-Kt5pYQ-1w3m-HIh7_D9Qs"/>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100">Steve Wilson</p>
+<p class="text-xs text-slate-400">Joined Mar 2023</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                                                Maintenance
+                                            </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+                                            +1 555-0104
+                                        </td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-xs font-semibold text-primary">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden border border-slate-200 dark:border-slate-700">
+<img class="w-full h-full object-cover" data-alt="Portrait of employee Elena Rossi" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqNY354FSAoYO69D1TsNzLBXyAMoJbDDeHAy_3mrjxq-e4oTe7bZ-W5Gst_I_Sz31OU2LFXwLblXt9wuBvU3AAQwTVNCF7-V-M1_rNy4Md5xUu7BJewpoPCBvXrpuLJbUtk6UYnvF9di4z7yIspqWkVGccOhMhUcoBtG2lPttcrnWG5metY-aMOfx90I00qdvhTD_HosNg0l6r_HHkFMf5R3pqMxyk1Zn_Mfr3C4fR9DllDzhG7-VbOcsrR3oeO7G6VILUiLe0A6M4"/>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-slate-100">Elena Rossi</p>
+<p class="text-xs text-slate-400">Joined Nov 2023</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                                                Masseuse
+                                            </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+                                            +1 555-0105
+                                        </td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-xs font-semibold text-primary">Active</span>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="p-4 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between border-t border-slate-200 dark:border-slate-800">
+<p class="text-xs text-slate-500 font-medium">Showing 1 to 5 of 42 employees</p>
+<div class="flex items-center gap-2">
+<button class="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-primary text-slate-900 text-xs font-bold">1</button>
+<button class="px-3 py-1.5 rounded-lg text-slate-500 text-xs font-bold hover:bg-white dark:hover:bg-slate-700 transition-colors">2</button>
+<button class="px-3 py-1.5 rounded-lg text-slate-500 text-xs font-bold hover:bg-white dark:hover:bg-slate-700 transition-colors">3</button>
+<button class="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-auto px-6 lg:px-40 py-6 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-sm text-slate-500">© 2024 Sauna SPA Engine. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-sm text-slate-500 hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-sm text-slate-500 hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-sm text-slate-500 hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

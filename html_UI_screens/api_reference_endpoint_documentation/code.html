@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>API Reference &amp; Endpoint Documentation - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#0a1411",
+                        "sidebar-dark": "#11221c",
+                        "code-bg": "#080e0c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "mono": ["Fira Code", "monospace"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #23483c; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-screen w-full flex-col overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex h-16 shrink-0 items-center justify-between border-b border-slate-200 dark:border-white/10 bg-white dark:bg-sidebar-dark px-6 z-20">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="flex h-8 w-8 items-center justify-center rounded bg-primary text-background-dark">
+<span class="material-symbols-outlined text-[20px] font-bold">spa</span>
+</div>
+<h2 class="text-lg font-bold tracking-tight">Sauna SPA <span class="text-primary">Engine</span></h2>
+</div>
+<div class="hidden md:flex items-center gap-1">
+<div class="flex h-9 w-64 items-center gap-2 rounded-lg bg-slate-100 dark:bg-white/5 px-3">
+<span class="material-symbols-outlined text-slate-400 dark:text-primary/60 text-sm">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-sm placeholder:text-slate-500" placeholder="Search endpoints..." type="text"/>
+<span class="text-[10px] font-mono bg-slate-200 dark:bg-white/10 px-1.5 py-0.5 rounded text-slate-500">CMD K</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium text-primary border-b-2 border-primary py-5" href="#">API Reference</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Webhooks</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Support</a>
+</nav>
+<div class="h-6 w-px bg-slate-200 dark:bg-white/10"></div>
+<button class="flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-sm font-bold text-background-dark hover:brightness-110 transition-all">
+                API Keys
+            </button>
+<div class="h-9 w-9 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden border border-primary/30" data-alt="User avatar placeholder">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+</div>
+</header>
+<main class="flex flex-1 overflow-hidden">
+<!-- Left Pane: Navigation Tree -->
+<aside class="w-64 shrink-0 border-r border-slate-200 dark:border-white/10 bg-white dark:bg-sidebar-dark overflow-y-auto custom-scrollbar hidden md:block">
+<div class="p-4 space-y-6">
+<div>
+<h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-primary/50 mb-4 px-2">Introduction</h3>
+<nav class="space-y-1">
+<a class="flex items-center gap-2 px-2 py-1.5 text-sm rounded hover:bg-slate-100 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span>Getting Started</span>
+</a>
+<a class="flex items-center gap-2 px-2 py-1.5 text-sm rounded hover:bg-slate-100 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span>Authentication</span>
+</a>
+<a class="flex items-center gap-2 px-2 py-1.5 text-sm rounded hover:bg-slate-100 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span>Rate Limits</span>
+</a>
+</nav>
+</div>
+<div>
+<h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-primary/50 mb-4 px-2">Resources</h3>
+<div class="space-y-4">
+<div>
+<button class="flex w-full items-center justify-between px-2 py-1 text-sm font-semibold text-slate-700 dark:text-slate-300">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">key</span>
+                                    Auth API
+                                </span>
+<span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span>
+</button>
+</div>
+<div>
+<button class="flex w-full items-center justify-between px-2 py-1 text-sm font-semibold text-slate-700 dark:text-slate-300">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">group</span>
+                                    Clients API
+                                </span>
+<span class="material-symbols-outlined text-[16px]">keyboard_arrow_down</span>
+</button>
+</div>
+<div class="space-y-1">
+<button class="flex w-full items-center justify-between px-2 py-1 text-sm font-semibold text-primary">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">history_edu</span>
+                                    Usage Records
+                                </span>
+<span class="material-symbols-outlined text-[16px]">keyboard_arrow_up</span>
+</button>
+<div class="ml-4 pl-4 border-l border-primary/30 space-y-1 py-1">
+<a class="block px-2 py-1.5 text-xs rounded bg-primary/10 text-primary font-medium" href="#">
+<span class="text-[10px] font-bold mr-1">POST</span> Create Record
+                                </a>
+<a class="block px-2 py-1.5 text-xs rounded hover:bg-slate-100 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="text-[10px] font-bold text-blue-400 mr-1">GET</span> List Records
+                                </a>
+<a class="block px-2 py-1.5 text-xs rounded hover:bg-slate-100 dark:hover:bg-white/5 transition-colors" href="#">
+<span class="text-[10px] font-bold text-blue-400 mr-1">GET</span> Retrieve Record
+                                </a>
+</div>
+</div>
+<div>
+<button class="flex w-full items-center justify-between px-2 py-1 text-sm font-semibold text-slate-700 dark:text-slate-300">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+                                    Memberships
+                                </span>
+<span class="material-symbols-outlined text-[16px]">keyboard_arrow_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Middle Pane: Documentation -->
+<section class="flex-1 flex flex-col min-w-0 overflow-y-auto custom-scrollbar bg-white dark:bg-background-dark">
+<div class="max-w-3xl mx-auto w-full px-8 py-10">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 text-xs text-slate-500 mb-6">
+<a class="hover:text-primary" href="#">Resources</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<a class="hover:text-primary" href="#">Usage Records</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">Create Record</span>
+</nav>
+<h1 class="text-3xl font-bold mb-4">Create a usage record</h1>
+<div class="flex items-center gap-3 mb-8">
+<span class="px-2 py-1 rounded bg-primary text-background-dark text-xs font-bold">POST</span>
+<code class="text-sm font-mono text-slate-600 dark:text-primary/80">/v1/records</code>
+</div>
+<p class="text-lg text-slate-600 dark:text-slate-400 mb-10 leading-relaxed">
+                    Creates a new usage record for a spa facility member. This endpoint is used to track entry, exit, and specific amenity usage (e.g., private sauna sessions, towel service) for billing and analytics.
+                </p>
+<h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">key</span>
+                    Authentication
+                </h3>
+<div class="p-4 rounded-xl border border-primary/20 bg-primary/5 mb-10">
+<p class="text-sm">This endpoint requires a <code class="bg-primary/20 px-1 rounded">Bearer Token</code> associated with your API key. See <a class="text-primary underline" href="#">Authentication Guide</a> for more details.</p>
+</div>
+<h3 class="text-xl font-bold mb-6">Request Parameters</h3>
+<div class="border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden mb-12">
+<table class="w-full text-sm text-left">
+<thead class="bg-slate-50 dark:bg-white/5 border-b border-slate-200 dark:border-white/10">
+<tr>
+<th class="px-4 py-3 font-semibold">Field</th>
+<th class="px-4 py-3 font-semibold">Type</th>
+<th class="px-4 py-3 font-semibold">Description</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-white/10">
+<tr>
+<td class="px-4 py-4 font-mono text-primary">member_id</td>
+<td class="px-4 py-4 text-slate-500">string <span class="text-red-400 text-[10px] ml-1">REQUIRED</span></td>
+<td class="px-4 py-4">The unique identifier of the member accessing the facility.</td>
+</tr>
+<tr>
+<td class="px-4 py-4 font-mono text-primary">activity_type</td>
+<td class="px-4 py-4 text-slate-500">enum</td>
+<td class="px-4 py-4">Type of activity. Options: <code class="text-xs">entry</code>, <code class="text-xs">exit</code>, <code class="text-xs">service</code>.</td>
+</tr>
+<tr>
+<td class="px-4 py-4 font-mono text-primary">facility_id</td>
+<td class="px-4 py-4 text-slate-500">string</td>
+<td class="px-4 py-4">The ID of the specific facility or branch.</td>
+</tr>
+<tr>
+<td class="px-4 py-4 font-mono text-primary">timestamp</td>
+<td class="px-4 py-4 text-slate-500">ISO 8601</td>
+<td class="px-4 py-4">Optional. Defaults to current server time if not provided.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 class="text-xl font-bold mb-6">Possible Responses</h3>
+<div class="space-y-3">
+<div class="flex items-center gap-4 p-3 rounded-lg border border-slate-200 dark:border-white/10 hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+<span class="font-mono text-sm font-bold">200 OK</span>
+<span class="text-sm text-slate-500">The record was created successfully.</span>
+<span class="material-symbols-outlined ml-auto text-slate-400 group-hover:text-primary">expand_more</span>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-lg border border-slate-200 dark:border-white/10 hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="w-2 h-2 rounded-full bg-amber-500"></div>
+<span class="font-mono text-sm font-bold">401 Unauthorized</span>
+<span class="text-sm text-slate-500">Invalid API key or missing authentication header.</span>
+<span class="material-symbols-outlined ml-auto text-slate-400 group-hover:text-primary">expand_more</span>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-lg border border-slate-200 dark:border-white/10 hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="w-2 h-2 rounded-full bg-red-500"></div>
+<span class="font-mono text-sm font-bold">404 Not Found</span>
+<span class="text-sm text-slate-500">The specified member_id does not exist.</span>
+<span class="material-symbols-outlined ml-auto text-slate-400 group-hover:text-primary">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Pane: Code Examples -->
+<aside class="w-[450px] shrink-0 bg-code-bg overflow-y-auto custom-scrollbar border-l border-white/5 flex flex-col hidden xl:flex">
+<!-- Code Header -->
+<div class="sticky top-0 z-10 bg-code-bg border-b border-white/5 px-6 py-4">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">terminal</span>
+<span class="text-xs font-bold uppercase tracking-widest text-white/60">Code Samples</span>
+</div>
+<div class="flex bg-white/5 rounded-lg p-1">
+<button class="px-3 py-1 text-[10px] font-bold rounded-md bg-white/10 text-white">cURL</button>
+<button class="px-3 py-1 text-[10px] font-bold rounded-md text-white/40 hover:text-white">Node.js</button>
+<button class="px-3 py-1 text-[10px] font-bold rounded-md text-white/40 hover:text-white">Python</button>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 rounded bg-white/10 text-white/60 hover:text-primary hover:bg-white/20">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+</div>
+<pre class="bg-black/40 rounded-xl p-4 font-mono text-sm leading-relaxed text-slate-300 overflow-x-auto"><span class="text-primary">curl</span> --request POST \
+  --url https://api.saunaspa.io/v1/records \
+  --header <span class="text-amber-300">'Authorization: Bearer YOUR_TOKEN'</span> \
+  --header <span class="text-amber-300">'Content-Type: application/json'</span> \
+  --data <span class="text-amber-300">'{
+  "member_id": "mem_8h28xLp2",
+  "activity_type": "entry",
+  "facility_id": "fac_01H23"
+}'</span></pre>
+</div>
+</div>
+<!-- Response Header -->
+<div class="px-6 py-8">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">data_object</span>
+<span class="text-xs font-bold uppercase tracking-widest text-white/60">Sample Response</span>
+</div>
+<div class="flex items-center gap-2 px-2 py-1 rounded bg-emerald-500/10 border border-emerald-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+<span class="text-[10px] font-bold text-emerald-400">200 OK</span>
+</div>
+</div>
+<div class="relative group">
+<pre class="bg-black/40 rounded-xl p-4 font-mono text-sm leading-relaxed text-slate-300 overflow-x-auto">{
+  <span class="text-blue-400">"id"</span>: <span class="text-amber-300">"rec_9a2b3c4d"</span>,
+  <span class="text-blue-400">"object"</span>: <span class="text-amber-300">"usage_record"</span>,
+  <span class="text-blue-400">"status"</span>: <span class="text-amber-300">"confirmed"</span>,
+  <span class="text-blue-400">"member_id"</span>: <span class="text-amber-300">"mem_8h28xLp2"</span>,
+  <span class="text-blue-400">"timestamp"</span>: <span class="text-amber-300">"2023-11-24T14:30:00Z"</span>,
+  <span class="text-blue-400">"metadata"</span>: {
+    <span class="text-blue-400">"source"</span>: <span class="text-amber-300">"front_desk_tablet"</span>
+  }
+}</pre>
+</div>
+</div>
+<!-- Error State Example -->
+<div class="px-6 pb-10">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold uppercase tracking-widest text-white/40">Error Response</span>
+</div>
+<div class="flex items-center gap-2 px-2 py-1 rounded bg-red-500/10 border border-red-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+<span class="text-[10px] font-bold text-red-400">401 UNAUTHORIZED</span>
+</div>
+</div>
+<div class="relative group">
+<pre class="bg-black/40 rounded-xl p-4 font-mono text-sm leading-relaxed text-slate-400/80 overflow-x-auto">{
+  <span class="text-slate-500">"error"</span>: {
+    <span class="text-slate-500">"code"</span>: <span class="text-slate-500">"unauthorized"</span>,
+    <span class="text-slate-500">"message"</span>: <span class="text-slate-500">"No API key provided."</span>
+  }
+}</pre>
+</div>
+</div>
+</aside>
+</main>
+<!-- Mobile Footer Navigation -->
+<div class="md:hidden h-14 border-t border-slate-200 dark:border-white/10 bg-white dark:bg-sidebar-dark flex items-center justify-around z-20">
+<button class="flex flex-col items-center justify-center text-primary">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-[10px] font-bold">Docs</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">search</span>
+<span class="text-[10px] font-bold">Search</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">code</span>
+<span class="text-[10px] font-bold">Try It</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold">Profile</span>
+</button>
+</div>
+</div>
+</body></html>

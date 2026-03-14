@@ -8,7 +8,11 @@ export async function authenticate(
     formData: FormData,
 ) {
     try {
-        await signIn("credentials", formData);
+        // Force redirect to /dashboard so that Next.js client-side router registers the URL change
+        // instead of transparently following the middleware redirect from /login.
+        const plainFormData = Object.fromEntries(formData);
+        plainFormData.redirectTo = "/dashboard";
+        await signIn("credentials", plainFormData);
     } catch (error) {
         if (error instanceof AuthError) {
             switch (error.type) {

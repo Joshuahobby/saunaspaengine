@@ -4,12 +4,13 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { format, startOfMonth, endOfMonth } from "date-fns";
 
-export default async function ClientProfilePage({ params }: { params: { id: string } }) {
+export default async function ClientProfilePage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
     const session = await auth();
     if (!session?.user?.businessId) redirect("/login");
 
     const client = await prisma.client.findUnique({
-        where: { id: params.id, businessId: session.user.businessId },
+        where: { id, businessId: session.user.businessId },
         include: {
             memberships: {
                 where: { status: "ACTIVE" },
@@ -78,7 +79,7 @@ export default async function ClientProfilePage({ params }: { params: { id: stri
                     <div className="flex flex-col justify-between w-full">
                         <div>
                             <div className="flex items-center gap-3 mb-1">
-                                <p className="text-slate-900 text-3xl font-bold tracking-tight">{client.fullName}</p>
+                                <p className="text-slate-900 text-3xl font-display font-bold tracking-tight">{client.fullName}</p>
                                 <span className="bg-[var(--color-primary)]/20 text-[var(--color-primary)] text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
                                     {client.clientType}
                                 </span>
@@ -128,7 +129,7 @@ export default async function ClientProfilePage({ params }: { params: { id: stri
                     </div>
                     {activeMembership ? (
                         <>
-                            <p className="text-2xl font-bold text-slate-900">{activeMembership.category.name}</p>
+                            <p className="text-2xl font-display font-bold text-slate-900">{activeMembership.category.name}</p>
                             {activeMembership.balance !== null && (
                                 <p className="text-sm font-medium mt-1 text-slate-600 border border-slate-200 inline-block px-2 py-0.5 rounded-full">{activeMembership.balance} visits remaining</p>
                             )}
@@ -138,7 +139,7 @@ export default async function ClientProfilePage({ params }: { params: { id: stri
                         </>
                     ) : (
                         <>
-                            <p className="text-xl font-bold text-slate-400 italic">No Active Plan</p>
+                            <p className="text-xl font-display font-bold text-slate-400">No Active Plan</p>
                             <p className="text-xs text-slate-500 mt-2">Client is currently Walk-in status</p>
                         </>
                     )}
@@ -149,7 +150,7 @@ export default async function ClientProfilePage({ params }: { params: { id: stri
                         <p className="text-slate-500 font-medium">Loyalty Tier & Points</p>
                         <span className="material-symbols-outlined text-[var(--color-primary)]">workspace_premium</span>
                     </div>
-                    <p className="text-2xl font-bold text-slate-900">
+                    <p className="text-2xl font-display font-bold text-slate-900">
                         {loyaltyInfo ? loyaltyInfo.tier : 'BRONZE'}
                     </p>
                     <p className="text-sm font-bold text-[var(--color-primary)] mt-1">{loyaltyInfo?.points || 0} Points</p>
@@ -164,7 +165,7 @@ export default async function ClientProfilePage({ params }: { params: { id: stri
                         <p className="text-slate-500 font-medium">Visits This Month</p>
                         <span className="material-symbols-outlined text-[var(--color-primary)]">calendar_month</span>
                     </div>
-                    <p className="text-2xl font-bold text-slate-900">{visitsThisMonth} Session{visitsThisMonth !== 1 ? 's' : ''}</p>
+                    <p className="text-2xl font-sans font-black text-slate-900">{visitsThisMonth} Session{visitsThisMonth !== 1 ? 's' : ''}</p>
                     <Link href={`/operations?clientId=${client.id}`} className="mt-4 py-1.5 text-xs font-bold uppercase tracking-widest text-[var(--color-primary)] border border-[var(--color-primary)]/30 rounded hover:bg-[var(--color-primary)]/5 transition-colors block text-center w-full">
                         Book a Session
                     </Link>
@@ -172,9 +173,9 @@ export default async function ClientProfilePage({ params }: { params: { id: stri
             </div>
 
             {/* Past Visits Section */}
-            <div className="bg-white rounded-xl border border-[var(--color-primary)]/5 shadow-sm overflow-hidden">
+            <div className="bg-white rounded-xl border border-[var(--color-primary)]/5 shadow-sm overflow-hidden font-inter">
                 <div className="px-6 py-5 border-b border-[var(--color-primary)]/10 flex items-center justify-between">
-                    <h3 className="text-xl font-bold text-slate-900">Recent Service History</h3>
+                    <h3 className="text-xl font-display font-bold text-slate-900">Recent Service History</h3>
                     <Link href={`/operations?clientId=${client.id}`} className="text-sm text-[var(--color-primary)] font-bold flex items-center gap-1 hover:underline">
                         View Full History <span className="material-symbols-outlined text-sm">arrow_forward</span>
                     </Link>

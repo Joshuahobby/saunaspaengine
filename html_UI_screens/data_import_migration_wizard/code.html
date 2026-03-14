@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Data Import &amp; Migration Wizard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d4c4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-10 py-3 bg-white dark:bg-slate-900">
+<div class="flex items-center gap-4 text-slate-900 dark:text-slate-100">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined">dataset</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-[-0.015em]">BusinessPlatform</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Clients</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Settings</a>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-slate-200 dark:border-slate-700" data-alt="User profile avatar icon small" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBjK2wuXQOZ_ampamxGuZvAj0u1zNDSr_ojiQvETU8d8UMDZDigFMzT5tqtvoxW9DjVTni7AANGH5MAZrwY_pHfUYm_3KrQqSsE69NMGOfjkaEp2DPLs7eMCzyW_fgawuYLWfdezBtKqvnQmbVEcbQc-JOGSb_aRrpp1UDVTg4GKiE6zhV5dwEYus3uVhHcBAOCfbnEvFlA0VInNcRHm4H9fNIzHQ0gPTlYR9OJixgLFgHrjf_oZJzEph8nxG6b0x-yNoj-Cf6e2w-A");'></div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-8">
+<div class="layout-content-container flex flex-col max-w-[1120px] flex-1 px-6 md:px-10">
+<!-- Page Title & Progress -->
+<div class="flex flex-wrap justify-between items-end gap-4 mb-6">
+<div class="flex flex-col gap-1">
+<h1 class="text-slate-900 dark:text-slate-100 text-4xl font-black leading-tight tracking-[-0.033em]">Data Import Wizard</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal">Step 2 of 3: Field Mapping. Match your CSV columns to our system fields.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">help_outline</span>
+<a class="text-primary text-sm font-medium hover:underline" href="#">Download Sample Template</a>
+</div>
+</div>
+<!-- Stepper Breadcrumbs -->
+<div class="flex items-center gap-2 mb-8 text-sm">
+<a class="text-slate-400 dark:text-slate-500 font-medium flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-lg">check_circle</span> Upload File
+                    </a>
+<span class="text-slate-300">/</span>
+<span class="text-primary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-lg">radio_button_checked</span> Field Mapping
+                    </span>
+<span class="text-slate-300">/</span>
+<span class="text-slate-400 dark:text-slate-500 font-medium">Review &amp; Import</span>
+</div>
+<!-- Progress Bar -->
+<div class="flex flex-col gap-2 mb-10 bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex gap-6 justify-between items-center">
+<p class="text-slate-900 dark:text-slate-100 text-base font-semibold">Mapping Progress</p>
+<p class="text-primary text-sm font-bold">66% Complete</p>
+</div>
+<div class="rounded-full bg-slate-100 dark:bg-slate-800 h-3 w-full overflow-hidden">
+<div class="h-full rounded-full bg-primary" style="width: 66%;"></div>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm italic">8 out of 12 fields matched. Please map the remaining required fields.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Mapping Form -->
+<div class="lg:col-span-2 space-y-6">
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Map Your Columns</h2>
+<span class="bg-amber-100 text-amber-700 text-xs px-2 py-1 rounded font-bold uppercase tracking-wider">Required Fields Missing</span>
+</div>
+<div class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Field 1: Matched -->
+<div class="p-6 flex flex-col md:flex-row md:items-center gap-4">
+<div class="flex-1">
+<label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">System Field: <span class="text-primary">First Name</span></label>
+<p class="text-xs text-slate-500">The primary given name of the customer.</p>
+</div>
+<div class="flex-1 flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-300">compare_arrows</span>
+<select class="w-full rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800 text-sm focus:border-primary focus:ring-primary">
+<option>First_Name</option>
+<option>FName</option>
+<option>Given Name</option>
+</select>
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+</div>
+<!-- Field 2: Needs Mapping -->
+<div class="p-6 flex flex-col md:flex-row md:items-center gap-4 bg-amber-50/30 dark:bg-amber-900/10">
+<div class="flex-1">
+<label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">System Field: <span class="text-primary">Phone Number</span> <span class="text-red-500">*</span></label>
+<p class="text-xs text-slate-500">Must be in E.164 format (+15551234567).</p>
+</div>
+<div class="flex-1 flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-300">compare_arrows</span>
+<select class="w-full rounded-lg border-red-300 dark:border-red-900 dark:bg-slate-800 text-sm focus:border-primary focus:ring-primary">
+<option disabled="" selected="" value="">Select CSV Column...</option>
+<option>Cust_Phone</option>
+<option>Mobile</option>
+<option>Contact_No</option>
+</select>
+<span class="material-symbols-outlined text-red-500">warning</span>
+</div>
+</div>
+<!-- Field 3: Matched -->
+<div class="p-6 flex flex-col md:flex-row md:items-center gap-4">
+<div class="flex-1">
+<label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">System Field: <span class="text-primary">Email Address</span> <span class="text-red-500">*</span></label>
+<p class="text-xs text-slate-500">Unique identifier for the user account.</p>
+</div>
+<div class="flex-1 flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-300">compare_arrows</span>
+<select class="w-full rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800 text-sm focus:border-primary focus:ring-primary">
+<option>Email</option>
+<option>User_Email</option>
+<option>Electronic_Mail</option>
+</select>
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+</div>
+<!-- Field 4: Matched -->
+<div class="p-6 flex flex-col md:flex-row md:items-center gap-4">
+<div class="flex-1">
+<label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">System Field: <span class="text-primary">Company Name</span></label>
+<p class="text-xs text-slate-500">The business name associated with the lead.</p>
+</div>
+<div class="flex-1 flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-300">compare_arrows</span>
+<select class="w-full rounded-lg border-slate-200 dark:border-slate-700 dark:bg-slate-800 text-sm focus:border-primary focus:ring-primary">
+<option>Org_Name</option>
+<option>Business</option>
+<option>Entity</option>
+</select>
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 p-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+<button class="px-6 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-semibold text-sm hover:bg-white transition-colors">Back to Upload</button>
+<button class="px-8 py-2 rounded-lg bg-primary text-slate-900 font-bold text-sm hover:bg-primary/90 transition-colors">Continue to Review</button>
+</div>
+</div>
+<!-- Data Preview Table -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800">
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold">Preview (First 5 Rows)</h2>
+<p class="text-xs text-slate-500">How your data looks with current mapping</p>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-slate-50 dark:bg-slate-800/50">
+<tr>
+<th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">First Name</th>
+<th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Phone Number</th>
+<th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Email Address</th>
+<th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Company Name</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="text-sm">
+<td class="px-6 py-4">Alice</td>
+<td class="px-6 py-4 text-red-500 italic">Unmapped</td>
+<td class="px-6 py-4">alice@techcorp.com</td>
+<td class="px-6 py-4">TechCorp Solutions</td>
+</tr>
+<tr class="text-sm">
+<td class="px-6 py-4">Bob</td>
+<td class="px-6 py-4 text-red-500 italic">Unmapped</td>
+<td class="px-6 py-4">bob.smith@gmail.com</td>
+<td class="px-6 py-4">Freelance</td>
+</tr>
+<tr class="text-sm">
+<td class="px-6 py-4">Charlie</td>
+<td class="px-6 py-4 text-red-500 italic">Unmapped</td>
+<td class="px-6 py-4">c.johnson@innovate.io</td>
+<td class="px-6 py-4">Innovate Inc</td>
+</tr>
+<tr class="text-sm">
+<td class="px-6 py-4">Diana</td>
+<td class="px-6 py-4 text-red-500 italic">Unmapped</td>
+<td class="px-6 py-4">diana.p@webflow.com</td>
+<td class="px-6 py-4">Webflow</td>
+</tr>
+<tr class="text-sm">
+<td class="px-6 py-4">Edward</td>
+<td class="px-6 py-4 text-red-500 italic">Unmapped</td>
+<td class="px-6 py-4">e.norton@fightclub.com</td>
+<td class="px-6 py-4">Paper St. Soap Co.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Sidebar / Help & Errors -->
+<div class="space-y-6">
+<div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-900/30 p-6 rounded-xl">
+<h3 class="flex items-center gap-2 text-red-700 dark:text-red-400 font-bold mb-3">
+<span class="material-symbols-outlined">error</span>
+                                Data Health Warnings
+                            </h3>
+<ul class="space-y-3">
+<li class="text-sm text-red-600 dark:text-red-400/80 leading-relaxed">
+<strong>Phone Number:</strong> Column 'Cust_Phone' not yet mapped. This field is required to create contacts.
+                                </li>
+<li class="text-sm text-red-600 dark:text-red-400/80 leading-relaxed">
+<strong>Invalid Format:</strong> Row 14 contains an invalid email address (missing '@').
+                                </li>
+</ul>
+</div>
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-xl shadow-sm">
+<h3 class="text-slate-900 dark:text-slate-100 font-bold mb-4">Tips for Field Mapping</h3>
+<div class="space-y-4">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+<p class="text-sm text-slate-500 leading-relaxed">We automatically suggest matches based on header names.</p>
+</div>
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary">info</span>
+<p class="text-sm text-slate-500 leading-relaxed">If you don't map a field, it will not be imported into our system.</p>
+</div>
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary">contact_support</span>
+<p class="text-sm text-slate-500 leading-relaxed">Need help with complex migrations? <a class="text-primary underline" href="#">Contact our support.</a></p>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 border border-primary/20 p-6 rounded-xl">
+<h3 class="text-slate-900 dark:text-slate-100 font-bold mb-2">Import Summary</h3>
+<div class="flex justify-between py-2 text-sm">
+<span class="text-slate-500">Total Rows Detected:</span>
+<span class="font-bold">1,248</span>
+</div>
+<div class="flex justify-between py-2 text-sm border-t border-primary/10">
+<span class="text-slate-500">Valid Entries:</span>
+<span class="text-green-600 font-bold">1,245</span>
+</div>
+<div class="flex justify-between py-2 text-sm border-t border-primary/10">
+<span class="text-slate-500">Critical Errors:</span>
+<span class="text-red-500 font-bold">3</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="py-8 text-center text-slate-400 text-sm border-t border-slate-100 dark:border-slate-800 mt-10">
+<p>© 2024 BusinessPlatform Migration Wizard. All rights reserved.</p>
+</footer>
+</div>
+</body></html>

@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import ServicesClientPage from "./client-page";
 
+type SessionUser = { businessId?: string; role?: string };
+
 export const dynamic = "force-dynamic";
 
 export default async function ServicesPage() {
@@ -60,5 +62,7 @@ export default async function ServicesPage() {
         mostPopular: mostPopularName
     };
 
-    return <ServicesClientPage services={services} stats={stats} />;
+    const userRole = (session.user as SessionUser).role || "EMPLOYEE";
+
+    return <ServicesClientPage services={services} stats={stats} userRole={userRole} />;
 }

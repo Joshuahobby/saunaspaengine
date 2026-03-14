@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Personalized Client Check-in Result</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11c4d4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#102022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-10 py-3 bg-white dark:bg-slate-900">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full">
+<div class="text-slate-500 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-xl">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-slate-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-slate-100 dark:bg-slate-800 focus:border-none h-full placeholder:text-slate-500 px-4 rounded-l-none pl-2 text-base font-normal" placeholder="Search clients or sessions" value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary py-1" href="#">Clients</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Appointments</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Inventory</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Reports</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-xl h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-xl h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="bg-primary/20 rounded-full size-10 flex items-center justify-center overflow-hidden border-2 border-primary/30">
+<img alt="Staff Profile" class="w-full h-full object-cover" data-alt="Receptionist profile picture avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNrFsbcMcuHDGFXSGNaFdWgJMzqjrTUeG0EXsT9SHJU1cZaSLeBUqIC3zM-AuJQQOboR8QHI34g3EUcoWGEhn-G1Z2sTEx4LgdYFaOgRN9SNJvCSI_Uzef0fMctiWi7Fd9MzdZJEdpfXtsatqGxEgay7WbumayWJiyLrKS8hQteOqpbaZd54ukvxp-DQd2ORm3KMZcC1wD6y8Ozsjhm7vEnl842_suJcJTNS2Oc-SNkatcGKdZ5ooodMqAa3Mg9eJTyiH6EENqPJu0"/>
+</div>
+</div>
+</header>
+<main class="flex-1 px-40 py-8 flex flex-col items-center">
+<div class="max-w-[960px] w-full space-y-8">
+<!-- Breadcrumb -->
+<div class="flex items-center gap-2 text-sm">
+<a class="text-slate-500 hover:text-primary flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-base">qr_code_scanner</span>
+                        Check-in
+                    </a>
+<span class="text-slate-400 material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-slate-900 dark:text-white font-semibold">Scanner Result</span>
+</div>
+<!-- Success Header -->
+<div class="flex flex-wrap justify-between items-end gap-4 bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex gap-6 items-center">
+<div class="size-16 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl">check_circle</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-tight">Check-in Successful</h1>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-slate-900 dark:text-white font-bold text-lg">Alexander Thompson</span>
+<span class="h-1 w-1 bg-slate-300 rounded-full"></span>
+<span class="text-slate-500 dark:text-slate-400 font-medium">ID: SPA-8829</span>
+</div>
+</div>
+</div>
+<button class="flex min-w-[140px] items-center justify-center rounded-xl h-12 px-6 bg-primary text-slate-900 text-base font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">
+<span>Assign Locker</span>
+</button>
+</div>
+<!-- Personal Touch Card Section -->
+<div class="space-y-4">
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold flex items-center gap-2 px-1">
+<span class="material-symbols-outlined text-primary">volunteer_activism</span>
+                        Personalized Greeting &amp; Preferences
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Main Alert Card (Birthday) -->
+<div class="md:col-span-2 relative overflow-hidden bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-800/50 p-8 rounded-xl border-2 border-primary/30 shadow-xl">
+<div class="absolute -top-10 -right-10 size-40 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="flex flex-col h-full">
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest">Occasion Alert</span>
+<span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest">VIP Member</span>
+</div>
+<div class="flex items-start gap-4">
+<div class="text-5xl">🎂</div>
+<div class="flex-1">
+<p class="text-slate-900 dark:text-white text-2xl font-black leading-tight mb-2">It's Alexander's Birthday Today!</p>
+<p class="text-slate-600 dark:text-slate-400 text-lg">Offer a complimentary glass of infused water and a warm birthday greeting on behalf of the team.</p>
+</div>
+</div>
+<div class="mt-8 flex items-center justify-between pt-6 border-t border-slate-200 dark:border-slate-800">
+<div class="flex flex-col">
+<span class="text-xs text-slate-400 uppercase font-bold tracking-wider mb-1">Suggested Greeting</span>
+<p class="italic text-slate-700 dark:text-slate-300">"Happy Birthday, Alexander! Would you like your usual peppermint oil today?"</p>
+</div>
+<button class="flex items-center justify-center rounded-xl h-10 px-6 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-bold hover:opacity-90 transition-opacity">
+                                        Mark as Greeted
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Side Details -->
+<div class="space-y-6">
+<!-- Temperature Card -->
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-orange-500">thermostat</span>
+<span class="font-bold text-slate-900 dark:text-white">Temperature</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-slate-600 dark:text-slate-400">Prefers:</span>
+<span class="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 px-3 py-1 rounded-lg font-bold text-sm">High Heat (85°C)</span>
+</div>
+</div>
+<!-- Oils Card -->
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 mb-3">
+<span class="material-symbols-outlined text-primary">eco</span>
+<span class="font-bold text-slate-900 dark:text-white">Preferred Oils</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-bold border border-primary/20">Peppermint</span>
+<span class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-bold border border-primary/20">Eucalyptus</span>
+<span class="bg-slate-100 dark:bg-slate-800 text-slate-500 px-2 py-1 rounded text-xs font-bold">Cedarwood</span>
+</div>
+</div>
+<!-- Health Notes Card -->
+<div class="bg-rose-50 dark:bg-rose-900/10 p-5 rounded-xl border border-rose-100 dark:border-rose-900/30">
+<div class="flex items-center gap-3 mb-3 text-rose-600 dark:text-rose-400">
+<span class="material-symbols-outlined">warning</span>
+<span class="font-bold">Health Notes</span>
+</div>
+<p class="text-sm font-medium text-rose-800 dark:text-rose-300">
+                                    Sensitive skin: Avoid abrasive towels. Use hypoallergenic robe.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity/History Preview -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<div class="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+<h3 class="font-bold text-slate-900 dark:text-white">Recent Sessions</h3>
+<a class="text-xs text-primary font-bold hover:underline" href="#">View Full Profile</a>
+</div>
+<div class="p-0">
+<table class="w-full text-left text-sm">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 font-bold uppercase tracking-wider">
+<th class="px-6 py-3">Date</th>
+<th class="px-6 py-3">Service</th>
+<th class="px-6 py-3">Staff</th>
+<th class="px-6 py-3">Feedback</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr>
+<td class="px-6 py-4 dark:text-slate-300">Oct 12, 2023</td>
+<td class="px-6 py-4 dark:text-slate-300 font-medium">Finnish Sauna Ritual</td>
+<td class="px-6 py-4 dark:text-slate-300">Marcus L.</td>
+<td class="px-6 py-4">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4 dark:text-slate-300">Sep 28, 2023</td>
+<td class="px-6 py-4 dark:text-slate-300 font-medium">Deep Tissue Massage</td>
+<td class="px-6 py-4 dark:text-slate-300">Sarah J.</td>
+<td class="px-6 py-4">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star</span>
+<span class="material-symbols-outlined text-base">star_half</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Footer Action -->
+<div class="flex justify-center gap-4 pt-4">
+<button class="flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined">print</span>
+                        Print Check-in Slip
+                    </button>
+<button class="flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined">share</span>
+                        Share to Tablet
+                    </button>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

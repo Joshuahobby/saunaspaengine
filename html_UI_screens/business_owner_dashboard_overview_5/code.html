@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bulk Membership Renewal - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        @layer components {
+            .table-row-selected {
+                @apply bg-primary/5 border-primary/20;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 h-screen overflow-hidden">
+<div class="flex h-screen overflow-hidden">
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 bg-primary rounded-full flex items-center justify-center text-slate-900">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<div>
+<h1 class="text-sm font-bold leading-tight">Sauna SPA Engine</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Business Manager</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+<span class="text-sm">Employees</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-sm">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span class="text-sm">Services</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary font-semibold" href="#">
+<span class="material-symbols-outlined text-[20px]">card_membership</span>
+<span class="text-sm">Memberships</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="text-sm">Reports</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-lg border border-slate-200 dark:border-slate-800">
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Renewal Status</p>
+<div class="flex items-center justify-between mb-1">
+<span class="text-xs font-medium">Monthly Goal</span>
+<span class="text-xs font-bold text-primary">82%</span>
+</div>
+<div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[82%]"></div>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-hidden flex flex-col bg-background-light dark:bg-background-dark">
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md sticky top-0 z-10 px-8 flex items-center justify-between shrink-0">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<a class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" href="#">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+</a>
+<h2 class="text-lg font-bold">Bulk Membership Renewal Tool</h2>
+</div>
+<div class="h-4 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium text-slate-500">Expiring in:</span>
+<select class="bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-xs font-bold py-1 focus:ring-1 focus:ring-primary cursor-pointer">
+<option>Next 7 Days</option>
+<option selected="">Next 30 Days</option>
+<option>Already Expired</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Filter by name or category..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full border border-primary/20 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuChdAvHhtwnPX9DlHl9rqdek0Zwq3RPxg1T3_-0poHJ4Ps_GvyvDLOd6opvwHNiaZTjKH8Khv4UUZi-gjTaBiiXoAJUOJcmnmS36fJEb9Go2InwSlgYGlfLU1bA6s63851QX1xzF8-5JfVB8gBRnFnx73-rta7rmCZvaiwIS6Exdji5kzLgN6lJNRvYb8HiqITlpt2Sc4TMxB7T4vSCaPGvB2IEdunHXeYTtv3QOzklOdBTvvFX6UZruPZ8wrdDMJLl_34zKJher7X-')"></div>
+</div>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-8 relative pb-32">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+<div class="lg:col-span-3 p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">analytics</span>
+</div>
+<div>
+<h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Projected Revenue</h3>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-black">$4,850.00</span>
+<span class="text-xs font-bold text-emerald-500">+14% vs last month</span>
+</div>
+</div>
+</div>
+<div class="flex gap-8 border-l border-slate-100 dark:border-slate-800 pl-8">
+<div>
+<p class="text-xs font-bold text-slate-500 mb-1">Clients Selected</p>
+<p class="text-xl font-bold">12 / 48</p>
+</div>
+<div>
+<p class="text-xs font-bold text-slate-500 mb-1">Avg. Ticket</p>
+<p class="text-xl font-bold">$145.00</p>
+</div>
+</div>
+</div>
+<div class="p-6 rounded-xl bg-slate-900 dark:bg-primary border border-slate-800 dark:border-primary text-white dark:text-slate-950">
+<p class="text-xs font-bold opacity-70 mb-2 uppercase">Quick Action</p>
+<h4 class="text-lg font-bold leading-tight mb-3">Auto-renew all "Elite" members?</h4>
+<button class="w-full bg-primary dark:bg-slate-950 text-slate-950 dark:text-white py-2 rounded-lg text-sm font-bold">Run Automation</button>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800">
+<th class="p-4 w-12">
+<input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+</th>
+<th class="p-4 text-xs font-bold text-slate-500 uppercase">Client</th>
+<th class="p-4 text-xs font-bold text-slate-500 uppercase">Category</th>
+<th class="p-4 text-xs font-bold text-slate-500 uppercase">Last Visit</th>
+<th class="p-4 text-xs font-bold text-slate-500 uppercase">Expiry Date</th>
+<th class="p-4 text-xs font-bold text-slate-500 uppercase text-right">Renewal Fee</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors bg-primary/5">
+<td class="p-4">
+<input checked="" class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-xs">EW</div>
+<div>
+<p class="text-sm font-bold">Emma Wilson</p>
+<p class="text-[10px] text-slate-500">emma.w@example.com</p>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="px-2 py-1 rounded bg-amber-100 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-bold uppercase">Gold Member</span>
+</td>
+<td class="p-4 text-sm">2 days ago</td>
+<td class="p-4">
+<span class="text-sm font-medium text-red-500">Oct 24, 2023</span>
+</td>
+<td class="p-4 text-right font-bold text-sm">$120.00</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="p-4">
+<input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-xs text-slate-500">JM</div>
+<div>
+<p class="text-sm font-bold">James Miller</p>
+<p class="text-[10px] text-slate-500">j.miller@gmail.com</p>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-bold uppercase">Standard</span>
+</td>
+<td class="p-4 text-sm">5 days ago</td>
+<td class="p-4 text-sm">Oct 28, 2023</td>
+<td class="p-4 text-right font-bold text-sm">$85.00</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors bg-primary/5">
+<td class="p-4">
+<input checked="" class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-xs text-slate-500">SC</div>
+<div>
+<p class="text-sm font-bold">Sarah Chen</p>
+<p class="text-[10px] text-slate-500">chen.sarah@web.com</p>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="px-2 py-1 rounded bg-primary/10 text-primary text-[10px] font-bold uppercase">Elite Platinum</span>
+</td>
+<td class="p-4 text-sm">Yesterday</td>
+<td class="p-4 text-sm">Oct 30, 2023</td>
+<td class="p-4 text-right font-bold text-sm">$250.00</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors bg-primary/5">
+<td class="p-4">
+<input checked="" class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-xs text-slate-500">MR</div>
+<div>
+<p class="text-sm font-bold">Michael Ross</p>
+<p class="text-[10px] text-slate-500">mross@law.com</p>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="px-2 py-1 rounded bg-amber-100 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-bold uppercase">Gold Member</span>
+</td>
+<td class="p-4 text-sm">1 week ago</td>
+<td class="p-4 text-sm">Nov 02, 2023</td>
+<td class="p-4 text-right font-bold text-sm">$120.00</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="p-4">
+<input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-xs text-slate-500">DB</div>
+<div>
+<p class="text-sm font-bold">David Blake</p>
+<p class="text-[10px] text-slate-500">david.b@outlook.com</p>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-bold uppercase">Standard</span>
+</td>
+<td class="p-4 text-sm">Today</td>
+<td class="p-4 text-sm">Nov 05, 2023</td>
+<td class="p-4 text-right font-bold text-sm">$85.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="fixed bottom-0 right-0 left-64 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 p-4 z-20">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="px-4 py-2 bg-slate-100 dark:bg-slate-900 rounded-lg">
+<p class="text-xs font-bold text-slate-500">Selected Clients</p>
+<p class="text-sm font-black">12 members</p>
+</div>
+<div class="px-4 py-2 bg-primary/10 rounded-lg border border-primary/20">
+<p class="text-xs font-bold text-primary">Total Renewal Value</p>
+<p class="text-sm font-black">$1,640.00</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-6 py-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">mail</span>
+                        Send Renewal Email
+                    </button>
+<button class="px-6 py-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">category</span>
+                        Change Category
+                    </button>
+<button class="px-8 py-3 rounded-lg bg-primary hover:bg-primary/90 text-slate-950 font-bold text-sm shadow-lg shadow-primary/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm font-bold">sync</span>
+                        Renew Selected (30 days)
+                    </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

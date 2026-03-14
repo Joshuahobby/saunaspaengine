@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tax &amp; Fiscal Configuration Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2bee2b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102210",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-6 md:px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-slate-100">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-slate-500 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-0 border-none bg-slate-100 dark:bg-slate-800 focus:border-none h-full placeholder:text-slate-500 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal" placeholder="Search settings..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden lg:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Operations</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Members</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary py-1" href="#">Settings</a>
+</div>
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-5 bg-primary text-background-dark text-sm font-bold hover:opacity-90 transition-opacity">
+<span>Save Changes</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-slate-200 dark:border-slate-700" data-alt="User avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB1g77Iz4JL9C-5uS4e3_kMxRQWWGWsj5dm1Tg89sh4rd84y2iia0Iji_ZbAJ7urpBFt3vFMMKRBCO-jABmNxUG7HFWYdkgQihNhtLdF0rwb2H3NWXSfUHi1D9pC0mYq41ykQKB05rlrNxFPCQ9C0G_03wEK0RHl4by453snmXUpoYSlSbcz6wSkity1Os4LidEHr14-WK4KQlnt6rCyjZEHylJjY9e2111SMFIrgvR3c1VwnbY-Ci-Jk5LKFQZbK3DAWeKNC1rJatz");'></div>
+</div>
+</header>
+<div class="flex flex-1">
+<!-- Sidebar Navigation -->
+<aside class="hidden md:flex w-72 flex-col bg-white dark:bg-background-dark border-r border-slate-200 dark:border-slate-800 p-6 gap-6">
+<div class="flex flex-col">
+<h3 class="text-slate-900 dark:text-slate-100 text-sm font-bold uppercase tracking-wider mb-4">Business Settings</h3>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">home</span>
+<span class="text-sm font-medium">General</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">receipt_long</span>
+<span class="text-sm font-bold">Tax &amp; Fiscal</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">group</span>
+<span class="text-sm font-medium">Staff Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">extension</span>
+<span class="text-sm font-medium">Integrations</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">credit_card</span>
+<span class="text-sm font-medium">Billing</span>
+</a>
+</nav>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark p-6 md:p-10">
+<div class="max-w-4xl mx-auto flex flex-col gap-8">
+<!-- Breadcrumbs & Header -->
+<div class="flex flex-col gap-2">
+<nav class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">Settings</a>
+<span>/</span>
+<span class="text-slate-900 dark:text-slate-100">Tax &amp; Fiscal Configuration</span>
+</nav>
+<h1 class="text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Tax &amp; Fiscal Configuration</h1>
+<p class="text-slate-600 dark:text-slate-400">Configure how your spa handles taxation, fiscal reporting, and digital receipt compliance.</p>
+</div>
+<!-- General Tax Information -->
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col gap-6 shadow-sm">
+<div class="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-4">
+<span class="material-symbols-outlined text-primary">info</span>
+<h2 class="text-xl font-bold text-slate-900 dark:text-slate-100">General Tax Information</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Business Tax ID</label>
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-white focus:ring-primary focus:border-primary px-4 py-2" placeholder="e.g. VAT-123456" type="text" value="US-987654321-VAT"/>
+<p class="text-xs text-slate-500">Publicly visible on your invoices and receipts.</p>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Tax Label</label>
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-white focus:ring-primary focus:border-primary px-4 py-2" placeholder="e.g. Sales Tax, GST, VAT" type="text" value="VAT"/>
+<p class="text-xs text-slate-500">The term displayed for tax on the customer side.</p>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Default Tax Rate (%)</label>
+<div class="relative">
+<input class="w-full rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-white focus:ring-primary focus:border-primary px-4 py-2 pr-10" type="number" value="15.0"/>
+<span class="absolute right-4 top-2 text-slate-400">%</span>
+</div>
+<p class="text-xs text-slate-500">Default rate applied to all services and products.</p>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Tax Basis</label>
+<select class="w-full rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-white focus:ring-primary focus:border-primary px-4 py-2">
+<option>Net Price (Exclude Tax)</option>
+<option selected="">Gross Price (Include Tax)</option>
+</select>
+<p class="text-xs text-slate-500">How prices are calculated and shown in the POS.</p>
+</div>
+</div>
+</section>
+<!-- Service-Specific Tax Overrides -->
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<div class="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">table_rows</span>
+<h2 class="text-xl font-bold text-slate-900 dark:text-slate-100">Service-Specific Tax Overrides</h2>
+</div>
+<button class="flex items-center gap-1 text-sm font-bold text-primary hover:underline">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+                                Add Override
+                            </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-sm uppercase tracking-wider">
+<tr>
+<th class="px-6 py-4 font-bold">Category</th>
+<th class="px-6 py-4 font-bold">Override Rate (%)</th>
+<th class="px-6 py-4 font-bold">Status</th>
+<th class="px-6 py-4 font-bold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-slate-100">Massage Therapy</td>
+<td class="px-6 py-4">8.0%</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-300">Active</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-slate-100">Retail Products</td>
+<td class="px-6 py-4">20.0%</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-300">Active</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<td class="px-6 py-4 font-medium text-slate-900 dark:text-slate-100">Membership Fees</td>
+<td class="px-6 py-4">0.0%</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-800 dark:bg-slate-800 dark:text-slate-300">Tax Exempt</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Legal Receipt Configuration -->
+<section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 flex flex-col gap-6 shadow-sm">
+<div class="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-4">
+<span class="material-symbols-outlined text-primary">description</span>
+<h2 class="text-xl font-bold text-slate-900 dark:text-slate-100">Legal Receipt Configuration</h2>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-slate-700 dark:text-slate-300">Legal Header/Footer Information</label>
+<textarea class="w-full rounded-lg border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-white focus:ring-primary focus:border-primary px-4 py-2" placeholder="Enter terms, legal disclaimers, or business registration details..." rows="4">Sauna SPA Engine Ltd. 123 Wellness Way, Helsinki, Finland. Registered Business: 2024-HEALTH-001. All prices include applicable VAT. No refunds after 24 hours of purchase.</textarea>
+<p class="text-xs text-slate-500">This text will appear at the bottom of all digital and printed receipts for compliance purposes.</p>
+</div>
+<div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+<div class="flex flex-col">
+<span class="text-sm font-bold text-slate-900 dark:text-slate-100">Enable Digital Signing</span>
+<span class="text-xs text-slate-500">Automatically cryptographically sign every receipt for fiscal authorities.</span>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-600 peer-checked:bg-primary"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Compliance Check -->
+<div class="p-6 bg-primary/10 border border-primary/20 rounded-xl flex gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">verified_user</span>
+<div class="flex flex-col gap-1">
+<h4 class="font-bold text-slate-900 dark:text-slate-100">Fiscal Compliance Verified</h4>
+<p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Your current settings meet the standard requirements for North American and EU digital receipting. For specific local municipal tax overrides, please consult with your tax advisor.</p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center justify-end gap-4 pb-10">
+<button class="px-6 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Discard Changes</button>
+<button class="px-8 py-2.5 rounded-lg bg-primary text-background-dark font-bold hover:opacity-90 shadow-lg shadow-primary/20 transition-all">Update Fiscal Profile</button>
+</div>
+</div>
+</main>
+</div>
+</div>
+</div>
+</body></html>

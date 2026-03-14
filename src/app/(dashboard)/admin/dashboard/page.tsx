@@ -1,21 +1,28 @@
-import { auth } from "@/lib/auth";
+import { requireRole } from "@/lib/role-guard";
 import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
 import AdminDashboardClient from "./client-page";
+
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Command Center | Admin Dashboard",
+    description: "Global operational oversight and platform health nexus.",
+};
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
-    const session = await auth();
-
-    // Verify system admin somehow, or just pass if 'admin' dashboard
-    if (!session?.user) {
-        redirect("/login");
-    }
+    await requireRole(["ADMIN"]);
 
     // Fetch data
     const totalBusinesses = await prisma.business.count();
     const activeUsers = await prisma.user.count();
+
+    const totalRevenueResult = await prisma.serviceRecord.aggregate({
+        _sum: { amount: true },
+        where: { status: "COMPLETED" },
+    });
+    const totalRevenue = totalRevenueResult._sum.amount || 0;
 
     const businessesRaw = await prisma.business.findMany({
         include: {
@@ -34,7 +41,7 @@ export default async function AdminDashboardPage() {
         id: b.id,
         name: b.name,
         status: b.status,
-        createdAt: b.createdAt,
+        createdAt: b.createdAt.toISOString(),
         ownerInitials: b.users[0]?.fullName ? b.users[0].fullName.substring(0, 2).toUpperCase() : '??',
         ownerName: b.users[0]?.fullName || 'Unknown Owner',
         ownerEmail: b.users[0]?.email || 'No Email',
@@ -43,7 +50,7 @@ export default async function AdminDashboardPage() {
 
     const stats = {
         totalBusinesses,
-        totalRevenue: 428500, // Still placeholder for now
+        totalRevenue,
         activeUsers,
         systemHealth: 99.9
     };

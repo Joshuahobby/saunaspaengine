@@ -4,49 +4,125 @@
 /* Extracted from Stitch screen design tokens */
 
 @theme inline {
-  /* Brand Colors */
-  --color-primary: #11d4c4;
-  --color-primary-hover: #0fb9ab;
-  --color-primary-muted: rgba(17, 212, 196, 0.1);
-  --color-primary-border: rgba(17, 212, 196, 0.2);
+  /* Organic Brand Colors */
+  --color-primary: #2d5a27; /* Sophisticated Eucalyptus Green */
+  --color-primary-hover: #21431d;
+  --color-primary-muted: rgba(45, 90, 39, 0.08);
+  --color-primary-border: rgba(45, 90, 39, 0.12);
 
+  /* ── Semantic Design System ── */
+  
   /* Backgrounds */
-  --color-bg-light: #f6f8f7;
-  --color-bg-dark: #10221c;
-  --color-surface-light: #ffffff;
-  --color-surface-dark: #1a2e28;
-
+  --bg-app: var(--color-bg-light);
+  --bg-surface: var(--color-surface-light);
+  --bg-surface-muted: var(--color-forest-50);
+  --bg-card: #ffffff;
+  
+  /* Text */
+  --text-main: var(--color-forest-900);
+  --text-muted: var(--color-forest-500);
+  --text-on-primary: #ffffff;
+  
   /* Borders */
-  --color-border-light: #e2e8f0;
-  --color-border-dark: #2d3f39;
+  --border-main: var(--color-border-light);
+  --border-muted: #f1f5f9;
+
+  /* Organic Backgrounds - Warm & Natural */
+  --color-bg-light: #faf9f6; /* Warm Pearl/Cream */
+  --color-bg-dark: #0a1412; /* Deep Forest at Night */
+  --color-surface-light: #ffffff;
+  --color-surface-dark: #121f1c;
+
+  /* Borders - Soft Eucalyptus Tones */
+  --color-border-light: #e8eceb; 
+  --color-border-dark: #1a2b26;
+  
+  /* Organic Forest Palette */
+  --color-forest-50: #fbfbf9;
+  --color-forest-100: #f1f5f2;
+  --color-forest-200: #e2ebe5;
+  --color-forest-300: #c5d7cc;
+  --color-forest-400: #a7c3b3;
+  --color-forest-500: #6b8f71; /* Sage */
+  --color-forest-600: #557a5d;
+  --color-forest-700: #4a6750; /* Moss */
+  --color-forest-800: #2d5a27; /* Eucalyptus */
+  --color-forest-900: #15241f; /* Deep Forest */
+
+  /* Legacy Teal Mapping (Seamless Migration) */
+  --color-teal-50: var(--color-forest-50);
+  --color-teal-100: var(--color-forest-100);
+  --color-teal-200: var(--color-forest-200);
+  --color-teal-300: var(--color-forest-300);
+  --color-teal-400: var(--color-forest-400);
+  --color-teal-500: var(--color-forest-500);
+  --color-teal-600: var(--color-forest-600);
+  --color-teal-700: var(--color-forest-700);
+  --color-teal-800: var(--color-forest-800);
+  --color-teal-900: var(--color-forest-900);
 
   /* Fonts */
-  --font-display: "Manrope", sans-serif;
+  --font-display: var(--font-poppins), sans-serif;
+  --font-serif: var(--font-poppins), serif;
 
   /* Border Radius */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2.5rem;
   --radius-full: 9999px;
+}
+
+/* ── Theme Definitions ── */
+
+:root {
+  --bg-app: var(--color-bg-light);
+  --bg-surface: var(--color-surface-light);
+  --bg-surface-muted: var(--color-forest-50);
+  --bg-card: #ffffff;
+  --text-main: var(--color-forest-900);
+  --text-muted: var(--color-forest-600);
+  --border-main: var(--color-border-light);
+  --border-muted: #f1f5f9;
+}
+
+.dark {
+  --bg-app: var(--color-bg-dark);
+  --bg-surface: var(--color-surface-dark);
+  --bg-surface-muted: #0f1a18;
+  --bg-card: #121f1c;
+  --text-main: #f1f5f9;
+  --text-muted: var(--color-forest-400);
+  --border-main: var(--color-border-dark);
+  --border-muted: #1a2b26;
+  
+  /* Lighter Eucalyptus for Dark Mode Contrast */
+  --color-primary: #4a8c43; 
+  --color-primary-hover: #5ba353;
+  --color-primary-muted: rgba(74, 140, 67, 0.15);
+  --color-primary-border: rgba(74, 140, 67, 0.25);
 }
 
 /* ── Base Styles ── */
 
 html {
-  font-family: var(--font-display);
+  font-family: var(--font-inter), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background-color: var(--color-bg-light);
-  color: #0f172a;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.dark body {
-  background-color: var(--color-bg-dark);
-  color: #f1f5f9;
+@layer base {
+  button, a, input, select, textarea {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 transition-shadow;
+  }
 }
 
 /* ── Material Symbols ── */
@@ -67,12 +143,63 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(19, 236, 164, 0.2);
+  background: var(--color-forest-200);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(19, 236, 164, 0.4);
+  background: var(--color-forest-300);
+}
+
+/* ── Glassmorphism Utilities & Micro-Interactions ── */
+
+.glass-card {
+  background-color: var(--bg-card);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-main);
+  border-radius: var(--radius-3xl);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  box-shadow: 0 12px 30px rgba(45, 90, 39, 0.04);
+  transform: translateY(-4px);
+  border-color: var(--color-primary-border);
+}
+
+.glass-surface {
+  background-color: var(--bg-surface);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  border: 1px solid var(--border-main);
+}
+
+.glass-surface-teal {
+  background-color: var(--bg-surface-muted);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-muted);
+}
+
+.zen-status-bar {
+  background-color: var(--color-forest-900);
+  background-image: linear-gradient(to right, var(--color-forest-900), var(--color-forest-800));
+  border-radius: var(--radius-3xl);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.dark .zen-status-bar {
+  background-color: #0c1a16;
+  background-image: linear-gradient(to right, #0c1a16, #12241f);
+}
+
+/* ── Touch-Target Optimization ── */
+
+.touch-target {
+  @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
 }
 
 /* ── Utility Animations ── */
@@ -125,6 +252,15 @@ body {
   animation: pulse-soft 2s ease-in-out infinite;
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
 /* ── Status Badge Colors ── */
 
 .badge-active {
@@ -155,8 +291,8 @@ body {
 /* ── Complex Backgrounds & Gradients ── */
 
 .membership-card-bg {
-  background-image: radial-gradient(circle at 20% 30%, rgba(19, 236, 164, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(19, 236, 164, 0.1) 0%, transparent 40%);
+  background-image: radial-gradient(circle at 20% 30%, rgba(45, 90, 39, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(45, 90, 39, 0.05) 0%, transparent 40%);
 }
 
 .map-overlay-gradient {

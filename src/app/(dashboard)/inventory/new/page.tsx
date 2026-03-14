@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import Link from "next/link";
 
 async function createInventoryItem(formData: FormData) {
     "use server";
@@ -13,12 +14,14 @@ async function createInventoryItem(formData: FormData) {
     const minThreshold = parseInt(formData.get("minThreshold") as string, 10);
     const unit = formData.get("unit") as string;
 
+    if (!productName?.trim()) throw new Error("Product name is required");
+
     await prisma.inventory.create({
         data: {
-            productName,
-            stockCount,
-            minThreshold,
-            unit,
+            productName: productName.trim(),
+            stockCount: isNaN(stockCount) ? 0 : stockCount,
+            minThreshold: isNaN(minThreshold) ? 5 : minThreshold,
+            unit: unit?.trim() || "pcs",
             businessId: session.user.businessId,
         }
     });
@@ -34,23 +37,23 @@ export default async function NewInventoryItemPage() {
     return (
         <div className="p-4 lg:p-8 w-full max-w-3xl mx-auto">
             <div className="mb-8">
-                <div className="flex items-center gap-2 text-[var(--color-primary)] font-semibold text-sm uppercase tracking-wider mb-2">
-                    <span className="material-symbols-outlined text-sm">inventory_2</span>
-                    Add Inventory
-                </div>
-                <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Register New Item</h1>
-                <p className="text-slate-500 dark:text-slate-400 mt-2">Add a new consumable or retail item to the inventory system.</p>
+                <Link href="/inventory" className="text-sm font-bold text-[var(--color-primary)] hover:underline flex items-center gap-1 mb-4">
+                    <span className="material-symbols-outlined text-sm">arrow_back</span>
+                    Back to Inventory
+                </Link>
+                <h1 className="text-3xl font-display font-bold text-[var(--text-main)]">Register <span className="text-[var(--color-primary)]">New Item</span></h1>
+                <p className="text-[var(--text-muted)] mt-2 font-bold">Add a new consumable or retail item to the inventory system.</p>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-[var(--color-border-light)] rounded-xl overflow-hidden">
-                <div className="px-6 py-4 border-b border-[var(--color-border-light)] bg-slate-50/50 dark:bg-slate-800/30">
-                    <h3 className="text-lg font-bold">Item Details</h3>
+            <div className="bg-[var(--bg-card)] rounded-[2.5rem] border border-[var(--border-muted)] overflow-hidden shadow-sm">
+                <div className="px-8 py-5 border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/30">
+                    <h3 className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-60">Item Details</h3>
                 </div>
 
-                <form action={createInventoryItem} className="p-6 space-y-6">
+                <form action={createInventoryItem} className="p-8 space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <label htmlFor="productName" className="block text-sm font-semibold text-slate-900 dark:text-slate-200">
+                            <label htmlFor="productName" className="block text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-60">
                                 Product Name <span className="text-red-500">*</span>
                             </label>
                             <input
@@ -59,13 +62,13 @@ export default async function NewInventoryItemPage() {
                                 name="productName"
                                 required
                                 placeholder="e.g. White Cotton Towels"
-                                className="w-full h-11 px-4 bg-slate-50 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] placeholder:text-slate-400"
+                                className="w-full h-12 px-4 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] placeholder:text-[var(--text-muted)] text-[var(--text-main)] font-bold outline-none transition-all"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label htmlFor="unit" className="block text-sm font-semibold text-slate-900 dark:text-slate-200">
-                                Unit of Measurement <span className="text-red-500">*</span>
+                            <label htmlFor="unit" className="block text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-60">
+                                Unit <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="text"
@@ -73,13 +76,13 @@ export default async function NewInventoryItemPage() {
                                 name="unit"
                                 required
                                 placeholder="e.g. pcs, bottles, kg"
-                                className="w-full h-11 px-4 bg-slate-50 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] placeholder:text-slate-400"
+                                className="w-full h-12 px-4 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] placeholder:text-[var(--text-muted)] text-[var(--text-main)] font-bold outline-none transition-all"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label htmlFor="stockCount" className="block text-sm font-semibold text-slate-900 dark:text-slate-200">
-                                Initial Stock Count <span className="text-red-500">*</span>
+                            <label htmlFor="stockCount" className="block text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-60">
+                                Initial Stock <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="number"
@@ -88,13 +91,13 @@ export default async function NewInventoryItemPage() {
                                 required
                                 min="0"
                                 defaultValue="0"
-                                className="w-full h-11 px-4 bg-slate-50 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] placeholder:text-slate-400"
+                                className="w-full h-12 px-4 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] text-[var(--text-main)] font-bold outline-none transition-all"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label htmlFor="minThreshold" className="block text-sm font-semibold text-slate-900 dark:text-slate-200">
-                                Minimum Alert Threshold <span className="text-red-500">*</span>
+                            <label htmlFor="minThreshold" className="block text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-60">
+                                Alert Threshold <span className="text-red-500">*</span>
                             </label>
                             <input
                                 type="number"
@@ -103,23 +106,23 @@ export default async function NewInventoryItemPage() {
                                 required
                                 min="1"
                                 defaultValue="5"
-                                className="w-full h-11 px-4 bg-slate-50 dark:bg-slate-800 border-none rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] placeholder:text-slate-400"
+                                className="w-full h-12 px-4 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl focus:ring-2 focus:ring-[var(--color-primary)]/20 focus:border-[var(--color-primary)] text-[var(--text-main)] font-bold outline-none transition-all"
                             />
                         </div>
                     </div>
 
-                    <div className="pt-6 border-t border-[var(--color-border-light)] flex justify-end gap-3">
-                        <a
+                    <div className="pt-6 border-t border-[var(--border-muted)] flex justify-end gap-4">
+                        <Link
                             href="/inventory"
-                            className="px-6 py-2.5 rounded-lg font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                            className="px-8 py-4 rounded-2xl font-bold text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)] transition-colors text-[10px] uppercase tracking-widest"
                         >
                             Cancel
-                        </a>
+                        </Link>
                         <button
                             type="submit"
-                            className="px-6 py-2.5 bg-[var(--color-primary)] text-[#102220] font-bold rounded-lg hover:brightness-110 transition-all flex items-center gap-2 shadow-sm"
+                            className="px-8 py-4 bg-[var(--color-primary)] text-white rounded-2xl font-bold hover:opacity-90 transition-all flex items-center gap-2 shadow-lg shadow-[var(--color-primary)]/10 text-[10px] uppercase tracking-widest"
                         >
-                            <span className="material-symbols-outlined text-[20px]">add_circle</span>
+                            <span className="material-symbols-outlined text-[18px]">add_circle</span>
                             Register Item
                         </button>
                     </div>
