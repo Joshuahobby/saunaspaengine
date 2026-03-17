@@ -7,14 +7,19 @@ export const dynamic = "force-dynamic";
 
 export default async function ReportsRevenuePage() {
     const session = await requireRole(["MANAGER", "ADMIN", "OWNER"]);
-    if (!session?.user?.branchId) redirect("/dashboard");
+    if (!session?.user) redirect("/login");
+    if (!session.user.branchId && session.user.role !== 'OWNER') redirect("/dashboard");
 
-    const branchId = session.user.branchId;
+    const branchIds = session.user.role === 'OWNER'
+        ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string }, select: { id: true } })).map(b => b.id)
+        : [session.user.branchId as string];
+
+    const branchWhere = { in: branchIds };
 
     // Fetch total revenue components
     const completedRecords = await prisma.serviceRecord.findMany({
         where: {
-            branchId,
+            branchId: branchWhere,
             status: 'COMPLETED'
         },
         include: {
@@ -25,12 +30,15 @@ export default async function ReportsRevenuePage() {
     });
 
     const totalRevenue = completedRecords.reduce((sum: number, r) => sum + r.amount, 0);
+    const totalTax = completedRecords.reduce((sum: number, r: any) => sum + (r.taxAmount || 0), 0);
+    const totalCommission = completedRecords.reduce((sum: number, r: any) => sum + (r.platformFee || 0), 0);
+    const totalNet = completedRecords.reduce((sum: number, r: any) => sum + (r.netAmount || 0), 0);
     const avgTransactionValue = completedRecords.length > 0 ? totalRevenue / completedRecords.length : 0;
 
     const activeMembersCount = await prisma.membership.count({
         where: {
             status: 'ACTIVE',
-            category: { branchId }
+            category: { branchId: branchWhere }
         }
     });
 
@@ -62,6 +70,9 @@ export default async function ReportsRevenuePage() {
 
     const metrics = {
         totalRevenue,
+        totalTax,
+        totalCommission,
+        totalNet,
         avgTransactionValue,
         activeMembersCount,
         paymentDistribution,

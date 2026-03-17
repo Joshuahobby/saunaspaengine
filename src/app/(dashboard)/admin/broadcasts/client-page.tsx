@@ -22,7 +22,7 @@ const INITIAL_BROADCASTS: Broadcast[] = [
     {
         id: "b1",
         subject: "Platform Maintenance - Oct 12",
-        content: "We will be performing routine system maintenance on all nodes in the Northern region.",
+        content: "We will be performing routine system maintenance on all branches in the Northern region.",
         audience: "Region: North",
         intensity: "SERENE",
         createdAt: new Date().toISOString(),
@@ -86,7 +86,7 @@ export default function AdminBroadcastsClientPage() {
                     <h1 className="text-3xl lg:text-4xl font-serif font-bold text-white italic tracking-tight leading-tight">
                         Transmission <span className="text-[var(--color-primary)]">Hub</span>
                     </h1>
-                    <p className="text-sm text-[var(--text-muted)] font-medium opacity-60 italic">Global resonance distribution across the vessel network.</p>
+                    <p className="text-sm text-[var(--text-muted)] font-medium opacity-60 italic">Global resonance distribution across the branch network.</p>
                 </div>
 
                 <div className="flex items-center gap-4 relative z-10">
@@ -134,9 +134,9 @@ export default function AdminBroadcastsClientPage() {
                                                     onChange={e => setAudience(e.target.value)} 
                                                     className="w-full h-14 bg-black/20 border border-[var(--border-muted)] rounded-2xl px-6 text-[11px] font-black text-white uppercase tracking-widest outline-none appearance-none hover:border-[var(--color-primary)]/40 transition-all cursor-pointer"
                                                 >
-                                                    <option>All Collective Nodes</option>
+                                                    <option>All Collective Branches</option>
                                                     <option>Legacy Tiers Only</option>
-                                                    <option>High-Yield Vessels</option>
+                                                    <option>High-Yield Branches</option>
                                                     <option>Fragment: North Celestial</option>
                                                 </select>
                                                 <span className="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] group-hover/sel:text-[var(--color-primary)] pointer-events-none transition-colors italic">unfold_more</span>
@@ -226,7 +226,7 @@ export default function AdminBroadcastsClientPage() {
                              <div className="rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm backdrop-blur-md relative overflow-hidden group">
                                 <h3 className="text-xl font-serif font-bold text-white italic mb-8 border-b border-[var(--border-muted)] pb-5">Signal Resonance</h3>
                                 <div className="space-y-8">
-                                    <ResonanceCard label="Total Reach" value="1,248" sub="Global Nodes" icon="groups_3" />
+                                    <ResonanceCard label="Total Reach" value="1,248" sub="Global Branches" icon="groups_3" />
                                     <ResonanceCard label="Engagement" value="94.2%" sub="Sync Rate" icon="query_stats" />
                                     <ResonanceCard label="Signal Health" value="Optimal" sub="Low Latency" icon="verified" />
                                 </div>
@@ -238,7 +238,7 @@ export default function AdminBroadcastsClientPage() {
                                 </div>
                                 <div>
                                     <h4 className="text-lg font-serif font-black text-white italic">Urgent Override</h4>
-                                    <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1 italic">Bypass standard distribution cycles for immediate node alert.</p>
+                                    <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1 italic">Bypass standard distribution cycles for immediate branch alert.</p>
                                 </div>
                                 <button className="w-full py-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-[9px] font-black uppercase tracking-[0.2em] hover:bg-rose-500/20 transition-all">
                                     Activate High-Intensity Signal

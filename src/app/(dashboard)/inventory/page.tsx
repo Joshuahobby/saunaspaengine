@@ -5,10 +5,15 @@ import Link from "next/link";
 
 export default async function InventoryDashboardPage() {
     const session = await auth();
-    if (!session?.user?.branchId) redirect("/login");
+    if (!session?.user) redirect("/login");
+    if (!session.user.branchId && session.user.role !== 'OWNER') redirect("/login");
+
+    const branchIds = session.user.role === 'OWNER'
+        ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string }, select: { id: true } })).map(b => b.id)
+        : [session.user.branchId as string];
 
     const items = await prisma.inventory.findMany({
-        where: { branchId: session.user.branchId },
+        where: { branchId: { in: branchIds } },
         orderBy: { productName: 'asc' }
     });
 

@@ -104,13 +104,13 @@ export default function SavePresetForm({
                 <button
                     type="submit"
                     disabled={isSaving}
-                    className={`w-full bg-[var(--color-primary)] text-slate-900 font-bold py-3 rounded-xl hover:bg-[var(--color-primary)]/90 transition-colors shadow-lg shadow-[var(--color-primary)]/20 flex items-center justify-center gap-2 ${isSaving ? 'opacity-70 cursor-not-allowed' : ''}`}
+                    className={`w-full bg-[var(--color-primary)] text-slate-900 font-bold py-3 rounded-xl hover:bg-[var(--color-primary)]/90 transition-all shadow-lg shadow-[var(--color-primary)]/20 flex items-center justify-center gap-2 ${isSaving ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
-                    {isSaving ? "Applying..." : "Apply Global Presets"}
+                    {isSaving ? "Saving..." : "Save Global Settings"}
                     {isSaving && <span className="material-symbols-outlined animate-spin text-sm">sync</span>}
                 </button>
-                <p className="text-[11px] text-center text-slate-400 mt-3">
-                    Changes will propagate to all branches in {region.region} region within 5 minutes.
+                <p className="text-[11px] text-center text-slate-400 mt-3 italic opacity-60">
+                    Settings will be applied to all branches in the {region.region} region shortly.
                 </p>
             </div>
         </form>

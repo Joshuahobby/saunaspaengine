@@ -46,7 +46,7 @@ export default function AggregatedReportsClient({ reports, branches }: Props) {
             <div className="flex flex-col gap-3 border-b border-[var(--border-muted)] pb-8">
                 <h1 className="text-4xl font-display font-bold text-[var(--text-main)]">Aggregated Flow Records</h1>
                 <p className="text-lg text-[var(--text-muted)] font-medium opacity-80">
-                    Comprehensive cross-node transaction ledger.
+                    Comprehensive cross-location transaction ledger.
                 </p>
             </div>
 
@@ -74,7 +74,7 @@ export default function AggregatedReportsClient({ reports, branches }: Props) {
                     <table className="w-full text-left min-w-[800px]">
                         <thead className="bg-[var(--bg-surface-muted)]/5 border-b border-[var(--border-muted)]">
                             <tr>
-                                <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Origin Node</th>
+                                <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Origin Branch</th>
                                 <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Timeline Space</th>
                                 <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Spirit / Guest</th>
                                 <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Service Rendered</th>

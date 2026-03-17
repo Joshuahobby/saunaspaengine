@@ -6,7 +6,7 @@ import {
     updatePlatformPackageAction, 
     deletePlatformPackageAction 
 } from "../actions";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface PlatformPackage {
     id: string;
@@ -138,7 +138,7 @@ export default function PlatformPackagesClientPage({ initialPackages }: { initia
 }
 
 // Minimal internal modal for now, or I'll split it if needed
-function PackageModal({ isOpen, onClose, onSave, pkg }: { isOpen: boolean, onClose: () => void, onSave: (p: any) => void, pkg: PlatformPackage | null }) {
+function PackageModal({ isOpen, onClose, onSave, pkg }: { isOpen: boolean, onClose: () => void, onSave: (p: PlatformPackage) => void, pkg: PlatformPackage | null }) {
     const [name, setName] = useState(pkg?.name || "");
     const [priceMonthly, setPriceMonthly] = useState(pkg?.priceMonthly || 0);
     const [priceYearly, setPriceYearly] = useState(pkg?.priceYearly || 0);
@@ -166,6 +166,7 @@ function PackageModal({ isOpen, onClose, onSave, pkg }: { isOpen: boolean, onClo
             priceMonthly: Number(priceMonthly),
             priceYearly: Number(priceYearly),
             isCustom,
+            description: pkg?.description || "",
             branchLimit: Number(branchLimit),
             features: features.split(",").map(f => f.trim()).filter(Boolean),
         };
@@ -218,7 +219,7 @@ function PackageModal({ isOpen, onClose, onSave, pkg }: { isOpen: boolean, onClo
                     </div>
                     <div className="md:col-span-2 space-y-2">
                         <label htmlFor="features" className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-2">Features (comma separated)</label>
-                        <textarea id="features" title="Package Features" placeholder="e.g. Multi-node, Analytics, Support" value={features} onChange={e => setFeatures(e.target.value)} className="w-full h-24 bg-white/5 border border-[var(--border-muted)] rounded-2xl px-6 py-4 text-white font-bold outline-none focus:border-[var(--color-primary)]/50 transition-all resize-none" />
+                        <textarea id="features" title="Package Features" placeholder="e.g. Multi-location, Analytics, Support" value={features} onChange={e => setFeatures(e.target.value)} className="w-full h-24 bg-white/5 border border-[var(--border-muted)] rounded-2xl px-6 py-4 text-white font-bold outline-none focus:border-[var(--color-primary)]/50 transition-all resize-none" />
                     </div>
                     <div className="md:col-span-2 flex items-center gap-4 px-4 py-2 bg-white/5 rounded-2xl border border-dashed border-[var(--border-muted)]">
                         <input type="checkbox" checked={isCustom} onChange={e => setIsCustom(e.target.checked)} id="isCustom" className="size-5 rounded border-[var(--border-muted)] bg-transparent text-[var(--color-primary)] focus:ring-0" />

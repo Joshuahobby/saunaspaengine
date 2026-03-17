@@ -135,7 +135,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                 >
                                     <option>All Archetypes</option>
                                     <option>System Admin</option>
-                                    <option>Node Manager</option>
+                                    <option>Branch Manager</option>
                                 </select>
                             </div>
 
@@ -296,7 +296,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                                     <span className="text-[12px] font-serif font-black text-white italic">Signal Functionality Mapping</span>
                                                 </div>
                                             </th>
-                                            {["Nexus Admin", "Vessel Manager", "Lead Manager", "Staff Node"].map((role) => (
+                                            {["Nexus Admin", "Branch Manager", "Lead Manager", "Staff Branch"].map((role) => (
                                                 <th key={role} className="px-6 py-8 text-center">
                                                     <div className="flex flex-col items-center gap-1">
                                                         <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em] italic">archetype</span>
@@ -321,7 +321,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                         
                                         <PermissionCategory title="Operational Currents" />
                                         <PermissionRow 
-                                            title="Vessel Service Mapping" 
+                                            title="Branch Service Mapping" 
                                             desc="Modify and calibrate logistical logs for active service nodes." 
                                             checks={[true, true, true, true]}
                                         />

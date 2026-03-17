@@ -20,7 +20,7 @@ interface HealthProps {
     }[];
 }
 
-const SERVICE_NODES = [
+const SERVICE_INFRASTRUCTURE = [
     { name: "PostgreSQL Primary", region: "EU-West", latency: "12ms", uptime: "100%", status: "online" },
     { name: "Edge Middleware", region: "Global", latency: "4ms", uptime: "99.98%", status: "online" },
     { name: "QR Generation", region: "US-East", latency: "45ms", uptime: "98.5%", status: "degraded" },
@@ -29,7 +29,7 @@ const SERVICE_NODES = [
 ];
 
 export default function AdminHealthClientPage({ metrics, logEntries }: HealthProps) {
-    const [activeTab, setActiveTab] = useState<"overview" | "nodes" | "logs">("overview");
+    const [activeTab, setActiveTab] = useState<"overview" | "infrastructure" | "logs">("overview");
 
     return (
         <div className="flex flex-col gap-8 px-4 lg:px-6 py-6 max-w-[1600px] mx-auto w-full">
@@ -39,7 +39,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                  
                 <div className="space-y-1 relative z-10">
                     <h1 className="text-3xl lg:text-4xl font-serif font-bold text-white italic tracking-tight leading-tight">
-                        Node <span className="text-[var(--color-primary)]">Integrity</span> & Pulse
+                        System <span className="text-[var(--color-primary)]">Integrity</span> & Pulse
                     </h1>
                     <p className="text-sm text-[var(--text-muted)] font-medium opacity-60 italic">Deep architectural diagnostic stream for the platform layer.</p>
                 </div>
@@ -64,7 +64,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                     </div>
 
                     <div className="flex items-center gap-2 p-1 bg-black/30 rounded-xl border border-[var(--border-muted)]">
-                        {(["overview", "nodes", "logs"] as const).map((tab) => (
+                        {(["overview", "infrastructure", "logs"] as const).map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
@@ -89,7 +89,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             <DiagnosticStatCard title="Uptime (Cycle)" value={metrics.uptime} trend="Stable" icon="sensors" type="info" />
                             <DiagnosticStatCard title="Request Load" value={metrics.requestsToday.toLocaleString()} trend="+12% Vol" icon="speed" type="success" />
-                            <DiagnosticStatCard title="Vessel Nodes" value={metrics.activeBranches.toString()} trend="Active" icon="hub" type="info" />
+                            <DiagnosticStatCard title="Branches" value={metrics.activeBranches.toString()} trend="Active" icon="hub" type="info" />
                             <DiagnosticStatCard title="Thread Count" value={metrics.totalEmployees.toString()} trend="Active" icon="psychology" type="info" />
                         </div>
 
@@ -163,24 +163,24 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                             <div className="xl:col-span-4 rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm flex flex-col relative overflow-hidden backdrop-blur-md">
                                 <div className="mb-6 border-b border-[var(--border-muted)] pb-6">
                                     <h3 className="text-xl font-serif font-bold text-white italic">Service Anchors</h3>
-                                    <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1">Health of foundational infrastructure nodes.</p>
+                                    <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1">Health of foundational infrastructure services.</p>
                                 </div>
                                 <div className="space-y-3 flex-1">
-                                    <DiagnosticNodeItem name="Prisma/Relational" status="Online" type="success" latency="2ms" />
-                                    <DiagnosticNodeItem name="Next.js SSR/Edge" status="Online" type="success" latency="1ms" />
-                                    <DiagnosticNodeItem name="Auth0/JWT Forge" status="Online" type="success" latency="14ms" />
-                                    <DiagnosticNodeItem name="Stripe API Mirror" status="Delayed" type="warning" latency="450ms" />
-                                    <DiagnosticNodeItem name="QR Blob Store" status="Online" type="success" latency="8ms" />
+                                    <DiagnosticServiceItem name="Prisma/Relational" status="Online" type="success" latency="2ms" />
+                                    <DiagnosticServiceItem name="Next.js SSR/Edge" status="Online" type="success" latency="1ms" />
+                                    <DiagnosticServiceItem name="Auth0/JWT Forge" status="Online" type="success" latency="14ms" />
+                                    <DiagnosticServiceItem name="Stripe API Mirror" status="Delayed" type="warning" latency="450ms" />
+                                    <DiagnosticServiceItem name="QR Blob Store" status="Online" type="success" latency="8ms" />
                                 </div>
                                 <button className="mt-6 w-full py-3 bg-[var(--color-primary)]/5 hover:bg-[var(--color-primary)]/10 border border-dashed border-[var(--color-primary)]/30 rounded-xl text-[8px] font-black uppercase tracking-widest text-[var(--color-primary)] transition-all">
-                                    Initiate Node Reset
+                                    Initiate System Reset
                                 </button>
                             </div>
                         </div>
                     </motion.div>
                 )}
 
-                {activeTab === "nodes" && (
+                {activeTab === "infrastructure" && (
                     <motion.div 
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -189,8 +189,8 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                     >
                         <div className="p-8 border-b border-[var(--border-muted)] flex justify-between items-center bg-black/10">
                             <div className="space-y-1">
-                                <h3 className="text-xl font-serif font-bold text-white italic">Node Matrix</h3>
-                                <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 italic">Live mapping of every edge and core sanctuary node.</p>
+                                <h3 className="text-xl font-serif font-bold text-white italic">System Matrix</h3>
+                                <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 italic">Live mapping of every edge and core sanctuary service.</p>
                             </div>
                             <div className="flex items-center gap-4">
                                 <div className="flex items-center gap-2">
@@ -207,13 +207,13 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                             <table className="w-full">
                                 <thead>
                                     <tr className="border-b border-[var(--border-muted)]/50 bg-black/5">
-                                        {["Node Identity", "Region", "Latency", "Uptime (30d)", "Status", "Actions"].map((h) => (
+                                        {["System Identity", "Region", "Latency", "Uptime (30d)", "Status", "Actions"].map((h) => (
                                             <th key={h} className="px-8 py-4 text-left text-[8px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-50 italic">{h}</th>
                                         ))}
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-[var(--border-muted)]/50 text-white">
-                                    {SERVICE_NODES.map((node, i) => (
+                                    {SERVICE_INFRASTRUCTURE.map((node) => (
                                         <tr key={node.name} className="hover:bg-white/[0.02] transition-colors group">
                                             <td className="px-8 py-5">
                                                 <div className="flex items-center gap-4">
@@ -316,7 +316,7 @@ function DiagnosticStatCard({ title, value, trend, icon, type }: { title: string
     );
 }
 
-function DiagnosticNodeItem({ name, status, type, latency }: { name: string, status: string, type: 'success' | 'warning', latency: string }) {
+function DiagnosticServiceItem({ name, status, type, latency }: { name: string, status: string, type: 'success' | 'warning', latency: string }) {
     return (
         <div className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] hover:border-[var(--color-primary)]/20 transition-all group/node cursor-pointer">
             <div className="flex items-center gap-4">

@@ -3,20 +3,22 @@
 import { useState } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
-import { BranchStatusToggle } from "@/components/admin/branch-status-toggle";
-import { NewBranchModal } from "./NewBranchModal";
+import { BusinessStatusToggle } from "@/components/admin/business-status-toggle";
 
-interface BranchData {
+interface BusinessData {
     id: string;
     name: string;
-    managerName: string;
-    managerEmail: string;
-    userCount: number;
+    ownerName: string;
+    ownerEmail: string;
+    branchCount: number;
     status: "ACTIVE" | "INACTIVE";
     createdAt: string;
+    packageName: string;
+    subscriptionRenewal: string | null;
 }
 
 interface DashboardStats {
+    totalBusinesses: number;
     totalBranches: number;
     totalRevenue: number;
     activeUsers: number;
@@ -25,29 +27,28 @@ interface DashboardStats {
 
 interface AdminDashboardClientProps {
     stats: DashboardStats;
-    branches: BranchData[];
+    businesses: BusinessData[];
 }
 
-export default function AdminDashboardClient({ stats, branches }: AdminDashboardClientProps) {
+export default function AdminDashboardClient({ stats, businesses }: AdminDashboardClientProps) {
     const [searchTerm, setSearchTerm] = useState("");
     const [filterStatus, setFilterStatus] = useState<"ALL" | "ACTIVE" | "INACTIVE">("ALL");
     const [currentPage, setCurrentPage] = useState(1);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const itemsPerPage = 8; // made table more compact
 
     // Filter
-    const filteredBranches = branches.filter(b => {
+    const filteredBusinesses = businesses.filter(b => {
         const matchesSearch = b.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            b.managerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            b.managerEmail.toLowerCase().includes(searchTerm.toLowerCase());
+            b.ownerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            b.ownerEmail.toLowerCase().includes(searchTerm.toLowerCase());
             
         const matchesStatus = filterStatus === "ALL" || b.status === filterStatus;
         return matchesSearch && matchesStatus;
     });
 
     // Pagination
-    const totalPages = Math.ceil(filteredBranches.length / itemsPerPage) || 1;
-    const paginatedBranches = filteredBranches.slice(
+    const totalPages = Math.ceil(filteredBusinesses.length / itemsPerPage) || 1;
+    const paginatedBusinesses = filteredBusinesses.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
@@ -77,7 +78,7 @@ export default function AdminDashboardClient({ stats, branches }: AdminDashboard
             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[var(--color-primary)] opacity-[0.03] blur-[120px] rounded-full animate-pulse pointer-events-none"></div>
             <div className="absolute bottom-[-10%] right-[-10%] w-[35%] h-[35%] bg-[var(--color-primary)] opacity-[0.02] blur-[100px] rounded-full animate-float pointer-events-none"></div>
             
-            <NewBranchModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
 
             {/* Hero Header Section */}
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-[var(--border-muted)] pb-5">
@@ -92,27 +93,36 @@ export default function AdminDashboardClient({ stats, branches }: AdminDashboard
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
-                        <p className="text-sm text-[var(--text-muted)] font-medium opacity-60">Collective node oversight and financial monitoring.</p>
+                        <p className="text-sm text-[var(--text-muted)] font-medium opacity-60">Collective branch oversight and financial monitoring.</p>
                         <div className="hidden lg:flex items-center gap-1.5 text-[9px] font-bold text-[var(--text-muted)] opacity-30 uppercase tracking-[0.2em]">
                             <span className="material-symbols-outlined text-xs">sync</span>
                             {format(new Date(), 'HH:mm')}
                         </div>
                     </div>
                 </div>
-                <button 
-                    onClick={() => setIsModalOpen(true)}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95">
-                    <span className="material-symbols-outlined text-base">add_box</span>
-                    Establish New Vessel
-                </button>
+                <div className="flex items-center gap-3">
+                    <Link 
+                        href="/settings/roles"
+                        className="flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95"
+                    >
+                        <span className="material-symbols-outlined text-base">security</span>
+                        Permissions Matrix
+                    </Link>
+                    <Link 
+                        href="/businesses/new"
+                        className="flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95">
+                        <span className="material-symbols-outlined text-base">add_box</span>
+                        Register New Business
+                    </Link>
+                </div>
             </div>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <AdminStatCard 
-                    icon="temple_buddhist" 
-                    label="Total Branches" 
-                    value={stats.totalBranches.toLocaleString()} 
+                    icon="domain" 
+                    label="Active Businesses" 
+                    value={stats.totalBusinesses.toLocaleString()} 
                     trend="+1" 
                     trendUp={true}
                 />
@@ -126,7 +136,7 @@ export default function AdminDashboardClient({ stats, branches }: AdminDashboard
                 />
                 <AdminStatCard 
                     icon="auto_awesome" 
-                    label="Total Clients" 
+                    label="Platform Members" 
                     value={stats.activeUsers.toLocaleString()} 
                     trend="+4" 
                     trendUp={true}
@@ -146,10 +156,10 @@ export default function AdminDashboardClient({ stats, branches }: AdminDashboard
                 <div className="px-5 py-3.5 border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                     <div className="space-y-0.5">
                         <div className="flex items-center gap-3">
-                            <h2 className="text-lg font-display font-bold text-[var(--text-main)]">Branch Directory</h2>
-                            <span className="text-[8px] font-black px-2 py-0.5 rounded-full bg-white text-black tracking-[0.2em] uppercase">{filteredBranches.length} Nodes</span>
+                            <h2 className="text-lg font-display font-bold text-[var(--text-main)]">Business Portfolio</h2>
+                            <span className="text-[8px] font-black px-2 py-0.5 rounded-full bg-white text-black tracking-[0.2em] uppercase">{filteredBusinesses.length} Businesses</span>
                         </div>
-                        <p className="text-[10px] text-[var(--text-muted)] font-medium opacity-50 italic">Live feed of active platform vessels.</p>
+                        <p className="text-[10px] text-[var(--text-muted)] font-medium opacity-50 italic">Live feed of active platform businesses.</p>
                     </div>
                     
                     <div className="flex items-center gap-3">
@@ -189,16 +199,16 @@ export default function AdminDashboardClient({ stats, branches }: AdminDashboard
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-white/[0.02] border-b border-[var(--border-muted)]">
-                                <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Branch Unit</th>
+                                <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Business Unit</th>
                                 <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Proprietor</th>
-                                <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] text-center opacity-40">Force</th>
-                                <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Deployment</th>
+                                <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] text-center opacity-40">Package</th>
+                                <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] text-center opacity-40">Branches</th>
                                 <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Pulse</th>
                                 <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] text-right opacity-40">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-[var(--border-muted)]">
-                            {paginatedBranches.map((b, idx) => (
+                            {paginatedBusinesses.map((b, idx) => (
                                 <tr key={b.id} className="group/row hover:bg-white/[0.02] transition-colors cursor-pointer border-l-2 border-transparent hover:border-[var(--color-primary)]/40">
                                     <td className="px-5 py-3.5">
                                         <div className="flex items-center gap-3">
@@ -216,21 +226,21 @@ export default function AdminDashboardClient({ stats, branches }: AdminDashboard
                                     </td>
                                     <td className="px-5 py-3.5">
                                         <div className="space-y-0.5">
-                                            <p className="text-xs font-display font-bold text-[var(--text-main)] leading-tight">{b.managerName}</p>
+                                            <p className="text-xs font-display font-bold text-[var(--text-main)] leading-tight">{b.ownerName}</p>
                                             <p className="text-[9px] text-[var(--text-muted)] font-bold uppercase tracking-wider opacity-30 italic">
-                                                {b.managerEmail}
+                                                {b.ownerEmail}
                                             </p>
                                         </div>
                                     </td>
                                     <td className="px-5 py-3.5 text-center">
-                                        <div className="inline-flex items-center justify-center bg-[var(--bg-app)]/30 border border-[var(--border-muted)] px-2.5 py-1 rounded-lg">
-                                            <span className="text-xs font-display font-bold text-white leading-none">{b.userCount}</span>
+                                        <div className="inline-flex items-center justify-center bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 px-2.5 py-1 rounded-lg">
+                                            <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-primary)]">{b.packageName}</span>
                                         </div>
                                     </td>
-                                    <td className="px-5 py-3.5">
-                                        <p className="text-[9px] text-[var(--text-muted)] font-bold uppercase tracking-widest opacity-40">
-                                            {format(new Date(b.createdAt), 'MMM yyyy')}
-                                        </p>
+                                    <td className="px-5 py-3.5 text-center">
+                                        <div className="inline-flex items-center justify-center bg-[var(--bg-app)]/30 border border-[var(--border-muted)] px-2.5 py-1 rounded-lg">
+                                            <span className="text-xs font-display font-bold text-white leading-none">{b.branchCount}</span>
+                                        </div>
                                     </td>
                                     <td className="px-5 py-3.5">
                                         <div className="flex items-center gap-2">
@@ -248,10 +258,10 @@ export default function AdminDashboardClient({ stats, branches }: AdminDashboard
                                         <div className="flex items-center justify-end gap-2">
                                             <div className="h-7 border-r border-[var(--border-muted)] opacity-20 mr-2"></div>
                                             <div className="scale-[0.8] origin-right opacity-60 hover:opacity-100 transition-opacity">
-                                                <BranchStatusToggle branchId={b.id} initialStatus={b.status} />
+                                                <BusinessStatusToggle businessId={b.id} initialStatus={b.status} />
                                             </div>
                                             <Link 
-                                                href={`/admin/branches/${b.id}`}
+                                                href={`/businesses/${b.id}`}
                                                 className="size-8 rounded-lg text-[var(--text-muted)] hover:text-white hover:bg-[var(--color-primary)] transition-all flex items-center justify-center border border-transparent hover:border-[var(--color-primary)]/20 shadow-sm"
                                             >
                                                 <span className="material-symbols-outlined text-lg tracking-widest">open_in_new</span>
@@ -260,10 +270,10 @@ export default function AdminDashboardClient({ stats, branches }: AdminDashboard
                                     </td>
                                 </tr>
                             ))}
-                            {paginatedBranches.length === 0 && (
+                            {paginatedBusinesses.length === 0 && (
                                 <tr>
                                     <td colSpan={6} className="px-6 py-12 text-center text-[var(--text-muted)]">
-                                        No sanctuary nodes found matching the current filters.
+                                        No businesses found matching the current filters.
                                     </td>
                                 </tr>
                             )}
@@ -273,7 +283,7 @@ export default function AdminDashboardClient({ stats, branches }: AdminDashboard
 
                 <div className="px-6 py-4 border-t border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/5 flex items-center justify-between gap-4">
                     <p className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">
-                        Showing {filteredBranches.length > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0}-{Math.min(currentPage * itemsPerPage, filteredBranches.length)} of {filteredBranches.length} Branches
+                        Showing {filteredBusinesses.length > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0}-{Math.min(currentPage * itemsPerPage, filteredBusinesses.length)} of {filteredBusinesses.length} Businesses
                     </p>
                     <div className="flex items-center gap-2">
                         <button 

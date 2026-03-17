@@ -46,7 +46,7 @@ export function AssignPackageModal({ isOpen, onClose, business, availablePackage
             await updateBusinessAction(business.id, {
                 subscriptionPlanId: selectedPlanId,
                 subscriptionCycle: cycle,
-                subscriptionStatus: status
+                subscriptionStatus: status,
             });
             onClose();
         } catch (error) {

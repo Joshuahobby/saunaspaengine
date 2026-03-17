@@ -52,7 +52,7 @@ export default function ImportSuccessPage() {
                 <div className="p-4 bg-[var(--bg-surface-muted)]/10 text-center"><button className="text-sm font-medium text-[var(--color-primary)] hover:underline">Show all 8 errors</button></div>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/clients" className="w-full sm:w-auto px-8 py-3 bg-[var(--color-primary)] text-[var(--bg-app)] font-bold rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center"><span className="material-symbols-outlined mr-2">people</span>Go to Client Directory</Link>
+                <Link href="/clients" className="w-full sm:w-auto px-8 py-3 bg-[var(--color-primary)] text-[var(--bg-app)] font-bold rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center"><span className="material-symbols-outlined mr-2">people</span>Go to Client Records</Link>
                 <Link href="/settings/import" className="w-full sm:w-auto px-8 py-3 bg-[var(--bg-card)] border border-[var(--border-muted)] font-bold rounded-xl hover:bg-[var(--bg-surface-muted)]/50 transition-colors flex items-center justify-center"><span className="material-symbols-outlined mr-2">upload_file</span>Import More Data</Link>
             </div>
             <div className="mt-12 text-center border-t border-[var(--border-muted)] pt-8">

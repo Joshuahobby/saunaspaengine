@@ -27,7 +27,7 @@ export default function BranchComparisonClient({ branches }: Props) {
             <div className="flex flex-col gap-3 border-b border-[var(--border-muted)] pb-8">
                 <h1 className="text-4xl font-serif font-bold text-[var(--text-main)] italic">Entity Constellation</h1>
                 <p className="text-lg text-[var(--text-muted)] italic font-medium opacity-80">
-                    Comparative resonance across all {branches.length} sanctuary nodes.
+                    Comparative resonance across all {branches.length} sanctuary locations.
                 </p>
             </div>
 
@@ -74,7 +74,7 @@ export default function BranchComparisonClient({ branches }: Props) {
 
                 {branches.length === 0 && (
                     <div className="col-span-full py-20 text-center">
-                        <span className="material-symbols-outlined text-6xl text-[var(--text-muted)] opacity-20 mb-4">business_fare</span>
+                        <span className="material-symbols-outlined text-6xl text-[var(--text-muted)] opacity-20 mb-4">corporate_fare</span>
                         <h3 className="text-2xl font-serif font-bold text-[var(--text-main)] italic">No Entities Found</h3>
                         <p className="text-[var(--text-muted)] italic">There are no branches tethered to this business jurisdiction.</p>
                     </div>

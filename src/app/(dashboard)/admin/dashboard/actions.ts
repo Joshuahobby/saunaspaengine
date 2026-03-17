@@ -43,19 +43,19 @@ export async function createBranchAction(formData: FormData) {
                     fullName: managerName,
                     passwordHash,
                     role: "MANAGER",
-                    usr_branchId: branch.id,
+                    branch: { connect: { id: branch.id } },
                 },
             });
 
             return { branchId: branch.id, username: user.username };
         });
 
-        revalidatePath("/admin/dashboard");
-        revalidatePath("/admin/branches");
+        revalidatePath("/dashboard");
+        revalidatePath("/branches");
         
         return { success: true, data: result };
     } catch (error) {
         console.error("Error creating branch:", error);
-        return { error: "Failed to establish vessel. Please try again." };
+        return { error: "Failed to register branch. Please try again." };
     }
 }

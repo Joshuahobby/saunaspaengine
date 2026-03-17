@@ -16,14 +16,14 @@ export async function PATCH(
         const body = await request.json();
         const { status } = body;
 
-        const branch = await prisma.branch.update({
+        const business = await prisma.business.update({
             where: { id },
             data: { status }
         });
 
-        return NextResponse.json(branch);
+        return NextResponse.json(business);
     } catch (error) {
-        console.error("Branch update error:", error);
+        console.error("Business update error:", error);
         return new NextResponse("Internal Error", { status: 500 });
     }
 }

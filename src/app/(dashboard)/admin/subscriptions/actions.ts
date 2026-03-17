@@ -19,7 +19,7 @@ export async function createPlatformPackageAction(data: {
                 features: data.features || [],
             }
         });
-        revalidatePath("/admin/subscriptions/platform");
+        revalidatePath("/subscriptions/platform");
         return { success: true };
     } catch (error) {
         console.error("Failed to create platform package:", error);
@@ -44,7 +44,7 @@ export async function updatePlatformPackageAction(id: string, data: {
                 features: data.features || undefined,
             }
         });
-        revalidatePath("/admin/subscriptions/platform");
+        revalidatePath("/subscriptions/platform");
         return { success: true };
     } catch (error) {
         console.error("Failed to update platform package:", error);
@@ -66,7 +66,7 @@ export async function deletePlatformPackageAction(id: string) {
         await (prisma as any).platformPackage.delete({
             where: { id }
         });
-        revalidatePath("/admin/subscriptions/platform");
+        revalidatePath("/subscriptions/platform");
         return { success: true };
     } catch (error) {
         console.error("Failed to delete platform package:", error);

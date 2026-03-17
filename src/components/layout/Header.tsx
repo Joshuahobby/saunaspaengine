@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import UserMenu from "./UserMenu";
 import { ThemeToggle } from "../theme/ThemeToggle";
 import NotificationBell from "./NotificationBell";
+import { CommandCenter } from "../admin/command-center";
 
 export default async function Header({ title }: { title: string }) {
     const session = await auth();
@@ -21,16 +22,7 @@ export default async function Header({ title }: { title: string }) {
                     </h2>
                 </div>
 
-                <div className="relative hidden md:block">
-                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] text-[20px]">
-                        search
-                    </span>
-                    <input
-                        className="pl-10 pr-4 py-2 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl text-sm focus:ring-2 focus:ring-[var(--color-primary)]/20 w-72 placeholder:text-[var(--text-muted)] transition-all font-medium text-[var(--text-main)] outline-none"
-                        placeholder="Search for something calming..."
-                        type="text"
-                    />
-                </div>
+                <CommandCenter />
             </div>
 
             {/* Right: Actions & Profile */}
@@ -38,9 +30,6 @@ export default async function Header({ title }: { title: string }) {
                 <ThemeToggle />
 
                 <NotificationBell />
-                <button className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:outline-none rounded-lg">
-                    <span className="material-symbols-outlined">settings</span>
-                </button>
 
                 <div className="h-6 w-[1px] bg-[var(--border-main)] mx-2 hidden md:block"></div>
 

@@ -7,6 +7,9 @@ import {
 
 interface RevenueMetrics {
     totalRevenue: number;
+    totalTax: number;
+    totalCommission: number;
+    totalNet: number;
     avgTransactionValue: number;
     activeMembersCount: number;
     paymentDistribution: Record<string, number>;
@@ -42,32 +45,32 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
 
     const stats = [
         {
-            label: "Total Revenue",
+            label: "Gross Revenue",
             value: `RWF ${metrics.totalRevenue.toLocaleString()}`,
-            change: "+12.5%",
             icon: "payments",
-            trend: "up"
+            trend: "up",
+            color: "text-white bg-[var(--color-primary)]"
         },
         {
-            label: "Avg. Transaction",
-            value: `RWF ${Math.round(metrics.avgTransactionValue).toLocaleString()}`,
-            change: "+3.2%",
-            icon: "receipt_long",
-            trend: "up"
+            label: "Total Tax (VAT)",
+            value: `RWF ${metrics.totalTax.toLocaleString()}`,
+            icon: "account_balance",
+            trend: "neutral",
+            color: "text-[var(--text-main)] bg-[var(--bg-surface-muted)]"
         },
         {
-            label: "Active Memberships",
-            value: metrics.activeMembersCount.toString(),
-            change: "+18",
-            icon: "card_membership",
-            trend: "up"
+            label: "Platform Fees",
+            value: `RWF ${metrics.totalCommission.toLocaleString()}`,
+            icon: "hub",
+            trend: "neutral",
+            color: "text-[var(--text-main)] bg-[var(--bg-surface-muted)]"
         },
         {
-            label: "Total Bookings",
-            value: metrics.totalBookings.toString(),
-            change: "+5.4%",
-            icon: "event_available",
-            trend: "up"
+            label: "Net Payout",
+            value: `RWF ${metrics.totalNet.toLocaleString()}`,
+            icon: "account_balance_wallet",
+            trend: "up",
+            color: "text-emerald-500 bg-emerald-500/10"
         }
     ];
 
@@ -94,18 +97,21 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {stats.map((stat, i) => (
-                    <div key={i} className="bg-[var(--bg-card)] p-6 rounded-2xl border border-[var(--border-main)] shadow-sm hover:shadow-md transition-shadow">
+                    <div key={i} className="bg-[var(--bg-card)] p-7 rounded-3xl border border-[var(--border-main)] shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
                         <div className="flex items-start justify-between">
-                            <div className="w-12 h-12 rounded-xl bg-[var(--bg-surface-muted)] flex items-center justify-center text-[var(--color-primary)]">
-                                <span className="material-symbols-outlined text-2xl font-bold">{stat.icon}</span>
+                            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${stat.color}`}>
+                                <span className="material-symbols-outlined text-3xl font-bold">{stat.icon}</span>
                             </div>
-                            <span className={`text-[10px] font-bold px-2 py-1 rounded-lg uppercase tracking-widest ${stat.trend === 'up' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-red-500/10 text-red-500'}`}>
-                                {stat.change}
-                            </span>
+                            <div className="flex flex-col items-end">
+                                <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-60">Status</span>
+                                <span className={`text-[10px] font-bold mt-1 uppercase tracking-widest ${stat.trend === 'up' ? 'text-emerald-500' : stat.trend === 'neutral' ? 'text-blue-500' : 'text-red-500'}`}>
+                                    {stat.trend}
+                                </span>
+                            </div>
                         </div>
-                        <div className="mt-4">
-                            <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">{stat.label}</p>
-                            <h3 className="text-2xl font-bold text-[var(--text-main)] mt-1">{stat.value}</h3>
+                        <div className="mt-6">
+                            <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em]">{stat.label}</p>
+                            <h3 className="text-2xl font-black text-[var(--text-main)] mt-2 tracking-tight">{stat.value}</h3>
                         </div>
                     </div>
                 ))}

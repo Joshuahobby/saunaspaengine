@@ -108,7 +108,7 @@ export default function BranchesPerformanceClient({ stats, leaderboard }: Branch
                     <div className="p-8 border-b border-[var(--border-muted)] flex justify-between items-center">
                         <h4 className="text-2xl font-display font-bold text-[var(--text-main)]">Network <span className="text-[var(--color-primary)]">Topology</span></h4>
                         <div className="flex gap-4">
-                            <span className="px-4 py-1.5 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-[9px] font-bold rounded-full uppercase tracking-widest">{stats.activeBranches} Nodes Active</span>
+                            <span className="px-4 py-1.5 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-[9px] font-bold rounded-full uppercase tracking-widest">{stats.activeBranches} Locations Active</span>
                             <span className="px-4 py-1.5 bg-[var(--bg-surface-muted)] text-[var(--text-muted)] text-[9px] font-bold rounded-full uppercase tracking-widest">{stats.pendingBranches} Pending</span>
                         </div>
                     </div>

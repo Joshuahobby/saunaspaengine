@@ -6,10 +6,15 @@ import ClientListClient from "./client-page";
 
 export default async function ClientsPage() {
     const session = await auth();
-    if (!session?.user?.branchId) redirect("/login");
+    if (!session?.user) redirect("/login");
+    if (!session.user.branchId && session.user.role !== 'OWNER') redirect("/login");
+
+    const branchIds = session.user.role === 'OWNER'
+        ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string }, select: { id: true } })).map(b => b.id)
+        : [session.user.branchId as string];
 
     const clients = await prisma.client.findMany({
-        where: { branchId: session.user.branchId },
+        where: { branchId: { in: branchIds } },
         include: {
             memberships: {
                 where: { status: "ACTIVE" },

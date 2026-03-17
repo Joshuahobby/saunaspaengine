@@ -35,7 +35,7 @@ export default function CompliancePage() {
                                 </div>
                             ))}
                         </div>
-                        <div className="mt-8 pt-6 border-t border-[var(--border-muted)]"><button className="w-full bg-[var(--color-primary)] text-white font-bold py-3 rounded-xl hover:opacity-90 transition-colors shadow-lg shadow-[var(--color-primary)]/20">Apply Global Presets</button><p className="text-[11px] text-center text-[var(--text-muted)] mt-3">Changes will propagate to all 12 platform nodes within 5 minutes.</p></div>
+                        <div className="mt-8 pt-6 border-t border-[var(--border-muted)]"><button className="w-full bg-[var(--color-primary)] text-white font-bold py-3 rounded-xl hover:opacity-90 transition-colors shadow-lg shadow-[var(--color-primary)]/20">Apply Global Presets</button><p className="text-[11px] text-center text-[var(--text-muted)] mt-3">Changes will propagate to all 12 platform locations within 5 minutes.</p></div>
                     </div>
                 </div>
             </div>

@@ -22,7 +22,13 @@ interface Business {
     taxId?: string | null;
     headquarters?: string | null;
     status: string;
-    subscriptionPlan?: string | null;
+    approvalStatus?: string;
+    subscriptionPlanId?: string | null;
+    subscriptionPlan?: {
+        name: string;
+        priceMonthly: number;
+        priceYearly: number;
+    } | null;
     subscriptionCycle?: string | null;
     subscriptionStatus?: string | null;
     subscriptionRenewal?: string | null;
@@ -67,6 +73,15 @@ export default function BranchDetailsClientPage({ business, platformPackages }: 
 
     const activeBranches = business.branches.filter(b => b.status === "ACTIVE").length;
 
+    const isPremium = business.subscriptionPlan && business.subscriptionPlan.priceMonthly > 0;
+    
+    // Calculate Monthly Recurring Revenue (MRR)
+    const basePlanPrice = business.subscriptionCycle === "Yearly" 
+        ? (business.subscriptionPlan?.priceYearly || 0) / 12 
+        : (business.subscriptionPlan?.priceMonthly || 0);
+    
+    const mrrContribution = business.status === "ACTIVE" ? Number(basePlanPrice.toFixed(2)) : 0;
+
     return (
         <motion.main 
             variants={containerVariants}
@@ -76,15 +91,15 @@ export default function BranchDetailsClientPage({ business, platformPackages }: 
         >
             {/* Breadcrumb Navigation - Compact */}
             <motion.div variants={itemVariants} className="flex items-center gap-2 text-[10px] text-[var(--text-muted)] font-bold italic uppercase tracking-[0.2em] border-b border-[var(--border-muted)] pb-4">
-                <Link href="/admin/branches" className="hover:text-[var(--color-primary)] transition-colors flex items-center gap-1.5 group">
+                <Link href="/businesses" className="hover:text-[var(--color-primary)] transition-colors flex items-center gap-1.5 group">
                     <span className="material-symbols-outlined text-[12px]">domain</span>
-                    <span>Hubs</span>
+                    <span>Businesses</span>
                 </Link>
                 <span className="material-symbols-outlined text-[10px] opacity-30 font-bold">chevron_right</span>
                 <span className="text-[var(--text-main)] opacity-100">{business.name}</span>
             </motion.div>
 
-            {/* Hub Header - Compact & Professional */}
+            {/* Business Header - Compact & Professional */}
             <motion.div 
                 variants={itemVariants}
                 className="relative group h-40 rounded-[1.5rem] overflow-hidden border border-[var(--border-muted)] bg-[#0a0f0d] flex items-center px-8"
@@ -147,46 +162,46 @@ export default function BranchDetailsClientPage({ business, platformPackages }: 
             {/* KPI Grid - Compact High-Density */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <AdminStatCard 
-                    label="Vessel Network"
+                    label="Branch Network"
                     value={business.branches.length.toString()}
                     subtitle={`${activeBranches} Online / ${business.branches.length - activeBranches} Reserved`}
                     icon="hub"
                 />
                 <AdminStatCard 
                     label="Resource Tier"
-                    value={business.subscriptionPlan || "N/A"}
-                    subtitle={business.subscriptionStatus || "No Plan Active"}
+                    value={business.subscriptionPlan?.name || "N/A"}
+                    subtitle={isPremium ? `${business.subscriptionCycle} Cycle` : "No Plan Active"}
                     icon="workspace_premium"
-                    actionLabel="UPGRADE"
+                    actionLabel="RECONFIGURE PLAN"
                     onAction={() => setIsPackageModalOpen(true)}
                 />
                 <AdminStatCard 
-                    label="Neural Yield"
-                    value="Syncing..."
-                    subtitle="Propagating nodes"
-                    icon="monitoring"
+                    label="Estimated MRR"
+                    value={`$${mrrContribution}`}
+                    subtitle="Platform Contribution"
+                    icon="payments"
                 />
             </div>
 
-            {/* Vessel Network - High Density List */}
+            {/* Business Network - High Density List */}
             <motion.div variants={itemVariants} className="flex flex-col gap-6 mt-2">
                 <div className="flex justify-between items-end border-b border-[var(--border-muted)] pb-4">
                     <div className="space-y-1">
-                        <h3 className="text-2xl font-display font-bold text-white tracking-tight">Active Nodes</h3>
-                        <p className="text-[9px] text-[var(--text-muted)] font-black uppercase tracking-[0.2em] opacity-40 italic">Operating infrastructure segment.</p>
+                        <h3 className="text-2xl font-display font-bold text-white tracking-tight">Active Branches</h3>
+                        <p className="text-[9px] text-[var(--text-muted)] font-black uppercase tracking-[0.2em] opacity-40 italic">Managing organizational branches and service locations.</p>
                     </div>
                     <div className="flex items-center gap-3">
                         <Link 
-                            href="/admin/branches"
+                            href="/branches"
                             className="h-9 px-4 rounded-lg border border-[var(--border-muted)] text-[var(--text-muted)] hover:border-[var(--color-primary)] hover:text-white transition-all text-[9px] font-black tracking-widest flex items-center uppercase"
                         >
-                            Registry
+                            Branch List
                         </Link>
                         <Link 
-                            href="/admin/branches/new"
+                            href="/branches/new"
                             className="h-9 px-4 rounded-lg bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-dark)] transition-all text-[9px] font-black tracking-widest flex items-center uppercase shadow-sm"
                         >
-                            Provision
+                            Add Branch
                         </Link>
                     </div>
                 </div>
@@ -216,10 +231,11 @@ export default function BranchDetailsClientPage({ business, platformPackages }: 
                                     </div>
                                 </div>
                                 <Link 
-                                    href={`/admin/branches/${branch.id}`}
+                                    href={`/businesses?searchTerm=${encodeURIComponent(branch.name)}`}
                                     className="size-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/20 hover:bg-[var(--color-primary)] hover:text-white hover:border-[var(--color-primary)] transition-all shrink-0"
+                                    title="Locate in Portfolio"
                                 >
-                                    <span className="material-symbols-outlined text-sm font-bold italic">arrow_forward</span>
+                                    <span className="material-symbols-outlined text-sm font-bold italic">search</span>
                                 </Link>
                             </div>
                         </motion.div>
@@ -228,7 +244,7 @@ export default function BranchDetailsClientPage({ business, platformPackages }: 
                     {business.branches.length === 0 && (
                         <div className="col-span-full py-12 text-center border-2 border-dashed border-[var(--border-muted)] rounded-2xl opacity-40">
                             <span className="material-symbols-outlined text-3xl mb-3 block">hub</span>
-                            <p className="text-[10px] font-bold uppercase tracking-[0.3em]">No clusters assigned</p>
+                            <p className="text-[10px] font-bold uppercase tracking-[0.3em]">No branches registered</p>
                         </div>
                     )}
                 </div>

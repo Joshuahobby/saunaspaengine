@@ -16,6 +16,7 @@ enum UserRole {
   ADMIN
   OWNER
   MANAGER
+  RECEPTIONIST
   EMPLOYEE
 }
 
@@ -34,6 +35,7 @@ enum PaymentMode {
   CASH
   MOMO
   POS
+  MEMBERSHIP
 }
 
 enum ServiceRecordStatus {
@@ -45,6 +47,13 @@ enum ServiceRecordStatus {
 enum EntityStatus {
   ACTIVE
   INACTIVE
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SUSPENDED
 }
 
 enum LoyaltyTier {
@@ -80,7 +89,13 @@ model Business {
   subscriptionPlan   PlatformPackage? @relation(fields: [subscriptionPlanId], references: [id])
   subscriptionCycle  String?   // e.g., "Monthly", "Yearly"
   subscriptionRenewal DateTime?
-  subscriptionStatus String?   // e.g., "ACTIVE", "EXPIRING", "CANCELLED"
+  subscriptionStatus String?   @default("ACTIVE") // ACTIVE, EXPIRING, CANCELLED
+  // Platform Compliance & Governance
+  approvalStatus   ApprovalStatus @default(PENDING)
+  kycNotes         String?
+  kycVerifiedAt    DateTime?
+  permissions      Json?     // Stores role-to-permission mapping overrides
+  platformCommissionRate Float @default(5.0) // Percentage commission per transaction
 
   updatedAt    DateTime     @updatedAt
 
@@ -160,6 +175,7 @@ model User {
   branch     Branch?   @relation(fields: [usr_branchId], references: [id], onDelete: Cascade)
   business   Business? @relation(fields: [usr_businessId], references: [id], onDelete: Cascade)
   auditLogs  AuditLog[]
+  employeeProfile Employee?
 
   @@map("users")
 }
@@ -196,6 +212,11 @@ model Employee {
   category       EmployeeCategory @relation(fields: [categoryId], references: [id])
   branch         Branch           @relation(fields: [branchId], references: [id], onDelete: Cascade)
   serviceRecords ServiceRecord[]
+  commissionLogs CommissionLog[]
+  commissionRate Float            @default(5.0) // Percentage
+  userId         String?          @unique
+
+  user           User?            @relation(fields: [userId], references: [id])
 
   @@map("employees")
 }
@@ -232,6 +253,7 @@ model MembershipCategory {
   price       Float          @default(0)
   durationDays Int?          // for SUBSCRIPTION type
   usageLimit  Int?           // for LIST_PASS type
+  isGlobal    Boolean        @default(false)
   status      EntityStatus   @default(ACTIVE)
   branchId    String         @map("businessId")
   createdAt   DateTime       @default(now())
@@ -296,15 +318,38 @@ model ServiceRecord {
   status       ServiceRecordStatus @default(CREATED)
   completedAt  DateTime?
   overrideReason String?
+  
+  // Financial Reconciliation Details
+  taxAmount          Float               @default(0)
+  platformFee        Float               @default(0)
+  netAmount          Float               @default(0)
+  damageFee          Float               @default(0)
+  employeeCommission Float               @default(0)
+  
   createdAt    DateTime            @default(now())
   updatedAt    DateTime            @updatedAt
 
-  client   Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  service  Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-  employee Employee? @relation(fields: [employeeId], references: [id])
-  branch   Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  client        Client         @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  service       Service        @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  employee      Employee?      @relation(fields: [employeeId], references: [id])
+  branch        Branch         @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  commissionLog CommissionLog?
 
   @@map("service_records")
+}
+
+model CommissionLog {
+  id              String   @id @default(cuid())
+  serviceRecordId String   @unique
+  employeeId      String
+  amount          Float
+  status          String   @default("UNPAID") // UNPAID, PAID
+  createdAt       DateTime @default(now())
+  
+  employee        Employee      @relation(fields: [employeeId], references: [id])
+  serviceRecord   ServiceRecord @relation(fields: [serviceRecordId], references: [id])
+
+  @@map("commission_logs")
 }
 
 // ─── Inventory ──────────────────────────────────────────
@@ -418,4 +463,29 @@ model Broadcast {
   branch Branch? @relation(fields: [branchId], references: [id], onDelete: Cascade)
 
   @@map("broadcasts")
+}
+
+// ─── Financial Settlements ────────────────────────────────
+
+enum SettlementStatus {
+  PENDING
+  PAID
+  FAILED
+}
+
+model Settlement {
+  id               String           @id @default(cuid())
+  businessId       String
+  branchId         String
+  periodStart      DateTime
+  periodEnd        DateTime
+  totalGross       Float            @default(0)
+  totalCommission  Float            @default(0)
+  totalNet         Float            @default(0)
+  status           SettlementStatus @default(PENDING)
+  payoutRef        String?          // e.g., MoMo Transaction ID or Bank Ref
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  @@map("settlements")
 }

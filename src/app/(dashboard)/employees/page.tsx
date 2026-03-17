@@ -3,16 +3,52 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { format } from "date-fns";
 import { StatusToggle } from "@/components/employees/status-toggle";
+import { BranchFilter } from "@/components/employees/branch-filter";
 import Link from "next/link";
 
-export default async function EmployeesPage() {
+export default async function EmployeesPage({ 
+    searchParams 
+}: { 
+    searchParams: Promise<{ branchId?: string; q?: string }> 
+}) {
+    const resolvedSearchParams = await searchParams;
     const session = await auth();
-    if (!session?.user?.branchId) redirect("/login");
+    if (!session?.user) redirect("/login");
+    if (!session.user.branchId && session.user.role !== 'OWNER') redirect("/login");
+
+    const businessBranches = session.user.role === 'OWNER'
+        ? await prisma.branch.findMany({ 
+            where: { businessId: session.user.businessId as string }, 
+            select: { id: true, name: true } 
+          })
+        : [];
+
+    const allBranchIds = session.user.role === 'OWNER'
+        ? businessBranches.map(b => b.id)
+        : [session.user.branchId as string];
+
+    const selectedBranchId = resolvedSearchParams.branchId;
+    const filterBranchIds = selectedBranchId && allBranchIds.includes(selectedBranchId)
+        ? [selectedBranchId]
+        : allBranchIds;
+
+    const searchTerm = resolvedSearchParams.q?.toLowerCase();
 
     const employees = await prisma.employee.findMany({
-        where: { branchId: session.user.branchId },
+        where: { 
+            branchId: { in: filterBranchIds },
+            ...(searchTerm ? {
+                OR: [
+                    { fullName: { contains: searchTerm, mode: 'insensitive' } },
+                    { phone: { contains: searchTerm, mode: 'insensitive' } },
+                ]
+            } : {})
+        },
         include: {
             category: true,
+            branch: {
+                select: { name: true }
+            },
             _count: {
                 select: { serviceRecords: true }
             }
@@ -24,14 +60,19 @@ export default async function EmployeesPage() {
     const onLeave = employees.filter(e => e.status === 'INACTIVE').length;
     const therapists = employees.filter(e => e.category.name.toLowerCase() === 'therapist' || e.category.name.toLowerCase() === 'masseuse').length;
 
+    const isOwnerOrAdmin = session.user.role === 'OWNER' || session.user.role === 'ADMIN';
+
     return (
         <div className="max-w-7xl mx-auto space-y-8">
             {/* Page Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                 <div>
-                    <h2 className="text-3xl font-display font-bold tracking-tight text-[var(--text-main)]">Employee Directory</h2>
+                    <h2 className="text-3xl font-display font-bold tracking-tight text-[var(--text-main)]">Employee Records</h2>
                     <p className="mt-2 text-[var(--text-muted)] max-w-2xl font-medium">
-                        View and manage your professional staff members, their roles, and operational status.
+                        {session.user.role === 'OWNER' 
+                            ? "Network-wide professional staff directory across all your locations."
+                            : "View and manage your professional staff members, their roles, and operational status."
+                        }
                     </p>
                 </div>
                 <Link href="/employees/new" className="bg-[var(--color-primary)] text-[var(--color-bg-dark)] px-5 py-3 rounded-lg text-sm font-bold flex items-center gap-2 hover:brightness-110 shadow-lg shadow-[var(--color-primary)]/20 transition-all">
@@ -65,19 +106,32 @@ export default async function EmployeesPage() {
                 <div className="p-4 border-b border-[var(--border-muted)] flex flex-col md:flex-row gap-4 items-center justify-between">
                     <div className="flex gap-6 self-start md:self-center">
                         <button className="flex items-center gap-2 border-b-2 border-[var(--color-primary)] text-[var(--text-main)] pb-2 font-bold text-sm">
-                            All Staff
+                            {selectedBranchId ? "Filtered Staff" : "All Staff"}
                             <span className="bg-[var(--color-primary)]/20 text-[var(--color-primary)] text-[10px] px-2 py-0.5 rounded-full not-italic">{employees.length}</span>
                         </button>
                     </div>
 
-                    <div className="flex items-center gap-3 w-full md:w-auto">
+                    <div className="flex flex-col md:flex-row items-center gap-3 w-full md:w-auto">
+                        {/* Branch Filter (Owner Only) */}
+                        {session.user.role === 'OWNER' && businessBranches.length > 0 && (
+                            <BranchFilter 
+                                branches={businessBranches.map(b => ({ id: b.id, name: b.name }))}
+                                selectedBranchId={selectedBranchId}
+                            />
+                        )}
+
                         <div className="relative flex-1 md:w-80">
                             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] text-lg opacity-50">search</span>
-                            <input
-                                type="text"
-                                placeholder="Search by name or phone..."
-                                className="w-full pl-10 pr-4 py-2 bg-[var(--bg-surface-muted)] border-[var(--border-muted)] rounded-xl text-sm focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] text-[var(--text-main)] placeholder:text-[var(--text-muted)] placeholder:opacity-40"
-                            />
+                            <form action="/employees" method="GET">
+                                {selectedBranchId && <input type="hidden" name="branchId" value={selectedBranchId} />}
+                                <input
+                                    type="text"
+                                    name="q"
+                                    defaultValue={resolvedSearchParams.q || ""}
+                                    placeholder="Search by name or phone..."
+                                    className="w-full pl-10 pr-4 py-2 bg-[var(--bg-surface-muted)] border-[var(--border-muted)] border rounded-xl text-sm focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] text-[var(--text-main)] placeholder:text-[var(--text-muted)] placeholder:opacity-40"
+                                />
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -88,6 +142,9 @@ export default async function EmployeesPage() {
                             <tr className="bg-[var(--bg-surface-muted)]">
                                 <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] opacity-60 uppercase tracking-widest">Employee Name</th>
                                 <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] opacity-60 uppercase tracking-widest">Role</th>
+                                {isOwnerOrAdmin && (
+                                    <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] opacity-60 uppercase tracking-widest">Location</th>
+                                )}
                                 <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] opacity-60 uppercase tracking-widest text-center">Services Handled</th>
                                 <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] opacity-60 uppercase tracking-widest">Status</th>
                                 <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] opacity-60 uppercase tracking-widest text-right">Actions</th>
@@ -112,6 +169,14 @@ export default async function EmployeesPage() {
                                             {employee.category.name}
                                         </span>
                                     </td>
+                                    {isOwnerOrAdmin && (
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className="flex items-center gap-2">
+                                                <span className="material-symbols-outlined text-sm text-[var(--text-muted)] opacity-40">storefront</span>
+                                                <span className="text-[11px] font-bold text-[var(--text-main)] opacity-70 italic">{employee.branch.name}</span>
+                                            </div>
+                                        </td>
+                                    )}
                                     <td className="px-6 py-4 whitespace-nowrap text-center">
                                         <div className="flex flex-col items-center">
                                             <span className="text-sm font-sans font-bold text-[var(--text-main)]">{employee._count.serviceRecords}</span>
@@ -132,8 +197,8 @@ export default async function EmployeesPage() {
 
                             {employees.length === 0 && (
                                 <tr>
-                                    <td colSpan={6} className="px-6 py-12 text-center text-[var(--text-muted)] font-bold opacity-60">
-                                        No employees found in the directory.
+                                    <td colSpan={isOwnerOrAdmin ? 6 : 5} className="px-6 py-12 text-center text-[var(--text-muted)] font-bold opacity-60">
+                                        {searchTerm || selectedBranchId ? "No employees match your active filters." : "No employees found in the records."}
                                     </td>
                                 </tr>
                             )}
@@ -143,7 +208,9 @@ export default async function EmployeesPage() {
 
                 {employees.length > 0 && (
                     <div className="p-4 bg-[var(--bg-surface-muted)] flex items-center justify-between border-t border-[var(--border-muted)]">
-                        <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest opacity-40">Showing all {employees.length} employees</p>
+                        <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest opacity-40">
+                            {selectedBranchId ? "Branch Specific view" : "Network-wide view"} — Showing {employees.length} employees
+                        </p>
                     </div>
                 )}
             </div>

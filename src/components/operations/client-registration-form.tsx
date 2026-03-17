@@ -19,7 +19,7 @@ export default function ClientRegistrationForm({ membershipCategories }: ClientR
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
-    const [successData, setSuccessData] = useState<any>(null);
+    const [successData, setSuccessData] = useState<{ qrCode?: string } | null>(null);
     const [clientType, setClientType] = useState<"WALK_IN" | "MEMBER">("MEMBER");
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -39,17 +39,17 @@ export default function ClientRegistrationForm({ membershipCategories }: ClientR
         }
 
         try {
-            const res = await registerClient(formData) as any;
+            const res = await registerClient(formData) as { client?: { qrCode?: string }, error?: string };
             if (res.error) {
                 setError(res.error);
             } else {
-                setSuccessData(res.client);
+                setSuccessData(res.client ?? null);
                 setTimeout(() => {
                     router.push("/clients");
                     router.refresh();
                 }, 3000);
             }
-        } catch (err) {
+        } catch {
             setError("An unexpected error occurred.");
         } finally {
             setIsSubmitting(false);
@@ -63,7 +63,7 @@ export default function ClientRegistrationForm({ membershipCategories }: ClientR
                     <span className="material-symbols-outlined text-4xl">check_circle</span>
                 </div>
                 <h3 className="text-xl font-bold mb-2">Registration Success!</h3>
-                <p className="text-sm text-slate-600 mb-6">Client profile created. Redirecting to directory...</p>
+                <p className="text-sm text-slate-600 mb-6">Client profile created. Redirecting to records...</p>
                 {successData.qrCode && (
                     <div className="bg-white p-4 rounded-xl shadow-inner mb-6 relative group">
                         <div className="size-40 border border-slate-200 rounded flex items-center justify-center text-slate-300">
@@ -130,7 +130,7 @@ export default function ClientRegistrationForm({ membershipCategories }: ClientR
                 {clientType === "MEMBER" && (
                     <div className="flex flex-col gap-2 col-span-2">
                         <label className="text-sm font-bold">Membership Plan Selection</label>
-                        <select name="membershipCategoryId" className="w-full rounded-lg border-slate-200 bg-slate-50 focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]/50 h-12 px-4">
+                        <select id="membership-plan" name="membershipCategoryId" title="Membership Plan Selection" className="w-full rounded-lg border-slate-200 bg-slate-50 focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]/50 h-12 px-4">
                             <option value="">-- No Initial Membership Plan --</option>
                             {membershipCategories.map(cat => (
                                 <option key={cat.id} value={cat.id}>

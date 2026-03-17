@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
-type UserRole = "ADMIN" | "OWNER" | "MANAGER" | "EMPLOYEE";
+type UserRole = "ADMIN" | "OWNER" | "MANAGER" | "RECEPTIONIST" | "EMPLOYEE";
 
 /**
  * Require the current user to have one of the specified roles.

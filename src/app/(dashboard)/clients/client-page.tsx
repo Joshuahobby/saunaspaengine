@@ -62,7 +62,7 @@ export default function ClientListClient({ clients }: { clients: ClientData[] })
         <div className="space-y-8">
             <div className="flex flex-wrap justify-between items-end gap-4">
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-4xl font-display font-bold leading-tight tracking-tight text-[var(--text-main)]">Client &amp; Membership Directory</h1>
+                    <h1 className="text-4xl font-display font-bold leading-tight tracking-tight text-[var(--text-main)]">Client &amp; Membership Records</h1>
                     <p className="text-[var(--text-muted)] text-base font-bold mt-1">Manage and search your spa&apos;s active members and walk-in clients.</p>
                 </div>
                 <div className="flex gap-3">
@@ -198,7 +198,7 @@ export default function ClientListClient({ clients }: { clients: ClientData[] })
                     <EmptyState
                         icon="group"
                         title={search ? "No Matching Clients" : "No Clients Found"}
-                        description={search ? `No clients match "${search}". Try a different search term.` : "Your client directory is currently empty. Add your first member or walk-in guest."}
+                        description={search ? `No clients match "${search}". Try a different search term.` : "Your client records are currently empty. Add your first member or walk-in guest."}
                         actionLabel="Register New Client"
                         actionHref="/clients/new"
                     />

@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { format } from "date-fns";
 import { EditBusinessModal } from "./EditBusinessModal";
 import { DeleteBusinessModal } from "./DeleteBusinessModal";
-import { NewBusinessModal } from "./NewBusinessModal";
 import { updateBusinessAction } from "./actions";
+import { ActionDropdown } from "@/components/ui/action-dropdown";
 
 interface Business {
     id: string;
@@ -14,9 +13,9 @@ interface Business {
     taxId?: string | null;
     headquarters?: string | null;
     status: string;
-    createdAt: string;
     activeBranches: number;
     totalBranches: number;
+    approvalStatus?: "PENDING" | "APPROVED" | "REJECTED" | "SUSPENDED";
 }
 
 interface PageProps {
@@ -31,13 +30,12 @@ export default function AdminBranchesClientPage({ branches, stats }: PageProps) 
     const [toggling, setToggling] = useState<string | null>(null);
     const [editingBranch, setEditingBranch] = useState<Business | null>(null);
     const [deletingBranch, setDeletingBranch] = useState<Business | null>(null);
-    const [isNewModalOpen, setIsNewModalOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
 
     async function toggleStatus(id: string, currentStatus: string) {
         setToggling(id);
         const newStatus = currentStatus === "ACTIVE" ? "INACTIVE" : "ACTIVE";
-        await updateBusinessAction(id, { status: newStatus as any });
+        await updateBusinessAction(id, { status: newStatus as "ACTIVE" | "INACTIVE" });
         setToggling(null);
     }
 
@@ -56,7 +54,7 @@ export default function AdminBranchesClientPage({ branches, stats }: PageProps) 
                         <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-xl opacity-40 group-focus-within:opacity-100 group-focus-within:scale-110 transition-all">search</span>
                         <input
                             className="w-full bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-xl pl-12 pr-6 py-3 text-sm font-sans font-bold text-[var(--text-main)] focus:ring-4 focus:ring-[var(--color-primary)]/10 focus:border-[var(--color-primary)]/40 transition-all placeholder:text-[var(--text-muted)] placeholder:opacity-30 outline-none"
-                            placeholder="Search branches, hubs, or locations..."
+                            placeholder="Search businesses, headquarters, or tax IDs..."
                             type="text"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
@@ -68,38 +66,44 @@ export default function AdminBranchesClientPage({ branches, stats }: PageProps) 
                         <span className="material-symbols-outlined text-xl group-hover:rotate-12 transition-transform">notifications</span>
                         <span className="absolute top-3 right-3 w-2 h-2 bg-[var(--color-primary)] rounded-full border-2 border-[var(--bg-app)] shadow-[0_0_8px_var(--color-primary)]"></span>
                     </button>
-                    <button 
-                        onClick={() => setIsNewModalOpen(true)}
+                    <Link 
+                        href="/businesses/new"
                         className="flex items-center gap-2 bg-[var(--text-main)] text-[var(--bg-app)] px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] hover:scale-[1.05] active:scale-[0.98] transition-all shadow-xl shadow-black/10 whitespace-nowrap"
                     >
-                        <span className="material-symbols-outlined text-lg font-bold">add_branch</span>
-                        Establish Hub
-                    </button>
+                        <span className="material-symbols-outlined text-lg font-bold">add_business</span>
+                        Register New Business
+                    </Link>
                 </div>
             </header>
 
             {/* Title Section */}
-            <div className="flex flex-col gap-2 py-2">
-                <h1 className="text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">Branch <span className="text-[var(--color-primary)]">Directory</span></h1>
-                <p className="text-base text-[var(--text-muted)] font-medium opacity-80 max-w-3xl">Managing organizational hubs and the physical network of branches.</p>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 py-2">
+                <div className="space-y-1">
+                    <h1 className="text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">Business <span className="text-[var(--color-primary)]">Ecosystem</span></h1>
+                    <p className="text-[10px] text-[var(--text-muted)] font-medium opacity-50 uppercase tracking-[0.2em]">Platform-wide oversight of registered corporates and operational hubs.</p>
+                </div>
+                <Link href="/businesses/approvals" className="flex items-center gap-2 bg-amber-500/10 text-amber-500 border border-amber-500/20 px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-amber-500 hover:text-white transition-all shadow-sm">
+                    <span className="material-symbols-outlined text-base">verified_user</span>
+                    Compliance Queue
+                </Link>
             </div>
 
             {/* Metrics Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <MetricCard
-                    title="Total Branch Hubs"
+                    title="Registered Businesses"
                     value={stats.totalBranches.toString()}
                     trend="+4%"
-                    subtitle="Platform Reach"
-                    icon="business_fare"
+                    subtitle="Platform Scale"
+                    icon="corporate_fare"
                     color="primary"
                 />
                 <MetricCard
-                    title="Active Hubs"
+                    title="Active Operations"
                     value={stats.activeBranches.toString()}
                     trend={`${Math.round((stats.activeBranches / stats.totalBranches) * 100)}%`}
-                    subtitle="Operational Capacity"
-                    icon="vital_signs"
+                    subtitle="System Health"
+                    icon="query_stats"
                     color="primary"
                 />
             </div>
@@ -107,10 +111,10 @@ export default function AdminBranchesClientPage({ branches, stats }: PageProps) 
             {/* High Density Table Section */}
             <div className="rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)] overflow-hidden shadow-2xl shadow-black/5 mt-8">
                 <div className="px-8 py-6 border-b border-[var(--border-muted)] flex items-center justify-between bg-[var(--bg-surface-muted)]/5">
-                    <h3 className="text-xl font-display font-bold text-[var(--text-main)]">Registered Hubs</h3>
+                    <h3 className="text-xl font-display font-bold text-[var(--text-main)]">Business Organizations</h3>
                     <div className="flex items-center gap-2">
                         <span className="px-3 py-1 rounded-full bg-[var(--bg-surface-muted)]/20 border border-[var(--border-muted)] text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">
-                            {filteredBranches.length} Organizations
+                            {filteredBranches.length} Corporates
                         </span>
                     </div>
                 </div>
@@ -120,9 +124,9 @@ export default function AdminBranchesClientPage({ branches, stats }: PageProps) 
                         <thead className="bg-[var(--bg-surface-muted)]/10 text-[var(--text-muted)] uppercase text-[9px] font-display font-black tracking-[0.2em] border-b border-[var(--border-muted)] opacity-50">
                             <tr>
                                 <th className="px-8 py-5">Organization</th>
+                                <th className="px-4 py-5 text-center">Compliance</th>
                                 <th className="px-4 py-5 text-center">Capacity</th>
                                 <th className="px-4 py-5 text-center">Headquarters</th>
-                                <th className="px-4 py-5 text-center">Registration</th>
                                 <th className="px-4 py-5 text-center">Status</th>
                                 <th className="px-8 py-5 text-right">Actions</th>
                             </tr>
@@ -149,12 +153,11 @@ export default function AdminBranchesClientPage({ branches, stats }: PageProps) 
                 </div>
 
                 <div className="px-8 py-6 bg-[var(--bg-surface-muted)]/5 border-t border-[var(--border-muted)]">
-                     <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] opacity-40">System directory auto-reconciles every 24 hours.</p>
+                     <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] opacity-40">System records auto-reconcile every 24 hours.</p>
                 </div>
             </div>
 
             {/* Modals */}
-            <NewBusinessModal isOpen={isNewModalOpen} onClose={() => setIsNewModalOpen(false)} />
             {editingBranch && (
                 <EditBusinessModal
                     isOpen={!!editingBranch}
@@ -215,7 +218,7 @@ function BranchHubRow({ biz, onEdit, onDelete, onToggleStatus, isToggling }: Bra
     return (
         <tr className="hover:bg-[var(--bg-surface-muted)]/5 transition-all group">
             <td className="px-8 py-5">
-                <Link href={`/admin/branches/${biz.id}`} className="flex items-center gap-4 group/item">
+                <Link href={`/businesses/${biz.id}`} className="flex items-center gap-4 group/item">
                     <div className="size-10 rounded-xl bg-[var(--bg-surface-muted)]/40 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] font-display font-black shadow-inner text-base group-hover/item:scale-110 transition-transform">
                         {biz.name.charAt(0).toUpperCase()}
                     </div>
@@ -226,19 +229,24 @@ function BranchHubRow({ biz, onEdit, onDelete, onToggleStatus, isToggling }: Bra
                 </Link>
             </td>
             <td className="px-4 py-5 text-center">
+                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[7px] font-black uppercase tracking-widest border ${
+                    biz.approvalStatus === 'APPROVED' ? 'text-emerald-500 border-emerald-500/10 bg-emerald-500/5' :
+                    biz.approvalStatus === 'PENDING' ? 'text-amber-500 border-amber-500/10 bg-amber-500/5' :
+                    'text-rose-500 border-rose-500/10 bg-rose-500/5'
+                }`}>
+                    <span className="material-symbols-outlined text-[10px]">{biz.approvalStatus === 'APPROVED' ? 'verified' : biz.approvalStatus === 'PENDING' ? 'pending' : 'cancel'}</span>
+                    {biz.approvalStatus || 'PENDING'}
+                </span>
+            </td>
+            <td className="px-4 py-5 text-center">
                 <div className="inline-flex flex-col items-center">
                     <span className="font-sans font-black text-xs text-[var(--text-main)]">{biz.activeBranches} / {biz.totalBranches}</span>
-                    <span className="text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-40">Active Branches</span>
+                    <span className="text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-40">Deployed Branches</span>
                 </div>
             </td>
             <td className="px-4 py-5 text-center">
                 <span className="text-[10px] font-sans font-bold text-[var(--text-muted)] uppercase tracking-wide opacity-60">
                     {biz.headquarters || "Not Set"}
-                </span>
-            </td>
-            <td className="px-4 py-5 text-center">
-                <span className="px-3 py-1 rounded-lg bg-[var(--bg-card)] text-[var(--text-main)] border border-[var(--border-muted)] font-sans font-bold text-[10px] shadow-sm">
-                    {biz.taxId || "Pending"}
                 </span>
             </td>
             <td className="px-4 py-5 text-center">
@@ -256,17 +264,13 @@ function BranchHubRow({ biz, onEdit, onDelete, onToggleStatus, isToggling }: Bra
                 </button>
             </td>
             <td className="px-8 py-5 text-right">
-                <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
-                    <button onClick={onEdit} title="Edit Hub" className="p-2.5 bg-[var(--bg-card)] hover:bg-[var(--text-main)] hover:text-[var(--bg-app)] text-[var(--text-muted)] border border-[var(--border-muted)] rounded-lg transition-all hover:shadow-lg active:scale-95 shadow-sm">
-                        <span className="material-symbols-outlined text-lg font-bold">edit</span>
-                    </button>
-                    <button onClick={onDelete} title="Delete Hub" className="p-2.5 bg-[var(--bg-card)] hover:bg-rose-500 hover:text-white text-[var(--text-muted)] border border-[var(--border-muted)] rounded-lg transition-all hover:shadow-lg active:scale-95 shadow-sm">
-                        <span className="material-symbols-outlined text-lg font-bold">delete</span>
-                    </button>
-                    <Link href={`/admin/branches/${biz.id}`} title="View Details" className="p-2.5 bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 rounded-lg hover:bg-[var(--color-primary)] hover:text-white transition-all active:scale-95 shadow-sm">
-                        <span className="material-symbols-outlined text-lg font-bold">arrow_forward</span>
-                    </Link>
-                </div>
+                <ActionDropdown 
+                    actions={[
+                        { label: "View Details", icon: "open_in_new", href: `/businesses/${biz.id}` },
+                        { label: "Edit Record", icon: "edit", onClick: onEdit },
+                        { label: "Delete Corporate", icon: "delete", onClick: onDelete, variant: "danger" }
+                    ]} 
+                />
             </td>
         </tr>
     );

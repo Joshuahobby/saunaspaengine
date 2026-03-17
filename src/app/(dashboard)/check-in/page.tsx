@@ -5,7 +5,7 @@ import CheckInForm from "@/components/operations/check-in-form";
 
 export default async function CheckInPage() {
     const session = await auth();
-    if (!session?.user?.branchId) redirect("/login");
+    if (!session?.user?.branchId || session.user.role === "ADMIN") redirect("/dashboard");
 
     const [services, employees, activeClients, stats] = await Promise.all([
         prisma.service.findMany({

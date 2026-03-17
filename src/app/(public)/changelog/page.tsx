@@ -17,7 +17,7 @@ const RELEASES = [
         { type: "feature", icon: "qr_code_2", text: "Bulk QR code printing tool for client membership cards" },
         { type: "feature", icon: "leaderboard", text: "Staff performance gamification board with weekly challenges" },
         { type: "improvement", icon: "security", text: "Enhanced data encryption for GDPR compliance" },
-        { type: "fix", icon: "bug_report", text: "Fixed pagination in client directory for large datasets" },
+        { type: "fix", icon: "bug_report", text: "Fixed pagination in client records for large datasets" },
     ]},
 ];
 

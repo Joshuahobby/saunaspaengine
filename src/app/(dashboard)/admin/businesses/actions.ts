@@ -13,7 +13,7 @@ export async function createBusinessAction(data: { name: string, taxId?: string,
                 headquarters: data.headquarters || null,
             }
         });
-        revalidatePath("/admin/branches");
+        revalidatePath("/branches");
         return { success: true };
     } catch (error) {
         console.error("Failed to create business entity:", error);
@@ -33,13 +33,10 @@ export async function updateBusinessAction(id: string, data: {
     try {
         await prisma.business.update({
             where: { id },
-            data: {
-                ...data,
-                subscriptionStatus: data.subscriptionStatus || undefined,
-            }
+            data
         });
-        revalidatePath("/admin/branches");
-        revalidatePath(`/admin/branches/${id}`);
+        revalidatePath("/businesses");
+        revalidatePath(`/businesses/${id}`);
         return { success: true };
     } catch (error) {
         console.error("Failed to update business entity:", error);
@@ -47,16 +44,42 @@ export async function updateBusinessAction(id: string, data: {
     }
 }
 
+
 export async function deleteBusinessAction(id: string) {
     try {
         await prisma.business.delete({
             where: { id }
         });
-        revalidatePath("/admin/branches");
-        revalidatePath(`/admin/branches/${id}`);
+        revalidatePath("/branches");
+        revalidatePath(`/branches/${id}`);
         return { success: true };
     } catch (error) {
         console.error("Failed to delete business entity:", error);
         return { success: false, error: "Failed to delete business entity. Check for operational constraints." };
+    }
+}
+
+export async function updateBusinessApprovalAction(id: string, data: {
+    approvalStatus: "PENDING" | "APPROVED" | "REJECTED" | "SUSPENDED";
+    kycNotes?: string;
+}) {
+    try {
+        const db = prisma as any;
+        await db.business.update({
+            where: { id },
+            data: {
+                approvalStatus: data.approvalStatus,
+                kycNotes: data.kycNotes || undefined,
+                kycVerifiedAt: data.approvalStatus === "APPROVED" ? new Date() : undefined,
+                // Automatically set status to ACTIVE if approved
+                status: data.approvalStatus === "APPROVED" ? "ACTIVE" : "INACTIVE"
+            }
+        });
+        revalidatePath("/businesses");
+        revalidatePath("/analytics");
+        return { success: true };
+    } catch (error) {
+        console.error("Failed to update business approval status:", error);
+        return { success: false, error: "Failed to update compliance status." };
     }
 }

@@ -48,7 +48,7 @@
 <div class="flex items-center gap-4">
 <div class="relative hidden sm:block">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
-<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary focus:bg-white transition-all" placeholder="Search settings..." type="text"/>
+<input aria-label="Search settings" class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary focus:bg-white transition-all" placeholder="Search settings..." type="text"/>
 </div>
 <button class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors">
 <span class="material-symbols-outlined">notifications</span>
@@ -109,7 +109,7 @@
 <div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row gap-4">
 <div class="flex-1 relative">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-<input class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-3 text-sm focus:ring-2 focus:ring-primary transition-all" placeholder="Search specific actions (e.g., 'Financial Reports', 'Pricing')..." type="text"/>
+<input aria-label="Search actions" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-3 text-sm focus:ring-2 focus:ring-primary transition-all" placeholder="Search specific actions (e.g., 'Financial Reports', 'Pricing')..." type="text"/>
 </div>
 <div class="flex gap-2">
 <button class="px-4 py-2 bg-slate-50 dark:bg-slate-800 rounded-lg text-sm font-medium border border-slate-100 dark:border-slate-700">All Modules</button>
@@ -140,10 +140,10 @@
 <span class="text-xs text-slate-400">Access to daily revenue and monthly p&amp;l.</span>
 </div>
 </td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Admin: View Financial Reports" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Manager: View Financial Reports" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Employee: View Financial Reports" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Receptionist: View Financial Reports" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
 </tr>
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
 <td class="px-6 py-4">
@@ -152,10 +152,10 @@
 <span class="text-xs text-slate-400">Ability to issue partial or full refunds.</span>
 </div>
 </td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Admin: Refund Processing" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Manager: Refund Processing" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Employee: Refund Processing" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Receptionist: Refund Processing" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
 </tr>
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
 <td class="px-6 py-4">
@@ -164,10 +164,10 @@
 <span class="text-xs text-slate-400">Update service rates and dynamic pricing.</span>
 </div>
 </td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Admin: Modify Pricing" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Manager: Modify Pricing" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Employee: Modify Pricing" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Receptionist: Modify Pricing" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
 </tr>
 <!-- Section: Operations -->
 <tr>
@@ -180,10 +180,10 @@
 <span class="text-xs text-slate-400">Modify existing spa session logs.</span>
 </div>
 </td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Admin: Edit Service Records" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Manager: Edit Service Records" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Employee: Edit Service Records" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Receptionist: Edit Service Records" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
 </tr>
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
 <td class="px-6 py-4">
@@ -192,10 +192,10 @@
 <span class="text-xs text-slate-400">Force edit records finalized by system.</span>
 </div>
 </td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Admin: Override Locked Records" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Manager: Override Locked Records" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Employee: Override Locked Records" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Receptionist: Override Locked Records" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
 </tr>
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
 <td class="px-6 py-4">
@@ -204,10 +204,10 @@
 <span class="text-xs text-slate-400">Update stock levels for oils and accessories.</span>
 </div>
 </td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Admin: Inventory Management" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Manager: Inventory Management" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Employee: Inventory Management" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Receptionist: Inventory Management" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
 </tr>
 <!-- Section: Human Resources -->
 <tr>
@@ -220,10 +220,10 @@
 <span class="text-xs text-slate-400">Hire, fire, and edit employee details.</span>
 </div>
 </td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Admin: Manage Employees" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Manager: Manage Employees" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Employee: Manage Employees" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Receptionist: Manage Employees" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
 </tr>
 <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
 <td class="px-6 py-4">
@@ -232,10 +232,10 @@
 <span class="text-xs text-slate-400">View PII of registered spa customers.</span>
 </div>
 </td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
-<td class="px-4 py-4 text-center"><input checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Admin: Customer Data Access" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Manager: Customer Data Access" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Employee: Customer Data Access" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-4 py-4 text-center"><input aria-label="Receptionist: Customer Data Access" checked="" class="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/></td>
 </tr>
 </tbody>
 </table>

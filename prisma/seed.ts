@@ -54,10 +54,12 @@ async function main() {
         headquarters: 'Kigali, Rwanda',
         subscriptionPlanId: platformPackages[1].id, // Default to Premium
         subscriptionCycle: 'Monthly',
-        subscriptionStatus: 'ACTIVE',
-        subscriptionRenewal: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+        subscriptionRenewal: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        approvalStatus: 'APPROVED',
+        kycVerifiedAt: new Date(),
       }
     });
+
 
     // 3. Create Shared Passwords
     const defaultPassword = await bcrypt.hash('password123', 10);

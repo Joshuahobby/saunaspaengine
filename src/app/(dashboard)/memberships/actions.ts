@@ -12,6 +12,7 @@ export async function createMembershipCategoryAction(data: {
     price: number;
     durationDays?: number;
     usageLimit?: number;
+    isGlobal?: boolean;
 }) {
     const session = await auth();
     if (!session?.user?.branchId) throw new Error("Unauthorized");
@@ -39,6 +40,7 @@ export async function updateMembershipCategoryAction(id: string, data: {
     durationDays?: number;
     usageLimit?: number;
     status?: EntityStatus;
+    isGlobal?: boolean;
 }) {
     const session = await auth();
     if (!session?.user?.branchId) throw new Error("Unauthorized");

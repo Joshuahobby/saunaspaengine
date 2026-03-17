@@ -25,7 +25,7 @@ export default function LegalTemplatesClientPage() {
                 </div>
                 <button className="flex items-center gap-3 px-10 py-4 bg-[var(--text-main)] text-[var(--bg-app)] rounded-2xl text-[10px] font-bold uppercase tracking-[0.3em] hover:scale-[1.05] active:scale-[0.98] transition-all shadow-xl shadow-black/10">
                     <span className="material-symbols-outlined text-xl font-bold">add_circle</span>
-                    Establish Template
+                    Create Template
                 </button>
             </div>
 

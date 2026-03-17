@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MembershipType, EntityStatus } from "@prisma/client";
 import { createMembershipCategoryAction, updateMembershipCategoryAction, deleteMembershipCategoryAction } from "./actions";
 import Link from "next/link";
+import Image from "next/image";
 
 interface MembershipCategory {
     id: string;
@@ -14,6 +15,7 @@ interface MembershipCategory {
     price: number;
     durationDays: number | null;
     usageLimit: number | null;
+    isGlobal: boolean;
     status: EntityStatus;
     _count?: {
         memberships: number;
@@ -73,7 +75,7 @@ export default function MembershipsClientPage({ categories }: MembershipsClientP
                         <h1 className="text-4xl font-serif font-black italic tracking-tight text-white">Membership Hub</h1>
                     </div>
                     <p className="text-[var(--text-muted)] font-medium max-w-xl italic opacity-70">
-                        Design your vessel's access tiers. From recurring subscriptions to flexible usage-based passes.
+                        Design your business&apos;s access tiers. From recurring subscriptions to flexible usage-based passes.
                     </p>
                 </div>
                 <motion.button 
@@ -82,7 +84,7 @@ export default function MembershipsClientPage({ categories }: MembershipsClientP
                     onClick={() => handleOpenModal()}
                     className="h-14 px-8 rounded-full bg-white text-black font-black uppercase tracking-[0.2em] text-xs flex items-center gap-3 shadow-2xl transition-all"
                 >
-                    Establish New Pass
+                    Create New Pass
                     <span className="material-symbols-outlined">add_circle</span>
                 </motion.button>
             </div>
@@ -92,7 +94,7 @@ export default function MembershipsClientPage({ categories }: MembershipsClientP
                 {categories.length === 0 ? (
                    <div className="col-span-3 py-20 text-center space-y-4 bg-[var(--bg-surface-muted)]/5 rounded-[3rem] border border-dashed border-[var(--border-muted)]">
                         <span className="material-symbols-outlined text-6xl text-[var(--text-muted)] opacity-20">category</span>
-                        <p className="text-[var(--text-muted)] font-serif italic text-xl">No passes have been established yet.</p>
+                        <p className="text-[var(--text-muted)] font-serif italic text-xl">No passes have been created yet.</p>
                    </div>
                 ) : (
                     categories.map((category, idx) => {
@@ -106,7 +108,7 @@ export default function MembershipsClientPage({ categories }: MembershipsClientP
                                 className="group relative bg-[#0f1412] border border-[var(--border-muted)] rounded-[2.5rem] overflow-hidden hover:border-[var(--color-primary)]/50 transition-all duration-500 shadow-xl flex flex-col"
                             >
                                 <div className="h-48 relative overflow-hidden">
-                                    <img src={config.image} alt={category.name} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-60 grayscale group-hover:grayscale-0" />
+                                    <Image src={config.image} alt={category.name} width={800} height={400} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-60 grayscale group-hover:grayscale-0" />
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#0f1412] via-[#0f1412]/40 to-transparent" />
                                     <div className="absolute bottom-6 left-6 flex items-center gap-3">
                                         <div className={`size-10 rounded-xl ${config.bg} flex items-center justify-center ${config.color} backdrop-blur-md`}>
@@ -114,8 +116,16 @@ export default function MembershipsClientPage({ categories }: MembershipsClientP
                                         </div>
                                         <h3 className="text-2xl font-serif font-black italic text-white">{category.name}</h3>
                                     </div>
-                                    <div className="absolute top-6 right-6 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[10px] font-black uppercase tracking-widest text-[var(--color-primary)]">
-                                        {config.label}
+                                    <div className="absolute top-6 right-6 flex gap-2">
+                                        {category.isGlobal && (
+                                            <div className="px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-md border border-blue-500/30 text-[9px] font-black uppercase tracking-widest text-blue-400 flex items-center gap-1">
+                                                <span className="material-symbols-outlined text-[12px]">public</span>
+                                                Network-wide
+                                            </div>
+                                        )}
+                                        <div className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[9px] font-black uppercase tracking-widest text-[var(--color-primary)]">
+                                            {config.label}
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="p-8 space-y-6 flex-1 flex flex-col">
@@ -169,7 +179,7 @@ export default function MembershipsClientPage({ categories }: MembershipsClientP
                     <table className="w-full text-left">
                         <thead>
                             <tr className="bg-[var(--bg-surface-muted)]/10 border-b border-[var(--border-muted)]">
-                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">established tier</th>
+                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">creation date</th>
                                 <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">access logic</th>
                                 <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">unit yield</th>
                                 <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">velocity</th>
@@ -244,11 +254,12 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading }: {
         description: category?.description || "",
         price: category?.price?.toString() || "",
         durationDays: category?.durationDays?.toString() || "30",
-        usageLimit: category?.usageLimit?.toString() || "10"
+        usageLimit: category?.usageLimit?.toString() || "10",
+        isGlobal: category?.isGlobal || false
     });
 
     // Sync form data when category changes
-    useState(() => {
+    useEffect(() => {
         if (category) {
             setFormData({
                 name: category.name,
@@ -256,10 +267,11 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading }: {
                 description: category.description || "",
                 price: category.price.toString(),
                 durationDays: category.durationDays?.toString() || "30",
-                usageLimit: category.usageLimit?.toString() || "10"
+                usageLimit: category.usageLimit?.toString() || "10",
+                isGlobal: category.isGlobal
             });
         }
-    });
+    }, [category]);
 
     const handleSave = async () => {
         setIsLoading(true);
@@ -271,6 +283,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading }: {
                 price: parseFloat(formData.price),
                 durationDays: formData.type === 'SUBSCRIPTION' ? parseInt(formData.durationDays) : undefined,
                 usageLimit: formData.type === 'LIST_PASS' ? parseInt(formData.usageLimit) : undefined,
+                isGlobal: formData.isGlobal
             };
 
             if (category) {
@@ -307,8 +320,8 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading }: {
                         <div className="p-10 space-y-8">
                             <div className="flex items-center justify-between">
                                 <div className="space-y-1">
-                                    <h2 className="text-3xl font-serif font-black italic text-white">{category ? "Modify Established Pass" : "Establish New Pass"}</h2>
-                                    <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic opacity-60">Defining access mechanics for your vessel</p>
+                                    <h2 className="text-3xl font-serif font-black italic text-white">{category ? "Modify Pass" : "Create New Pass"}</h2>
+                                    <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic opacity-60">Defining access mechanics for your business</p>
                                 </div>
                                 <button onClick={onClose} className="size-12 rounded-full bg-[var(--bg-surface-muted)]/10 flex items-center justify-center text-[var(--text-muted)] hover:text-white transition-colors">
                                     <span className="material-symbols-outlined">close</span>
@@ -354,6 +367,26 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading }: {
                                         placeholder="45000"
                                         className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-3xl px-8 text-white font-mono font-black text-lg outline-none focus:border-[var(--color-primary)] transition-all"
                                     />
+                                </div>
+
+                                <div className="space-y-3 col-span-2">
+                                    <label className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic ml-4">Network Scope</label>
+                                    <button 
+                                        type="button"
+                                        onClick={() => setFormData({...formData, isGlobal: !formData.isGlobal})}
+                                        className={`w-full h-16 rounded-3xl px-8 flex items-center justify-between transition-all border ${formData.isGlobal ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' : 'bg-[var(--bg-surface-muted)]/10 border-[var(--border-muted)] text-[var(--text-muted)]'}`}
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <span className="material-symbols-outlined">{formData.isGlobal ? 'public' : 'location_on'}</span>
+                                            <span className="font-bold tracking-widest text-[10px] uppercase">{formData.isGlobal ? 'Global Portability Active' : 'Restricted to this Branch'}</span>
+                                        </div>
+                                        <div className={`w-12 h-6 rounded-full relative transition-all ${formData.isGlobal ? 'bg-blue-500' : 'bg-zinc-800'}`}>
+                                            <div className={`absolute top-1 size-4 rounded-full bg-white transition-all ${formData.isGlobal ? 'right-1' : 'left-1'}`} />
+                                        </div>
+                                    </button>
+                                    <p className="text-[9px] text-[var(--text-muted)] opacity-50 ml-4 italic leading-tight">
+                                        Global passes can be redeemed at any branch within your corporate network.
+                                    </p>
                                 </div>
 
                                 {formData.type === 'SUBSCRIPTION' && (
@@ -413,7 +446,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading }: {
                                         <span className="animate-spin material-symbols-outlined">sync</span>
                                     ) : (
                                         <>
-                                            {category ? "Commit Refinement" : "Establish Pass"}
+                                            {category ? "Commit Refinement" : "Create Pass"}
                                             <span className="material-symbols-outlined transition-transform group-hover:rotate-12">auto_awesome</span>
                                         </>
                                     )}

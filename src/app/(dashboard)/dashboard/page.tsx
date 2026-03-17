@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import AdminDashboardPage from "@/app/(dashboard)/admin/dashboard/server-page";
+import ExecutiveDashboardPage from "@/app/(dashboard)/executive/dashboard/server-page";
 
 export const metadata = {
     title: "Dashboard | Sauna SPA Engine",
@@ -13,12 +15,12 @@ export default async function DashboardPage() {
     const session = await auth();
     const userRole = (session?.user as { role?: string })?.role || "EMPLOYEE";
     
-    // Automatically redirect higher roles to their respective dashboards
+    // Return appropriate dashboard experience per role without URL redirects
     if (userRole === "ADMIN") {
-        redirect("/admin/dashboard");
+        return <AdminDashboardPage />;
     }
     if (userRole === "OWNER") {
-        redirect("/executive/dashboard");
+        return <ExecutiveDashboardPage />;
     }
 
     const branchId = session?.user?.branchId;

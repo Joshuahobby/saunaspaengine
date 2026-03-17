@@ -37,7 +37,7 @@ export default async function ClientProfilePage({ params }: { params: Promise<{ 
                 <h2 className="text-2xl font-bold mb-2">Client Not Found</h2>
                 <p className="text-slate-500 mb-6">The client you are looking for does not exist or has been removed.</p>
                 <Link href="/clients" className="bg-[var(--color-primary)] text-[var(--color-bg-dark)] px-6 py-2 rounded-lg font-bold">
-                    Back to Directory
+                    Back to Records
                 </Link>
             </div>
         );

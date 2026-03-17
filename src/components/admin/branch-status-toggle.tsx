@@ -18,7 +18,7 @@ export function BranchStatusToggle({ branchId, initialStatus }: BranchStatusTogg
         const nextStatus = status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
 
         try {
-            const res = await fetch(`/api/admin/branches/${branchId}`, {
+            const res = await fetch(`/api/admin/businesses/branches/${branchId}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: nextStatus })

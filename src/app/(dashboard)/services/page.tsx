@@ -10,15 +10,16 @@ export const dynamic = "force-dynamic";
 export default async function ServicesPage() {
     const session = await auth();
 
-    if (!session?.user?.branchId) {
-        redirect("/login");
-    }
+    if (!session?.user) redirect("/login");
+    if (!session.user.branchId && session.user.role !== 'OWNER') redirect("/login");
 
-    const branchId = session.user.branchId;
+    const branchIds = session.user.role === 'OWNER'
+        ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string }, select: { id: true } })).map(b => b.id)
+        : [session.user.branchId as string];
 
     // Fetch all services for this branch
     const services = await prisma.service.findMany({
-        where: { branchId },
+        where: { branchId: { in: branchIds } },
         orderBy: { name: 'asc' }
     });
 
@@ -34,7 +35,7 @@ export default async function ServicesPage() {
     // Most Popular Service (via ServiceRecords)
     const mostPopularAgg = await prisma.serviceRecord.groupBy({
         by: ['serviceId'],
-        where: { branchId },
+        where: { branchId: { in: branchIds } },
         _count: {
             serviceId: true
         },

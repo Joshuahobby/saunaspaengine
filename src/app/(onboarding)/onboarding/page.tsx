@@ -16,7 +16,7 @@ export default async function OnboardingPage() {
             <div className="flex-1 flex items-center justify-center p-8">
                 <div className="bg-red-500/10 border border-red-500/20 p-6 rounded-2xl max-w-sm text-center">
                     <h2 className="text-red-500 font-bold mb-2">Access Denied</h2>
-                    <p className="text-sm opacity-60">No branch node associated with this account.</p>
+                    <p className="text-sm opacity-60">No branch location associated with this account.</p>
                 </div>
             </div>
         );
@@ -34,8 +34,8 @@ export default async function OnboardingPage() {
         return (
             <div className="flex-1 flex items-center justify-center p-8">
                 <div className="bg-amber-500/10 border border-amber-500/20 p-6 rounded-2xl max-w-sm text-center">
-                    <h2 className="text-amber-600 font-bold mb-2">Vessel Not Found</h2>
-                    <p className="text-sm opacity-60">The branch node could not be retrieved from the central registry.</p>
+                    <h2 className="text-amber-600 font-bold mb-2">Branch Not Found</h2>
+                    <p className="text-sm opacity-60">The branch location could not be retrieved from the central registry.</p>
                 </div>
             </div>
         );
