@@ -9,7 +9,7 @@ import { FaqAccordion } from "@/components/landing/FaqAccordion";
 export const metadata: Metadata = {
   title: "Sauna SPA Engine — Spa & Sauna Management Platform for Rwanda",
   description:
-    "Digitize your sauna and spa business with fast check-ins, QR memberships, real-time reports, and mobile-first operations. Built for Rwanda.",
+    "Digitize your sauna and spa branch with fast check-ins, QR memberships, real-time reports, and mobile-first operations. Built for Rwanda.",
   openGraph: {
     title: "Sauna SPA Engine — Premium Operations Platform",
     description: "The world's most premium management platform for spas and saunas. Built for Rwanda's elite wellness centers.",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Sauna SPA Engine — Operations Platform",
-    description: "Digitize your sauna and spa business with fast check-ins, QR memberships, and real-time reports.",
+    description: "Digitize your sauna and spa branch with fast check-ins, QR memberships, and real-time reports.",
     images: ["https://lh3.googleusercontent.com/aida-public/AB6AXuD377Rw1J3jJ50DFdv7DI9VFckbkX50HKLF-0MQoJ6UG7ZM7QXD5QnskGKx85GT7bGeapAnHwaf71_gIMa8Bn1IKNC9fmzjuWNDeiAOSqrfbQz-ihSJCxIBr1vXCAFeQ5_K_UuDdV43xr0rXle25Eyed_UiZBa4xqMi2gpUSnL6PGmkEGPq1aM2yw7UoZVN9BqvRbnVM0GFW4wzaEQms1Ok-WLoaHi6O6u2PFUCwzG_GcllwK7ks9mQhEtTATcLd2-kjcqhRPM2-B8S"],
   },
 };
@@ -184,7 +184,7 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto flex flex-col gap-16">
             <ScrollReveal direction="up" className="text-center flex flex-col gap-4">
               <h2 className="text-[var(--text-main)] text-4xl md:text-6xl font-black font-serif">Simple, Transparent Pricing</h2>
-              <p className="text-[var(--text-muted)] text-lg md:text-xl">Choose the perfect plan for your business size.</p>
+              <p className="text-[var(--text-muted)] text-lg md:text-xl">Choose the perfect plan for your branch size.</p>
             </ScrollReveal>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch pt-8">
@@ -273,7 +273,7 @@ export default function LandingPage() {
             <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
               <div className="flex flex-col gap-4 md:w-1/2">
                 <h2 className="text-white text-4xl font-black font-serif leading-tight">Stay updated with Spa Insights</h2>
-                <p className="text-white/80 text-lg">Join 5,000+ spa owners receiving our weekly operations newsletter.</p>
+                <p className="text-white/80 text-lg">Join 5,000+ spa managers receiving our weekly operations newsletter.</p>
               </div>
               <NewsletterForm />
             </div>

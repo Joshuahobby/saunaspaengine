@@ -5,10 +5,10 @@ import MembershipsClientPage from "./client-page";
 
 export default async function MembershipsHubPage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const categories = await prisma.membershipCategory.findMany({
-        where: { businessId: session.user.businessId, status: "ACTIVE" },
+        where: { branchId: session.user.branchId, status: "ACTIVE" },
         include: {
             _count: {
                 select: { memberships: true }

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-interface Business {
+interface Branch {
     id: string;
     name: string;
     email?: string | null;
@@ -14,34 +14,34 @@ interface Business {
     serviceCount: number;
     clientCount: number;
     createdAt: string;
-    corporateName: string;
+    businessName: string;
 }
 
 import { format } from "date-fns";
-import { EditBusinessModal } from "./EditBusinessModal";
-import { DeleteBusinessModal } from "./DeleteBusinessModal";
+import { EditBranchModal } from "./EditBranchModal";
+import { DeleteBranchModal } from "./DeleteBranchModal";
 
 interface BranchesProps {
-    businesses: Business[];
+    branches: Branch[];
     stats: {
         totalRevenue: number;
-        totalBusinesses: number;
-        activeBusinesses: number;
+        totalBranches: number;
+        activeBranches: number;
     };
 }
 
-export default function AdminBranchesClientPage({ businesses, stats }: BranchesProps) {
+export default function AdminBranchesClientPage({ branches, stats }: BranchesProps) {
     const router = useRouter();
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState<string>("ALL");
     const [toggling, setToggling] = useState<string | null>(null);
-    const [editingBusiness, setEditingBusiness] = useState<Business | null>(null);
-    const [deletingBusiness, setDeletingBusiness] = useState<Business | null>(null);
+    const [editingBranch, setEditingBranch] = useState<Branch | null>(null);
+    const [deletingBranch, setDeletingBranch] = useState<Branch | null>(null);
 
     async function toggleStatus(id: string, currentStatus: string) {
         setToggling(id);
         try {
-            await fetch(`/api/admin/businesses/${id}`, {
+            await fetch(`/api/admin/branches/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ status: currentStatus === "ACTIVE" ? "INACTIVE" : "ACTIVE" }),
@@ -57,9 +57,9 @@ export default function AdminBranchesClientPage({ businesses, stats }: BranchesP
     const formatRevenue = (amount: number) =>
         new Intl.NumberFormat("en-US", { style: "currency", currency: "RWF", maximumFractionDigits: 0 }).format(amount);
 
-    const filteredBusinesses = businesses.filter(b => {
+    const filteredBranches = branches.filter(b => {
         const matchesSearch = b.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                             b.corporateName.toLowerCase().includes(searchTerm.toLowerCase());
+                             b.businessName.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesStatus = statusFilter === "ALL" || b.status === statusFilter;
         return matchesSearch && matchesStatus;
     });
@@ -110,14 +110,14 @@ export default function AdminBranchesClientPage({ businesses, stats }: BranchesP
                 />
                 <MetricCard 
                     title="Operating Nodes"
-                    value={stats.activeBusinesses.toString()}
-                    subtitle={`OF ${stats.totalBusinesses} TOTAL`}
+                    value={stats.activeBranches.toString()}
+                    subtitle={`OF ${stats.totalBranches} TOTAL`}
                     icon="vital_signs"
                 />
                 <MetricCard 
                     title="Total Guests"
-                    value={businesses.reduce((sum, b) => sum + b.clientCount, 0).toLocaleString()}
-                    subtitle={`${businesses.reduce((sum, b) => sum + b.employeeCount, 0)} STAFF`}
+                    value={branches.reduce((sum, b) => sum + b.clientCount, 0).toLocaleString()}
+                    subtitle={`${branches.reduce((sum, b) => sum + b.employeeCount, 0)} STAFF`}
                     icon="hub"
                 />
             </div>
@@ -129,7 +129,7 @@ export default function AdminBranchesClientPage({ businesses, stats }: BranchesP
                         <thead>
                             <tr className="border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10">
                                 <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic">Node Identifier</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic">Corporate Hub</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic">Business Hub</th>
                                 <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic text-center">Resources</th>
                                 <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic text-center">Operational Status</th>
                                 <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic text-right whitespace-nowrap">Provisioned</th>
@@ -137,7 +137,7 @@ export default function AdminBranchesClientPage({ businesses, stats }: BranchesP
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-[var(--border-muted)]/30">
-                            {filteredBusinesses.map((biz) => (
+                            {filteredBranches.map((biz) => (
                                 <tr key={biz.id} className="group hover:bg-[var(--color-primary)]/[0.02] transition-colors">
                                     <td className="px-6 py-3">
                                         <div className="flex items-center gap-3">
@@ -153,7 +153,7 @@ export default function AdminBranchesClientPage({ businesses, stats }: BranchesP
                                     <td className="px-6 py-3">
                                         <div className="flex items-center gap-2">
                                             <span className="size-1.5 rounded-full bg-[var(--color-primary)]/40 shadow-sm shadow-[var(--color-primary)]/20"></span>
-                                            <span className="text-[11px] font-bold text-white/80 uppercase tracking-wide italic">{biz.corporateName}</span>
+                                            <span className="text-[11px] font-bold text-white/80 uppercase tracking-wide italic">{biz.businessName}</span>
                                         </div>
                                     </td>
                                     <td className="px-6 py-3">
@@ -192,14 +192,14 @@ export default function AdminBranchesClientPage({ businesses, stats }: BranchesP
                                     <td className="px-6 py-3 text-right">
                                         <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <button 
-                                                onClick={() => setEditingBusiness(biz)}
+                                                onClick={() => setEditingBranch(biz)}
                                                 className="p-2 hover:bg-[var(--color-primary)]/10 text-[var(--text-muted)] hover:text-[var(--color-primary)] rounded-lg transition-all"
                                                 title="Modify Configuration"
                                             >
                                                 <span className="material-symbols-outlined text-sm">edit_square</span>
                                             </button>
                                             <button 
-                                                onClick={() => setDeletingBusiness(biz)}
+                                                onClick={() => setDeletingBranch(biz)}
                                                 className="p-2 hover:bg-rose-500/10 text-[var(--text-muted)] hover:text-rose-500 rounded-lg transition-all"
                                                 title="Purge Node"
                                             >
@@ -209,7 +209,7 @@ export default function AdminBranchesClientPage({ businesses, stats }: BranchesP
                                     </td>
                                 </tr>
                             ))}
-                            {filteredBusinesses.length === 0 && (
+                            {filteredBranches.length === 0 && (
                                 <tr>
                                     <td colSpan={6} className="px-6 py-20 text-center">
                                         <div className="flex flex-col items-center gap-3 opacity-20">
@@ -225,18 +225,18 @@ export default function AdminBranchesClientPage({ businesses, stats }: BranchesP
             </div>
 
             {/* Modals */}
-            {editingBusiness && (
-                <EditBusinessModal
-                    isOpen={!!editingBusiness}
-                    onClose={() => setEditingBusiness(null)}
-                    business={editingBusiness}
+            {editingBranch && (
+                <EditBranchModal
+                    isOpen={!!editingBranch}
+                    onClose={() => setEditingBranch(null)}
+                    branch={editingBranch}
                 />
             )}
-            {deletingBusiness && (
-                <DeleteBusinessModal
-                    isOpen={!!deletingBusiness}
-                    onClose={() => setDeletingBusiness(null)}
-                    business={deletingBusiness}
+            {deletingBranch && (
+                <DeleteBranchModal
+                    isOpen={!!deletingBranch}
+                    onClose={() => setDeletingBranch(null)}
+                    branch={deletingBranch}
                 />
             )}
         </main>

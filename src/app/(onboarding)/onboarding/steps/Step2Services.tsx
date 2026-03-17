@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { saveBusinessServicesAction } from "../actions";
+import { saveBranchServicesAction } from "../actions";
 
 interface StepProps {
-    business: {
+    branch: {
         id: string;
         name: string | null;
     };
@@ -14,7 +14,7 @@ interface StepProps {
     onPrev: () => void;
 }
 
-export function Step2Services({ business, onNext, onPrev }: StepProps) {
+export function Step2Services({ branch, onNext, onPrev }: StepProps) {
     const [loading, setLoading] = useState(false);
     const [services, setServices] = useState([
         { id: 1, name: "Traditional Swedish Massage", price: 25000, duration: 60, category: "Masseuse", status: "Active" },
@@ -29,7 +29,7 @@ export function Step2Services({ business, onNext, onPrev }: StepProps) {
     async function handleContinue() {
         setLoading(true);
         try {
-            await saveBusinessServicesAction(business.id, services);
+            await saveBranchServicesAction(branch.id, services);
             onNext();
         } catch (error) {
             console.error(error);
@@ -48,7 +48,7 @@ export function Step2Services({ business, onNext, onPrev }: StepProps) {
                 </div>
                 <h1 className="text-4xl font-display font-black text-[var(--text-main)] tracking-tight">Service Catalog</h1>
                 <p className="text-lg text-[var(--text-muted)] leading-relaxed">
-                    Define the services and treatments your business offers. A clear service menu helps customers book the right experience.
+                    Define the services and treatments your branch offers. A clear service menu helps customers book the right experience.
                 </p>
             </div>
 

@@ -6,10 +6,10 @@ import ClientRegistrationForm from "@/components/operations/client-registration-
 
 export default async function NewClientPage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const membershipCategories = await prisma.membershipCategory.findMany({
-        where: { businessId: session.user.businessId, status: "ACTIVE" },
+        where: { branchId: session.user.branchId, status: "ACTIVE" },
         orderBy: { price: "desc" }
     });
 

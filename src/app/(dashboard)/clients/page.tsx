@@ -6,10 +6,10 @@ import ClientListClient from "./client-page";
 
 export default async function ClientsPage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const clients = await prisma.client.findMany({
-        where: { businessId: session.user.businessId },
+        where: { branchId: session.user.branchId },
         include: {
             memberships: {
                 where: { status: "ACTIVE" },

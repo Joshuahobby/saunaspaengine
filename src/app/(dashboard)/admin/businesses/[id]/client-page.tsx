@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { motion, Variants } from "framer-motion";
-import { EditCorporateModal } from "../EditCorporateModal";
+import { EditBusinessModal } from "../EditBusinessModal";
 import { AssignPackageModal } from "./AssignPackageModal";
 
 interface Branch {
@@ -16,7 +16,7 @@ interface Branch {
     onboardingCompleted: boolean;
 }
 
-interface Corporate {
+interface Business {
     id: string;
     name: string;
     taxId?: string | null;
@@ -27,7 +27,7 @@ interface Corporate {
     subscriptionStatus?: string | null;
     subscriptionRenewal?: string | null;
     createdAt: string;
-    businesses: Branch[];
+    branches: Branch[];
 }
 
 interface PlatformPackage {
@@ -61,11 +61,11 @@ const itemVariants: Variants = {
     }
 };
 
-export default function BusinessDetailsClientPage({ corporate, platformPackages }: { corporate: Corporate, platformPackages: PlatformPackage[] }) {
+export default function BranchDetailsClientPage({ business, platformPackages }: { business: Business, platformPackages: PlatformPackage[] }) {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isPackageModalOpen, setIsPackageModalOpen] = useState(false);
 
-    const activeBranches = corporate.businesses.filter(b => b.status === "ACTIVE").length;
+    const activeBranches = business.branches.filter(b => b.status === "ACTIVE").length;
 
     return (
         <motion.main 
@@ -76,12 +76,12 @@ export default function BusinessDetailsClientPage({ corporate, platformPackages 
         >
             {/* Breadcrumb Navigation - Compact */}
             <motion.div variants={itemVariants} className="flex items-center gap-2 text-[10px] text-[var(--text-muted)] font-bold italic uppercase tracking-[0.2em] border-b border-[var(--border-muted)] pb-4">
-                <Link href="/admin/businesses" className="hover:text-[var(--color-primary)] transition-colors flex items-center gap-1.5 group">
+                <Link href="/admin/branches" className="hover:text-[var(--color-primary)] transition-colors flex items-center gap-1.5 group">
                     <span className="material-symbols-outlined text-[12px]">domain</span>
                     <span>Hubs</span>
                 </Link>
                 <span className="material-symbols-outlined text-[10px] opacity-30 font-bold">chevron_right</span>
-                <span className="text-[var(--text-main)] opacity-100">{corporate.name}</span>
+                <span className="text-[var(--text-main)] opacity-100">{business.name}</span>
             </motion.div>
 
             {/* Hub Header - Compact & Professional */}
@@ -100,27 +100,27 @@ export default function BusinessDetailsClientPage({ corporate, platformPackages 
                     <div className="space-y-3">
                         <div className="flex items-center gap-4">
                             <h1 className="text-3xl lg:text-4xl font-display font-bold text-white tracking-tight drop-shadow-md">
-                                {corporate.name}
+                                {business.name}
                             </h1>
                             <motion.span 
                                 initial={{ scale: 0.9 }}
                                 animate={{ scale: 1 }}
-                                className={`px-2.5 py-0.5 rounded-full text-[8px] font-black uppercase tracking-[0.2em] border ${corporate.status === "ACTIVE" ? "text-emerald-400 border-emerald-400/20 bg-emerald-400/10" : "text-rose-500 border-rose-500/20 bg-rose-500/10"}`}>
-                                {corporate.status}
+                                className={`px-2.5 py-0.5 rounded-full text-[8px] font-black uppercase tracking-[0.2em] border ${business.status === "ACTIVE" ? "text-emerald-400 border-emerald-400/20 bg-emerald-400/10" : "text-rose-500 border-rose-500/20 bg-rose-500/10"}`}>
+                                {business.status}
                             </motion.span>
                         </div>
                         
                         <div className="flex items-center gap-6">
-                            {corporate.taxId && (
+                            {business.taxId && (
                                 <div className="flex items-baseline gap-2 opacity-60">
                                     <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">TIN</span>
-                                    <span className="text-xs font-mono text-white tracking-tight">{corporate.taxId}</span>
+                                    <span className="text-xs font-mono text-white tracking-tight">{business.taxId}</span>
                                 </div>
                             )}
-                            {corporate.headquarters && (
+                            {business.headquarters && (
                                 <div className="flex items-baseline gap-2 opacity-60">
                                     <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">HQ</span>
-                                    <span className="text-xs font-bold text-white tracking-tight">{corporate.headquarters}</span>
+                                    <span className="text-xs font-bold text-white tracking-tight">{business.headquarters}</span>
                                 </div>
                             )}
                         </div>
@@ -148,14 +148,14 @@ export default function BusinessDetailsClientPage({ corporate, platformPackages 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <AdminStatCard 
                     label="Vessel Network"
-                    value={corporate.businesses.length.toString()}
-                    subtitle={`${activeBranches} Online / ${corporate.businesses.length - activeBranches} Reserved`}
+                    value={business.branches.length.toString()}
+                    subtitle={`${activeBranches} Online / ${business.branches.length - activeBranches} Reserved`}
                     icon="hub"
                 />
                 <AdminStatCard 
                     label="Resource Tier"
-                    value={corporate.subscriptionPlan || "N/A"}
-                    subtitle={corporate.subscriptionStatus || "No Plan Active"}
+                    value={business.subscriptionPlan || "N/A"}
+                    subtitle={business.subscriptionStatus || "No Plan Active"}
                     icon="workspace_premium"
                     actionLabel="UPGRADE"
                     onAction={() => setIsPackageModalOpen(true)}
@@ -192,7 +192,7 @@ export default function BusinessDetailsClientPage({ corporate, platformPackages 
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {corporate.businesses.map((branch, idx) => (
+                    {business.branches.map((branch, idx) => (
                         <motion.div 
                             key={branch.id} 
                             initial={{ opacity: 0, y: 10 }}
@@ -225,7 +225,7 @@ export default function BusinessDetailsClientPage({ corporate, platformPackages 
                         </motion.div>
                     ))}
 
-                    {corporate.businesses.length === 0 && (
+                    {business.branches.length === 0 && (
                         <div className="col-span-full py-12 text-center border-2 border-dashed border-[var(--border-muted)] rounded-2xl opacity-40">
                             <span className="material-symbols-outlined text-3xl mb-3 block">hub</span>
                             <p className="text-[10px] font-bold uppercase tracking-[0.3em]">No clusters assigned</p>
@@ -235,11 +235,11 @@ export default function BusinessDetailsClientPage({ corporate, platformPackages 
             </motion.div>
 
             {/* Modals */}
-            <EditCorporateModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} corporate={corporate} />
+            <EditBusinessModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} business={business} />
             <AssignPackageModal 
                 isOpen={isPackageModalOpen} 
                 onClose={() => setIsPackageModalOpen(false)} 
-                corporate={corporate} 
+                business={business} 
                 availablePackages={platformPackages} 
             />
         </motion.main>

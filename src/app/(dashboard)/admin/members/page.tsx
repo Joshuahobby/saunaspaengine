@@ -14,7 +14,7 @@ export default async function AdminMembersPage() {
 
     const clients = await prisma.client.findMany({
         include: {
-            business: {
+            branch: {
                 select: { name: true }
             },
             _count: {
@@ -83,7 +83,7 @@ export default async function AdminMembersPage() {
                                             </div>
                                             <div>
                                                 <p className="text-sm font-display font-bold text-[var(--text-main)] leading-tight">{client.fullName}</p>
-                                                <p className="text-[9px] text-[var(--color-primary)] font-bold uppercase tracking-wider mt-0.5 opacity-80">{client.business.name}</p>
+                                                <p className="text-[9px] text-[var(--color-primary)] font-bold uppercase tracking-wider mt-0.5 opacity-80">{client.branch.name}</p>
                                             </div>
                                         </div>
                                     </td>

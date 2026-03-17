@@ -7,7 +7,7 @@ import Link from "next/link";
 async function restockItem(id: string, formData: FormData) {
     "use server";
     const session = await auth();
-    if (!session?.user?.businessId) throw new Error("Unauthorized");
+    if (!session?.user?.branchId) throw new Error("Unauthorized");
 
     const amount = parseInt(formData.get("amount") as string);
     if (isNaN(amount) || amount <= 0) return;
@@ -15,7 +15,7 @@ async function restockItem(id: string, formData: FormData) {
     await prisma.inventory.update({
         where: {
             id,
-            businessId: session.user.businessId
+            branchId: session.user.branchId
         },
         data: {
             stockCount: {
@@ -33,12 +33,12 @@ type Params = Promise<{ id: string }>;
 export default async function RestockPage(props: { params: Params }) {
     const { id } = await props.params;
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const item = await prisma.inventory.findUnique({
         where: {
             id: id,
-            businessId: session.user.businessId
+            branchId: session.user.branchId
         }
     });
 

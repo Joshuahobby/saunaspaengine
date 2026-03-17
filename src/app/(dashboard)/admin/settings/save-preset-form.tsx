@@ -85,7 +85,7 @@ export default function SavePresetForm({
                             <h4 className="font-bold text-sm">Legal Receipt Format</h4>
                         </div>
                         <p className="text-xs text-slate-500 leading-relaxed">
-                            Includes mandatory business registration numbers, VAT IDs, and localized billing addresses.
+                            Includes mandatory branch registration numbers, VAT IDs, and localized billing addresses.
                         </p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer mt-1">

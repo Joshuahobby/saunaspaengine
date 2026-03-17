@@ -19,7 +19,7 @@ export default function ReferralsPage() {
                     <div className="flex flex-col gap-6">
                         <span className="inline-flex items-center px-3 py-1 rounded-full bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 text-[var(--color-primary)] text-xs font-bold uppercase tracking-wider w-fit">Exclusive Offer</span>
                         <h1 className="text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight">Grow Your Network, <br /><span className="text-[var(--color-primary)]">Earn Rewards</span></h1>
-                        <p className="text-[var(--text-muted)] text-lg max-w-md">Get <span className="text-[var(--text-main)] font-bold">1 month free</span> for every spa business you refer to Sauna SPA Engine.</p>
+                        <p className="text-[var(--text-muted)] text-lg max-w-md">Get <span className="text-[var(--text-main)] font-bold">1 month free</span> for every spa branch you refer to Sauna SPA Engine.</p>
                         <div className="flex flex-wrap gap-4 pt-2">
                             <button className="px-6 py-3 bg-[var(--color-primary)] text-[var(--bg-app)] rounded-lg font-bold hover:opacity-90 transition-all flex items-center gap-2">
                                 <span className="material-symbols-outlined">send</span> Start Referring
@@ -103,7 +103,7 @@ export default function ReferralsPage() {
                             <div className="mt-4 pt-6 border-t border-[var(--border-muted)]">
                                 <h4 className="text-sm font-bold mb-2">Invite by Email</h4>
                                 <div className="flex gap-2">
-                                    <input id="invite-email" title="Invite Spa Owner by Email" aria-label="Enter email address to send invite" className="flex-1 bg-[var(--bg-app)] border-[var(--border-muted)] rounded-lg text-sm focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]" placeholder="spa-owner@example.com" type="email" />
+                                    <input id="invite-email" title="Invite Spa Manager by Email" aria-label="Enter email address to send invite" className="flex-1 bg-[var(--bg-app)] border-[var(--border-muted)] rounded-lg text-sm focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]" placeholder="spa-manager@example.com" type="email" />
                                     <button title="Send Invite" aria-label="Send referral invite to email" className="bg-[var(--color-primary)]/20 text-[var(--color-primary)] border border-[var(--color-primary)]/30 px-3 rounded-lg hover:bg-[var(--color-primary)]/30 transition-all">
                                         <span className="material-symbols-outlined text-sm">send</span>
                                     </button>
@@ -116,7 +116,7 @@ export default function ReferralsPage() {
                             <span className="material-symbols-outlined text-[var(--color-primary)] text-3xl">workspace_premium</span>
                             <h3 className="font-bold">Top Referrer Badge</h3>
                         </div>
-                        <p className="text-xs text-[var(--text-muted)] mb-4 leading-relaxed">Refer 5 more businesses this month to unlock <span className="text-[var(--color-primary)] font-bold">Titanium Partner</span> status and get an additional 5% lifetime discount.</p>
+                        <p className="text-xs text-[var(--text-muted)] mb-4 leading-relaxed">Refer 5 more branches this month to unlock <span className="text-[var(--color-primary)] font-bold">Titanium Partner</span> status and get an additional 5% lifetime discount.</p>
                         <div className="w-full bg-[var(--bg-app)] h-2 rounded-full overflow-hidden"><div className="bg-[var(--color-primary)] h-full w-[60%]"></div></div>
                         <div className="flex justify-between mt-2"><span className="text-[10px] text-[var(--text-muted)]">3 of 8 referred</span><span className="text-[10px] text-[var(--color-primary)] font-bold">5 to go</span></div>
                     </div>

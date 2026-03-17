@@ -73,15 +73,15 @@ export function getTimeAgo(date: Date | string): string {
 /**
  * Generate a unique client QR code string
  */
-export function generateQRCodeValue(clientId: string, businessId: string): string {
-    return `SSE:${businessId}:${clientId}`;
+export function generateQRCodeValue(clientId: string, branchId: string): string {
+    return `SSE:${branchId}:${clientId}`;
 }
 
 /**
  * Parse a QR code value back to its components
  */
-export function parseQRCodeValue(qr: string): { businessId: string; clientId: string } | null {
+export function parseQRCodeValue(qr: string): { branchId: string; clientId: string } | null {
     const parts = qr.split(":");
     if (parts.length !== 3 || parts[0] !== "SSE") return null;
-    return { businessId: parts[1], clientId: parts[2] };
+    return { branchId: parts[1], clientId: parts[2] };
 }

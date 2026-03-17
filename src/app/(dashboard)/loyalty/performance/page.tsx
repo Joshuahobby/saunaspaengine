@@ -6,13 +6,13 @@ import { format } from "date-fns";
 
 export default async function LoyaltyPerformancePage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
-    const businessId = session.user.businessId;
+    const branchId = session.user.branchId;
 
     // Calculate performance metrics
     const loyaltyPoints = await prisma.loyaltyPoint.findMany({
-        where: { businessId },
+        where: { branchId },
         select: { points: true, clientId: true }
     });
 
@@ -22,7 +22,7 @@ export default async function LoyaltyPerformancePage() {
     // Points redeemed is harder to track without a transaction table, so let's check for AuditLogs
     const redemptionLogs = await prisma.auditLog.count({
         where: {
-            businessId,
+            branchId,
             entity: 'LoyaltyPoint',
             action: 'UPDATE',
             details: { contains: '"points":' } // Rough heuristic for point changes
@@ -35,7 +35,7 @@ export default async function LoyaltyPerformancePage() {
     const loyalClientIds = loyaltyPoints.map(lp => lp.clientId);
     const revenueAgg = await prisma.serviceRecord.aggregate({
         where: {
-            businessId,
+            branchId,
             clientId: { in: loyalClientIds },
             status: 'COMPLETED'
         },
@@ -50,7 +50,7 @@ export default async function LoyaltyPerformancePage() {
 
     const recentServiceCount = await prisma.serviceRecord.count({
         where: {
-            businessId,
+            branchId,
             clientId: { in: loyalClientIds },
             createdAt: { gte: thirtyDaysAgo }
         }
@@ -61,7 +61,7 @@ export default async function LoyaltyPerformancePage() {
 
     // Fetch top loyal customers
     const topLoyalCustomers = await prisma.loyaltyPoint.findMany({
-        where: { businessId },
+        where: { branchId },
         include: { client: true },
         orderBy: { points: 'desc' },
         take: 5

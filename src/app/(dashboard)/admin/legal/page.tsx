@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminLegalPage() {
     const session = await auth();
 
-    if (!session?.user || (session.user.role !== "ADMIN" && session.user.role !== "OWNER")) {
+    if (!session?.user || (session.user.role !== "ADMIN" && session.user.role !== "MANAGER")) {
         redirect("/login");
     }
 

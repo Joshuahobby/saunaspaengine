@@ -5,7 +5,7 @@ import { format, startOfDay, endOfDay, startOfWeek, endOfWeek, subWeeks } from "
 
 export default async function EmployeePerformancePage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const today = new Date();
     const startOfCurrentWeek = startOfWeek(today, { weekStartsOn: 1 });
@@ -16,7 +16,7 @@ export default async function EmployeePerformancePage() {
     // Fetch the first employee to use as the context for this view
     const employee = await prisma.employee.findFirst({
         where: {
-            businessId: session.user.businessId,
+            branchId: session.user.branchId,
             category: {
                 name: { in: ['Therapist', 'Masseuse', 'THERAPIST', 'MASSEUSE'] }
             }
@@ -36,7 +36,7 @@ export default async function EmployeePerformancePage() {
     // Fetch services for today
     const servicesTodayCount = await prisma.serviceRecord.count({
         where: {
-            businessId: session.user.businessId,
+            branchId: session.user.branchId,
             employeeId: employee.id,
             status: 'COMPLETED',
             createdAt: {
@@ -48,7 +48,7 @@ export default async function EmployeePerformancePage() {
 
     const servicesYesterdayCount = await prisma.serviceRecord.count({
         where: {
-            businessId: session.user.businessId,
+            branchId: session.user.branchId,
             employeeId: employee.id,
             status: 'COMPLETED',
             createdAt: {
@@ -69,7 +69,7 @@ export default async function EmployeePerformancePage() {
     // Fetch this week's earnings (sum of service amounts for COMPLETED services)
     const thisWeekRecords = await prisma.serviceRecord.findMany({
         where: {
-            businessId: session.user.businessId,
+            branchId: session.user.branchId,
             employeeId: employee.id,
             status: 'COMPLETED',
             createdAt: {
@@ -82,7 +82,7 @@ export default async function EmployeePerformancePage() {
 
     const lastWeekRecords = await prisma.serviceRecord.findMany({
         where: {
-            businessId: session.user.businessId,
+            branchId: session.user.branchId,
             employeeId: employee.id,
             status: 'COMPLETED',
             createdAt: {
@@ -108,7 +108,7 @@ export default async function EmployeePerformancePage() {
     // Fetch recent services for table
     const recentServices = await prisma.serviceRecord.findMany({
         where: {
-            businessId: session.user.businessId,
+            branchId: session.user.branchId,
             employeeId: employee.id,
             status: 'COMPLETED'
         },

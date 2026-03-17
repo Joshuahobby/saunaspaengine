@@ -4,15 +4,15 @@ import { apiAuth, validateFields, apiHandler } from "@/lib/api-utils";
 
 export async function GET() {
     return apiHandler(async () => {
-        const { user, error } = await apiAuth(["OWNER", "ADMIN"]);
+        const { user, error } = await apiAuth(["MANAGER", "ADMIN"]);
         if (error) return error;
 
-        if (!user!.businessId) {
-            return NextResponse.json({ error: "No business assigned" }, { status: 403 });
+        if (!user!.branchId) {
+            return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
         }
 
         const items = await prisma.inventory.findMany({
-            where: { businessId: user!.businessId },
+            where: { branchId: user!.branchId },
             orderBy: { productName: "asc" },
         });
 
@@ -22,11 +22,11 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
     return apiHandler(async () => {
-        const { user, error } = await apiAuth(["OWNER", "ADMIN"]);
+        const { user, error } = await apiAuth(["MANAGER", "ADMIN"]);
         if (error) return error;
 
-        if (!user!.businessId) {
-            return NextResponse.json({ error: "No business assigned" }, { status: 403 });
+        if (!user!.branchId) {
+            return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
         }
 
         const body = await req.json();
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
                 minThreshold: minThreshold ? parseInt(minThreshold) : 5,
                 unit: unit ? String(unit).trim() : "pcs",
                 supplierId: supplierId ? String(supplierId).trim() : null,
-                businessId: user!.businessId,
+                branchId: user!.branchId,
             },
         });
 

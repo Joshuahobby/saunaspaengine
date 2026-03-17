@@ -5,28 +5,28 @@ import CheckInForm from "@/components/operations/check-in-form";
 
 export default async function CheckInPage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const [services, employees, activeClients, stats] = await Promise.all([
         prisma.service.findMany({
-            where: { businessId: session.user.businessId },
+            where: { branchId: session.user.branchId },
             orderBy: { category: "asc" },
         }),
         prisma.employee.findMany({
-            where: { businessId: session.user.businessId, status: "ACTIVE" },
+            where: { branchId: session.user.branchId, status: "ACTIVE" },
             orderBy: { fullName: "asc" },
         }),
         prisma.client.findMany({
-            where: { businessId: session.user.businessId, status: "ACTIVE" },
+            where: { branchId: session.user.branchId, status: "ACTIVE" },
             orderBy: { fullName: "asc" },
         }),
         Promise.all([
             prisma.serviceRecord.count({
-                where: { businessId: session.user.businessId, status: { in: ["CREATED", "IN_PROGRESS"] } },
+                where: { branchId: session.user.branchId, status: { in: ["CREATED", "IN_PROGRESS"] } },
             }),
             prisma.serviceRecord.count({
                 where: {
-                    businessId: session.user.businessId,
+                    branchId: session.user.branchId,
                     createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
                 },
             }),

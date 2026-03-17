@@ -3,10 +3,10 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
-export async function updateOnboardingStepAction(businessId: string, step: number) {
+export async function updateOnboardingStepAction(branchId: string, step: number) {
     try {
-        await prisma.business.update({
-            where: { id: businessId },
+        await prisma.branch.update({
+            where: { id: branchId },
             data: { onboardingStep: step }
         });
         revalidatePath("/onboarding");
@@ -17,10 +17,10 @@ export async function updateOnboardingStepAction(businessId: string, step: numbe
     }
 }
 
-export async function saveBusinessProfileAction(businessId: string, data: any) {
+export async function saveBranchProfileAction(branchId: string, data: any) {
     try {
-        await prisma.business.update({
-            where: { id: businessId },
+        await prisma.branch.update({
+            where: { id: branchId },
             data: {
                 name: data.name,
                 email: data.email,
@@ -30,19 +30,19 @@ export async function saveBusinessProfileAction(businessId: string, data: any) {
         revalidatePath("/onboarding");
         return { success: true };
     } catch (error) {
-        console.error("Error saving business profile:", error);
+        console.error("Error saving branch profile:", error);
         return { error: "Failed to save profile." };
     }
 }
 
-export async function saveBusinessServicesAction(businessId: string, servicesData: any[]) {
+export async function saveBranchServicesAction(branchId: string, servicesData: any[]) {
     try {
-        // We'll create the selected services for the business
+        // We'll create the selected services for the branch
         const result = await prisma.$transaction(async (tx) => {
             for (const service of servicesData) {
                 await tx.service.create({
                     data: {
-                        businessId,
+                        branchId,
                         name: service.name,
                         category: service.category,
                         duration: service.duration,
@@ -60,18 +60,18 @@ export async function saveBusinessServicesAction(businessId: string, servicesDat
     }
 }
 
-export async function saveBusinessTeamAction(businessId: string, teamData: any[]) {
+export async function saveBranchTeamAction(branchId: string, teamData: any[]) {
     try {
         // Need to ensure an employee category exists first
         const result = await prisma.$transaction(async (tx) => {
             let category = await tx.employeeCategory.findFirst({
-                where: { businessId, name: "General Staff" }
+                where: { branchId, name: "General Staff" }
             });
             
             if (!category) {
                 category = await tx.employeeCategory.create({
                     data: {
-                        businessId,
+                        branchId,
                         name: "General Staff",
                         description: "Initial staff category"
                     }
@@ -81,7 +81,7 @@ export async function saveBusinessTeamAction(businessId: string, teamData: any[]
             for (const member of teamData) {
                 await tx.employee.create({
                     data: {
-                        businessId,
+                        branchId,
                         categoryId: category.id,
                         fullName: member.name,
                         phone: member.phone || null,
@@ -98,10 +98,10 @@ export async function saveBusinessTeamAction(businessId: string, teamData: any[]
     }
 }
 
-export async function completeOnboardingAction(businessId: string) {
+export async function completeOnboardingAction(branchId: string) {
     try {
-        await prisma.business.update({
-            where: { id: businessId },
+        await prisma.branch.update({
+            where: { id: branchId },
             data: { 
                 onboardingCompleted: true,
                 onboardingStep: 4, // Final step

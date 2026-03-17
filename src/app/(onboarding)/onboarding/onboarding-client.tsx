@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { updateOnboardingStepAction } from "./actions";
 
 interface OnboardingClientProps {
-    business: {
+    branch: {
         id: string;
         name: string | null;
         email: string | null;
@@ -20,7 +20,7 @@ interface OnboardingClientProps {
     initialStep: number;
 }
 
-export function OnboardingClient({ business, initialStep }: OnboardingClientProps) {
+export function OnboardingClient({ branch, initialStep }: OnboardingClientProps) {
     const [step, setStep] = useState(initialStep);
     const [saving, setSaving] = useState(false);
     const router = useRouter();
@@ -36,7 +36,7 @@ export function OnboardingClient({ business, initialStep }: OnboardingClientProp
     const handleStepChange = async (newStep: number) => {
         setSaving(true);
         try {
-            await updateOnboardingStepAction(business.id, newStep);
+            await updateOnboardingStepAction(branch.id, newStep);
             setStep(newStep);
         } catch (error) {
             console.error("Failed to sync progress:", error);
@@ -108,11 +108,11 @@ export function OnboardingClient({ business, initialStep }: OnboardingClientProp
                             transition={{ duration: 0.4, ease: "easeOut" }}
                             className="flex-1"
                         >
-                            {step === 0 && <Step0Welcome business={business} onNext={nextStep} />}
-                            {step === 1 && <Step1Profile business={business} onNext={nextStep} onPrev={prevStep} />}
-                            {step === 2 && <Step2Services business={business} onNext={nextStep} onPrev={prevStep} />}
-                            {step === 3 && <Step3Team business={business} onNext={nextStep} onPrev={prevStep} />}
-                            {step === 4 && <Step4Launch business={business} onPrev={prevStep} onNext={() => router.push('/dashboard')} />}
+                            {step === 0 && <Step0Welcome branch={branch} onNext={nextStep} />}
+                            {step === 1 && <Step1Profile branch={branch} onNext={nextStep} onPrev={prevStep} />}
+                            {step === 2 && <Step2Services branch={branch} onNext={nextStep} onPrev={prevStep} />}
+                            {step === 3 && <Step3Team branch={branch} onNext={nextStep} onPrev={prevStep} />}
+                            {step === 4 && <Step4Launch branch={branch} onPrev={prevStep} onNext={() => router.push('/dashboard')} />}
                         </motion.div>
                     </AnimatePresence>
                 </div>

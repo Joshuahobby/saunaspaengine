@@ -8,7 +8,7 @@ export async function PATCH(
 ) {
     const { id } = await params;
     const session = await auth();
-    if (!session?.user?.businessId) {
+    if (!session?.user?.branchId) {
         return new NextResponse("Unauthorized", { status: 401 });
     }
 
@@ -19,7 +19,7 @@ export async function PATCH(
         const employee = await prisma.employee.update({
             where: {
                 id,
-                businessId: session.user.businessId
+                branchId: session.user.branchId
             },
             data: { status }
         });
@@ -37,7 +37,7 @@ export async function PUT(
 ) {
     const { id } = await params;
     const session = await auth();
-    if (!session?.user?.businessId) {
+    if (!session?.user?.branchId) {
         return new NextResponse("Unauthorized", { status: 401 });
     }
 
@@ -46,7 +46,7 @@ export async function PUT(
         const { fullName, phone, categoryId, status } = body;
 
         const employee = await prisma.employee.update({
-            where: { id, businessId: session.user.businessId },
+            where: { id, branchId: session.user.branchId },
             data: {
                 ...(fullName && { fullName }),
                 ...(phone !== undefined && { phone }),
@@ -68,13 +68,13 @@ export async function DELETE(
 ) {
     const { id } = await params;
     const session = await auth();
-    if (!session?.user?.businessId) {
+    if (!session?.user?.branchId) {
         return new NextResponse("Unauthorized", { status: 401 });
     }
 
     try {
         await prisma.employee.delete({
-            where: { id, businessId: session.user.businessId },
+            where: { id, branchId: session.user.branchId },
         });
 
         return NextResponse.json({ success: true });

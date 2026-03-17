@@ -6,11 +6,11 @@ import { revalidatePath } from "next/cache";
 
 export async function registerClient(formData: FormData) {
     const session = await auth();
-    if (!session?.user?.businessId) {
+    if (!session?.user?.branchId) {
         return { error: "Unauthorized" };
     }
 
-    const businessId = session.user.businessId;
+    const branchId = session.user.branchId;
     const fullName = formData.get("fullName") as string;
     const phone = formData.get("phone") as string;
     const email = formData.get("email") as string;
@@ -25,13 +25,13 @@ export async function registerClient(formData: FormData) {
         const result = await prisma.$transaction(async (tx) => {
             // Generate a simple unique QR Code string (can be swapped with UUID later)
             const qrCodeStr = clientType === "MEMBER"
-                ? `SE-${businessId.substring(0, 4).toUpperCase()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
+                ? `SE-${branchId.substring(0, 4).toUpperCase()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
                 : null;
 
             // 1. Create the Client
             const client = await tx.client.create({
                 data: {
-                    businessId,
+                    branchId,
                     fullName,
                     phone: phone.trim(),
                     clientType,

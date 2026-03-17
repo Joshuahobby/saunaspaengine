@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { saveBusinessTeamAction } from "../actions";
+import { saveBranchTeamAction } from "../actions";
 
 interface StepProps {
-    business: {
+    branch: {
         id: string;
         name: string | null;
     };
@@ -14,7 +14,7 @@ interface StepProps {
     onPrev: () => void;
 }
 
-export function Step3Team({ business, onNext, onPrev }: StepProps) {
+export function Step3Team({ branch, onNext, onPrev }: StepProps) {
     const [loading, setLoading] = useState(false);
     const [team, setTeam] = useState([
         { id: 1, name: "Alice Umutoni", role: "Spa Manager", phone: "+250 781 234 567", status: "Active" },
@@ -28,7 +28,7 @@ export function Step3Team({ business, onNext, onPrev }: StepProps) {
     async function handleContinue() {
         setLoading(true);
         try {
-            await saveBusinessTeamAction(business.id, team);
+            await saveBranchTeamAction(branch.id, team);
             onNext();
         } catch (error) {
             console.error(error);
@@ -47,7 +47,7 @@ export function Step3Team({ business, onNext, onPrev }: StepProps) {
                 </div>
                 <h1 className="text-4xl font-display font-black text-[var(--text-main)] tracking-tight">Add Your Team</h1>
                 <p className="text-lg text-[var(--text-muted)] leading-relaxed">
-                    Register the staff members who will work at your business. Each person will receive their own login link.
+                    Register the staff members who will work at your branch. Each person will receive their own login link.
                 </p>
             </div>
 

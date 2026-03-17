@@ -23,8 +23,8 @@ async function main() {
     await prisma.client.deleteMany();
     await prisma.user.deleteMany();
     await prisma.loyaltyProgram.deleteMany();
+    await prisma.branch.deleteMany();
     await prisma.business.deleteMany();
-    await prisma.corporate.deleteMany();
     await prisma.platformPackage.deleteMany();
     await prisma.compliance.deleteMany();
 
@@ -47,7 +47,7 @@ async function main() {
       platformPackages.push(p);
     }
 
-    const rootOrg = await prisma.corporate.create({
+    const rootOrg = await prisma.business.create({
       data: {
         name: 'Sauna SPA Global',
         taxId: 'TIN-000000',
@@ -62,7 +62,7 @@ async function main() {
     // 3. Create Shared Passwords
     const defaultPassword = await bcrypt.hash('password123', 10);
 
-    // 4. Create Users (Admin, Corporate)
+    // 4. Create Users (Admin, Business)
     const adminUser = await prisma.user.create({
       data: {
         username: 'admin',
@@ -75,17 +75,17 @@ async function main() {
 
     const corpUser = await prisma.user.create({
       data: {
-        username: 'corporate',
+        username: 'business',
         email: 'ceo@saunaspa.com',
         fullName: 'Global Director',
         passwordHash: defaultPassword,
-        role: 'CORPORATE',
-        corporateId: rootOrg.id
+        role: 'OWNER',
+        usr_businessId: rootOrg.id
       }
     });
 
-    // 5. Create Businesses (Branches)
-    console.log('Creating Businesses & Owners...');
+    // 5. Create Branches (Branches)
+    console.log('Creating Branches & Managers...');
     const branchesData = [
       { name: 'Kigali Central Node', address: 'KG 7 Ave', phone: '+250780000001' },
       { name: 'Mille Collines Retreat', address: 'KN 3 Ave', phone: '+250780000002' },
@@ -94,10 +94,10 @@ async function main() {
 
     const branches = [];
     for (let i = 0; i < branchesData.length; i++) {
-        const branch = await prisma.business.create({
+        const branch = await prisma.branch.create({
             data: {
                 ...branchesData[i],
-                corporateId: rootOrg.id,
+                businessId: rootOrg.id,
                 loyaltyPrograms: {
                     create: { pointsPerRwf: 0.05 }
                 }
@@ -105,15 +105,15 @@ async function main() {
         });
         branches.push(branch);
 
-        // Owner for this branch
+        // Manager for this branch
         await prisma.user.create({
             data: {
-                username: `owner_branch${i+1}`,
-                email: `owner${i+1}@saunaspa.com`,
-                fullName: `Branch Owner ${i+1}`,
+                username: `manager_branch${i+1}`,
+                email: `manager${i+1}@saunaspa.com`,
+                fullName: `Branch Manager ${i+1}`,
                 passwordHash: defaultPassword,
-                role: 'OWNER',
-                businessId: branch.id
+                role: 'MANAGER',
+                usr_branchId: branch.id
             }
         });
     }
@@ -124,13 +124,13 @@ async function main() {
     console.log('Seeding employees and services for Kigali Central...');
     
     // Employee Categories
-    const catTherapist = await prisma.employeeCategory.create({ data: { name: 'Massage Therapist', businessId: branch1Id } });
-    const catReception = await prisma.employeeCategory.create({ data: { name: 'Receptionist', businessId: branch1Id } });
+    const catTherapist = await prisma.employeeCategory.create({ data: { name: 'Massage Therapist', branchId: branch1Id } });
+    const catReception = await prisma.employeeCategory.create({ data: { name: 'Receptionist', branchId: branch1Id } });
     
     // Employees
-    const emp1 = await prisma.employee.create({ data: { fullName: 'Sarah M.', categoryId: catTherapist.id, businessId: branch1Id } });
-    const emp2 = await prisma.employee.create({ data: { fullName: 'John D.', categoryId: catTherapist.id, businessId: branch1Id } });
-    const emp3 = await prisma.employee.create({ data: { fullName: 'Alice R.', categoryId: catReception.id, businessId: branch1Id } });
+    const emp1 = await prisma.employee.create({ data: { fullName: 'Sarah M.', categoryId: catTherapist.id, branchId: branch1Id } });
+    const emp2 = await prisma.employee.create({ data: { fullName: 'John D.', categoryId: catTherapist.id, branchId: branch1Id } });
+    const emp3 = await prisma.employee.create({ data: { fullName: 'Alice R.', categoryId: catReception.id, branchId: branch1Id } });
 
     // Ensure Employee logins exist
     await prisma.user.create({
@@ -140,28 +140,28 @@ async function main() {
             fullName: 'Sarah M.',
             passwordHash: defaultPassword,
             role: 'EMPLOYEE',
-            businessId: branch1Id
+            usr_branchId: branch1Id
         }
     });
 
     // Services
-    const srv1 = await prisma.service.create({ data: { name: 'Deep Tissue Massage', price: 25000, duration: 60, businessId: branch1Id, category: 'Massage' } });
-    const srv2 = await prisma.service.create({ data: { name: 'Aromatherapy Sauna', price: 15000, duration: 30, businessId: branch1Id, category: 'Sauna' } });
-    const srv3 = await prisma.service.create({ data: { name: 'Full Body Scrub', price: 30000, duration: 45, businessId: branch1Id, category: 'Treatment' } });
+    const srv1 = await prisma.service.create({ data: { name: 'Deep Tissue Massage', price: 25000, duration: 60, branchId: branch1Id, category: 'Massage' } });
+    const srv2 = await prisma.service.create({ data: { name: 'Aromatherapy Sauna', price: 15000, duration: 30, branchId: branch1Id, category: 'Sauna' } });
+    const srv3 = await prisma.service.create({ data: { name: 'Full Body Scrub', price: 30000, duration: 45, branchId: branch1Id, category: 'Treatment' } });
 
     // Inventory
     await prisma.inventory.createMany({
         data: [
-            { productName: 'Premium Towels', stockCount: 150, minThreshold: 50, unit: 'pcs', businessId: branch1Id },
-            { productName: 'Eucalyptus Oil', stockCount: 20, minThreshold: 5, unit: 'bottles', businessId: branch1Id },
-            { productName: 'Massage Lotion', stockCount: 45, minThreshold: 10, unit: 'liters', businessId: branch1Id },
+            { productName: 'Premium Towels', stockCount: 150, minThreshold: 50, unit: 'pcs', branchId: branch1Id },
+            { productName: 'Eucalyptus Oil', stockCount: 20, minThreshold: 5, unit: 'bottles', branchId: branch1Id },
+            { productName: 'Massage Lotion', stockCount: 45, minThreshold: 10, unit: 'liters', branchId: branch1Id },
         ]
     });
 
     // Memberships & Clients
     console.log('Seeding clients & memberships...');
-    const memCatGold = await prisma.membershipCategory.create({ data: { name: 'Gold Tier Subscription', type: 'SUBSCRIPTION', price: 150000, durationDays: 30, businessId: branch1Id } });
-    const memCatPass = await prisma.membershipCategory.create({ data: { name: '10x Entry Pass', type: 'LIST_PASS', price: 100000, usageLimit: 10, businessId: branch1Id } });
+    const memCatGold = await prisma.membershipCategory.create({ data: { name: 'Gold Tier Subscription', type: 'SUBSCRIPTION', price: 150000, durationDays: 30, branchId: branch1Id } });
+    const memCatPass = await prisma.membershipCategory.create({ data: { name: '10x Entry Pass', type: 'LIST_PASS', price: 100000, usageLimit: 10, branchId: branch1Id } });
 
     const clients = [];
     for (let i = 1; i <= 20; i++) {
@@ -171,7 +171,7 @@ async function main() {
                 phone: `+250780100${i.toString().padStart(3, '0')}`,
                 clientType: i <= 5 ? 'MEMBER' : 'WALK_IN',
                 qrCode: `CLIENT-QR-${i}`,
-                businessId: branch1Id
+                branchId: branch1Id
             }
         });
         clients.push(c);
@@ -215,7 +215,7 @@ async function main() {
             clientId: client.id,
             serviceId: srv.id,
             employeeId: empId,
-            businessId: branch1Id,
+            branchId: branch1Id,
             boxNumber: `Room-${Math.floor(Math.random() * 5) + 1}`,
             paymentMode: pMode,
             amount: srv.price,
@@ -236,8 +236,8 @@ async function main() {
     console.log('---');
     console.log('Test Accounts (Password: password123):');
     console.log('Admin:     admin@saunaspa.com');
-    console.log('Corporate: ceo@saunaspa.com');
-    console.log('Owner 1:   owner1@saunaspa.com');
+    console.log('Business: ceo@saunaspa.com');
+    console.log('Manager 1:   manager1@saunaspa.com');
     console.log('Employee:  sarah@saunaspa.com');
 
   } catch (e) {

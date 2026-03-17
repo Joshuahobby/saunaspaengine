@@ -4,18 +4,18 @@ declare module "next-auth" {
     interface Session {
         user: {
             id: string;
-            role: "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE";
+            role: "ADMIN" | "OWNER" | "MANAGER" | "EMPLOYEE";
+            branchId?: string | null;
             businessId?: string | null;
-            corporateId?: string | null;
             fullName: string;
         } & DefaultSession["user"];
     }
 
     interface User {
         id: string;
-        role: "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE";
+        role: "ADMIN" | "OWNER" | "MANAGER" | "EMPLOYEE";
+        branchId?: string | null;
         businessId?: string | null;
-        corporateId?: string | null;
         fullName: string;
     }
 }
@@ -30,8 +30,8 @@ export const authConfig: NextAuthConfig = {
             if (user) {
                 token.id = user.id;
                 token.role = user.role;
+                token.branchId = user.branchId;
                 token.businessId = user.businessId;
-                token.corporateId = user.corporateId;
                 token.fullName = user.fullName;
             }
             return token;
@@ -39,9 +39,9 @@ export const authConfig: NextAuthConfig = {
         async session({ session, token }) {
             if (token) {
                 session.user.id = token.id as string;
-                session.user.role = token.role as "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE";
+                session.user.role = token.role as "ADMIN" | "OWNER" | "MANAGER" | "EMPLOYEE";
+                session.user.branchId = token.branchId as string | null;
                 session.user.businessId = token.businessId as string | null;
-                session.user.corporateId = token.corporateId as string | null;
                 session.user.fullName = token.fullName as string;
             }
             return session;
@@ -60,7 +60,7 @@ export const authConfig: NextAuthConfig = {
                     if (role === "ADMIN") {
                         return Response.redirect(new URL("/admin/dashboard", nextUrl));
                     }
-                    if (role === "CORPORATE") {
+                    if (role === "OWNER") {
                         return Response.redirect(new URL("/executive/dashboard", nextUrl));
                     }
                     return Response.redirect(new URL("/dashboard", nextUrl));

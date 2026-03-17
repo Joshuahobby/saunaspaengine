@@ -24,7 +24,7 @@ export default function UserMenu({ user }: UserMenuProps) {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    const roleLabel = user.role === "OWNER" ? "Business Owner" :
+    const roleLabel = user.role === "MANAGER" ? "Branch Manager" :
         user.role === "ADMIN" ? "Administrator" : "Staff";
 
     return (

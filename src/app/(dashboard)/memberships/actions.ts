@@ -14,13 +14,13 @@ export async function createMembershipCategoryAction(data: {
     usageLimit?: number;
 }) {
     const session = await auth();
-    if (!session?.user?.businessId) throw new Error("Unauthorized");
+    if (!session?.user?.branchId) throw new Error("Unauthorized");
 
     try {
         await prisma.membershipCategory.create({
             data: {
                 ...data,
-                businessId: session.user.businessId,
+                branchId: session.user.branchId,
                 status: "ACTIVE"
             }
         });
@@ -41,11 +41,11 @@ export async function updateMembershipCategoryAction(id: string, data: {
     status?: EntityStatus;
 }) {
     const session = await auth();
-    if (!session?.user?.businessId) throw new Error("Unauthorized");
+    if (!session?.user?.branchId) throw new Error("Unauthorized");
 
     try {
         await prisma.membershipCategory.update({
-            where: { id, businessId: session.user.businessId },
+            where: { id, branchId: session.user.branchId },
             data
         });
         revalidatePath("/memberships");
@@ -59,13 +59,13 @@ export async function updateMembershipCategoryAction(id: string, data: {
 
 export async function deleteMembershipCategoryAction(id: string) {
     const session = await auth();
-    if (!session?.user?.businessId) throw new Error("Unauthorized");
+    if (!session?.user?.branchId) throw new Error("Unauthorized");
 
     try {
         // We might want to check if there are active memberships before deleting, 
         // or just set to INACTIVE.
         await prisma.membershipCategory.update({
-            where: { id, businessId: session.user.businessId },
+            where: { id, branchId: session.user.branchId },
             data: { status: "INACTIVE" }
         });
         revalidatePath("/memberships");

@@ -16,7 +16,7 @@ export default async function AdminAnalyticsPage() {
     // Fetch Global Stats
     const [
         totalRevenueAgg,
-        activeBusinesses,
+        activeBranches,
         totalUsers,
         recentActivity
     ] = await Promise.all([
@@ -24,7 +24,7 @@ export default async function AdminAnalyticsPage() {
             _sum: { amount: true },
             where: { status: "COMPLETED" }
         }),
-        prisma.business.count({ where: { status: "ACTIVE" } }),
+        prisma.branch.count({ where: { status: "ACTIVE" } }),
         prisma.user.count(),
         prisma.auditLog.findMany({
             take: 10,
@@ -42,7 +42,7 @@ export default async function AdminAnalyticsPage() {
 
     const stats = {
         totalRevenue: totalRevenueAgg._sum.amount || 0,
-        totalBusinesses: activeBusinesses,
+        totalBranches: activeBranches,
         activeSubscriptions: totalUsers, // Using total users as a proxy for active subscriptions for now
         revenueGrowth: 12.5
     };

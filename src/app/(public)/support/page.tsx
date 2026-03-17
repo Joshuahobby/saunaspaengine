@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const TABS = [
     { id: "admin", icon: "shield_person", label: "Admin Support" },
-    { id: "owner", icon: "business_center", label: "Business Owner Guide" },
+    { id: "manager", icon: "branch_center", label: "Branch Manager Guide" },
     { id: "employee", icon: "groups", label: "Employee FAQs" },
 ];
 
@@ -25,10 +25,10 @@ const SECTIONS: Record<string, { title: string; count: number; items: { q: strin
             ]
         },
     ],
-    owner: [
+    manager: [
         {
-            title: "Business Setup", count: 6, items: [
-                { q: "How to complete the onboarding checklist?", a: "Follow the step-by-step onboarding wizard that appears after your first login. It will guide you through business profile setup, service creation, employee invitations, and QR code generation." },
+            title: "Branch Setup", count: 6, items: [
+                { q: "How to complete the onboarding checklist?", a: "Follow the step-by-step onboarding wizard that appears after your first login. It will guide you through branch profile setup, service creation, employee invitations, and QR code generation." },
                 { q: "Setting up your first branch location" },
             ]
         },

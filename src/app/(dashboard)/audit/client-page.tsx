@@ -7,7 +7,7 @@ export default function LocalAuditLogClientPage() {
                 {/* Page Header */}
                 <div className="flex flex-wrap justify-between items-end gap-4 pb-8">
                     <div className="flex flex-col gap-2">
-                        <h1 className="text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] text-4xl font-black leading-tight tracking-[-0.033em]">Business Operations Audit Log</h1>
+                        <h1 className="text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] text-4xl font-black leading-tight tracking-[-0.033em]">Branch Operations Audit Log</h1>
                         <p className="text-slate-500 dark:text-slate-400 text-base font-normal">Monitor high-impact changes, administrative overrides, and staff modifications across your spa operations.</p>
                     </div>
                     <div className="flex gap-3">

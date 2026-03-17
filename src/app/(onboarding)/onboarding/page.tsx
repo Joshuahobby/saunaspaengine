@@ -6,47 +6,47 @@ import { OnboardingClient } from "./onboarding-client";
 export default async function OnboardingPage() {
     const session = await auth();
 
-    if (!session || session.user.role !== "OWNER") {
+    if (!session || session.user.role !== "MANAGER") {
         redirect("/dashboard");
     }
 
-    const businessId = session.user.businessId;
-    if (!businessId) {
+    const branchId = session.user.branchId;
+    if (!branchId) {
         return (
             <div className="flex-1 flex items-center justify-center p-8">
                 <div className="bg-red-500/10 border border-red-500/20 p-6 rounded-2xl max-w-sm text-center">
                     <h2 className="text-red-500 font-bold mb-2">Access Denied</h2>
-                    <p className="text-sm opacity-60">No business node associated with this account.</p>
+                    <p className="text-sm opacity-60">No branch node associated with this account.</p>
                 </div>
             </div>
         );
     }
 
-    const business = await prisma.business.findUnique({
-        where: { id: businessId },
+    const branch = await prisma.branch.findUnique({
+        where: { id: branchId },
         include: {
             services: true,
             employees: true,
         }
     }) as any;
 
-    if (!business) {
+    if (!branch) {
         return (
             <div className="flex-1 flex items-center justify-center p-8">
                 <div className="bg-amber-500/10 border border-amber-500/20 p-6 rounded-2xl max-w-sm text-center">
                     <h2 className="text-amber-600 font-bold mb-2">Vessel Not Found</h2>
-                    <p className="text-sm opacity-60">The business node could not be retrieved from the central registry.</p>
+                    <p className="text-sm opacity-60">The branch node could not be retrieved from the central registry.</p>
                 </div>
             </div>
         );
     }
 
     // If onboarding is already completed, redirect to the actual dashboard
-    if (business.onboardingCompleted) {
+    if (branch.onboardingCompleted) {
         redirect("/dashboard");
     }
 
     return (
-        <OnboardingClient business={business} initialStep={business.onboardingStep} />
+        <OnboardingClient branch={branch} initialStep={branch.onboardingStep} />
     );
 }

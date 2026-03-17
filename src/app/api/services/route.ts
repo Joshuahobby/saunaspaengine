@@ -4,7 +4,7 @@ import { apiAuth, validateFields, apiHandler } from "@/lib/api-utils";
 
 export async function POST(req: NextRequest) {
     return apiHandler(async () => {
-        const { user, error } = await apiAuth(["OWNER", "ADMIN"]);
+        const { user, error } = await apiAuth(["MANAGER", "ADMIN"]);
         if (error) return error;
 
         const body = await req.json();
@@ -13,8 +13,8 @@ export async function POST(req: NextRequest) {
 
         const { name, category, price, duration } = body;
 
-        if (!user!.businessId) {
-            return NextResponse.json({ error: "No business assigned" }, { status: 403 });
+        if (!user!.branchId) {
+            return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
         }
 
         const parsedPrice = parseFloat(price);
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
                 category: category ? String(category).trim() : "General",
                 price: parsedPrice,
                 duration: parsedDuration,
-                businessId: user!.businessId,
+                branchId: user!.branchId,
                 status: "ACTIVE",
             },
         });

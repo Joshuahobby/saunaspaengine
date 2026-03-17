@@ -13,10 +13,10 @@ type CategoryWithMemberships = MembershipCategory & {
 export default async function MembershipCategoryEditPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const category = await prisma.membershipCategory.findUnique({
-        where: { id, businessId: session.user.businessId },
+        where: { id, branchId: session.user.branchId },
         include: {
             memberships: {
                 include: {

@@ -11,7 +11,7 @@ interface NavItem {
     icon: string;
 }
 
-const ownerNavItems: NavItem[] = [
+const managerNavItems: NavItem[] = [
     { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
     { label: "Check-in", href: "/check-in", icon: "qr_code_scanner" },
     { label: "Employees", href: "/employees", icon: "badge" },
@@ -35,7 +35,7 @@ const adminNavItems: NavItem[] = [
     { label: "Analytics", href: "/admin/analytics", icon: "insights" },
     { label: "Clients", href: "/admin/members", icon: "groups" },
 
-    { label: "Businesses", href: "/admin/businesses", icon: "domain" },
+    { label: "Branches", href: "/admin/branches", icon: "domain" },
     { label: "Branches", href: "/admin/branches", icon: "storefront" },
     { label: "Subscriptions", href: "/admin/subscriptions", icon: "payments" },
     { label: "System Health", href: "/admin/health", icon: "monitor_heart" },
@@ -44,11 +44,11 @@ const adminNavItems: NavItem[] = [
     { label: "Settings", href: "/admin/settings", icon: "settings" },
 ];
 
-const corporateNavItems: NavItem[] = [
-    { label: "Corporate Dashboard", href: "/executive/dashboard", icon: "dashboard" },
+const businessNavItems: NavItem[] = [
+    { label: "Business Dashboard", href: "/executive/dashboard", icon: "dashboard" },
     { label: "Branch Comparison", href: "/branches/compare", icon: "compare_arrows" },
     { label: "Aggregated Reports", href: "/reports/aggregated", icon: "analytics" },
-    { label: "Business Directory", href: "/admin/branches", icon: "corporate_fare" },
+    { label: "Branch Directory", href: "/admin/branches", icon: "business_fare" },
     { label: "Audit Log", href: "/audit", icon: "history" },
 ];
 
@@ -62,24 +62,24 @@ const employeeNavItems: NavItem[] = [
 ];
 
 interface SidebarProps {
-    userRole?: "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE";
-    businessName?: string;
+    userRole?: "ADMIN" | "OWNER" | "MANAGER" | "EMPLOYEE";
+    branchName?: string;
 }
 
 export default function Sidebar({
     userRole,
-    businessName,
+    branchName,
 }: SidebarProps) {
     const pathname = usePathname();
     const { isCollapsed, toggleSidebar } = useNav();
 
     const navItems = userRole === "ADMIN"
         ? adminNavItems
-        : userRole === "CORPORATE"
-            ? corporateNavItems
+        : userRole === "OWNER"
+            ? businessNavItems
             : userRole === "EMPLOYEE"
                 ? employeeNavItems
-                : ownerNavItems;
+                : managerNavItems;
 
     return (
         <motion.aside
@@ -107,7 +107,7 @@ export default function Sidebar({
                                 >
                                     <h1 className="text-sm font-serif font-bold leading-tight tracking-tight text-[var(--text-main)] italic">Sauna <span className="not-italic text-[var(--color-primary)]">SPA</span></h1>
                                     <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] truncate max-w-[140px] opacity-60">
-                                        {businessName}
+                                        {branchName}
                                     </p>
                                 </motion.div>
                             )}

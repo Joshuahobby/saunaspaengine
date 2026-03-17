@@ -19,8 +19,8 @@ export default async function AdminHealthPage() {
 
     const [
         totalRecordsToday,
-        totalBusinesses,
-        activeBusinesses,
+        totalBranches,
+        activeBranches,
         totalUsers,
         totalEmployees,
         recentLogs,
@@ -28,8 +28,8 @@ export default async function AdminHealthPage() {
         prisma.serviceRecord.count({
             where: { createdAt: { gte: startOfToday } },
         }),
-        prisma.business.count(),
-        prisma.business.count({ where: { status: "ACTIVE" } }),
+        prisma.branch.count(),
+        prisma.branch.count({ where: { status: "ACTIVE" } }),
         prisma.user.count(),
         prisma.employee.count(),
         prisma.auditLog.findMany({
@@ -41,14 +41,14 @@ export default async function AdminHealthPage() {
         }),
     ]);
 
-    const uptimePct = activeBusinesses > 0
-        ? ((activeBusinesses / totalBusinesses) * 100).toFixed(1)
+    const uptimePct = activeBranches > 0
+        ? ((activeBranches / totalBranches) * 100).toFixed(1)
         : "100.0";
 
     const healthMetrics = {
         uptime: `${uptimePct}%`,
         requestsToday: totalRecordsToday,
-        activeBusinesses,
+        activeBranches,
         totalUsers,
         totalEmployees,
     };

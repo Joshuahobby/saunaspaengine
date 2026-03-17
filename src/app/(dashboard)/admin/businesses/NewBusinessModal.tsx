@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { createCorporateAction } from "./actions";
+import { createBusinessAction } from "./actions";
 
-export function NewCorporateModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+export function NewBusinessModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
@@ -19,14 +19,14 @@ export function NewCorporateModal({ isOpen, onClose }: { isOpen: boolean, onClos
         setError("");
         setIsSubmitting(true);
         
-        const res = await createCorporateAction(formData);
+        const res = await createBusinessAction(formData);
         
         setIsSubmitting(false);
         if (res.success) {
             router.refresh();
             onClose();
         } else {
-            setError(res.error || "Failed to create business.");
+            setError(res.error || "Failed to create branch.");
         }
     };
 
@@ -47,7 +47,7 @@ export function NewCorporateModal({ isOpen, onClose }: { isOpen: boolean, onClos
                     className="w-full max-w-md bg-[var(--bg-card)] rounded-[2rem] border border-[var(--border-muted)] overflow-hidden shadow-2xl relative"
                 >
                     <div className="p-8 pb-6 border-b border-[var(--border-muted)]">
-                        <h2 className="text-2xl font-serif font-bold text-[var(--text-main)] italic">New Business Hub</h2>
+                        <h2 className="text-2xl font-serif font-bold text-[var(--text-main)] italic">New Branch Hub</h2>
                         <p className="text-sm text-[var(--text-muted)] mt-2">Establish a new parent company.</p>
                     </div>
 

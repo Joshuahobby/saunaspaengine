@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 
-// GET /api/operations — list service records for current business
+// GET /api/operations — list service records for current branch
 export async function GET(request: NextRequest) {
     const session = await auth();
-    if (!session?.user?.businessId) {
+    if (!session?.user?.branchId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "15");
 
-    const where: Record<string, unknown> = { businessId: session.user.businessId };
+    const where: Record<string, unknown> = { branchId: session.user.branchId };
     if (status && status !== "ALL") {
         where.status = status;
     }
@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
 // POST /api/operations — create a new service record
 export async function POST(request: NextRequest) {
     const session = await auth();
-    if (!session?.user?.businessId) {
+    if (!session?.user?.branchId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
             clientId,
             serviceId,
             employeeId: employeeId || null,
-            businessId: session.user.businessId,
+            branchId: session.user.branchId,
             boxNumber: boxNumber || null,
             paymentMode: paymentMode || "CASH",
             amount: service.price,
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
 // PATCH /api/operations — update service record (e.g., mark as COMPLETED)
 export async function PATCH(request: NextRequest) {
     const session = await auth();
-    if (!session?.user?.businessId) {
+    if (!session?.user?.branchId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -97,7 +97,7 @@ export async function PATCH(request: NextRequest) {
         const record = await prisma.serviceRecord.update({
             where: {
                 id,
-                businessId: session.user.businessId,
+                branchId: session.user.branchId,
             },
             data: {
                 ...(status && { status }),
@@ -114,7 +114,7 @@ export async function PATCH(request: NextRequest) {
         // Loyalty Accrual & "Buy X, Get Y" Logic
         if (status === "COMPLETED") {
             const loyaltyProgram = await prisma.loyaltyProgram.findUnique({
-                where: { businessId: session.user.businessId },
+                where: { branchId: session.user.branchId },
             });
 
             if (loyaltyProgram && loyaltyProgram.status === "ACTIVE") {
@@ -126,7 +126,7 @@ export async function PATCH(request: NextRequest) {
                     const completedCount = await prisma.serviceRecord.count({
                         where: {
                             clientId: record.clientId,
-                            businessId: record.businessId,
+                            branchId: record.branchId,
                             serviceId: record.serviceId,
                             status: "COMPLETED",
                             amount: { gt: 0 }
@@ -140,7 +140,7 @@ export async function PATCH(request: NextRequest) {
 
                 if (pointsToEarn > 0) {
                     const existingLoyalty = await prisma.loyaltyPoint.findFirst({
-                        where: { clientId: record.clientId, businessId: record.businessId }
+                        where: { clientId: record.clientId, branchId: record.branchId }
                     });
 
                     await prisma.loyaltyPoint.upsert({
@@ -148,7 +148,7 @@ export async function PATCH(request: NextRequest) {
                         update: { points: { increment: pointsToEarn } },
                         create: {
                             clientId: record.clientId,
-                            businessId: record.businessId,
+                            branchId: record.branchId,
                             points: pointsToEarn,
                             tier: "BRONZE",
                         },

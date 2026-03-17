@@ -192,7 +192,7 @@ export default function ApiReferencePage() {
                                                 <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 border border-slate-700 px-2 py-1 rounded">Optional</span>
                                             </div>
                                             <p className="text-sm text-slate-400 leading-relaxed mb-3">
-                                                The client&apos;s full name or business name.
+                                                The client&apos;s full name or branch name.
                                             </p>
                                         </div>
 

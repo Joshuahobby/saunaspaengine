@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { updateCorporateAction } from "../actions";
+import { updateBusinessAction } from "../actions";
 
 interface PlatformPackage {
     id: string;
@@ -19,7 +19,7 @@ interface AssignPackageModalProps {
     isOpen: boolean;
     onClose: () => void;
     availablePackages: PlatformPackage[];
-    corporate: {
+    business: {
         id: string;
         name: string;
         subscriptionPlanId?: string | null;
@@ -28,22 +28,22 @@ interface AssignPackageModalProps {
     };
 }
 
-export function AssignPackageModal({ isOpen, onClose, corporate, availablePackages }: AssignPackageModalProps) {
-    const [selectedPlanId, setSelectedPlanId] = useState(corporate.subscriptionPlanId || (availablePackages.length > 0 ? availablePackages[0].id : ""));
-    const [cycle, setCycle] = useState(corporate.subscriptionCycle || "Monthly");
-    const [status, setStatus] = useState(corporate.subscriptionStatus || "ACTIVE");
+export function AssignPackageModal({ isOpen, onClose, business, availablePackages }: AssignPackageModalProps) {
+    const [selectedPlanId, setSelectedPlanId] = useState(business.subscriptionPlanId || (availablePackages.length > 0 ? availablePackages[0].id : ""));
+    const [cycle, setCycle] = useState(business.subscriptionCycle || "Monthly");
+    const [status, setStatus] = useState(business.subscriptionStatus || "ACTIVE");
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        if (corporate.subscriptionPlanId) setSelectedPlanId(corporate.subscriptionPlanId);
-        if (corporate.subscriptionCycle) setCycle(corporate.subscriptionCycle);
-        if (corporate.subscriptionStatus) setStatus(corporate.subscriptionStatus);
-    }, [corporate]);
+        if (business.subscriptionPlanId) setSelectedPlanId(business.subscriptionPlanId);
+        if (business.subscriptionCycle) setCycle(business.subscriptionCycle);
+        if (business.subscriptionStatus) setStatus(business.subscriptionStatus);
+    }, [business]);
 
     const handleSave = async () => {
         setIsLoading(true);
         try {
-            await updateCorporateAction(corporate.id, {
+            await updateBusinessAction(business.id, {
                 subscriptionPlanId: selectedPlanId,
                 subscriptionCycle: cycle,
                 subscriptionStatus: status
@@ -78,7 +78,7 @@ export function AssignPackageModal({ isOpen, onClose, corporate, availablePackag
                             <div className="flex items-center justify-between sticky top-0 bg-[#0f1412] z-20 pb-4">
                                 <div className="space-y-1">
                                     <h2 className="text-3xl font-serif font-bold text-white italic">Package Management</h2>
-                                    <p className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest italic opacity-60">Provisioning Access for {corporate.name}</p>
+                                    <p className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest italic opacity-60">Provisioning Access for {business.name}</p>
                                 </div>
                                 <button onClick={onClose} className="size-10 rounded-full bg-[var(--bg-surface-muted)]/10 flex items-center justify-center text-[var(--text-muted)] hover:text-white transition-colors">
                                     <span className="material-symbols-outlined">close</span>

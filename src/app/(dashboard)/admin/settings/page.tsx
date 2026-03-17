@@ -16,7 +16,7 @@ export default async function AdminSettingsPage({
 }) {
     const session = await auth();
 
-    if (!session?.user || (session.user.role !== "ADMIN" && session.user.role !== "OWNER")) {
+    if (!session?.user || (session.user.role !== "ADMIN" && session.user.role !== "MANAGER")) {
         redirect("/login");
     }
 
@@ -79,7 +79,7 @@ export default async function AdminSettingsPage({
             await db.auditLog.create({
                 data: {
                     userId: session.user.id,
-                    businessId: session.user.businessId,
+                    branchId: session.user.branchId,
                     action: "UPDATE",
                     entity: "Compliance",
                     entityId: regionId,

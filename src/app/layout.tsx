@@ -21,7 +21,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Sauna SPA Engine",
   description:
-    "Enterprise-grade operations platform for sauna and spa businesses in Rwanda. Digitize your workflows, manage memberships, and track performance.",
+    "Enterprise-grade operations platform for sauna and spa branches in Rwanda. Digitize your workflows, manage memberships, and track performance.",
   keywords: [
     "sauna",
     "spa",

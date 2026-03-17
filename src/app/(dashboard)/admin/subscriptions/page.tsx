@@ -4,20 +4,20 @@ import { prisma } from "@/lib/prisma";
 
 export const metadata = {
     title: "Global Subscriptions | Admin",
-    description: "Manage business subscriptions and revenue.",
+    description: "Manage branch subscriptions and revenue.",
 };
 
 export default async function AdminSubscriptionsPage() {
     await requireRole(["ADMIN"]);
 
-    const corporates = await (prisma as any).corporate.findMany({
+    const businesses = await (prisma as any).business.findMany({
         include: {
             subscriptionPlan: true
         },
         orderBy: { createdAt: 'desc' },
     });
 
-    const businesses = corporates.map((c: any) => ({
+    const branches = businesses.map((c: any) => ({
         id: c.id,
         name: c.name,
         email: null,
@@ -27,5 +27,5 @@ export default async function AdminSubscriptionsPage() {
         subscriptionRenewal: c.subscriptionRenewal,
     }));
 
-    return <SubscriptionsClientPage businesses={businesses} />;
+    return <SubscriptionsClientPage branches={branches} />;
 }

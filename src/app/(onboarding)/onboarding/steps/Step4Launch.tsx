@@ -4,7 +4,7 @@ import { useState } from "react";
 import { completeOnboardingAction } from "../actions";
 
 interface StepProps {
-    business: {
+    branch: {
         id: string;
         name: string | null;
     };
@@ -12,16 +12,16 @@ interface StepProps {
     onPrev: () => void;
 }
 
-export function Step4Launch({ business, onNext, onPrev }: StepProps) {
+export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
     const [loading, setLoading] = useState(false);
 
     async function handleLaunch() {
         setLoading(true);
         try {
-            await completeOnboardingAction(business.id);
+            await completeOnboardingAction(branch.id);
             onNext();
         } catch (error) {
-            console.error("Failed to launch business:", error);
+            console.error("Failed to launch branch:", error);
             // Optionally handle error, e.g., show a toast
         } finally {
             setLoading(false);
@@ -40,7 +40,7 @@ export function Step4Launch({ business, onNext, onPrev }: StepProps) {
                 </div>
                 <h1 className="text-4xl font-display font-black text-[var(--text-main)] tracking-tight">Final Review & Launch</h1>
                 <p className="text-lg text-[var(--text-muted)] leading-relaxed">
-                    Your business profile and settings are ready. Review your setup and launch your dashboard to start taking bookings.
+                    Your branch profile and settings are ready. Review your setup and launch your dashboard to start taking bookings.
                 </p>
             </div>
 
@@ -57,13 +57,13 @@ export function Step4Launch({ business, onNext, onPrev }: StepProps) {
                             <div className="size-6 rounded-full bg-[var(--color-primary)]/20 border border-[var(--color-primary)]/30 flex items-center justify-center">
                                 <span className="material-symbols-outlined text-[var(--color-primary)] text-sm font-black">check</span>
                             </div>
-                            <span className="font-bold text-sm text-[var(--text-main)] group-hover:translate-x-1 transition-transform">Business Profile Set</span>
+                            <span className="font-bold text-sm text-[var(--text-main)] group-hover:translate-x-1 transition-transform">Branch Profile Set</span>
                         </div>
                         <div className="flex items-center gap-4 py-4 px-2 hover:bg-white/[0.02] rounded-xl transition-colors group">
                             <div className="size-6 rounded-full bg-[var(--color-primary)]/20 border border-[var(--color-primary)]/30 flex items-center justify-center">
                                 <span className="material-symbols-outlined text-[var(--color-primary)] text-sm font-black">check</span>
                             </div>
-                            <span className="font-bold text-sm text-[var(--text-main)] group-hover:translate-x-1 transition-transform">Business Hours Configured</span>
+                            <span className="font-bold text-sm text-[var(--text-main)] group-hover:translate-x-1 transition-transform">Branch Hours Configured</span>
                         </div>
                         <div className="flex items-center gap-4 py-4 px-2 hover:bg-white/[0.02] rounded-xl transition-colors group">
                             <div className="size-6 rounded-full bg-[var(--color-primary)]/20 border border-[var(--color-primary)]/30 flex items-center justify-center">
@@ -102,7 +102,7 @@ export function Step4Launch({ business, onNext, onPrev }: StepProps) {
                             <div className="size-full bg-neutral-100 rounded-2xl flex items-center justify-center overflow-hidden">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img 
-                                    src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`https://getrwanda.com/spa/${business.id}`)}`} 
+                                    src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`https://getrwanda.com/spa/${branch.id}`)}`} 
                                     alt="QR Code" 
                                     className="w-full h-full" 
                                 />

@@ -30,7 +30,7 @@ interface Activity {
 
 interface AnalyticsClientPageProps {
     stats: {
-        totalBusinesses: number;
+        totalBranches: number;
         totalRevenue: number;
         activeSubscriptions: number;
         revenueGrowth: number;
@@ -85,10 +85,10 @@ export default function AnalyticsClientPage({ stats, recentActivity }: Analytics
             trend: stats.revenueGrowth > 0 ? "up" : "down"
         },
         {
-            label: "Active Businesses",
-            value: stats.totalBusinesses.toString(),
+            label: "Active Branches",
+            value: stats.totalBranches.toString(),
             change: "+12",
-            icon: "corporate_fare",
+            icon: "business_fare",
             trend: "up"
         },
         {
@@ -298,16 +298,16 @@ export default function AnalyticsClientPage({ stats, recentActivity }: Analytics
                                 { name: "Blue Lagoon Premium", location: "Reykjavík, IS", revenue: 35150, initial: "B" },
                                 { name: "Thermal Sands Resort", location: "Dubai, UAE", revenue: 31800, initial: "T" },
                                 { name: "Zen Garden Spa", location: "Kyoto, JP", revenue: 29400, initial: "Z" }
-                            ].map((business, idx) => (
+                            ].map((branch, idx) => (
                                 <div key={idx} className="flex items-center justify-between px-8 py-4 hover:bg-[var(--color-primary)]/[0.03] transition-all group/row cursor-pointer border-b border-[var(--border-muted)]/30 last:border-0 border-l-2 border-transparent hover:border-[var(--color-primary)]">
                                     <div className="flex items-center gap-5">
-                                        <div className="size-11 rounded-xl bg-[var(--bg-surface-muted)]/20 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] font-serif font-black shadow-inner shadow-black/20 group-hover/row:scale-105 transition-transform">{business.initial}</div>
+                                        <div className="size-11 rounded-xl bg-[var(--bg-surface-muted)]/20 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] font-serif font-black shadow-inner shadow-black/20 group-hover/row:scale-105 transition-transform">{branch.initial}</div>
                                         <div className="space-y-0.5">
-                                            <p className="font-serif font-bold text-base text-white/90 leading-tight group-hover/row:text-[var(--color-primary)] transition-colors italic">{business.name}</p>
-                                            <p className="text-[8px] text-[var(--text-muted)] font-black uppercase tracking-[0.15em] opacity-40 italic">{business.location}</p>
+                                            <p className="font-serif font-bold text-base text-white/90 leading-tight group-hover/row:text-[var(--color-primary)] transition-colors italic">{branch.name}</p>
+                                            <p className="text-[8px] text-[var(--text-muted)] font-black uppercase tracking-[0.15em] opacity-40 italic">{branch.location}</p>
                                         </div>
                                     </div>
-                                    <p className="font-serif font-black text-xl text-[var(--color-primary)] tracking-tighter opacity-80 italic">{formatCurrency(business.revenue)}</p>
+                                    <p className="font-serif font-black text-xl text-[var(--color-primary)] tracking-tighter opacity-80 italic">{formatCurrency(branch.revenue)}</p>
                                 </div>
                             ))}
                     </div>

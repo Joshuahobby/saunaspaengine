@@ -5,11 +5,11 @@ import OperationsClient from "./client-page";
 
 export default async function OperationsPage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const [records, todayRevenue, activeCount, completedCount] = await Promise.all([
         prisma.serviceRecord.findMany({
-            where: { businessId: session.user.businessId },
+            where: { branchId: session.user.branchId },
             include: {
                 client: { select: { fullName: true } },
                 service: { select: { name: true, category: true, price: true } },
@@ -20,17 +20,17 @@ export default async function OperationsPage() {
         }),
         prisma.serviceRecord.aggregate({
             where: {
-                businessId: session.user.businessId,
+                branchId: session.user.branchId,
                 status: "COMPLETED",
                 createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
             },
             _sum: { amount: true },
         }),
         prisma.serviceRecord.count({
-            where: { businessId: session.user.businessId, status: { in: ["CREATED", "IN_PROGRESS"] } },
+            where: { branchId: session.user.branchId, status: { in: ["CREATED", "IN_PROGRESS"] } },
         }),
         prisma.serviceRecord.count({
-            where: { businessId: session.user.businessId, status: "COMPLETED" },
+            where: { branchId: session.user.branchId, status: "COMPLETED" },
         }),
     ]);
 

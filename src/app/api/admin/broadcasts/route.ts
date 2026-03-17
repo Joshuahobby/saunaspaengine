@@ -5,13 +5,13 @@ import { prisma } from "@/lib/prisma";
 export async function POST(req: NextRequest) {
     try {
         const session = await auth();
-        // Only Admins can send global broadcasts (or high-level corporate if allowed later)
+        // Only Admins can send global broadcasts (or high-level business if allowed later)
         if (!session?.user || session.user.role !== "ADMIN") {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
         const body = await req.json();
-        const { subject, content, target, level, businessId, isDraft } = body;
+        const { subject, content, target, level, branchId, isDraft } = body;
 
         if (!subject || !content || !target || !level) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
                 content,
                 target,
                 level,
-                businessId: businessId || null,
+                branchId: branchId || null,
                 isDraft: isDraft || false,
             }
         });

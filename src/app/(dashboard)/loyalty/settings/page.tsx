@@ -8,15 +8,15 @@ import { requireRole } from "@/lib/role-guard";
 async function publishLoyaltyChanges(formData: FormData) {
     "use server";
     const session = await auth();
-    if (!session?.user?.businessId) throw new Error("Unauthorized");
+    if (!session?.user?.branchId) throw new Error("Unauthorized");
 
     const pointsPerRwf = parseFloat(formData.get("pointsPerRwf") as string);
 
     await prisma.loyaltyProgram.upsert({
-        where: { businessId: session.user.businessId },
+        where: { branchId: session.user.branchId },
         update: { pointsPerRwf },
         create: {
-            businessId: session.user.businessId,
+            branchId: session.user.branchId,
             pointsPerRwf
         }
     });
@@ -25,19 +25,19 @@ async function publishLoyaltyChanges(formData: FormData) {
 }
 
 export default async function LoyaltySettingsPage() {
-    const session = await requireRole(["OWNER", "ADMIN"]);
-    if (!session?.user?.businessId) redirect("/dashboard");
+    const session = await requireRole(["MANAGER", "ADMIN"]);
+    if (!session?.user?.branchId) redirect("/dashboard");
 
     const program = await prisma.loyaltyProgram.findUnique({
-        where: { businessId: session.user.businessId }
+        where: { branchId: session.user.branchId }
     });
 
     const activeMembersCount = await prisma.loyaltyPoint.count({
-        where: { businessId: session.user.businessId }
+        where: { branchId: session.user.branchId }
     });
 
     const totalPointsAgg = await prisma.loyaltyPoint.aggregate({
-        where: { businessId: session.user.businessId },
+        where: { branchId: session.user.branchId },
         _sum: { points: true }
     });
 
@@ -85,7 +85,7 @@ export default async function LoyaltySettingsPage() {
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
                     <div>
                         <h1 className="text-4xl font-black tracking-tight text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Loyalty & Rewards</h1>
-                        <p className="text-slate-500 dark:text-slate-400 mt-1">Driving repeat business through a flexible rewards ecosystem.</p>
+                        <p className="text-slate-500 dark:text-slate-400 mt-1">Driving repeat branch through a flexible rewards ecosystem.</p>
                     </div>
                     <div className="flex gap-3">
                         <Link href="/loyalty/performance" className="px-4 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors flex items-center justify-center">

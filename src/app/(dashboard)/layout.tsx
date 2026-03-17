@@ -16,24 +16,24 @@ export default async function DashboardLayout({
         redirect("/login");
     }
 
-    let businessName = "Sauna SPA Engine";
-    if (session.user.role === "CORPORATE" && session.user.corporateId) {
-        const corporate = await prisma.corporate.findUnique({
-            where: { id: session.user.corporateId },
-            select: { name: true }
-        });
-        if (corporate) businessName = corporate.name;
-    } else if (session.user.businessId) {
+    let branchName = "Sauna SPA Engine";
+    if (session.user.role === "OWNER" && session.user.businessId) {
         const business = await prisma.business.findUnique({
             where: { id: session.user.businessId },
+            select: { name: true }
+        });
+        if (business) branchName = business.name;
+    } else if (session.user.branchId) {
+        const branch = await prisma.branch.findUnique({
+            where: { id: session.user.branchId },
             select: { name: true, onboardingCompleted: true }
         }) as any;
         
-        if (business) {
-            businessName = business.name;
+        if (branch) {
+            branchName = branch.name;
             
-            // Redirect owners to onboarding if not completed
-            if (session.user.role === "OWNER" && !business.onboardingCompleted) {
+            // Redirect managers to onboarding if not completed
+            if (session.user.role === "MANAGER" && !branch.onboardingCompleted) {
                 redirect("/onboarding");
             }
         }
@@ -42,8 +42,8 @@ export default async function DashboardLayout({
     return (
         <div className="flex h-screen overflow-hidden bg-[var(--bg-app)] text-[var(--text-main)] transition-colors duration-500">
             <Sidebar
-                userRole={session.user.role as "ADMIN" | "CORPORATE" | "OWNER" | "EMPLOYEE"}
-                businessName={businessName}
+                userRole={session.user.role as "ADMIN" | "OWNER" | "MANAGER" | "EMPLOYEE"}
+                branchName={branchName}
             />
             <main className="flex-1 overflow-y-auto pb-20 lg:pb-0 relative">
                 <Header title="Dashboard" />

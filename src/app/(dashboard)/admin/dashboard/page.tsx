@@ -15,7 +15,7 @@ export default async function AdminDashboardPage() {
     await requireRole(["ADMIN"]);
 
     // Fetch data
-    const totalBusinesses = await prisma.business.count();
+    const totalBranches = await prisma.branch.count();
     const activeUsers = await prisma.user.count();
 
     const totalRevenueResult = await prisma.serviceRecord.aggregate({
@@ -24,10 +24,10 @@ export default async function AdminDashboardPage() {
     });
     const totalRevenue = totalRevenueResult._sum.amount || 0;
 
-    const businessesRaw = await prisma.business.findMany({
+    const branchesRaw = await prisma.branch.findMany({
         include: {
             users: {
-                where: { role: 'OWNER' },
+                where: { role: 'MANAGER' },
                 take: 1
             },
             _count: {
@@ -37,23 +37,23 @@ export default async function AdminDashboardPage() {
         orderBy: { createdAt: 'desc' }
     });
 
-    const businesses = businessesRaw.map(b => ({
+    const branches = branchesRaw.map(b => ({
         id: b.id,
         name: b.name,
         status: b.status,
         createdAt: b.createdAt.toISOString(),
-        ownerInitials: b.users[0]?.fullName ? b.users[0].fullName.substring(0, 2).toUpperCase() : '??',
-        ownerName: b.users[0]?.fullName || 'Unknown Owner',
-        ownerEmail: b.users[0]?.email || 'No Email',
+        managerInitials: b.users[0]?.fullName ? b.users[0].fullName.substring(0, 2).toUpperCase() : '??',
+        managerName: b.users[0]?.fullName || 'Unknown Manager',
+        managerEmail: b.users[0]?.email || 'No Email',
         userCount: b._count.users
     }));
 
     const stats = {
-        totalBusinesses,
+        totalBranches,
         totalRevenue,
         activeUsers,
         systemHealth: 99.9
     };
 
-    return <AdminDashboardClient stats={stats} businesses={businesses} />;
+    return <AdminDashboardClient stats={stats} branches={branches} />;
 }

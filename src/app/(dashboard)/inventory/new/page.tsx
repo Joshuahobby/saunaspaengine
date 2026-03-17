@@ -7,7 +7,7 @@ import Link from "next/link";
 async function createInventoryItem(formData: FormData) {
     "use server";
     const session = await auth();
-    if (!session?.user?.businessId) throw new Error("Unauthorized");
+    if (!session?.user?.branchId) throw new Error("Unauthorized");
 
     const productName = formData.get("productName") as string;
     const stockCount = parseInt(formData.get("stockCount") as string, 10);
@@ -22,7 +22,7 @@ async function createInventoryItem(formData: FormData) {
             stockCount: isNaN(stockCount) ? 0 : stockCount,
             minThreshold: isNaN(minThreshold) ? 5 : minThreshold,
             unit: unit?.trim() || "pcs",
-            businessId: session.user.businessId,
+            branchId: session.user.branchId,
         }
     });
 
@@ -32,7 +32,7 @@ async function createInventoryItem(formData: FormData) {
 
 export default async function NewInventoryItemPage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     return (
         <div className="p-4 lg:p-8 w-full max-w-3xl mx-auto">

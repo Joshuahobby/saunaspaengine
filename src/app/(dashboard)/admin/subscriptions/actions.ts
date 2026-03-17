@@ -54,13 +54,13 @@ export async function updatePlatformPackageAction(id: string, data: {
 
 export async function deletePlatformPackageAction(id: string) {
     try {
-        // Check if any corporate is using this package
-        const count = await (prisma as any).corporate.count({
+        // Check if any business is using this package
+        const count = await (prisma as any).business.count({
             where: { subscriptionPlanId: id }
         });
 
         if (count > 0) {
-            return { success: false, error: "Cannot delete package while it is assigned to businesses." };
+            return { success: false, error: "Cannot delete package while it is assigned to branches." };
         }
 
         await (prisma as any).platformPackage.delete({

@@ -16,7 +16,7 @@ interface AuditLog {
         fullName: string;
         role: string;
     };
-    business?: {
+    branch?: {
         name: string;
     } | null;
 }
@@ -51,7 +51,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                 border: "border-purple-500/20",
                 shadow: "shadow-purple-500/10"
             };
-            case "OWNER": return {
+            case "MANAGER": return {
                 color: "text-emerald-400",
                 bg: "bg-emerald-500/10",
                 border: "border-emerald-500/20",
@@ -135,7 +135,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                 >
                                     <option>All Archetypes</option>
                                     <option>System Admin</option>
-                                    <option>Node Owner</option>
+                                    <option>Node Manager</option>
                                 </select>
                             </div>
 
@@ -296,7 +296,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                                     <span className="text-[12px] font-serif font-black text-white italic">Signal Functionality Mapping</span>
                                                 </div>
                                             </th>
-                                            {["Nexus Admin", "Vessel Owner", "Lead Manager", "Staff Node"].map((role) => (
+                                            {["Nexus Admin", "Vessel Manager", "Lead Manager", "Staff Node"].map((role) => (
                                                 <th key={role} className="px-6 py-8 text-center">
                                                     <div className="flex flex-col items-center gap-1">
                                                         <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em] italic">archetype</span>

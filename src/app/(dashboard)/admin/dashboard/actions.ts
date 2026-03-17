@@ -4,14 +4,14 @@ import { prisma } from "@/lib/prisma";
 import { hash } from "bcryptjs";
 import { revalidatePath } from "next/cache";
 
-export async function createBusinessAction(formData: FormData) {
+export async function createBranchAction(formData: FormData) {
     try {
-        const businessName = formData.get("businessName") as string;
-        const ownerName = formData.get("ownerName") as string;
+        const branchName = formData.get("branchName") as string;
+        const managerName = formData.get("managerName") as string;
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
 
-        if (!businessName || !ownerName || !email || !password) {
+        if (!branchName || !managerName || !email || !password) {
             return { error: "All fields are required" };
         }
 
@@ -27,11 +27,11 @@ export async function createBusinessAction(formData: FormData) {
         // Hash password
         const passwordHash = await hash(password, 10);
 
-        // Create business and owner within a transaction
+        // Create branch and manager within a transaction
         const result = await prisma.$transaction(async (tx) => {
-            const business = await tx.business.create({
+            const branch = await tx.branch.create({
                 data: {
-                    name: businessName,
+                    name: branchName,
                     status: "ACTIVE",
                 },
             });
@@ -40,15 +40,14 @@ export async function createBusinessAction(formData: FormData) {
                 data: {
                     username: formData.get("username") as string || (email.split('@')[0] + '-' + Date.now().toString().slice(-4)),
                     email,
-                    fullName: ownerName,
+                    fullName: managerName,
                     passwordHash,
-                    role: "OWNER",
-                    status: "ACTIVE",
-                    businessId: business.id,
+                    role: "MANAGER",
+                    usr_branchId: branch.id,
                 },
             });
 
-            return { businessId: business.id, username: user.username };
+            return { branchId: branch.id, username: user.username };
         });
 
         revalidatePath("/admin/dashboard");
@@ -56,7 +55,7 @@ export async function createBusinessAction(formData: FormData) {
         
         return { success: true, data: result };
     } catch (error) {
-        console.error("Error creating business:", error);
+        console.error("Error creating branch:", error);
         return { error: "Failed to establish vessel. Please try again." };
     }
 }

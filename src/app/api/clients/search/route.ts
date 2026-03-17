@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
     const session = await auth();
-    if (!session?.user?.businessId) {
+    if (!session?.user?.branchId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     try {
         const client = await prisma.client.findFirst({
             where: {
-                businessId: session.user.businessId,
+                branchId: session.user.branchId,
                 status: "ACTIVE",
                 OR: [
                     { qrCode: query },

@@ -7,17 +7,17 @@ import { formatCurrency } from "@/lib/utils";
 export default async function ExecutiveDashboard() {
     const session = await auth();
 
-    if (!session || session.user.role !== "CORPORATE") {
+    if (!session || session.user.role !== "OWNER") {
         redirect("/dashboard");
     }
 
-    const corporateId = session.user.corporateId;
-    if (!corporateId) {
-        return <div>No corporate association found.</div>;
+    const businessId = session.user.businessId;
+    if (!businessId) {
+        return <div>No business association found.</div>;
     }
 
-    const businesses = await prisma.business.findMany({
-        where: { corporateId },
+    const branches = await prisma.branch.findMany({
+        where: { businessId },
         include: {
             serviceRecords: {
                 where: { status: "COMPLETED" },
@@ -28,20 +28,20 @@ export default async function ExecutiveDashboard() {
         }
     });
 
-    const totalRevenue = businesses.reduce((acc, b) =>
+    const totalRevenue = branches.reduce((acc, b) =>
         acc + b.serviceRecords.reduce((sum, r) => sum + (r.amount || 0), 0), 0
     );
 
-    const totalClients = businesses.reduce((acc, b) => acc + b.clients.length, 0);
-    const totalEmployees = businesses.reduce((acc, b) => acc + b.employees.length, 0);
+    const totalClients = branches.reduce((acc, b) => acc + b.clients.length, 0);
+    const totalEmployees = branches.reduce((acc, b) => acc + b.employees.length, 0);
 
     return (
         <div className="mx-auto w-full max-w-[1440px] px-4 py-8 md:px-6 space-y-8">
             <div className="flex flex-col gap-2 border-b border-[var(--border-muted)] pb-8">
                 <h1 className="text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">
-                    Corporate <span className="text-[var(--color-primary)] opacity-50">&</span> Business Overview
+                    Business <span className="text-[var(--color-primary)] opacity-50">&</span> Branch Overview
                 </h1>
-                <p className="text-base text-[var(--text-muted)] font-bold opacity-80">Monitoring the performance of {businesses.length} spa locations.</p>
+                <p className="text-base text-[var(--text-muted)] font-bold opacity-80">Monitoring the performance of {branches.length} spa locations.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -66,8 +66,8 @@ export default async function ExecutiveDashboard() {
                 />
                 <StatsCard
                     title="Total Locations"
-                    value={businesses.length.toString()}
-                    icon="corporate_fare"
+                    value={branches.length.toString()}
+                    icon="business_fare"
                     description="Active spa centers currently operating"
                 />
             </div>
@@ -77,7 +77,7 @@ export default async function ExecutiveDashboard() {
                 <div className="bg-[var(--bg-card)] rounded-[1.5rem] border border-[var(--border-muted)] overflow-hidden shadow-sm group/table">
                     <div className="px-6 py-5 border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10 flex items-center justify-between">
                         <div>
-                            <h2 className="text-xl font-display font-bold text-[var(--text-main)]">Business Performance</h2>
+                            <h2 className="text-xl font-display font-bold text-[var(--text-main)]">Branch Performance</h2>
                             <p className="text-xs text-[var(--text-muted)] font-bold mt-1">Real-time metrics for each location.</p>
                         </div>
                         <button className="text-[10px] text-[var(--color-primary)] font-bold uppercase tracking-widest border border-[var(--color-primary)]/20 px-4 py-2 rounded-xl hover:bg-[var(--color-primary)]/5 transition-all">Detailed Analysis</button>
@@ -86,14 +86,14 @@ export default async function ExecutiveDashboard() {
                         <table className="w-full text-left">
                             <thead className="bg-[var(--bg-surface-muted)]/5 border-b border-[var(--border-muted)]">
                                 <tr>
-                                    <th className="px-6 py-4 text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Business Location</th>
+                                    <th className="px-6 py-4 text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Branch Location</th>
                                     <th className="px-6 py-4 text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Total Revenue</th>
                                     <th className="px-6 py-4 text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Performance</th>
                                     <th className="px-6 py-4 text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Status</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-[var(--border-muted)]">
-                                {businesses.map((b) => {
+                                {branches.map((b) => {
                                     const revenue = b.serviceRecords.reduce((sum, r) => sum + (r.amount || 0), 0);
                                     return (
                                         <tr key={b.id} className="hover:bg-[var(--bg-surface-muted)]/5 transition-colors group/row">

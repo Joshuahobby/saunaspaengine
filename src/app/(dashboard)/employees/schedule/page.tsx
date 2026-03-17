@@ -5,7 +5,7 @@ import { format, startOfDay, endOfDay } from "date-fns";
 
 export default async function EmployeeSchedulePage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const today = new Date();
 
@@ -14,7 +14,7 @@ export default async function EmployeeSchedulePage() {
     // So we just grab the first therapist.
     const employee = await prisma.employee.findFirst({
         where: {
-            businessId: session.user.businessId,
+            branchId: session.user.branchId,
             category: {
                 name: { in: ['Therapist', 'Masseuse', 'THERAPIST', 'MASSEUSE'] }
             }
@@ -34,7 +34,7 @@ export default async function EmployeeSchedulePage() {
     // Fetch service records for this employee today
     const appointments = await prisma.serviceRecord.findMany({
         where: {
-            businessId: session.user.businessId,
+            branchId: session.user.branchId,
             employeeId: employee.id,
             createdAt: {
                 gte: startOfDay(today),

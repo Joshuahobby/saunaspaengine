@@ -1,16 +1,16 @@
 import { requireRole } from "@/lib/role-guard";
 import { prisma } from "@/lib/prisma";
-import BusinessDetailsClientPage from "./client-page";
+import BranchDetailsClientPage from "./client-page";
 import { redirect } from "next/navigation";
 
-export default async function BusinessDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function BranchDetailsPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
-    await requireRole(["ADMIN", "CORPORATE"]);
+    await requireRole(["ADMIN", "OWNER"]);
 
-    const corporate = await prisma.corporate.findUnique({
+    const business = await prisma.business.findUnique({
         where: { id },
         include: {
-            businesses: {
+            branches: {
                 orderBy: {
                     createdAt: 'desc'
                 }
@@ -18,8 +18,8 @@ export default async function BusinessDetailsPage({ params }: { params: Promise<
         }
     });
 
-    if (!corporate) {
-        redirect("/admin/businesses");
+    if (!business) {
+        redirect("/admin/branches");
     }
 
     const platformPackages = await prisma.platformPackage.findMany({
@@ -33,17 +33,17 @@ export default async function BusinessDetailsPage({ params }: { params: Promise<
     }));
 
     // Map to a serializable object with proper type casting
-    const serializableCorporate = {
-        ...corporate,
-        createdAt: corporate.createdAt.toISOString(),
-        updatedAt: corporate.updatedAt.toISOString(),
-        subscriptionRenewal: corporate.subscriptionRenewal?.toISOString() || null,
-        businesses: corporate.businesses.map((b: any) => ({
+    const serializableBusiness = {
+        ...business,
+        createdAt: business.createdAt.toISOString(),
+        updatedAt: business.updatedAt.toISOString(),
+        subscriptionRenewal: business.subscriptionRenewal?.toISOString() || null,
+        branches: business.branches.map((b: any) => ({
             ...b,
             createdAt: b.createdAt.toISOString(),
             updatedAt: b.updatedAt.toISOString(),
         })),
     };
 
-    return <BusinessDetailsClientPage corporate={serializableCorporate as any} platformPackages={mappedPackages} />;
+    return <BranchDetailsClientPage business={serializableBusiness as any} platformPackages={mappedPackages} />;
 }

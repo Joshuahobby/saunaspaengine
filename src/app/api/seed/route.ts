@@ -4,8 +4,8 @@ import bcrypt from "bcryptjs";
 
 export async function GET() {
     try {
-        // 1. Create Corporate
-        const corporate = await prisma.corporate.create({
+        // 1. Create Business
+        const business = await prisma.business.create({
             data: {
                 name: "GetRwanda Wellness Group",
                 taxId: "CORP-RW-2026-001",
@@ -13,30 +13,30 @@ export async function GET() {
             },
         });
 
-        // 2. Create Businesses
-        const business1 = await prisma.business.create({
+        // 2. Create Branches
+        const branch1 = await prisma.branch.create({
             data: {
                 name: "Kigali Oasis Spa",
                 address: "KG 9 Ave, Nyarutarama, Kigali",
                 phone: "+250788123456",
                 email: "hello@kigalioasis.rw",
-                corporateId: corporate.id,
+                businessId: business.id,
             },
         });
 
-        const business2 = await prisma.business.create({
+        const branch2 = await prisma.branch.create({
             data: {
                 name: "Rubavu Lakeside Spa",
                 address: "Lake Kivu Waterfront, Rubavu",
                 phone: "+250788765432",
                 email: "rubavu@kigalioasis.rw",
-                corporateId: corporate.id,
+                businessId: business.id,
             },
         });
 
-        // 2. Create Admin and Owner users
+        // 2. Create Admin and Manager users
         const adminPassword = await bcrypt.hash("admin123", 10);
-        const ownerPassword = await bcrypt.hash("owner123", 10);
+        const managerPassword = await bcrypt.hash("manager123", 10);
         const staffPassword = await bcrypt.hash("staff123", 10);
 
         await prisma.user.create({
@@ -53,10 +53,10 @@ export async function GET() {
             data: {
                 username: "ceo",
                 email: "exec@getrwanda.rw",
-                passwordHash: ownerPassword,
+                passwordHash: managerPassword,
                 fullName: "Kagame Paul (Group CEO)",
-                role: "CORPORATE",
-                corporateId: corporate.id,
+                role: "OWNER",
+                usr_businessId: business.id,
             },
         });
 
@@ -64,10 +64,10 @@ export async function GET() {
             data: {
                 username: "mugisha",
                 email: "mugisha@kigalioasis.rw",
-                passwordHash: ownerPassword,
+                passwordHash: managerPassword,
                 fullName: "Mugisha Jean",
-                role: "OWNER",
-                businessId: business1.id,
+                role: "MANAGER",
+                usr_branchId: branch1.id,
             },
         });
 
@@ -78,13 +78,13 @@ export async function GET() {
                 passwordHash: staffPassword,
                 fullName: "Uwase Aline",
                 role: "EMPLOYEE",
-                businessId: business1.id,
+                usr_branchId: branch1.id,
             },
         });
 
         // 4. Create Services for both
-        const businesses = [business1, business2];
-        for (const b of businesses) {
+        const branches = [branch1, branch2];
+        for (const b of branches) {
             await prisma.service.createMany({
                 data: [
                     {
@@ -92,35 +92,35 @@ export async function GET() {
                         category: "Sauna & Steam",
                         price: 15000,
                         duration: 120,
-                        businessId: b.id,
+                        branchId: b.id,
                     },
                     {
                         name: "Deep Tissue Massage",
                         category: "Massage",
                         price: 35000,
                         duration: 60,
-                        businessId: b.id,
+                        branchId: b.id,
                     },
                 ],
             });
         }
 
         // 5. Create Employee Categories & Employees
-        for (const b of businesses) {
+        for (const b of branches) {
             const therapistCat = await prisma.employeeCategory.create({
                 data: {
                     name: "Massage Therapist",
-                    businessId: b.id,
+                    branchId: b.id,
                 },
             });
 
             await prisma.employee.createMany({
                 data: [
                     {
-                        fullName: b.name === business1.name ? "Kamanzi Eric" : "Nshuti David",
-                        phone: b.name === business1.name ? "+250789000111" : "+250789000333",
+                        fullName: b.name === branch1.name ? "Kamanzi Eric" : "Nshuti David",
+                        phone: b.name === branch1.name ? "+250789000111" : "+250789000333",
                         categoryId: therapistCat.id,
-                        businessId: b.id,
+                        branchId: b.id,
                     },
                 ],
             });

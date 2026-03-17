@@ -12,15 +12,15 @@ export default async function BranchesPerformancePage() {
         redirect("/login");
     }
 
-    // Admins only (or corporate level), but we'll fetch across all if admin, or limit to current if not. 
-    // Assuming this page is for Admin/Corporate to see all branch performance.
+    // Admins only (or business level), but we'll fetch across all if admin, or limit to current if not. 
+    // Assuming this page is for Admin/Business to see all branch performance.
 
     // Total Active Branches
-    const activeBranches = await prisma.business.count({
+    const activeBranches = await prisma.branch.count({
         where: { status: 'ACTIVE' }
     });
 
-    const pendingBranches = await prisma.business.count({
+    const pendingBranches = await prisma.branch.count({
         where: { status: 'INACTIVE' }
     });
 
@@ -36,8 +36,8 @@ export default async function BranchesPerformancePage() {
     const totalRevenue = totalRevenueQuery._sum.amount || 0;
 
     // Leaderboard Data
-    const revenueByBusiness = await prisma.serviceRecord.groupBy({
-        by: ['businessId'],
+    const revenueByBranch = await prisma.serviceRecord.groupBy({
+        by: ['branchId'],
         _sum: {
             amount: true
         },
@@ -46,10 +46,10 @@ export default async function BranchesPerformancePage() {
         }
     });
 
-    const businesses = await prisma.business.findMany();
+    const branches = await prisma.branch.findMany();
 
-    const leaderboardRaw = businesses.map(b => {
-        const rev = revenueByBusiness.find(r => r.businessId === b.id);
+    const leaderboardRaw = branches.map(b => {
+        const rev = revenueByBranch.find(r => r.branchId === b.id);
         // Generate a pseudo-random but deterministic score between 4.2 and 5.0 based on ID length or chars
         const deterministicScore = 4.2 + ((b.id.length + b.name.length) % 8) / 10;
         return {

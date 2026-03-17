@@ -8,7 +8,7 @@ async function main() {
 
     console.log("\nUsers:");
     const users = await prisma.user.findMany({ 
-        select: { id: true, email: true, businessId: true },
+        select: { id: true, email: true, usr_businessId: true },
         where: { email: { in: ['owner1@saunaspa.com', 'admin@saunaspa.com', 'ceo@saunaspa.com', 'sarah@saunaspa.com'] } }
     });
     console.log(users);

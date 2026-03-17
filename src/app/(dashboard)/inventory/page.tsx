@@ -5,10 +5,10 @@ import Link from "next/link";
 
 export default async function InventoryDashboardPage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const items = await prisma.inventory.findMany({
-        where: { businessId: session.user.businessId },
+        where: { branchId: session.user.branchId },
         orderBy: { productName: 'asc' }
     });
 

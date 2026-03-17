@@ -2,18 +2,18 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { deleteBusinessAction } from "./actions";
+import { deleteBranchAction } from "./actions";
 
-interface DeleteBusinessModalProps {
+interface DeleteBranchModalProps {
     isOpen: boolean;
     onClose: () => void;
-    business: {
+    branch: {
         id: string;
         name: string;
     };
 }
 
-export function DeleteBusinessModal({ isOpen, onClose, business }: DeleteBusinessModalProps) {
+export function DeleteBranchModal({ isOpen, onClose, branch }: DeleteBranchModalProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [confirmName, setConfirmName] = useState("");
@@ -21,8 +21,8 @@ export function DeleteBusinessModal({ isOpen, onClose, business }: DeleteBusines
     if (!isOpen) return null;
 
     async function handleDelete() {
-        if (confirmName !== business.name) {
-            setError("Business name does not match.");
+        if (confirmName !== branch.name) {
+            setError("Branch name does not match.");
             return;
         }
 
@@ -30,11 +30,11 @@ export function DeleteBusinessModal({ isOpen, onClose, business }: DeleteBusines
         setError("");
 
         try {
-            const res = await deleteBusinessAction(business.id);
+            const res = await deleteBranchAction(branch.id);
             if (res.success) {
                 onClose();
             } else {
-                setError(res.error || "Failed to delete business");
+                setError(res.error || "Failed to delete branch");
             }
         } catch (err: any) {
             setError(err.message);
@@ -68,7 +68,7 @@ export function DeleteBusinessModal({ isOpen, onClose, business }: DeleteBusines
                                     <span className="material-symbols-outlined">warning</span>
                                 </div>
                                 <h2 className="text-xl font-serif font-black text-[var(--text-main)] italic">
-                                    Delete Business
+                                    Delete Branch
                                 </h2>
                             </div>
                             <button
@@ -82,7 +82,7 @@ export function DeleteBusinessModal({ isOpen, onClose, business }: DeleteBusines
                         {/* Body */}
                         <div className="p-8 space-y-6">
                             <p className="text-sm text-[var(--text-muted)] font-medium">
-                                You are about to permanently delete <strong className="text-[var(--text-main)]">{business.name}</strong>. This action is irreversible and will cascade-delete all associated employees, services, records, and client info.
+                                You are about to permanently delete <strong className="text-[var(--text-main)]">{branch.name}</strong>. This action is irreversible and will cascade-delete all associated employees, services, records, and client info.
                             </p>
                             
                             {error && (
@@ -93,13 +93,13 @@ export function DeleteBusinessModal({ isOpen, onClose, business }: DeleteBusines
                             )}
 
                             <div className="space-y-2">
-                                <label className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Type <span className="text-[var(--text-main)]">{business.name}</span> to confirm</label>
+                                <label className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Type <span className="text-[var(--text-main)]">{branch.name}</span> to confirm</label>
                                 <input
                                     type="text"
                                     value={confirmName}
                                     onChange={(e) => setConfirmName(e.target.value)}
                                     className="w-full h-12 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-red-500/40 focus:ring-4 focus:ring-red-500/10 outline-none transition-all placeholder:text-[var(--text-muted)] placeholder:opacity-30"
-                                    placeholder={business.name}
+                                    placeholder={branch.name}
                                 />
                             </div>
                             
@@ -114,7 +114,7 @@ export function DeleteBusinessModal({ isOpen, onClose, business }: DeleteBusines
                                 </button>
                                 <button
                                     onClick={handleDelete}
-                                    disabled={loading || confirmName !== business.name}
+                                    disabled={loading || confirmName !== branch.name}
                                     className="flex-[2] h-12 rounded-xl text-sm font-bold bg-red-500 text-white hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-red-500/20 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:hover:scale-100 disabled:cursor-not-allowed"
                                 >
                                     {loading ? (

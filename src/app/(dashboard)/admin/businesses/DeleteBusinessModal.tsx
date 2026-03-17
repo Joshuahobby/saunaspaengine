@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { deleteCorporateAction } from "./actions";
+import { deleteBusinessAction } from "./actions";
 
-export function DeleteCorporateModal({ isOpen, onClose, corporate }: { isOpen: boolean, onClose: () => void, corporate: any }) {
+export function DeleteBusinessModal({ isOpen, onClose, business }: { isOpen: boolean, onClose: () => void, business: any }) {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [confirmationName, setConfirmationName] = useState("");
@@ -13,20 +13,20 @@ export function DeleteCorporateModal({ isOpen, onClose, corporate }: { isOpen: b
         e.preventDefault();
         setError("");
         
-        if (confirmationName !== corporate.name) {
-            setError("Business name does not match.");
+        if (confirmationName !== business.name) {
+            setError("Branch name does not match.");
             return;
         }
 
         setIsSubmitting(true);
-        const res = await deleteCorporateAction(corporate.id);
+        const res = await deleteBusinessAction(business.id);
         
         setIsSubmitting(false);
         if (res.success) {
             router.refresh();
             onClose();
         } else {
-            setError(res.error || "Failed to delete business.");
+            setError(res.error || "Failed to delete branch.");
         }
     };
 
@@ -52,9 +52,9 @@ export function DeleteCorporateModal({ isOpen, onClose, corporate }: { isOpen: b
                         <div className="size-16 mx-auto bg-rose-500/10 text-rose-500 rounded-full flex items-center justify-center mb-6 border border-rose-500/20">
                             <span className="material-symbols-outlined text-3xl">delete_forever</span>
                         </div>
-                        <h2 className="text-2xl font-serif font-bold text-rose-500 italic">Delete Business Hub</h2>
+                        <h2 className="text-2xl font-serif font-bold text-rose-500 italic">Delete Branch Hub</h2>
                         <p className="text-sm text-[var(--text-muted)] mt-3 leading-relaxed">
-                            This action is permanent. All branches, services, revenue records, and clients associated with <b className="text-[var(--text-main)] not-italic">{corporate.name}</b> will be <u className="decoration-rose-500">destroyed completely</u>.
+                            This action is permanent. All branches, services, revenue records, and clients associated with <b className="text-[var(--text-main)] not-italic">{business.name}</b> will be <u className="decoration-rose-500">destroyed completely</u>.
                         </p>
                     </div>
 
@@ -66,7 +66,7 @@ export function DeleteCorporateModal({ isOpen, onClose, corporate }: { isOpen: b
                         )}
 
                         <div className="space-y-2">
-                            <label className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest pl-2">Type "{corporate.name}"</label>
+                            <label className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest pl-2">Type "{business.name}"</label>
                             <input
                                 required
                                 type="text"
@@ -88,7 +88,7 @@ export function DeleteCorporateModal({ isOpen, onClose, corporate }: { isOpen: b
                             </button>
                             <button
                                 type="submit"
-                                disabled={isSubmitting || confirmationName !== corporate.name}
+                                disabled={isSubmitting || confirmationName !== business.name}
                                 className="flex-1 h-12 rounded-2xl bg-rose-500 text-white hover:bg-rose-600 transition-colors font-bold tracking-wide disabled:opacity-50 flex items-center justify-center"
                             >
                                 {isSubmitting ? <span className="material-symbols-outlined animate-spin">refresh</span> : "Destroy Permanently"}

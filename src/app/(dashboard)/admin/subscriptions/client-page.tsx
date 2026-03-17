@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { format } from "date-fns";
 
-export interface BusinessSubscription {
+export interface BranchSubscription {
     id: string;
     name: string;
     email: string | null;
@@ -13,16 +13,16 @@ export interface BusinessSubscription {
     subscriptionRenewal: Date | null;
 }
 
-export default function SubscriptionsClientPage({ businesses }: { businesses: BusinessSubscription[] }) {
+export default function SubscriptionsClientPage({ branches }: { branches: BranchSubscription[] }) {
     const [filter, setFilter] = useState("all");
 
     // Computed Metrics
-    const activeSubs = businesses.filter(b => b.subscriptionStatus === 'ACTIVE' || !b.subscriptionStatus).length;
-    const expiringSoon = businesses.filter(b => b.subscriptionStatus === 'EXPIRING').length;
+    const activeSubs = branches.filter(b => b.subscriptionStatus === 'ACTIVE' || !b.subscriptionStatus).length;
+    const expiringSoon = branches.filter(b => b.subscriptionStatus === 'EXPIRING').length;
     // Basic mapping for visual MRR
     const platformMRR = activeSubs * 299; // Using a dummy average MRR per active sub
 
-    const filteredBusinesses = businesses.filter(b => {
+    const filteredBranches = branches.filter(b => {
         if (filter === 'all') return true;
         if (filter === 'active') return b.subscriptionStatus === 'ACTIVE' || !b.subscriptionStatus;
         if (filter === 'expiring') return b.subscriptionStatus === 'EXPIRING';
@@ -114,7 +114,7 @@ export default function SubscriptionsClientPage({ businesses }: { businesses: Bu
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-[var(--border-muted)]">
-                            {filteredBusinesses.length > 0 ? filteredBusinesses.map((b) => (
+                            {filteredBranches.length > 0 ? filteredBranches.map((b) => (
                                 <SubscriptionRow
                                     key={b.id}
                                     initial={b.name.charAt(0).toUpperCase()}

@@ -1,20 +1,20 @@
 "use client";
 
 interface StepProps {
-    business: {
+    branch: {
         id: string;
         name: string | null;
     };
     onNext: () => void;
 }
 
-export function Step0Welcome({ business, onNext }: StepProps) {
+export function Step0Welcome({ branch, onNext }: StepProps) {
     return (
         <div className="flex flex-col items-center text-center gap-10 py-10">
             <div className="space-y-4 max-w-2xl">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 shadow-sm animate-bounce">
                     <span className="material-symbols-outlined !text-sm">celebration</span>
-                    <span className="text-[10px] font-bold uppercase tracking-widest">Business Account Created</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Branch Account Created</span>
                 </div>
                 
                 <h2 className="text-4xl md:text-5xl font-display font-black text-[var(--text-main)] tracking-tight leading-tight">
@@ -23,7 +23,7 @@ export function Step0Welcome({ business, onNext }: StepProps) {
                 </h2>
                 
                 <p className="text-base text-[var(--text-muted)] font-bold opacity-70 leading-relaxed mx-auto max-w-xl">
-                    &ldquo;{business.name || 'Your Spa'}&rdquo; is now registered. We&apos;ll guide you through setting up your services, team, and operations in under 5 minutes.
+                    &ldquo;{branch.name || 'Your Spa'}&rdquo; is now registered. We&apos;ll guide you through setting up your services, team, and operations in under 5 minutes.
                 </p>
             </div>
 

@@ -13,11 +13,11 @@ export const dynamic = "force-dynamic";
 export default async function AdminBranchesPage() {
     await requireRole(["ADMIN"]);
 
-    // Fetch real business data
-    const businesses = await prisma.business.findMany({
+    // Fetch real branch data
+    const branches = await prisma.branch.findMany({
         orderBy: { createdAt: "desc" },
         include: {
-            corporate: {
+            business: {
                 select: {
                     name: true
                 }
@@ -37,7 +37,7 @@ export default async function AdminBranchesPage() {
         where: { status: "COMPLETED" },
     });
 
-    const businessData = businesses.map((b) => ({
+    const branchData = branches.map((b) => ({
         id: b.id,
         name: b.name,
         email: b.email,
@@ -48,14 +48,14 @@ export default async function AdminBranchesPage() {
         serviceCount: b._count.services,
         clientCount: b._count.clients,
         createdAt: b.createdAt.toISOString(),
-        corporateName: b.corporate?.name || "Independent",
+        businessName: b.business?.name || "Independent",
     }));
 
     const stats = {
         totalRevenue: totalRevenue._sum.amount || 0,
-        totalBusinesses: businesses.length,
-        activeBusinesses: businesses.filter(b => b.status === "ACTIVE").length,
+        totalBranches: branches.length,
+        activeBranches: branches.filter(b => b.status === "ACTIVE").length,
     };
 
-    return <AdminBranchesClientPage businesses={businessData} stats={stats} />;
+    return <AdminBranchesClientPage branches={branchData} stats={stats} />;
 }

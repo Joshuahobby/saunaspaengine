@@ -4,13 +4,13 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-    const business = await prisma.business.findFirst();
-    if (!business) {
-        console.error("No business found. Run the main seed first.");
+    const branch = await prisma.branch.findFirst();
+    if (!branch) {
+        console.error("No branch found. Run the main seed first.");
         process.exit(1);
     }
 
-    console.log("Seeding demo clients for:", business.name);
+    console.log("Seeding demo clients for:", branch.name);
 
     const clients = [
         { fullName: "Uwimana Eric", phone: "+250788100001", clientType: "MEMBER" as const },
@@ -29,7 +29,7 @@ async function main() {
             update: {},
             create: {
                 ...client,
-                businessId: business.id,
+                branchId: branch.id,
             },
         });
     }

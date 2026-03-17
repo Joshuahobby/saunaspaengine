@@ -71,7 +71,7 @@ const faqs = [
     },
     {
         question: "Is my data secure and compliant?",
-        answer: "Absolutely. We employ bank-grade encryption for all data in transit and at rest. We run daily backups and maintain strict role-based access controls to ensure your business data and client information remain completely private and secure."
+        answer: "Absolutely. We employ bank-grade encryption for all data in transit and at rest. We run daily backups and maintain strict role-based access controls to ensure your branch data and client information remain completely private and secure."
     },
     {
         question: "Can I upgrade or downgrade my plan?",

@@ -4,24 +4,24 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { EntityStatus } from "@prisma/client";
 
-export async function createCorporateAction(data: { name: string, taxId?: string, headquarters?: string }) {
+export async function createBusinessAction(data: { name: string, taxId?: string, headquarters?: string }) {
     try {
-        await prisma.corporate.create({
+        await prisma.business.create({
             data: {
                 name: data.name,
                 taxId: data.taxId || null,
                 headquarters: data.headquarters || null,
             }
         });
-        revalidatePath("/admin/businesses");
+        revalidatePath("/admin/branches");
         return { success: true };
     } catch (error) {
-        console.error("Failed to create corporate entity:", error);
-        return { success: false, error: "Failed to create corporate entity." };
+        console.error("Failed to create business entity:", error);
+        return { success: false, error: "Failed to create business entity." };
     }
 }
 
-export async function updateCorporateAction(id: string, data: {
+export async function updateBusinessAction(id: string, data: {
     name?: string;
     taxId?: string;
     headquarters?: string;
@@ -31,32 +31,32 @@ export async function updateCorporateAction(id: string, data: {
     subscriptionStatus?: string;
 }) {
     try {
-        await prisma.corporate.update({
+        await prisma.business.update({
             where: { id },
             data: {
                 ...data,
                 subscriptionStatus: data.subscriptionStatus || undefined,
             }
         });
-        revalidatePath("/admin/businesses");
-        revalidatePath(`/admin/businesses/${id}`);
+        revalidatePath("/admin/branches");
+        revalidatePath(`/admin/branches/${id}`);
         return { success: true };
     } catch (error) {
-        console.error("Failed to update corporate entity:", error);
-        return { success: false, error: "Failed to update corporate entity." };
+        console.error("Failed to update business entity:", error);
+        return { success: false, error: "Failed to update business entity." };
     }
 }
 
-export async function deleteCorporateAction(id: string) {
+export async function deleteBusinessAction(id: string) {
     try {
-        await prisma.corporate.delete({
+        await prisma.business.delete({
             where: { id }
         });
-        revalidatePath("/admin/businesses");
-        revalidatePath(`/admin/businesses/${id}`);
+        revalidatePath("/admin/branches");
+        revalidatePath(`/admin/branches/${id}`);
         return { success: true };
     } catch (error) {
-        console.error("Failed to delete corporate entity:", error);
-        return { success: false, error: "Failed to delete corporate entity. Check for operational constraints." };
+        console.error("Failed to delete business entity:", error);
+        return { success: false, error: "Failed to delete business entity. Check for operational constraints." };
     }
 }

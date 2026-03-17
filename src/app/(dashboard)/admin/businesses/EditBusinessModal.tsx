@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { updateCorporateAction } from "./actions";
+import { updateBusinessAction } from "./actions";
 
-export function EditCorporateModal({ isOpen, onClose, corporate }: { isOpen: boolean, onClose: () => void, corporate: any }) {
+export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boolean, onClose: () => void, business: any }) {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
     
     const [formData, setFormData] = useState({
-        name: corporate.name,
-        taxId: corporate.taxId || "",
-        headquarters: corporate.headquarters || "",
+        name: business.name,
+        taxId: business.taxId || "",
+        headquarters: business.headquarters || "",
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -19,14 +19,14 @@ export function EditCorporateModal({ isOpen, onClose, corporate }: { isOpen: boo
         setError("");
         setIsSubmitting(true);
         
-        const res = await updateCorporateAction(corporate.id, formData);
+        const res = await updateBusinessAction(business.id, formData);
         
         setIsSubmitting(false);
         if (res.success) {
             router.refresh();
             onClose();
         } else {
-            setError(res.error || "Failed to update business.");
+            setError(res.error || "Failed to update branch.");
         }
     };
 

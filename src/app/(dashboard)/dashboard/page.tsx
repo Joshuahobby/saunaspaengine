@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 export const metadata = {
     title: "Dashboard | Sauna SPA Engine",
-    description: "Your spa business overview and daily operations summary",
+    description: "Your spa branch overview and daily operations summary",
 };
 
 export default async function DashboardPage() {
@@ -17,14 +17,14 @@ export default async function DashboardPage() {
     if (userRole === "ADMIN") {
         redirect("/admin/dashboard");
     }
-    if (userRole === "CORPORATE") {
+    if (userRole === "OWNER") {
         redirect("/executive/dashboard");
     }
 
-    const businessId = session?.user?.businessId;
+    const branchId = session?.user?.branchId;
 
-    if (!businessId) {
-        return <div className="p-8 text-center bg-[var(--bg-card)] text-[var(--text-main)] rounded-2xl border border-[var(--border-muted)] shadow-sm font-bold">Business profile not found. Please contact support.</div>;
+    if (!branchId) {
+        return <div className="p-8 text-center bg-[var(--bg-card)] text-[var(--text-main)] rounded-2xl border border-[var(--border-muted)] shadow-sm font-bold">Branch profile not found. Please contact support.</div>;
     }
 
     const isEmployee = userRole === "EMPLOYEE";
@@ -53,7 +53,7 @@ export default async function DashboardPage() {
     ] = await Promise.all([
         prisma.serviceRecord.findMany({
             where: {
-                businessId,
+                branchId,
                 status: "COMPLETED",
                 completedAt: {
                     gte: startOfToday,
@@ -64,26 +64,26 @@ export default async function DashboardPage() {
         }),
         prisma.serviceRecord.count({
             where: {
-                businessId,
+                branchId,
                 status: "IN_PROGRESS"
             }
         }),
         prisma.client.count({
             where: {
-                businessId,
+                branchId,
                 clientType: "MEMBER",
                 status: "ACTIVE"
             }
         }),
         prisma.employee.count({
             where: {
-                businessId,
+                branchId,
                 status: "ACTIVE"
             }
         }),
         prisma.serviceRecord.findMany({
             where: {
-                businessId,
+                branchId,
                 status: "COMPLETED"
             },
             orderBy: { completedAt: "desc" },
@@ -92,14 +92,14 @@ export default async function DashboardPage() {
         }),
         prisma.inventory.findMany({
             where: {
-                businessId,
+                branchId,
                 stockCount: { lte: 10 }
             },
             take: 3
         }),
         prisma.serviceRecord.findMany({
             where: {
-                businessId,
+                branchId,
                 status: "COMPLETED",
                 completedAt: { gte: sevenDaysAgo }
             },
@@ -187,7 +187,7 @@ export default async function DashboardPage() {
 
             {/* Main Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Revenue Trends — Owner only */}
+                {/* Revenue Trends — Manager only */}
                 {!isEmployee && (
                 <div className="lg:col-span-2 p-6 glass-card border-none">
                     <div className="flex items-center justify-between mb-6">
@@ -269,7 +269,7 @@ export default async function DashboardPage() {
                         </div>
                     </div>
 
-                    {/* Inventory Alerts — Owner only */}
+                    {/* Inventory Alerts — Manager only */}
                     {!isEmployee && (
                     <div className="p-6 glass-card border-none bg-[var(--bg-surface-muted)]">
                         <div className="flex items-center justify-between mb-6">

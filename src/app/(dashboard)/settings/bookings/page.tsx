@@ -8,7 +8,7 @@ export default function BookingSettingsPage() {
             {/* Inner Sidebar Navigation */}
             <aside className="w-full lg:w-64 border-r border-[var(--color-border-light)] bg-[var(--color-surface-light)] p-2 space-y-2 hidden lg:block">
                 <div className="mb-4 mt-2 px-3">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Business Settings</h3>
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Branch Settings</h3>
                 </div>
                 <nav className="space-y-1">
                     <button className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-left">
@@ -51,7 +51,7 @@ export default function BookingSettingsPage() {
                             <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">Revenue Safeguard</span>
                         </div>
                         <h1 className="text-5xl font-display font-bold leading-tight tracking-tight">Cancellation <span className="text-[var(--color-primary)] underline decoration-2 decoration-[var(--color-primary)]/20 underline-offset-8">Policy</span></h1>
-                        <p className="text-[var(--text-muted)] text-xl font-bold max-w-2xl leading-relaxed">Manage how deposits and automated penalties protect your business from no-shows and late cancellations.</p>
+                        <p className="text-[var(--text-muted)] text-xl font-bold max-w-2xl leading-relaxed">Manage how deposits and automated penalties protect your branch from no-shows and late cancellations.</p>
                     </div>
                     <button className="flex items-center justify-center rounded-[2rem] h-14 px-10 bg-[var(--text-main)] text-[var(--bg-app)] text-sm font-bold hover:opacity-90 transition-all shadow-xl shadow-[var(--text-main)]/10 tracking-widest">
                         <span className="material-symbols-outlined mr-2 text-xl font-bold">save</span>

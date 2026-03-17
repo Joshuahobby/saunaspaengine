@@ -8,16 +8,16 @@ import { apiAuth, apiHandler } from "@/lib/api-utils";
  */
 export async function GET() {
     return apiHandler(async () => {
-        const { user, error } = await apiAuth(["OWNER", "ADMIN"]);
+        const { user, error } = await apiAuth(["MANAGER", "ADMIN"]);
         if (error) return error;
 
-        if (!user!.businessId) {
-            return NextResponse.json({ error: "No business assigned" }, { status: 403 });
+        if (!user!.branchId) {
+            return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
         }
 
         const lowStockItems = await prisma.inventory.findMany({
             where: {
-                businessId: user!.businessId,
+                branchId: user!.branchId,
                 stockCount: {
                     lte: prisma.inventory.fields.minThreshold as unknown as number,
                 },
@@ -28,7 +28,7 @@ export async function GET() {
         // Prisma doesn't support column-to-column comparison in WHERE directly,
         // so we fetch all and filter in JS
         const allItems = await prisma.inventory.findMany({
-            where: { businessId: user!.businessId },
+            where: { branchId: user!.branchId },
             orderBy: { stockCount: "asc" },
         });
 

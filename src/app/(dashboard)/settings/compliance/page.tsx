@@ -4,7 +4,7 @@ import React from "react";
 const PRESETS = [
     { icon: "database", title: "GDPR Data Handling", desc: "Automatic consent modals, data portability exports, and right-to-be-forgotten logic for EU residents.", active: true },
     { icon: "calculate", title: "Tax Calculation (OSS VAT)", desc: "Dynamic tax application based on customer's residence within the EU Single Market.", active: true },
-    { icon: "receipt_long", title: "Legal Receipt Format", desc: "Includes mandatory business registration numbers, VAT IDs, and localized billing addresses.", active: true },
+    { icon: "receipt_long", title: "Legal Receipt Format", desc: "Includes mandatory branch registration numbers, VAT IDs, and localized billing addresses.", active: true },
     { icon: "gavel", title: "Local Content Moderation", desc: "Regional filtering of prohibited content types as required by specific national legislations.", active: false },
 ];
 

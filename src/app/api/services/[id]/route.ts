@@ -8,18 +8,18 @@ export async function PUT(
 ) {
     return apiHandler(async () => {
         const { id } = await params;
-        const { user, error } = await apiAuth(["OWNER", "ADMIN"]);
+        const { user, error } = await apiAuth(["MANAGER", "ADMIN"]);
         if (error) return error;
 
-        if (!user!.businessId) {
-            return NextResponse.json({ error: "No business assigned" }, { status: 403 });
+        if (!user!.branchId) {
+            return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
         }
 
         const body = await request.json();
         const { name, category, price, duration, status } = body;
 
         const service = await prisma.service.update({
-            where: { id, businessId: user!.businessId },
+            where: { id, branchId: user!.branchId },
             data: {
                 ...(name && { name: String(name).trim() }),
                 ...(category && { category: String(category).trim() }),
@@ -39,15 +39,15 @@ export async function DELETE(
 ) {
     return apiHandler(async () => {
         const { id } = await params;
-        const { user, error } = await apiAuth(["OWNER", "ADMIN"]);
+        const { user, error } = await apiAuth(["MANAGER", "ADMIN"]);
         if (error) return error;
 
-        if (!user!.businessId) {
-            return NextResponse.json({ error: "No business assigned" }, { status: 403 });
+        if (!user!.branchId) {
+            return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
         }
 
         await prisma.service.delete({
-            where: { id, businessId: user!.businessId },
+            where: { id, branchId: user!.branchId },
         });
 
         return NextResponse.json({ success: true });

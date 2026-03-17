@@ -27,7 +27,7 @@ export default async function AdminAuditPage(props: {
                     role: true,
                 }
             },
-            business: {
+            branch: {
                 select: {
                     name: true,
                 }
@@ -62,7 +62,7 @@ interface AuditLog {
         fullName: string;
         role: string;
     };
-    business?: {
+    branch?: {
         name: string;
     } | null;
 }

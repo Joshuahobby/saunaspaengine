@@ -27,12 +27,12 @@ function getMinutesRemaining(createdAt: Date, duration: number): number {
 
 export default async function FloorManagerPage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const [activeRecords, employees, todayCount] = await Promise.all([
         prisma.serviceRecord.findMany({
             where: {
-                businessId: session.user.businessId,
+                branchId: session.user.branchId,
                 status: { in: ["CREATED", "IN_PROGRESS"] },
             },
             include: {
@@ -42,12 +42,12 @@ export default async function FloorManagerPage() {
             },
         }),
         prisma.employee.findMany({
-            where: { businessId: session.user.businessId, status: "ACTIVE" },
+            where: { branchId: session.user.branchId, status: "ACTIVE" },
             select: { id: true, fullName: true },
         }),
         prisma.serviceRecord.count({
             where: {
-                businessId: session.user.businessId,
+                branchId: session.user.branchId,
                 createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
             },
         }),

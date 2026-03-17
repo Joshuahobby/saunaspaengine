@@ -7,10 +7,10 @@ import { format, startOfMonth, endOfMonth } from "date-fns";
 export default async function ClientProfilePage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const client = await prisma.client.findUnique({
-        where: { id, businessId: session.user.businessId },
+        where: { id, branchId: session.user.branchId },
         include: {
             memberships: {
                 where: { status: "ACTIVE" },

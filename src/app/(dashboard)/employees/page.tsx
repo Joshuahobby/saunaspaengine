@@ -7,10 +7,10 @@ import Link from "next/link";
 
 export default async function EmployeesPage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const employees = await prisma.employee.findMany({
-        where: { businessId: session.user.businessId },
+        where: { branchId: session.user.branchId },
         include: {
             category: true,
             _count: {

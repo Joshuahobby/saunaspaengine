@@ -7,7 +7,7 @@ interface HealthProps {
     metrics: {
         uptime: string;
         requestsToday: number;
-        activeBusinesses: number;
+        activeBranches: number;
         totalUsers: number;
         totalEmployees: number;
     };
@@ -89,7 +89,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             <DiagnosticStatCard title="Uptime (Cycle)" value={metrics.uptime} trend="Stable" icon="sensors" type="info" />
                             <DiagnosticStatCard title="Request Load" value={metrics.requestsToday.toLocaleString()} trend="+12% Vol" icon="speed" type="success" />
-                            <DiagnosticStatCard title="Vessel Nodes" value={metrics.activeBusinesses.toString()} trend="Active" icon="hub" type="info" />
+                            <DiagnosticStatCard title="Vessel Nodes" value={metrics.activeBranches.toString()} trend="Active" icon="hub" type="info" />
                             <DiagnosticStatCard title="Thread Count" value={metrics.totalEmployees.toString()} trend="Active" icon="psychology" type="info" />
                         </div>
 

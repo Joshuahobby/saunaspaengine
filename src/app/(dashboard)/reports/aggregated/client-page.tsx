@@ -5,7 +5,7 @@ import Pagination from "@/components/ui/Pagination";
 
 interface ReportRow {
     id: string;
-    businessName: string;
+    branchName: string;
     serviceName: string;
     employeeName: string;
     clientName: string;
@@ -17,10 +17,10 @@ interface ReportRow {
 
 interface Props {
     reports: ReportRow[];
-    businesses: string[];
+    branches: string[];
 }
 
-export default function AggregatedReportsClient({ reports, businesses }: Props) {
+export default function AggregatedReportsClient({ reports, branches }: Props) {
     const [filterBranch, setFilterBranch] = useState("All Sanctuaries");
     const [page, setPage] = useState(1);
     const perPage = 10;
@@ -30,7 +30,7 @@ export default function AggregatedReportsClient({ reports, businesses }: Props) 
 
     const filteredReports = filterBranch === "All Sanctuaries"
         ? reports
-        : reports.filter(r => r.businessName === filterBranch);
+        : reports.filter(r => r.branchName === filterBranch);
 
     const totalPages = Math.ceil(filteredReports.length / perPage);
     const pagedReports = filteredReports.slice((page - 1) * perPage, page * perPage);
@@ -61,7 +61,7 @@ export default function AggregatedReportsClient({ reports, businesses }: Props) 
                         className="h-12 rounded-xl bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] px-6 text-sm font-display font-bold text-[var(--text-main)] focus:ring-2 focus:ring-[var(--color-primary)]/20 transition-all outline-none appearance-none hover:border-[var(--color-primary)]/30 min-w-[240px]"
                     >
                         <option value="All Sanctuaries">All Sanctuaries</option>
-                        {businesses.map(b => (
+                        {branches.map(b => (
                             <option key={b} value={b}>{b}</option>
                         ))}
                     </select>
@@ -85,7 +85,7 @@ export default function AggregatedReportsClient({ reports, businesses }: Props) 
                             {pagedReports.map((row) => (
                                 <tr key={row.id} className="hover:bg-[var(--bg-surface-muted)]/5 transition-colors">
                                     <td className="px-8 py-5">
-                                        <p className="font-display font-bold text-[var(--text-main)]">{row.businessName}</p>
+                                        <p className="font-display font-bold text-[var(--text-main)]">{row.branchName}</p>
                                     </td>
                                     <td className="px-8 py-5">
                                         <p className="text-sm font-medium text-[var(--text-main)]">{new Date(row.completedAt).toLocaleDateString()}</p>

@@ -14,7 +14,7 @@ const PLANS = [
         features: [
             { text: "Up to 5 Employees", included: true },
             { text: "500 QR Scans /mo", included: true },
-            { text: "1 Business Branch", included: true },
+            { text: "1 Branch Branch", included: true },
             { text: "Advanced Analytics", included: false },
         ],
         popular: false,
@@ -23,7 +23,7 @@ const PLANS = [
         name: "Pro",
         monthly: 99,
         annual: 79,
-        desc: "Our most comprehensive plan for growing businesses with multiple teams.",
+        desc: "Our most comprehensive plan for growing branches with multiple teams.",
         cta: "Start Free Trial",
         ctaStyle: "bg-[var(--color-primary)] text-[var(--bg-app)] hover:opacity-90",
         features: [
@@ -55,7 +55,7 @@ const COMPARISON = [
     { section: "Usage Limits", rows: [
         { feature: "Monthly QR Scans", basic: "500", pro: "Unlimited", enterprise: "Unlimited" },
         { feature: "Staff Accounts", basic: "Up to 5", pro: "Unlimited", enterprise: "Unlimited" },
-        { feature: "Business Locations", basic: "1", pro: "Up to 5", enterprise: "Unlimited" },
+        { feature: "Branch Locations", basic: "1", pro: "Up to 5", enterprise: "Unlimited" },
     ]},
     { section: "Platform Capabilities", rows: [
         { feature: "Booking Management", basic: true, pro: true, enterprise: true },
@@ -110,7 +110,7 @@ export default function PricingPage() {
                 {/* Header Section */}
                 <div className="max-w-[960px] w-full text-center mb-12">
                     <h1 className="text-4xl md:text-5xl font-black leading-tight tracking-tight mb-4">Simple, Transparent Pricing</h1>
-                    <p className="text-[var(--text-muted)] text-lg max-w-2xl mx-auto">Choose the plan that&apos;s right for your sauna or spa business operations. Scale seamlessly as you grow.</p>
+                    <p className="text-[var(--text-muted)] text-lg max-w-2xl mx-auto">Choose the plan that&apos;s right for your sauna or spa branch operations. Scale seamlessly as you grow.</p>
                     {/* Toggle */}
                     <div className="flex justify-center mt-10">
                         <div className="flex h-12 w-full max-w-sm items-center justify-center rounded-xl bg-[var(--bg-surface-muted)]/30 p-1.5 border border-[var(--border-muted)]">
@@ -199,7 +199,7 @@ export default function PricingPage() {
                 <div className="w-full max-w-[960px] bg-[var(--color-primary)] rounded-2xl p-10 md:p-16 text-center text-[var(--bg-app)] overflow-hidden relative">
                     <div className="relative z-10">
                         <h2 className="text-3xl md:text-4xl font-black mb-4">Ready to fuel your spa engine?</h2>
-                        <p className="text-lg mb-8 opacity-80 font-medium">Join 2,000+ wellness businesses optimizing their operations daily.</p>
+                        <p className="text-lg mb-8 opacity-80 font-medium">Join 2,000+ wellness branches optimizing their operations daily.</p>
                         <div className="flex flex-col sm:flex-row justify-center gap-4">
                             <Link href="/login" className="bg-[var(--bg-app)] text-[var(--text-main)] px-8 py-4 rounded-xl font-bold hover:opacity-90 transition-all">Get Started Now</Link>
                             <button className="bg-white/30 backdrop-blur-md px-8 py-4 rounded-xl font-bold border border-[var(--bg-app)]/10 hover:bg-white/50 transition-all">Schedule a Demo</button>

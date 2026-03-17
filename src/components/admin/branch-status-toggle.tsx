@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-interface BusinessStatusToggleProps {
-    businessId: string;
+interface BranchStatusToggleProps {
+    branchId: string;
     initialStatus: string;
 }
 
-export function BusinessStatusToggle({ businessId, initialStatus }: BusinessStatusToggleProps) {
+export function BranchStatusToggle({ branchId, initialStatus }: BranchStatusToggleProps) {
     const [status, setStatus] = useState(initialStatus);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
@@ -18,7 +18,7 @@ export function BusinessStatusToggle({ businessId, initialStatus }: BusinessStat
         const nextStatus = status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
 
         try {
-            const res = await fetch(`/api/admin/businesses/${businessId}`, {
+            const res = await fetch(`/api/admin/branches/${branchId}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: nextStatus })
@@ -29,7 +29,7 @@ export function BusinessStatusToggle({ businessId, initialStatus }: BusinessStat
                 router.refresh();
             }
         } catch (error) {
-            console.error("Failed to toggle business status:", error);
+            console.error("Failed to toggle branch status:", error);
         } finally {
             setIsLoading(false);
         }
@@ -38,7 +38,7 @@ export function BusinessStatusToggle({ businessId, initialStatus }: BusinessStat
     return (
         <label className="relative inline-flex items-center cursor-pointer">
             <input
-                aria-label="Toggle Business Status"
+                aria-label="Toggle Branch Status"
                 type="checkbox"
                 className="sr-only peer"
                 checked={status === 'ACTIVE'}

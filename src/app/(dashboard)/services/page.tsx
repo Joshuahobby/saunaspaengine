@@ -3,22 +3,22 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import ServicesClientPage from "./client-page";
 
-type SessionUser = { businessId?: string; role?: string };
+type SessionUser = { branchId?: string; role?: string };
 
 export const dynamic = "force-dynamic";
 
 export default async function ServicesPage() {
     const session = await auth();
 
-    if (!session?.user?.businessId) {
+    if (!session?.user?.branchId) {
         redirect("/login");
     }
 
-    const businessId = session.user.businessId;
+    const branchId = session.user.branchId;
 
-    // Fetch all services for this business
+    // Fetch all services for this branch
     const services = await prisma.service.findMany({
-        where: { businessId },
+        where: { branchId },
         orderBy: { name: 'asc' }
     });
 
@@ -34,7 +34,7 @@ export default async function ServicesPage() {
     // Most Popular Service (via ServiceRecords)
     const mostPopularAgg = await prisma.serviceRecord.groupBy({
         by: ['serviceId'],
-        where: { businessId },
+        where: { branchId },
         _count: {
             serviceId: true
         },

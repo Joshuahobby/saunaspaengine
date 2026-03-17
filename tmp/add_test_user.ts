@@ -27,7 +27,7 @@ async function main() {
             passwordHash: passwordHash,
             fullName: "Test User",
             role: "ADMIN",
-            businessId: business.id,
+            usr_businessId: business.id,
             status: "ACTIVE"
         }
     });

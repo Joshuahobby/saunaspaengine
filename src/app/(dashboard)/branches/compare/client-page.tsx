@@ -2,7 +2,7 @@
 
 import React from "react";
 
-interface BusinessData {
+interface BranchData {
     id: string;
     name: string;
     status: string;
@@ -14,10 +14,10 @@ interface BusinessData {
 }
 
 interface Props {
-    businesses: BusinessData[];
+    branches: BranchData[];
 }
 
-export default function BranchComparisonClient({ businesses }: Props) {
+export default function BranchComparisonClient({ branches }: Props) {
     const formatCurrency = (amount: number) =>
         new Intl.NumberFormat("en-US", { style: "currency", currency: "RWF", maximumFractionDigits: 0 }).format(amount);
 
@@ -27,13 +27,13 @@ export default function BranchComparisonClient({ businesses }: Props) {
             <div className="flex flex-col gap-3 border-b border-[var(--border-muted)] pb-8">
                 <h1 className="text-4xl font-serif font-bold text-[var(--text-main)] italic">Entity Constellation</h1>
                 <p className="text-lg text-[var(--text-muted)] italic font-medium opacity-80">
-                    Comparative resonance across all {businesses.length} sanctuary nodes.
+                    Comparative resonance across all {branches.length} sanctuary nodes.
                 </p>
             </div>
 
             {/* Comparison Grid */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                {businesses.map((biz) => (
+                {branches.map((biz) => (
                     <div key={biz.id} className="bg-[var(--bg-card)] rounded-[2.5rem] border border-[var(--border-muted)] p-10 shadow-sm transition-all hover:shadow-lg hover:border-[var(--color-primary)]/30 group">
                         <div className="flex items-center justify-between mb-8 pb-8 border-b border-[var(--border-muted)]">
                             <div>
@@ -72,11 +72,11 @@ export default function BranchComparisonClient({ businesses }: Props) {
                     </div>
                 ))}
 
-                {businesses.length === 0 && (
+                {branches.length === 0 && (
                     <div className="col-span-full py-20 text-center">
-                        <span className="material-symbols-outlined text-6xl text-[var(--text-muted)] opacity-20 mb-4">corporate_fare</span>
+                        <span className="material-symbols-outlined text-6xl text-[var(--text-muted)] opacity-20 mb-4">business_fare</span>
                         <h3 className="text-2xl font-serif font-bold text-[var(--text-main)] italic">No Entities Found</h3>
-                        <p className="text-[var(--text-muted)] italic">There are no businesses tethered to this corporate jurisdiction.</p>
+                        <p className="text-[var(--text-muted)] italic">There are no branches tethered to this business jurisdiction.</p>
                     </div>
                 )}
             </div>

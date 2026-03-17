@@ -6,15 +6,15 @@ import ReportsRevenueClientPage from "./client-page";
 export const dynamic = "force-dynamic";
 
 export default async function ReportsRevenuePage() {
-    const session = await requireRole(["OWNER", "ADMIN", "CORPORATE"]);
-    if (!session?.user?.businessId) redirect("/dashboard");
+    const session = await requireRole(["MANAGER", "ADMIN", "OWNER"]);
+    if (!session?.user?.branchId) redirect("/dashboard");
 
-    const businessId = session.user.businessId;
+    const branchId = session.user.branchId;
 
     // Fetch total revenue components
     const completedRecords = await prisma.serviceRecord.findMany({
         where: {
-            businessId,
+            branchId,
             status: 'COMPLETED'
         },
         include: {
@@ -30,7 +30,7 @@ export default async function ReportsRevenuePage() {
     const activeMembersCount = await prisma.membership.count({
         where: {
             status: 'ACTIVE',
-            category: { businessId }
+            category: { branchId }
         }
     });
 

@@ -4,13 +4,13 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     const session = await auth();
-    if (!session?.user?.businessId) {
+    if (!session?.user?.branchId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const alerts = await prisma.safetyAlert.findMany({
         where: {
-            businessId: session.user.businessId,
+            branchId: session.user.branchId,
             status: { not: "RESOLVED" },
         },
         orderBy: { createdAt: "desc" },
@@ -21,7 +21,7 @@ export async function GET() {
 
 export async function POST(req: Request) {
     const session = await auth();
-    if (!session?.user?.businessId) {
+    if (!session?.user?.branchId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
                 type: type || "SILENT",
                 location,
                 message,
-                businessId: session.user.businessId,
+                branchId: session.user.branchId,
             },
         });
 
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
 
 export async function PATCH(req: Request) {
     const session = await auth();
-    if (!session?.user?.businessId) {
+    if (!session?.user?.branchId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 

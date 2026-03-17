@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 async function submitInventoryRequest(formData: FormData) {
     "use server";
     const session = await auth();
-    if (!session?.user?.businessId) throw new Error("Unauthorized");
+    if (!session?.user?.branchId) throw new Error("Unauthorized");
 
     // In a full implementation, we would save this to an InventoryRequest or Notification model
     // For now, we simulate submission and redirect
@@ -22,11 +22,11 @@ async function submitInventoryRequest(formData: FormData) {
 
 export default async function InventoryRequestPage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     // Fetch essential inventory to show in request form
     const items = await prisma.inventory.findMany({
-        where: { businessId: session.user.businessId },
+        where: { branchId: session.user.branchId },
         orderBy: { stockCount: 'asc' }, // show low stock items first
         take: 5
     });
@@ -127,7 +127,7 @@ export default async function InventoryRequestPage() {
                                 <div className="pt-4 border-t border-[var(--color-border-light)]">
                                     <div className="flex items-center gap-2 text-[var(--color-primary)]">
                                         <span className="material-symbols-outlined text-sm">info</span>
-                                        <span className="text-xs font-medium uppercase tracking-wider">Auto-notifies Owner</span>
+                                        <span className="text-xs font-medium uppercase tracking-wider">Auto-notifies Manager</span>
                                     </div>
                                 </div>
                             </div>

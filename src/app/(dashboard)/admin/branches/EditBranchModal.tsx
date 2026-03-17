@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { updateBusinessAction } from "./actions";
+import { updateBranchAction } from "./actions";
 
-interface EditBusinessModalProps {
+interface EditBranchModalProps {
     isOpen: boolean;
     onClose: () => void;
-    business: {
+    branch: {
         id: string;
         name: string;
         email?: string | null;
@@ -16,14 +16,14 @@ interface EditBusinessModalProps {
     };
 }
 
-export function EditBusinessModal({ isOpen, onClose, business }: EditBusinessModalProps) {
+export function EditBranchModal({ isOpen, onClose, branch }: EditBranchModalProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [formData, setFormData] = useState({
-        name: business.name || "",
-        email: business.email || "",
-        phone: business.phone || "",
-        address: business.address || "",
+        name: branch.name || "",
+        email: branch.email || "",
+        phone: branch.phone || "",
+        address: branch.address || "",
     });
 
     if (!isOpen) return null;
@@ -34,11 +34,11 @@ export function EditBusinessModal({ isOpen, onClose, business }: EditBusinessMod
         setError("");
 
         try {
-            const res = await updateBusinessAction(business.id, formData);
+            const res = await updateBranchAction(branch.id, formData);
             if (res.success) {
                 onClose();
             } else {
-                setError(res.error || "Failed to update business");
+                setError(res.error || "Failed to update branch");
             }
         } catch (err: any) {
             setError(err.message);
@@ -68,7 +68,7 @@ export function EditBusinessModal({ isOpen, onClose, business }: EditBusinessMod
                         {/* Header */}
                         <div className="px-8 py-6 border-b border-[var(--border-muted)] flex items-center justify-between">
                             <h2 className="text-2xl font-serif font-black text-[var(--text-main)] italic">
-                                Edit Business
+                                Edit Branch
                             </h2>
                             <button
                                 type="button"
@@ -96,7 +96,7 @@ export function EditBusinessModal({ isOpen, onClose, business }: EditBusinessMod
                                         value={formData.name}
                                         onChange={(e) => setFormData(state => ({ ...state, name: e.target.value }))}
                                         className="w-full h-12 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/40 focus:ring-4 focus:ring-[var(--color-primary)]/10 outline-none transition-all placeholder:text-[var(--text-muted)] placeholder:opacity-30"
-                                        placeholder="Business Name"
+                                        placeholder="Branch Name"
                                     />
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">

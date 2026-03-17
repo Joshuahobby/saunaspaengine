@@ -1,28 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { createBusinessAction } from "./actions";
+import { createBranchAction } from "./actions";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface NewBusinessModalProps {
+interface NewBranchModalProps {
     isOpen: boolean;
     onClose: () => void;
 }
 
 interface SuccessData {
-    businessId: string;
+    branchId: string;
     username: string;
 }
 
-export function NewBusinessModal({ isOpen, onClose }: NewBusinessModalProps) {
+export function NewBranchModal({ isOpen, onClose }: NewBranchModalProps) {
     const [step, setStep] = useState(1);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [successData, setSuccessData] = useState<SuccessData | null>(null);
 
     // Form states
-    const [businessName, setBusinessName] = useState("");
-    const [ownerName, setOwnerName] = useState("");
+    const [branchName, setBranchName] = useState("");
+    const [managerName, setManagerName] = useState("");
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -34,14 +34,14 @@ export function NewBusinessModal({ isOpen, onClose }: NewBusinessModalProps) {
         setError("");
 
         const formData = new FormData();
-        formData.append("businessName", businessName);
-        formData.append("ownerName", ownerName);
+        formData.append("branchName", branchName);
+        formData.append("managerName", managerName);
         formData.append("username", username);
         formData.append("email", email);
         formData.append("password", password);
 
         try {
-            const result = await createBusinessAction(formData);
+            const result = await createBranchAction(formData);
             if (result?.error) {
                 setError(result.error);
             } else if (result?.success && result.data) {
@@ -94,7 +94,7 @@ export function NewBusinessModal({ isOpen, onClose }: NewBusinessModalProps) {
                 <div className="px-8 py-7 border-b border-white/5 flex items-center justify-between relative z-10">
                     <div>
                         <h2 className="text-2xl font-display font-bold text-[var(--text-main)] tracking-tight">
-                            {successData ? "Registration Complete" : "Register New Business"}
+                            {successData ? "Registration Complete" : "Register New Branch"}
                         </h2>
                         {!successData && (
                             <div className="flex gap-1.5 mt-2">
@@ -133,18 +133,18 @@ export function NewBusinessModal({ isOpen, onClose }: NewBusinessModalProps) {
                                 {step === 1 ? (
                                     <div className="space-y-6 flex-1">
                                         <div className="space-y-2">
-                                            <h3 className="text-lg font-bold">Business Details</h3>
-                                            <p className="text-sm text-[var(--text-muted)] leading-relaxed">Provide the basic information for the new business.</p>
+                                            <h3 className="text-lg font-bold">Branch Details</h3>
+                                            <p className="text-sm text-[var(--text-muted)] leading-relaxed">Provide the basic information for the new branch.</p>
                                         </div>
                                         <div className="group">
                                             <label className="block text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] mb-3 ml-1">
-                                                Business Name
+                                                Branch Name
                                             </label>
                                             <div className="relative">
                                                 <input
                                                     type="text"
-                                                    value={businessName}
-                                                    onChange={(e) => setBusinessName(e.target.value)}
+                                                    value={branchName}
+                                                    onChange={(e) => setBranchName(e.target.value)}
                                                     autoFocus
                                                     placeholder="e.g. Serenity Bay Spa"
                                                     className="w-full bg-white/5 border border-white/5 rounded-2xl h-14 px-5 text-base font-medium focus:bg-white/[0.08] focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all placeholder:text-white/20 outline-none"
@@ -159,7 +159,7 @@ export function NewBusinessModal({ isOpen, onClose }: NewBusinessModalProps) {
                                     <div className="space-y-6 flex-1">
                                         <div className="space-y-2">
                                             <h3 className="text-lg font-bold">Administrator Account</h3>
-                                            <p className="text-sm text-[var(--text-muted)] leading-relaxed">Set up the primary administrator account for this business.</p>
+                                            <p className="text-sm text-[var(--text-muted)] leading-relaxed">Set up the primary administrator account for this branch.</p>
                                         </div>
                                         
                                         <div className="grid grid-cols-2 gap-4">
@@ -167,8 +167,8 @@ export function NewBusinessModal({ isOpen, onClose }: NewBusinessModalProps) {
                                                 <label className="block text-[9px] font-black text-[var(--text-muted)] uppercase tracking-wider ml-1 opacity-50">Administrator Name</label>
                                                 <input
                                                     type="text"
-                                                    value={ownerName}
-                                                    onChange={(e) => setOwnerName(e.target.value)}
+                                                    value={managerName}
+                                                    onChange={(e) => setManagerName(e.target.value)}
                                                     placeholder="Full Name"
                                                     className="w-full bg-white/5 border border-white/5 rounded-xl h-12 px-4 text-sm font-medium focus:bg-white/[0.08] focus:border-[var(--color-primary)]/30 transition-all outline-none"
                                                 />
@@ -191,7 +191,7 @@ export function NewBusinessModal({ isOpen, onClose }: NewBusinessModalProps) {
                                                 type="email"
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
-                                                placeholder="owner@domain.com"
+                                                placeholder="manager@domain.com"
                                                 className="w-full bg-white/5 border border-white/5 rounded-xl h-12 px-4 text-sm font-medium focus:bg-white/[0.08] focus:border-[var(--color-primary)]/30 transition-all outline-none"
                                             />
                                         </div>
@@ -221,14 +221,14 @@ export function NewBusinessModal({ isOpen, onClose }: NewBusinessModalProps) {
                                     <button
                                         type="button"
                                         onClick={step === 1 ? () => setStep(2) : handleFinalSubmit}
-                                        disabled={loading || (step === 1 && !businessName) || (step === 2 && (!ownerName || !username || !email || !password))}
+                                        disabled={loading || (step === 1 && !branchName) || (step === 2 && (!managerName || !username || !email || !password))}
                                         className="flex-1 h-14 bg-[var(--text-main)] text-[var(--bg-app)] rounded-2xl font-bold shadow-xl shadow-black/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-30 disabled:hover:scale-100 group"
                                     >
                                         {loading ? (
                                             <span className="size-5 border-3 border-[var(--bg-app)] border-t-transparent rounded-full animate-spin"></span>
                                         ) : (
                                             <>
-                                                {step === 1 ? 'Admin Account' : 'Create Business'}
+                                                {step === 1 ? 'Admin Account' : 'Create Branch'}
                                                 <span className="material-symbols-outlined text-xl transition-transform group-hover:translate-x-1">
                                                     {step === 1 ? 'arrow_forward' : 'bolt'}
                                                 </span>
@@ -256,9 +256,9 @@ export function NewBusinessModal({ isOpen, onClose }: NewBusinessModalProps) {
                                         <div className="absolute inset-0 rounded-full border border-emerald-500/20 animate-ping opacity-20"></div>
                                     </div>
                                     <div className="space-y-2">
-                                        <h3 className="text-2xl font-display font-bold text-[var(--text-main)]">Business Registered</h3>
+                                        <h3 className="text-2xl font-display font-bold text-[var(--text-main)]">Branch Registered</h3>
                                         <p className="text-sm text-[var(--text-muted)] max-w-[80%] mx-auto leading-relaxed">
-                                            The <span className="text-[var(--text-main)] font-semibold">{businessName}</span> has been successfully registered in the system.
+                                            The <span className="text-[var(--text-main)] font-semibold">{branchName}</span> has been successfully registered in the system.
                                         </p>
                                     </div>
                                 </div>
@@ -266,11 +266,11 @@ export function NewBusinessModal({ isOpen, onClose }: NewBusinessModalProps) {
                                 <div className="bg-black/20 backdrop-blur-sm border border-white/5 rounded-[2rem] p-6 space-y-5">
                                     <div className="flex items-center justify-between group">
                                         <div className="space-y-1">
-                                            <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.15em]">Business ID</p>
-                                            <p className="text-sm font-mono font-bold text-[var(--color-primary)]">{successData.businessId}</p>
+                                            <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.15em]">Branch ID</p>
+                                            <p className="text-sm font-mono font-bold text-[var(--color-primary)]">{successData.branchId}</p>
                                         </div>
                                         <button 
-                                            onClick={() => navigator.clipboard.writeText(successData.businessId)}
+                                            onClick={() => navigator.clipboard.writeText(successData.branchId)}
                                             className="size-8 rounded-lg hover:bg-white/5 flex items-center justify-center text-white/20 hover:text-white/60 transition-all opacity-0 group-hover:opacity-100"
                                         >
                                             <span className="material-symbols-outlined text-lg">content_copy</span>
@@ -292,7 +292,7 @@ export function NewBusinessModal({ isOpen, onClose }: NewBusinessModalProps) {
                                 <div className="space-y-3">
                                     <button 
                                         onClick={() => {
-                                            const text = `Welcome to Sauna SPA Engine! 🌿\n\nYour sanctuary node is ready for setup.\nBusiness ID: ${successData.businessId}\nLogin: ${successData.username}\n\nGet started at: ${window.location.origin}/login`;
+                                            const text = `Welcome to Sauna SPA Engine! 🌿\n\nYour sanctuary node is ready for setup.\nBranch ID: ${successData.branchId}\nLogin: ${successData.username}\n\nGet started at: ${window.location.origin}/login`;
                                             navigator.clipboard.writeText(text);
                                         }}
                                         className="w-full h-16 bg-[var(--text-main)] text-[var(--bg-app)] rounded-2xl font-bold flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-black/20"

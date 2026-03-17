@@ -1,28 +1,28 @@
 import { requireRole } from "@/lib/role-guard";
 import { prisma } from "@/lib/prisma";
-import AdminBusinessesClientPage from "./client-page";
+import AdminBranchesClientPage from "./client-page";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Vessel Directory | Business Hubs",
-    description: "Manage and oversee all corporate business hubs and their branch networks.",
+    title: "Vessel Directory | Branch Hubs",
+    description: "Manage and oversee all business branch hubs and their branch networks.",
 };
 
-export default async function AdminBusinessesPage() {
-    await requireRole(["ADMIN", "CORPORATE"]);
+export default async function AdminBranchesPage() {
+    await requireRole(["ADMIN", "OWNER"]);
 
-    const businesses = await prisma.corporate.findMany({
+    const branches = await prisma.business.findMany({
         include: {
-            businesses: true
+            branches: true
         },
         orderBy: {
             createdAt: 'desc'
         }
     });
 
-    const mappedBusinesses = businesses.map(corp => {
-        const activeBranches = corp.businesses.filter(b => b.status === "ACTIVE").length;
-        const totalBranches = corp.businesses.length;
+    const mappedBranches = branches.map(corp => {
+        const activeBranches = corp.branches.filter(b => b.status === "ACTIVE").length;
+        const totalBranches = corp.branches.length;
         return {
             id: corp.id,
             name: corp.name,
@@ -36,9 +36,9 @@ export default async function AdminBusinessesPage() {
     });
 
     const stats = {
-        totalBusinesses: mappedBusinesses.length,
-        activeBusinesses: mappedBusinesses.filter(b => b.status === "ACTIVE").length,
+        totalBranches: mappedBranches.length,
+        activeBranches: mappedBranches.filter(b => b.status === "ACTIVE").length,
     };
 
-    return <AdminBusinessesClientPage businesses={mappedBusinesses} stats={stats} />;
+    return <AdminBranchesClientPage branches={mappedBranches} stats={stats} />;
 }

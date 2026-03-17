@@ -9,10 +9,10 @@ function getInitials(name: string) {
 
 export default async function QRScannerPage() {
     const session = await auth();
-    if (!session?.user?.businessId) redirect("/login");
+    if (!session?.user?.branchId) redirect("/login");
 
     const recentCheckins = await prisma.serviceRecord.findMany({
-        where: { businessId: session.user.businessId },
+        where: { branchId: session.user.branchId },
         include: {
             client: { select: { fullName: true, clientType: true } },
         },

@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 
-import { saveBusinessProfileAction } from "../actions";
+import { saveBranchProfileAction } from "../actions";
 
 interface StepProps {
-    business: {
+    branch: {
         id: string;
         name: string | null;
         email: string | null;
@@ -15,13 +15,13 @@ interface StepProps {
     onPrev: () => void;
 }
 
-export function Step1Profile({ business, onNext, onPrev }: StepProps) {
+export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
     const [loading, setLoading] = useState(false);
     
     // Form state
-    const [name, setName] = useState(business.name || "");
-    const [email, setEmail] = useState(business.email || "");
-    const [phone, setPhone] = useState(business.phone || "");
+    const [name, setName] = useState(branch.name || "");
+    const [email, setEmail] = useState(branch.email || "");
+    const [phone, setPhone] = useState(branch.phone || "");
 
     const days = [
         "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
@@ -31,7 +31,7 @@ export function Step1Profile({ business, onNext, onPrev }: StepProps) {
         e.preventDefault();
         setLoading(true);
         try {
-            await saveBusinessProfileAction(business.id, { name, email, phone });
+            await saveBranchProfileAction(branch.id, { name, email, phone });
             onNext();
         } catch (error) {
             console.error(error);
@@ -48,9 +48,9 @@ export function Step1Profile({ business, onNext, onPrev }: StepProps) {
                     <span className="material-symbols-outlined !text-sm">analytics</span>
                     Step 1 of 4
                 </div>
-                <h1 className="text-4xl font-display font-black text-[var(--text-main)] tracking-tight">Business Profile</h1>
+                <h1 className="text-4xl font-display font-black text-[var(--text-main)] tracking-tight">Branch Profile</h1>
                 <p className="text-lg text-[var(--text-muted)] leading-relaxed">
-                    Set up your business&apos;s public profile. This information helps customers find and contact you on our platform.
+                    Set up your branch&apos;s public profile. This information helps customers find and contact you on our platform.
                 </p>
             </div>
 
@@ -58,7 +58,7 @@ export function Step1Profile({ business, onNext, onPrev }: StepProps) {
             <section className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 space-y-8">
                 <div className="flex items-center gap-3 border-b border-white/5 pb-4">
                     <span className="material-symbols-outlined text-[var(--color-primary)]">branding_watermark</span>
-                    <h2 className="text-xl font-bold text-[var(--text-main)]">Business Branding</h2>
+                    <h2 className="text-xl font-bold text-[var(--text-main)]">Branch Branding</h2>
                 </div>
 
                 <div className="flex flex-col md:flex-row items-center gap-8">
@@ -67,7 +67,7 @@ export function Step1Profile({ business, onNext, onPrev }: StepProps) {
                         <span className="text-[10px] font-black mt-2 tracking-widest uppercase">UPLOAD LOGO</span>
                     </div>
                     <div className="space-y-2 text-center md:text-left">
-                        <h4 className="font-bold text-[var(--text-main)]">Business Logo</h4>
+                        <h4 className="font-bold text-[var(--text-main)]">Branch Logo</h4>
                         <p className="text-sm text-[var(--text-muted)] leading-relaxed">
                             Recommended: 400x400px. High-contrast SVG or transparent PNG preferred for optimal visibility.
                         </p>
@@ -84,10 +84,10 @@ export function Step1Profile({ business, onNext, onPrev }: StepProps) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="col-span-2 space-y-2">
-                        <label htmlFor="business-name" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Business Name</label>
+                        <label htmlFor="branch-name" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Branch Name</label>
                         <input 
-                            id="business-name"
-                            title="Business Name"
+                            id="branch-name"
+                            title="Branch Name"
                             type="text" 
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -96,10 +96,10 @@ export function Step1Profile({ business, onNext, onPrev }: StepProps) {
                         />
                     </div>
                     <div className="space-y-2">
-                        <label htmlFor="business-email" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Business Email</label>
+                        <label htmlFor="branch-email" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Branch Email</label>
                         <input 
-                            id="business-email"
-                            title="Business Email"
+                            id="branch-email"
+                            title="Branch Email"
                             type="email" 
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -108,9 +108,9 @@ export function Step1Profile({ business, onNext, onPrev }: StepProps) {
                         />
                     </div>
                     <div className="space-y-2">
-                        <label htmlFor="business-phone" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Phone Number</label>
+                        <label htmlFor="branch-phone" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Phone Number</label>
                         <input 
-                            id="business-phone"
+                            id="branch-phone"
                             title="Phone Number"
                             type="tel" 
                             value={phone}
@@ -120,12 +120,12 @@ export function Step1Profile({ business, onNext, onPrev }: StepProps) {
                         />
                     </div>
                     <div className="col-span-2 space-y-2">
-                        <label htmlFor="business-address" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Business Address</label>
+                        <label htmlFor="branch-address" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Branch Address</label>
                         <div className="relative">
                             <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] opacity-30">location_on</span>
                             <input 
-                                id="business-address"
-                                title="Business Address"
+                                id="branch-address"
+                                title="Branch Address"
                                 type="text" 
                                 placeholder="Street 123, Kigali, Rwanda"
                                 className="w-full h-14 bg-white/5 border border-white/5 rounded-2xl pl-14 pr-6 font-bold text-base text-[var(--text-main)] focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all outline-none"
@@ -139,7 +139,7 @@ export function Step1Profile({ business, onNext, onPrev }: StepProps) {
             <section className="space-y-8">
                 <div className="flex items-center gap-3 border-b border-white/5 pb-4">
                     <span className="material-symbols-outlined text-[var(--color-primary)]">schedule</span>
-                    <h2 className="text-xl font-bold text-[var(--text-main)]">Business Hours</h2>
+                    <h2 className="text-xl font-bold text-[var(--text-main)]">Branch Hours</h2>
                 </div>
 
                 <div className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] overflow-hidden">

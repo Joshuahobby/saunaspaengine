@@ -4,7 +4,7 @@ import PlatformPackagesClientPage from "./client-page";
 
 export const metadata = {
     title: "Platform Packages | Admin",
-    description: "Manage subscription plans for Business Hubs.",
+    description: "Manage subscription plans for Branch Hubs.",
 };
 
 export default async function PlatformPackagesPage() {

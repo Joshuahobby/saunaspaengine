@@ -34,7 +34,7 @@ const INITIAL_BROADCASTS: Broadcast[] = [
         id: "b2",
         subject: "New Yield Metrics Active",
         content: "The refined yield calculation engine is now live. Please review your updated analytics.",
-        audience: "All Businesses",
+        audience: "All Branches",
         intensity: "SERENE",
         createdAt: new Date(Date.now() - 86400000).toISOString(),
         author: { fullName: "Yield Warden" },
@@ -47,7 +47,7 @@ export default function AdminBroadcastsClientPage() {
     const [broadcasts, setBroadcasts] = useState<Broadcast[]>(INITIAL_BROADCASTS);
     const [viewMode, setViewMode] = useState<"compose" | "archives">("compose");
     
-    const [audience, setAudience] = useState("All Businesses");
+    const [audience, setAudience] = useState("All Branches");
     const [intensity, setIntensity] = useState<"SERENE" | "URGENT">("SERENE");
     const [subject, setSubject] = useState("");
     const [content, setContent] = useState("");

@@ -8,18 +8,18 @@ export const dynamic = "force-dynamic";
 export default async function BranchComparisonPage() {
     const session = await auth();
 
-    if (!session?.user || session.user.role !== "CORPORATE") {
+    if (!session?.user || session.user.role !== "OWNER") {
         redirect("/dashboard");
     }
 
-    const corporateId = session.user.corporateId;
-    if (!corporateId) {
-        return <div>No corporate association found.</div>;
+    const businessId = session.user.businessId;
+    if (!businessId) {
+        return <div>No business association found.</div>;
     }
 
-    // Fetch businesses under this corporate entity
-    const businesses = await prisma.business.findMany({
-        where: { corporateId },
+    // Fetch branches under this business entity
+    const branches = await prisma.branch.findMany({
+        where: { businessId },
         include: {
             _count: {
                 select: {
@@ -36,7 +36,7 @@ export default async function BranchComparisonPage() {
         orderBy: { name: "asc" }
     });
 
-    const businessData = businesses.map(b => ({
+    const branchData = branches.map(b => ({
         id: b.id,
         name: b.name,
         status: b.status,
@@ -47,5 +47,5 @@ export default async function BranchComparisonPage() {
         createdAt: b.createdAt.toISOString(),
     }));
 
-    return <BranchComparisonClient businesses={businessData} />;
+    return <BranchComparisonClient branches={branchData} />;
 }

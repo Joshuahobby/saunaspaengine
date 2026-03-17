@@ -3,12 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
-import { EditCorporateModal } from "./EditCorporateModal";
-import { DeleteCorporateModal } from "./DeleteCorporateModal";
-import { NewCorporateModal } from "./NewCorporateModal";
-import { updateCorporateAction } from "./actions";
+import { EditBusinessModal } from "./EditBusinessModal";
+import { DeleteBusinessModal } from "./DeleteBusinessModal";
+import { NewBusinessModal } from "./NewBusinessModal";
+import { updateBusinessAction } from "./actions";
 
-interface Corporate {
+interface Business {
     id: string;
     name: string;
     taxId?: string | null;
@@ -20,28 +20,28 @@ interface Corporate {
 }
 
 interface PageProps {
-    businesses: Corporate[];
+    branches: Business[];
     stats: {
-        totalBusinesses: number;
-        activeBusinesses: number;
+        totalBranches: number;
+        activeBranches: number;
     };
 }
 
-export default function AdminBusinessesClientPage({ businesses, stats }: PageProps) {
+export default function AdminBranchesClientPage({ branches, stats }: PageProps) {
     const [toggling, setToggling] = useState<string | null>(null);
-    const [editingBusiness, setEditingBusiness] = useState<Corporate | null>(null);
-    const [deletingBusiness, setDeletingBusiness] = useState<Corporate | null>(null);
+    const [editingBranch, setEditingBranch] = useState<Business | null>(null);
+    const [deletingBranch, setDeletingBranch] = useState<Business | null>(null);
     const [isNewModalOpen, setIsNewModalOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
 
     async function toggleStatus(id: string, currentStatus: string) {
         setToggling(id);
         const newStatus = currentStatus === "ACTIVE" ? "INACTIVE" : "ACTIVE";
-        await updateCorporateAction(id, { status: newStatus as any });
+        await updateBusinessAction(id, { status: newStatus as any });
         setToggling(null);
     }
 
-    const filteredBusinesses = businesses.filter(b => 
+    const filteredBranches = branches.filter(b => 
         b.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         b.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
         b.headquarters?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -56,7 +56,7 @@ export default function AdminBusinessesClientPage({ businesses, stats }: PagePro
                         <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-xl opacity-40 group-focus-within:opacity-100 group-focus-within:scale-110 transition-all">search</span>
                         <input
                             className="w-full bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-xl pl-12 pr-6 py-3 text-sm font-sans font-bold text-[var(--text-main)] focus:ring-4 focus:ring-[var(--color-primary)]/10 focus:border-[var(--color-primary)]/40 transition-all placeholder:text-[var(--text-muted)] placeholder:opacity-30 outline-none"
-                            placeholder="Search businesses, hubs, or locations..."
+                            placeholder="Search branches, hubs, or locations..."
                             type="text"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
@@ -72,7 +72,7 @@ export default function AdminBusinessesClientPage({ businesses, stats }: PagePro
                         onClick={() => setIsNewModalOpen(true)}
                         className="flex items-center gap-2 bg-[var(--text-main)] text-[var(--bg-app)] px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-[0.2em] hover:scale-[1.05] active:scale-[0.98] transition-all shadow-xl shadow-black/10 whitespace-nowrap"
                     >
-                        <span className="material-symbols-outlined text-lg font-bold">add_business</span>
+                        <span className="material-symbols-outlined text-lg font-bold">add_branch</span>
                         Establish Hub
                     </button>
                 </div>
@@ -80,24 +80,24 @@ export default function AdminBusinessesClientPage({ businesses, stats }: PagePro
 
             {/* Title Section */}
             <div className="flex flex-col gap-2 py-2">
-                <h1 className="text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">Business <span className="text-[var(--color-primary)]">Directory</span></h1>
+                <h1 className="text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">Branch <span className="text-[var(--color-primary)]">Directory</span></h1>
                 <p className="text-base text-[var(--text-muted)] font-medium opacity-80 max-w-3xl">Managing organizational hubs and the physical network of branches.</p>
             </div>
 
             {/* Metrics Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <MetricCard
-                    title="Total Business Hubs"
-                    value={stats.totalBusinesses.toString()}
+                    title="Total Branch Hubs"
+                    value={stats.totalBranches.toString()}
                     trend="+4%"
                     subtitle="Platform Reach"
-                    icon="corporate_fare"
+                    icon="business_fare"
                     color="primary"
                 />
                 <MetricCard
                     title="Active Hubs"
-                    value={stats.activeBusinesses.toString()}
-                    trend={`${Math.round((stats.activeBusinesses / stats.totalBusinesses) * 100)}%`}
+                    value={stats.activeBranches.toString()}
+                    trend={`${Math.round((stats.activeBranches / stats.totalBranches) * 100)}%`}
                     subtitle="Operational Capacity"
                     icon="vital_signs"
                     color="primary"
@@ -110,7 +110,7 @@ export default function AdminBusinessesClientPage({ businesses, stats }: PagePro
                     <h3 className="text-xl font-display font-bold text-[var(--text-main)]">Registered Hubs</h3>
                     <div className="flex items-center gap-2">
                         <span className="px-3 py-1 rounded-full bg-[var(--bg-surface-muted)]/20 border border-[var(--border-muted)] text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">
-                            {filteredBusinesses.length} Organizations
+                            {filteredBranches.length} Organizations
                         </span>
                     </div>
                 </div>
@@ -128,12 +128,12 @@ export default function AdminBusinessesClientPage({ businesses, stats }: PagePro
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-[var(--border-muted)]">
-                            {filteredBusinesses.length > 0 ? filteredBusinesses.map((biz) => (
-                                <BusinessHubRow
+                            {filteredBranches.length > 0 ? filteredBranches.map((biz) => (
+                                <BranchHubRow
                                     key={biz.id}
                                     biz={biz}
-                                    onEdit={() => setEditingBusiness(biz)}
-                                    onDelete={() => setDeletingBusiness(biz)}
+                                    onEdit={() => setEditingBranch(biz)}
+                                    onDelete={() => setDeletingBranch(biz)}
                                     onToggleStatus={() => toggleStatus(biz.id, biz.status)}
                                     isToggling={toggling === biz.id}
                                 />
@@ -154,19 +154,19 @@ export default function AdminBusinessesClientPage({ businesses, stats }: PagePro
             </div>
 
             {/* Modals */}
-            <NewCorporateModal isOpen={isNewModalOpen} onClose={() => setIsNewModalOpen(false)} />
-            {editingBusiness && (
-                <EditCorporateModal
-                    isOpen={!!editingBusiness}
-                    onClose={() => setEditingBusiness(null)}
-                    corporate={editingBusiness}
+            <NewBusinessModal isOpen={isNewModalOpen} onClose={() => setIsNewModalOpen(false)} />
+            {editingBranch && (
+                <EditBusinessModal
+                    isOpen={!!editingBranch}
+                    onClose={() => setEditingBranch(null)}
+                    business={editingBranch}
                 />
             )}
-            {deletingBusiness && (
-                <DeleteCorporateModal
-                    isOpen={!!deletingBusiness}
-                    onClose={() => setDeletingBusiness(null)}
-                    corporate={deletingBusiness}
+            {deletingBranch && (
+                <DeleteBusinessModal
+                    isOpen={!!deletingBranch}
+                    onClose={() => setDeletingBranch(null)}
+                    business={deletingBranch}
                 />
             )}
         </div>
@@ -203,19 +203,19 @@ function MetricCard({ title, value, trend, subtitle, icon, color }: { title: str
     );
 }
 
-interface BusinessHubRowProps {
-    biz: Corporate;
+interface BranchHubRowProps {
+    biz: Business;
     onEdit: () => void;
     onDelete: () => void;
     onToggleStatus: () => void;
     isToggling: boolean;
 }
 
-function BusinessHubRow({ biz, onEdit, onDelete, onToggleStatus, isToggling }: BusinessHubRowProps) {
+function BranchHubRow({ biz, onEdit, onDelete, onToggleStatus, isToggling }: BranchHubRowProps) {
     return (
         <tr className="hover:bg-[var(--bg-surface-muted)]/5 transition-all group">
             <td className="px-8 py-5">
-                <Link href={`/admin/businesses/${biz.id}`} className="flex items-center gap-4 group/item">
+                <Link href={`/admin/branches/${biz.id}`} className="flex items-center gap-4 group/item">
                     <div className="size-10 rounded-xl bg-[var(--bg-surface-muted)]/40 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] font-display font-black shadow-inner text-base group-hover/item:scale-110 transition-transform">
                         {biz.name.charAt(0).toUpperCase()}
                     </div>
@@ -263,7 +263,7 @@ function BusinessHubRow({ biz, onEdit, onDelete, onToggleStatus, isToggling }: B
                     <button onClick={onDelete} title="Delete Hub" className="p-2.5 bg-[var(--bg-card)] hover:bg-rose-500 hover:text-white text-[var(--text-muted)] border border-[var(--border-muted)] rounded-lg transition-all hover:shadow-lg active:scale-95 shadow-sm">
                         <span className="material-symbols-outlined text-lg font-bold">delete</span>
                     </button>
-                    <Link href={`/admin/businesses/${biz.id}`} title="View Details" className="p-2.5 bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 rounded-lg hover:bg-[var(--color-primary)] hover:text-white transition-all active:scale-95 shadow-sm">
+                    <Link href={`/admin/branches/${biz.id}`} title="View Details" className="p-2.5 bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 rounded-lg hover:bg-[var(--color-primary)] hover:text-white transition-all active:scale-95 shadow-sm">
                         <span className="material-symbols-outlined text-lg font-bold">arrow_forward</span>
                     </Link>
                 </div>
