@@ -30,8 +30,11 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
     const [hasMounted, setHasMounted] = useState(false);
 
     useEffect(() => {
-        setHasMounted(true);
+        const frame = requestAnimationFrame(() => setHasMounted(true));
+        return () => cancelAnimationFrame(frame);
     }, []);
+
+    if (!hasMounted) return null;
     // Format payment distribution for the pie chart
     const paymentModeData = Object.entries(metrics.paymentDistribution).map(([name, value]) => ({
         name: name.replace('_', ' '),
@@ -132,16 +135,16 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
                             <p className="text-sm text-[var(--text-muted)] font-medium">Daily revenue breakdown for current period</p>
                         </div>
                     </div>
-                    <div className="h-[350px] w-full">
+                    <div className="h-[400px] w-full mt-8 relative">
                         {hasMounted && (
-                            <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart data={revenueTrendData}>
-                                <defs>
-                                    <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="var(--color-primary)" stopOpacity={0.1} />
-                                        <stop offset="95%" stopColor="var(--color-primary)" stopOpacity={0} />
-                                    </linearGradient>
-                                </defs>
+                            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0} aspect={undefined} debounce={100}>
+                                <AreaChart data={revenueTrendData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                    <defs>
+                                        <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="var(--color-primary)" stopOpacity={0.1} />
+                                            <stop offset="95%" stopColor="var(--color-primary)" stopOpacity={0} />
+                                        </linearGradient>
+                                    </defs>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-muted)" />
                                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-muted)', fontSize: 10, fontWeight: 900 }} dy={10} />
                                 <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-muted)', fontSize: 10, fontWeight: 900 }} />
@@ -162,9 +165,9 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
                 <div className="bg-[var(--bg-card)] p-8 rounded-3xl border border-[var(--border-main)] shadow-sm">
                     <h3 className="text-xl font-display font-bold text-[var(--text-main)] tracking-tight mb-2">Payment Modes</h3>
                     <p className="text-sm text-[var(--text-muted)] mb-8 font-medium">Revenue distribution by method</p>
-                    <div className="h-[250px] w-full">
+                    <div className="h-[250px] w-full relative">
                         {hasMounted && (
-                            <ResponsiveContainer width="100%" height="100%">
+                            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0} aspect={undefined} debounce={100}>
                             <PieChart>
                                 <Pie
                                     data={paymentModeData.length > 0 ? paymentModeData : [{ name: 'No Data', value: 1 }]}

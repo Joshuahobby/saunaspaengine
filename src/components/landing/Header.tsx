@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
-export function Header() {
+export function Header({ isLoggedIn }: { isLoggedIn?: boolean }) {
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -33,12 +33,14 @@ export function Header() {
                 }`}
         >
             <div className="flex items-center gap-4 text-[var(--text-main)] z-50">
-                <div className="size-8 flex items-center justify-center bg-[var(--color-primary)] rounded-lg text-white">
-                    <span className="material-symbols-outlined">spa</span>
-                </div>
-                <h2 className="text-[var(--text-main)] text-xl font-bold font-serif leading-tight tracking-tight">
-                    Sauna SPA Engine
-                </h2>
+                <Link href="/" className="flex items-center gap-4 group">
+                    <div className="size-8 flex items-center justify-center bg-[var(--color-primary)] rounded-lg text-white group-hover:scale-105 transition-transform">
+                        <span className="material-symbols-outlined">spa</span>
+                    </div>
+                    <h2 className="text-[var(--text-main)] text-xl font-bold font-serif leading-tight tracking-tight group-hover:text-[var(--color-primary)] transition-colors">
+                        Sauna SPA Engine
+                    </h2>
+                </Link>
             </div>
 
             {/* Desktop Navigation */}
@@ -50,18 +52,30 @@ export function Header() {
                 </nav>
                 <div className="flex gap-4 items-center">
                     <ThemeToggle />
-                    <Link
-                        href="/login"
-                        className="flex min-w-[100px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-6 bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-[10px] font-black uppercase tracking-widest transition-all hover:bg-[var(--border-muted)] border border-[var(--border-main)]"
-                    >
-                        Sign In
-                    </Link>
-                    <Link
-                        href="/login"
-                        className="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-8 bg-[var(--color-primary)] text-white text-[10px] font-black uppercase tracking-widest transition-all hover:opacity-90 shadow-xl shadow-[var(--color-primary)]/20"
-                    >
-                        Get Started
-                    </Link>
+                    {isLoggedIn ? (
+                        <Link
+                            href="/dashboard"
+                            className="flex min-w-[207px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-8 bg-[var(--color-primary)] text-white text-[10px] font-black uppercase tracking-widest transition-all hover:opacity-90 shadow-xl shadow-[var(--color-primary)]/20"
+                        >
+                            <span className="material-symbols-outlined text-[16px] mr-2">dashboard</span>
+                            Go to Dashboard
+                        </Link>
+                    ) : (
+                        <>
+                            <Link
+                                href="/login"
+                                className="flex min-w-[100px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-6 bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-[10px] font-black uppercase tracking-widest transition-all hover:bg-[var(--border-muted)] border border-[var(--border-main)]"
+                            >
+                                Sign In
+                            </Link>
+                            <Link
+                                href="/login"
+                                className="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-8 bg-[var(--color-primary)] text-white text-[10px] font-black uppercase tracking-widest transition-all hover:opacity-90 shadow-xl shadow-[var(--color-primary)]/20"
+                            >
+                                Get Started
+                            </Link>
+                        </>
+                    )}
                 </div>
             </div>
 
@@ -91,20 +105,33 @@ export function Header() {
                 </nav>
 
                 <div className="flex flex-col gap-4 mt-8 w-full">
-                    <Link
-                        onClick={closeMenu}
-                        href="/login"
-                        className="flex w-full cursor-pointer items-center justify-center rounded-xl h-14 bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-sm font-black uppercase tracking-widest border border-[var(--border-main)]"
-                    >
-                        Sign In
-                    </Link>
-                    <Link
-                        onClick={closeMenu}
-                        href="/login"
-                        className="flex w-full cursor-pointer items-center justify-center rounded-xl h-14 bg-[var(--color-primary)] text-white text-sm font-black uppercase tracking-widest shadow-xl shadow-[var(--color-primary)]/20"
-                    >
-                        Get Started
-                    </Link>
+                    {isLoggedIn ? (
+                        <Link
+                            onClick={closeMenu}
+                            href="/dashboard"
+                            className="flex w-full cursor-pointer items-center justify-center rounded-xl h-14 bg-[var(--color-primary)] text-white text-sm font-black uppercase tracking-widest shadow-xl shadow-[var(--color-primary)]/20"
+                        >
+                            <span className="material-symbols-outlined mr-2">dashboard</span>
+                            Go to Dashboard
+                        </Link>
+                    ) : (
+                        <>
+                            <Link
+                                onClick={closeMenu}
+                                href="/login"
+                                className="flex w-full cursor-pointer items-center justify-center rounded-xl h-14 bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-sm font-black uppercase tracking-widest border border-[var(--border-main)]"
+                            >
+                                Sign In
+                            </Link>
+                            <Link
+                                onClick={closeMenu}
+                                href="/login"
+                                className="flex w-full cursor-pointer items-center justify-center rounded-xl h-14 bg-[var(--color-primary)] text-white text-sm font-black uppercase tracking-widest shadow-xl shadow-[var(--color-primary)]/20"
+                            >
+                                Get Started
+                            </Link>
+                        </>
+                    )}
                 </div>
             </div>
         </header>

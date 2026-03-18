@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 
-type Role = "ADMIN" | "OWNER" | "MANAGER" | "EMPLOYEE";
+type Role = "ADMIN" | "OWNER" | "MANAGER" | "RECEPTIONIST" | "EMPLOYEE";
 
 /**
  * Authenticates the current request and optionally enforces role-based access.

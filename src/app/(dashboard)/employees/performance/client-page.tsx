@@ -153,8 +153,7 @@ export default function PerformanceIndexClient({ stats, rankings }: PerformanceI
                                             </div>
                                             <div className="h-1 bg-[var(--border-muted)] rounded-full overflow-hidden">
                                                 <div 
-                                                    className="h-full bg-gradient-to-r from-[var(--color-primary)] to-blue-500 transition-all duration-1000" 
-                                                    style={{ width: `${entry.score}%` }} 
+                                                    className={`h-full bg-gradient-to-r from-[var(--color-primary)] to-blue-500 transition-all duration-1000 w-[${entry.score}%]`}
                                                 />
                                             </div>
                                         </div>

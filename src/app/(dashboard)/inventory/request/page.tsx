@@ -14,7 +14,7 @@ async function submitInventoryRequest(formData: FormData) {
     const notes = formData.get("notes") as string;
 
     // Process items data (would normally be parsed from a hidden input or complex form state)
-    console.log("Submitted request with notes:", notes);
+
 
     revalidatePath("/inventory");
     redirect("/inventory");

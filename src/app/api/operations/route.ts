@@ -239,7 +239,7 @@ export async function PATCH(request: NextRequest) {
 
                     // Logic: After X paid sessions, the next Y sessions could be rewarded.
                     // For now, we just log the progress in the console or audit log.
-                    console.log(`Client ${record.clientId} has ${completedCount} completed sessions.`);
+
                 }
 
                 if (pointsToEarn > 0) {

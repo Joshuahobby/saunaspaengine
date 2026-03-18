@@ -77,5 +77,7 @@ export const authConfig: NextAuthConfig = {
     },
     session: {
         strategy: "jwt",
+        maxAge: 60 * 60, // 60 minutes - Inactivity Timeout
+        updateAge: 15 * 60, // 15 minutes - Refresh frequency
     },
 };

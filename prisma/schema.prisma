@@ -169,6 +169,8 @@ model User {
   status        EntityStatus @default(ACTIVE)
   usr_branchId  String?   @map("businessId")
   usr_businessId String?  @map("corporateId")
+  resetOtp       String?
+  resetOtpExpiry DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 

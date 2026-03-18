@@ -5,6 +5,7 @@ import { ScrollReveal } from "@/components/landing/ScrollReveal";
 import { LiveCheckins } from "@/components/landing/LiveCheckins";
 import { NewsletterForm } from "@/components/landing/NewsletterForm";
 import { FaqAccordion } from "@/components/landing/FaqAccordion";
+import { auth } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Sauna SPA Engine — Spa & Sauna Management Platform for Rwanda",
@@ -34,10 +35,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const session = await auth();
+  const isLoggedIn = !!session;
+
   return (
     <div className="min-h-screen flex flex-col bg-[var(--bg-app)] text-[var(--text-main)] selection:bg-[var(--color-primary)] selection:text-white overflow-x-hidden">
-      <Header />
+      <Header isLoggedIn={isLoggedIn} />
 
       <main className="flex-1">
         {/* Hero Section */}
@@ -57,11 +61,11 @@ export default function LandingPage() {
               </div>
               <div className="flex flex-wrap gap-6">
                 <Link 
-                  href="/login" 
-                  aria-label="Start Your Journey"
+                  href={isLoggedIn ? "/dashboard" : "/login"} 
+                  aria-label={isLoggedIn ? "Go to Dashboard" : "Start Your Journey"}
                   className="flex min-w-[200px] cursor-pointer items-center justify-center rounded-2xl h-16 px-10 bg-[var(--color-primary)] text-white text-sm font-black uppercase tracking-widest shadow-2xl shadow-[var(--color-primary)]/30 transition-all hover:scale-105 hover:bg-[var(--color-primary-hover)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)] selection:bg-white selection:text-[var(--color-primary)]"
                 >
-                  Start Your Journey
+                  {isLoggedIn ? "Go to Dashboard" : "Start Your Journey"}
                 </Link>
                 <Link 
                   href="/help" 
@@ -142,10 +146,12 @@ export default function LandingPage() {
         {/* Testimonials Section */}
         <section className="bg-[var(--bg-surface-muted)]/30 border-t border-[var(--border-main)] py-24 px-6 md:px-20 lg:px-40 overflow-hidden">
              <div className="max-w-7xl mx-auto flex flex-col gap-16">
-                 <ScrollReveal direction="up" className="flex flex-col gap-4 text-center items-center">
-                    <h2 className="text-[var(--color-primary)] text-sm font-black uppercase tracking-[0.2em]">Partner Success</h2>
+                <ScrollReveal direction="up" className="flex flex-col gap-4 text-center items-center">
+                    <span className="inline-block w-fit bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-[10px] font-black uppercase tracking-[0.3em] px-4 py-2 rounded-full shadow-sm border border-[var(--color-primary-border)] mb-2">
+                        Partner Success
+                    </span>
                     <h3 className="text-[var(--text-main)] text-4xl md:text-5xl font-black font-serif">Loved by Industry Leaders</h3>
-                 </ScrollReveal>
+                </ScrollReveal>
 
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
                     <ScrollReveal direction="right" className="glass-card p-10 flex flex-col gap-8 rounded-[2.5rem] relative">
@@ -161,7 +167,7 @@ export default function LandingPage() {
                             </div>
                          </div>
                     </ScrollReveal>
-                    <ScrollReveal direction="left" delay={0.2} className="glass-card p-10 flex flex-col gap-8 rounded-[2.5rem] relative bg-[var(--color-primary)] border-[var(--color-primary-border)] overflow-hidden">
+                    <ScrollReveal direction="left" delay={0.2} className="p-10 flex flex-col gap-8 rounded-[2.5rem] relative bg-[var(--color-primary)] border-[var(--color-primary-border)] overflow-hidden shadow-xl shadow-[var(--color-primary)]/10 transition-all duration-300 backdrop-blur-xl">
                          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mx-10 -my-10 border border-white/5"></div>
                          <span className="material-symbols-outlined text-black/10 text-8xl absolute top-4 left-6 -z-10 select-none">format_quote</span>
                          <p className="text-white text-xl leading-relaxed italic font-serif relative z-10">
@@ -267,7 +273,7 @@ export default function LandingPage() {
 
         {/* Newsletter Section */}
         <section className="py-24 px-6 border-t border-[var(--border-main)]">
-          <ScrollReveal direction="up" className="max-w-5xl mx-auto bg-[var(--text-main)] rounded-[2.5rem] p-8 md:p-16 relative overflow-hidden shadow-2xl">
+          <ScrollReveal direction="up" className="max-w-5xl mx-auto bg-[#15241f] rounded-[2.5rem] p-8 md:p-16 relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-primary)]/30 rounded-full -mr-32 -mt-32 blur-3xl shadow-[0_0_100px_var(--color-primary)]"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-[var(--color-primary)]/10 rounded-full -ml-32 -mb-32 blur-3xl"></div>
             <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">

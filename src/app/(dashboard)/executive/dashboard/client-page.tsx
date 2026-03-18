@@ -43,7 +43,8 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
     const [hasMounted, setHasMounted] = useState(false);
 
     useEffect(() => {
-        setHasMounted(true);
+        const frame = requestAnimationFrame(() => setHasMounted(true));
+        return () => cancelAnimationFrame(frame);
     }, []);
 
     // Prepare data for the Leaderboard Chart (Top 5 Branches)
@@ -125,10 +126,10 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
                             <p className="text-xs text-[var(--text-muted)] font-bold mt-1">Top performing locations by revenue.</p>
                         </div>
                     </div>
-                    <div className="p-6 flex-1 min-h-[300px] w-full h-full">
+                    <div className="p-6 flex-1 min-h-[350px] w-full relative">
                         {topBranches.length > 0 ? (
                             hasMounted && (
-                                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+                                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0} aspect={undefined} debounce={100}>
                                     <BarChart data={topBranches} margin={{ top: 20, right: 30, left: 20, bottom: 5 }} layout="vertical">
                                         <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="var(--border-muted)" />
                                         <XAxis type="number" tickFormatter={(value) => `${value / 1000}k`} stroke="var(--text-muted)" fontSize={12} />
