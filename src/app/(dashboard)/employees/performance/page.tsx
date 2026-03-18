@@ -37,14 +37,14 @@ export default async function PerformanceIndexPage() {
     // Aggregate data for the overview
     const stats = {
         totalStaff: employees.length,
-        totalServices: employees.reduce((acc, emp) => acc + emp._count.serviceRecords, 0),
+        totalServices: employees.reduce((acc, emp: any) => acc + (emp._count?.serviceRecords || 0), 0),
         totalCommissions: employees.reduce((acc, emp: any) => acc + (emp.commissionLogs?.reduce((sum: number, log: any) => sum + log.amount, 0) || 0), 0),
     };
 
     // Calculate rankings
     const rankings = employees.map((emp: any) => {
         const totalEarned = emp.commissionLogs?.reduce((sum: number, log: any) => sum + log.amount, 0) || 0;
-        const serviceCount = emp._count.serviceRecords;
+        const serviceCount = emp._count?.serviceRecords || 0;
         
         // Performance Score logic: Weighted average of volume and earnings
         // Base 50 + (volume * 0.5) + (earnings_relative_to_network)
