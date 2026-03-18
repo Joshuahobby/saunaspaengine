@@ -29,8 +29,8 @@ export default async function SettlementsPage() {
     ]);
 
     // Format data for client
-    const branchMap = Object.fromEntries(branches.map(b => [b.id, b.name]));
-    const settlementData = settlements.map(s => ({
+    const branchMap = Object.fromEntries(branches.map((b: any) => [b.id, b.name]));
+    const settlementData = settlements.map((s: any) => ({
         ...s,
         branchName: branchMap[s.branchId] || "Unknown Branch",
         period: `${s.periodStart.toLocaleDateString()} - ${s.periodEnd.toLocaleDateString()}`
