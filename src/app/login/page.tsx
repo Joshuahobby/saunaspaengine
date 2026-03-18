@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import LoginForm from "@/components/auth/login-form";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
