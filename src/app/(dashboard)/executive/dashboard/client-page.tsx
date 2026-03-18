@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import StatsCard from "@/components/dashboard/StatsCard";
 import { formatCurrency } from "@/lib/utils";
@@ -40,6 +40,11 @@ interface ExecutiveDashboardProps {
 
 export default function ExecutiveDashboardClient({ stats, branches, alerts, activity }: ExecutiveDashboardProps) {
     const [activeTab, setActiveTab] = useState<"alerts" | "activity">("alerts");
+    const [hasMounted, setHasMounted] = useState(false);
+
+    useEffect(() => {
+        setHasMounted(true);
+    }, []);
 
     // Prepare data for the Leaderboard Chart (Top 5 Branches)
     const topBranches = [...branches]
@@ -122,20 +127,22 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
                     </div>
                     <div className="p-6 flex-1 min-h-[300px] w-full h-full">
                         {topBranches.length > 0 ? (
-                            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                                <BarChart data={topBranches} margin={{ top: 20, right: 30, left: 20, bottom: 5 }} layout="vertical">
-                                    <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="var(--border-muted)" />
-                                    <XAxis type="number" tickFormatter={(value) => `${value / 1000}k`} stroke="var(--text-muted)" fontSize={12} />
-                                    <YAxis dataKey="name" type="category" width={120} stroke="var(--text-muted)" fontSize={12} fontWeight="bold" />
-                                    <Tooltip 
-                                        cursor={{ fill: 'var(--bg-surface-muted)' }}
-                                        contentStyle={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-muted)', borderRadius: '1rem', color: 'var(--text-main)' }}
-                                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                        formatter={(value: any) => [formatCurrency(Number(value)), "Revenue"]}
-                                    />
-                                    <Bar dataKey="revenue" fill="var(--color-primary)" radius={[0, 4, 4, 0]} barSize={24} />
-                                </BarChart>
-                            </ResponsiveContainer>
+                            hasMounted && (
+                                <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+                                    <BarChart data={topBranches} margin={{ top: 20, right: 30, left: 20, bottom: 5 }} layout="vertical">
+                                        <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="var(--border-muted)" />
+                                        <XAxis type="number" tickFormatter={(value) => `${value / 1000}k`} stroke="var(--text-muted)" fontSize={12} />
+                                        <YAxis dataKey="name" type="category" width={120} stroke="var(--text-muted)" fontSize={12} fontWeight="bold" />
+                                        <Tooltip 
+                                            cursor={{ fill: 'var(--bg-surface-muted)' }}
+                                            contentStyle={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-muted)', borderRadius: '1rem', color: 'var(--text-main)' }}
+                                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                            formatter={(value: any) => [formatCurrency(Number(value)), "Revenue"]}
+                                        />
+                                        <Bar dataKey="revenue" fill="var(--color-primary)" radius={[0, 4, 4, 0]} barSize={24} />
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            )
                         ) : (
                             <div className="h-full flex items-center justify-center text-[var(--text-muted)] font-bold text-sm">
                                 No revenue data available for the last 60 days.

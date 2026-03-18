@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import {
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
     PieChart, Pie, Cell
@@ -26,6 +27,11 @@ const COLORS = ['#FF7F32', '#6366F1', '#10B981', '#F59E0B', '#EF4444'];
 const COLORS_BG = ['bg-[#FF7F32]', 'bg-[#6366F1]', 'bg-[#10B981]', 'bg-[#F59E0B]', 'bg-[#EF4444]'];
 
 export default function ReportsRevenueClientPage({ metrics }: { metrics: RevenueMetrics }) {
+    const [hasMounted, setHasMounted] = useState(false);
+
+    useEffect(() => {
+        setHasMounted(true);
+    }, []);
     // Format payment distribution for the pie chart
     const paymentModeData = Object.entries(metrics.paymentDistribution).map(([name, value]) => ({
         name: name.replace('_', ' '),
@@ -127,7 +133,8 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
                         </div>
                     </div>
                     <div className="h-[350px] w-full">
-                        <ResponsiveContainer width="100%" height="100%">
+                        {hasMounted && (
+                            <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={revenueTrendData}>
                                 <defs>
                                     <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
@@ -147,6 +154,7 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
                                 <Area type="monotone" dataKey="revenue" stroke="var(--color-primary)" strokeWidth={4} fillOpacity={1} fill="url(#colorRev)" />
                             </AreaChart>
                         </ResponsiveContainer>
+                        )}
                     </div>
                 </div>
 
@@ -155,7 +163,8 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
                     <h3 className="text-xl font-display font-bold text-[var(--text-main)] tracking-tight mb-2">Payment Modes</h3>
                     <p className="text-sm text-[var(--text-muted)] mb-8 font-medium">Revenue distribution by method</p>
                     <div className="h-[250px] w-full">
-                        <ResponsiveContainer width="100%" height="100%">
+                        {hasMounted && (
+                            <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie
                                     data={paymentModeData.length > 0 ? paymentModeData : [{ name: 'No Data', value: 1 }]}
@@ -171,6 +180,7 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
                                 <Tooltip contentStyle={{ backgroundColor: 'var(--bg-card)', borderRadius: '12px', border: '1px solid var(--border-main)' }} />
                             </PieChart>
                         </ResponsiveContainer>
+                        )}
                     </div>
                     <div className="mt-8 space-y-3">
                         {paymentModeData.map((mode, i) => (
