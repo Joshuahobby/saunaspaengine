@@ -117,7 +117,7 @@ export default function Sidebar({
     branchName,
 }: SidebarProps) {
     const pathname = usePathname();
-    const { isCollapsed, toggleSidebar } = useNav();
+    const { isCollapsed, toggleSidebar, isMobileOpen, closeMobileNav } = useNav();
 
     const navItems = userRole === "ADMIN"
         ? adminNavItems
@@ -128,13 +128,28 @@ export default function Sidebar({
                 : managerNavItems;
 
     return (
-        <motion.aside
-            initial={false}
-            animate={{ width: isCollapsed ? 80 : 256 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="bg-[var(--bg-card)] flex flex-col h-screen sticky top-0 hidden lg:flex border-r border-[var(--border-main)] z-20 shadow-[4px_0_24px_rgba(0,0,0,0.02)] relative"
-        >
-            <div className="flex flex-col h-full w-full overflow-hidden">
+        <>
+            {/* Mobile Backdrop */}
+            <AnimatePresence>
+                {isMobileOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={closeMobileNav}
+                        className="lg:hidden fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+                    />
+                )}
+            </AnimatePresence>
+
+            <motion.aside
+                initial={false}
+                animate={{ width: isCollapsed ? 80 : 256 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className={`bg-[var(--bg-card)] flex flex-col h-[100dvh] fixed top-0 left-0 lg:sticky lg:top-0 lg:relative border-r border-[var(--border-main)] z-50 shadow-[4px_0_24px_rgba(0,0,0,0.02)] transition-transform duration-300 ease-in-out ${isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
+            >
+                <div className="flex flex-col h-full w-full overflow-hidden">
+
                 {/* Logo Section */}
                 <div className={`p-6 flex items-center justify-between min-h-[88px]`}>
                     <div className="flex items-center gap-3 overflow-hidden">
@@ -271,12 +286,13 @@ export default function Sidebar({
 
             <button
                 onClick={toggleSidebar}
-                className="absolute -right-3 top-20 size-7 bg-[var(--bg-card)] border border-[var(--border-main)] rounded-full flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-all shadow-md z-40 cursor-pointer"
+                className="hidden lg:flex absolute -right-3 top-20 size-7 bg-[var(--bg-card)] border border-[var(--border-main)] rounded-full items-center justify-center text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-all shadow-md z-40 cursor-pointer"
             >
                 <span className={`material-symbols-outlined text-[18px] transition-transform duration-300 ${isCollapsed ? 'rotate-180' : ''}`}>
                     chevron_left
                 </span>
             </button>
         </motion.aside>
+        </>
     );
 }

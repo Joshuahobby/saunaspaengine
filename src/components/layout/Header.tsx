@@ -3,6 +3,7 @@ import UserMenu from "./UserMenu";
 import { ThemeToggle } from "../theme/ThemeToggle";
 import NotificationBell from "./NotificationBell";
 import { CommandCenter } from "../admin/command-center";
+import MobileMenuButton from "./MobileMenuButton";
 
 export default async function Header({ title }: { title: string }) {
     const session = await auth();
@@ -11,10 +12,7 @@ export default async function Header({ title }: { title: string }) {
         <header className="h-16 bg-[var(--bg-app)] sticky top-0 z-50 px-6 lg:px-8 flex items-center justify-between border-b border-[var(--border-main)] shadow-none">
             {/* Left: Title & Search */}
             <div className="flex items-center gap-6">
-                {/* Mobile menu button */}
-                <button className="lg:hidden p-2 -ml-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:outline-none rounded-lg">
-                    <span className="material-symbols-outlined">menu</span>
-                </button>
+                <MobileMenuButton />
 
                 <div>
                     <h2 className="text-xl font-serif font-bold leading-tight tracking-tight text-[var(--text-main)] italic">

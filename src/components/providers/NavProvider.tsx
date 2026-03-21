@@ -1,16 +1,22 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 interface NavContextType {
     isCollapsed: boolean;
     toggleSidebar: () => void;
+    isMobileOpen: boolean;
+    toggleMobileNav: () => void;
+    closeMobileNav: () => void;
 }
 
 const NavContext = createContext<NavContextType | undefined>(undefined);
 
 export function NavProvider({ children }: { children: React.ReactNode }) {
     const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isMobileOpen, setIsMobileOpen] = useState(false);
+    const pathname = usePathname();
 
     // Persist state in localStorage after initial mount
     useEffect(() => {
@@ -20,6 +26,11 @@ export function NavProvider({ children }: { children: React.ReactNode }) {
         }
     }, []);
 
+    // Close mobile nav on route change
+    useEffect(() => {
+        setIsMobileOpen(false);
+    }, [pathname]);
+
     const toggleSidebar = () => {
         setIsCollapsed((prev) => {
             const newState = !prev;
@@ -28,8 +39,22 @@ export function NavProvider({ children }: { children: React.ReactNode }) {
         });
     };
 
+    const toggleMobileNav = () => {
+        setIsMobileOpen((prev) => !prev);
+    };
+
+    const closeMobileNav = () => {
+        setIsMobileOpen(false);
+    };
+
     return (
-        <NavContext.Provider value={{ isCollapsed, toggleSidebar }}>
+        <NavContext.Provider value={{ 
+            isCollapsed, 
+            toggleSidebar, 
+            isMobileOpen, 
+            toggleMobileNav, 
+            closeMobileNav 
+        }}>
             {children}
         </NavContext.Provider>
     );

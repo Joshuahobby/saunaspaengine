@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { BusinessStatusToggle } from "@/components/admin/business-status-toggle";
@@ -34,6 +34,12 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
     const [searchTerm, setSearchTerm] = useState("");
     const [filterStatus, setFilterStatus] = useState<"ALL" | "ACTIVE" | "INACTIVE">("ALL");
     const [currentPage, setCurrentPage] = useState(1);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const itemsPerPage = 8; // made table more compact
 
     // Filter
@@ -96,7 +102,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                         <p className="text-sm text-[var(--text-muted)] font-medium opacity-60">Collective branch oversight and financial monitoring.</p>
                         <div className="hidden lg:flex items-center gap-1.5 text-[9px] font-bold text-[var(--text-muted)] opacity-30 uppercase tracking-[0.2em]">
                             <span className="material-symbols-outlined text-xs">sync</span>
-                            {format(new Date(), 'HH:mm')}
+                            {mounted ? <span>{format(new Date(), 'HH:mm')}</span> : null}
                         </div>
                     </div>
                 </div>

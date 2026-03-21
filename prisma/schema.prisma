@@ -1,6 +1,3 @@
-// Sauna SPA Engine — Database Schema
-// Target: PostgreSQL via Prisma
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,14 +7,362 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ─── Enums ──────────────────────────────────────────────
+model Business {
+  id                     String           @id @default(cuid())
+  name                   String
+  taxId                  String?
+  headquarters           String?
+  status                 EntityStatus     @default(ACTIVE)
+  createdAt              DateTime         @default(now())
+  updatedAt              DateTime         @updatedAt
+  subscriptionCycle      String?
+  subscriptionRenewal    DateTime?
+  subscriptionPlanId     String?
+  approvalStatus         ApprovalStatus   @default(PENDING)
+  kycNotes               String?
+  kycVerifiedAt          DateTime?
+  subscriptionStatus     String?          @default("ACTIVE")
+  permissions            Json?
+  platformCommissionRate Float            @default(5.0)
+  branches               Branch[]
+  subscriptionPlan       PlatformPackage? @relation(fields: [subscriptionPlanId], references: [id])
+  users                  User[]
+
+  @@map("corporates")
+}
+
+model PlatformPackage {
+  id           String     @id @default(cuid())
+  name         String     @unique
+  priceMonthly Float      @default(0)
+  priceYearly  Float      @default(0)
+  isCustom     Boolean    @default(false)
+  description  String?
+  branchLimit  Int        @default(3)
+  features     String[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  businesses   Business[]
+
+  @@map("platform_packages")
+}
+
+model Branch {
+  id                   String               @id @default(cuid())
+  name                 String
+  address              String?
+  phone                String?
+  email                String?
+  logo                 String?
+  status               EntityStatus         @default(ACTIVE)
+  businessId           String?              @map("corporateId")
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+  onboardingCompleted  Boolean              @default(false)
+  onboardingStep       Int                  @default(0)
+  auditLogs            AuditLog[]
+  broadcasts           Broadcast[]
+  business             Business?            @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  clients              Client[]
+  employeeCategories   EmployeeCategory[]
+  employees            Employee[]
+  inventory            Inventory[]
+  loyaltyPrograms      LoyaltyProgram?
+  membershipCategories MembershipCategory[]
+  safetyAlerts         SafetyAlert[]
+  serviceRecords       ServiceRecord[]
+  services             Service[]
+  users                User[]
+
+  @@map("businesses")
+}
+
+model User {
+  id              String       @id @default(cuid())
+  username        String       @unique
+  email           String       @unique
+  passwordHash    String
+  fullName        String
+  role            UserRole     @default(EMPLOYEE)
+  status          EntityStatus @default(ACTIVE)
+  usr_branchId    String?      @map("businessId")
+  usr_businessId  String?      @map("corporateId")
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  resetOtp        String?
+  resetOtpExpiry  DateTime?
+  auditLogs       AuditLog[]
+  employeeProfile Employee?
+  branch          Branch?      @relation(fields: [usr_branchId], references: [id], onDelete: Cascade)
+  business        Business?    @relation(fields: [usr_businessId], references: [id], onDelete: Cascade)
+
+  @@map("users")
+}
+
+model EmployeeCategory {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  status      EntityStatus @default(ACTIVE)
+  branchId    String       @map("businessId")
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  branch      Branch       @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  employees   Employee[]
+
+  @@map("employee_categories")
+}
+
+model Employee {
+  id             String           @id @default(cuid())
+  fullName       String
+  phone          String?
+  status         EntityStatus     @default(ACTIVE)
+  categoryId     String
+  branchId       String           @map("businessId")
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  commissionRate Float            @default(5.0)
+  userId         String?          @unique
+  commissionLogs CommissionLog[]
+  branch         Branch           @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  category       EmployeeCategory @relation(fields: [categoryId], references: [id])
+  user           User?            @relation(fields: [userId], references: [id])
+  serviceRecords ServiceRecord[]
+
+  @@map("employees")
+}
+
+model Client {
+  id             String          @id @default(cuid())
+  fullName       String
+  phone          String?
+  clientType     ClientType      @default(WALK_IN)
+  qrCode         String?         @unique
+  status         EntityStatus    @default(ACTIVE)
+  branchId       String          @map("businessId")
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  branch         Branch          @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  loyaltyPoints  LoyaltyPoint[]
+  memberships    Membership[]
+  serviceRecords ServiceRecord[]
+
+  @@map("clients")
+}
+
+model MembershipCategory {
+  id           String         @id @default(cuid())
+  name         String
+  type         MembershipType
+  description  String?
+  price        Float          @default(0)
+  durationDays Int?
+  usageLimit   Int?
+  status       EntityStatus   @default(ACTIVE)
+  branchId     String         @map("businessId")
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  isGlobal     Boolean        @default(false)
+  branch       Branch         @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  memberships  Membership[]
+
+  @@map("membership_categories")
+}
+
+model Membership {
+  id         String             @id @default(cuid())
+  clientId   String
+  categoryId String
+  startDate  DateTime           @default(now())
+  endDate    DateTime?
+  balance    Int?
+  status     EntityStatus       @default(ACTIVE)
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime           @updatedAt
+  category   MembershipCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  client     Client             @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("memberships")
+}
+
+model Service {
+  id             String          @id @default(cuid())
+  name           String
+  category       String?
+  price          Float
+  duration       Int
+  status         EntityStatus    @default(ACTIVE)
+  branchId       String          @map("businessId")
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  serviceRecords ServiceRecord[]
+  branch         Branch          @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  @@map("services")
+}
+
+model ServiceRecord {
+  id                 String              @id @default(cuid())
+  clientId           String
+  serviceId          String
+  employeeId         String?
+  branchId           String              @map("businessId")
+  boxNumber          String?
+  paymentMode        PaymentMode         @default(CASH)
+  amount             Float               @default(0)
+  comment            String?
+  status             ServiceRecordStatus @default(CREATED)
+  completedAt        DateTime?
+  overrideReason     String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  damageFee          Float               @default(0)
+  netAmount          Float               @default(0)
+  platformFee        Float               @default(0)
+  taxAmount          Float               @default(0)
+  employeeCommission Float               @default(0)
+  commissionLog      CommissionLog?
+  branch             Branch              @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  client             Client              @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  employee           Employee?           @relation(fields: [employeeId], references: [id])
+  service            Service             @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@map("service_records")
+}
+
+model CommissionLog {
+  id              String        @id @default(cuid())
+  serviceRecordId String        @unique
+  employeeId      String
+  amount          Float
+  status          String        @default("UNPAID")
+  createdAt       DateTime      @default(now())
+  employee        Employee      @relation(fields: [employeeId], references: [id])
+  serviceRecord   ServiceRecord @relation(fields: [serviceRecordId], references: [id])
+
+  @@map("commission_logs")
+}
+
+model Inventory {
+  id           String   @id @default(cuid())
+  productName  String
+  stockCount   Int      @default(0)
+  minThreshold Int      @default(5)
+  unit         String   @default("pcs")
+  supplierId   String?
+  branchId     String   @map("businessId")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  branch       Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  @@map("inventory")
+}
+
+model LoyaltyProgram {
+  id           String       @id @default(cuid())
+  branchId     String       @unique @map("businessId")
+  pointsPerRwf Float        @default(0.01)
+  buyCount     Int?
+  getCount     Int?
+  status       EntityStatus @default(ACTIVE)
+  branch       Branch       @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  @@map("loyalty_programs")
+}
+
+model LoyaltyPoint {
+  id        String      @id @default(cuid())
+  clientId  String
+  points    Int         @default(0)
+  tier      LoyaltyTier @default(BRONZE)
+  branchId  String      @map("businessId")
+  updatedAt DateTime    @updatedAt
+  client    Client      @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("loyalty_points")
+}
+
+model Compliance {
+  id        String   @id @default(cuid())
+  region    String   @unique
+  taxRate   Float    @default(18.0)
+  gdprFlag  Boolean  @default(false)
+  currency  String   @default("RWF")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("compliance_settings")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  entity    String
+  entityId  String
+  details   String?
+  reason    String?
+  branchId  String?  @map("businessId")
+  createdAt DateTime @default(now())
+  branch    Branch?  @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+model SafetyAlert {
+  id        String      @id @default(cuid())
+  type      AlertType   @default(SILENT)
+  location  String?
+  message   String?
+  status    AlertStatus @default(PENDING)
+  branchId  String      @map("businessId")
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  branch    Branch      @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  @@map("safety_alerts")
+}
+
+model Broadcast {
+  id        String   @id @default(cuid())
+  subject   String
+  content   String
+  level     String
+  target    String
+  branchId  String?  @map("businessId")
+  isDraft   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  branch    Branch?  @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  @@map("broadcasts")
+}
+
+model Settlement {
+  id              String           @id @default(cuid())
+  businessId      String
+  branchId        String
+  periodStart     DateTime
+  periodEnd       DateTime
+  totalGross      Float            @default(0)
+  totalCommission Float            @default(0)
+  totalNet        Float            @default(0)
+  status          SettlementStatus @default(PENDING)
+  payoutRef       String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@map("settlements")
+}
 
 enum UserRole {
   ADMIN
   OWNER
   MANAGER
-  RECEPTIONIST
   EMPLOYEE
+  RECEPTIONIST
 }
 
 enum ClientType {
@@ -74,420 +419,8 @@ enum AlertStatus {
   RESOLVED
 }
 
-
-// ─── Business (CEO View) ────────────────────────────────
-
-model Business {
-  id           String       @id @default(cuid())
-  name         String
-  taxId        String?
-  headquarters String?
-  status       EntityStatus @default(ACTIVE)
-  createdAt    DateTime     @default(now())
-  // Platform Subscription Details
-  subscriptionPlanId String?
-  subscriptionPlan   PlatformPackage? @relation(fields: [subscriptionPlanId], references: [id])
-  subscriptionCycle  String?   // e.g., "Monthly", "Yearly"
-  subscriptionRenewal DateTime?
-  subscriptionStatus String?   @default("ACTIVE") // ACTIVE, EXPIRING, CANCELLED
-  // Platform Compliance & Governance
-  approvalStatus   ApprovalStatus @default(PENDING)
-  kycNotes         String?
-  kycVerifiedAt    DateTime?
-  permissions      Json?     // Stores role-to-permission mapping overrides
-  platformCommissionRate Float @default(5.0) // Percentage commission per transaction
-
-  updatedAt    DateTime     @updatedAt
-
-  branches   Branch[]
-  users      User[]
-
-  @@map("corporates")
-}
-
-model PlatformPackage {
-  id           String   @id @default(cuid())
-  name         String   @unique // e.g., "Essential", "Premium", "Elite"
-  priceMonthly Float    @default(0)
-  priceYearly  Float    @default(0)
-  isCustom     Boolean  @default(false)
-  description  String?
-  branchLimit  Int      @default(3)
-  features     String[] // Array of feature strings
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  businesses   Business[]
-
-  @@map("platform_packages")
-}
-
-// ─── Branch (Local View) ──────────────────────────────
-
-model Branch {
-  id          String       @id @default(cuid())
-  name        String
-  address     String?
-  phone       String?
-  email       String?
-  logo        String?
-  status      EntityStatus @default(ACTIVE)
-  onboardingStep Int      @default(0)
-  onboardingCompleted Boolean @default(false)
-  businessId  String?      @map("corporateId")
-  
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-
-  business           Business?          @relation(fields: [businessId], references: [id], onDelete: Cascade)
-  users              User[]
-  employeeCategories EmployeeCategory[]
-  employees          Employee[]
-  clients            Client[]
-  membershipCategories MembershipCategory[]
-  services           Service[]
-  serviceRecords     ServiceRecord[]
-  auditLogs          AuditLog[]
-  inventory          Inventory[]
-  loyaltyPrograms    LoyaltyProgram?
-  safetyAlerts       SafetyAlert[]
-  broadcasts         Broadcast[]
-
-  @@map("businesses")
-}
-
-
-// ─── User (Auth) ────────────────────────────────────────
-
-model User {
-  id            String    @id @default(cuid())
-  username      String    @unique
-  email         String    @unique
-  passwordHash  String
-  fullName      String
-  role          UserRole  @default(EMPLOYEE)
-  status        EntityStatus @default(ACTIVE)
-  usr_branchId  String?   @map("businessId")
-  usr_businessId String?  @map("corporateId")
-  resetOtp       String?
-  resetOtpExpiry DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  branch     Branch?   @relation(fields: [usr_branchId], references: [id], onDelete: Cascade)
-  business   Business? @relation(fields: [usr_businessId], references: [id], onDelete: Cascade)
-  auditLogs  AuditLog[]
-  employeeProfile Employee?
-
-  @@map("users")
-}
-
-// ─── Employee Category ──────────────────────────────────
-
-model EmployeeCategory {
-  id          String       @id @default(cuid())
-  name        String
-  description String?
-  status      EntityStatus @default(ACTIVE)
-  branchId    String       @map("businessId")
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-
-  branch    Branch     @relation(fields: [branchId], references: [id], onDelete: Cascade)
-  employees Employee[]
-
-  @@map("employee_categories")
-}
-
-// ─── Employee ───────────────────────────────────────────
-
-model Employee {
-  id          String       @id @default(cuid())
-  fullName    String
-  phone       String?
-  status      EntityStatus @default(ACTIVE)
-  categoryId  String
-  branchId    String       @map("businessId")
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-
-  category       EmployeeCategory @relation(fields: [categoryId], references: [id])
-  branch         Branch           @relation(fields: [branchId], references: [id], onDelete: Cascade)
-  serviceRecords ServiceRecord[]
-  commissionLogs CommissionLog[]
-  commissionRate Float            @default(5.0) // Percentage
-  userId         String?          @unique
-
-  user           User?            @relation(fields: [userId], references: [id])
-
-  @@map("employees")
-}
-
-// ─── Client ─────────────────────────────────────────────
-
-model Client {
-  id          String       @id @default(cuid())
-  fullName    String
-  phone       String?
-  clientType  ClientType   @default(WALK_IN)
-  qrCode      String?      @unique
-  status      EntityStatus @default(ACTIVE)
-  branchId    String       @map("businessId")
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-
-  branch         Branch         @relation(fields: [branchId], references: [id], onDelete: Cascade)
-  memberships    Membership[]
-  serviceRecords ServiceRecord[]
-  loyaltyPoints  LoyaltyPoint[]
-
-  @@map("clients")
-}
-
-
-// ─── Membership Category ────────────────────────────────
-
-model MembershipCategory {
-  id          String         @id @default(cuid())
-  name        String
-  type        MembershipType
-  description String?
-  price       Float          @default(0)
-  durationDays Int?          // for SUBSCRIPTION type
-  usageLimit  Int?           // for LIST_PASS type
-  isGlobal    Boolean        @default(false)
-  status      EntityStatus   @default(ACTIVE)
-  branchId    String         @map("businessId")
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
-
-  branch      Branch        @relation(fields: [branchId], references: [id], onDelete: Cascade)
-  memberships Membership[]
-
-  @@map("membership_categories")
-}
-
-// ─── Membership ─────────────────────────────────────────
-
-model Membership {
-  id          String   @id @default(cuid())
-  clientId    String
-  categoryId  String
-  startDate   DateTime @default(now())
-  endDate     DateTime?
-  balance     Int?     // remaining uses for LIST_PASS
-  status      EntityStatus @default(ACTIVE)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  client   Client             @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  category MembershipCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-
-  @@map("memberships")
-}
-
-// ─── Service ────────────────────────────────────────────
-
-model Service {
-  id          String       @id @default(cuid())
-  name        String
-  category    String?
-  price       Float
-  duration    Int          // in minutes
-  status      EntityStatus @default(ACTIVE)
-  branchId    String       @map("businessId")
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-
-  branch         Branch          @relation(fields: [branchId], references: [id], onDelete: Cascade)
-  serviceRecords ServiceRecord[]
-
-  @@map("services")
-}
-
-// ─── Service Record (Core Transaction) ──────────────────
-
-model ServiceRecord {
-  id           String              @id @default(cuid())
-  clientId     String
-  serviceId    String
-  employeeId   String?
-  branchId     String              @map("businessId")
-  boxNumber    String?
-  paymentMode  PaymentMode         @default(CASH)
-  amount       Float               @default(0)
-  comment      String?
-  status       ServiceRecordStatus @default(CREATED)
-  completedAt  DateTime?
-  overrideReason String?
-  
-  // Financial Reconciliation Details
-  taxAmount          Float               @default(0)
-  platformFee        Float               @default(0)
-  netAmount          Float               @default(0)
-  damageFee          Float               @default(0)
-  employeeCommission Float               @default(0)
-  
-  createdAt    DateTime            @default(now())
-  updatedAt    DateTime            @updatedAt
-
-  client        Client         @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  service       Service        @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-  employee      Employee?      @relation(fields: [employeeId], references: [id])
-  branch        Branch         @relation(fields: [branchId], references: [id], onDelete: Cascade)
-  commissionLog CommissionLog?
-
-  @@map("service_records")
-}
-
-model CommissionLog {
-  id              String   @id @default(cuid())
-  serviceRecordId String   @unique
-  employeeId      String
-  amount          Float
-  status          String   @default("UNPAID") // UNPAID, PAID
-  createdAt       DateTime @default(now())
-  
-  employee        Employee      @relation(fields: [employeeId], references: [id])
-  serviceRecord   ServiceRecord @relation(fields: [serviceRecordId], references: [id])
-
-  @@map("commission_logs")
-}
-
-// ─── Inventory ──────────────────────────────────────────
-
-model Inventory {
-  id          String       @id @default(cuid())
-  productName String
-  stockCount  Int          @default(0)
-  minThreshold Int         @default(5)
-  unit        String       @default("pcs") // e.g. "bottles", "towels"
-  supplierId  String?
-  branchId    String       @map("businessId")
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-
-  branch   Branch @relation(fields: [branchId], references: [id], onDelete: Cascade)
-
-  @@map("inventory")
-}
-
-// ─── Loyalty & Rewards ──────────────────────────────────
-
-model LoyaltyProgram {
-  id          String   @id @default(cuid())
-  branchId    String   @unique @map("businessId")
-  pointsPerRwf Float   @default(0.01) // e.g. 1 point per 100 RWF
-  buyCount    Int?     // For "Buy X, Get Y" rules (X)
-  getCount    Int?     // For "Buy X, Get Y" rules (Y)
-  status      EntityStatus @default(ACTIVE)
-
-  branch   Branch @relation(fields: [branchId], references: [id], onDelete: Cascade)
-
-  @@map("loyalty_programs")
-}
-
-model LoyaltyPoint {
-  id         String      @id @default(cuid())
-  clientId   String
-  points     Int         @default(0)
-  tier       LoyaltyTier @default(BRONZE)
-  branchId   String      @map("businessId")
-  updatedAt  DateTime    @updatedAt
-
-  client   Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
-
-  @@map("loyalty_points")
-}
-
-// ─── Regional Compliance ────────────────────────────────
-
-model Compliance {
-  id          String   @id @default(cuid())
-  region      String   @unique // e.g. "RWANDA", "UGANDA"
-  taxRate     Float    @default(18.0) // VAT
-  gdprFlag    Boolean  @default(false)
-  currency    String   @default("RWF")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@map("compliance_settings")
-}
-
-// ─── Audit Log ──────────────────────────────────────────
-
-model AuditLog {
-  id         String   @id @default(cuid())
-  userId     String
-  action     String   // e.g. "CREATE", "UPDATE", "DELETE", "OVERRIDE"
-  entity     String   // e.g. "ServiceRecord", "Client"
-  entityId   String
-  details    String?  // JSON string with change details
-  reason     String?  // for overrides
-  branchId   String?  @map("businessId")
-  createdAt  DateTime @default(now())
-
-  user     User    @relation(fields: [userId], references: [id])
-  branch   Branch? @relation(fields: [branchId], references: [id], onDelete: Cascade)
-
-  @@map("audit_logs")
-}
-
-// ─── Safety & Emergencies ──────────────────────────────
-
-model SafetyAlert {
-  id          String      @id @default(cuid())
-  type        AlertType   @default(SILENT)
-  location    String?     // e.g. "Room 14"
-  message     String?
-  status      AlertStatus @default(PENDING)
-  branchId    String      @map("businessId")
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-
-  branch      Branch    @relation(fields: [branchId], references: [id], onDelete: Cascade)
-
-  @@map("safety_alerts")
-}
-
-
-model Broadcast {
-  id        String   @id @default(cuid())
-  subject   String
-  content   String
-  level     String   // "NORMAL" or "EMERGENCY"
-  target    String   // "ALL_OWNERS", "ALL_EMPLOYEES", "BRANCH_ID"
-  branchId  String?  @map("businessId") // If targeted at a specific branch
-  isDraft   Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  branch Branch? @relation(fields: [branchId], references: [id], onDelete: Cascade)
-
-  @@map("broadcasts")
-}
-
-// ─── Financial Settlements ────────────────────────────────
-
 enum SettlementStatus {
   PENDING
   PAID
   FAILED
-}
-
-model Settlement {
-  id               String           @id @default(cuid())
-  businessId       String
-  branchId         String
-  periodStart      DateTime
-  periodEnd        DateTime
-  totalGross       Float            @default(0)
-  totalCommission  Float            @default(0)
-  totalNet         Float            @default(0)
-  status           SettlementStatus @default(PENDING)
-  payoutRef        String?          // e.g., MoMo Transaction ID or Bank Ref
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
-
-  @@map("settlements")
 }
