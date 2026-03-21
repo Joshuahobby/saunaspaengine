@@ -81,6 +81,7 @@
 
 :root {
   --bg-app: var(--color-bg-light);
+  --bg-app-rgb: 250, 249, 246;
   --bg-surface: var(--color-surface-light);
   --bg-surface-muted: var(--color-forest-50);
   --bg-card: #ffffff;
@@ -92,6 +93,7 @@
 
 .dark {
   --bg-app: var(--color-bg-dark);
+  --bg-app-rgb: 10, 20, 18;
   --bg-surface: var(--color-surface-dark);
   --bg-surface-muted: #0f1a18;
   --bg-card: #121f1c;
@@ -108,6 +110,18 @@
 }
 
 /* ── Base Styles ── */
+
+.bg-app-95 {
+  background-color: rgba(var(--bg-app-rgb), 0.95);
+}
+
+.bg-app-90 {
+  background-color: rgba(var(--bg-app-rgb), 0.90);
+}
+
+.bg-app-50 {
+  background-color: rgba(var(--bg-app-rgb), 0.50);
+}
 
 html {
   font-family: var(--font-inter), sans-serif;
