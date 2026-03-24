@@ -8,6 +8,7 @@ import Pagination from "@/components/ui/Pagination";
 
 interface RecordData {
     id: string;
+    clientId: string; // Added clientId
     status: string;
     amount: number;
     boxNumber: string | null;
@@ -37,19 +38,66 @@ export default function OperationsClient({
     records,
     todayRevenueAmount,
     activeCount,
-    completedCount
+    completedCount,
+    services,
+    employees
 }: {
     records: RecordData[];
     todayRevenueAmount: number;
     activeCount: number;
     completedCount: number;
+    services: { id: string; name: string; price: number }[];
+    employees: { id: string; fullName: string }[];
 }) {
     const [statusFilter, setStatusFilter] = useState<string>("all");
     const [dateFilter, setDateFilter] = useState<"all" | "today" | "week">("all");
     const [showStatusDropdown, setShowStatusDropdown] = useState(false);
     const [page, setPage] = useState(1);
-    const perPage = 15;
+    const [isExtraModalOpen, setIsExtraModalOpen] = useState(false);
+    const [selectedParent, setSelectedParent] = useState<RecordData | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
+    // Form state for extra service
+    const [extraServiceId, setExtraServiceId] = useState("");
+    const [extraEmployeeId, setExtraEmployeeId] = useState("");
+    const [extraComment, setExtraComment] = useState("");
+
+    const handleAddExtra = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!selectedParent || !extraServiceId) return;
+
+        setIsSubmitting(true);
+        try {
+            const res = await fetch("/api/operations", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    clientId: selectedParent.clientId,
+                    serviceId: extraServiceId,
+                    employeeId: extraEmployeeId || null,
+                    boxNumber: selectedParent.boxNumber,
+                    parentRecordId: selectedParent.id,
+                    paymentMode: "CASH", // Default for extras, can be changed at checkout
+                    comment: extraComment || `Extra for visit ${selectedParent.id.slice(-4)}`,
+                })
+            });
+
+            if (res.ok) {
+                setIsExtraModalOpen(false);
+                setExtraServiceId("");
+                setExtraEmployeeId("");
+                setExtraComment("");
+                // Refresh data (simplest way for now)
+                window.location.reload();
+            }
+        } catch (err) {
+            console.error("Failed to add extra service:", err);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const perPage = 15;
     const filtered = useMemo(() => {
         let result = records;
 
@@ -218,7 +266,19 @@ export default function OperationsClient({
                                             </td>
                                             <td className="px-5 py-3 text-xs font-black text-[var(--text-main)] text-right">{formatRWF(record.amount)}</td>
                                             <td className="px-5 py-3 text-right">
-                                                <CheckoutButton recordId={record.id} currentStatus={record.status} />
+                                                <div className="flex items-center justify-end gap-2">
+                                                    {!isCompleted && (
+                                                        <button
+                                                            onClick={() => { setSelectedParent(record); setIsExtraModalOpen(true); }}
+                                                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest bg-[var(--color-primary)]/5 text-[var(--color-primary)] border border-[var(--color-primary)]/10 hover:bg-[var(--color-primary)] hover:text-white transition-all"
+                                                            title="Add Extra Service"
+                                                        >
+                                                            <span className="material-symbols-outlined text-xs">add_box</span>
+                                                            Extra
+                                                        </button>
+                                                    )}
+                                                    <CheckoutButton recordId={record.id} currentStatus={record.status} />
+                                                </div>
                                             </td>
                                         </tr>
                                     );
@@ -264,6 +324,84 @@ export default function OperationsClient({
                     </div>
                 </div>
             </div>
+
+            {/* Add Extra Service Modal */}
+            {isExtraModalOpen && selectedParent && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+                        <div className="p-6 border-b border-[var(--border-muted)] flex justify-between items-center bg-[var(--bg-surface-muted)]/50">
+                            <div>
+                                <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest italic">Add <span className="text-[var(--color-primary)]">Extra Service</span></h3>
+                                <p className="text-[9px] text-[var(--text-muted)] font-bold mt-1 uppercase tracking-wider">For Guest: {selectedParent.clientName}</p>
+                            </div>
+                            <button onClick={() => setIsExtraModalOpen(false)} className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
+                                <span className="material-symbols-outlined">close</span>
+                            </button>
+                        </div>
+                        
+                        <form onSubmit={handleAddExtra} className="p-6 space-y-5">
+                            <div className="space-y-2">
+                                <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1">Select Service</label>
+                                <select 
+                                    className="w-full bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-xl py-3 px-4 text-xs font-bold text-[var(--text-main)] focus:outline-none focus:border-[var(--color-primary)] transition-all"
+                                    value={extraServiceId}
+                                    onChange={(e) => setExtraServiceId(e.target.value)}
+                                    required
+                                    title="Choose a service"
+                                >
+                                    <option value="">— Select Service —</option>
+                                    {services.map(s => (
+                                        <option key={s.id} value={s.id}>{s.name} (RWF {s.price.toLocaleString()})</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1">Select Attendant</label>
+                                <select 
+                                    className="w-full bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-xl py-3 px-4 text-xs font-bold text-[var(--text-main)] focus:outline-none focus:border-[var(--color-primary)] transition-all"
+                                    value={extraEmployeeId}
+                                    onChange={(e) => setExtraEmployeeId(e.target.value)}
+                                    title="Choose an attendant"
+                                >
+                                    <option value="">— Optional —</option>
+                                    {employees.map(e => (
+                                        <option key={e.id} value={e.id}>{e.fullName}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1">Notes</label>
+                                <textarea 
+                                    className="w-full bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-xl py-3 px-4 text-xs font-bold text-[var(--text-main)] focus:outline-none focus:border-[var(--color-primary)] transition-all min-h-[80px] resize-none"
+                                    placeholder="Add any special requests..."
+                                    value={extraComment}
+                                    onChange={(e) => setExtraComment(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="pt-2 flex gap-3">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsExtraModalOpen(false)}
+                                    className="flex-1 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] text-[var(--text-muted)] border border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)] transition-all"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className={`flex-2 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-2 px-8 ${isSubmitting ? "bg-[var(--border-muted)] text-[var(--text-muted)]" : "bg-[var(--color-primary)] text-white hover:opacity-90 active:scale-95 shadow-lg shadow-[var(--color-primary)]/20"}`}
+                                >
+                                    {isSubmitting ? "Adding..." : "Confirm Extra Service"}
+                                    {!isSubmitting && <span className="material-symbols-outlined text-sm font-black">add_circle</span>}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

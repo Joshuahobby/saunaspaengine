@@ -30,31 +30,50 @@ interface ProductItem {
 
 export default function CheckoutPage() {
     const params = useParams();
-    const id = params?.id as string || "8842";
+    const id = params?.id as string;
 
-    const [cartItems, setCartItems] = useState<CartItem[]>([
-        {
-            id: "1",
-            type: "service",
-            name: "Deep Tissue Swedish Massage",
-            description: "60 Minute Session • Therapist: Elena R.",
-            price: 120.00,
-            qty: 1,
-            icon: "hot_tub",
-            bgColor: "bg-teal-100 dark:bg-teal-900/30",
-            textColor: "text-teal-600 dark:text-teal-400"
-        },
-        {
-            id: "2",
-            type: "retail",
-            name: "Lavender Calming Oil",
-            description: "250ml Professional Grade",
-            price: 35.00,
-            qty: 1,
-            image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&q=80&w=200&h=200",
-            badge: "Retail"
-        }
-    ]);
+    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [clientName, setClientName] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            if (!id) return;
+            try {
+                const res = await fetch(`/api/checkout/details?id=${id}`);
+                if (!res.ok) throw new Error("Failed to fetch checkout details");
+                const data = await res.json();
+                
+                setClientName(data.clientName);
+                
+                const items: CartItem[] = data.services.map((s: { 
+                    id: string; 
+                    serviceName: string; 
+                    isExtra: boolean; 
+                    employeeName: string | null; 
+                    amount: number; 
+                }) => ({
+                    id: s.id,
+                    type: "service",
+                    name: s.serviceName,
+                    description: `${s.isExtra ? "Additional Service" : "Primary Service"} • Attendant: ${s.employeeName || "Unassigned"}`,
+                    price: s.amount,
+                    qty: 1,
+                    icon: s.isExtra ? "add_circle" : "hot_tub",
+                    bgColor: s.isExtra ? "bg-amber-100 dark:bg-amber-900/30" : "bg-teal-100 dark:bg-teal-900/30",
+                    textColor: s.isExtra ? "text-amber-600 dark:text-amber-400" : "text-teal-600 dark:text-teal-400"
+                }));
+                
+                setCartItems(items);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : "Something went wrong");
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchData();
+    }, [id]);
 
     const suggestedItems = [
         {
@@ -101,17 +120,50 @@ export default function CheckoutPage() {
         }
     };
 
+    if (isLoading) return (
+        <div className="min-h-screen bg-[var(--bg-main)] flex items-center justify-center p-8">
+            <div className="flex flex-col items-center gap-4">
+                <div className="w-12 h-12 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin"></div>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] animate-pulse italic">Calculating Total...</p>
+            </div>
+        </div>
+    );
+
+    if (error) return (
+        <div className="min-h-screen bg-[var(--bg-main)] flex items-center justify-center p-8">
+            <div className="bg-[var(--bg-card)] border border-red-500/20 rounded-2xl p-12 max-w-md text-center shadow-2xl">
+                <span className="material-symbols-outlined text-5xl text-red-500 mb-6 drop-shadow-[0_0_15px_rgba(239,68,68,0.3)]">error</span>
+                <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-[0.2em] mb-3">Checkout Error</h3>
+                <p className="text-[10px] text-[var(--text-muted)] font-black uppercase tracking-wider leading-relaxed mb-8">{error}</p>
+                <Link href="/operations" className="inline-flex py-4 px-10 rounded-xl bg-[var(--color-primary)] text-white text-[10px] font-black uppercase tracking-[0.2em] hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-[var(--color-primary)]/20">
+                    Return to Operations
+                </Link>
+            </div>
+        </div>
+    );
+
     return (
-        <div className="flex flex-col lg:flex-row gap-6 w-full">
+        <div className="flex flex-col lg:flex-row gap-8 w-full">
             {/* Central Content: Checkout Area */}
-            <section className="flex-1 flex flex-col gap-6">
-                <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm">
-                        <Link href="/operations" className="hover:text-[var(--color-primary)] transition-colors">Operations</Link>
-                        <span className="material-symbols-outlined text-sm">chevron_right</span>
-                        <span className="text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] font-medium tracking-tight">Checkout #{id}</span>
+            <section className="flex-1 flex flex-col gap-8">
+                <div className="flex flex-col gap-3">
+                    <div className="flex items-center gap-3 text-[var(--text-muted)] text-[10px] font-black uppercase tracking-[0.15em]">
+                        <Link href="/operations" className="hover:text-[var(--color-primary)] transition-colors flex items-center gap-1">
+                            <span className="material-symbols-outlined text-sm">arrow_back</span>
+                            Operations
+                        </Link>
+                        <span className="material-symbols-outlined text-[10px]">chevron_right</span>
+                        <span className="text-[var(--text-main)] italic">Session #{id?.slice(-4)}</span>
                     </div>
-                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Service Checkout</h2>
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h2 className="text-4xl font-display font-black text-[var(--text-main)] tracking-tighter italic">Unified <span className="text-[var(--color-primary)]">Checkout</span></h2>
+                            <p className="text-[9px] text-[var(--text-muted)] font-black uppercase tracking-[0.2em] mt-1 opacity-70">Guest Identity: <span className="text-[var(--text-main)]">{clientName}</span></p>
+                        </div>
+                        <div className="bg-[var(--color-primary)]/10 px-4 py-2 rounded-lg border border-[var(--color-primary)]/20">
+                            <span className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-widest">{cartItems.length} Item{cartItems.length !== 1 ? 's' : ''} Collected</span>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Cart Items */}

@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { clientId, serviceId, employeeId, boxNumber, paymentMode, comment } = body;
+    const { clientId, serviceId, employeeId, boxNumber, paymentMode, comment, parentRecordId } = body;
 
     if (!clientId || !serviceId) {
         return NextResponse.json({ error: "Client and Service are required" }, { status: 400 });
@@ -90,6 +90,8 @@ export async function POST(request: NextRequest) {
                 amount: service.price,
                 comment: comment || null,
                 status: "CREATED",
+                parentRecordId: parentRecordId || null,
+                isExtra: !!parentRecordId,
             },
             include: {
                 client: { select: { fullName: true } },
@@ -140,6 +142,14 @@ export async function PATCH(request: NextRequest) {
 
         if (!existingRecord) {
             return NextResponse.json({ error: "Record not found" }, { status: 404 });
+        }
+
+        // If completing a parent, also complete all extras
+        if (status === "COMPLETED") {
+            await prisma.serviceRecord.updateMany({
+                where: { parentRecordId: id, branchId: session.user.branchId },
+                data: { status: "COMPLETED", completedAt: new Date() }
+            });
         }
 
         let financialData = {};

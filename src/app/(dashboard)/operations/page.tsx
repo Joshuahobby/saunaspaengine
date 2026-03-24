@@ -16,7 +16,7 @@ export default async function OperationsPage() {
 
     const branchWhere = { in: branchIds };
 
-    const [records, todayRevenue, activeCount, completedCount] = await Promise.all([
+    const [records, todayRevenue, activeCount, completedCount, services, employees] = await Promise.all([
         prisma.serviceRecord.findMany({
             where: { branchId: branchWhere },
             include: {
@@ -41,10 +41,19 @@ export default async function OperationsPage() {
         prisma.serviceRecord.count({
             where: { branchId: branchWhere, status: "COMPLETED" },
         }),
+        prisma.service.findMany({
+            where: { branchId: branchWhere, status: "ACTIVE" },
+            select: { id: true, name: true, price: true }
+        }),
+        prisma.employee.findMany({
+            where: { branchId: branchWhere, status: "ACTIVE" },
+            select: { id: true, fullName: true }
+        }),
     ]);
 
     const recordData = records.map(r => ({
         id: r.id,
+        clientId: r.clientId,
         status: r.status,
         amount: r.amount,
         boxNumber: r.boxNumber,
@@ -61,6 +70,8 @@ export default async function OperationsPage() {
             todayRevenueAmount={todayRevenue._sum.amount || 0}
             activeCount={activeCount}
             completedCount={completedCount}
+            services={services}
+            employees={employees}
         />
     );
 }
