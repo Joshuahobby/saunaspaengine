@@ -8,7 +8,7 @@ import Pagination from "@/components/ui/Pagination";
 
 interface RecordData {
     id: string;
-    clientId: string; // Added clientId
+    clientId: string;
     status: string;
     amount: number;
     boxNumber: string | null;
@@ -17,6 +17,7 @@ interface RecordData {
     serviceName: string;
     serviceCategory: string | null;
     employeeName: string | null;
+    extraServices: any[];
 }
 
 const STATUS_STYLES: Record<string, { dot: string; text: string; label: string }> = {
@@ -76,8 +77,8 @@ export default function OperationsClient({
                     serviceId: extraServiceId,
                     employeeId: extraEmployeeId || null,
                     boxNumber: selectedParent.boxNumber,
-                    parentRecordId: selectedParent.id,
-                    paymentMode: "CASH", // Default for extras, can be changed at checkout
+                    recordId: selectedParent.id,
+                    paymentMode: "CASH", 
                     comment: extraComment || `Extra for visit ${selectedParent.id.slice(-4)}`,
                 })
             });
@@ -253,11 +254,31 @@ export default function OperationsClient({
                                                 <span className="bg-[var(--bg-card)] border border-[var(--border-muted)] px-3 py-1 rounded-lg text-[8px] font-black text-[var(--text-main)] shadow-sm">{record.boxNumber || "—"}</span>
                                             </td>
                                             <td className="px-5 py-3">
-                                                <span className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest ${isCompleted ? "bg-[var(--border-muted)] text-[var(--text-muted)]" : "bg-[var(--color-primary)]/5 text-[var(--color-primary)] border border-[var(--color-primary)]/10"}`}>
-                                                    {record.serviceName}
-                                                </span>
+                                                 <div className="flex flex-col gap-1">
+                                                    <span className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest w-fit ${isCompleted ? "bg-[var(--border-muted)] text-[var(--text-muted)]" : "bg-[var(--color-primary)]/5 text-[var(--color-primary)] border border-[var(--color-primary)]/10"}`}>
+                                                        {record.serviceName}
+                                                    </span>
+                                                    {record.extraServices?.length > 0 && (
+                                                        <div className="flex flex-wrap gap-1 mt-1">
+                                                            {record.extraServices.map((extra: any) => (
+                                                                <span key={extra.id} className="text-[7px] font-bold text-[var(--text-muted)] bg-[var(--bg-surface-muted)] px-1.5 py-0.5 rounded border border-[var(--border-muted)] uppercase tracking-tight">
+                                                                    + {extra.serviceName}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                 </div>
                                             </td>
-                                            <td className="px-5 py-3 text-[10px] font-bold text-[var(--text-muted)]">{record.employeeName || "—"}</td>
+                                            <td className="px-5 py-3 text-[10px] font-bold text-[var(--text-muted)]">
+                                                <div className="flex flex-col gap-0.5">
+                                                    <span>{record.employeeName || "—"}</span>
+                                                    {record.extraServices?.map((extra: any) => (
+                                                        <span key={extra.id} className="text-[7px] opacity-70 italic font-medium">
+                                                            {extra.employeeName || "—"}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </td>
                                             <td className="px-5 py-3">
                                                 <span className={`flex items-center gap-1.5 text-[8px] font-black uppercase tracking-[0.1em] ${statusStyle.text}`}>
                                                     <span className={`w-1.5 h-1.5 rounded-full ${statusStyle.dot}`}></span>

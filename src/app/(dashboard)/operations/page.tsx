@@ -62,6 +62,7 @@ export default async function OperationsPage() {
         serviceName: r.service.name,
         serviceCategory: r.service.category,
         employeeName: r.employee?.fullName || null,
+        extraServices: (r as any).extraServices || [],
     }));
 
     return (

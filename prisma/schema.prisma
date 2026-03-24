@@ -222,8 +222,7 @@ model ServiceRecord {
   platformFee        Float               @default(0)
   taxAmount          Float               @default(0)
   employeeCommission Float               @default(0)
-  parentRecordId     String?
-  isExtra            Boolean             @default(false)
+  extraServices      Json?               @default("[]")
   commissionLog      CommissionLog?
   branch             Branch              @relation(fields: [branchId], references: [id], onDelete: Cascade)
   client             Client              @relation(fields: [clientId], references: [id], onDelete: Cascade)

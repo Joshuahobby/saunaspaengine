@@ -47,33 +47,72 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { clientId, serviceId, employeeId, boxNumber, paymentMode, comment, parentRecordId } = body;
+    const { clientId, serviceId, employeeId, boxNumber, paymentMode, comment, recordId } = body;
 
     if (!clientId || !serviceId) {
         return NextResponse.json({ error: "Client and Service are required" }, { status: 400 });
     }
 
     try {
-        // 1. Fetch branch/business context
-        const currentBranch = await prisma.branch.findUnique({
-            where: { id: session.user.branchId },
-            select: { businessId: true }
-        });
+        // 1. If recordId is provided, we are adding an EXTRA SERVICE to an existing session
+        if (recordId) {
+            const existing = await prisma.serviceRecord.findUnique({
+                where: { id: recordId }
+            }) as any;
 
-        // 2. Verify Client exists and belongs to the same Business network
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const clientsInBusiness = await (prisma.client as any).findMany({
-            where: {
-                id: clientId,
-                branch: { businessId: currentBranch?.businessId }
+            if (!existing) {
+                return NextResponse.json({ error: "Original record not found" }, { status: 404 });
             }
-        });
 
-        if (!clientsInBusiness || clientsInBusiness.length === 0) {
-            return NextResponse.json({ error: "Client not found in this business network" }, { status: 404 });
+            const extraSvc = await prisma.service.findUnique({
+                where: { id: serviceId }
+            });
+
+            if (!extraSvc) {
+                return NextResponse.json({ error: "Service not found" }, { status: 404 });
+            }
+
+            let employeeName = null;
+            if (employeeId) {
+                const emp = await prisma.employee.findUnique({
+                    where: { id: employeeId },
+                    select: { fullName: true }
+                });
+                employeeName = emp?.fullName;
+            }
+
+            const currentExtras = Array.isArray(existing.extraServices) 
+                ? (existing.extraServices as any[]) 
+                : [];
+            
+            const newExtra = {
+                id: Math.random().toString(36).substring(7),
+                serviceId,
+                serviceName: extraSvc.name,
+                amount: extraSvc.price,
+                employeeId: employeeId || null,
+                employeeName: employeeName || null,
+                createdAt: new Date().toISOString()
+            };
+
+            const updatedRecord = await (prisma.serviceRecord as any).update({
+                where: { id: recordId },
+                data: {
+                    extraServices: [...currentExtras, newExtra],
+                    amount: { increment: extraSvc.price },
+                    netAmount: { increment: extraSvc.price }
+                },
+                include: {
+                    client: { select: { fullName: true } },
+                    service: { select: { name: true, category: true } },
+                    employee: { select: { fullName: true } },
+                }
+            });
+
+            return NextResponse.json(updatedRecord);
         }
 
-        // 3. Fetch service price
+        // 2. Normal Check-in: Create a new service record
         const service = await prisma.service.findUnique({ where: { id: serviceId } });
         if (!service) {
             return NextResponse.json({ error: "Service not found" }, { status: 404 });
@@ -88,10 +127,9 @@ export async function POST(request: NextRequest) {
                 boxNumber: boxNumber || null,
                 paymentMode: paymentMode || "CASH",
                 amount: service.price,
+                netAmount: service.price,
                 comment: comment || null,
                 status: "CREATED",
-                parentRecordId: parentRecordId || null,
-                isExtra: !!parentRecordId,
             },
             include: {
                 client: { select: { fullName: true } },
@@ -144,13 +182,8 @@ export async function PATCH(request: NextRequest) {
             return NextResponse.json({ error: "Record not found" }, { status: 404 });
         }
 
-        // If completing a parent, also complete all extras
-        if (status === "COMPLETED") {
-            await prisma.serviceRecord.updateMany({
-                where: { parentRecordId: id, branchId: session.user.branchId },
-                data: { status: "COMPLETED", completedAt: new Date() }
-            });
-        }
+        // Hierarchical service tracking is now handled via JSON field, 
+        // no independent status updates needed for extra services.
 
         let financialData = {};
         if (status === "COMPLETED") {

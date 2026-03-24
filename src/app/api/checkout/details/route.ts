@@ -17,41 +17,42 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-        // Fetch parent and all related child records
-        const records = await prisma.serviceRecord.findMany({
-            where: {
-                OR: [
-                    { id: parentId },
-                    { parentRecordId: parentId }
-                ],
-                branchId: session.user.branchId
-            } as any,
+        const record = await prisma.serviceRecord.findUnique({
+            where: { id: parentId },
             include: {
                 service: true,
                 employee: { select: { fullName: true } },
                 client: { select: { fullName: true } }
-            },
-            orderBy: { createdAt: "asc" }
-        });
+            }
+        }) as any;
 
-        if (records.length === 0) {
-            return NextResponse.json({ error: "No records found" }, { status: 404 });
+        if (!record) {
+            return NextResponse.json({ error: "Record not found" }, { status: 404 });
         }
 
-        // Parent is typically the first one or the one without a parentRecordId
-        // but for simplicity we just pick the first record's client
+        const consolidatedServices = [
+            {
+                id: record.id,
+                serviceName: record.service.name,
+                isExtra: false,
+                employeeName: record.employee?.fullName || null,
+                amount: record.service.price
+            },
+            ...(Array.isArray(record.extraServices) ? (record.extraServices as any[]).map(s => ({
+                id: s.id,
+                serviceName: s.serviceName,
+                isExtra: true,
+                employeeName: s.employeeName,
+                amount: s.amount
+            })) : [])
+        ];
+
         return NextResponse.json({
-            clientName: (records[0] as any).client.fullName,
-            services: records.map((r: any) => ({
-                id: r.id,
-                serviceName: r.service.name,
-                isExtra: !!r.parentRecordId,
-                employeeName: r.employee?.fullName || null,
-                amount: r.amount
-            }))
+            clientName: record.client.fullName,
+            services: consolidatedServices
         });
     } catch (error) {
         console.error("Checkout details error:", error);
-        return NextResponse.json({ error: "Failed to fetch checkout details" }, { status: 500 });
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
 }
