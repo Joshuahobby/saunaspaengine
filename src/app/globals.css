@@ -241,3 +241,34 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   white-space: nowrap;
   border-width: 0;
 }
+
+/* ── Scanner Animations ── */
+
+@keyframes scan {
+  0%, 100% { top: 0%; }
+  50% { top: 100%; }
+}
+
+.scanner-overlay {
+  background: linear-gradient(rgba(45, 90, 39, 0.05) 0%, rgba(45, 90, 39, 0.05) 100%);
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 0 20px rgba(45, 90, 39, 0.2);
+}
+
+.scan-line {
+  height: 2px;
+  background: var(--color-primary);
+  box-shadow: 0 0 15px var(--color-primary);
+  position: absolute;
+  width: 100%;
+  animation: scan 4s linear infinite;
+  z-index: 10;
+}
+
+.scanner-corner {
+  width: 24px;
+  height: 24px;
+  border-color: var(--color-primary);
+  position: absolute;
+  z-index: 20;
+}

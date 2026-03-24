@@ -194,6 +194,25 @@ export default function CheckoutPage() {
                                 <span className="text-2xl font-black text-[var(--color-primary)]">RWF {(total * 1000).toLocaleString('en-RW', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                             </div>
 
+                            <div className="pt-6 space-y-4">
+                                <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 italic opacity-60">Payment Method</label>
+                                <div className="grid grid-cols-3 gap-3">
+                                    {[
+                                        { id: 'cash', label: 'Cash', icon: 'payments' },
+                                        { id: 'momo', label: 'MoMo', icon: 'smartphone' },
+                                        { id: 'pos', label: 'POS / Card', icon: 'point_of_sale' }
+                                    ].map((pm) => (
+                                        <label key={pm.id} className="cursor-pointer group">
+                                            <input type="radio" name="paymentOption" value={pm.id} defaultChecked={pm.id === 'cash'} className="sr-only peer" />
+                                            <div className="flex flex-col items-center gap-2 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 peer-checked:border-[var(--color-primary)] peer-checked:bg-[var(--color-primary)]/[0.05] transition-all hover:bg-slate-50 dark:hover:bg-slate-800">
+                                                <span className="material-symbols-outlined text-slate-400 peer-checked:text-[var(--color-primary)]">{pm.icon}</span>
+                                                <span className="text-[9px] font-bold uppercase tracking-wider text-slate-500 peer-checked:text-white">{pm.label}</span>
+                                            </div>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+
                             <div className="pt-6">
                                 <button className="w-full bg-[var(--color-primary)] hover:opacity-90 text-[var(--color-bg-dark)] font-black py-4 rounded-xl shadow-[0_4px_0_0_rgba(17,212,196,0.3)] hover:shadow-none hover:translate-y-1 transition-all flex items-center justify-center gap-2">
                                     COMPLETE PAYMENT <span className="material-symbols-outlined">arrow_forward</span>

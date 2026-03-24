@@ -63,7 +63,7 @@ export default function ClientRegistrationForm({ membershipCategories }: ClientR
                     <span className="material-symbols-outlined text-4xl">check_circle</span>
                 </div>
                 <h3 className="text-xl font-bold mb-2">Registration Success!</h3>
-                <p className="text-sm text-slate-600 mb-6">Client profile created. Redirecting to records...</p>
+                <p className="text-sm text-slate-600 mb-6">Guest profile created. Redirecting to records...</p>
                 {successData.qrCode && (
                     <div className="bg-white p-4 rounded-xl shadow-inner mb-6 relative group">
                         <div className="size-40 border border-slate-200 rounded flex items-center justify-center text-slate-300">
@@ -106,7 +106,7 @@ export default function ClientRegistrationForm({ membershipCategories }: ClientR
                 </div>
 
                 <div className="col-span-2 py-4 border-t border-slate-100">
-                    <label className="text-sm font-bold block mb-4">Client Category</label>
+                    <label className="text-sm font-bold block mb-4">Guest Category</label>
                     <div className="flex bg-slate-100 p-1 rounded-xl w-fit">
                         <button
                             type="button"

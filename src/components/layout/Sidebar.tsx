@@ -15,17 +15,16 @@ interface NavItem {
 const managerNavItems: NavItem[] = [
     { label: "Overview", isHeader: true },
     { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
-    { label: "Check-in", href: "/check-in", icon: "qr_code_scanner" },
+    { label: "Reception", href: "/check-in", icon: "qr_code_scanner" },
     
-    { label: "Operations", isHeader: true },
-    { label: "Operations", href: "/operations", icon: "receipt_long" },
+    { label: "Activity", isHeader: true },
+    { label: "Visit Logs", href: "/operations", icon: "receipt_long" },
     { label: "Floor Manager", href: "/floor-manager", icon: "dashboard_customize" },
-    { label: "QR Scanner", href: "/qr-scanner", icon: "qr_code_scanner" },
     { label: "Safety Hub", href: "/safety", icon: "shield_with_heart" },
     
     { label: "Management", isHeader: true },
     { label: "Employees", href: "/employees", icon: "badge" },
-    { label: "Clients", href: "/clients", icon: "group" },
+    { label: "Guest Directory", href: "/clients", icon: "group" },
     { label: "Services", href: "/services", icon: "auto_awesome" },
     { label: "Inventory", href: "/inventory", icon: "inventory_2" },
     
@@ -35,8 +34,8 @@ const managerNavItems: NavItem[] = [
     
     { label: "Intelligence", isHeader: true },
     { label: "Reports", href: "/reports/revenue", icon: "analytics" },
-    { label: "Feedback", href: "/settings/feedback", icon: "reviews" },
-    { label: "Audit Log", href: "/audit", icon: "history" },
+    { label: "Guest Feedback", href: "/settings/feedback", icon: "reviews" },
+    { label: "System Activity", href: "/audit", icon: "history" },
     
     { label: "Account", isHeader: true },
     { label: "My Card", href: "/membership-card", icon: "credit_card" },
@@ -100,9 +99,8 @@ const employeeNavItems: NavItem[] = [
     { label: "My Workspace", isHeader: true },
     { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
     { label: "My Earnings", href: "/employees/my-earnings", icon: "payments" },
-    { label: "Check-in", href: "/check-in", icon: "qr_code_scanner" },
-    { label: "Operations", href: "/operations", icon: "receipt_long" },
-    { label: "QR Scanner", href: "/qr-scanner", icon: "qr_code_scanner" },
+    { label: "Reception", href: "/check-in", icon: "qr_code_scanner" },
+    { label: "Visit Logs", href: "/operations", icon: "receipt_long" },
     { label: "Floor Manager", href: "/floor-manager", icon: "dashboard_customize" },
     { label: "Safety Hub", href: "/safety", icon: "shield_with_heart" },
 ];
@@ -270,13 +268,13 @@ export default function Sidebar({
                                         exit={{ opacity: 0 }}
                                         className="whitespace-nowrap"
                                     >
-                                        New Check-in
+                                        Reception
                                     </motion.span>
                                 )}
                             </AnimatePresence>
                             {isCollapsed && (
                                 <div className="absolute left-full ml-4 px-3 py-1 bg-gray-900 text-white text-[11px] rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 whitespace-nowrap z-50 shadow-xl font-bold uppercase tracking-wider">
-                                    New Check-in
+                                    Reception
                                 </div>
                             )}
                         </Link>

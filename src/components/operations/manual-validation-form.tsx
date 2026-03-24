@@ -19,7 +19,7 @@ export default function ManualValidationForm() {
             const res = await fetch(`/api/clients/search?query=${encodeURIComponent(query)}`);
             if (!res.ok) {
                 const data = await res.json();
-                throw new Error(data.error || "Client not found");
+                throw new Error(data.error || "Guest not found");
             }
 
             const client = await res.json();
@@ -62,7 +62,7 @@ export default function ManualValidationForm() {
                 ) : (
                     <>
                         <span className="material-symbols-outlined">verified</span>
-                        Validate Member
+                        Verify Membership
                     </>
                 )}
             </button>
