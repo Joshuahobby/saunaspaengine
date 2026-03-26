@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -73,6 +74,9 @@ model Branch {
   serviceRecords       ServiceRecord[]
   services             Service[]
   users                User[]
+  reviews              Review[]
+  shifts               Shift[]
+  employeePayouts      EmployeePayout[]
 
   @@map("businesses")
 }
@@ -129,6 +133,9 @@ model Employee {
   category       EmployeeCategory @relation(fields: [categoryId], references: [id])
   user           User?            @relation(fields: [userId], references: [id])
   serviceRecords ServiceRecord[]
+  reviews        Review[]
+  shifts         Shift[]
+  payouts        EmployeePayout[]
 
   @@map("employees")
 }
@@ -147,6 +154,7 @@ model Client {
   loyaltyPoints  LoyaltyPoint[]
   memberships    Membership[]
   serviceRecords ServiceRecord[]
+  reviews        Review[]
 
   @@map("clients")
 }
@@ -228,6 +236,7 @@ model ServiceRecord {
   client             Client              @relation(fields: [clientId], references: [id], onDelete: Cascade)
   employee           Employee?           @relation(fields: [employeeId], references: [id])
   service            Service             @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  review             Review?
 
   @@map("service_records")
 }
@@ -238,9 +247,11 @@ model CommissionLog {
   employeeId      String
   amount          Float
   status          String        @default("UNPAID")
+  payoutId        String?
   createdAt       DateTime      @default(now())
   employee        Employee      @relation(fields: [employeeId], references: [id])
   serviceRecord   ServiceRecord @relation(fields: [serviceRecordId], references: [id])
+  payout          EmployeePayout? @relation(fields: [payoutId], references: [id])
 
   @@map("commission_logs")
 }
@@ -358,6 +369,60 @@ model Settlement {
   @@map("settlements")
 }
 
+model Review {
+  id              String        @id @default(cuid())
+  rating          Int
+  comment         String?
+  serviceRecordId String        @unique
+  clientId        String
+  employeeId      String
+  branchId        String        @map("businessId")
+  createdAt       DateTime      @default(now())
+  
+  serviceRecord   ServiceRecord @relation(fields: [serviceRecordId], references: [id], onDelete: Cascade)
+  client          Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  employee        Employee      @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  branch          Branch        @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+model Shift {
+  id          String      @id @default(cuid())
+  employeeId  String
+  branchId    String      @map("businessId")
+  date        DateTime
+  startTime   String
+  endTime     String
+  status      ShiftStatus @default(SCHEDULED)
+  notes       String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  employee    Employee    @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  branch      Branch      @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  @@map("shifts")
+}
+
+model EmployeePayout {
+  id          String           @id @default(cuid())
+  employeeId  String
+  branchId    String           @map("businessId")
+  amount      Float
+  status      PayoutStatus     @default(PENDING)
+  paidAt      DateTime?
+  reference   String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  employee      Employee         @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  branch        Branch           @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  commissionLogs CommissionLog[]
+
+  @@map("employee_payouts")
+}
+
 enum UserRole {
   ADMIN
   OWNER
@@ -388,11 +453,14 @@ enum ServiceRecordStatus {
   CREATED
   IN_PROGRESS
   COMPLETED
+  CANCELLED
+
 }
 
 enum EntityStatus {
   ACTIVE
   INACTIVE
+  ARCHIVED
 }
 
 enum ApprovalStatus {
@@ -424,4 +492,17 @@ enum SettlementStatus {
   PENDING
   PAID
   FAILED
+}
+
+enum ShiftStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum PayoutStatus {
+  PENDING
+  PAID
+  CANCELLED
 }

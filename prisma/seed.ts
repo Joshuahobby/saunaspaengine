@@ -1,7 +1,24 @@
 import { PrismaClient, PaymentMode } from '@prisma/client';
+import { PrismaNeon } from '@prisma/adapter-neon';
 import bcrypt from 'bcryptjs';
+import * as dotenv from 'dotenv';
 
-const prisma = new PrismaClient();
+dotenv.config({ override: true });
+
+const connectionString = process.env.DATABASE_URL || "";
+
+let prisma: PrismaClient;
+
+try {
+  if (connectionString) {
+    const adapter = new PrismaNeon({ connectionString });
+    prisma = new PrismaClient({ adapter });
+  } else {
+    prisma = new PrismaClient();
+  }
+} catch {
+  prisma = new PrismaClient();
+}
 
 async function main() {
   console.log('🌱 Starting database seeding...');
@@ -30,7 +47,7 @@ async function main() {
 
     // 2. Setup Base Entities
     console.log('Creating Compliance and Platform Packages...');
-    const compliance = await prisma.compliance.create({
+    await prisma.compliance.create({
       data: { region: 'RWANDA', taxRate: 18.0, currency: 'RWF' }
     });
 
@@ -65,7 +82,7 @@ async function main() {
     const defaultPassword = await bcrypt.hash('password123', 10);
 
     // 4. Create Users (Admin, Business)
-    const adminUser = await prisma.user.create({
+    await prisma.user.create({
       data: {
         username: 'admin',
         email: 'admin@saunaspa.com',
@@ -75,7 +92,7 @@ async function main() {
       }
     });
 
-    const corpUser = await prisma.user.create({
+    await prisma.user.create({
       data: {
         username: 'business',
         email: 'ceo@saunaspa.com',
@@ -132,7 +149,7 @@ async function main() {
     // Employees
     const emp1 = await prisma.employee.create({ data: { fullName: 'Sarah M.', categoryId: catTherapist.id, branchId: branch1Id } });
     const emp2 = await prisma.employee.create({ data: { fullName: 'John D.', categoryId: catTherapist.id, branchId: branch1Id } });
-    const emp3 = await prisma.employee.create({ data: { fullName: 'Alice R.', categoryId: catReception.id, branchId: branch1Id } });
+    await prisma.employee.create({ data: { fullName: 'Alice R.', categoryId: catReception.id, branchId: branch1Id } });
 
     // Ensure Employee logins exist
     await prisma.user.create({

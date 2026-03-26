@@ -13,9 +13,11 @@ export function StatusToggle({ employeeId, initialStatus }: StatusToggleProps) {
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
-    const toggleStatus = async () => {
+    const handleStatusChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const nextStatus = e.target.value;
+        if (!confirm(`Are you sure you want to change this employee's status to ${nextStatus}?`)) return;
+        
         setIsLoading(true);
-        const nextStatus = status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
 
         try {
             const res = await fetch(`/api/employees/${employeeId}`, {
@@ -27,32 +29,44 @@ export function StatusToggle({ employeeId, initialStatus }: StatusToggleProps) {
             if (res.ok) {
                 setStatus(nextStatus);
                 router.refresh();
+            } else {
+                alert("Failed to update status.");
             }
         } catch (error) {
-            console.error("Failed to toggle employee status:", error);
+            console.error("Failed to update employee status:", error);
+            alert("Network error. Please try again.");
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <button
-            onClick={toggleStatus}
-            disabled={isLoading}
-            className={`flex items-center gap-2 group p-1 pr-3 rounded-full transition-all border ${status === 'ACTIVE'
-                    ? 'bg-emerald-50 border-emerald-100 text-emerald-700'
-                    : 'bg-slate-50 border-slate-100 text-slate-500'
-                } hover:shadow-sm disabled:opacity-50`}
-        >
-            <div className={`size-6 rounded-full flex items-center justify-center ${status === 'ACTIVE' ? 'bg-emerald-500' : 'bg-slate-300'
-                }`}>
-                <span className="material-symbols-outlined text-[14px] text-white">
-                    {status === 'ACTIVE' ? 'check' : 'close'}
-                </span>
+        <div className="relative inline-block">
+            <select
+                aria-label="Employee Status"
+                title="Employee Status"
+                value={status}
+                onChange={handleStatusChange}
+                disabled={isLoading}
+                className={`appearance-none focus:outline-none focus:ring-2 flex items-center pr-8 pl-3 py-1.5 rounded-full transition-all border text-[10px] font-black uppercase tracking-wider cursor-pointer shadow-sm
+                    ${status === 'ACTIVE'
+                        ? 'bg-emerald-50 border-emerald-200 text-emerald-700 focus:ring-emerald-500/20'
+                        : status === 'ARCHIVED'
+                            ? 'bg-red-50 border-red-200 text-red-700 focus:ring-red-500/20'
+                            : 'bg-slate-50 border-slate-200 text-slate-500 focus:ring-slate-500/20'
+                    } disabled:opacity-50`}
+            >
+                <option value="ACTIVE">Active</option>
+                <option value="INACTIVE">Inactive / Leave</option>
+                <option value="ARCHIVED">Archived</option>
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
+                {isLoading ? (
+                    <span className="material-symbols-outlined text-[14px] animate-spin opacity-50">sync</span>
+                ) : (
+                    <span className="material-symbols-outlined text-[14px] opacity-50">arrow_drop_down</span>
+                )}
             </div>
-            <span className="text-[10px] font-black uppercase tracking-wider">
-                {isLoading ? '...' : status}
-            </span>
-        </button>
+        </div>
     );
 }

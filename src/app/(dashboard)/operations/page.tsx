@@ -4,6 +4,9 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import OperationsClient from "./client-page";
+import { ExtraService, RecordData } from "@/types/operations";
+
+
 
 export default async function OperationsPage() {
     const session = await auth();
@@ -23,6 +26,7 @@ export default async function OperationsPage() {
                 client: { select: { fullName: true } },
                 service: { select: { name: true, category: true, price: true } },
                 employee: { select: { fullName: true } },
+                review: { select: { id: true } },
             },
             orderBy: { createdAt: "desc" },
             take: 50,
@@ -51,7 +55,23 @@ export default async function OperationsPage() {
         }),
     ]);
 
-    const recordData = records.map(r => ({
+    function parseExtras(raw: unknown): ExtraService[] {
+        if (!raw) return [];
+        if (Array.isArray(raw)) return raw as ExtraService[];
+        if (typeof raw === "string") {
+            try { 
+                const p = JSON.parse(raw); 
+                return Array.isArray(p) ? p as ExtraService[] : []; 
+            } catch { 
+                return []; 
+            }
+        }
+        return [];
+    }
+
+    type RawRecord = typeof records[number] & { extraServices: unknown; review?: { id: string } | null };
+
+    const recordData: RecordData[] = (records as RawRecord[]).map(r => ({
         id: r.id,
         clientId: r.clientId,
         status: r.status,
@@ -62,8 +82,14 @@ export default async function OperationsPage() {
         serviceName: r.service.name,
         serviceCategory: r.service.category,
         employeeName: r.employee?.fullName || null,
-        extraServices: (r as any).extraServices || [],
+        employeeId: r.employeeId || null,
+        hasReview: !!r.review,
+        extraServices: parseExtras(r.extraServices),
     }));
+
+
+
+
 
     return (
         <OperationsClient

@@ -9,7 +9,7 @@ import Link from "next/link";
 export default async function EmployeesPage({ 
     searchParams 
 }: { 
-    searchParams: Promise<{ branchId?: string; q?: string }> 
+    searchParams: Promise<{ branchId?: string; q?: string; status?: string }> 
 }) {
     const resolvedSearchParams = await searchParams;
     const session = await auth();
@@ -58,9 +58,18 @@ export default async function EmployeesPage({
 
     const activeNow = employees.filter(e => e.status === 'ACTIVE').length;
     const onLeave = employees.filter(e => e.status === 'INACTIVE').length;
-    const therapists = employees.filter(e => e.category.name.toLowerCase() === 'therapist' || e.category.name.toLowerCase() === 'masseuse').length;
+    const therapists = employees.filter(e => {
+        const cat = e.category.name.toLowerCase();
+        return cat.includes('therapist') || cat.includes('masseuse');
+    }).length;
+
+    const archivedCount = employees.filter(e => e.status === 'ARCHIVED').length;
 
     const isOwnerOrAdmin = session.user.role === 'OWNER' || session.user.role === 'ADMIN';
+    
+    // Determine which employees to display based on 'status' query param
+    const viewStatus = resolvedSearchParams.status || 'ACTIVE';
+    const displayedEmployees = employees.filter(e => e.status === viewStatus);
 
     return (
         <div className="max-w-7xl mx-auto space-y-8">
@@ -75,10 +84,18 @@ export default async function EmployeesPage({
                         }
                     </p>
                 </div>
-                <Link href="/employees/new" className="bg-[var(--color-primary)] text-[var(--color-bg-dark)] px-5 py-3 rounded-lg text-sm font-bold flex items-center gap-2 hover:brightness-110 shadow-lg shadow-[var(--color-primary)]/20 transition-all">
-                    <span className="material-symbols-outlined text-lg">person_add</span>
-                    Add Employee
-                </Link>
+                <div className="flex items-center gap-3">
+                    {isOwnerOrAdmin && (
+                        <Link href="/employees/roles" className="border border-[var(--border-main)] bg-[var(--bg-surface-muted)] text-[var(--text-main)] px-5 py-3 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-[var(--bg-card)] transition-all">
+                            <span className="material-symbols-outlined text-lg">badge</span>
+                            Manage Roles
+                        </Link>
+                    )}
+                    <Link href="/employees/new" className="bg-[var(--color-primary)] text-[var(--color-bg-dark)] px-5 py-3 rounded-lg text-sm font-bold flex items-center gap-2 hover:brightness-110 shadow-lg shadow-[var(--color-primary)]/20 transition-all">
+                        <span className="material-symbols-outlined text-lg">person_add</span>
+                        Add Employee
+                    </Link>
+                </div>
             </div>
 
             {/* Statistics Bar */}
@@ -105,10 +122,21 @@ export default async function EmployeesPage({
             <div className="bg-[var(--bg-card)] rounded-3xl border border-[var(--border-main)] overflow-hidden shadow-sm">
                 <div className="p-4 border-b border-[var(--border-muted)] flex flex-col md:flex-row gap-4 items-center justify-between">
                     <div className="flex gap-6 self-start md:self-center">
-                        <button className="flex items-center gap-2 border-b-2 border-[var(--color-primary)] text-[var(--text-main)] pb-2 font-bold text-sm">
-                            {selectedBranchId ? "Filtered Staff" : "All Staff"}
-                            <span className="bg-[var(--color-primary)]/20 text-[var(--color-primary)] text-[10px] px-2 py-0.5 rounded-full not-italic">{employees.length}</span>
-                        </button>
+                        <Link href={`/employees?${new URLSearchParams({ ...(selectedBranchId && { branchId: selectedBranchId }), ...(searchTerm && { q: searchTerm }) }).toString()}`} 
+                              className={`flex items-center gap-2 border-b-2 pb-2 font-bold text-sm transition-colors ${viewStatus === 'ACTIVE' ? 'border-[var(--color-primary)] text-[var(--text-main)]' : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)]'}`}>
+                            {selectedBranchId ? "Active Filtered" : "Active Staff"}
+                            <span className={`${viewStatus === 'ACTIVE' ? 'bg-[var(--color-primary)]/20 text-[var(--color-primary)]' : 'bg-[var(--bg-card)] text-[var(--text-muted)]'} text-[10px] px-2 py-0.5 rounded-full not-italic transition-colors`}>{activeNow}</span>
+                        </Link>
+                        <Link href={`/employees?${new URLSearchParams({ ...(selectedBranchId && { branchId: selectedBranchId }), ...(searchTerm && { q: searchTerm }), status: 'INACTIVE' }).toString()}`} 
+                              className={`flex items-center gap-2 border-b-2 pb-2 font-bold text-sm transition-colors ${viewStatus === 'INACTIVE' ? 'border-[var(--color-primary)] text-[var(--text-main)]' : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)]'}`}>
+                            Inactive Staff
+                            <span className={`${viewStatus === 'INACTIVE' ? 'bg-[var(--color-primary)]/20 text-[var(--color-primary)]' : 'bg-[var(--bg-card)] text-[var(--text-muted)]'} text-[10px] px-2 py-0.5 rounded-full not-italic transition-colors`}>{onLeave}</span>
+                        </Link>
+                        <Link href={`/employees?${new URLSearchParams({ ...(selectedBranchId && { branchId: selectedBranchId }), ...(searchTerm && { q: searchTerm }), status: 'ARCHIVED' }).toString()}`} 
+                              className={`flex items-center gap-2 border-b-2 pb-2 font-bold text-sm transition-colors ${viewStatus === 'ARCHIVED' ? 'border-[var(--color-primary)] text-[var(--text-main)]' : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)]'}`}>
+                            Archived
+                            <span className={`${viewStatus === 'ARCHIVED' ? 'bg-[var(--color-primary)]/20 text-[var(--color-primary)]' : 'bg-[var(--bg-card)] text-[var(--text-muted)]'} text-[10px] px-2 py-0.5 rounded-full not-italic transition-colors`}>{archivedCount}</span>
+                        </Link>
                     </div>
 
                     <div className="flex flex-col md:flex-row items-center gap-3 w-full md:w-auto">
@@ -151,8 +179,8 @@ export default async function EmployeesPage({
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-[var(--border-muted)]">
-                            {employees.map((employee) => (
-                                <tr key={employee.id} className="hover:bg-[var(--bg-surface-muted)]/50 transition-colors group">
+                            {displayedEmployees.map((employee) => (
+                                <tr key={employee.id} className={`hover:bg-[var(--bg-surface-muted)]/50 transition-colors group ${employee.status === 'INACTIVE' ? 'opacity-60' : ''}`}>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center gap-3">
                                             <div className="size-10 rounded-full bg-[var(--bg-surface-muted)] flex items-center justify-center font-bold text-[var(--text-muted)] border border-[var(--border-muted)]">
@@ -195,10 +223,10 @@ export default async function EmployeesPage({
                                 </tr>
                             ))}
 
-                            {employees.length === 0 && (
+                            {displayedEmployees.length === 0 && (
                                 <tr>
                                     <td colSpan={isOwnerOrAdmin ? 6 : 5} className="px-6 py-12 text-center text-[var(--text-muted)] font-bold opacity-60">
-                                        {searchTerm || selectedBranchId ? "No employees match your active filters." : "No employees found in the records."}
+                                        {searchTerm || selectedBranchId ? "No employees match your active filters." : `No ${viewStatus.toLowerCase()} employees found.`}
                                     </td>
                                 </tr>
                             )}
@@ -206,10 +234,10 @@ export default async function EmployeesPage({
                     </table>
                 </div>
 
-                {employees.length > 0 && (
+                {displayedEmployees.length > 0 && (
                     <div className="p-4 bg-[var(--bg-surface-muted)] flex items-center justify-between border-t border-[var(--border-muted)]">
                         <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest opacity-40">
-                            {selectedBranchId ? "Branch Specific view" : "Network-wide view"} — Showing {employees.length} employees
+                            {selectedBranchId ? "Branch Specific view" : "Network-wide view"} — Showing {displayedEmployees.length} employees
                         </p>
                     </div>
                 )}

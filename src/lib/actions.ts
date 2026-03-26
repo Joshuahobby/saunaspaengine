@@ -16,25 +16,21 @@ export async function authenticate(
         const plainFormData = Object.fromEntries(formData);
         const redirectTo = (plainFormData.redirectTo as string) || "/dashboard";
         
-        // Remove redirectTo from form data before passing to credentials provider if needed,
-        // though NextAuth v5 handles it if passed in the second argument.
         await signIn("credentials", { ...plainFormData, redirectTo });
     } catch (error) {
         if (error instanceof AuthError) {
-            console.error("[AUTH ERROR]", error.type, error.message, error.cause);
             switch (error.type) {
                 case "CredentialsSignin":
-                    return "Invalid credentials.";
                 case "CallbackRouteError":
                     return "Invalid credentials.";
                 default:
-                    console.error("[AUTH ERROR FULL]", JSON.stringify(error, Object.getOwnPropertyNames(error)));
                     return "Something went wrong.";
             }
         }
         throw error;
     }
 }
+
 
 export async function requestPasswordReset(email: string) {
     try {

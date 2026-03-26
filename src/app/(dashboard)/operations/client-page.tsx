@@ -1,24 +1,15 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import CheckoutButton from "@/components/operations/checkout-button";
 import { EmptyState } from "@/components/ui/empty-state";
 import Pagination from "@/components/ui/Pagination";
 
-interface RecordData {
-    id: string;
-    clientId: string;
-    status: string;
-    amount: number;
-    boxNumber: string | null;
-    createdAt: string;
-    clientName: string;
-    serviceName: string;
-    serviceCategory: string | null;
-    employeeName: string | null;
-    extraServices: any[];
-}
+import { ExtraService, RecordData } from "@/types/operations";
+
+
 
 const STATUS_STYLES: Record<string, { dot: string; text: string; label: string }> = {
     CREATED: { dot: "bg-[var(--color-primary)] shadow-[0_0_8px_var(--color-primary)]", text: "text-[var(--color-primary)]", label: "Created" },
@@ -50,6 +41,7 @@ export default function OperationsClient({
     services: { id: string; name: string; price: number }[];
     employees: { id: string; fullName: string }[];
 }) {
+    const router = useRouter();
     const [statusFilter, setStatusFilter] = useState<string>("all");
     const [dateFilter, setDateFilter] = useState<"all" | "today" | "week">("all");
     const [showStatusDropdown, setShowStatusDropdown] = useState(false);
@@ -57,17 +49,27 @@ export default function OperationsClient({
     const [isExtraModalOpen, setIsExtraModalOpen] = useState(false);
     const [selectedParent, setSelectedParent] = useState<RecordData | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [extraError, setExtraError] = useState<string | null>(null);
 
     // Form state for extra service
     const [extraServiceId, setExtraServiceId] = useState("");
     const [extraEmployeeId, setExtraEmployeeId] = useState("");
     const [extraComment, setExtraComment] = useState("");
 
+    // Form state for review
+    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+    const [selectedReviewParent, setSelectedReviewParent] = useState<RecordData | null>(null);
+    const [reviewRating, setReviewRating] = useState<number>(5);
+    const [reviewComment, setReviewComment] = useState("");
+    const [isReviewing, setIsReviewing] = useState(false);
+    const [reviewError, setReviewError] = useState<string | null>(null);
+
     const handleAddExtra = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!selectedParent || !extraServiceId) return;
 
         setIsSubmitting(true);
+        setExtraError(null);
         try {
             const res = await fetch("/api/operations", {
                 method: "POST",
@@ -78,7 +80,7 @@ export default function OperationsClient({
                     employeeId: extraEmployeeId || null,
                     boxNumber: selectedParent.boxNumber,
                     recordId: selectedParent.id,
-                    paymentMode: "CASH", 
+                    paymentMode: "CASH",
                     comment: extraComment || `Extra for visit ${selectedParent.id.slice(-4)}`,
                 })
             });
@@ -88,14 +90,72 @@ export default function OperationsClient({
                 setExtraServiceId("");
                 setExtraEmployeeId("");
                 setExtraComment("");
-                // Refresh data (simplest way for now)
-                window.location.reload();
+                setExtraError(null);
+                router.refresh();
+            } else {
+                const data = await res.json().catch(() => ({}));
+                setExtraError(data?.error || data?.details || "Failed to add extra service. Please try again.");
             }
         } catch (err) {
             console.error("Failed to add extra service:", err);
+            setExtraError("Network error. Please check your connection and try again.");
         } finally {
             setIsSubmitting(false);
         }
+    };
+
+    const openExtraModal = (record: RecordData) => {
+        setSelectedParent(record);
+        setExtraServiceId("");
+        setExtraEmployeeId("");
+        setExtraComment("");
+        setExtraError(null);
+        setIsExtraModalOpen(true);
+    };
+
+    const handleAddReview = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!selectedReviewParent || !selectedReviewParent.employeeId) return;
+
+        setIsReviewing(true);
+        setReviewError(null);
+
+        try {
+            const res = await fetch("/api/reviews", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    serviceRecordId: selectedReviewParent.id,
+                    rating: reviewRating,
+                    comment: reviewComment,
+                    employeeId: selectedReviewParent.employeeId,
+                    clientId: selectedReviewParent.clientId
+                })
+            });
+
+            if (res.ok) {
+                setIsReviewModalOpen(false);
+                setReviewRating(5);
+                setReviewComment("");
+                router.refresh();
+            } else {
+                const data = await res.json().catch(() => ({}));
+                setReviewError(data?.error || "Failed to submit review.");
+            }
+        } catch (err) {
+            console.error("Failed to submit review:", err);
+            setReviewError("Network error. Please try again.");
+        } finally {
+            setIsReviewing(false);
+        }
+    };
+
+    const openReviewModal = (record: RecordData) => {
+        setSelectedReviewParent(record);
+        setReviewRating(5);
+        setReviewComment("");
+        setReviewError(null);
+        setIsReviewModalOpen(true);
     };
 
     const perPage = 15;
@@ -260,7 +320,7 @@ export default function OperationsClient({
                                                     </span>
                                                     {record.extraServices?.length > 0 && (
                                                         <div className="flex flex-wrap gap-1 mt-1">
-                                                            {record.extraServices.map((extra: any) => (
+                                                            {record.extraServices.map((extra: ExtraService) => (
                                                                 <span key={extra.id} className="text-[7px] font-bold text-[var(--text-muted)] bg-[var(--bg-surface-muted)] px-1.5 py-0.5 rounded border border-[var(--border-muted)] uppercase tracking-tight">
                                                                     + {extra.serviceName}
                                                                 </span>
@@ -272,7 +332,7 @@ export default function OperationsClient({
                                             <td className="px-5 py-3 text-[10px] font-bold text-[var(--text-muted)]">
                                                 <div className="flex flex-col gap-0.5">
                                                     <span>{record.employeeName || "—"}</span>
-                                                    {record.extraServices?.map((extra: any) => (
+                                                    {record.extraServices?.map((extra: ExtraService) => (
                                                         <span key={extra.id} className="text-[7px] opacity-70 italic font-medium">
                                                             {extra.employeeName || "—"}
                                                         </span>
@@ -290,13 +350,29 @@ export default function OperationsClient({
                                                 <div className="flex items-center justify-end gap-2">
                                                     {!isCompleted && (
                                                         <button
-                                                            onClick={() => { setSelectedParent(record); setIsExtraModalOpen(true); }}
+                                                            onClick={() => openExtraModal(record)}
                                                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest bg-[var(--color-primary)]/5 text-[var(--color-primary)] border border-[var(--color-primary)]/10 hover:bg-[var(--color-primary)] hover:text-white transition-all"
                                                             title="Add Extra Service"
                                                         >
                                                             <span className="material-symbols-outlined text-xs">add_box</span>
                                                             Extra
                                                         </button>
+                                                    )}
+                                                    {isCompleted && !record.hasReview && record.employeeId && (
+                                                        <button
+                                                            onClick={() => openReviewModal(record)}
+                                                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest bg-yellow-500/10 text-yellow-600 border border-yellow-500/20 hover:bg-yellow-500 hover:text-white transition-all shadow-sm"
+                                                            title="Leave Review"
+                                                        >
+                                                            <span className="material-symbols-outlined text-xs">star</span>
+                                                            Score
+                                                        </button>
+                                                    )}
+                                                    {isCompleted && record.hasReview && (
+                                                        <span className="text-[10px] font-bold text-yellow-500 flex items-center gap-1 bg-yellow-400/10 px-2 py-1 rounded-md border border-yellow-500/20">
+                                                            <span className="material-symbols-outlined text-xs">verified</span>
+                                                            Rated
+                                                        </span>
                                                     )}
                                                     <CheckoutButton recordId={record.id} currentStatus={record.status} />
                                                 </div>
@@ -355,7 +431,7 @@ export default function OperationsClient({
                                 <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest italic">Add <span className="text-[var(--color-primary)]">Extra Service</span></h3>
                                 <p className="text-[9px] text-[var(--text-muted)] font-bold mt-1 uppercase tracking-wider">For Guest: {selectedParent.clientName}</p>
                             </div>
-                            <button onClick={() => setIsExtraModalOpen(false)} className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
+                            <button onClick={() => { setIsExtraModalOpen(false); setExtraError(null); }} className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
                                 <span className="material-symbols-outlined">close</span>
                             </button>
                         </div>
@@ -402,10 +478,17 @@ export default function OperationsClient({
                                 />
                             </div>
 
+                            {extraError && (
+                                <div className="flex items-start gap-2 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500">
+                                    <span className="material-symbols-outlined text-sm mt-0.5 flex-shrink-0">error</span>
+                                    <p className="text-[10px] font-bold leading-relaxed">{extraError}</p>
+                                </div>
+                            )}
+
                             <div className="pt-2 flex gap-3">
                                 <button
                                     type="button"
-                                    onClick={() => setIsExtraModalOpen(false)}
+                                    onClick={() => { setIsExtraModalOpen(false); setExtraError(null); }}
                                     className="flex-1 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] text-[var(--text-muted)] border border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)] transition-all"
                                 >
                                     Cancel
@@ -417,6 +500,92 @@ export default function OperationsClient({
                                 >
                                     {isSubmitting ? "Adding..." : "Confirm Extra Service"}
                                     {!isSubmitting && <span className="material-symbols-outlined text-sm font-black">add_circle</span>}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Leave Review Modal */}
+            {isReviewModalOpen && selectedReviewParent && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+                        <div className="p-6 border-b border-[var(--border-muted)] flex justify-between items-center bg-yellow-500/5">
+                            <div>
+                                <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest italic">Service <span className="text-yellow-500">Review</span></h3>
+                                <p className="text-[9px] text-[var(--text-muted)] font-bold mt-1 uppercase tracking-wider">
+                                    Therapist: <span className="text-[var(--text-main)]">{selectedReviewParent.employeeName}</span>
+                                </p>
+                            </div>
+                            <button onClick={() => { setIsReviewModalOpen(false); setReviewError(null); }} className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
+                                <span className="material-symbols-outlined">close</span>
+                            </button>
+                        </div>
+                        
+                        <form onSubmit={handleAddReview} className="p-6 space-y-6">
+                            <div className="flex flex-col items-center gap-4 py-4">
+                                <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest">Rate the service out of 5 stars</p>
+                                <div className="flex items-center gap-2">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <button
+                                            key={star}
+                                            type="button"
+                                            onClick={() => setReviewRating(star)}
+                                            className="transition-all hover:scale-110 focus:outline-none"
+                                        >
+                                            <span className={`material-symbols-outlined text-4xl ${star <= reviewRating ? "text-yellow-500" : "text-[var(--border-muted)]"} ${star <= reviewRating ? "fill-icon" : ""}`}>
+                                                star
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+                                <p className={`text-xs font-black uppercase tracking-widest mt-2 ${
+                                    reviewRating === 5 ? "text-yellow-500" : 
+                                    reviewRating >= 4 ? "text-green-500" : 
+                                    reviewRating >= 3 ? "text-amber-500" : 
+                                    "text-red-500"
+                                }`}>
+                                    {reviewRating === 1 ? "Very Poor" :
+                                     reviewRating === 2 ? "Poor" :
+                                     reviewRating === 3 ? "Average" :
+                                     reviewRating === 4 ? "Good" :
+                                     "Excellent"}
+                                </p>
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1">Client Feedback (Optional)</label>
+                                <textarea 
+                                    className="w-full bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl py-3 px-4 text-xs font-medium text-[var(--text-main)] focus:outline-none focus:border-yellow-500 transition-all min-h-[80px] resize-none"
+                                    placeholder="Write any additional feedback from the guest..."
+                                    value={reviewComment}
+                                    onChange={(e) => setReviewComment(e.target.value)}
+                                />
+                            </div>
+
+                            {reviewError && (
+                                <div className="flex items-start gap-2 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500">
+                                    <span className="material-symbols-outlined text-sm mt-0.5 flex-shrink-0">error</span>
+                                    <p className="text-[10px] font-bold leading-relaxed">{reviewError}</p>
+                                </div>
+                            )}
+
+                            <div className="pt-2 flex gap-3 border-t border-[var(--border-muted)] mt-6">
+                                <button
+                                    type="button"
+                                    onClick={() => { setIsReviewModalOpen(false); setReviewError(null); }}
+                                    className="flex-1 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] text-[var(--text-muted)] border border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)] transition-all"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={isReviewing}
+                                    className={`flex-2 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-2 px-8 ${isReviewing ? "bg-[var(--border-muted)] text-[var(--text-muted)]" : "bg-yellow-500 text-white hover:opacity-90 active:scale-95 shadow-lg shadow-yellow-500/20"}`}
+                                >
+                                    {isReviewing ? "Submitting..." : "Submit Review"}
+                                    {!isReviewing && <span className="material-symbols-outlined text-sm font-black text-yellow-800">check_circle</span>}
                                 </button>
                             </div>
                         </form>

@@ -11,7 +11,7 @@ interface BusinessData {
     ownerName: string;
     ownerEmail: string;
     branchCount: number;
-    status: "ACTIVE" | "INACTIVE";
+    status: "ACTIVE" | "INACTIVE" | "ARCHIVED";
     createdAt: string;
     packageName: string;
     subscriptionRenewal: string | null;
@@ -32,11 +32,12 @@ interface AdminDashboardClientProps {
 
 export default function AdminDashboardClient({ stats, businesses }: AdminDashboardClientProps) {
     const [searchTerm, setSearchTerm] = useState("");
-    const [filterStatus, setFilterStatus] = useState<"ALL" | "ACTIVE" | "INACTIVE">("ALL");
+    const [filterStatus, setFilterStatus] = useState<"ALL" | "ACTIVE" | "INACTIVE" | "ARCHIVED">("ALL");
     const [currentPage, setCurrentPage] = useState(1);
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
+        // eslint-disable-next-line
         setMounted(true);
     }, []);
 
@@ -187,7 +188,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                                 aria-label="Filter status"
                                 value={filterStatus}
                                 onChange={(e) => {
-                                    setFilterStatus(e.target.value as "ALL" | "ACTIVE" | "INACTIVE");
+                                    setFilterStatus(e.target.value as "ALL" | "ACTIVE" | "INACTIVE" | "ARCHIVED");
                                     setCurrentPage(1);
                                 }}
                                 className="appearance-none pl-4 pr-10 py-2 bg-[var(--bg-app)]/30 border border-[var(--border-muted)] rounded-xl text-[9px] font-bold uppercase tracking-widest focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]/20 transition-all cursor-pointer"
@@ -195,6 +196,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                                 <option value="ALL">Collective</option>
                                 <option value="ACTIVE">Vitality</option>
                                 <option value="INACTIVE">Hibernation</option>
+                                <option value="ARCHIVED">Archived</option>
                             </select>
                             <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]/40 pointer-events-none text-sm">filter_list</span>
                         </div>
@@ -251,10 +253,10 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                                     <td className="px-5 py-3.5">
                                         <div className="flex items-center gap-2">
                                             <div className={`size-1.5 rounded-full ${
-                                                b.status === "ACTIVE" ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.4)]'
+                                                b.status === "ACTIVE" ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : b.status === "ARCHIVED" ? 'bg-gray-500 shadow-[0_0_8px_rgba(156,163,175,0.4)]' : 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.4)]'
                                             }`}></div>
                                             <span className={`text-[8px] font-black uppercase tracking-[0.2em] ${
-                                                b.status === "ACTIVE" ? 'text-emerald-500' : 'text-rose-500'
+                                                b.status === "ACTIVE" ? 'text-emerald-500' : b.status === "ARCHIVED" ? 'text-gray-500' : 'text-rose-500'
                                             }`}>
                                                 {b.status}
                                             </span>

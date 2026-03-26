@@ -8,7 +8,12 @@ export async function PATCH(
 ) {
     const { id } = await params;
     const session = await auth();
-    if (!session?.user?.branchId) {
+    if (!session?.user) {
+        return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const isExecutive = session.user.role === "OWNER" || session.user.role === "ADMIN";
+    if (!isExecutive && !session.user.branchId) {
         return new NextResponse("Unauthorized", { status: 401 });
     }
 
@@ -16,11 +21,20 @@ export async function PATCH(
         const body = await request.json();
         const { status } = body;
 
-        const employee = await prisma.employee.update({
+        // Verify the employee belongs to the user's scope before updating
+        const employeeExists = await prisma.employee.findFirst({
             where: {
                 id,
-                branchId: session.user.branchId
-            },
+                ...(isExecutive ? { branch: { businessId: session.user.businessId as string } } : { branchId: session.user.branchId as string })
+            }
+        });
+
+        if (!employeeExists) {
+             return new NextResponse("Not Found or Unauthorized", { status: 404 });
+        }
+
+        const employee = await prisma.employee.update({
+            where: { id },
             data: { status }
         });
 
@@ -37,7 +51,12 @@ export async function PUT(
 ) {
     const { id } = await params;
     const session = await auth();
-    if (!session?.user?.branchId) {
+    if (!session?.user) {
+        return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const isExecutive = session.user.role === "OWNER" || session.user.role === "ADMIN";
+    if (!isExecutive && !session.user.branchId) {
         return new NextResponse("Unauthorized", { status: 401 });
     }
 
@@ -45,8 +64,21 @@ export async function PUT(
         const body = await request.json();
         const { fullName, phone, categoryId, status } = body;
 
+        const employeeExists = await prisma.employee.findFirst({
+            where: {
+                id,
+                ...(isExecutive 
+                    ? { branch: { businessId: session.user.businessId as string } } 
+                    : { branchId: session.user.branchId as string })
+            }
+        });
+
+        if (!employeeExists) {
+             return new NextResponse("Not Found or Unauthorized", { status: 404 });
+        }
+
         const employee = await prisma.employee.update({
-            where: { id, branchId: session.user.branchId },
+            where: { id },
             data: {
                 ...(fullName && { fullName }),
                 ...(phone !== undefined && { phone }),
@@ -68,13 +100,29 @@ export async function DELETE(
 ) {
     const { id } = await params;
     const session = await auth();
-    if (!session?.user?.branchId) {
+    if (!session?.user) {
+        return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const isExecutive = session.user.role === "OWNER" || session.user.role === "ADMIN";
+    if (!isExecutive && !session.user.branchId) {
         return new NextResponse("Unauthorized", { status: 401 });
     }
 
     try {
+        const employeeExists = await prisma.employee.findFirst({
+            where: {
+                id,
+                ...(isExecutive ? { branch: { businessId: session.user.businessId as string } } : { branchId: session.user.branchId as string })
+            }
+        });
+
+        if (!employeeExists) {
+             return new NextResponse("Not Found or Unauthorized", { status: 404 });
+        }
+
         await prisma.employee.delete({
-            where: { id, branchId: session.user.branchId },
+            where: { id },
         });
 
         return NextResponse.json({ success: true });

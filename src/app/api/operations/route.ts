@@ -3,6 +3,8 @@ export const dynamic = "force-dynamic";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { ExtraService } from "@/types/operations";
+
 
 // GET /api/operations — list service records for current branch
 export async function GET(request: NextRequest) {
@@ -57,8 +59,9 @@ export async function POST(request: NextRequest) {
         // 1. If recordId is provided, we are adding an EXTRA SERVICE to an existing session
         if (recordId) {
             const existing = await prisma.serviceRecord.findUnique({
-                where: { id: recordId }
-            }) as any;
+                where: { id: recordId, branchId: session.user.branchId }
+            });
+
 
             if (!existing) {
                 return NextResponse.json({ error: "Original record not found" }, { status: 404 });
@@ -81,9 +84,20 @@ export async function POST(request: NextRequest) {
                 employeeName = emp?.fullName;
             }
 
-            const currentExtras = Array.isArray(existing.extraServices) 
-                ? (existing.extraServices as any[]) 
-                : [];
+            let currentExtras: ExtraService[] = [];
+            if (existing.extraServices) {
+                if (typeof existing.extraServices === 'string') {
+                    try {
+                        const parsed = JSON.parse(existing.extraServices);
+                        currentExtras = Array.isArray(parsed) ? parsed as ExtraService[] : [];
+                    } catch {
+                        currentExtras = [];
+                    }
+                } else if (Array.isArray(existing.extraServices)) {
+                    currentExtras = existing.extraServices as unknown as ExtraService[];
+                }
+            }
+
             
             const newExtra = {
                 id: Math.random().toString(36).substring(7),
@@ -95,10 +109,10 @@ export async function POST(request: NextRequest) {
                 createdAt: new Date().toISOString()
             };
 
-            const updatedRecord = await (prisma.serviceRecord as any).update({
+            const updatedRecord = await prisma.serviceRecord.update({
                 where: { id: recordId },
                 data: {
-                    extraServices: [...currentExtras, newExtra],
+                    extraServices: [...currentExtras, newExtra] as any,
                     amount: { increment: extraSvc.price },
                     netAmount: { increment: extraSvc.price }
                 },
@@ -108,6 +122,7 @@ export async function POST(request: NextRequest) {
                     employee: { select: { fullName: true } },
                 }
             });
+
 
             return NextResponse.json(updatedRecord);
         }
@@ -139,10 +154,14 @@ export async function POST(request: NextRequest) {
         });
 
         return NextResponse.json(record, { status: 201 });
-    } catch (error) {
+    } catch (error: unknown) {
         console.error("Operations check-in error:", error);
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+        return NextResponse.json({ 
+            error: "Internal server error", 
+            details: error instanceof Error ? error.message : String(error)
+        }, { status: 500 });
     }
+
 }
 
 // PATCH /api/operations — update service record (e.g., mark as COMPLETED)
@@ -161,8 +180,8 @@ export async function PATCH(request: NextRequest) {
 
     try {
         // Fetch existing record to get financial context
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const existingRecord = await prisma.serviceRecord.findUnique({
+
             where: { id, branchId: session.user.branchId },
             include: {
                 branch: {
@@ -192,9 +211,10 @@ export async function PATCH(request: NextRequest) {
                 where: { region: "RWANDA" }
             });
             const taxRate = compliance?.taxRate ?? 18.0;
-            const commissionRate = (existingRecord as any).branch?.business?.platformCommissionRate ?? 5.0; // eslint-disable-line @typescript-eslint/no-explicit-any
+            const commissionRate = (existingRecord as any).branch?.business?.platformCommissionRate ?? 5.0;
             
             const totalAmount = existingRecord.amount;
+
             const taxAmount = totalAmount * (taxRate / 100);
             const netBeforeCommission = totalAmount - taxAmount;
             const platformFee = netBeforeCommission * (commissionRate / 100);
@@ -272,7 +292,7 @@ export async function PATCH(request: NextRequest) {
 
                 // 2. "Buy X, Get Y" Logic
                 if (loyaltyProgram.buyCount && loyaltyProgram.getCount) {
-                    const completedCount = await prisma.serviceRecord.count({
+                    await prisma.serviceRecord.count({
                         where: {
                             clientId: record.clientId,
                             branchId: record.branchId,
@@ -283,9 +303,10 @@ export async function PATCH(request: NextRequest) {
                     });
 
                     // Logic: After X paid sessions, the next Y sessions could be rewarded.
-                    // For now, we just log the progress in the console or audit log.
+                    // For now, we just perform the count to verify activity.
 
                 }
+
 
                 if (pointsToEarn > 0) {
                     const existingLoyalty = await prisma.loyaltyPoint.findFirst({
@@ -326,8 +347,12 @@ export async function PATCH(request: NextRequest) {
         }
 
         return NextResponse.json(record);
-    } catch (error) {
+    } catch (error: unknown) {
         console.error("Service record update error:", error);
-        return NextResponse.json({ error: "Failed to update record" }, { status: 500 });
+        return NextResponse.json({ 
+            error: "Failed to update record", 
+            details: error instanceof Error ? error.message : String(error)
+        }, { status: 500 });
     }
+
 }

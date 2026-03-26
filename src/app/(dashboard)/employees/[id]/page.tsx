@@ -21,6 +21,9 @@ export default async function EmployeeProfilePage({ params }: { params: Promise<
         include: {
             branch: true,
             category: true,
+            user: {
+                select: { email: true, username: true }
+            },
         }
     });
 
@@ -60,7 +63,9 @@ export default async function EmployeeProfilePage({ params }: { params: Promise<
             <EditEmployeeForm 
                 employee={{
                     ...employee,
-                    phone: employee.phone || null
+                    phone: employee.phone || null,
+                    commissionRate: employee.commissionRate,
+                    user: employee.user || null,
                 }} 
                 categories={categories}
                 branches={branches}

@@ -3,7 +3,6 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 export async function updateEmployeeAction(id: string, formData: FormData) {
     const session = await auth();
@@ -19,6 +18,8 @@ export async function updateEmployeeAction(id: string, formData: FormData) {
     const categoryId = formData.get("categoryId") as string;
     const branchId = formData.get("branchId") as string;
     const status = formData.get("status") as string;
+    const commissionRateRaw = formData.get("commissionRate") as string;
+    const commissionRate = commissionRateRaw ? parseFloat(commissionRateRaw) : undefined;
 
     if (!fullName || !categoryId || !branchId) {
         return { error: "Required fields missing." };
@@ -29,6 +30,11 @@ export async function updateEmployeeAction(id: string, formData: FormData) {
         return { error: "Security Violation: Managers can only manage staff within their assigned branch." };
     }
 
+    // Validate commission rate if provided
+    if (commissionRate !== undefined && (isNaN(commissionRate) || commissionRate < 0 || commissionRate > 100)) {
+        return { error: "Commission rate must be between 0 and 100." };
+    }
+
     try {
         await prisma.employee.update({
             where: { id },
@@ -37,7 +43,8 @@ export async function updateEmployeeAction(id: string, formData: FormData) {
                 phone: phone ? phone.trim() : null,
                 categoryId,
                 branchId,
-                status: status as any,
+                status: status as "ACTIVE" | "INACTIVE" | "ARCHIVED",
+                ...(commissionRate !== undefined && { commissionRate }),
             }
         });
 

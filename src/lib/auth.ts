@@ -16,13 +16,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             },
             async authorize(credentials) {
                 try {
-                    console.log("[AUTH] Authorize payload:", credentials);
                     if (!credentials?.email || !credentials?.password) {
-                        console.log("[AUTH] Missing email or password");
                         return null;
                     }
 
-                    console.log("[AUTH] Querying database for:", credentials.email);
                     const user = await prisma.user.findFirst({
                         where: {
                             OR: [
@@ -32,28 +29,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                         },
                     });
 
-                    if (!user) {
-                        console.log("[AUTH] User not found");
+                    if (!user || user.status !== "ACTIVE") {
                         return null;
                     }
 
-                    if (user.status !== "ACTIVE") {
-                        console.log("[AUTH] User status is not active:", user.status);
-                        return null;
-                    }
-
-                    console.log("[AUTH] Comparing passwords...");
                     const isPasswordValid = await bcrypt.compare(
                         credentials.password as string,
                         user.passwordHash
                     );
 
                     if (!isPasswordValid) {
-                        console.log("[AUTH] Invalid password");
                         return null;
                     }
 
-                    console.log("[AUTH] Successful login for:", user.email);
                     return {
                         id: user.id,
                         email: user.email,
@@ -64,8 +52,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                         businessId: user.usr_businessId || null,
                     };
                 } catch (error) {
-                    console.error("[AUTH FATAL ERROR]", error);
-                    throw error; // Let NextAuth catch it, but at least we log it!
+                    console.error("[AUTH] Authorization error:", error instanceof Error ? error.message : error);
+                    return null;
                 }
             },
         }),

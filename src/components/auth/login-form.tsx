@@ -96,7 +96,10 @@ export default function LoginForm() {
                     className="w-full py-5 bg-[var(--color-primary)] hover:opacity-90 text-white font-black uppercase tracking-[0.3em] rounded-2xl shadow-2xl shadow-[var(--color-primary)]/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed mt-6 text-sm"
                 >
                     {isPending ? (
-                        <span className="material-symbols-outlined animate-spin text-xl">progress_activity</span>
+                        <>
+                            <span className="material-symbols-outlined animate-spin text-xl">progress_activity</span>
+                            <span>Awakening Sanctuary...</span>
+                        </>
                     ) : (
                         <>
                             <span className="material-symbols-outlined font-black">login</span>
@@ -104,6 +107,13 @@ export default function LoginForm() {
                         </>
                     )}
                 </button>
+                
+                {isPending && (
+                    <p className="text-center text-[10px] text-[var(--text-muted)] mt-4 font-black uppercase tracking-widest animate-pulse">
+                        Connecting to Secure Vault. This may take a few moments.
+                    </p>
+                )}
+
             </form>
 
             <div className="mt-8 pt-6 border-t border-[var(--border-muted)] text-center">

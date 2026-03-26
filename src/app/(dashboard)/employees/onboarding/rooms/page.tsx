@@ -25,7 +25,7 @@ export default function OnboardingStep2() {
                         ))}
                     </div>
                     <div className="p-4 bg-[var(--color-primary)]/10 rounded-xl border border-[var(--color-primary)]/20 mb-6"><p className="text-sm text-[var(--text-muted)]"><span className="text-[var(--color-primary)] font-bold">Pro Tip:</span> Click on any room card to change its status, add notes, or assign a staff member.</p></div>
-                    <div className="flex justify-between items-center"><Link href="/employees/onboarding" className="text-[var(--text-muted)] text-sm font-medium hover:text-[var(--text-main)] flex items-center gap-1"><span className="material-symbols-outlined text-lg">arrow_back</span>Back</Link><Link href="/employees/onboarding/complete" className="px-6 py-3 bg-[var(--color-primary)] text-white font-bold rounded-xl hover:opacity-90 transition-all flex items-center gap-2">Finish Tour <span className="material-symbols-outlined text-lg">arrow_forward</span></Link></div>
+                    <div className="flex justify-between items-center"><Link href="/employees/onboarding" className="text-[var(--text-muted)] text-sm font-medium hover:text-[var(--text-main)] flex items-center gap-1"><span className="material-symbols-outlined text-lg">arrow_back</span>Back</Link><Link href="/dashboard" className="px-6 py-3 bg-[var(--color-primary)] text-white font-bold rounded-xl hover:opacity-90 transition-all flex items-center gap-2">Finish Tour <span className="material-symbols-outlined text-lg">arrow_forward</span></Link></div>
                 </div>
             </div>
         </main>

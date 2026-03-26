@@ -16,7 +16,7 @@ export default function OnboardingStep1() {
                             <div key={f.title} className="p-4 bg-[var(--bg-surface-muted)]/10 rounded-xl text-center"><span className="material-symbols-outlined text-[var(--color-primary)] text-3xl mb-2">{f.icon}</span><h4 className="text-sm font-bold mb-1">{f.title}</h4><p className="text-xs text-[var(--text-muted)]">{f.desc}</p></div>
                         ))}
                     </div>
-                    <div className="flex justify-between items-center"><button className="text-[var(--text-muted)] text-sm font-medium hover:text-[var(--text-main)]">Skip Tour</button><Link href="/employees/onboarding/rooms" className="px-6 py-3 bg-[var(--color-primary)] text-white font-bold rounded-xl hover:opacity-90 transition-all flex items-center gap-2">Next: Room Status <span className="material-symbols-outlined text-lg">arrow_forward</span></Link></div>
+                    <div className="flex justify-between items-center"><Link href="/dashboard" className="text-[var(--text-muted)] text-sm font-medium hover:text-[var(--text-main)]">Skip Tour</Link><Link href="/employees/onboarding/rooms" className="px-6 py-3 bg-[var(--color-primary)] text-white font-bold rounded-xl hover:opacity-90 transition-all flex items-center gap-2">Next: Room Status <span className="material-symbols-outlined text-lg">arrow_forward</span></Link></div>
                 </div>
             </div>
         </main>

@@ -56,13 +56,6 @@ export const authConfig: NextAuthConfig = {
 
             if (isAuthPage) {
                 if (isLoggedIn) {
-                    const role = auth.user.role;
-                    if (role === "ADMIN") {
-                        return Response.redirect(new URL("/admin/dashboard", nextUrl));
-                    }
-                    if (role === "OWNER") {
-                        return Response.redirect(new URL("/executive/dashboard", nextUrl));
-                    }
                     return Response.redirect(new URL("/dashboard", nextUrl));
                 }
                 return true;

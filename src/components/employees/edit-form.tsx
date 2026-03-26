@@ -12,6 +12,11 @@ interface EditEmployeeFormProps {
         categoryId: string;
         branchId: string;
         status: string;
+        commissionRate: number;
+        user?: {
+            email: string;
+            username: string;
+        } | null;
     };
     categories: { id: string; name: string }[];
     branches: { id: string; name: string }[];
@@ -82,6 +87,41 @@ export default function EditEmployeeForm({ employee, categories, branches, isOwn
                         </div>
                     )}
 
+                    {/* Linked Account Info */}
+                    {employee.user && (
+                        <div className="p-4 bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/20 rounded-xl flex items-center gap-4">
+                            <div className="size-10 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center">
+                                <span className="material-symbols-outlined text-[var(--color-primary)]">account_circle</span>
+                            </div>
+                            <div>
+                                <p className="text-xs font-bold text-[var(--text-main)]">Linked Account</p>
+                                <p className="text-[10px] text-[var(--text-muted)]">
+                                    {employee.user.email} · @{employee.user.username}
+                                </p>
+                            </div>
+                            <div className="ml-auto">
+                                <span className="inline-flex items-center gap-1 text-[9px] font-bold text-green-500 bg-green-500/10 px-2 py-1 rounded-full uppercase tracking-widest">
+                                    <span className="material-symbols-outlined text-xs">link</span>
+                                    Connected
+                                </span>
+                            </div>
+                        </div>
+                    )}
+
+                    {!employee.user && (
+                        <div className="p-4 bg-yellow-500/5 border border-yellow-500/20 rounded-xl flex items-center gap-4">
+                            <div className="size-10 rounded-xl bg-yellow-500/10 flex items-center justify-center">
+                                <span className="material-symbols-outlined text-yellow-500">link_off</span>
+                            </div>
+                            <div>
+                                <p className="text-xs font-bold text-[var(--text-main)]">No Login Account</p>
+                                <p className="text-[10px] text-[var(--text-muted)]">
+                                    This employee does not have a linked login account. They cannot access the dashboard.
+                                </p>
+                            </div>
+                        </div>
+                    )}
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
                             <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest px-1">Full Name</label>
@@ -122,6 +162,20 @@ export default function EditEmployeeForm({ employee, categories, branches, isOwn
                         </div>
 
                         <div className="space-y-2">
+                            <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest px-1">Commission Rate (%)</label>
+                            <input
+                                aria-label="Commission Rate"
+                                name="commissionRate"
+                                type="number"
+                                step="0.5"
+                                min="0"
+                                max="100"
+                                defaultValue={employee.commissionRate}
+                                className="w-full px-4 py-3 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl text-sm focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all"
+                            />
+                        </div>
+
+                        <div className="space-y-2">
                             <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest px-1">Physical Location</label>
                             {isOwner ? (
                                 <select
@@ -154,7 +208,7 @@ export default function EditEmployeeForm({ employee, categories, branches, isOwn
                             >
                                 <option value="ACTIVE">Active</option>
                                 <option value="INACTIVE">Inactive</option>
-                                <option value="ON_LEAVE">On Leave</option>
+                                <option value="ARCHIVED">Archived</option>
                             </select>
                         </div>
                     </div>
@@ -167,7 +221,7 @@ export default function EditEmployeeForm({ employee, categories, branches, isOwn
                                 className="text-red-500 text-xs font-bold hover:underline flex items-center gap-2"
                             >
                                 <span className="material-symbols-outlined text-sm">delete_forever</span>
-                                Archive Staff Record
+                                Delete Staff Record
                             </button>
                         )}
                         <div className="flex gap-4 ml-auto">
@@ -197,9 +251,9 @@ export default function EditEmployeeForm({ employee, categories, branches, isOwn
                             <span className="material-symbols-outlined text-3xl">warning</span>
                         </div>
                         <div className="text-center space-y-2">
-                            <h3 className="text-xl font-display font-bold text-[var(--text-main)]">Archive Staff Profile?</h3>
+                            <h3 className="text-xl font-display font-bold text-[var(--text-main)]">Delete Staff Profile?</h3>
                             <p className="text-sm text-[var(--text-muted)]">
-                                You are about to remove <strong>{employee.fullName}</strong> from the active registry. Active service records will persist for accounting integrity.
+                                You are about to permanently delete <strong>{employee.fullName}</strong>. This is only possible if they have no service history. For former staff, please set their status to <strong>Archived</strong> instead.
                             </p>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
@@ -214,7 +268,7 @@ export default function EditEmployeeForm({ employee, categories, branches, isOwn
                                 disabled={loading}
                                 className="px-6 py-4 rounded-xl text-sm font-bold bg-red-500 text-white shadow-lg shadow-red-500/20"
                             >
-                                {loading ? "Archiving..." : "Confirm Archive"}
+                                {loading ? "Deleting..." : "Confirm Delete"}
                             </button>
                         </div>
                     </div>

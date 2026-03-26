@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import { Suspense } from "react";
 import LoginForm from "@/components/auth/login-form";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
@@ -7,7 +8,7 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 export default function LoginPage() {
     return (
         <div className="layout-container flex h-full grow flex-col bg-[var(--bg-app)]">
-            {/* Navigation Header */}
+            {/* ... navigation header omitted for brevity, but I must keep the whole return block if I replace it ... */}
             <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-[var(--border-main)] px-6 md:px-10 py-5 bg-[var(--bg-app)]/80 backdrop-blur-xl sticky top-0 z-50">
                 <Link href="/" className="flex items-center gap-4 group">
                     <div className="size-10 text-white flex items-center justify-center bg-[var(--color-primary)] rounded-xl shadow-sm group-hover:scale-105 transition-transform">
@@ -41,8 +42,16 @@ export default function LoginPage() {
             <main className="flex-1 flex items-center justify-center p-4 md:p-8">
                 <div className="w-full max-w-[480px] flex flex-col gap-6">
 
-                    {/* Login Form Component */}
-                    <LoginForm />
+                    {/* Login Form Component with Suspense for useSearchParams */}
+                    <Suspense fallback={
+                        <div className="bg-[var(--bg-card)] p-8 md:p-12 rounded-[2.5rem] shadow-xl border border-[var(--border-main)] flex flex-col items-center justify-center min-h-[400px]">
+                            <span className="material-symbols-outlined animate-spin text-4xl text-[var(--color-primary)]">progress_activity</span>
+                            <p className="mt-4 text-[var(--text-muted)] font-bold">Preparing Sanctuary...</p>
+                        </div>
+                    }>
+                        <LoginForm />
+                    </Suspense>
+
 
                     {/* Footer Links */}
                     <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[var(--text-muted)] text-xs font-medium opacity-60">

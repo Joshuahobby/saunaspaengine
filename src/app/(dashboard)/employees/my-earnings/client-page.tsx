@@ -1,21 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import { format, startOfDay, startOfWeek, startOfMonth, isWithinInterval } from "date-fns";
+import { format, startOfDay, startOfWeek, startOfMonth } from "date-fns";
 
-interface EarningLog {
+interface EarningLogItem {
     id: string;
     amount: number;
     status: string;
     createdAt: string;
     serviceRecord: {
-        service: { name: true }
+        service: { name: string }
     }
 }
 
 interface MyEarningsClientProps {
-    employee: any;
-    initialEarnings: any[];
+    employee: { fullName: string; commissionRate: number; category: { name: string }; branch: { name: string } };
+    initialEarnings: EarningLogItem[];
 }
 
 export default function MyEarningsClient({ employee, initialEarnings }: MyEarningsClientProps) {
@@ -34,9 +34,8 @@ export default function MyEarningsClient({ employee, initialEarnings }: MyEarnin
         return true;
     });
 
-    const totalEarned = filteredEarnings.reduce((acc, curr) => acc + curr.amount, 0);
-    const pendingEarned = filteredEarnings.filter(l => l.status === "UNPAID").reduce((acc, curr) => acc + curr.amount, 0);
-    const paidEarned = filteredEarnings.filter(l => l.status === "PAID").reduce((acc, curr) => acc + curr.amount, 0);
+    const totalEarned = filteredEarnings.reduce((acc: number, curr: EarningLogItem) => acc + curr.amount, 0);
+    const pendingEarned = filteredEarnings.filter((l: EarningLogItem) => l.status === "UNPAID").reduce((acc: number, curr: EarningLogItem) => acc + curr.amount, 0);
 
     // Mock Performance Score (Based on volume and consistency)
     const performanceScore = Math.min(85 + (initialEarnings.length / 10), 99); 
@@ -129,7 +128,7 @@ export default function MyEarningsClient({ employee, initialEarnings }: MyEarnin
                             {["ALL", "TODAY", "WEEK", "MONTH"].map((t) => (
                                 <button
                                     key={t}
-                                    onClick={() => setFilter(t as any)}
+                                    onClick={() => setFilter(t as "ALL" | "TODAY" | "WEEK" | "MONTH")}
                                     className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${filter === t 
                                         ? "bg-[var(--bg-card)] text-[var(--color-primary)] shadow-sm" 
                                         : "text-[var(--text-muted)] hover:text-[var(--text-main)]"}`}
@@ -226,7 +225,7 @@ export default function MyEarningsClient({ employee, initialEarnings }: MyEarnin
                         </div>
                         <h4 className="text-white text-lg font-display font-bold mb-4">Pro Tip 💡</h4>
                         <p className="text-white/60 text-xs leading-relaxed font-medium">
-                            Focus on "Client Retention" metrics. Staff with high repeat booking rates usually earn 40% more in periodic bonuses.
+                            Focus on &quot;Client Retention&quot; metrics. Staff with high repeat booking rates usually earn 40% more in periodic bonuses.
                         </p>
                     </div>
                 </div>

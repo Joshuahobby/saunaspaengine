@@ -2,6 +2,7 @@
 
 import { signOut } from "next-auth/react";
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 
 interface UserMenuProps {
     user: {
@@ -53,14 +54,10 @@ export default function UserMenu({ user }: UserMenuProps) {
                         <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest opacity-60">{roleLabel}</p>
                     </div>
 
-                    <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[var(--color-forest-700)] dark:text-[var(--color-forest-100)] hover:bg-[var(--color-forest-50)] dark:hover:bg-slate-800 transition-colors">
+                    <Link href="/settings/profile" onClick={() => setIsOpen(false)} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[var(--color-forest-700)] dark:text-[var(--color-forest-100)] hover:bg-[var(--color-forest-50)] dark:hover:bg-slate-800 transition-colors">
                         <span className="material-symbols-outlined text-lg">person</span>
                         My Profile
-                    </button>
-                    <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[var(--color-forest-700)] dark:text-[var(--color-forest-100)] hover:bg-[var(--color-forest-50)] dark:hover:bg-slate-800 transition-colors">
-                        <span className="material-symbols-outlined text-lg">notifications</span>
-                        Notification Settings
-                    </button>
+                    </Link>
 
                     <div className="h-[1px] bg-[var(--color-border-light)] dark:bg-[var(--color-border-dark)] my-1"></div>
 

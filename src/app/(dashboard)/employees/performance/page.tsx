@@ -16,10 +16,11 @@ export default async function PerformanceIndexPage() {
         return <div>Error: Business context not found.</div>;
     }
 
-    // Fetch all employees in the business network
+    // Fetch all employees in the business network with their service and commission data
     const employees = await prisma.employee.findMany({
         where: {
-            branch: { businessId: businessId as string }
+            branch: { businessId: businessId as string },
+            status: "ACTIVE"
         },
         include: {
             branch: { select: { name: true } },
@@ -27,28 +28,32 @@ export default async function PerformanceIndexPage() {
             _count: {
                 select: { serviceRecords: true }
             },
-            // Note: commissionLogs won't be in the type until regeneration
             commissionLogs: {
                 select: { amount: true }
             }
-        } as any
+        }
     });
 
     // Aggregate data for the overview
     const stats = {
         totalStaff: employees.length,
-        totalServices: employees.reduce((acc, emp: any) => acc + (emp._count?.serviceRecords || 0), 0),
-        totalCommissions: employees.reduce((acc, emp: any) => acc + (emp.commissionLogs?.reduce((sum: number, log: any) => sum + log.amount, 0) || 0), 0),
+        totalServices: employees.reduce((acc, emp) => acc + (emp._count?.serviceRecords || 0), 0),
+        totalCommissions: employees.reduce((acc, emp) => acc + (emp.commissionLogs?.reduce((sum: number, log: { amount: number }) => sum + log.amount, 0) || 0), 0),
     };
 
-    // Calculate rankings
-    const rankings = employees.map((emp: any) => {
-        const totalEarned = emp.commissionLogs?.reduce((sum: number, log: any) => sum + log.amount, 0) || 0;
+    // Find the max service count for relative scoring
+    const maxServiceCount = Math.max(...employees.map(emp => emp._count?.serviceRecords || 0), 1);
+
+    // Calculate rankings based on service volume and commissions
+    const rankings = employees.map((emp) => {
+        const totalEarned = emp.commissionLogs?.reduce((sum: number, log: { amount: number }) => sum + log.amount, 0) || 0;
         const serviceCount = emp._count?.serviceRecords || 0;
         
-        // Performance Score logic: Weighted average of volume and earnings
-        // Base 50 + (volume * 0.5) + (earnings_relative_to_network)
-        const score = Math.min(60 + (serviceCount * 0.2), 99); 
+        // Performance Score: weighted combination of volume (relative to top performer) and consistency
+        const volumeScore = (serviceCount / maxServiceCount) * 60; // Up to 60 points for volume
+        const earningsScore = Math.min(totalEarned / 50000, 1) * 25; // Up to 25 points for earnings
+        const baseScore = 15; // 15 base points for being active
+        const score = Math.min(baseScore + volumeScore + earningsScore, 99);
 
         return {
             id: emp.id,

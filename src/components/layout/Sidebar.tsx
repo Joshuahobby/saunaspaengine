@@ -252,7 +252,7 @@ export default function Sidebar({
                         )}
                     </Link>
                     
-                    {userRole && ["MANAGER", "RECEPTIONIST", "EMPLOYEE", "OWNER"].includes(userRole) && (
+                    {userRole && ["MANAGER", "RECEPTIONIST", "EMPLOYEE"].includes(userRole) && (
                         <Link
                             href="/check-in"
                             className={`w-full bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white font-bold rounded-xl flex items-center min-h-[44px] transition-all text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-[var(--color-primary)]/10 ${isCollapsed ? 'justify-center px-0 py-0' : 'justify-center px-3 py-4 gap-2'}`}
