@@ -76,10 +76,10 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ success: true, payout }, { status: 201 });
 
-    } catch (error: any) {
+    } catch (error) {
         console.error("Failed to process settlement:", error);
         return NextResponse.json(
-            { error: error?.message || "Internal server error while processing payout." },
+            { error: error instanceof Error ? error.message : "Internal server error while processing payout." },
             { status: 500 }
         );
     }
