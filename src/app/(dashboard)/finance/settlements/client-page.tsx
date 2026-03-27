@@ -2,6 +2,8 @@
 
 import React from "react";
 
+import { generateSettlement } from "@/app/actions/finance/generate-settlement";
+
 interface SettlementRecord {
     id: string;
     branchName: string;
@@ -14,7 +16,22 @@ interface SettlementRecord {
     createdAt: Date;
 }
 
-export default function SettlementClientPage({ settlements }: { settlements: SettlementRecord[] }) {
+interface Branch {
+    id: string;
+    name: string;
+}
+
+export default function SettlementClientPage({ 
+    settlements,
+    branches 
+}: { 
+    settlements: SettlementRecord[],
+    branches: Branch[]
+}) {
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
+    const [error, setError] = React.useState<string | null>(null);
+
     const totalPending = settlements
         .filter(s => s.status === "PENDING")
         .reduce((sum, s) => sum + s.totalNet, 0);
@@ -31,6 +48,27 @@ export default function SettlementClientPage({ settlements }: { settlements: Set
         }
     };
 
+    const handleGenerate = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setError(null);
+
+        const formData = new FormData(e.currentTarget);
+        try {
+            const result = await generateSettlement(formData);
+            if (result.success) {
+                setIsModalOpen(false);
+                // The page will revalidate via the action
+            } else {
+                setError(result.message || "Failed to generate settlement");
+            }
+        } catch (err: any) {
+            setError(err.message || "An unexpected error occurred");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     return (
         <div className="max-w-[1440px] mx-auto w-full p-6 space-y-8">
             {/* Header */}
@@ -40,12 +78,89 @@ export default function SettlementClientPage({ settlements }: { settlements: Set
                     <p className="text-[var(--text-muted)] mt-2 font-medium">Monitoring settlements and automated revenue distribution.</p>
                 </div>
                 <div className="flex gap-3">
-                    <button className="flex items-center gap-2 px-8 py-3 bg-[var(--color-primary)] rounded-xl text-[10px] uppercase tracking-widest font-bold text-white hover:bg-[var(--color-primary-hover)] transition-all shadow-lg shadow-[var(--color-primary)]/15">
-                        <span className="material-symbols-outlined text-lg font-bold">request_quote</span>
-                        Manual Reconciliation
+                    <button 
+                        onClick={() => setIsModalOpen(true)}
+                        className="flex items-center gap-2 px-8 py-3 bg-[var(--color-primary)] rounded-xl text-[10px] uppercase tracking-widest font-bold text-white hover:bg-[var(--color-primary-hover)] transition-all shadow-lg shadow-[var(--color-primary)]/15"
+                    >
+                        <span className="material-symbols-outlined text-lg font-bold">account_balance_wallet</span>
+                        Process New Settlement
                     </button>
                 </div>
             </div>
+
+            {/* Processing Modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
+                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95">
+                        <div className="p-6 border-b border-[var(--border-muted)] flex justify-between items-center bg-[var(--color-primary)]/5">
+                            <div>
+                                <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest italic">New <span className="text-[var(--color-primary)]">Settlement</span></h3>
+                                <p className="text-[10px] text-[var(--text-muted)] font-bold mt-1 uppercase tracking-wider">Select branch and period to process</p>
+                            </div>
+                            <button onClick={() => setIsModalOpen(false)} className="text-[var(--text-muted)] hover:text-[var(--text-main)]">
+                                <span className="material-symbols-outlined">close</span>
+                            </button>
+                        </div>
+                        <form onSubmit={handleGenerate} className="p-6 space-y-5">
+                            <div className="space-y-2">
+                                <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1">Branch</label>
+                                <select 
+                                    name="branchId" 
+                                    required 
+                                    className="w-full bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-xl py-3 px-4 text-xs font-bold focus:border-[var(--color-primary)] outline-none"
+                                >
+                                    <option value="">Select a branch...</option>
+                                    {branches.map(b => (
+                                        <option key={b.id} value={b.id}>{b.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1">Start Date</label>
+                                    <input 
+                                        name="startDate"
+                                        type="date" 
+                                        required 
+                                        className="w-full bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-xl py-3 px-4 text-xs font-bold focus:border-[var(--color-primary)] outline-none" 
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1">End Date</label>
+                                    <input 
+                                        name="endDate"
+                                        type="date" 
+                                        required 
+                                        className="w-full bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-xl py-3 px-4 text-xs font-bold focus:border-[var(--color-primary)] outline-none" 
+                                    />
+                                </div>
+                            </div>
+                            
+                            {error && (
+                                <p className="text-[10px] text-red-500 font-bold px-4 py-2 bg-red-500/10 rounded-lg">{error}</p>
+                            )}
+
+                            <div className="pt-4 border-t border-[var(--border-muted)] flex gap-3">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsModalOpen(false)}
+                                    className="flex-1 py-3.5 rounded-xl text-[10px] font-black uppercase text-[var(--text-muted)] border border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)]"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="flex-2 py-3.5 rounded-xl text-[10px] font-black uppercase text-white bg-[var(--color-primary)] hover:opacity-90 flex items-center justify-center gap-2 px-8 disabled:opacity-50"
+                                >
+                                    {isSubmitting ? "Processing..." : "Generate Settlement"}
+                                    {!isSubmitting && <span className="material-symbols-outlined text-sm font-black">bolt</span>}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
 
             {/* Overview Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

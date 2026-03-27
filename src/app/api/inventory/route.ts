@@ -4,7 +4,7 @@ import { apiAuth, validateFields, apiHandler } from "@/lib/api-utils";
 
 export async function GET() {
     return apiHandler(async () => {
-        const { user, error } = await apiAuth(["MANAGER", "ADMIN"]);
+        const { user, error } = await apiAuth(["MANAGER", "ADMIN", "OWNER"]);
         if (error) return error;
 
         if (!user!.branchId) {

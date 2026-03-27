@@ -24,6 +24,7 @@ export default function ScheduleClient({
     weekStart: Date;
 }) {
     const router = useRouter();
+    const [selectedShift, setSelectedShift] = useState<Shift | null>(null);
     const [isShiftModalOpen, setIsShiftModalOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [shiftError, setShiftError] = useState<string | null>(null);
@@ -35,14 +36,36 @@ export default function ScheduleClient({
 
     const days = Array.from({ length: 7 }).map((_, i) => addDays(weekStart, i));
 
-    const handleCreateShift = async (e: React.FormEvent) => {
+    const openCreateModal = () => {
+        setSelectedShift(null);
+        setShiftDate("");
+        setStartTime("09:00");
+        setEndTime("17:00");
+        setShiftError(null);
+        setIsShiftModalOpen(true);
+    };
+
+    const openEditModal = (shift: Shift) => {
+        if (!isManager) return;
+        setSelectedShift(shift);
+        setShiftDate(format(new Date(shift.date), 'yyyy-MM-dd'));
+        setStartTime(shift.startTime);
+        setEndTime(shift.endTime);
+        setShiftError(null);
+        setIsShiftModalOpen(true);
+    };
+
+    const handleSaveShift = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
         setShiftError(null);
 
         try {
-            const res = await fetch("/api/shifts", {
-                method: "POST",
+            const url = selectedShift ? `/api/shifts/${selectedShift.id}` : "/api/shifts";
+            const method = selectedShift ? "PATCH" : "POST";
+            
+            const res = await fetch(url, {
+                method,
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     employeeId: employee.id,
@@ -54,11 +77,34 @@ export default function ScheduleClient({
 
             if (res.ok) {
                 setIsShiftModalOpen(false);
-                setShiftDate("");
                 router.refresh();
             } else {
                 const data = await res.json().catch(() => ({}));
-                setShiftError(data?.error || "Failed to create shift");
+                setShiftError(data?.error || "Failed to save shift");
+            }
+        } catch {
+            setShiftError("Network error. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const handleDeleteShift = async () => {
+        if (!selectedShift) return;
+        if (!confirm("Are you sure you want to delete this shift?")) return;
+        
+        setIsSubmitting(true);
+        try {
+            const res = await fetch(`/api/shifts/${selectedShift.id}`, {
+                method: "DELETE"
+            });
+
+            if (res.ok) {
+                setIsShiftModalOpen(false);
+                router.refresh();
+            } else {
+                const data = await res.json().catch(() => ({}));
+                setShiftError(data?.error || "Failed to delete shift");
             }
         } catch {
             setShiftError("Network error. Please try again.");
@@ -73,7 +119,7 @@ export default function ScheduleClient({
                 <h2 className="text-xl font-display font-bold text-[var(--text-main)]">Weekly Shifts</h2>
                 {isManager && (
                     <button
-                        onClick={() => setIsShiftModalOpen(true)}
+                        onClick={openCreateModal}
                         className="bg-[var(--color-primary)] text-white px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-opacity shadow-lg shadow-[var(--color-primary)]/20 flex items-center gap-2"
                     >
                         <span className="material-symbols-outlined text-sm">add_circle</span>
@@ -95,12 +141,21 @@ export default function ScheduleClient({
                             </div>
                             <div className="p-3 flex flex-col gap-2 min-h-[120px]">
                                 {dayShifts.map(shift => (
-                                    <div key={shift.id} className="bg-[var(--bg-surface-muted)] rounded-lg p-2 text-center border border-[var(--border-muted)] relative group">
+                                    <div 
+                                        key={shift.id} 
+                                        onClick={() => openEditModal(shift)}
+                                        className={`bg-[var(--bg-surface-muted)] rounded-lg p-2 text-center border border-[var(--border-muted)] relative group transition-all ${isManager ? 'cursor-pointer hover:border-[var(--color-primary)] hover:shadow-md' : ''}`}
+                                    >
                                         <p className="text-xs font-bold text-[var(--text-main)] italic tracking-tight">{shift.startTime} - {shift.endTime}</p>
                                         <span className={`text-[8px] font-black uppercase mt-1 block ${
                                             shift.status === 'SCHEDULED' ? 'text-[var(--color-primary)]' :
                                             shift.status === 'COMPLETED' ? 'text-green-500' : 'text-red-500'
                                         }`}>{shift.status}</span>
+                                        {isManager && (
+                                            <div className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <span className="material-symbols-outlined text-xs text-[var(--color-primary)]">edit</span>
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
                                 {dayShifts.length === 0 && (
@@ -121,23 +176,24 @@ export default function ScheduleClient({
                     <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95">
                         <div className="p-6 border-b border-[var(--border-muted)] flex justify-between items-center bg-[var(--color-primary)]/5">
                             <div>
-                                <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest italic">Assign <span className="text-[var(--color-primary)]">Shift</span></h3>
+                                <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest italic">{selectedShift ? 'Edit' : 'Assign'} <span className="text-[var(--color-primary)]">Shift</span></h3>
                                 <p className="text-[9px] text-[var(--text-muted)] font-bold mt-1 uppercase tracking-wider">Employee: {employee.fullName}</p>
                             </div>
                             <button onClick={() => setIsShiftModalOpen(false)} className="text-[var(--text-muted)] hover:text-[var(--text-main)]">
                                 <span className="material-symbols-outlined">close</span>
                             </button>
                         </div>
-                        <form onSubmit={handleCreateShift} className="p-6 space-y-5">
+                        <form onSubmit={handleSaveShift} className="p-6 space-y-5">
                             <div className="space-y-2">
                                 <label htmlFor="shiftDate" className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1">Date</label>
                                 <input 
                                     id="shiftDate"
                                     type="date" 
                                     required 
-                                    className="w-full bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-xl py-3 px-4 text-xs font-bold focus:border-[var(--color-primary)] outline-none" 
+                                    className="w-full bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-xl py-3 px-4 text-xs font-bold focus:border-[var(--color-primary)] outline-none disabled:opacity-50" 
                                     value={shiftDate}
                                     onChange={e => setShiftDate(e.target.value)}
+                                    disabled={!!selectedShift} // Don't allow changing date for existing shift in this simple UI
                                 />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
@@ -169,7 +225,17 @@ export default function ScheduleClient({
                                 <p className="text-[10px] text-red-500 font-bold px-4 py-2 bg-red-500/10 rounded-lg">{shiftError}</p>
                             )}
 
-                            <div className="pt-4 border-t border-[var(--border-muted)] flex gap-3">
+                            <div className="pt-4 border-t border-[var(--border-muted)] flex flex-wrap gap-3">
+                                {selectedShift && (
+                                    <button
+                                        type="button"
+                                        onClick={handleDeleteShift}
+                                        disabled={isSubmitting}
+                                        className="flex-none py-3.5 px-4 rounded-xl text-[10px] font-black uppercase text-red-500 border border-red-500/20 hover:bg-red-500/5 transition-colors disabled:opacity-50"
+                                    >
+                                        Delete
+                                    </button>
+                                )}
                                 <button
                                     type="button"
                                     onClick={() => setIsShiftModalOpen(false)}
@@ -182,7 +248,7 @@ export default function ScheduleClient({
                                     disabled={isSubmitting}
                                     className="flex-2 py-3.5 rounded-xl text-[10px] font-black uppercase text-white bg-[var(--color-primary)] hover:opacity-90 flex items-center justify-center gap-2 px-8 disabled:opacity-50"
                                 >
-                                    {isSubmitting ? "Saving..." : "Create Shift"}
+                                    {isSubmitting ? "Saving..." : selectedShift ? "Update Shift" : "Create Shift"}
                                     {!isSubmitting && <span className="material-symbols-outlined text-sm font-black">save</span>}
                                 </button>
                             </div>

@@ -187,6 +187,20 @@ export default async function DashboardPage() {
                     trend={`${staffOnDuty} active`}
                     trendUp={staffOnDuty > 0}
                 />
+                {!isEmployee && (
+                    <Link href="/employees/gamification" className="block h-full cursor-pointer group/leaderboard">
+                        <div className="p-6 glass-card border-none h-full bg-gradient-to-br from-[var(--color-primary)]/5 to-transparent relative overflow-hidden">
+                            <div className="flex justify-between items-start mb-6">
+                                <span className="p-3 bg-[var(--bg-surface-muted)] text-[var(--color-primary)] rounded-xl group-hover/leaderboard:bg-[var(--color-primary)] group-hover/leaderboard:text-white transition-all shadow-sm">
+                                    <span className="material-symbols-outlined text-xl font-bold">emoji_events</span>
+                                </span>
+                                <span className="text-[9px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest bg-[var(--color-primary)] text-white group-hover/leaderboard:scale-105 transition-transform">View Full</span>
+                            </div>
+                            <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-60">Staff Rewards</p>
+                            <p className="text-xl font-display font-bold mt-2 text-[var(--text-main)] tracking-tight">Leaderboard</p>
+                        </div>
+                    </Link>
+                )}
             </div>
 
             {/* Main Grid */}
@@ -231,6 +245,10 @@ export default async function DashboardPage() {
                 <div className="lg:col-span-2 p-6 glass-card border-none">
                     <h4 className="text-xl font-bold font-display text-[var(--text-main)] mb-4">Quick <span className="text-[var(--color-primary)]">Actions</span></h4>
                     <div className="grid grid-cols-2 gap-4">
+                        <Link href="/employees/gamification" className="p-6 bg-[var(--bg-surface-muted)] rounded-2xl hover:bg-[var(--color-primary)]/10 transition-all text-center group border border-[var(--border-muted)] border-l-4 border-l-[var(--color-primary)]">
+                            <span className="material-symbols-outlined text-3xl text-[var(--color-primary)] mb-2 block group-hover:scale-110 transition-transform">emoji_events</span>
+                            <p className="text-sm font-bold text-[var(--text-main)]">Staff Leaderboard</p>
+                        </Link>
                         <Link href="/check-in" className="p-6 bg-[var(--bg-surface-muted)] rounded-2xl hover:bg-[var(--color-primary)]/10 transition-all text-center group border border-[var(--border-muted)]">
                             <span className="material-symbols-outlined text-3xl text-[var(--color-primary)] mb-2 block group-hover:scale-110 transition-transform">qr_code_scanner</span>
                             <p className="text-sm font-bold text-[var(--text-main)]">Check-in Client</p>

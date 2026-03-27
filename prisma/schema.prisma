@@ -68,11 +68,13 @@ model Branch {
   employeeCategories   EmployeeCategory[]
   employees            Employee[]
   inventory            Inventory[]
+  inventoryLogs        InventoryLog[]
   loyaltyPrograms      LoyaltyProgram?
   membershipCategories MembershipCategory[]
   safetyAlerts         SafetyAlert[]
   serviceRecords       ServiceRecord[]
   services             Service[]
+  suppliers            Supplier[]
   users                User[]
   reviews              Review[]
   shifts               Shift[]
@@ -256,19 +258,54 @@ model CommissionLog {
   @@map("commission_logs")
 }
 
+model Supplier {
+  id          String       @id @default(cuid())
+  name        String
+  email       String?
+  phone       String?
+  category    String?      // e.g., "Essential Oils", "Linens", "Wood & Charcoal"
+  address     String?
+  notes       String?
+  status      EntityStatus @default(ACTIVE)
+  branchId    String       @map("businessId")
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  branch      Branch       @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  inventory   Inventory[]
+
+  @@map("suppliers")
+}
+
 model Inventory {
-  id           String   @id @default(cuid())
+  id           String         @id @default(cuid())
   productName  String
-  stockCount   Int      @default(0)
-  minThreshold Int      @default(5)
-  unit         String   @default("pcs")
+  stockCount   Int            @default(0)
+  minThreshold Int            @default(5)
+  unit         String         @default("pcs")
   supplierId   String?
-  branchId     String   @map("businessId")
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  branch       Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  branchId     String         @map("businessId")
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  branch       Branch         @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  supplier     Supplier?      @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+  logs         InventoryLog[]
 
   @@map("inventory")
+}
+
+model InventoryLog {
+  id          String   @id @default(cuid())
+  inventoryId String
+  type        String   // "RESTOCK" or "USAGE"
+  quantity    Int
+  notes       String?
+  performedBy String?  // userId who performed the action
+  branchId    String   @map("businessId")
+  createdAt   DateTime @default(now())
+  inventory   Inventory @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+  branch      Branch    @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  @@map("inventory_logs")
 }
 
 model LoyaltyProgram {

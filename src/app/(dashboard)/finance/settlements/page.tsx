@@ -36,5 +36,8 @@ export default async function SettlementsPage() {
         period: `${s.periodStart.toLocaleDateString()} - ${s.periodEnd.toLocaleDateString()}`
     }));
 
-    return <SettlementClientPage settlements={settlementData as any} />;
+    return <SettlementClientPage 
+        settlements={settlementData as any} 
+        branches={branches.map(b => ({ id: b.id, name: b.name }))} 
+    />;
 }

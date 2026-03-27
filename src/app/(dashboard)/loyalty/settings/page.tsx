@@ -25,19 +25,39 @@ async function publishLoyaltyChanges(formData: FormData) {
 }
 
 export default async function LoyaltySettingsPage() {
-    const session = await requireRole(["MANAGER", "ADMIN"]);
-    if (!session?.user?.branchId) redirect("/dashboard");
+    const session = await requireRole(["MANAGER", "ADMIN", "OWNER"]);
+    const branchId = session?.user?.branchId;
+
+    if (!branchId) {
+        return (
+            <div className="p-8 text-center glass-card border-none max-w-2xl mx-auto mt-20">
+                <div className="size-20 bg-[var(--color-primary)]/10 rounded-full flex items-center justify-center text-[var(--color-primary)] mx-auto mb-6">
+                    <span className="material-symbols-outlined text-4xl">storefront</span>
+                </div>
+                <h2 className="text-2xl font-bold text-[var(--text-main)] mb-4">Select a Branch</h2>
+                <p className="text-[var(--text-muted)] mb-8 leading-relaxed">
+                    Loyalty programs and reward rules are configured per branch. 
+                    Please navigate to the Branch Management section in your dashboard to select a specific location to configure.
+                </p>
+                <div className="flex gap-4 justify-center">
+                    <Link href="/dashboard" className="px-8 py-3 bg-[var(--color-primary)] text-white rounded-xl font-bold hover:brightness-110 transition-all shadow-lg shadow-[var(--color-primary)]/20">
+                        Go to Dashboard
+                    </Link>
+                </div>
+            </div>
+        );
+    }
 
     const program = await prisma.loyaltyProgram.findUnique({
-        where: { branchId: session.user.branchId }
+        where: { branchId }
     });
 
     const activeMembersCount = await prisma.loyaltyPoint.count({
-        where: { branchId: session.user.branchId }
+        where: { branchId }
     });
 
     const totalPointsAgg = await prisma.loyaltyPoint.aggregate({
-        where: { branchId: session.user.branchId },
+        where: { branchId },
         _sum: { points: true }
     });
 

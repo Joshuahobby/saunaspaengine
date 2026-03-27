@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { calculatePointsEarned, determineTier } from "@/lib/loyalty";
 
 export async function POST(req: NextRequest) {
     try {
@@ -32,15 +33,98 @@ export async function POST(req: NextRequest) {
             endDate.setDate(endDate.getDate() + category.durationDays);
         }
 
-        const membership = await prisma.membership.create({
-            data: {
-                clientId,
-                categoryId,
-                startDate,
-                endDate,
-                balance: category.usageLimit || null,
-                status: "ACTIVE"
+        const membership = await prisma.$transaction(async (tx) => {
+            // 1. Create the membership record
+            const m = await tx.membership.create({
+                data: {
+                    clientId,
+                    categoryId: category.id,
+                    startDate,
+                    endDate,
+                    balance: category.usageLimit || null,
+                    status: "ACTIVE"
+                }
+            });
+
+            // 2. Ensure a "Membership" service category exists to track revenue
+            let membershipService = await tx.service.findFirst({
+                where: { 
+                    branchId: session.user.branchId!,
+                    name: `Membership: ${category.name}`,
+                }
+            });
+
+            if (!membershipService) {
+                membershipService = await tx.service.create({
+                    data: {
+                        name: `Membership: ${category.name}`,
+                        category: "Membership",
+                        price: category.price,
+                        duration: 0,
+                        branchId: session.user.branchId!,
+                        status: "ACTIVE"
+                    }
+                });
             }
+
+            // 3. Create a ServiceRecord to represent the income
+            await tx.serviceRecord.create({
+                data: {
+                    clientId,
+                    serviceId: membershipService.id,
+                    branchId: session.user.branchId!,
+                    amount: category.price,
+                    netAmount: category.price,
+                    status: "COMPLETED",
+                    completedAt: new Date(),
+                    paymentMode: "CASH",
+                    comment: `Enrollment: ${category.name}`
+                }
+            });
+
+            // 4. Award initial Loyalty Points for joining
+            const loyaltyProgram = await tx.loyaltyProgram.findUnique({
+                where: { branchId: session.user.branchId! },
+            });
+
+            if (loyaltyProgram && loyaltyProgram.status === "ACTIVE") {
+                const existingLoyalty = await tx.loyaltyPoint.findFirst({
+                    where: { clientId, branchId: session.user.branchId! }
+                });
+
+                // Bonus: 100 points for enrolling + points based on amount
+                const baseBonus = 100;
+                const earnedPoints = calculatePointsEarned(
+                    category.price,
+                    existingLoyalty?.tier || "BRONZE",
+                    loyaltyProgram.pointsPerRwf
+                );
+                
+                const totalNewPoints = baseBonus + earnedPoints;
+                const currentTotal = (existingLoyalty?.points || 0) + totalNewPoints;
+                const nextTier = determineTier(currentTotal);
+
+                if (existingLoyalty) {
+                    await tx.loyaltyPoint.update({
+                        where: { id: existingLoyalty.id },
+                        data: {
+                            points: { increment: totalNewPoints },
+                            tier: nextTier
+                        }
+                    });
+                } else {
+                    await tx.loyaltyPoint.create({
+                        data: {
+                            clientId,
+                            branchId: session.user.branchId!,
+                            points: totalNewPoints,
+                            tier: nextTier
+                        }
+                    });
+                }
+            }
+
+            return m;
         });
 
         return NextResponse.json(membership, { status: 201 });

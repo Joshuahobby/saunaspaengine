@@ -8,7 +8,7 @@ export async function PUT(
 ) {
     return apiHandler(async () => {
         const { id } = await params;
-        const { user, error } = await apiAuth(["MANAGER", "ADMIN"]);
+        const { user, error } = await apiAuth(["MANAGER", "ADMIN", "OWNER"]);
         if (error) return error;
 
         if (!user!.branchId) {
@@ -39,7 +39,7 @@ export async function DELETE(
 ) {
     return apiHandler(async () => {
         const { id } = await params;
-        const { user, error } = await apiAuth(["MANAGER", "ADMIN"]);
+        const { user, error } = await apiAuth(["MANAGER", "ADMIN", "OWNER"]);
         if (error) return error;
 
         if (!user!.branchId) {
@@ -61,7 +61,7 @@ export async function PATCH(
 ) {
     return apiHandler(async () => {
         const { id } = await params;
-        const { user, error } = await apiAuth(["MANAGER", "ADMIN"]);
+        const { user, error } = await apiAuth(["MANAGER", "ADMIN", "OWNER"]);
         if (error) return error;
 
         if (!user!.branchId) {
@@ -69,18 +69,33 @@ export async function PATCH(
         }
 
         const body = await req.json();
-        const { addStock } = body;
+        const { addStock, notes } = body;
 
         if (!addStock || parseInt(addStock) <= 0) {
             return NextResponse.json({ error: "addStock must be a positive number" }, { status: 400 });
         }
 
-        const item = await prisma.inventory.update({
-            where: { id, branchId: user!.branchId },
-            data: {
-                stockCount: { increment: parseInt(addStock) },
-            },
-        });
+        const quantity = parseInt(addStock);
+
+        // Use a transaction to update stock and create log atomically
+        const [item] = await prisma.$transaction([
+            prisma.inventory.update({
+                where: { id, branchId: user!.branchId },
+                data: {
+                    stockCount: { increment: quantity },
+                },
+            }),
+            prisma.inventoryLog.create({
+                data: {
+                    inventoryId: id,
+                    type: "RESTOCK",
+                    quantity,
+                    notes: notes ? String(notes).trim() : `Restocked ${quantity} units`,
+                    performedBy: user!.id,
+                    branchId: user!.branchId,
+                },
+            }),
+        ]);
 
         return NextResponse.json(item);
     });

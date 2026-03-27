@@ -95,6 +95,13 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
                             Permissions
                         </Link>
                         <Link 
+                            href="/employees/gamification"
+                            className="h-10 px-6 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-card)] text-[var(--text-main)] text-[10px] font-black tracking-widest uppercase flex items-center gap-2 hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-sm"
+                        >
+                            <span className="material-symbols-outlined text-sm">emoji_events</span>
+                            Leaderboard
+                        </Link>
+                        <Link 
                             href="/branches/new"
                             className="h-10 px-6 rounded-xl bg-[var(--color-primary)] text-white text-[10px] font-black tracking-widest uppercase flex items-center gap-2 hover:scale-[1.05] transition-all shadow-xl shadow-[var(--color-primary)]/20"
                         >
@@ -137,6 +144,36 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 
+                <div className="bg-[var(--bg-card)] rounded-[1.5rem] border border-[var(--border-muted)] overflow-hidden shadow-sm flex flex-col h-[500px]">
+                    <div className="px-6 py-5 border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10 flex items-center justify-between">
+                        <div>
+                            <h2 className="text-xl font-display font-bold text-[var(--text-main)] flex items-center gap-2">
+                                <span className="material-symbols-outlined text-[var(--color-primary)]">emoji_events</span>
+                                Staff Leaderboard
+                            </h2>
+                            <p className="text-xs text-[var(--text-muted)] font-bold mt-1">Real-time performance rankings across all branches.</p>
+                        </div>
+                        <Link href="/employees/gamification" className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-widest hover:underline px-4 py-2 bg-[var(--color-primary)]/5 rounded-lg transition-all">
+                            View Module
+                        </Link>
+                    </div>
+                    <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-4">
+                         <div className="size-24 rounded-full bg-gradient-to-tr from-[var(--color-primary)] to-[var(--color-primary)]/40 flex items-center justify-center text-white shadow-xl shadow-[var(--color-primary)]/20 animate-pulse">
+                            <span className="material-symbols-outlined text-5xl">emoji_events</span>
+                         </div>
+                         <div className="space-y-2">
+                             <h3 className="text-lg font-bold text-[var(--text-main)]">Performance Gamification</h3>
+                             <p className="text-sm text-[var(--text-muted)] max-w-xs mx-auto">Track top earners, service volume, and team consistency in real-time.</p>
+                         </div>
+                         <Link 
+                            href="/employees/gamification"
+                            className="w-full max-w-[200px] py-3 bg-[var(--bg-surface-muted)] hover:bg-[var(--color-primary)]/10 text-[var(--text-main)] rounded-xl text-[10px] font-black uppercase tracking-widest border border-[var(--border-muted)] transition-all"
+                         >
+                            Access Dashboard
+                         </Link>
+                    </div>
+                </div>
+
                 {/* Visual Branch Leaderboard */}
                 <div className="bg-[var(--bg-card)] rounded-[1.5rem] border border-[var(--border-muted)] overflow-hidden shadow-sm flex flex-col h-[500px]">
                     <div className="px-6 py-5 border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10 flex items-center justify-between">

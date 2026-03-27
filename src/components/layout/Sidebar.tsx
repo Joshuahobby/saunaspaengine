@@ -24,6 +24,7 @@ const managerNavItems: NavItem[] = [
     
     { label: "Management", isHeader: true },
     { label: "Employees", href: "/employees", icon: "badge" },
+    { label: "Staff Leaderboard", href: "/employees/gamification", icon: "emoji_events" },
     { label: "Guest Directory", href: "/clients", icon: "group" },
     { label: "Services", href: "/services", icon: "auto_awesome" },
     { label: "Inventory", href: "/inventory", icon: "inventory_2" },
@@ -49,6 +50,7 @@ const adminNavItems: NavItem[] = [
     { label: "Platform Plans", href: "/subscriptions/platform", icon: "layers" },
     
     { label: "Treasury Hub", href: "/finance/settlements", icon: "account_balance" },
+    { label: "Staff Leaderboard", href: "/employees/gamification", icon: "emoji_events" },
     
     { label: "Ecosystem", isHeader: true },
     { label: "Businesses", href: "/businesses", icon: "domain" },
@@ -79,6 +81,7 @@ const businessNavItems: NavItem[] = [
     { label: "Growth & Retention", isHeader: true },
     { label: "Memberships", href: "/memberships", icon: "card_membership" },
     { label: "Loyalty", href: "/loyalty/performance", icon: "loyalty" },
+    { label: "Staff Leaderboard", href: "/employees/gamification", icon: "emoji_events" },
     { label: "Performance Index", href: "/employees/performance", icon: "query_stats" },
     
     { label: "Performance Hub", isHeader: true },
@@ -99,6 +102,7 @@ const employeeNavItems: NavItem[] = [
     { label: "My Workspace", isHeader: true },
     { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
     { label: "My Earnings", href: "/employees/my-earnings", icon: "payments" },
+    { label: "Staff Leaderboard", href: "/employees/gamification", icon: "emoji_events" },
     { label: "Reception", href: "/check-in", icon: "qr_code_scanner" },
     { label: "Visit Logs", href: "/operations", icon: "receipt_long" },
     { label: "Floor Manager", href: "/floor-manager", icon: "dashboard_customize" },

@@ -2,10 +2,29 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { CheckInContainer } from "@/components/operations/CheckInContainer";
+import { UserRole } from "@prisma/client";
 
 export default async function CheckInPage() {
     const session = await auth();
-    if (!session?.user?.branchId || session.user.role === "ADMIN") redirect("/dashboard");
+    const allowedRoles: UserRole[] = ["ADMIN", "OWNER", "MANAGER", "RECEPTIONIST"];
+    
+    if (!session?.user || !allowedRoles.includes(session.user.role as UserRole)) {
+        redirect("/dashboard");
+    }
+
+    const branchId = session.user.branchId;
+
+    if (!branchId) {
+        // For ADMIN or OWNER, they might not have a branchId selected.
+        // We could redirect them to a branch selection page or show a message.
+        return (
+            <div className="p-8 text-center glass-card border-none">
+                <h2 className="text-xl font-bold text-[var(--text-main)] mb-4">No Branch Selected</h2>
+                <p className="text-[var(--text-muted)] mb-6">As a system-level user, please select a branch from the management dashboard to perform check-ins.</p>
+                <a href="/dashboard" className="px-6 py-2 bg-[var(--color-primary)] text-white rounded-xl font-bold hover:opacity-90 transition-all inline-block">Go to Dashboard</a>
+            </div>
+        );
+    }
 
     const [services, employees, activeClients, siteStats, dailyStats] = await Promise.all([
         prisma.service.findMany({

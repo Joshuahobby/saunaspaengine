@@ -5,14 +5,14 @@ import { QRScanner } from "./QRScanner";
 import { ClientCheckInResult } from "./ClientCheckInResult";
 import CheckInForm from "./check-in-form";
 import { toast } from "react-hot-toast";
-import { QrCode, Keyboard, Users, Zap, ArrowLeft } from "lucide-react";
+import { QrCode, Keyboard, ArrowLeft } from "lucide-react";
 
 interface ClientWithMemberships {
     id: string;
     fullName: string;
     phoneNumber: string | null;
     email: string | null;
-    loyaltyPoints?: unknown[];
+    loyaltyPoints?: Array<{ id: string; points: number; tier: string }>;
     healthNotes?: string | null;
     preferences?: string | null;
     memberships: Array<{
@@ -24,7 +24,7 @@ interface ClientWithMemberships {
         };
         status: string;
         endDate?: string | null;
-        remainingSessions?: number | null;
+        balance?: number | null;
     }>;
 }
 
@@ -48,7 +48,7 @@ interface CheckInContainerProps {
     stats: [number, number];
 }
 
-export function CheckInContainer({ services, employees, clients, stats }: CheckInContainerProps) {
+export function CheckInContainer({ services, employees, clients }: CheckInContainerProps) {
     const [mode, setMode] = useState<'SCANNING' | 'RESULT' | 'MANUAL'>('SCANNING');
     const [selectedClient, setSelectedClient] = useState<ClientWithMemberships | null>(null);
     const [isLoading, setIsLoading] = useState(false);

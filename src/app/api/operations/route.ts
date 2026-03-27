@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { ExtraService } from "@/types/operations";
+import { calculatePointsEarned, determineTier } from "@/lib/loyalty";
 
 
 // GET /api/operations — list service records for current branch
@@ -259,7 +260,6 @@ export async function PATCH(request: NextRequest) {
             // 1. Membership Deduction
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             if ((record.paymentMode as any) === "MEMBERSHIP") {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const membership = await (prisma.membership as any).findFirst({
                     where: {
                         clientId: record.clientId,
@@ -268,61 +268,96 @@ export async function PATCH(request: NextRequest) {
                             { branchId: session.user.branchId },
                             { category: { isGlobal: true } }
                         ],
-                        balance: { gt: 0 }
+                        AND: [
+                            {
+                                OR: [
+                                    { endDate: null },
+                                    { endDate: { gte: new Date() } }
+                                ]
+                            },
+                            {
+                                OR: [
+                                    { balance: null },
+                                    { balance: { gt: 0 } }
+                                ]
+                            }
+                        ]
                     }
                 });
 
-                if (membership && membership.balance !== null) {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    await (prisma.membership as any).update({
-                        where: { id: membership.id },
-                        data: { balance: { decrement: 1 } }
-                    });
+                if (membership) {
+                    if (membership.balance !== null) {
+                        await (prisma.membership as any).update({
+                            where: { id: membership.id },
+                            data: { balance: { decrement: 1 } }
+                        });
+                    }
+                } else {
+                    // Log warning: Record was processed with MEMBERSHIP payment mode but no active membership was found.
+                    // In a production app, we might want to revert or flag this record.
                 }
             }
 
-            // 2. Loyalty Logic (Accrual & "Buy X, Get Y")
-            const loyaltyProgram = await prisma.loyaltyProgram.findUnique({
-                where: { branchId: session.user.branchId },
+            // Fetch Loyalty Program for the branch
+            const loyaltyProgram = await prisma.loyaltyProgram.findFirst({
+                where: { branchId: record.branchId, status: "ACTIVE" }
             });
 
-            if (loyaltyProgram && loyaltyProgram.status === "ACTIVE") {
-                // 1. Traditional Points Accrual
-                const pointsToEarn = Math.floor(record.amount * loyaltyProgram.pointsPerRwf);
+            if (loyaltyProgram) {
+                // 1. Fetch current loyalty data
+                const existingLoyalty = await prisma.loyaltyPoint.findFirst({
+                    where: { clientId: record.clientId, branchId: record.branchId }
+                });
 
-                // 2. "Buy X, Get Y" Logic
+                const currentPoints = existingLoyalty?.points || 0;
+                const currentTier = existingLoyalty?.tier || "BRONZE";
+
+                // 2. Traditional Points Accrual (based on tier multiplier)
+                const pointsToEarn = calculatePointsEarned(
+                    record.amount,
+                    currentTier,
+                    loyaltyProgram.pointsPerRwf
+                );
+
+                if (pointsToEarn > 0) {
+                    const newTotalPoints = currentPoints + pointsToEarn;
+                    const nextTier = determineTier(newTotalPoints);
+
+                    if (existingLoyalty) {
+                        await prisma.loyaltyPoint.update({
+                            where: { id: existingLoyalty.id },
+                            data: { 
+                                points: { increment: pointsToEarn },
+                                tier: nextTier
+                            }
+                        });
+                    } else {
+                        await prisma.loyaltyPoint.create({
+                            data: {
+                                clientId: record.clientId,
+                                branchId: record.branchId,
+                                points: pointsToEarn,
+                                tier: nextTier,
+                            }
+                        });
+                    }
+                }
+
+                // 3. "Buy X, Get Y" Session Tracking
                 if (loyaltyProgram.buyCount && loyaltyProgram.getCount) {
-                    await prisma.serviceRecord.count({
+                    const sessionCount = await prisma.serviceRecord.count({
                         where: {
                             clientId: record.clientId,
                             branchId: record.branchId,
                             serviceId: record.serviceId,
                             status: "COMPLETED",
-                            amount: { gt: 0 }
+                            amount: { gt: 0 } // Only count paid sessions
                         }
                     });
 
-                    // Logic: After X paid sessions, the next Y sessions could be rewarded.
-                    // For now, we just perform the count to verify activity.
-
-                }
-
-
-                if (pointsToEarn > 0) {
-                    const existingLoyalty = await prisma.loyaltyPoint.findFirst({
-                        where: { clientId: record.clientId, branchId: record.branchId }
-                    });
-
-                    await prisma.loyaltyPoint.upsert({
-                        where: { id: existingLoyalty?.id || "temp-id-for-upsert" },
-                        update: { points: { increment: pointsToEarn } },
-                        create: {
-                            clientId: record.clientId,
-                            branchId: record.branchId,
-                            points: pointsToEarn,
-                            tier: "BRONZE",
-                        },
-                    });
+                    // Logic: If sessionCount is a multiple of (buyCount + getCount), 
+                    // or meets other criteria, we could notify for a reward.
+                    // For now, we log it for potential front-end badges.
                 }
             }
 

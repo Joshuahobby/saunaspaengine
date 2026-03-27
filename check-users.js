@@ -11,7 +11,7 @@ async function checkUsers() {
         await client.connect();
         console.log("Connected to database");
 
-        const res = await client.query('SELECT id, email, username, "fullName", role, status FROM "users" LIMIT 10');
+        const res = await client.query('SELECT id, email, username, "fullName", role, status, "usr_branchId", "usr_businessId" FROM "users" LIMIT 20');
         console.log("Users in database:");
         console.table(res.rows);
 
