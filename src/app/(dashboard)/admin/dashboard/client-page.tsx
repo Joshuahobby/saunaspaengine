@@ -109,6 +109,13 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                 </div>
                 <div className="flex items-center gap-3">
                     <Link 
+                        href="/employees/gamification"
+                        className="flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95"
+                    >
+                        <span className="material-symbols-outlined text-base">emoji_events</span>
+                        Staff Records
+                    </Link>
+                    <Link 
                         href="/settings/roles"
                         className="flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95"
                     >
