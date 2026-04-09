@@ -36,7 +36,9 @@ export default async function ExecutiveAnalyticsPage() {
         clientCount,
         employeeCount,
         branchMetrics,
-        serviceAggr
+        serviceAggr,
+        // Phase 4: Retention Stats
+        clientStats
     ] = await Promise.all([
         // Current 30 days revenue
         db.serviceRecord.aggregate({
@@ -63,11 +65,35 @@ export default async function ExecutiveAnalyticsPage() {
             by: ['serviceId'],
             _sum: { amount: true },
             where: { branchId: { in: branchIds }, status: "COMPLETED", completedAt: { gte: thirtyDaysAgo } }
+        }),
+        // Retention: Group by clientId to find repeat customers
+        db.serviceRecord.groupBy({
+            by: ['clientId'],
+            where: { branchId: { in: branchIds }, status: "COMPLETED" },
+            _count: { id: true }
         })
     ]);
 
+    // Phase 4: Peak Hours Analysis (Aggregating from dailyRecords or using raw SQL)
+    // For the UI, we'll fetch the records and group them by hour.
+    const peakHourRecords = await db.serviceRecord.findMany({
+        where: { branchId: { in: branchIds }, status: "COMPLETED", completedAt: { gte: thirtyDaysAgo } },
+        select: { completedAt: true }
+    });
+
+    const hoursMap = new Array(24).fill(0);
+    peakHourRecords.forEach(r => {
+        if (!r.completedAt) return;
+        const hr = r.completedAt.getHours();
+        hoursMap[hr]++;
+    });
+    const peakHours = hoursMap.map((count, hour) => ({
+        hour,
+        display: `${hour % 12 || 12}${hour < 12 ? ' AM' : ' PM'}`,
+        count
+    }));
+
     // 3. Time-Series Data (Daily Revenue)
-    // We still fetch minimal data for the trend chart to avoid complex Raw SQL logic for padding missing days
     const dailyRecords = await db.serviceRecord.findMany({
         where: { branchId: { in: branchIds }, status: "COMPLETED", completedAt: { gte: thirtyDaysAgo } },
         select: { amount: true, completedAt: true }
@@ -76,6 +102,11 @@ export default async function ExecutiveAnalyticsPage() {
     const currentRevenue = revenueAggr._sum.amount || 0;
     const previousRevenue = prevRevenueAggr._sum.amount || 0;
     const revenueTrend = previousRevenue > 0 ? ((currentRevenue - previousRevenue) / previousRevenue) * 100 : 0;
+
+    // Retention Logic
+    const totalUniqueClients = clientStats.length;
+    const repeatClients = clientStats.filter(c => c._count.id > 1).length;
+    const retentionRate = totalUniqueClients > 0 ? (repeatClients / totalUniqueClients) * 100 : 0;
 
     // Daily revenue mapping
     const dailyRevenueMap = new Map();
@@ -93,7 +124,6 @@ export default async function ExecutiveAnalyticsPage() {
     const dailyRevenue = Array.from(dailyRevenueMap.entries()).map(([name, revenue]) => ({ name, revenue }));
 
     // 4. Branch Performance Matrix
-    // Get employee counts per branch for efficiency calc
     const branchEmployees = await db.employee.groupBy({
         by: ['branchId'],
         _count: { id: true },
@@ -109,7 +139,7 @@ export default async function ExecutiveAnalyticsPage() {
             name: b.name,
             revenue: rev,
             employees: empCount,
-            clients: 0, // Simplified for now as it's less critical for HQ comparison
+            clients: 0, 
             efficiency: empCount > 0 ? rev / empCount : 0
         };
     }).sort((a, b) => b.revenue - a.revenue);
@@ -132,7 +162,9 @@ export default async function ExecutiveAnalyticsPage() {
         totalClients: clientCount,
         totalEmployees: employeeCount,
         totalBranches: branches.length,
-        projectedMRR: currentRevenue * 1.08, // Slightly more conservative strategy forecast
+        projectedMRR: currentRevenue * 1.08, 
+        // New Phase 4 Metrics
+        retentionRate: Number(retentionRate.toFixed(1))
     };
 
     return (
@@ -141,6 +173,7 @@ export default async function ExecutiveAnalyticsPage() {
             dailyRevenue={dailyRevenue}
             branchPerformance={branchPerformance}
             topServices={topServices}
+            peakHours={peakHours}
         />
     );
 }

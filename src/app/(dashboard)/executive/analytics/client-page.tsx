@@ -13,6 +13,9 @@ import {
     PieChart,
     Pie,
     Cell,
+    BarChart,
+    Bar,
+    ResponsiveContainer
 } from "recharts";
 
 function useContainerSize() {
@@ -64,6 +67,7 @@ interface ExecutiveAnalyticsClientProps {
         totalEmployees: number;
         totalBranches: number;
         projectedMRR: number;
+        retentionRate: number; // Phase 4
     };
     dailyRevenue: { name: string; revenue: number }[];
     branchPerformance: {
@@ -75,11 +79,13 @@ interface ExecutiveAnalyticsClientProps {
         efficiency: number;
     }[];
     topServices: { name: string; value: number }[];
+    peakHours: { hour: number; display: string; count: number }[]; // Phase 4
 }
 
-export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPerformance, topServices }: ExecutiveAnalyticsClientProps) {
+export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPerformance, topServices, peakHours }: ExecutiveAnalyticsClientProps) {
     const { ref: areaChartRef, width: areaWidth, height: areaHeight } = useContainerSize();
     const { ref: pieChartRef, width: pieWidth, height: pieHeight } = useContainerSize();
+    const { ref: barChartRef, width: barWidth, height: barHeight } = useContainerSize();
 
     const COLORS = ["var(--color-primary)", "#3b82f6", "#10b981", "#f59e0b", "#8b5cf6"];
 
@@ -107,44 +113,45 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
             </div>
 
             {/* High-Level KPIs */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 {[
                     { label: "Portfolio Yield", value: formatCurrency(stats.totalRevenue), trend: `${stats.revenueTrend.isPositive ? '+' : '-'}${stats.revenueTrend.value.toFixed(1)}%`, icon: "payments", trendPos: stats.revenueTrend.isPositive },
-                    { label: "Projected MRR", value: formatCurrency(stats.projectedMRR), trend: "Strategy Forecast", icon: "monitoring", trendPos: true },
+                    { label: "Loyalty Quotient", value: `${stats.retentionRate}%`, trend: "Returning Clients", icon: "loyalty", trendPos: true },
                     { label: "Market Reach", value: stats.totalClients.toString(), trend: "Active Records", icon: "hub", trendPos: true },
                     { label: "Branch Density", value: stats.totalBranches.toString(), trend: "Managed Nodes", icon: "storefront", trendPos: true },
+                    { label: "Projected MRR", value: formatCurrency(stats.projectedMRR), trend: "Strategy Forecast", icon: "monitoring", trendPos: true },
                 ].map((kpi, idx) => (
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.1 }}
                         key={kpi.label}
-                        className="group relative rounded-[40px] border border-white/[0.05] bg-white/[0.02] p-10 backdrop-blur-3xl overflow-hidden hover:border-[var(--color-primary)]/20 transition-all duration-700 hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)]"
+                        className="group relative rounded-[32px] border border-white/[0.05] bg-white/[0.02] p-8 backdrop-blur-3xl overflow-hidden hover:border-[var(--color-primary)]/20 transition-all duration-700 hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)]"
                     >
-                        <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--color-primary)] opacity-[0.02] blur-3xl rounded-full -mr-20 -mt-20 group-hover:opacity-[0.05] transition-opacity" />
-                        <div className="mb-8 flex items-center justify-between">
-                            <div className="size-14 rounded-2xl bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] group-hover:rotate-12 transition-transform shadow-inner">
-                                <span className="material-symbols-outlined text-2xl font-bold">{kpi.icon}</span>
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-primary)] opacity-[0.02] blur-3xl rounded-full -mr-16 -mt-16 group-hover:opacity-[0.05] transition-opacity" />
+                        <div className="mb-6 flex items-center justify-between">
+                            <div className="size-12 rounded-xl bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] group-hover:rotate-12 transition-transform shadow-inner">
+                                <span className="material-symbols-outlined text-xl font-bold">{kpi.icon}</span>
                             </div>
-                            <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${kpi.trendPos ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-500 border border-rose-500/20'}`}>
+                            <span className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest ${kpi.trendPos ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-500 border border-rose-500/20'}`}>
                                 {kpi.trend}
                             </span>
                         </div>
                         <div className="space-y-1">
-                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-30 italic">{kpi.label}</p>
-                            <h3 className="text-4xl font-serif font-black text-white italic tracking-tighter">{kpi.value}</h3>
+                            <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-30 italic">{kpi.label}</p>
+                            <h3 className="text-3xl font-serif font-black text-white italic tracking-tighter">{kpi.value}</h3>
                         </div>
                     </motion.div>
                 ))}
             </div>
 
             {/* Deep-Dive Analytics */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 {/* Revenue Momentum Chart */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="lg:col-span-8 rounded-[40px] border border-white/[0.05] bg-white/[0.02] p-12 backdrop-blur-3xl relative overflow-hidden group shadow-2xl"
+                    className="lg:col-span-8 rounded-[40px] border border-white/[0.05] bg-white/[0.02] p-10 backdrop-blur-3xl relative overflow-hidden group shadow-2xl"
                 >
                     <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/[0.05] pb-8 relative z-10">
                         <div className="space-y-2">
@@ -153,7 +160,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                         </div>
                     </div>
 
-                    <div ref={areaChartRef} className="h-[400px] w-full relative">
+                    <div ref={areaChartRef} className="h-[350px] w-full relative">
                         {areaWidth > 0 && areaHeight > 0 && (
                             <AreaChart width={areaWidth} height={areaHeight} data={dailyRevenue}>
                                 <defs>
@@ -194,7 +201,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                 <motion.div
                     initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="lg:col-span-4 rounded-[40px] border border-white/[0.05] bg-white/[0.02] p-12 backdrop-blur-3xl shadow-2xl flex flex-col gap-10 relative overflow-hidden"
+                    className="lg:col-span-4 rounded-[40px] border border-white/[0.05] bg-white/[0.02] p-10 backdrop-blur-3xl shadow-2xl flex flex-col gap-8 relative overflow-hidden"
                 >
                     <div className="space-y-2 border-b border-white/[0.05] pb-8 relative z-10">
                         <h3 className="text-2xl font-serif font-bold italic tracking-tight">Catalog Yield</h3>
@@ -226,84 +233,108 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                         </div>
                     </div>
 
-                    <div className="space-y-3 relative z-10">
+                    <div className="space-y-2 relative z-10">
                         {topServices.map((s, idx) => (
-                            <div key={s.name} className="flex items-center justify-between p-3 rounded-2xl bg-white/[0.02] border border-white/[0.05]">
-                                <div className="flex items-center gap-3">
+                            <div key={s.name} className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+                                <div className="flex items-center gap-2">
                                     <motion.div className="size-2 rounded-full" style={{ backgroundColor: COLORS[idx % COLORS.length] }} />
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-white/70 italic">{s.name}</span>
+                                    <span className="text-[9px] font-black uppercase tracking-widest text-white/70 italic">{s.name}</span>
                                 </div>
-                                <span className="font-serif font-black italic text-[var(--color-primary)]">{formatCurrency(s.value)}</span>
+                                <span className="font-serif font-black italic text-[var(--color-primary)] text-sm">{formatCurrency(s.value)}</span>
                             </div>
                         ))}
                     </div>
                 </motion.div>
             </div>
 
-            {/* Branch Performance Comparison */}
-            <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="rounded-[40px] border border-white/[0.05] bg-white/[0.01] p-12 backdrop-blur-3xl shadow-2xl"
-            >
-                <div className="mb-12 flex items-center justify-between border-b border-white/[0.05] pb-10">
-                    <div className="space-y-2">
-                        <h3 className="text-3xl font-serif font-black italic tracking-tighter">Branch Benchmarking</h3>
-                        <p className="text-xs text-[var(--text-muted)] font-bold opacity-30 uppercase tracking-[0.3em] italic">Relative Performance Index Across Network</p>
+            {/* Operational Efficiency (Peak Hours & Branch Benchmarking) */}
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                {/* Peak Shift Heatmap (Bar Chart Distribution) */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="rounded-[40px] border border-white/[0.05] bg-white/[0.01] p-10 backdrop-blur-3xl shadow-2xl relative overflow-hidden"
+                >
+                    <div className="mb-10 flex items-center justify-between border-b border-white/[0.05] pb-8">
+                        <div className="space-y-2">
+                            <h3 className="text-2xl font-serif font-black italic tracking-tighter">Operational Peak Shift</h3>
+                            <p className="text-xs text-[var(--text-muted)] font-bold opacity-30 uppercase tracking-[0.3em] italic">Traffic Load by Daily Timeframe</p>
+                        </div>
+                        <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase tracking-[0.2em] rounded-full border border-emerald-500/20 italic">Live Flow</span>
                     </div>
-                    <span className="px-6 py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-[8px] font-black uppercase tracking-[0.3em] rounded-full border border-[var(--color-primary)]/20 shadow-lg italic">Top Decile View</span>
-                </div>
 
-                <div className="overflow-x-auto">
-                    <table className="w-full">
-                        <thead>
-                            <tr className="text-left py-6">
-                                <th className="pb-8 text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-30 px-4">Entity</th>
-                                <th className="pb-8 text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-30 px-4">Efficiency</th>
-                                <th className="pb-8 text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-30 px-4 text-right">Revenue</th>
-                                <th className="pb-8 text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-30 px-4 text-right">Human Cap</th>
-                                <th className="pb-8 text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-30 px-4 text-right">Portfolio Share</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-white/[0.05]">
-                            {branchPerformance.map((branch) => (
-                                <tr key={branch.id} className="group hover:bg-white/[0.02] transition-colors">
-                                    <td className="py-8 px-4">
-                                        <div className="flex items-center gap-5">
-                                            <div className="size-14 rounded-2xl bg-black/20 border border-white/5 flex items-center justify-center font-serif font-black text-xl italic text-[var(--color-primary)] group-hover:scale-110 transition-transform">
+                    <div ref={barChartRef} className="h-[300px] w-full">
+                        {barWidth > 0 && barHeight > 0 && (
+                            <BarChart width={barWidth} height={barHeight} data={peakHours}>
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.03)" />
+                                <XAxis 
+                                    dataKey="display" 
+                                    axisLine={false} 
+                                    tickLine={false} 
+                                    tick={{ fill: 'var(--text-muted)', fontSize: 8, fontWeight: 900, opacity: 0.4 }}
+                                />
+                                <YAxis 
+                                    axisLine={false} 
+                                    tickLine={false} 
+                                    tick={{ fill: 'var(--text-muted)', fontSize: 10, fontWeight: 900, opacity: 0.4 }}
+                                />
+                                <Tooltip {...CUSTOM_TOOLTIP_STYLE} />
+                                <Bar 
+                                    dataKey="count" 
+                                    fill="var(--color-primary)" 
+                                    radius={[4, 4, 0, 0]}
+                                    opacity={0.8}
+                                    animationDuration={1500}
+                                />
+                            </BarChart>
+                        )}
+                    </div>
+                </motion.div>
+
+                {/* Branch Benchmarking */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="rounded-[40px] border border-white/[0.05] bg-white/[0.01] p-10 backdrop-blur-3xl shadow-2xl"
+                >
+                    <div className="mb-10 flex items-center justify-between border-b border-white/[0.05] pb-8">
+                        <div className="space-y-2">
+                            <h3 className="text-2xl font-serif font-black italic tracking-tighter">Branch Benchmarking</h3>
+                            <p className="text-xs text-[var(--text-muted)] font-bold opacity-30 uppercase tracking-[0.3em] italic">Relative Performance Index</p>
+                        </div>
+                    </div>
+
+                    <div className="overflow-x-auto">
+                        <table className="w-full">
+                            <thead>
+                                <tr className="text-left">
+                                    <th className="pb-6 text-[9px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-30">Entity</th>
+                                    <th className="pb-6 text-[9px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-30 text-right">Revenue</th>
+                                    <th className="pb-6 text-[9px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-30 text-right">Share</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-white/[0.05]">
+                                {branchPerformance.map((branch) => (
+                                    <tr key={branch.id} className="group hover:bg-white/[0.02] transition-colors">
+                                        <td className="py-6 flex items-center gap-4">
+                                            <div className="size-10 rounded-xl bg-black/20 border border-white/5 flex items-center justify-center font-serif font-black text-sm italic text-[var(--color-primary)] group-hover:scale-110 transition-transform">
                                                 {branch.name[0]}
                                             </div>
-                                            <span className="text-lg font-serif font-bold italic text-white/90">{branch.name}</span>
-                                        </div>
-                                    </td>
-                                    <td className="py-8 px-4">
-                                        <div className="flex flex-col gap-2 w-48">
-                                            <div className="h-1.5 w-full bg-white/[0.05] rounded-full overflow-hidden">
-                                                <motion.div 
-                                                    initial={{ width: 0 }}
-                                                    animate={{ width: `${Math.min((branch.efficiency / 5000) * 100, 100)}%` }}
-                                                    transition={{ duration: 1.5 }}
-                                                    className="h-full bg-gradient-to-r from-[var(--color-primary)] to-[#3b82f6]"
-                                                />
-                                            </div>
-                                            <span className="text-[10px] font-black text-emerald-500 italic">Optimal Range</span>
-                                        </div>
-                                    </td>
-                                    <td className="py-8 px-4 text-right">
-                                        <span className="text-2xl font-serif font-black italic text-white/80">{formatCurrency(branch.revenue)}</span>
-                                    </td>
-                                    <td className="py-8 px-4 text-right">
-                                        <span className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-50">{branch.employees} Specialists</span>
-                                    </td>
-                                    <td className="py-8 px-4 text-right">
-                                        <span className="text-xl font-serif font-black italic text-[var(--color-primary)]">{((branch.revenue / stats.totalRevenue) * 100).toFixed(1)}%</span>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </motion.div>
+                                            <span className="text-sm font-serif font-bold italic text-white/90">{branch.name}</span>
+                                        </td>
+                                        <td className="py-6 text-right">
+                                            <span className="text-lg font-serif font-black italic text-white/80">{formatCurrency(branch.revenue)}</span>
+                                        </td>
+                                        <td className="py-6 text-right">
+                                            <span className="text-lg font-serif font-black italic text-[var(--color-primary)]">{((branch.revenue / stats.totalRevenue) * 100).toFixed(1)}%</span>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </motion.div>
+            </div>
         </div>
     );
 }

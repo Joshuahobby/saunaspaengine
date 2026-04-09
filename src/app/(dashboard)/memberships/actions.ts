@@ -97,10 +97,24 @@ export async function deleteMembershipCategoryAction(id: string) {
     };
 
     try {
-        await prisma.membershipCategory.update({
+        const archived = await prisma.membershipCategory.update({
             where,
-            data: { status: "INACTIVE" }
+            data: { status: "INACTIVE" },
+            include: { branch: true }
         });
+
+        // Add Audit Log
+        await prisma.auditLog.create({
+            data: {
+                userId: session.user.id!,
+                action: "DEACTIVATE_MEMBERSHIP_CATEGORY",
+                entity: "MembershipCategory",
+                entityId: id,
+                details: `Archived membership category ${archived.name} in branch ${archived.branch.name}`,
+                branchId: archived.branchId
+            }
+        });
+
         revalidatePath("/memberships");
         return { success: true };
     } catch (error) {

@@ -51,9 +51,23 @@ export async function deleteClient(id: string) {
             }
         }
 
-        await prisma.client.delete({
-            where: { id }
+        const deletedClient = await prisma.client.delete({
+            where: { id },
+            include: { branch: true }
         });
+
+        // Add Audit Log
+        await prisma.auditLog.create({
+            data: {
+                userId: session.user.id!,
+                action: "DELETE_CLIENT",
+                entity: "Client",
+                entityId: id,
+                details: `Deleted client ${deletedClient.fullName} from branch ${deletedClient.branch.name}`,
+                branchId: deletedClient.branchId
+            }
+        });
+
         revalidatePath("/clients");
         return { success: true };
     } catch (error: any) {

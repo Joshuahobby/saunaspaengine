@@ -77,8 +77,21 @@ export async function deleteEmployeeAction(id: string) {
             }
         }
 
-        await prisma.employee.delete({
-            where: { id }
+        const deletedEmployee = await prisma.employee.delete({
+            where: { id },
+            include: { branch: true }
+        });
+
+        // Add Audit Log
+        await prisma.auditLog.create({
+            data: {
+                userId: session.user.id!,
+                action: "DELETE_EMPLOYEE",
+                entity: "Employee",
+                entityId: id,
+                details: `Deleted staff member ${deletedEmployee.fullName} from branch ${deletedEmployee.branch.name}`,
+                branchId: deletedEmployee.branchId
+            }
         });
 
         revalidatePath("/employees");

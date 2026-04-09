@@ -59,8 +59,21 @@ export async function DELETE(
             where.branchId = user!.branchId;
         }
 
-        await prisma.supplier.delete({
+        const deletedSupplier = await prisma.supplier.delete({
             where,
+            include: { branch: true }
+        });
+
+        // Add Audit Log
+        await prisma.auditLog.create({
+            data: {
+                userId: user!.id!,
+                action: "DELETE_SUPPLIER",
+                entity: "Supplier",
+                entityId: id,
+                details: `Deleted supplier ${deletedSupplier.name} in branch ${deletedSupplier.branch.name}`,
+                branchId: deletedSupplier.branchId
+            }
         });
 
         return NextResponse.json({ success: true });

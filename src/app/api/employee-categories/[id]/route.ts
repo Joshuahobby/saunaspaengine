@@ -61,7 +61,23 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     }
 
     try {
-        await prisma.employeeCategory.delete({ where });
+        const deletedCategory = await prisma.employeeCategory.delete({ 
+            where,
+            include: { branch: true }
+        });
+
+        // Add Audit Log
+        await prisma.auditLog.create({
+            data: {
+                userId: session.user.id!,
+                action: "DELETE_EMPLOYEE_CATEGORY",
+                entity: "EmployeeCategory",
+                entityId: id,
+                details: `Permanently removed staff role: ${deletedCategory.name} in branch ${deletedCategory.branch.name}`,
+                branchId: deletedCategory.branchId
+            }
+        });
+
         return NextResponse.json({ success: true });
     } catch {
         return NextResponse.json({ error: "Category not found or access denied." }, { status: 404 });

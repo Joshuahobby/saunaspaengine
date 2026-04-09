@@ -68,8 +68,21 @@ export async function DELETE(
             }
         }
 
-        await prisma.service.delete({
+        const deletedService = await prisma.service.delete({
             where: whereClause,
+            include: { branch: true }
+        });
+
+        // Add Audit Log
+        await prisma.auditLog.create({
+            data: {
+                userId: user!.id!,
+                action: "DELETE_SERVICE",
+                entity: "Service",
+                entityId: id,
+                details: `Deleted service ${deletedService.name} from branch ${deletedService.branch.name}`,
+                branchId: deletedService.branchId
+            }
         });
 
         return NextResponse.json({ success: true });

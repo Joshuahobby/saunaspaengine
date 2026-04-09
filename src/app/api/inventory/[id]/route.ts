@@ -55,8 +55,21 @@ export async function DELETE(
             where.branchId = user!.branchId;
         }
 
-        await prisma.inventory.delete({
+        const deletedItem = await prisma.inventory.delete({
             where,
+            include: { branch: true }
+        });
+
+        // Add Audit Log for record removal
+        await prisma.auditLog.create({
+            data: {
+                userId: user!.id!,
+                action: "DELETE_INVENTORY",
+                entity: "Inventory",
+                entityId: id,
+                details: `Permanently removed inventory record: ${deletedItem.productName} in branch ${deletedItem.branch.name}`,
+                branchId: deletedItem.branchId
+            }
         });
 
         return NextResponse.json({ success: true });
