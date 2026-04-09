@@ -17,22 +17,14 @@ export default async function ClientProfilePage({ params }: { params: Promise<{ 
     const { id } = await params;
     const session = await auth();
     
-    console.log(`[PROFILE] Accessing client ID: ${id}`);
-    console.log(`[PROFILE] Session check: ${session?.user ? 'VALID' : 'MISSING'}`);
-
     if (!session?.user) {
-        console.warn(`[PROFILE] Unauthorized access attempt to ${id}`);
         redirect("/login");
     }
 
-    // Allow all authorized users to view client profiles
-    // We only filter by branch in the list view, not the detail view
-    const queryWhere: any = { id };
-
-    // Parallel fetch for optimal performance and to prevent RSC timeouts
-    const [client, visitsThisMonth, loyaltyInfo] = await Promise.all([
+    // 1. Core Data Fetching (Parallel)
+    const [client, visitsThisMonth, loyaltyInfo, totalSpendAggr, favoriteServiceAggr, auditLogs] = await Promise.all([
         prisma.client.findFirst({
-            where: queryWhere,
+            where: { id },
             include: {
                 memberships: {
                     where: { status: "ACTIVE" },
@@ -54,6 +46,27 @@ export default async function ClientProfilePage({ params }: { params: Promise<{ 
         }),
         prisma.loyaltyPoint.findFirst({
             where: { clientId: id }
+        }),
+        // Phase 4: Lifetime Value
+        prisma.serviceRecord.aggregate({
+            where: { clientId: id, status: "COMPLETED" },
+            _sum: { amount: true },
+            _count: { id: true }
+        }),
+        // Phase 4: Favorite Service
+        prisma.serviceRecord.groupBy({
+            by: ['serviceId'],
+            where: { clientId: id, status: "COMPLETED" },
+            _count: { id: true },
+            orderBy: { _count: { id: 'desc' } },
+            take: 1
+        }),
+        // Phase 4: Audit Logs (Governance)
+        prisma.auditLog.findMany({
+            where: { entity: "Client", entityId: id },
+            include: { user: { select: { fullName: true } } },
+            orderBy: { createdAt: 'desc' },
+            take: 5
         })
     ]);
 
@@ -72,21 +85,32 @@ export default async function ClientProfilePage({ params }: { params: Promise<{ 
         );
     }
 
-    // Fetch service records separately to optimize the main query
-    const serviceRecords = await prisma.serviceRecord.findMany({
-        where: { clientId: client.id },
-        include: {
-            service: true,
-            employee: true
-        },
-        orderBy: { createdAt: 'desc' },
-        take: 10
-    });
+    // Secondary data fetching: service records and favorite service name
+    const [serviceRecords, favoriteService] = await Promise.all([
+        prisma.serviceRecord.findMany({
+            where: { clientId: client.id },
+            include: { service: true, employee: true },
+            orderBy: { createdAt: 'desc' },
+            take: 20 // increased for better history view
+        }),
+        favoriteServiceAggr.length > 0 
+            ? prisma.service.findUnique({ 
+                where: { id: favoriteServiceAggr[0].serviceId },
+                select: { name: true }
+              })
+            : Promise.resolve(null)
+    ]);
 
-    // Populate client with its records for the child component
-    const clientWithRecords = {
-        ...client,
-        serviceRecords
+    const ltv = totalSpendAggr._sum.amount || 0;
+    const avgTicket = totalSpendAggr._count.id > 0 ? ltv / totalSpendAggr._count.id : 0;
+    
+    // Package intelligence data
+    const intelligence = {
+        ltv,
+        avgTicket,
+        favoriteService: favoriteService?.name || "N/A",
+        totalVisits: totalSpendAggr._count.id,
+        auditLogs
     };
 
     const activeMembership = client.memberships[0];
@@ -95,11 +119,12 @@ export default async function ClientProfilePage({ params }: { params: Promise<{ 
 
     return (
         <ClientProfile 
-            client={clientWithRecords as any}
+            client={{ ...client, serviceRecords } as any}
             activeMembership={activeMembership}
             loyaltyInfo={loyaltyInfo}
             tierConfig={tierConfig}
             visitsThisMonth={visitsThisMonth}
+            intelligence={intelligence}
         />
     );
 }
