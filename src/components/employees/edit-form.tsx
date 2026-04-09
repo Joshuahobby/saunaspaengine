@@ -151,6 +151,7 @@ export default function EditEmployeeForm({ employee, categories, branches, isOwn
                             <select
                                 required
                                 aria-label="Professional Role"
+                                title="Professional Role"
                                 name="categoryId"
                                 defaultValue={employee.categoryId}
                                 className="w-full px-4 py-3 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl text-sm focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all appearance-none"
@@ -181,6 +182,7 @@ export default function EditEmployeeForm({ employee, categories, branches, isOwn
                                 <select
                                     required
                                     aria-label="Physical Location"
+                                    title="Physical Location"
                                     name="branchId"
                                     defaultValue={employee.branchId}
                                     className="w-full px-4 py-3 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl text-sm focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all appearance-none"
@@ -202,6 +204,7 @@ export default function EditEmployeeForm({ employee, categories, branches, isOwn
                             <select
                                 required
                                 aria-label="Employment Status"
+                                title="Employment Status"
                                 name="status"
                                 defaultValue={employee.status}
                                 className="w-full px-4 py-3 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl text-sm focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all appearance-none"

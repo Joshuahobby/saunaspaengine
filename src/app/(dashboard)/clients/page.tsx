@@ -4,29 +4,77 @@ import { redirect } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import ClientListClient from "./client-page";
 
-export default async function ClientsPage() {
+export default async function ClientsPage(props: { 
+    searchParams: Promise<{ 
+        branchId?: string, 
+        page?: string, 
+        search?: string, 
+        filter?: "all" | "MEMBER" | "WALK_IN" | "ARCHIVED" 
+    }> 
+}) {
+    const searchParams = await props.searchParams;
     const session = await auth();
     if (!session?.user) redirect("/login");
     if (!session.user.branchId && session.user.role !== 'OWNER') redirect("/login");
 
-    const branchIds = session.user.role === 'OWNER'
-        ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string }, select: { id: true } })).map(b => b.id)
-        : [session.user.branchId as string];
+    const page = parseInt(searchParams.page || "1");
+    const limit = 10;
+    const skip = (page - 1) * limit;
+    const search = searchParams.search || "";
+    const filter = searchParams.filter || "all";
 
-    const clients = await prisma.client.findMany({
-        where: { branchId: { in: branchIds } },
-        include: {
-            memberships: {
-                where: { status: "ACTIVE" },
-                include: { category: true }
+    const branchIds = searchParams.branchId 
+        ? [searchParams.branchId]
+        : (session.user.role === 'OWNER'
+            ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string }, select: { id: true } })).map(b => b.id)
+            : [session.user.branchId as string]);
+
+    // Construct search where clause
+    const searchWhere: import("@prisma/client").Prisma.ClientWhereInput = {
+        branchId: { in: branchIds }
+    };
+
+    if (filter === "MEMBER" || filter === "WALK_IN") {
+        searchWhere.clientType = filter;
+        searchWhere.status = "ACTIVE";
+    } else if (filter === "ARCHIVED") {
+        searchWhere.status = "ARCHIVED";
+    } else {
+        // All ACTIVE
+        searchWhere.status = "ACTIVE";
+    }
+
+    if (search) {
+        searchWhere.OR = [
+            { fullName: { contains: search, mode: 'insensitive' } },
+            { phone: { contains: search, mode: 'insensitive' } } // mode: 'insensitive' added for consistency
+        ];
+    }
+
+    // Fetch data and counts in parallel
+    const [clients, totalCount, allCount, membersCount, walkInsCount, archivedCount] = await Promise.all([
+        prisma.client.findMany({
+            where: searchWhere,
+            include: {
+                memberships: {
+                    where: { status: "ACTIVE" },
+                    include: { category: true }
+                },
+                serviceRecords: {
+                    where: { status: "COMPLETED" },
+                    orderBy: { createdAt: "desc" }
+                }
             },
-            serviceRecords: {
-                where: { status: "COMPLETED" },
-                orderBy: { createdAt: "desc" }
-            }
-        },
-        orderBy: { createdAt: "desc" }
-    });
+            skip,
+            take: limit,
+            orderBy: { createdAt: "desc" }
+        }),
+        prisma.client.count({ where: searchWhere }),
+        prisma.client.count({ where: { branchId: { in: branchIds }, status: "ACTIVE" } }),
+        prisma.client.count({ where: { branchId: { in: branchIds }, clientType: "MEMBER", status: "ACTIVE" } }),
+        prisma.client.count({ where: { branchId: { in: branchIds }, clientType: "WALK_IN", status: "ACTIVE" } }),
+        prisma.client.count({ where: { branchId: { in: branchIds }, status: "ARCHIVED" } })
+    ]);
 
     const clientData = clients.map(client => {
         const lastVisit = client.serviceRecords.length > 0
@@ -41,6 +89,7 @@ export default async function ClientsPage() {
             phone: client.phone,
             clientType: client.clientType,
             qrCode: client.qrCode,
+            status: client.status,
             lastVisit,
             totalSpent,
             membershipName: activeMembership?.category?.name,
@@ -50,5 +99,20 @@ export default async function ClientsPage() {
         };
     });
 
-    return <ClientListClient clients={clientData} />;
+    return (
+        <ClientListClient 
+            initialClients={clientData} 
+            totalCount={totalCount}
+            currentPage={page}
+            totalPages={Math.ceil(totalCount / limit)}
+            metrics={{
+                all: allCount,
+                members: membersCount,
+                walkIns: walkInsCount,
+                archived: archivedCount
+            }}
+            initialSearch={search}
+            initialFilter={filter}
+        />
+    );
 }

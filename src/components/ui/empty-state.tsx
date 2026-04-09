@@ -1,14 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
-import { LucideIcon } from 'lucide-react';
 
 interface EmptyStateProps {
-  icon: LucideIcon | string;
+  icon: React.ElementType | string;
   title: string;
   description: string;
   actionLabel?: string;
   actionHref?: string;
   onAction?: () => void;
+  mini?: boolean;
 }
 
 export function EmptyState({
@@ -18,12 +18,13 @@ export function EmptyState({
   actionLabel,
   actionHref,
   onAction,
+  mini = false,
 }: EmptyStateProps) {
   const isStringIcon = typeof Icon === 'string';
 
   return (
-    <div className="w-full h-full min-h-[400px] flex flex-col items-center justify-center p-8 text-center glass-card">
-      <div className="size-20 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary shadow-[0_0_40px_rgba(17,212,196,0.15)] ring-1 ring-primary/20">
+    <div className={`w-full h-full flex flex-col items-center justify-center p-8 text-center ${mini ? '' : 'min-h-[400px] glass-card'}`}>
+      <div className={`${mini ? 'size-12 mb-4' : 'size-20 mb-6'} bg-primary/10 rounded-full flex items-center justify-center text-primary shadow-[0_0_40px_rgba(17,212,196,0.15)] ring-1 ring-primary/20`}>
         {isStringIcon ? (
           <span className="material-symbols-outlined text-4xl">{Icon}</span>
         ) : (

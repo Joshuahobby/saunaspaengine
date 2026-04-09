@@ -2,14 +2,42 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import ClientRegistrationForm from "@/components/operations/client-registration-form";
+import ClientForm from "@/components/clients/ClientForm";
 
-export default async function NewClientPage() {
+export default async function NewClientPage(props: { searchParams: Promise<{ branchId?: string }> }) {
+    const searchParams = await props.searchParams;
     const session = await auth();
-    if (!session?.user?.branchId) redirect("/login");
+    if (!session?.user) redirect("/login");
+    
+    // Support Owners fetching their first branch if branchId is not directly set
+    let activeBranchId = searchParams.branchId || session.user.branchId;
+    
+    let branches: { id: string, name: string }[] = [];
+    if (session.user.role === 'OWNER' && session.user.businessId) {
+        branches = await prisma.branch.findMany({
+            where: { businessId: session.user.businessId, status: 'ACTIVE' },
+            select: { id: true, name: true },
+            orderBy: { createdAt: 'asc' }
+        });
+        if (!activeBranchId && branches.length > 0) activeBranchId = branches[0].id;
+    }
 
+    if (!activeBranchId && session.user.branchId) {
+        activeBranchId = session.user.branchId;
+    }
+
+    if (!activeBranchId) redirect("/dashboard");
+
+    // Fetch categories for the entire business so we can filter client-side if needed,
+    // or just fetch for the active branch and its global siblings.
     const membershipCategories = await prisma.membershipCategory.findMany({
-        where: { branchId: session.user.branchId, status: "ACTIVE" },
+        where: { 
+            OR: [
+                { branchId: activeBranchId },
+                { isGlobal: true, branch: { businessId: session.user.businessId } }
+            ],
+            status: "ACTIVE" 
+        },
         orderBy: { price: "desc" }
     });
 
@@ -29,13 +57,21 @@ export default async function NewClientPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Form Section */}
                     <div className="lg:col-span-2 space-y-6">
-                        <ClientRegistrationForm
+                        <ClientForm
                             membershipCategories={membershipCategories.map(c => ({
                                 id: c.id,
                                 name: c.name,
                                 price: c.price,
                                 type: c.type
                             }))}
+                            branches={branches}
+                            initialData={activeBranchId ? {
+                                id: "",
+                                fullName: "",
+                                phone: "",
+                                clientType: "MEMBER",
+                                branchId: activeBranchId
+                            } : undefined}
                         />
                     </div>
 

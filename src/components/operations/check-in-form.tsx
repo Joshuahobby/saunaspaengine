@@ -87,6 +87,7 @@ export default function CheckInForm({ clients, services, employees }: CheckInFor
                             name="clientId"
                             required
                             aria-label="Select Client"
+                            title="Select Guest"
                             value={selectedClient}
                             onChange={(e) => setSelectedClient(e.target.value)}
                             className="w-full bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-4 py-3 focus:ring-4 focus:ring-[var(--color-primary)]/5 focus:border-[var(--color-primary)] transition-all outline-none font-bold text-[var(--text-main)] appearance-none cursor-pointer text-sm"
@@ -105,6 +106,7 @@ export default function CheckInForm({ clients, services, employees }: CheckInFor
                             name="serviceId"
                             required
                             aria-label="Select Service"
+                            title="Select Service"
                             value={selectedService}
                             onChange={e => setSelectedService(e.target.value)}
                             className="w-full bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-4 py-3 focus:ring-4 focus:ring-[var(--color-primary)]/5 focus:border-[var(--color-primary)] transition-all outline-none font-bold text-[var(--text-main)] appearance-none cursor-pointer tracking-tight text-sm"
@@ -127,6 +129,7 @@ export default function CheckInForm({ clients, services, employees }: CheckInFor
                         <select
                             name="employeeId"
                             aria-label="Assign Attendant"
+                            title="Assign Attendant"
                             className="w-full bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-4 py-3 focus:ring-4 focus:ring-[var(--color-primary)]/5 focus:border-[var(--color-primary)] transition-all outline-none font-bold text-[var(--text-main)] appearance-none cursor-pointer text-sm"
                         >
                             <option value="">Select attendant (optional)...</option>

@@ -1,29 +1,31 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaNeon } from "@prisma/adapter-neon";
+import { Pool } from "@neondatabase/serverless";
 
-const getPrisma = () => {
-  const connectionString = process.env.DATABASE_URL || "";
+// Robust Singleton pattern for Prisma in Next.js/Turbopack as per @prisma/client best practices
+const prismaClientSingleton = () => {
+    const connectionString = process.env.DATABASE_URL || "";
+    
+    if (!connectionString) {
+        return new PrismaClient();
+    }
 
-  if (!connectionString) {
-    return new PrismaClient();
-  }
-
-  try {
-    // PrismaNeon v7+ accepts { connectionString } directly — no Pool or ws needed.
-    // It handles WebSocket connections internally over port 443.
-    const adapter = new PrismaNeon({ connectionString });
-    return new PrismaClient({ adapter });
-  } catch {
-    return new PrismaClient();
-  }
+    try {
+        const pool = new Pool({ connectionString });
+        const adapter = new PrismaNeon(pool);
+        return new PrismaClient({ adapter });
+    } catch (error) {
+        console.error("[PRISMA-ADAPTER-ERROR]", error);
+        return new PrismaClient();
+    }
 };
 
-type PrismaClientType = ReturnType<typeof getPrisma>;
+declare global {
+  var prisma: undefined | ReturnType<typeof prismaClientSingleton>;
+}
 
-const globalForPrisma = globalThis as unknown as {
-  prisma_neon: PrismaClientType | undefined;
-};
+export const prisma = globalThis.prisma ?? prismaClientSingleton();
 
-export const prisma = globalForPrisma.prisma_neon ?? getPrisma();
-
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma_neon = prisma;
+if (process.env.NODE_ENV !== "production") {
+    globalThis.prisma = prisma;
+}

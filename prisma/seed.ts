@@ -1,5 +1,6 @@
 import { PrismaClient, PaymentMode } from '@prisma/client';
 import { PrismaNeon } from '@prisma/adapter-neon';
+import { Pool } from '@neondatabase/serverless';
 import bcrypt from 'bcryptjs';
 import * as dotenv from 'dotenv';
 
@@ -11,7 +12,8 @@ let prisma: PrismaClient;
 
 try {
   if (connectionString) {
-    const adapter = new PrismaNeon({ connectionString });
+    const pool = new Pool({ connectionString });
+    const adapter = new PrismaNeon(pool);
     prisma = new PrismaClient({ adapter });
   } else {
     prisma = new PrismaClient();

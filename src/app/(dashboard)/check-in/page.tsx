@@ -28,23 +28,23 @@ export default async function CheckInPage() {
 
     const [services, employees, activeClients, siteStats, dailyStats] = await Promise.all([
         prisma.service.findMany({
-            where: { branchId: session.user.branchId },
+            where: { branchId },
             orderBy: { category: "asc" },
         }),
         prisma.employee.findMany({
-            where: { branchId: session.user.branchId, status: "ACTIVE" },
+            where: { branchId, status: "ACTIVE" },
             orderBy: { fullName: "asc" },
         }),
         prisma.client.findMany({
-            where: { branchId: session.user.branchId, status: "ACTIVE" },
+            where: { branchId, status: "ACTIVE" },
             orderBy: { fullName: "asc" },
         }),
         prisma.serviceRecord.count({
-            where: { branchId: session.user.branchId, status: { in: ["CREATED", "IN_PROGRESS"] } },
+            where: { branchId, status: { in: ["CREATED", "IN_PROGRESS"] } },
         }),
         prisma.serviceRecord.count({
             where: {
-                branchId: session.user.branchId,
+                branchId,
                 createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
             },
         }),

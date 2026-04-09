@@ -13,15 +13,28 @@ export async function createMembershipCategoryAction(data: {
     durationDays?: number;
     usageLimit?: number;
     isGlobal?: boolean;
+    branchId?: string;
 }) {
     const session = await auth();
-    if (!session?.user?.branchId) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
+
+    let targetBranchId = data.branchId || session.user.branchId;
+    
+    if (!targetBranchId && session.user.role === 'OWNER' && session.user.businessId) {
+        const firstBranch = await prisma.branch.findFirst({
+            where: { businessId: session.user.businessId },
+            orderBy: { createdAt: 'asc' }
+        });
+        if (firstBranch) targetBranchId = firstBranch.id;
+    }
+
+    if (!targetBranchId) throw new Error("Branch ID required");
 
     try {
         await prisma.membershipCategory.create({
             data: {
                 ...data,
-                branchId: session.user.branchId,
+                branchId: targetBranchId,
                 status: "ACTIVE"
             }
         });
@@ -41,13 +54,23 @@ export async function updateMembershipCategoryAction(id: string, data: {
     usageLimit?: number;
     status?: EntityStatus;
     isGlobal?: boolean;
+    branchId?: string;
 }) {
     const session = await auth();
-    if (!session?.user?.branchId) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
+
+    // Owners can update any category in their business, managers only their branch
+    const where: any = { id };
+    if (session.user.role !== 'OWNER') {
+        if (!session.user.branchId) throw new Error("Unauthorized");
+        where.branchId = session.user.branchId;
+    } else {
+        where.branch = { businessId: session.user.businessId };
+    }
 
     try {
         await prisma.membershipCategory.update({
-            where: { id, branchId: session.user.branchId },
+            where,
             data
         });
         revalidatePath("/memberships");
@@ -61,13 +84,19 @@ export async function updateMembershipCategoryAction(id: string, data: {
 
 export async function deleteMembershipCategoryAction(id: string) {
     const session = await auth();
-    if (!session?.user?.branchId) throw new Error("Unauthorized");
+    if (!session?.user) throw new Error("Unauthorized");
+
+    const where: any = { id };
+    if (session.user.role !== 'OWNER') {
+        if (!session.user.branchId) throw new Error("Unauthorized");
+        where.branchId = session.user.branchId;
+    } else {
+        where.branch = { businessId: session.user.businessId };
+    }
 
     try {
-        // We might want to check if there are active memberships before deleting, 
-        // or just set to INACTIVE.
         await prisma.membershipCategory.update({
-            where: { id, branchId: session.user.branchId },
+            where,
             data: { status: "INACTIVE" }
         });
         revalidatePath("/memberships");

@@ -24,6 +24,8 @@ interface MembershipCategory {
 
 interface MembershipsClientPageProps {
     categories: MembershipCategory[];
+    branches: { id: string, name: string }[];
+    userRole?: string;
 }
 
 const TYPE_CONFIG = {
@@ -53,7 +55,7 @@ const TYPE_CONFIG = {
     }
 };
 
-export default function MembershipsClientPage({ categories }: MembershipsClientPageProps) {
+export default function MembershipsClientPage({ categories, branches, userRole }: MembershipsClientPageProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingCategory, setEditingCategory] = useState<MembershipCategory | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -236,17 +238,21 @@ export default function MembershipsClientPage({ categories }: MembershipsClientP
                 category={editingCategory}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
+                branches={branches}
+                userRole={userRole}
             />
         </div>
     );
 }
 
-function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading }: { 
+function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, branches, userRole }: { 
     isOpen: boolean, 
     onClose: () => void, 
     category: MembershipCategory | null,
     isLoading: boolean,
-    setIsLoading: (val: boolean) => void
+    setIsLoading: (val: boolean) => void,
+    branches: { id: string, name: string }[],
+    userRole?: string
 }) {
     const [formData, setFormData] = useState({
         name: category?.name || "",
@@ -255,7 +261,8 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading }: {
         price: category?.price?.toString() || "",
         durationDays: category?.durationDays?.toString() || "30",
         usageLimit: category?.usageLimit?.toString() || "10",
-        isGlobal: category?.isGlobal || false
+        isGlobal: category?.isGlobal || false,
+        branchId: category?.id ? (category as any).branchId : (branches[0]?.id || "")
     });
 
     // Sync form data when category changes
@@ -268,10 +275,22 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading }: {
                 price: category.price.toString(),
                 durationDays: category.durationDays?.toString() || "30",
                 usageLimit: category.usageLimit?.toString() || "10",
-                isGlobal: category.isGlobal
+                isGlobal: category.isGlobal,
+                branchId: (category as any).branchId || (branches[0]?.id || "")
+            });
+        } else {
+            setFormData({
+                name: "",
+                type: "SUBSCRIPTION",
+                description: "",
+                price: "",
+                durationDays: "30",
+                usageLimit: "10",
+                isGlobal: false,
+                branchId: branches[0]?.id || ""
             });
         }
-    }, [category]);
+    }, [category, branches]);
 
     const handleSave = async () => {
         setIsLoading(true);
@@ -283,7 +302,8 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading }: {
                 price: parseFloat(formData.price),
                 durationDays: formData.type === 'SUBSCRIPTION' ? parseInt(formData.durationDays) : undefined,
                 usageLimit: formData.type === 'LIST_PASS' ? parseInt(formData.usageLimit) : undefined,
-                isGlobal: formData.isGlobal
+                isGlobal: formData.isGlobal,
+                branchId: formData.branchId
             };
 
             if (category) {
@@ -371,21 +391,43 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading }: {
 
                                 <div className="space-y-3 col-span-2">
                                     <label className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic ml-4">Network Scope</label>
-                                    <button 
-                                        type="button"
-                                        onClick={() => setFormData({...formData, isGlobal: !formData.isGlobal})}
-                                        className={`w-full h-16 rounded-3xl px-8 flex items-center justify-between transition-all border ${formData.isGlobal ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' : 'bg-[var(--bg-surface-muted)]/10 border-[var(--border-muted)] text-[var(--text-muted)]'}`}
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <span className="material-symbols-outlined">{formData.isGlobal ? 'public' : 'location_on'}</span>
-                                            <span className="font-bold tracking-widest text-[10px] uppercase">{formData.isGlobal ? 'Global Portability Active' : 'Restricted to this Branch'}</span>
-                                        </div>
-                                        <div className={`w-12 h-6 rounded-full relative transition-all ${formData.isGlobal ? 'bg-blue-500' : 'bg-zinc-800'}`}>
-                                            <div className={`absolute top-1 size-4 rounded-full bg-white transition-all ${formData.isGlobal ? 'right-1' : 'left-1'}`} />
-                                        </div>
-                                    </button>
+                                    
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <button 
+                                            type="button"
+                                            onClick={() => setFormData({...formData, isGlobal: !formData.isGlobal})}
+                                            className={`h-16 rounded-3xl px-8 flex items-center justify-between transition-all border ${formData.isGlobal ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' : 'bg-[var(--bg-surface-muted)]/10 border-[var(--border-muted)] text-[var(--text-muted)]'}`}
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <span className="material-symbols-outlined">{formData.isGlobal ? 'public' : 'location_on'}</span>
+                                                <span className="font-bold tracking-widest text-[10px] uppercase">{formData.isGlobal ? 'Global Pass' : 'Branch Specific'}</span>
+                                            </div>
+                                            <div className={`w-12 h-6 rounded-full relative transition-all ${formData.isGlobal ? 'bg-blue-500' : 'bg-zinc-800'}`}>
+                                                <div className={`absolute top-1 size-4 rounded-full bg-white transition-all ${formData.isGlobal ? 'right-1' : 'left-1'}`} />
+                                            </div>
+                                        </button>
+
+                                        {userRole === 'OWNER' && branches.length > 0 && (
+                                            <div className="relative">
+                                                <select 
+                                                    title="Target Branch"
+                                                    value={formData.branchId}
+                                                    onChange={e => setFormData({...formData, branchId: e.target.value})}
+                                                    className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-3xl px-8 text-xs font-black text-white uppercase tracking-widest outline-none focus:border-[var(--color-primary)] transition-all appearance-none"
+                                                >
+                                                    {branches.map(b => (
+                                                        <option key={b.id} value={b.id} className="bg-[#0f1412]">{b.name}</option>
+                                                    ))}
+                                                </select>
+                                                <span className="material-symbols-outlined absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-[var(--text-muted)] opacity-50">expand_more</span>
+                                            </div>
+                                        )}
+                                    </div>
+
                                     <p className="text-[9px] text-[var(--text-muted)] opacity-50 ml-4 italic leading-tight">
-                                        Global passes can be redeemed at any branch within your corporate network.
+                                        {formData.isGlobal 
+                                            ? "Global passes can be redeemed at any branch within your corporate network."
+                                            : "This pass will only be available and redeemable at the selected branch."}
                                     </p>
                                 </div>
 

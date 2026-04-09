@@ -8,14 +8,17 @@ import { ExtraService, RecordData } from "@/types/operations";
 
 
 
-export default async function OperationsPage() {
+export default async function OperationsPage(props: { searchParams: Promise<{ branchId?: string }> }) {
+    const searchParams = await props.searchParams;
     const session = await auth();
     if (!session?.user) redirect("/login");
     if (!session.user.branchId && session.user.role !== 'OWNER') redirect("/login");
 
-    const branchIds = session.user.role === 'OWNER'
-        ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string }, select: { id: true } })).map(b => b.id)
-        : [session.user.branchId as string];
+    const branchIds = searchParams.branchId 
+        ? [searchParams.branchId]
+        : (session.user.role === 'OWNER'
+            ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string }, select: { id: true } })).map(b => b.id)
+            : [session.user.branchId as string]);
 
     const branchWhere = { in: branchIds };
 

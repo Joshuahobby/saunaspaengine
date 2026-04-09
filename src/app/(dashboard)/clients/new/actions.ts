@@ -3,14 +3,31 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
+import { randomUUID } from "crypto";
 
 export async function registerClient(formData: FormData) {
     const session = await auth();
-    if (!session?.user?.branchId) {
+    if (!session?.user) {
         return { error: "Unauthorized" };
     }
 
-    const branchId = session.user.branchId;
+    let branchId = formData.get("branchId") as string;
+    
+    if (!branchId) {
+        branchId = session.user.branchId as string;
+    }
+
+    if (!branchId && session.user.role === 'OWNER' && session.user.businessId) {
+        const firstBranch = await prisma.branch.findFirst({
+            where: { businessId: session.user.businessId },
+            orderBy: { createdAt: 'asc' }
+        });
+        if (firstBranch) branchId = firstBranch.id;
+    }
+
+    if (!branchId) {
+        return { error: "No active branch found. Please select a branch." };
+    }
     const fullName = formData.get("fullName") as string;
     const phone = formData.get("phone") as string;
     const email = formData.get("email") as string;
@@ -25,7 +42,7 @@ export async function registerClient(formData: FormData) {
         const result = await prisma.$transaction(async (tx) => {
             // Generate a simple unique QR Code string (can be swapped with UUID later)
             const qrCodeStr = clientType === "MEMBER"
-                ? `SE-${branchId.substring(0, 4).toUpperCase()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
+                ? `SE-${branchId.substring(0, 4).toUpperCase()}-${randomUUID().substring(0, 8).toUpperCase()}`
                 : null;
 
             // 1. Create the Client
@@ -42,12 +59,14 @@ export async function registerClient(formData: FormData) {
 
             // 2. If MEMBER and category selected, create Membership
             let membership = null;
+            let selectedCategory = null;
             if (clientType === "MEMBER" && membershipCategoryId) {
                 const category = await tx.membershipCategory.findUnique({
                     where: { id: membershipCategoryId }
                 });
 
                 if (category) {
+                    selectedCategory = category;
                     // Calculate end date if applicable
                     let endDate = null;
                     if (category.durationDays) {
@@ -68,7 +87,13 @@ export async function registerClient(formData: FormData) {
                 }
             }
 
-            return { client, membership };
+            return { 
+                client, 
+                membership: membership ? {
+                    ...membership,
+                    categoryName: selectedCategory?.name
+                } : null 
+            };
         });
 
         revalidatePath("/clients");

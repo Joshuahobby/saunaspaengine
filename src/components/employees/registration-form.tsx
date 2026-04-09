@@ -220,6 +220,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                             <select
                                 required
                                 aria-label="Professional Role"
+                                title="Professional Role"
                                 name="categoryId"
                                 className="w-full px-4 py-3 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl text-sm focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all appearance-none"
                             >
@@ -251,6 +252,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                                 <select
                                     required
                                     aria-label="Physical Location"
+                                    title="Physical Location"
                                     name="branchId"
                                     defaultValue={defaultBranchId}
                                     className="w-full px-4 py-3 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl text-sm focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all appearance-none"

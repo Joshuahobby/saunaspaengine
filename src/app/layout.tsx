@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 import { ToastProvider } from "@/components/providers/toast-provider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { NavProvider } from "@/components/providers/NavProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -48,6 +47,10 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
         />
+        {/* Network & Cache Hard-Reset Meta Tags */}
+        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta httpEquiv="Pragma" content="no-cache" />
+        <meta httpEquiv="Expires" content="0" />
       </head>
       <body className={`${inter.className} antialiased selection:bg-[var(--color-primary)] selection:text-teal-900`}>
         {/* Invisible touch points to satisfy browser preload requirements and clear console warnings */}
@@ -58,11 +61,47 @@ export default function RootLayout({
           <span className="font-poppins-700">.</span>
         </div>
         <ThemeProvider>
-          <NavProvider>
-            {children}
-          </NavProvider>
+          {children}
           <ToastProvider />
         </ThemeProvider>
+
+        {/* Self-destructing script for phantom service workers on localhost:3000 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              console.log('[PURGE] Initializing Total Network Purge...');
+              
+              if ('serviceWorker' in navigator) {
+                // Register our dedicated kill-switch SW to evict ghosts
+                navigator.serviceWorker.register('/sw.js').then(reg => {
+                   console.log('[PURGE] Kill-switch SW Registered:', reg.scope);
+                }).catch(err => {
+                   console.warn('[PURGE] SW Registration Failed:', err);
+                });
+
+                // Force unregister everything else
+                navigator.serviceWorker.getRegistrations().then(registrations => {
+                  for (let registration of registrations) {
+                    registration.unregister();
+                    console.log('[PURGE] Unregistered phantom worker:', registration.scope);
+                  }
+                });
+              }
+
+              // Aggressively clear all caches to resolve 'Failed to fetch' errors in browser
+              if ('caches' in window) {
+                caches.keys().then(names => {
+                  for (let name of names) {
+                    caches.delete(name);
+                    console.log('[PURGE] Cache Cleared:', name);
+                  }
+                });
+              }
+              
+              console.log('[PURGE] Network Purge Logic Executed.');
+            `,
+          }}
+        />
       </body>
     </html>
   );

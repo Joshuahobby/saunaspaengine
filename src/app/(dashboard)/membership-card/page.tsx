@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import QRCode from "qrcode";
 
 export default async function DigitalMembershipCardPage() {
     const session = await auth();
@@ -7,6 +8,10 @@ export default async function DigitalMembershipCardPage() {
 
     const memberName = session.user.fullName || "Member";
     const memberId = `SPA-${session.user.id?.slice(-5).toUpperCase() || "00000"}`;
+    const qrDataUrl = await QRCode.toDataURL(memberId, {
+        margin: 1,
+        color: { dark: "#000000", light: "#ffffff" }
+    });
 
     return (
         <div className="space-y-8">
@@ -41,11 +46,9 @@ export default async function DigitalMembershipCardPage() {
                                     <p className="text-xs text-white/30 font-mono mt-2 tracking-widest">ID: #{memberId}</p>
                                 </div>
                                 <div className="bg-white/95 p-4 rounded-2xl shadow-inner flex items-center justify-center backdrop-blur-sm">
-                                    {/* QR Code placeholder */}
-                                    <div className="w-20 h-20 md:w-28 md:h-28 bg-[var(--color-primary)]/5 rounded-xl flex items-center justify-center border border-dashed border-[var(--color-primary)]/20">
-                                        <div className="flex flex-col items-center gap-1">
-                                            <span className="material-symbols-outlined text-[var(--color-primary)] text-3xl font-bold">qr_code_2</span>
-                                            <span className="text-[9px] font-bold text-[var(--color-primary)] uppercase tracking-tighter opacity-60">{memberId}</span>
+                                    <div className="w-20 h-20 md:w-28 md:h-28 bg-white rounded-xl flex items-center justify-center border border-dashed border-slate-200 overflow-hidden">
+                                        <div className="flex flex-col items-center gap-1 w-full h-full p-2">
+                                            <img src={qrDataUrl} alt="QR Code" className="w-full h-full object-contain" />
                                         </div>
                                     </div>
                                 </div>

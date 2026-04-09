@@ -6,6 +6,7 @@ import MobileNav from "@/components/layout/MobileNav";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
+import { NavProvider } from "../../components/providers/NavProvider";
 
 export default async function DashboardLayout({
     children,
@@ -42,18 +43,20 @@ export default async function DashboardLayout({
     }
 
     return (
-        <div className="flex h-screen overflow-hidden bg-[var(--bg-app)] text-[var(--text-main)] transition-colors duration-500">
-            <Sidebar
-                userRole={session.user.role as "ADMIN" | "OWNER" | "MANAGER" | "EMPLOYEE"}
-                branchName={branchName}
-            />
-            <main className="flex-1 overflow-y-auto pb-20 lg:pb-0 relative">
-                <Header title="Dashboard" />
-                <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto animate-fade-in">
-                    {children}
-                </div>
-            </main>
-            <MobileNav />
-        </div>
+        <NavProvider>
+            <div className="flex h-screen overflow-hidden bg-[var(--bg-app)] text-[var(--text-main)] transition-colors duration-500">
+                <Sidebar
+                    userRole={session.user.role as "ADMIN" | "OWNER" | "MANAGER" | "EMPLOYEE"}
+                    branchName={branchName}
+                />
+                <main className="flex-1 overflow-y-auto pb-20 lg:pb-0 relative">
+                    <Header title="Dashboard" />
+                    <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto animate-fade-in">
+                        {children}
+                    </div>
+                </main>
+                <MobileNav />
+            </div>
+        </NavProvider>
     );
 }
