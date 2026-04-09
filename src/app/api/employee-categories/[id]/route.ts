@@ -7,7 +7,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     if (session.user.role !== "OWNER" && session.user.role !== "ADMIN") {
-        return NextResponse.json({ error: "Only Owners and Admins can modify categories." }, { status: 403 });
+        return NextResponse.json({ error: "Only Owners and Admins can modify category configuration." }, { status: 403 });
     }
 
     const { id } = await params;
@@ -18,9 +18,14 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         return NextResponse.json({ error: "Category name is required." }, { status: 400 });
     }
 
+    const where: any = { id };
+    if (session.user.role === 'OWNER') {
+        where.branch = { businessId: session.user.businessId };
+    }
+
     try {
         const category = await prisma.employeeCategory.update({
-            where: { id },
+            where,
             data: {
                 name: name.trim(),
                 description: description?.trim() || null,
@@ -28,7 +33,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         });
         return NextResponse.json(category);
     } catch {
-        return NextResponse.json({ error: "Category not found." }, { status: 404 });
+        return NextResponse.json({ error: "Category not found or access denied." }, { status: 404 });
     }
 }
 
@@ -37,23 +42,28 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     if (session.user.role !== "OWNER" && session.user.role !== "ADMIN") {
-        return NextResponse.json({ error: "Only Owners and Admins can delete categories." }, { status: 403 });
+        return NextResponse.json({ error: "Critical Violation: Only Business Owners can delete staff roles." }, { status: 403 });
     }
 
     const { id } = await params;
+
+    const where: any = { id };
+    if (session.user.role === 'OWNER') {
+        where.branch = { businessId: session.user.businessId };
+    }
 
     // Check if any employees are assigned to this category
     const employeeCount = await prisma.employee.count({ where: { categoryId: id } });
     if (employeeCount > 0) {
         return NextResponse.json({ 
-            error: `Cannot delete: ${employeeCount} employee(s) are assigned to this category. Reassign them first.` 
+            error: `Cannot delete: ${employeeCount} employee(s) are using this role. Please reassign them first.` 
         }, { status: 409 });
     }
 
     try {
-        await prisma.employeeCategory.delete({ where: { id } });
+        await prisma.employeeCategory.delete({ where });
         return NextResponse.json({ success: true });
     } catch {
-        return NextResponse.json({ error: "Category not found." }, { status: 404 });
+        return NextResponse.json({ error: "Category not found or access denied." }, { status: 404 });
     }
 }

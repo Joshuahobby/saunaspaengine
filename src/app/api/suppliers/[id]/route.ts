@@ -12,15 +12,19 @@ export async function PUT(
         const { user, error } = await apiAuth(["MANAGER", "ADMIN", "OWNER"]);
         if (error) return error;
 
-        if (!user!.branchId) {
-            return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
-        }
-
         const body = await req.json();
         const { name, email, phone, category, address, notes, status } = body;
 
+        const where: any = { id };
+        if (user!.role === 'OWNER' || user!.role === 'ADMIN') {
+            where.branch = { businessId: user!.businessId };
+        } else {
+            if (!user!.branchId) return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
+            where.branchId = user!.branchId;
+        }
+
         const supplier = await prisma.supplier.update({
-            where: { id, branchId: user!.branchId },
+            where,
             data: {
                 ...(name && { name: String(name).trim() }),
                 ...(email !== undefined && { email: email ? String(email).trim() : null }),
@@ -43,15 +47,20 @@ export async function DELETE(
 ) {
     return apiHandler(async () => {
         const { id } = await params;
-        const { user, error } = await apiAuth(["MANAGER", "ADMIN", "OWNER"]);
+        // Only Business Owners or Platform Admins can permanently delete suppliers
+        const { user, error } = await apiAuth(["ADMIN", "OWNER"]);
         if (error) return error;
 
-        if (!user!.branchId) {
-            return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
+        const where: any = { id };
+        if (user!.role === 'OWNER' || user!.role === 'ADMIN') {
+            where.branch = { businessId: user!.businessId };
+        } else {
+            // Managers can't delete anyway per apiAuth above, but keep it safe
+            where.branchId = user!.branchId;
         }
 
         await prisma.supplier.delete({
-            where: { id, branchId: user!.branchId },
+            where,
         });
 
         return NextResponse.json({ success: true });

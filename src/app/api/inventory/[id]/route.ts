@@ -11,15 +11,19 @@ export async function PUT(
         const { user, error } = await apiAuth(["MANAGER", "ADMIN", "OWNER"]);
         if (error) return error;
 
-        if (!user!.branchId) {
-            return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
-        }
-
         const body = await req.json();
         const { productName, stockCount, minThreshold, unit, supplierId } = body;
 
+        const where: any = { id };
+        if (user!.role === 'OWNER' || user!.role === 'ADMIN') {
+            where.branch = { businessId: user!.businessId };
+        } else {
+            if (!user!.branchId) return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
+            where.branchId = user!.branchId;
+        }
+
         const item = await prisma.inventory.update({
-            where: { id, branchId: user!.branchId },
+            where,
             data: {
                 ...(productName && { productName: String(productName).trim() }),
                 ...(stockCount !== undefined && { stockCount: parseInt(stockCount) }),
@@ -39,15 +43,20 @@ export async function DELETE(
 ) {
     return apiHandler(async () => {
         const { id } = await params;
-        const { user, error } = await apiAuth(["MANAGER", "ADMIN", "OWNER"]);
+        // Only Business Owners or Platform Admins can permanently delete inventory items
+        const { user, error } = await apiAuth(["ADMIN", "OWNER"]);
         if (error) return error;
 
-        if (!user!.branchId) {
-            return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
+        const where: any = { id };
+        if (user!.role === 'OWNER' || user!.role === 'ADMIN') {
+            where.branch = { businessId: user!.businessId };
+        } else {
+            // Managers can't delete anyway per apiAuth above, but keep it safe
+            where.branchId = user!.branchId;
         }
 
         await prisma.inventory.delete({
-            where: { id, branchId: user!.branchId },
+            where,
         });
 
         return NextResponse.json({ success: true });
@@ -61,12 +70,8 @@ export async function PATCH(
 ) {
     return apiHandler(async () => {
         const { id } = await params;
-        const { user, error } = await apiAuth(["MANAGER", "ADMIN", "OWNER"]);
+        const { user, error } = await apiAuth(["MANAGER", "ADMIN", "OWNER", "RECEPTIONIST"]);
         if (error) return error;
-
-        if (!user!.branchId) {
-            return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
-        }
 
         const body = await req.json();
         const { addStock, notes } = body;
@@ -77,10 +82,18 @@ export async function PATCH(
 
         const quantity = parseInt(addStock);
 
+        const where: any = { id };
+        if (user!.role === 'OWNER' || user!.role === 'ADMIN') {
+            where.branch = { businessId: user!.businessId };
+        } else {
+            if (!user!.branchId) return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
+            where.branchId = user!.branchId;
+        }
+
         // Use a transaction to update stock and create log atomically
         const [item] = await prisma.$transaction([
             prisma.inventory.update({
-                where: { id, branchId: user!.branchId },
+                where,
                 data: {
                     stockCount: { increment: quantity },
                 },
@@ -92,7 +105,7 @@ export async function PATCH(
                     quantity,
                     notes: notes ? String(notes).trim() : `Restocked ${quantity} units`,
                     performedBy: user!.id,
-                    branchId: user!.branchId,
+                    branchId: user!.branchId || "",
                 },
             }),
         ]);

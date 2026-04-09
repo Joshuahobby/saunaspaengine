@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
                     where: { 
                         status: "ACTIVE",
                         OR: [
-                            { branchId: session.user.branchId }, // Local branch membership
+                            { category: { branchId: session.user.branchId } }, // Local branch membership
                             { category: { isGlobal: true } }   // Or a global membership from another branch
                         ]
                     },

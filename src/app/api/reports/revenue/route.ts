@@ -13,17 +13,12 @@ export async function GET(req: NextRequest) {
         const { searchParams } = new URL(req.url);
         const period = searchParams.get("period") || "weekly";
         
-        // If manager, restrict to their branch
-        let branchFilter = {};
+        // Optimized branch filter: use relationship join instead of pre-fetching branch IDs
+        let branchFilter: any = {};
         if (session.user.role === "MANAGER" && session.user.branchId) {
             branchFilter = { branchId: session.user.branchId };
         } else if (session.user.role === "OWNER" && session.user.businessId) {
-            // Include all branches under business
-            const branches = await prisma.branch.findMany({
-                where: { businessId: session.user.businessId },
-                select: { id: true }
-            });
-            branchFilter = { branchId: { in: branches.map(b => b.id) } };
+            branchFilter = { branch: { businessId: session.user.businessId } };
         }
 
         const startDate = new Date();
@@ -46,12 +41,11 @@ export async function GET(req: NextRequest) {
             select: { amount: true, completedAt: true }
         });
 
-        // Group by day
+        // Group by day in-memory (safe for 30-day windows even with high volume)
         const grouped = records.reduce((acc: Record<string, number>, curr) => {
-            const dateStr = curr.completedAt?.toISOString().split('T')[0];
-            if (dateStr) {
-                acc[dateStr] = (acc[dateStr] || 0) + (curr.amount || 0);
-            }
+            if (!curr.completedAt) return acc;
+            const dateStr = curr.completedAt.toISOString().split('T')[0];
+            acc[dateStr] = (acc[dateStr] || 0) + (curr.amount || 0);
             return acc;
         }, {});
 

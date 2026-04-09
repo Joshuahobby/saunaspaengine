@@ -40,6 +40,17 @@ export async function deleteClient(id: string) {
     }
 
     try {
+        // Integrity check: If OWNER, ensure client belongs to their business
+        if (role === "OWNER") {
+            const client = await prisma.client.findUnique({
+                where: { id },
+                include: { branch: { select: { businessId: true } } }
+            });
+            if (!client || client.branch.businessId !== session.user.businessId) {
+                return { error: "Security Violation: You do not have permission to delete this record." };
+            }
+        }
+
         await prisma.client.delete({
             where: { id }
         });

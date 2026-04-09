@@ -129,9 +129,63 @@ export async function POST(request: NextRequest) {
         }
 
         // 2. Normal Check-in: Create a new service record
-        const service = await prisma.service.findUnique({ where: { id: serviceId } });
+        const [service, client, branch] = await Promise.all([
+            prisma.service.findUnique({ where: { id: serviceId } }),
+            prisma.client.findUnique({ 
+                where: { id: clientId },
+                include: { branch: { select: { businessId: true } } }
+            }),
+            prisma.branch.findUnique({
+                where: { id: session.user.branchId },
+                select: { businessId: true }
+            })
+        ]);
+
         if (!service) {
             return NextResponse.json({ error: "Service not found" }, { status: 404 });
+        }
+        if (!client || !branch) {
+            return NextResponse.json({ error: "Client or Branch not found" }, { status: 404 });
+        }
+
+        // Integrity Check: Client must belong to the same business
+        if (client.branch.businessId !== branch.businessId) {
+            return NextResponse.json({ error: "Client does not belong to this business network" }, { status: 403 });
+        }
+
+        // 3. Proactive Membership Validation
+        if (paymentMode === "MEMBERSHIP") {
+            const membership = await (prisma.membership as any).findFirst({
+                where: {
+                    clientId,
+                    status: "ACTIVE",
+                    OR: [
+                        { category: { branchId: session.user.branchId } },
+                        { category: { isGlobal: true } }
+                    ],
+                    AND: [
+                        {
+                            OR: [
+                                { endDate: null },
+                                { endDate: { gte: new Date() } }
+                            ]
+                        },
+                        {
+                            OR: [
+                                { balance: null },
+                                { balance: { gt: 0 } }
+                            ]
+                        }
+                    ]
+                },
+                include: { category: true }
+            });
+
+            if (!membership) {
+                return NextResponse.json({ 
+                    error: "No active membership found with remaining balance for this branch." 
+                }, { status: 400 });
+            }
         }
 
         const record = await prisma.serviceRecord.create({

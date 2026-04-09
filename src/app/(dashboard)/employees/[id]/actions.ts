@@ -66,6 +66,17 @@ export async function deleteEmployeeAction(id: string) {
     }
 
     try {
+        // Integrity check: If OWNER, ensure employee belongs to their business
+        if (session.user.role === "OWNER") {
+            const employee = await prisma.employee.findUnique({
+                where: { id },
+                include: { branch: { select: { businessId: true } } }
+            });
+            if (!employee || employee.branch.businessId !== session.user.businessId) {
+                return { error: "Security Violation: You do not have permission to remove this staff record." };
+            }
+        }
+
         await prisma.employee.delete({
             where: { id }
         });

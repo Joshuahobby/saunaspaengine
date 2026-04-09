@@ -53,7 +53,8 @@ export async function DELETE(
 ) {
     return apiHandler(async () => {
         const { id } = await params;
-        const { user, error } = await apiAuth(["MANAGER", "OWNER", "ADMIN", "RECEPTIONIST"]);
+        // Only Business Owners or Platform Admins can permanently delete services
+        const { user, error } = await apiAuth(["OWNER", "ADMIN"]);
         if (error) return error;
 
         const whereClause: { id: string; branchId?: string; branch?: { businessId: string } } = { id };
@@ -65,11 +66,6 @@ export async function DELETE(
             } else {
                 return NextResponse.json({ error: "No business context found" }, { status: 403 });
             }
-        } else {
-            if (!user!.branchId) {
-                return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
-            }
-            whereClause.branchId = user!.branchId;
         }
 
         await prisma.service.delete({
