@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import QRCode from "qrcode";
+import React, { useState } from "react";
 import { 
     Droplets, 
     Crown, 
@@ -64,22 +63,11 @@ export default function PrintableMembershipCard({
     theme = PremiumCardThemes[0]
 }: PrintableMembershipCardProps) {
     const [shinePos, setShinePos] = useState({ x: 0, y: 0 });
-    const [qrDataUrl, setQrDataUrl] = useState<string>("");
+    // Generate QR via reliable zero-dependency external service to prevent Next.js bundle deadlocks
+    const qrImageUrl = qrCodeString 
+        ? `https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=${encodeURIComponent(qrCodeString)}&color=000000&bgcolor=FFFFFF`
+        : "";
     
-    useEffect(() => {
-        if (qrCodeString) {
-            QRCode.toDataURL(qrCodeString, {
-                margin: 0,
-                width: 128,
-                color: {
-                    dark: '#000000',
-                    light: '#ffffff'
-                }
-            })
-            .then(url => setQrDataUrl(url))
-            .catch(err => console.error("QR Code Error:", err));
-        }
-    }, [qrCodeString]);
     const memberSince = new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase();
     
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -131,10 +119,10 @@ export default function PrintableMembershipCard({
                     <div className="bg-white/10 backdrop-blur-md p-2.5 rounded-[1.5rem] shadow-2xl border border-white/20 relative group-hover:scale-105 transition-transform duration-500">
                         <div className="absolute -inset-1 bg-gradient-to-r from-white/20 to-transparent rounded-[1.6rem] z-0 blur-sm"></div>
                         <div className="relative z-10 bg-white p-2 rounded-[1.2rem] shadow-inner">
-                            {qrDataUrl ? (
+                            {qrImageUrl ? (
                                 <div className="w-16 h-16 flex items-center justify-center bg-white rounded-md">
                                     <img 
-                                        src={qrDataUrl} 
+                                        src={qrImageUrl} 
                                         alt="Client QR Code"
                                         className="w-full h-full object-contain"
                                     />
@@ -161,7 +149,7 @@ export default function PrintableMembershipCard({
                 </div>
             </div>
 
-            <style jsx global>{`
+            <style dangerouslySetInnerHTML={{ __html: `
                 #print-card-container {
                     background-color: ${theme.hex} !important;
                     box-shadow: inset 0 0 0 1000px ${theme.hex} !important;
@@ -196,7 +184,7 @@ export default function PrintableMembershipCard({
                         visibility: visible !important;
                     }
                 }
-            `}</style>
+            `}} />
         </div>
     );
 }

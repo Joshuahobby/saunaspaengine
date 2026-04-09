@@ -52,6 +52,7 @@ export default function ClientListClient({
     const searchParams = useSearchParams();
     
     const [search, setSearch] = useState(initialSearch);
+    const [isLoading, setIsLoading] = useState(false);
     const debouncedSearch = useDebounce(search, 500);
 
     const createQueryString = useCallback(
@@ -195,13 +196,13 @@ export default function ClientListClient({
                                     return (
                                         <tr key={client.id} className="group hover:bg-[var(--bg-surface-muted)]/30 transition-colors">
                                             <td className="px-6 py-5">
-                                                <Link 
-                                                    href={`/clients/${client.id}`} 
-                                                    prefetch={false} 
-                                                    className="flex items-center gap-4 group/name"
-                                                    onClick={() => {
-                                                        console.log('[DEBUG] Navigating to Profile:', client.id);
-                                                        console.log('[DEBUG] SW Status:', navigator.serviceWorker.controller ? 'Controlled' : 'Uncontrolled');
+                                                <div 
+                                                    className="flex items-center gap-4 group/name cursor-pointer"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        setIsLoading(true);
+                                                        console.log('[DEBUG] Force Navigating to Profile:', client.id);
+                                                        router.push(`/clients/${client.id}`);
                                                     }}
                                                 >
                                                     <div className={`size-10 rounded-full flex items-center justify-center font-bold shrink-0 transition-transform group-hover/name:scale-110 ${isMember ? 'bg-[var(--color-primary)]/10 text-[var(--color-primary)]' : 'bg-[var(--bg-surface-muted)] text-[var(--text-muted)] opacity-60'}`}>
@@ -211,7 +212,7 @@ export default function ClientListClient({
                                                         <p className="font-bold text-[var(--text-main)] italic group-hover/name:text-[var(--color-primary)] transition-colors">{client.fullName}</p>
                                                         <p className="text-[10px] font-bold text-[var(--text-muted)] opacity-50 uppercase tracking-widest">{client.phone || "No Phone"}</p>
                                                     </div>
-                                                </Link>
+                                                </div>
                                             </td>
                                             <td className="px-6 py-5">
                                                 <div className="flex flex-col gap-1">

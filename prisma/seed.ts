@@ -11,28 +11,30 @@ const connectionString = process.env.DATABASE_URL || "";
 let prisma: PrismaClient;
 
 try {
-  if (connectionString) {
-    const pool = new Pool({ connectionString });
-    const adapter = new PrismaNeon(pool);
-    prisma = new PrismaClient({ adapter });
-  } else {
+    // Force native prisma for seed to bypass potential driver adapter handshake issues on Windows
     prisma = new PrismaClient();
-  }
-} catch {
-  prisma = new PrismaClient();
+} catch (err) {
+    console.error("Initialization error:", err);
+    prisma = new PrismaClient();
 }
 
 async function main() {
   console.log('🌱 Starting database seeding...');
 
   try {
-    // 1. Clean up existing data (optional, but good for idempotency)
+    // 1. Clean up existing data (following dependency order)
     console.log('Cleaning up existing data...');
+    await prisma.commissionLog.deleteMany();
+    await prisma.review.deleteMany();
     await prisma.serviceRecord.deleteMany();
+    await prisma.shift.deleteMany();
+    await prisma.employeePayout.deleteMany();
     await prisma.membership.deleteMany();
     await prisma.loyaltyPoint.deleteMany();
     await prisma.safetyAlert.deleteMany();
+    await prisma.inventoryLog.deleteMany();
     await prisma.inventory.deleteMany();
+    await prisma.supplier.deleteMany();
     await prisma.broadcast.deleteMany();
     await prisma.auditLog.deleteMany();
     await prisma.service.deleteMany();
@@ -46,6 +48,7 @@ async function main() {
     await prisma.business.deleteMany();
     await prisma.platformPackage.deleteMany();
     await prisma.compliance.deleteMany();
+    await prisma.settlement.deleteMany();
 
     // 2. Setup Base Entities
     console.log('Creating Compliance and Platform Packages...');

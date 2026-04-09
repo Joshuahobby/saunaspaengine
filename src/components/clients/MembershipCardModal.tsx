@@ -136,19 +136,12 @@ export default function MembershipCardModal({
                     </div>
                 )}
 
-                <style jsx global>{`
-                    @media print {
-                        @page {
-                            size: ${isSheetMode ? 'A4 portrait' : '86mm 54mm landscape'};
-                            margin: 0;
-                        }
-                        ${isSheetMode ? `
-                            body * { visibility: hidden; }
-                            .print\\:grid, .print\\:grid * { visibility: visible; }
-                            .print\\:grid { position: fixed; left: 0; top: 0; width: 210mm; height: 297mm; }
-                        ` : ''}
-                    }
-                `}</style>
+                {/* Print Styles Injection */}
+                {isSheetMode ? (
+                    <style dangerouslySetInnerHTML={{ __html: "@media print { @page { size: A4 portrait; margin: 0; } body * { visibility: hidden; } .print\\:grid, .print\\:grid * { visibility: visible; } .print\\:grid { position: fixed; left: 0; top: 0; width: 210mm; height: 297mm; } }" }} />
+                ) : (
+                    <style dangerouslySetInnerHTML={{ __html: "@media print { @page { size: 86mm 54mm landscape; margin: 0; } }" }} />
+                )}
 
                 {/* Footer Actions */}
                 <div className="p-6 border-t border-[var(--border-muted)]/30 flex gap-4 bg-[var(--bg-surface-muted)]/50">

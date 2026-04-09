@@ -8,7 +8,12 @@ import {
     CreditCard, Award, Info, ChevronRight,
     Printer, History as LucideHistory, MapPin, Mail, Droplets
 } from "lucide-react";
-import MembershipCardModal from "@/components/clients/MembershipCardModal";
+import dynamic from "next/dynamic";
+
+const MembershipCardModal = dynamic(() => import("@/components/clients/MembershipCardModal"), { 
+    ssr: false,
+    loading: () => <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm"><span className="text-white">Loading interface...</span></div>
+});
 
 export default function ClientProfile({ client, activeMembership, loyaltyInfo, tierConfig, visitsThisMonth }: any) {
     const [isCardModalOpen, setCardModalOpen] = useState(false);

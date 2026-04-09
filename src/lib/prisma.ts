@@ -1,23 +1,17 @@
 import { PrismaClient } from "@prisma/client";
-import { PrismaNeon } from "@prisma/adapter-neon";
-import { Pool } from "@neondatabase/serverless";
 
-// Robust Singleton pattern for Prisma in Next.js/Turbopack as per @prisma/client best practices
+// Robust Singleton pattern for Prisma in Next.js
 const prismaClientSingleton = () => {
     const connectionString = process.env.DATABASE_URL || "";
     
     if (!connectionString) {
-        return new PrismaClient();
+        throw new Error("DATABASE_URL is missing. Please check your Next.js env variables.");
     }
 
-    try {
-        const pool = new Pool({ connectionString });
-        const adapter = new PrismaNeon(pool);
-        return new PrismaClient({ adapter });
-    } catch (error) {
-        console.error("[PRISMA-ADAPTER-ERROR]", error);
-        return new PrismaClient();
-    }
+    // Initialize native PrismaClient (uses Rust query engine with direct TCP pooling, bypassing buggy WS Serverless adapters)
+    return new PrismaClient({
+        datasourceUrl: connectionString
+    });
 };
 
 declare global {

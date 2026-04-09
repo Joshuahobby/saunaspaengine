@@ -10,25 +10,24 @@ export default async function EditClientPage({ params }: { params: Promise<{ id:
     const session = await auth();
     if (!session?.user) redirect("/login");
 
-    const client = await prisma.client.findUnique({
-        where: { id },
-        select: {
-            id: true,
-            fullName: true,
-            phone: true,
-            clientType: true,
-            branchId: true,
-            // Add email if it exists in schema, otherwise remove
-        }
-    });
+    const [client, branches] = await Promise.all([
+        prisma.client.findUnique({
+            where: { id },
+            select: {
+                id: true,
+                fullName: true,
+                phone: true,
+                clientType: true,
+                branchId: true,
+            }
+        }),
+        prisma.branch.findMany({
+            where: session.user.role === 'OWNER' ? { businessId: session.user.businessId as string } : { id: session.user.branchId as string },
+            select: { id: true, name: true }
+        })
+    ]);
 
     if (!client) notFound();
-
-    // Fetch branches for context (optional, but good for the form)
-    const branches = await prisma.branch.findMany({
-        where: session.user.role === 'OWNER' ? { businessId: session.user.businessId as string } : { id: session.user.branchId as string },
-        select: { id: true, name: true }
-    });
 
     return (
         <div className="max-w-3xl mx-auto space-y-8">

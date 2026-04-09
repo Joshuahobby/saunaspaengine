@@ -6,6 +6,7 @@ import { LiveCheckins } from "@/components/landing/LiveCheckins";
 import { NewsletterForm } from "@/components/landing/NewsletterForm";
 import { FaqAccordion } from "@/components/landing/FaqAccordion";
 import { auth } from "@/lib/auth";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Sauna SPA Engine — Spa & Sauna Management Platform for Rwanda",
@@ -80,11 +81,13 @@ export default async function LandingPage() {
             
             <ScrollReveal direction="left" delay={0.2} className="lg:w-1/2 relative">
               <div className="w-full aspect-[4/3] bg-[var(--bg-surface-muted)] rounded-3xl overflow-hidden shadow-2xl border border-[var(--border-main)] relative">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img 
+                <Image 
                   alt="Luxury Spa Interior showing a serene sauna room" 
                   className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-700" 
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuD377Rw1J3jJ50DFdv7DI9VFckbkX50HKLF-0MQoJ6UG7ZM7QXD5QnskGKx85GT7bGeapAnHwaf71_gIMa8Bn1IKNC9fmzjuWNDeiAOSqrfbQz-ihSJCxIBr1vXCAFeQ5_K_UuDdV43xr0rXle25Eyed_UiZBa4xqMi2gpUSnL6PGmkEGPq1aM2yw7UoZVN9BqvRbnVM0GFW4wzaEQms1Ok-WLoaHi6O6u2PFUCwzG_GcllwK7ks9mQhEtTATcLd2-kjcqhRPM2-B8S"
+                  width={800}
+                  height={600}
+                  priority
                 />
               </div>
               <LiveCheckins />

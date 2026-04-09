@@ -16,18 +16,18 @@ export default async function NewEmployeePage() {
         redirect("/employees");
     }
 
-    // Fetch categories for the role select
-    const categories = await prisma.employeeCategory.findMany({
-        orderBy: { name: "asc" }
-    });
-
-    // Fetch branches if Owner, otherwise use session branch
-    const branches = isOwner 
-        ? await prisma.branch.findMany({
-            where: { businessId: session.user.businessId as string },
-            select: { id: true, name: true }
-          })
-        : [];
+    // Fetch categories and branches in parallel
+    const [categories, branches] = await Promise.all([
+        prisma.employeeCategory.findMany({
+            orderBy: { name: "asc" }
+        }),
+        isOwner 
+            ? prisma.branch.findMany({
+                where: { businessId: session.user.businessId as string },
+                select: { id: true, name: true }
+              })
+            : Promise.resolve([])
+    ]);
 
     return (
         <div className="max-w-4xl mx-auto space-y-8">
