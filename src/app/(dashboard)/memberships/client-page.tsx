@@ -337,7 +337,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                         <div className="p-10 space-y-8">
                             <div className="flex items-center justify-between">
                                 <div className="space-y-1">
-                                    <h2 className="text-3xl font-display font-bold text-[var(--text-main)]">{editingCategory ? "Modify Pass" : "Create New Pass"}</h2>
+                                    <h2 className="text-3xl font-display font-bold text-[var(--text-main)]">{category ? "Modify Pass" : "Create New Pass"}</h2>
                                     <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Defining access mechanics for your business</p>
                                 </div>
                                 <button onClick={onClose} className="size-12 rounded-full bg-[var(--bg-surface-muted)]/10 flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">

@@ -19,7 +19,7 @@ export const metadata = {
 };
 
 export default async function StaffHubPage(props: {
-    searchParams: Promise<{ tab?: string; branchId?: string; q?: string; status?: string }>;
+    searchParams: Promise<{ [key: string]: string | undefined }>;
 }) {
     const searchParams = await props.searchParams;
     const session = await auth();

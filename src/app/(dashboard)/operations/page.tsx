@@ -23,7 +23,7 @@ export const metadata = {
 };
 
 export default async function OperationsHubPage(props: {
-    searchParams: Promise<{ tab?: string }>;
+    searchParams: Promise<{ [key: string]: string | undefined }>;
 }) {
     const searchParams = await props.searchParams;
     const session = await auth();

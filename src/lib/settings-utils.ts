@@ -51,7 +51,7 @@ export const getEffectiveSettings = cache(async (branchId: string): Promise<Effe
 /**
  * Resolves global corporate settings when no branch is selected.
  */
-export const getGlobalBusinessSettings = cache(async (businessId: string) => {
+export const getGlobalBusinessSettings = cache(async (businessId: string): Promise<EffectiveSettings> => {
     const biz = await prisma.business.findUnique({
         where: { id: businessId },
     });
@@ -62,11 +62,15 @@ export const getGlobalBusinessSettings = cache(async (businessId: string) => {
 
     return {
         name: biz.name,
+        businessName: biz.name,
+        branchName: "Global Dashboard",
+        
         taxId: biz.taxId,
         taxLabel: biz.taxLabel ?? "VAT",
         logo: biz.logo,
         primaryColor: biz.primaryColor ?? "#fbbf24",
         currency: biz.currency ?? "RWF",
         timezone: biz.timezone ?? "Africa/Kigali",
+        businessHours: null,
     };
 });

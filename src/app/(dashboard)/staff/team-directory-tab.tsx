@@ -30,7 +30,7 @@ export default async function TeamDirectoryTab({
     const employees = await prisma.employee.findMany({
         where: { 
             branchId: { in: authorizedBranchIds },
-            status: viewStatus,
+            status: viewStatus as any,
             ...(searchTerm ? {
                 OR: [
                     { fullName: { contains: searchTerm, mode: 'insensitive' } },
@@ -72,7 +72,7 @@ export default async function TeamDirectoryTab({
                     {session.user.role === 'OWNER' && businessBranches.length > 0 && (
                         <BranchFilter 
                             branches={businessBranches.map(b => ({ id: b.id, name: b.name }))}
-                            activeBranchId={activeBranchId}
+                            activeBranchId={activeBranchId ?? undefined}
                         />
                     )}
                     <div className="relative flex-1 lg:w-80">

@@ -27,6 +27,9 @@ export default async function RegionalCompliancePage({
     // Fetch Global Business Data
     const globalBiz = await getGlobalBusinessSettings(session.user.businessId!);
     
+    // Fetch Branch Settings if active
+    const branchSettings = context.activeBranchId ? await getEffectiveSettings(context.activeBranchId) : null;
+    
     // Fetch Regional Compliance Presets
     const allRegions = await db.compliance.findMany({
         orderBy: { region: "asc" }
@@ -166,15 +169,15 @@ export default async function RegionalCompliancePage({
                                     </div>
                                     <div>
                                         <h3 className="text-2xl font-bold font-serif">Fiscal Details</h3>
-                                        <p className="text-[10px] font-black tracking-widest text-[var(--text-muted)] uppercase opacity-60">Location: {context.activeBranchName}</p>
+                                        <p className="text-[10px] font-black tracking-widest text-[var(--text-muted)] uppercase opacity-60">Location: {branchSettings?.branchName || "Main Office"}</p>
                                     </div>
                                 </div>
 
                                 <TaxSettingsForm 
                                     branchId={context.activeBranchId} 
                                     initialData={{
-                                        taxId: context.branchSettings?.taxId || null,
-                                        taxLabel: context.branchSettings?.taxLabel || "VAT",
+                                        taxId: branchSettings?.taxId || null,
+                                        taxLabel: branchSettings?.taxLabel || "VAT",
                                         corporateTaxId: globalBiz.taxId,
                                         corporateTaxLabel: globalBiz.taxLabel || "VAT"
                                     }} 
