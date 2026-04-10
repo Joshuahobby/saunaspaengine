@@ -1,268 +1,326 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { format, formatDistanceToNow } from "date-fns";
 import { 
     User, Phone, Calendar, Edit, 
     CreditCard, Award, Info, 
     Printer, History as LucideHistory, Mail, Droplets,
-    Activity, TrendingUp, Sparkles, Fingerprint, Clock
+    Activity, TrendingUp, Sparkles, Fingerprint, Clock,
+    ChevronRight, Zap, Heart, AlertCircle, MessageSquare, PlusCircle,
+    Star, Target, ShieldCheck, Eye
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { formatCurrency } from "@/lib/utils";
+import { updateClientNotes } from "./actions";
 
 const MembershipCardModal = dynamic(() => import("@/components/clients/MembershipCardModal"), { 
     ssr: false,
-    loading: () => <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm"><span className="text-white font-serif italic">Initializing Premium Interface...</span></div>
+    loading: () => <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm"><span className="text-white font-serif font-bold text-sm">Synchronizing...</span></div>
 });
+
+// Simple Sparkline Component 
+const VelocitySparkline = ({ data }: { data: number[] }) => {
+    const max = Math.max(...data, 1);
+    const min = Math.min(...data);
+    const range = max - min || 1;
+    const points = data.map((v, i) => `${(i / (data.length - 1)) * 40},${15 - ((v - min) / range) * 15}`).join(" ");
+    
+    return (
+        <svg className="w-10 h-4 ml-2 opacity-50 overflow-visible" viewBox="0 0 40 15">
+            <polyline fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" points={points} />
+        </svg>
+    );
+};
 
 export default function ClientProfile({ client, activeMembership, loyaltyInfo, tierConfig, visitsThisMonth, intelligence }: any) {
     const [isCardModalOpen, setCardModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState<"history" | "pulse">("history");
+    const [notes, setNotes] = useState(client.notes || "");
+    const [isSaving, setIsSaving] = useState(false);
 
     const qrCodePayload = `spa-client:${client.id}`;
 
+    // Handle Notes Save
+    const handleSaveNotes = useCallback(async (val: string) => {
+        setIsSaving(true);
+        await updateClientNotes(client.id, val);
+        setIsSaving(false);
+    }, [client.id]);
+
+    const healthConfig = {
+        ACTIVE: { label: "ACTIVE", color: "text-emerald-400", bg: "bg-emerald-500/5", border: "border-emerald-500/10", icon: Heart },
+        DRIFTING: { label: "DRIFTING", color: "text-amber-400", bg: "bg-amber-500/5", border: "border-amber-500/10", icon: Activity },
+        AT_RISK: { label: "AT RISK", color: "text-rose-400", bg: "bg-rose-500/5", border: "border-rose-500/10", icon: AlertCircle }
+    }[intelligence.relationshipHealth as 'ACTIVE' | 'DRIFTING' | 'AT_RISK'];
+
+    const getSentiment = (rating: number) => {
+        if (rating >= 4.5) return "LOYALIST";
+        if (rating >= 3.5) return "SATISFIED";
+        if (rating > 0) return "CONCERN";
+        return "NEUTRAL";
+    };
+
     return (
-        <div className="space-y-8 max-w-[1700px] mx-auto pb-20 px-4 lg:px-10">
-            {/* Elegant Strategy Header */}
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 relative overflow-hidden bg-white/[0.02] border border-white/[0.05] p-10 rounded-[40px] backdrop-blur-3xl shadow-2xl">
-                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--color-primary)] opacity-[0.03] blur-[100px] pointer-events-none" />
-                
-                <div className="flex items-center gap-8 relative z-10">
+        <div className="space-y-6 max-w-[1600px] mx-auto pb-10 px-4 lg:px-8">
+            {/* Compact Header */}
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 bg-[var(--bg-card)] border border-[var(--border-main)] p-5 rounded-[24px] relative overflow-hidden shadow-sm">
+                <div className="flex flex-col sm:flex-row items-center gap-6 relative z-10">
                     <motion.div 
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        className={`size-24 rounded-3xl flex items-center justify-center text-4xl font-serif font-black italic shadow-2xl border-2 ${tierConfig.bg} ${tierConfig.color} ${tierConfig.border}`}
+                        initial={{ scale: 0.9 }}
+                        animate={{ scale: 1 }}
+                        className={`size-20 rounded-[20px] flex items-center justify-center text-3xl font-serif font-bold border ${tierConfig.bg} ${tierConfig.color} ${tierConfig.border}`}
                     >
                         {client.fullName.charAt(0).toUpperCase()}
                     </motion.div>
-                    <div className="space-y-2">
-                        <div className="flex flex-wrap items-center gap-4">
-                            <h1 className="text-4xl lg:text-5xl font-serif font-black italic tracking-tighter text-white">
+                    
+                    <div className="space-y-2 text-center sm:text-left">
+                        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4">
+                            <h1 className="text-2xl lg:text-3xl font-serif font-bold tracking-tight text-[var(--text-main)]">
                                 {client.fullName}
                             </h1>
-                            {activeMembership && (
-                                <span className={`px-4 py-1 rounded-full border text-[9px] font-black uppercase tracking-[0.2em] shadow-lg ${tierConfig.bg} ${tierConfig.color} ${tierConfig.border}`}>
-                                    {tierConfig.icon} {loyaltyInfo?.tier || "BRONZE"} ELITE
-                                </span>
-                            )}
+                            <div className={`flex items-center gap-2 px-3 py-1 rounded-lg border text-[10px] font-bold uppercase tracking-wider ${tierConfig.bg} ${tierConfig.color} ${tierConfig.border}`}>
+                                {tierConfig.icon} {loyaltyInfo?.tier || "BRONZE"}
+                            </div>
+                            <div className="flex items-center gap-1.5 px-3 py-1 bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/10 rounded-lg text-[9px] font-bold uppercase tracking-widest shadow-lg">
+                                <Target className="size-3" />
+                                SUGGESTED: {intelligence.suggestedService}
+                            </div>
                         </div>
-                        <div className="flex items-center gap-4 text-[var(--text-muted)] text-[10px] uppercase font-black tracking-widest opacity-40 italic">
-                            <span className="flex items-center gap-2 px-3 py-1 bg-white/[0.03] rounded-full border border-white/[0.05]">
-                                <Fingerprint className="size-3" />
-                                {client.id}
+                        
+                        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-[var(--text-muted)] text-[9px] font-bold uppercase tracking-wider">
+                            <span className="flex items-center gap-2 px-2 py-1 bg-[var(--bg-surface-muted)] rounded-md border border-[var(--border-muted)]">
+                                <Fingerprint className="size-3 opacity-40 text-[var(--color-primary)]" />
+                                {client.id.slice(0, 8)}
                             </span>
-                            <span className="flex items-center gap-2 px-3 py-1 bg-white/[0.03] rounded-full border border-white/[0.05]">
-                                <Calendar className="size-3" />
-                                Joined {format(new Date(client.createdAt), 'MMM yyyy')}
+                            <span className="flex items-center gap-2 px-2 py-1 bg-[var(--bg-surface-muted)] rounded-md border border-[var(--border-muted)]">
+                                <Calendar className="size-3 opacity-40 text-[var(--color-primary)]" />
+                                JOINED {format(new Date(client.createdAt), 'MMM yyyy')}
                             </span>
+                            <div className={`flex items-center gap-2 px-2 py-1 ${healthConfig.bg} ${healthConfig.color} border border-[var(--border-muted)] rounded-md`}>
+                                <healthConfig.icon className="size-3" />
+                                {healthConfig.label}
+                            </div>
+                            {intelligence.avgRating > 0 && (
+                                <div className="flex items-center gap-2 px-2 py-1 bg-yellow-500/5 text-yellow-600 dark:text-yellow-500/80 border border-yellow-500/10 rounded-md">
+                                    <Star className="size-3 fill-yellow-500/40" />
+                                    {getSentiment(intelligence.avgRating)} ({intelligence.avgRating.toFixed(1)})
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
                 
-                <div className="flex items-center gap-4 relative z-10">
+                <div className="flex items-center gap-3 w-full lg:w-auto mt-4 lg:mt-0 relative z-10">
+                    {client.membershipCardUrl && (
+                        <div className="relative group cursor-pointer" onClick={() => setCardModalOpen(true)}>
+                            <div className="w-24 h-14 rounded-lg overflow-hidden border border-[var(--border-main)] shadow-sm group-hover:border-[var(--color-primary)]/50 transition-all">
+                                <img 
+                                    src={client.membershipCardUrl} 
+                                    alt="Membership Card" 
+                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                />
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
+                                    <Eye className="size-4 text-white" />
+                                </div>
+                            </div>
+                            <div className="absolute -top-1 -right-1 size-3 bg-emerald-500 rounded-full border-2 border-[var(--bg-card)] shadow-sm" />
+                        </div>
+                    )}
                     <button 
                         onClick={() => setCardModalOpen(true)}
-                        className="group flex items-center gap-3 px-8 py-4 bg-white text-black rounded-2xl hover:scale-105 active:scale-95 transition-all text-[11px] font-black uppercase tracking-widest shadow-2xl"
+                        className="flex-1 lg:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-[var(--text-main)] text-[var(--bg-card)] rounded-xl hover:opacity-90 transition-all text-[10px] font-bold uppercase tracking-wider shadow-lg"
                     >
                         <Printer className="size-4" />
-                        Print Access Card
+                        {client.membershipCardUrl ? 'Manage Card' : 'Membership Card'}
                     </button>
                     <Link 
                         href={`/clients/${client.id}/edit`}
-                        className="flex items-center justify-center size-14 bg-white/[0.03] text-white border border-white/[0.08] rounded-2xl hover:bg-white/[0.08] transition-all hover:rotate-12"
+                        className="flex items-center justify-center size-11 bg-[var(--bg-surface-muted)] text-[var(--text-main)] border border-[var(--border-main)] rounded-xl hover:bg-[var(--color-primary-muted)] transition-all"
                     >
-                        <Edit className="size-5" />
+                        <Edit className="size-4" />
                     </Link>
                 </div>
             </div>
 
-            {/* Intelligence Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {[
-                    { label: "Lifetime Yield", value: formatCurrency(intelligence.ltv), icon: "payments", color: "text-emerald-500", sub: "Gross Portfolio Contribution" },
-                    { label: "Loyalty Quotient", value: (loyaltyInfo?.points || 0).toString(), icon: "loyalty", color: "text-[var(--color-primary)]", sub: "Redeemable Capital" },
-                    { label: "Market Reach", value: intelligence.totalVisits.toString(), icon: "hub", color: "text-blue-400", sub: "Total Network Engagements" },
-                    { label: "Avg Ticket", value: formatCurrency(intelligence.avgTicket), icon: "monitoring", color: "text-amber-400", sub: "Strategy Conversion Rate" },
-                ].map((kpi, idx) => (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.1 }}
-                        key={kpi.label}
-                        className="group relative bg-white/[0.02] border border-white/[0.05] p-8 rounded-[40px] overflow-hidden hover:border-[var(--color-primary)]/20 transition-all duration-500"
-                    >
-                        <div className="flex items-center justify-between mb-6">
-                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-30 italic">{kpi.label}</span>
-                            <div className={`size-10 rounded-xl bg-white/[0.02] border border-white/[0.05] flex items-center justify-center ${kpi.color}`}>
-                                <span className="material-symbols-outlined text-xl">{kpi.icon}</span>
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                {/* Denser Stats Block */}
+                <div className="lg:col-span-3 grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    {[
+                        { label: "Net Value", value: formatCurrency(intelligence.ltv), icon: TrendingUp, color: "text-emerald-400", extra: <VelocitySparkline data={intelligence.velocityData} /> },
+                        { label: "Loyalty Points", value: (loyaltyInfo?.points || 0).toString(), icon: Award, color: "text-[var(--color-primary)]" },
+                        { label: "Visit Rate", value: intelligence.avgFrequency > 0 ? `${intelligence.avgFrequency}d` : "SINGLE", icon: Activity, color: "text-blue-400" },
+                        { label: "Favorite", value: intelligence.favoriteService, icon: Sparkles, color: "text-orange-400" },
+                    ].map((kpi, idx) => (
+                        <div
+                            key={kpi.label}
+                            className="bg-[var(--bg-card)] border border-[var(--border-main)] p-5 rounded-[20px] group hover:border-[var(--color-primary)]/20 transition-all shadow-sm"
+                        >
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">{kpi.label}</span>
+                                <div className="flex items-center">
+                                    {kpi.extra}
+                                    <kpi.icon className={`size-4 ${kpi.color} ml-2`} />
+                                </div>
                             </div>
+                            <h3 className={`font-serif font-bold text-[var(--text-main)] leading-tight ${kpi.label === 'Favorite' ? 'text-lg' : 'text-xl'}`}>
+                                {kpi.value}
+                            </h3>
                         </div>
-                        <h3 className={`text-4xl font-serif font-black italic tracking-tighter mb-2 ${kpi.color}`}>{kpi.value}</h3>
-                        <p className="text-[9px] font-bold text-[var(--text-muted)] opacity-20 uppercase tracking-widest italic">{kpi.sub}</p>
-                    </motion.div>
-                ))}
+                    ))}
+                </div>
+
+                {/* Compact Mini Dock */}
+                <div className="bg-[var(--bg-surface-muted)] border border-[var(--border-main)] p-4 rounded-[20px] flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-visible">
+                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 rounded-xl text-[9px] font-bold uppercase tracking-wider hover:bg-[var(--color-primary)]/20 transition-all group">
+                        <PlusCircle className="size-3 group-hover:rotate-90 transition-transform" />
+                        Book
+                    </button>
+                    <button className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[var(--bg-card)] text-[var(--text-muted)] border border-[var(--border-main)] rounded-xl text-[9px] font-bold uppercase tracking-wider hover:bg-[var(--bg-surface-muted)] transition-all">
+                        <Zap className="size-3" />
+                        Reward
+                    </button>
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-                {/* Profile Brief (Personal Info + Membership) */}
-                <div className="space-y-8">
-                    <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="bg-white/[0.02] border border-white/[0.05] rounded-[40px] p-10 backdrop-blur-3xl shadow-xl">
-                        <div className="flex items-center justify-between border-b border-white/[0.05] pb-8 mb-8">
-                            <h2 className="text-xl font-serif font-black italic tracking-tight text-white/90">Personal Intelligence</h2>
-                            <User className="size-5 text-[var(--color-primary)]" />
-                        </div>
-                        <div className="space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                {/* Left: Attributes & Notes Sidebar */}
+                <div className="lg:col-span-3 space-y-6">
+                    <div className="bg-[var(--bg-card)] border border-[var(--border-main)] p-6 rounded-[24px shadow-sm">
+                        <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] mb-6 border-b border-[var(--border-muted)] pb-3">Client Profile</h2>
+                        <div className="space-y-6">
                             {[
-                                { label: "Contact Channel", val: client.phone, icon: Phone },
-                                { label: "Digital Address", val: client.email || "NOT_DECLARED", icon: Mail },
-                                { label: "Favorite Service", val: intelligence.favoriteService, icon: Sparkles, highlight: true },
-                            ].map((item, i) => (
-                                <div key={i} className="flex items-start gap-4 group">
-                                    <div className="size-10 rounded-2xl bg-white/[0.02] border border-white/[0.05] flex items-center justify-center text-[var(--text-muted)] group-hover:text-[var(--color-primary)] transition-colors">
-                                        <item.icon className="size-4" />
-                                    </div>
-                                    <div>
-                                        <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-30 italic mb-1">{item.label}</p>
-                                        <p className={`text-sm font-bold tracking-tight ${item.highlight ? 'text-[var(--color-primary)]' : 'text-white/80'}`}>{item.val}</p>
-                                    </div>
+                                { label: "Direct Phone", value: client.phone, icon: Phone },
+                                { label: "Verified Email", value: client.email || "N/A", icon: Mail },
+                                { label: "Client Category", value: client.clientType, icon: User },
+                            ].map((attr, i) => (
+                                <div key={i} className="group">
+                                    <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] mb-1">{attr.label}</p>
+                                    <p className="text-xs font-semibold text-[var(--text-main)] opacity-80 flex items-center gap-2">
+                                        <attr.icon className="size-3 text-[var(--text-muted)] opacity-50" />
+                                        {attr.value}
+                                    </p>
                                 </div>
                             ))}
                         </div>
-                    </motion.div>
 
-                    {/* Active Membership Status */}
-                    <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }} className={`rounded-[40px] border p-10 relative overflow-hidden shadow-2xl ${activeMembership ? `${tierConfig.bg} ${tierConfig.border}` : 'bg-white/[0.01] border-white/[0.05] border-dashed'}`}>
-                        {activeMembership ? (
-                            <>
-                                <div className="absolute top-0 right-0 p-10 opacity-5">
-                                    <Award className="size-40" />
-                                </div>
-                                <div className="space-y-6 relative z-10">
-                                    <div className="flex items-center gap-3">
-                                        <CreditCard className={`size-6 ${tierConfig.color}`} />
-                                        <h2 className={`text-xl font-serif font-black italic ${tierConfig.color}`}>Active Privileges</h2>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-8">
-                                        <div>
-                                            <p className="text-[9px] font-black uppercase tracking-[0.2em] opacity-40 mb-1 italic">Entitlement Plan</p>
-                                            <p className="text-lg font-serif font-black italic text-white tracking-tight">{activeMembership.category?.name}</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-[9px] font-black uppercase tracking-[0.2em] opacity-40 mb-1 italic">Validation Expiry</p>
-                                            <p className="text-lg font-serif font-black italic text-white tracking-tight">
-                                                {activeMembership.endDate ? format(new Date(activeMembership.endDate), 'MMM d, yyyy') : 'PERPETUAL'}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className="pt-4 flex items-center gap-2">
-                                        <div className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-                                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500 italic">Access Verified</span>
-                                    </div>
-                                </div>
-                            </>
-                        ) : (
-                            <div className="text-center py-4 space-y-4">
-                                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-30 italic">No Active Entitlements</p>
-                                <button className="text-[9px] font-black uppercase tracking-widest text-[var(--color-primary)] hover:underline border border-[var(--color-primary)]/20 px-4 py-2 rounded-full bg-[var(--color-primary)]/5">Purchase Membership</button>
+                        {/* Protocol Handover Terminal */}
+                        <div className="mt-10 pt-6 border-t border-[var(--border-muted)] space-y-4">
+                            <div className="flex items-center justify-between">
+                                <h3 className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] flex items-center gap-2">
+                                    <ShieldCheck className="size-3" />
+                                    Service Protocol
+                                </h3>
+                                {isSaving && <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1 }} className="size-2 rounded-full border border-[var(--color-primary)] border-t-transparent" />}
                             </div>
-                        )}
-                    </motion.div>
+                            <textarea 
+                                value={notes}
+                                onChange={(e) => setNotes(e.target.value)}
+                                onBlur={(e) => handleSaveNotes(e.target.value)}
+                                placeholder="Add service preferences, allergies, or protocol notes here..."
+                                className="w-full h-32 bg-[var(--bg-app)] border border-[var(--border-main)] rounded-xl p-3 text-[11px] text-[var(--text-main)] placeholder:text-[var(--text-muted)] opacity-80 focus:outline-none focus:border-[var(--color-primary)]/50 transition-all resize-none font-medium leading-relaxed"
+                            />
+                            <p className="text-[9px] text-[var(--text-muted)] opacity-40 uppercase tracking-tighter">Auto-saves on blur</p>
+                        </div>
+                    </div>
+
+                    <div className="bg-[var(--bg-card)] border border-[var(--color-primary)]/10 p-5 rounded-[20px] text-[10px] font-medium text-[var(--text-muted)] leading-relaxed shadow-lg">
+                        <div className="flex items-center gap-2 text-[var(--color-primary)] mb-2 uppercase font-bold tracking-widest">
+                            <Info className="size-3" />
+                            Service Intelligence
+                        </div>
+                        Enthusiast of {intelligence.favoriteService}. 
+                        Recommended next: <span className="text-[var(--text-main)]">{intelligence.suggestedService}</span>.
+                    </div>
                 </div>
 
-                {/* Main Activity Center (Timeline vs History) */}
-                <div className="xl:col-span-2 space-y-8">
-                    <div className="bg-white/[0.02] border border-white/[0.05] rounded-[40px] overflow-hidden flex flex-col shadow-2xl min-h-[600px]">
-                        <div className="px-10 py-8 border-b border-white/[0.05] flex flex-wrap items-center justify-between gap-6">
-                            <div className="flex items-center gap-4">
-                                <div className={`px-5 py-2 rounded-2xl text-[10px] font-black uppercase tracking-widest italic cursor-pointer transition-all ${activeTab === 'history' ? 'bg-white text-black' : 'text-white/40 hover:text-white hover:bg-white/[0.05]'}`} onClick={() => setActiveTab('history')}>
-                                    Service Logs
-                                </div>
-                                <div className={`px-5 py-2 rounded-2xl text-[10px] font-black uppercase tracking-widest italic cursor-pointer transition-all ${activeTab === 'pulse' ? 'bg-[var(--color-primary)] text-white' : 'text-white/40 hover:text-white hover:bg-white/[0.05]'}`} onClick={() => setActiveTab('pulse')}>
-                                    The Pulse (Audit)
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-2 text-[var(--text-muted)] opacity-30 text-[9px] uppercase font-black tracking-widest">
-                                <Activity className="size-3" />
-                                Real-time Engagement Feed
-                            </div>
+                {/* Right: Activity Control Center */}
+                <div className="lg:col-span-9 bg-[var(--bg-card)] border border-[var(--border-main)] rounded-[24px] flex flex-col h-[650px] shadow-sm">
+                    <div className="px-6 py-4 border-b border-[var(--border-muted)] flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <button 
+                                onClick={() => setActiveTab('history')}
+                                className={`px-5 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-wider transition-all ${activeTab === 'history' ? 'bg-[var(--text-main)] text-[var(--bg-card)]' : 'text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--bg-surface-muted)]'}`}
+                            >
+                                Service History
+                            </button>
+                            <button 
+                                onClick={() => setActiveTab('pulse')}
+                                className={`px-5 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-wider transition-all ${activeTab === 'pulse' ? 'bg-[var(--text-main)] text-[var(--bg-card)]' : 'text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--bg-surface-muted)]'}`}
+                            >
+                                Activity Log
+                            </button>
                         </div>
+                        <div className="text-[var(--text-muted)] opacity-30 text-[8px] font-bold uppercase tracking-[0.2em] lg:flex items-center gap-2 hidden group cursor-default">
+                            <motion.div animate={{ opacity: [0.2, 0.5, 0.2] }} transition={{ repeat: Infinity, duration: 2 }} className="size-1.5 rounded-full bg-emerald-500" />
+                            Live Activity Feed
+                        </div>
+                    </div>
 
-                        <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
-                            <AnimatePresence mode="wait">
-                                {activeTab === "history" ? (
-                                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} key="history" className="space-y-4">
-                                        {client.serviceRecords?.length > 0 ? (
-                                            client.serviceRecords.map((record: any, idx: number) => (
-                                                <motion.div 
-                                                    initial={{ opacity: 0, x: -10 }}
-                                                    animate={{ opacity: 1, x: 0 }}
-                                                    transition={{ delay: idx * 0.05 }}
-                                                    key={record.id} 
-                                                    className="group flex justify-between items-center p-6 bg-white/[0.02] border border-white/[0.05] rounded-3xl hover:bg-white/[0.05] transition-all hover:translate-x-2"
-                                                >
-                                                    <div className="flex items-center gap-6">
-                                                        <div className="size-14 rounded-2xl bg-black/40 border border-white/5 flex items-center justify-center text-[var(--color-primary)]">
-                                                            <Droplets className="size-6" />
-                                                        </div>
-                                                        <div>
-                                                            <p className="text-lg font-serif font-black italic text-white/90 tracking-tight">{record.service?.name}</p>
-                                                            <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-40 italic mt-1">Specialist: {record.employee?.fullName || 'SYSTEM'}</p>
-                                                        </div>
+                    <div className="p-6 flex-1 custom-scrollbar overflow-y-auto">
+                        <AnimatePresence mode="wait">
+                            {activeTab === "history" ? (
+                                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} key="history" className="space-y-2">
+                                    {client.serviceRecords?.length > 0 ? (
+                                        client.serviceRecords.map((record: any) => (
+                                            <div key={record.id} className="group p-4 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl flex items-center justify-between hover:bg-[var(--border-main)] transition-all">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="size-10 rounded-lg bg-[var(--bg-card)] border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] shadow-sm">
+                                                        <Droplets className="size-4" />
                                                     </div>
-                                                    <div className="text-right">
-                                                        <p className="text-sm font-serif font-black italic text-[var(--color-primary)] tracking-tight">{formatCurrency(record.amount)}</p>
-                                                        <p className="text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-30 italic mt-1">{format(new Date(record.createdAt), 'MMM d · h:mm a')}</p>
+                                                    <div>
+                                                        <p className="text-sm font-bold text-[var(--text-main)] opacity-90">{record.service?.name}</p>
+                                                        <p className="text-[10px] font-medium text-[var(--text-muted)] mt-1 uppercase tracking-tight">
+                                                            Staff: {record.employee?.fullName || 'SYSTEM'} • {format(new Date(record.createdAt), 'MMM d, p')}
+                                                        </p>
                                                     </div>
-                                                </motion.div>
-                                            ))
-                                        ) : (
-                                            <div className="h-[400px] flex items-center justify-center text-[var(--text-muted)] text-[10px] uppercase font-black tracking-[0.3em] opacity-20 italic">No Service Manifest Detected</div>
-                                        )}
-                                    </motion.div>
-                                ) : (
-                                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} key="pulse" className="space-y-6">
-                                        {intelligence.auditLogs?.length > 0 ? (
-                                            intelligence.auditLogs.map((log: any, idx: number) => (
-                                                <motion.div 
-                                                    initial={{ opacity: 0, x: 10 }}
-                                                    animate={{ opacity: 1, x: 0 }}
-                                                    transition={{ delay: idx * 0.05 }}
-                                                    key={log.id} 
-                                                    className="flex gap-6 relative"
-                                                >
-                                                    {/* Timeline marker */}
-                                                    <div className="flex flex-col items-center">
-                                                        <div className={`size-4 rounded-full border-2 ${log.action.includes('DELETE') ? 'border-rose-500 bg-rose-500/20' : 'border-[var(--color-primary)] bg-[var(--color-primary)]/20'} z-10`} />
-                                                        <div className="w-0.5 h-full bg-white/5 absolute top-4" />
+                                                </div>
+                                                <div className="text-right">
+                                                    <p className="text-xs font-bold text-[var(--color-primary)]">{formatCurrency(record.amount)}</p>
+                                                    <div className="flex items-center justify-end gap-1.5 mt-0.5">
+                                                        <span className="text-[8px] font-bold text-emerald-500/60 uppercase tracking-tighter">SUCCESS</span>
+                                                        <div className="size-1 rounded-full bg-emerald-500/40" />
                                                     </div>
-                                                    <div className="pb-8">
-                                                        <div className="flex items-center gap-3 mb-2">
-                                                            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-40 italic">{formatDistanceToNow(new Date(log.createdAt), { addSuffix: true })}</span>
-                                                            <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md ${log.action.includes('UPDATE') ? 'bg-blue-500/10 text-blue-500' : 'bg-[var(--color-primary)]/10 text-[var(--color-primary)]'}`}>{log.action.replace('CLIENT_', '')}</span>
-                                                        </div>
-                                                        <p className="text-sm font-serif font-black italic text-white/80 tracking-tight leading-relaxed">{log.details || `Structural interaction performed by ${log.user.fullName}`}</p>
-                                                        <div className="flex items-center gap-2 mt-2">
-                                                            <Clock className="size-3 text-[var(--text-muted)] opacity-30" />
-                                                            <span className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-30 italic">{log.user.fullName}</span>
-                                                        </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="h-[200px] flex items-center justify-center text-white/10 text-[9px] font-bold uppercase tracking-widest">No visit history found</div>
+                                    )}
+                                </motion.div>
+                            ) : (
+                                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} key="pulse" className="space-y-6 pl-2">
+                                    {intelligence.auditLogs?.length > 0 ? (
+                                        intelligence.auditLogs.map((log: any, idx: number) => (
+                                            <div key={log.id} className="flex gap-6 relative">
+                                                <div className="flex flex-col items-center">
+                                                    <div className={`size-3 rounded-full border ${log.action.includes('DELETE') ? 'border-rose-500 bg-rose-500/20' : 'border-[var(--color-primary)] bg-[var(--color-primary)]/20'} z-10`} />
+                                                    {idx !== intelligence.auditLogs.length - 1 && <div className="w-px h-full bg-[var(--border-muted)] absolute top-3" />}
+                                                </div>
+                                                <div className="pb-6">
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-tighter">{formatDistanceToNow(new Date(log.createdAt), { addSuffix: true })}</span>
+                                                        <span className="text-[9px] font-bold text-[var(--color-primary)]/80 uppercase tracking-tighter">{log.action}</span>
                                                     </div>
-                                                </motion.div>
-                                            ))
-                                        ) : (
-                                            <div className="h-[400px] flex items-center justify-center text-[var(--text-muted)] text-[10px] uppercase font-black tracking-[0.3em] opacity-20 italic">No Historical Audit Trace</div>
-                                        )}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
+                                                    <p className="text-sm font-medium text-[var(--text-main)] opacity-70 leading-tight">
+                                                        {log.details || `Administrative entry recorded`}
+                                                    </p>
+                                                    <p className="text-[9px] text-[var(--text-muted)] opacity-30 mt-2 font-bold uppercase">SECURED_BY_{log.user.fullName.replace(' ', '_')}</p>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="h-[200px] flex items-center justify-center text-[var(--text-muted)] opacity-10 text-[9px] font-bold uppercase tracking-widest">No activity found</div>
+                                    )}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </div>
             </div>
 
-            {/* Membership Card Printer Modal */}
             <MembershipCardModal
                 isOpen={isCardModalOpen}
                 onClose={() => setCardModalOpen(false)}
@@ -270,23 +328,25 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                 clientId={client.id}
                 qrCodeString={qrCodePayload}
                 tier={loyaltyInfo?.tier || "BRONZE"}
+                businessName={client.branch?.business?.name || "KIZERE"}
+                branchName={client.branch?.name || "SAUNA SPA"}
             />
+
+            <style jsx global>{`
+                .custom-scrollbar::-webkit-scrollbar {
+                    width: 3px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                    background: rgba(255, 255, 255, 0.05);
+                    border-radius: 10px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                    background: rgba(255, 255, 255, 0.1);
+                }
+            `}</style>
         </div>
     );
 }
-
-const customScrollbarStyle = `
-.custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-`;

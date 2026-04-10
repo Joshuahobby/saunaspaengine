@@ -38,15 +38,15 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                  <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-primary)] opacity-[0.03] blur-[100px] pointer-events-none translate-x-1/2 -translate-y-1/2" />
                  
                 <div className="space-y-1 relative z-10">
-                    <h1 className="text-3xl lg:text-4xl font-serif font-bold text-white italic tracking-tight leading-tight">
+                    <h1 className="text-3xl lg:text-4xl font-serif font-bold text-[var(--text-main)] italic tracking-tight leading-tight">
                         System <span className="text-[var(--color-primary)]">Integrity</span> & Pulse
                     </h1>
-                    <p className="text-sm text-[var(--text-muted)] font-medium opacity-60 italic">Deep architectural diagnostic stream for the platform layer.</p>
+                    <p className="text-sm text-[var(--text-muted)] font-medium italic">Deep architectural diagnostic stream for the platform layer.</p>
                 </div>
 
                 <div className="flex items-center gap-6 relative z-10">
                     {/* System Pulse Visualizer */}
-                    <div className="hidden lg:flex items-center gap-3 px-6 py-3 rounded-2xl bg-black/40 border border-[var(--border-muted)] backdrop-blur-md">
+                    <div className="hidden lg:flex items-center gap-3 px-6 py-3 rounded-2xl bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] backdrop-blur-md">
                         <div className="flex items-end gap-1 h-6">
                             {[0.4, 0.7, 0.5, 0.9, 0.6, 0.8, 0.5, 0.3].map((h, i) => (
                                 <motion.div 
@@ -59,16 +59,16 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                         </div>
                         <div className="flex flex-col">
                             <span className="text-[7px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)] animate-pulse">Pulse Sync Active</span>
-                            <span className="text-[10px] font-black text-white/80">98.4% Efficiency</span>
+                            <span className="text-[10px] font-black text-[var(--text-main)]">98.4% Efficiency</span>
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-2 p-1 bg-black/30 rounded-xl border border-[var(--border-muted)]">
+                    <div className="flex items-center gap-2 p-1 bg-[var(--bg-app)] rounded-xl border border-[var(--border-muted)]">
                         {(["overview", "infrastructure", "logs"] as const).map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`px-4 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-[0.2em] transition-all ${activeTab === tab ? "bg-[var(--color-primary)] text-white shadow-lg" : "text-[var(--text-muted)] hover:text-white"}`}
+                                className={`px-4 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-[0.2em] transition-all ${activeTab === tab ? "bg-[var(--color-primary)] text-white shadow-lg" : "text-[var(--text-muted)] hover:text-[var(--text-main)]"}`}
                             >
                                 {tab}
                             </button>
@@ -100,8 +100,8 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                 
                                 <div className="flex justify-between items-start mb-8 relative z-10">
                                     <div className="space-y-1">
-                                        <h3 className="text-xl font-serif font-bold text-white italic">Response Resonance</h3>
-                                        <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 italic">Global latency fluctuations across the edge network.</p>
+                                        <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">Response Resonance</h3>
+                                        <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Global latency fluctuations across the edge network.</p>
                                     </div>
                                     <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[8px] font-black uppercase tracking-widest rounded-full">Optimal Range (2-14ms)</span>
                                 </div>
@@ -154,7 +154,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                 </div>
                                 <div className="flex justify-between mt-6 px-4 relative z-10 opacity-30">
                                     {["T-12h", "T-8h", "T-4h", "Current Cycle"].map((t) => (
-                                        <span key={t} className="text-[8px] font-black uppercase tracking-widest text-white">{t}</span>
+                                        <span key={t} className="text-[8px] font-black uppercase tracking-widest text-[var(--text-main)]">{t}</span>
                                     ))}
                                 </div>
                             </div>
@@ -187,34 +187,34 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                         exit={{ opacity: 0, y: -10 }}
                         className="rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 overflow-hidden shadow-sm backdrop-blur-md"
                     >
-                        <div className="p-8 border-b border-[var(--border-muted)] flex justify-between items-center bg-black/10">
+                        <div className="p-8 border-b border-[var(--border-muted)] flex justify-between items-center bg-[var(--bg-app)]/50">
                             <div className="space-y-1">
-                                <h3 className="text-xl font-serif font-bold text-white italic">System Matrix</h3>
-                                <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 italic">Live mapping of every edge and core sanctuary service.</p>
+                                <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">System Matrix</h3>
+                                <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Live mapping of every edge and core sanctuary service.</p>
                             </div>
                             <div className="flex items-center gap-4">
                                 <div className="flex items-center gap-2">
                                     <div className="size-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-                                    <span className="text-[8px] font-black text-white/50 uppercase tracking-widest">Active</span>
+                                    <span className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-widest">Active</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <div className="size-2 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
-                                    <span className="text-[8px] font-black text-white/50 uppercase tracking-widest">Degraded</span>
+                                    <span className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-widest">Degraded</span>
                                 </div>
                             </div>
                         </div>
                         <div className="overflow-x-auto">
                             <table className="w-full">
                                 <thead>
-                                    <tr className="border-b border-[var(--border-muted)]/50 bg-black/5">
+                                    <tr className="border-b border-[var(--border-muted)]/50 bg-[var(--bg-surface-muted)]/50">
                                         {["System Identity", "Region", "Latency", "Uptime (30d)", "Status", "Actions"].map((h) => (
-                                            <th key={h} className="px-8 py-4 text-left text-[8px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-50 italic">{h}</th>
+                                            <th key={h} className="px-8 py-4 text-left text-[8px] font-black uppercase tracking-widest text-[var(--text-muted)] italic">{h}</th>
                                         ))}
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-[var(--border-muted)]/50 text-white">
+                                <tbody className="divide-y divide-[var(--border-muted)]/50 text-[var(--text-main)]">
                                     {SERVICE_INFRASTRUCTURE.map((node) => (
-                                        <tr key={node.name} className="hover:bg-white/[0.02] transition-colors group">
+                                        <tr key={node.name} className="hover:bg-[var(--bg-surface-muted)]/20 transition-colors group">
                                             <td className="px-8 py-5">
                                                 <div className="flex items-center gap-4">
                                                     <div className="size-8 rounded-lg bg-[var(--bg-surface-muted)]/20 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] shadow-inner">
@@ -223,20 +223,20 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                                     <span className="text-sm font-serif font-bold italic group-hover:text-[var(--color-primary)] transition-colors">{node.name}</span>
                                                 </div>
                                             </td>
-                                            <td className="px-8 py-5 text-[10px] font-black text-white/40 uppercase tracking-widest italic">{node.region}</td>
+                                            <td className="px-8 py-5 text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">{node.region}</td>
                                             <td className="px-8 py-5">
                                                 <span className={`text-[10px] font-black italic ${parseInt(node.latency) > 30 ? 'text-amber-500' : 'text-[var(--color-primary)]'}`}>
                                                     {node.latency}
                                                 </span>
                                             </td>
-                                            <td className="px-8 py-5 text-[10px] font-black text-white/60 italic">{node.uptime}</td>
+                                            <td className="px-8 py-5 text-[10px] font-black text-[var(--text-muted)] italic">{node.uptime}</td>
                                             <td className="px-8 py-5">
                                                 <span className={`px-3 py-1 rounded-full text-[7px] font-black uppercase tracking-widest border ${node.status === 'online' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-amber-500/10 text-amber-500 border-amber-500/20'}`}>
                                                     {node.status}
                                                 </span>
                                             </td>
                                             <td className="px-8 py-5">
-                                                <button className="p-2 h-8 w-8 rounded-lg bg-black/20 border border-white/5 text-[var(--text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]/30 transition-all">
+                                                <button className="p-2 h-8 w-8 rounded-lg bg-[var(--bg-app)] border border-[var(--border-muted)] text-[var(--text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]/30 transition-all">
                                                     <span className="material-symbols-outlined text-sm">settings_ethernet</span>
                                                 </button>
                                             </td>
@@ -255,17 +255,17 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                         exit={{ opacity: 0, y: -10 }}
                         className="rounded-[2rem] border border-[var(--border-muted)] bg-black h-[600px] shadow-sm flex flex-col overflow-hidden group/console"
                     >
-                         <div className="p-8 border-b border-white/5 flex justify-between items-center bg-white/[0.02] backdrop-blur-md">
+                         <div className="p-8 border-b border-[var(--border-muted)] flex justify-between items-center bg-[var(--bg-app)]/40 backdrop-blur-md">
                             <div className="flex items-center gap-6">
-                                <div className="size-12 rounded-xl bg-white text-black flex items-center justify-center shadow-inner group-hover/console:scale-110 group-hover/console:-rotate-6 transition-transform">
+                                <div className="size-12 rounded-xl bg-[var(--text-main)] text-[var(--bg-app)] flex items-center justify-center shadow-inner group-hover/console:scale-110 group-hover/console:-rotate-6 transition-transform">
                                     <span className="material-symbols-outlined text-xl italic font-bold">terminal</span>
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-serif font-bold italic text-white">System Archetype Logs</h3>
+                                    <h3 className="text-xl font-serif font-bold italic text-[var(--text-main)]">System Archetype Logs</h3>
                                     <p className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-widest italic animate-pulse mt-0.5">Live Diagnostic Stream</p>
                                 </div>
                             </div>
-                            <button className="text-[8px] font-black text-white/40 flex items-center gap-2 hover:text-white transition-colors uppercase tracking-widest italic border border-white/10 px-4 py-2 rounded-full">
+                            <button className="text-[8px] font-black text-[var(--text-muted)] flex items-center gap-2 hover:text-[var(--text-main)] transition-colors uppercase tracking-widest italic border border-[var(--border-muted)] px-4 py-2 rounded-full">
                                 <span className="material-symbols-outlined text-sm italic font-bold">cloud_download</span> Export Diagnostic Ledger
                             </button>
                         </div>
@@ -281,9 +281,9 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                     <span className="font-black w-8 text-[var(--color-primary)]">200</span>
                                     <div className="flex items-baseline gap-4 flex-1">
                                         <span className="text-emerald-500 font-black tracking-tighter uppercase w-16">{entry.action}</span>
-                                        <span className="text-white/40 truncate italic group-hover/entry:text-white/80 transition-colors">{entry.resource}</span>
+                                        <span className="text-[var(--text-muted)] truncate italic group-hover/entry:text-[var(--text-main)] transition-colors">{entry.resource}</span>
                                     </div>
-                                    <span className="ml-auto text-white/30 font-black italic opacity-40 group-hover/entry:opacity-80 transition-opacity whitespace-nowrap">{entry.userName}</span>
+                                    <span className="ml-auto text-[var(--text-muted)] font-black italic group-hover/entry:text-[var(--text-main)] transition-opacity whitespace-nowrap">{entry.userName}</span>
                                 </motion.div>
                             )) : (
                                 <p className="text-center text-white/20 italic p-12 uppercase tracking-widest text-[9px] font-black">No diagnostic resonance detected.</p>
@@ -301,16 +301,16 @@ function DiagnosticStatCard({ title, value, trend, icon, type }: { title: string
         <div className="group relative rounded-3xl border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm backdrop-blur-md transition-all duration-700 hover:border-[var(--color-primary)]/40 overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-primary)] opacity-[0.02] rounded-full blur-3xl -mr-16 -mt-16 group-hover:opacity-[0.05] transition-opacity" />
             <div className="mb-6 flex items-center justify-between">
-                <div className="size-12 rounded-xl bg-black/20 border border-white/5 flex items-center justify-center text-[var(--color-primary)] group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-inner">
+                <div className="size-12 rounded-xl bg-[var(--bg-app)]/50 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-inner">
                     <span className="material-symbols-outlined text-xl font-black italic">{icon}</span>
                 </div>
-                <span className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest italic border ${type === 'success' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-white/5 text-[var(--text-muted)] border-white/10'}`}>
+                <span className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest italic border ${type === 'success' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-[var(--bg-surface-muted)] text-[var(--text-muted)] border-[var(--border-muted)]'}`}>
                     {trend}
                 </span>
             </div>
             <div className="space-y-0.5">
-                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-30 italic">{title}</p>
-                <h3 className="text-3xl font-serif font-black text-white tracking-tighter italic">{value}</h3>
+                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] italic">{title}</p>
+                <h3 className="text-3xl font-serif font-black text-[var(--text-main)] tracking-tighter italic">{value}</h3>
             </div>
         </div>
     );
@@ -318,14 +318,14 @@ function DiagnosticStatCard({ title, value, trend, icon, type }: { title: string
 
 function DiagnosticServiceItem({ name, status, type, latency }: { name: string, status: string, type: 'success' | 'warning', latency: string }) {
     return (
-        <div className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] hover:border-[var(--color-primary)]/20 transition-all group/node cursor-pointer">
+        <div className="flex items-center justify-between p-4 rounded-2xl bg-[var(--bg-app)]/50 border border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)] hover:border-[var(--color-primary)]/20 transition-all group/node cursor-pointer">
             <div className="flex items-center gap-4">
                 <div className={`size-10 rounded-xl flex items-center justify-center border ${type === 'success' ? 'bg-emerald-500/5 border-emerald-500/10 text-emerald-500 animate-pulse-slow' : 'bg-amber-500/5 border-amber-500/10 text-amber-500'}`}>
                     <span className="material-symbols-outlined text-base font-black italic">{type === 'success' ? 'check_circle' : 'warning'}</span>
                 </div>
                 <div className="flex flex-col">
-                    <span className="font-serif font-bold text-sm text-white/90 italic group-node:text-[var(--color-primary)] transition-colors">{name}</span>
-                    <span className="text-[8px] font-black text-white/30 uppercase tracking-widest italic">{latency} Resonance</span>
+                    <span className="font-serif font-bold text-sm text-[var(--text-main)] italic group-node:text-[var(--color-primary)] transition-colors">{name}</span>
+                    <span className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">{latency} Resonance</span>
                 </div>
             </div>
             <span className={`px-4 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest border ${type === 'success' ? 'text-emerald-500 border-emerald-500/20' : 'text-amber-500 border-amber-500/20'}`}>{status}</span>

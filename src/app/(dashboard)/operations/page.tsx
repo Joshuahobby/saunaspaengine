@@ -8,19 +8,26 @@ import { ExtraService, RecordData } from "@/types/operations";
 
 
 
+import { getActiveBranchContext } from "@/lib/branch-context";
+
 export default async function OperationsPage(props: { searchParams: Promise<{ branchId?: string }> }) {
     const searchParams = await props.searchParams;
     const session = await auth();
     if (!session?.user) redirect("/login");
-    if (!session.user.branchId && session.user.role !== 'OWNER') redirect("/login");
 
-    const branchIds = searchParams.branchId 
-        ? [searchParams.branchId]
-        : (session.user.role === 'OWNER'
-            ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string }, select: { id: true } })).map(b => b.id)
-            : [session.user.branchId as string]);
+    // Unified & Secure Branch Context Resolution
+    const { authorizedBranchIds } = await getActiveBranchContext(session, searchParams);
+    
+    // If no authorized branches found, something is wrong with the session or business
+    if (authorizedBranchIds.length === 0) {
+        return (
+            <div className="flex h-screen items-center justify-center bg-black text-white p-10 font-serif italic text-xl">
+                UNAUTHORIZED: Access to requested branch context denied.
+            </div>
+        );
+    }
 
-    const branchWhere = { in: branchIds };
+    const branchWhere = { in: authorizedBranchIds };
 
     const [records, todayRevenue, activeCount, completedCount, services, employees] = await Promise.all([
         prisma.serviceRecord.findMany({

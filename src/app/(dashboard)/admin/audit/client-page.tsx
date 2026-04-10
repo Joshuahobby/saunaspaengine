@@ -79,26 +79,26 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                  <div className="absolute top-0 left-0 w-96 h-96 bg-[var(--color-primary)] opacity-[0.02] blur-[120px] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
                  
                  <div className="space-y-1 relative z-10">
-                    <h1 className="text-3xl lg:text-4xl font-serif font-bold text-white italic tracking-tight leading-tight">
+                    <h1 className="text-3xl lg:text-4xl font-serif font-bold text-[var(--text-main)] italic tracking-tight leading-tight">
                         Audit <span className="text-[var(--color-primary)]">Integrity</span> Hub
                     </h1>
-                    <p className="text-sm text-white/40 font-medium italic opacity-60">Architectural record of platform resonance and structural shifts.</p>
+                    <p className="text-sm text-[var(--text-muted)] font-medium italic">Architectural record of platform resonance and structural shifts.</p>
                  </div>
 
                  <div className="flex items-center gap-4 relative z-10">
-                    <div className="flex items-center gap-2 p-1 bg-black/40 rounded-xl border border-white/5 backdrop-blur-md">
+                    <div className="flex items-center gap-2 p-1 bg-[var(--bg-surface-muted)] rounded-xl border border-[var(--border-muted)] backdrop-blur-md">
                         {["Logs", "Matrix"].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`px-5 py-2 rounded-lg text-[9px] font-black uppercase tracking-[0.2em] transition-all ${activeTab === tab ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20" : "text-white/40 hover:text-white"}`}
+                                className={`px-5 py-2 rounded-lg text-[9px] font-black uppercase tracking-[0.2em] transition-all ${activeTab === tab ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20" : "text-[var(--text-muted)] hover:text-[var(--text-main)]"}`}
                             >
                                 {tab === "Logs" ? "Audit Logs" : "Permissions Matrix"}
                             </button>
                         ))}
                     </div>
                     
-                    <button className="px-6 py-2.5 rounded-xl bg-white text-black text-[9px] font-black uppercase tracking-[0.2em] shadow-xl hover:scale-[1.05] active:scale-[0.98] transition-all flex items-center gap-2 group/export">
+                    <button className="px-6 py-2.5 rounded-xl bg-[var(--text-main)] text-[var(--bg-app)] text-[9px] font-black uppercase tracking-[0.2em] shadow-xl hover:scale-[1.05] active:scale-[0.98] transition-all flex items-center gap-2 group/export">
                          <span className="material-symbols-outlined text-sm">cloud_download</span>
                          Export Nexus Logs
                     </button>
@@ -117,21 +117,21 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                         {/* Filters Bar */}
                         <div className="flex flex-wrap items-center gap-4">
                             <div className="flex-1 relative min-w-[300px] group">
-                                <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[var(--color-primary)] transition-colors">search</span>
+                                <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] group-focus-within:text-[var(--color-primary)] transition-colors">search</span>
                                 <input 
-                                    className="w-full h-12 bg-black/20 border border-white/5 rounded-xl pl-12 pr-6 text-[11px] font-bold text-white placeholder:text-white/10 outline-none focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all"
+                                    className="w-full h-12 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl pl-12 pr-6 text-[11px] font-bold text-[var(--text-main)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all"
                                     placeholder="SEARCH ACTOR OR SIGNAL ENTITY..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                 />
                             </div>
                             
-                            <div className="flex items-center gap-3 bg-white/5 border border-white/5 px-4 py-2.5 rounded-xl group/filter">
-                                <span className="text-[9px] font-black text-white/20 uppercase tracking-widest italic">Actor Spectrum</span>
+                            <div className="flex items-center gap-3 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] px-4 py-2.5 rounded-xl group/filter">
+                                <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Actor Spectrum</span>
                                 <select 
                                     title="Filter by Role"
                                     aria-label="Filter logs by actor role"
-                                    className="bg-transparent border-none p-0 focus:ring-0 text-[10px] font-black text-white uppercase tracking-widest cursor-pointer outline-none"
+                                    className="bg-transparent border-none p-0 focus:ring-0 text-[10px] font-black text-[var(--text-main)] uppercase tracking-widest cursor-pointer outline-none"
                                 >
                                     <option>All Archetypes</option>
                                     <option>System Admin</option>
@@ -139,12 +139,12 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                 </select>
                             </div>
 
-                            <div className="flex items-center gap-3 bg-white/5 border border-white/5 px-4 py-2.5 rounded-xl group/filter">
-                                <span className="text-[9px] font-black text-white/20 uppercase tracking-widest italic">Signal Scope</span>
+                            <div className="flex items-center gap-3 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] px-4 py-2.5 rounded-xl group/filter">
+                                <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Signal Scope</span>
                                 <select 
                                     title="Filter by Action"
                                     aria-label="Filter logs by action type"
-                                    className="bg-transparent border-none p-0 focus:ring-0 text-[10px] font-black text-white uppercase tracking-widest cursor-pointer outline-none"
+                                    className="bg-transparent border-none p-0 focus:ring-0 text-[10px] font-black text-[var(--text-main)] uppercase tracking-widest cursor-pointer outline-none"
                                 >
                                     <option>All Action Variants</option>
                                     <option>CREATE</option>
@@ -154,24 +154,24 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                 </select>
                             </div>
 
-                            <button className="h-12 px-6 rounded-xl border border-dashed border-white/10 text-[9px] font-black text-white/40 uppercase tracking-widest hover:border-[var(--color-primary)]/30 hover:text-[var(--color-primary)] transition-all flex items-center gap-2 italic">
+                            <button className="h-12 px-6 rounded-xl border border-dashed border-[var(--border-muted)] text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest hover:border-[var(--color-primary)]/30 hover:text-[var(--color-primary)] transition-all flex items-center gap-2 italic">
                                 <span className="material-symbols-outlined text-sm">filter_alt_off</span>
                                 Reset Signal Null
                             </button>
                         </div>
 
                         {/* Immutable Log Matrix */}
-                        <div className="rounded-[2rem] border border-white/[0.05] bg-white/[0.02] backdrop-blur-sm overflow-hidden shadow-sm">
+                        <div className="rounded-[2rem] border border-[var(--border-main)] bg-[var(--bg-card)] backdrop-blur-sm overflow-hidden shadow-sm">
                             <div className="overflow-x-auto">
                                 <table className="w-full text-left border-collapse min-w-[1100px]">
                                     <thead>
-                                        <tr className="bg-black/20 border-b border-white/[0.03]">
+                                        <tr className="bg-[var(--bg-app)] border-b border-[var(--border-muted)]">
                                             {["Nexus Timing", "Resonant Actor", "Signal Signature", "Nexus Entity", "Resonance Details", "Manifest Status"].map((h) => (
-                                                <th key={h} className="px-8 py-5 text-[8px] font-black uppercase tracking-[0.2em] text-white/20 italic">{h}</th>
+                                                <th key={h} className="px-8 py-5 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] italic">{h}</th>
                                             ))}
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-white/[0.02] text-white">
+                                    <tbody className="divide-y divide-[var(--border-muted)] text-[var(--text-main)]">
                                         {logs.length > 0 ? (
                                             logs.map((log, idx) => {
                                                 const theme = getResonanceTheme(log.user.role);
@@ -181,12 +181,12 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                                         initial={{ opacity: 0, x: -5 }}
                                                         animate={{ opacity: 1, x: 0 }}
                                                         transition={{ delay: idx * 0.02 }}
-                                                        className={`group hover:bg-white/[0.02] transition-colors ${log.action === 'OVERRIDE' ? 'bg-orange-500/[0.02]' : ''}`}
+                                                        className={`group hover:bg-[var(--bg-surface-muted)] transition-colors ${log.action === 'OVERRIDE' ? 'bg-orange-500/[0.02]' : ''}`}
                                                     >
                                                         <td className="px-8 py-5">
                                                             <div className="flex flex-col gap-0.5">
-                                                                <span className="text-[10px] font-black text-white/40 uppercase tracking-tighter italic whitespace-nowrap">{format(new Date(log.createdAt), "MMM dd, yyyy")}</span>
-                                                                <span className="text-[11px] font-serif font-bold text-[var(--color-primary)] italic opacity-60 group-hover:opacity-100 transition-opacity">{format(new Date(log.createdAt), "HH:mm:ss")}</span>
+                                                                <span className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-tighter italic whitespace-nowrap">{format(new Date(log.createdAt), "MMM dd, yyyy")}</span>
+                                                                <span className="text-[11px] font-serif font-bold text-[var(--color-primary)] italic transition-opacity">{format(new Date(log.createdAt), "HH:mm:ss")}</span>
                                                             </div>
                                                         </td>
                                                         <td className="px-8 py-5">
@@ -195,30 +195,30 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                                                     {log.user.fullName.substring(0, 2).toUpperCase()}
                                                                 </div>
                                                                 <div className="flex flex-col">
-                                                                    <span className="text-sm font-serif font-black italic group-hover:text-white transition-colors">{log.user.fullName}</span>
-                                                                    <span className={`text-[8px] font-black uppercase tracking-widest mt-0.5 opacity-60 ${theme.color}`}>{log.user.role}</span>
+                                                                    <span className="text-sm font-serif font-black italic group-hover:text-[var(--color-primary)] transition-colors">{log.user.fullName}</span>
+                                                                    <span className={`text-[8px] font-black uppercase tracking-widest mt-0.5 ${theme.color}`}>{log.user.role}</span>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td className="px-8 py-5">
                                                             <div className="flex items-center gap-3">
-                                                                <div className={`size-8 rounded-lg bg-black/20 border border-white/5 flex items-center justify-center ${log.action === 'OVERRIDE' ? 'text-orange-400' : 'text-white/20'}`}>
+                                                                <div className={`size-8 rounded-lg bg-[var(--bg-app)] border border-[var(--border-muted)] flex items-center justify-center ${log.action === 'OVERRIDE' ? 'text-orange-400' : 'text-[var(--text-muted)]'}`}>
                                                                     <span className="material-symbols-outlined text-base italic">{getActionIcon(log.action)}</span>
                                                                 </div>
-                                                                <span className={`text-[9px] font-black uppercase tracking-[0.15em] ${log.action === "OVERRIDE" ? "text-orange-400" : "text-white/60"}`}>
+                                                                <span className={`text-[9px] font-black uppercase tracking-[0.15em] ${log.action === "OVERRIDE" ? "text-orange-400" : "text-[var(--text-muted)]"}`}>
                                                                     {log.action}
                                                                 </span>
                                                             </div>
                                                         </td>
                                                         <td className="px-8 py-5">
                                                             <div className="flex flex-col gap-0.5">
-                                                                <span className="text-[10px] font-black text-white/30 uppercase tracking-widest italic italic">{log.entity}</span>
-                                                                <span className="text-[11px] font-mono font-black text-white/80 tabular-nums truncate max-w-[120px]" title={log.entityId}>{log.entityId}</span>
+                                                                <span className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">{log.entity}</span>
+                                                                <span className="text-[11px] font-mono font-black text-[var(--text-main)] tabular-nums truncate max-w-[120px]" title={log.entityId}>{log.entityId}</span>
                                                             </div>
                                                         </td>
                                                         <td className="px-8 py-5">
                                                             <div className="max-w-[280px]">
-                                                                <p className="text-[11px] font-serif font-medium text-white/50 italic leading-relaxed group-hover:text-white/80 transition-colors line-clamp-2" title={log.details || ""}>
+                                                                <p className="text-[11px] font-serif font-medium text-[var(--text-muted)] italic leading-relaxed group-hover:text-[var(--text-main)] transition-colors line-clamp-2" title={log.details || ""}>
                                                                     {log.details || "Manifest records verified."}
                                                                 </p>
                                                                 {log.reason && (
@@ -253,11 +253,11 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                         </div>
 
                         {/* Nexus Pagination */}
-                        <div className="flex items-center justify-between border-t border-white/[0.03] pt-8">
-                            <p className="text-[9px] font-black text-white/20 uppercase tracking-[0.2em] italic">Current resonance scan: <span className="text-white/60">1-50 entries</span></p>
+                        <div className="flex items-center justify-between border-t border-[var(--border-muted)] pt-8">
+                            <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic">Current resonance scan: <span className="text-[var(--text-main)]">1-50 entries</span></p>
                             <div className="flex gap-4">
-                                <button disabled className="px-6 py-2.5 rounded-xl border border-white/5 bg-white/5 text-[9px] font-black text-white/20 uppercase tracking-widest cursor-not-allowed italic transition-all">Previous Nexus</button>
-                                <button className="px-8 py-2.5 rounded-xl bg-white text-black text-[9px] font-black uppercase tracking-widest shadow-xl hover:scale-[1.05] active:scale-[0.98] transition-all italic">Next Spectrum</button>
+                                <button disabled className="px-6 py-2.5 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-surface-muted)] text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest cursor-not-allowed italic transition-all">Previous Nexus</button>
+                                <button className="px-8 py-2.5 rounded-xl bg-[var(--text-main)] text-[var(--bg-app)] text-[9px] font-black uppercase tracking-widest shadow-xl hover:scale-[1.05] active:scale-[0.98] transition-all italic">Next Spectrum</button>
                             </div>
                         </div>
                     </motion.div>
@@ -272,41 +272,41 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                         {/* Search & Tooling */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className="md:col-span-2 relative group">
-                                <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-[var(--color-primary)] transition-colors">search</span>
+                                <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] group-focus-within:text-[var(--color-primary)] transition-colors">search</span>
                                 <input 
-                                    className="w-full h-14 bg-black/20 border border-white/5 rounded-2xl pl-12 pr-6 text-[11px] font-bold text-white placeholder:text-white/10 outline-none focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all"
+                                    className="w-full h-14 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl pl-12 pr-6 text-[11px] font-bold text-[var(--text-main)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all"
                                     placeholder="SEARCH ARCHETYPAL PERMISSIONS..."
                                 />
                             </div>
                             <div className="flex gap-4">
-                                <button className="flex-1 h-14 bg-black/40 border border-white/5 rounded-2xl text-[9px] font-black text-white/40 uppercase tracking-widest hover:text-white hover:border-white/10 transition-all italic">All Categories</button>
-                                <button className="flex-1 h-14 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl text-[9px] font-black text-white uppercase tracking-widest hover:bg-emerald-500/20 transition-all italic">Active Shifts</button>
+                                <button className="flex-1 h-14 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest hover:text-[var(--text-main)] hover:border-[var(--border-main)] transition-all italic">All Categories</button>
+                                <button className="flex-1 h-14 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl text-[9px] font-black tracking-widest hover:bg-emerald-500/20 transition-all italic">Active Shifts</button>
                             </div>
                         </div>
 
                         {/* Permissions Matrix */}
-                        <div className="rounded-[3rem] border border-white/[0.05] bg-white/[0.01] backdrop-blur-md overflow-hidden shadow-sm">
+                        <div className="rounded-[3rem] border border-[var(--border-main)] bg-[var(--bg-card)] backdrop-blur-md overflow-hidden shadow-sm">
                             <div className="overflow-x-auto">
                                 <table className="w-full text-left border-collapse min-w-[1000px]">
                                     <thead>
-                                        <tr className="bg-black/30 border-b border-white/[0.05]">
+                                        <tr className="bg-[var(--bg-app)] border-b border-[var(--border-muted)]">
                                             <th className="px-10 py-8 w-1/3">
                                                 <div className="flex flex-col gap-1">
                                                     <span className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-[0.2em] italic">nexus domain</span>
-                                                    <span className="text-[12px] font-serif font-black text-white italic">Signal Functionality Mapping</span>
+                                                    <span className="text-[12px] font-serif font-black text-[var(--text-main)] italic">Signal Functionality Mapping</span>
                                                 </div>
                                             </th>
                                             {["Nexus Admin", "Branch Manager", "Lead Manager", "Staff Branch"].map((role) => (
                                                 <th key={role} className="px-6 py-8 text-center">
                                                     <div className="flex flex-col items-center gap-1">
-                                                        <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em] italic">archetype</span>
-                                                        <span className="text-[11px] font-serif font-black text-white italic">{role}</span>
+                                                        <span className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic">archetype</span>
+                                                        <span className="text-[11px] font-serif font-black text-[var(--text-main)] italic">{role}</span>
                                                     </div>
                                                 </th>
                                             ))}
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-white/[0.03]">
+                                    <tbody className="divide-y divide-[var(--border-muted)]">
                                         <PermissionCategory title="Financial Orchestration" />
                                         <PermissionRow 
                                             title="Nexus Financial Reporting" 
@@ -367,7 +367,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
 
 function PermissionCategory({ title }: { title: string }) {
     return (
-        <tr className="bg-white/[0.03]">
+        <tr className="bg-[var(--bg-surface-muted)]">
             <td colSpan={5} className="px-10 py-3">
                 <span className="text-[9px] font-black text-[var(--color-primary)] uppercase tracking-[0.4em] italic">{title}</span>
             </td>
@@ -377,11 +377,11 @@ function PermissionCategory({ title }: { title: string }) {
 
 function PermissionRow({ title, desc, checks }: { title: string, desc: string, checks: boolean[] }) {
     return (
-        <tr className="group hover:bg-white/[0.01] transition-colors border-l-2 border-transparent hover:border-[var(--color-primary)]/40">
+        <tr className="group hover:bg-[var(--bg-surface-muted)] transition-colors border-l-2 border-transparent hover:border-[var(--color-primary)]/40">
             <td className="px-10 py-8">
                 <div className="flex flex-col gap-1">
-                    <span className="text-sm font-serif font-black text-white italic group-hover:text-[var(--color-primary)] transition-colors">{title}</span>
-                    <span className="text-[10px] text-white/30 font-medium italic max-w-sm group-hover:text-white/60 transition-colors leading-relaxed">{desc}</span>
+                    <span className="text-sm font-serif font-black text-[var(--text-main)] italic group-hover:text-[var(--color-primary)] transition-colors">{title}</span>
+                    <span className="text-[10px] text-[var(--text-muted)] font-medium italic max-w-sm group-hover:text-[var(--text-main)] transition-colors leading-relaxed">{desc}</span>
                 </div>
             </td>
             {checks.map((checked, i) => (
@@ -394,7 +394,7 @@ function PermissionRow({ title, desc, checks }: { title: string, desc: string, c
                                 className="sr-only peer"
                                 aria-label={`Toggle ${title} permission for archetype ${i}`}
                             />
-                            <div className="w-12 h-6 bg-white/5 border border-white/10 rounded-full peer peer-checked:bg-[var(--color-primary)]/20 peer-checked:border-[var(--color-primary)]/40 transition-all duration-500 after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white/10 peer-checked:after:bg-[var(--color-primary)] after:rounded-lg after:h-4 after:w-4 after:transition-all after:duration-500 peer-checked:after:translate-x-6 peer-checked:after:rotate-[360deg] shadow-inner group-hover/toggle:scale-110" />
+                            <div className="w-12 h-6 bg-[var(--bg-app)] border border-[var(--border-muted)] rounded-full peer peer-checked:bg-[var(--color-primary)]/20 peer-checked:border-[var(--color-primary)]/40 transition-all duration-500 after:content-[''] after:absolute after:top-1 after:left-1 after:bg-[var(--text-muted)]/20 peer-checked:after:bg-[var(--color-primary)] after:rounded-lg after:h-4 after:w-4 after:transition-all after:duration-500 peer-checked:after:translate-x-6 peer-checked:after:rotate-[360deg] shadow-inner group-hover/toggle:scale-110" />
                         </label>
                     </div>
                 </td>

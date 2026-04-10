@@ -77,6 +77,8 @@
   --radius-full: 9999px;
 }
 
+/* ── Typography Utilities ── */
+
 /* ── Theme Definitions ── */
 
 :root {
@@ -86,9 +88,11 @@
   --bg-surface-muted: var(--color-forest-50);
   --bg-card: #ffffff;
   --text-main: var(--color-forest-900);
-  --text-muted: var(--color-forest-600);
+  --text-muted: var(--color-forest-700);
   --border-main: var(--color-border-light);
   --border-muted: #f1f5f9;
+  --bg-tooltip: #0f172a;
+  --text-tooltip: #ffffff;
 }
 
 .dark {
@@ -101,6 +105,8 @@
   --text-muted: var(--color-forest-400);
   --border-main: var(--color-border-dark);
   --border-muted: #1a2b26;
+  --bg-tooltip: #ffffff;
+  --text-tooltip: #0f172a;
   
   /* Lighter Eucalyptus for Dark Mode Contrast */
   --color-primary: #4a8c43; 

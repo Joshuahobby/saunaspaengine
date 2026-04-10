@@ -14,8 +14,8 @@ import { ExtraService, RecordData } from "@/types/operations";
 const STATUS_STYLES: Record<string, { dot: string; text: string; label: string }> = {
     CREATED: { dot: "bg-[var(--color-primary)] shadow-[0_0_8px_var(--color-primary)]", text: "text-[var(--color-primary)]", label: "Created" },
     IN_PROGRESS: { dot: "bg-[var(--color-primary)] animate-pulse shadow-[0_0_8px_var(--color-primary)]", text: "text-[var(--color-primary)]", label: "In Progress" },
-    COMPLETED: { dot: "bg-[var(--text-muted)] opacity-60", text: "text-[var(--text-muted)]", label: "Completed" },
-    CANCELLED: { dot: "bg-red-500/60", text: "text-red-500", label: "Cancelled" },
+    COMPLETED: { dot: "bg-[var(--text-muted)]", text: "text-[var(--text-muted)]", label: "Completed" },
+    CANCELLED: { dot: "bg-red-600", text: "text-red-600", label: "Cancelled" },
 };
 
 function getInitials(name: string) {
@@ -208,11 +208,11 @@ export default function OperationsClient({
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
                     <h2 className="text-2xl font-display font-black tracking-tighter text-[var(--text-main)] italic">Daily <span className="text-[var(--color-primary)]">Activity</span></h2>
-                    <p className="text-[10px] text-[var(--text-muted)] mt-1 font-bold uppercase tracking-widest opacity-70">Guest visits and service records</p>
+                    <p className="text-[10px] text-[var(--text-muted)] mt-1 font-bold uppercase tracking-widest">Guest visits and service records</p>
                 </div>
                 <Link
                     href="/check-in"
-                    className="bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all active:scale-95 shadow-lg shadow-[var(--color-primary)]/10 w-fit text-[9px] uppercase tracking-[0.15em] font-black"
+                    className="bg-[var(--color-primary)] hover:brightness-110 text-[var(--bg-app)] px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all active:scale-95 shadow-lg shadow-[var(--color-primary)]/10 w-fit text-[9px] uppercase tracking-[0.15em] font-black"
                 >
                     <span className="material-symbols-outlined text-sm font-black">add_circle</span>
                     New Entry
@@ -230,7 +230,7 @@ export default function OperationsClient({
                     <div className="relative">
                         <button
                             onClick={() => setShowStatusDropdown(!showStatusDropdown)}
-                            className="flex items-center gap-2 px-4 py-2 rounded-lg text-[8px] font-black uppercase tracking-[0.15em] transition-all bg-[var(--color-primary)] text-white"
+                            className="flex items-center gap-2 px-4 py-2 rounded-lg text-[8px] font-black uppercase tracking-[0.15em] transition-all bg-[var(--color-primary)] text-[var(--bg-app)]"
                         >
                             {currentStatusLabel}
                             <span className="material-symbols-outlined text-xs">keyboard_arrow_down</span>
@@ -262,7 +262,7 @@ export default function OperationsClient({
                         </button>
                     ))}
                 </div>
-                <div className="ml-auto text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-[0.15em] opacity-50">
+                <div className="ml-auto text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-[0.15em]">
                     {filtered.length} of {records.length} records
                 </div>
             </div>
@@ -283,14 +283,14 @@ export default function OperationsClient({
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-[var(--bg-surface-muted)] border-b border-[var(--border-muted)]">
-                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">ID</th>
-                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Guest</th>
-                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60 text-center">Station</th>
-                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Service</th>
-                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Attendant</th>
-                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Status</th>
-                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60 text-right">Revenue</th>
-                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60 text-right">Actions</th>
+                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">ID</th>
+                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Guest</th>
+                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] text-center">Station</th>
+                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Service</th>
+                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Attendant</th>
+                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Status</th>
+                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] text-right">Revenue</th>
+                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-[var(--border-muted)]">
@@ -333,7 +333,7 @@ export default function OperationsClient({
                                                 <div className="flex flex-col gap-0.5">
                                                     <span>{record.employeeName || "—"}</span>
                                                     {record.extraServices?.map((extra: ExtraService) => (
-                                                        <span key={extra.id} className="text-[7px] opacity-70 italic font-medium">
+                                                        <span key={extra.id} className="text-[7px] italic font-medium">
                                                             {extra.employeeName || "—"}
                                                         </span>
                                                     ))}
@@ -398,7 +398,7 @@ export default function OperationsClient({
                         <span className="material-symbols-outlined text-xl font-bold">trending_up</span>
                     </div>
                     <div>
-                        <p className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] mb-1 opacity-60">Daily Revenue</p>
+                        <p className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] mb-1">Daily Revenue</p>
                         <p className="text-xl font-sans font-black text-[var(--text-main)]">{formatRWF(todayRevenueAmount)}</p>
                     </div>
                 </div>
@@ -407,7 +407,7 @@ export default function OperationsClient({
                         <span className="material-symbols-outlined text-xl font-bold">group</span>
                     </div>
                     <div>
-                        <p className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] mb-1 opacity-60">Guests On-Site</p>
+                        <p className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] mb-1">Guests On-Site</p>
                         <p className="text-xl font-sans font-black text-[var(--text-main)]">{activeCount}</p>
                     </div>
                 </div>
@@ -416,7 +416,7 @@ export default function OperationsClient({
                         <span className="material-symbols-outlined text-xl font-bold">event_available</span>
                     </div>
                     <div>
-                        <p className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] mb-1 opacity-60">Completed Visits</p>
+                        <p className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] mb-1">Completed Visits</p>
                         <p className="text-xl font-sans font-black text-[var(--text-main)]">{completedCount}</p>
                     </div>
                 </div>
@@ -424,9 +424,9 @@ export default function OperationsClient({
 
             {/* Add Extra Service Modal */}
             {isExtraModalOpen && selectedParent && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[var(--bg-app)]/80 backdrop-blur-sm animate-in fade-in duration-200">
                     <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
-                        <div className="p-6 border-b border-[var(--border-muted)] flex justify-between items-center bg-[var(--bg-surface-muted)]/50">
+                        <div className="p-6 border-b border-[var(--border-muted)] flex justify-between items-center bg-[var(--bg-surface-muted)]">
                             <div>
                                 <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest italic">Add <span className="text-[var(--color-primary)]">Extra Service</span></h3>
                                 <p className="text-[9px] text-[var(--text-muted)] font-bold mt-1 uppercase tracking-wider">For Guest: {selectedParent.clientName}</p>
@@ -496,7 +496,7 @@ export default function OperationsClient({
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className={`flex-2 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-2 px-8 ${isSubmitting ? "bg-[var(--border-muted)] text-[var(--text-muted)]" : "bg-[var(--color-primary)] text-white hover:opacity-90 active:scale-95 shadow-lg shadow-[var(--color-primary)]/20"}`}
+                                    className={`flex-2 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-2 px-8 ${isSubmitting ? "bg-[var(--border-muted)] text-[var(--text-muted)]" : "bg-[var(--color-primary)] text-[var(--bg-app)] hover:brightness-110 active:scale-95 shadow-lg shadow-[var(--color-primary)]/20"}`}
                                 >
                                     {isSubmitting ? "Adding..." : "Confirm Extra Service"}
                                     {!isSubmitting && <span className="material-symbols-outlined text-sm font-black">add_circle</span>}
@@ -509,11 +509,11 @@ export default function OperationsClient({
 
             {/* Leave Review Modal */}
             {isReviewModalOpen && selectedReviewParent && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[var(--bg-app)]/80 backdrop-blur-sm animate-in fade-in duration-200">
                     <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
                         <div className="p-6 border-b border-[var(--border-muted)] flex justify-between items-center bg-yellow-500/5">
                             <div>
-                                <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest italic">Service <span className="text-yellow-500">Review</span></h3>
+                                <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest italic">Service <span className="text-yellow-600">Review</span></h3>
                                 <p className="text-[9px] text-[var(--text-muted)] font-bold mt-1 uppercase tracking-wider">
                                     Therapist: <span className="text-[var(--text-main)]">{selectedReviewParent.employeeName}</span>
                                 </p>
@@ -582,7 +582,7 @@ export default function OperationsClient({
                                 <button
                                     type="submit"
                                     disabled={isReviewing}
-                                    className={`flex-2 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-2 px-8 ${isReviewing ? "bg-[var(--border-muted)] text-[var(--text-muted)]" : "bg-yellow-500 text-white hover:opacity-90 active:scale-95 shadow-lg shadow-yellow-500/20"}`}
+                                    className={`flex-2 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-2 px-8 ${isReviewing ? "bg-[var(--border-muted)] text-[var(--text-muted)]" : "bg-yellow-500 text-[var(--bg-app)] hover:brightness-110 active:scale-95 shadow-lg shadow-yellow-500/20"}`}
                                 >
                                     {isReviewing ? "Submitting..." : "Submit Review"}
                                     {!isReviewing && <span className="material-symbols-outlined text-sm font-black text-yellow-800">check_circle</span>}

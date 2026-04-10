@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ActionDropdown } from "@/components/ui/action-dropdown";
 import { format } from "date-fns";
 import { EditBranchModal } from "@/app/(dashboard)/admin/branches/EditBranchModal";
@@ -153,10 +154,13 @@ export default function ExecutiveBranchesClientPage({ branches, stats }: Branche
                                             <div className="size-8 rounded-lg bg-[var(--color-primary)]/10 flex items-center justify-center border border-[var(--color-primary)]/20 shrink-0">
                                                 <span className="material-symbols-outlined text-sm text-[var(--color-primary)]">location_on</span>
                                             </div>
-                                            <div className="flex flex-col">
-                                                <span className="text-xs font-bold text-[var(--text-main)]">{branch.name}</span>
+                                            <Link 
+                                                href={`/branches/${branch.id}`}
+                                                className="flex flex-col group/link"
+                                            >
+                                                <span className="text-xs font-bold text-[var(--text-main)] group-hover/link:text-[var(--color-primary)] transition-colors">{branch.name}</span>
                                                 <span className="text-[10px] text-[var(--text-muted)] italic opacity-60 truncate max-w-[150px]">{branch.address || "No address"}</span>
-                                            </div>
+                                            </Link>
                                         </div>
                                     </td>
                                     <td className="px-6 py-3">

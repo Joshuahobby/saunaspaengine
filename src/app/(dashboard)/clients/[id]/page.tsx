@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { startOfMonth, endOfMonth } from "date-fns";
+import { startOfMonth, endOfMonth, differenceInDays, subMonths } from "date-fns";
 import { ShieldAlert } from "lucide-react";
 import Link from "next/link";
 import ClientProfile from "./client-profile";
@@ -21,11 +21,14 @@ export default async function ClientProfilePage({ params }: { params: Promise<{ 
         redirect("/login");
     }
 
-    // 1. Core Data Fetching (Parallel)
-    const [client, visitsThisMonth, loyaltyInfo, totalSpendAggr, favoriteServiceAggr, auditLogs] = await Promise.all([
+    // 1. Initial Core Fetching
+    const [client, visitsThisMonth, loyaltyInfo, totalSpendAggr, favoriteServiceAggr, auditLogs, allReviews] = await Promise.all([
         prisma.client.findFirst({
             where: { id },
             include: {
+                branch: {
+                    include: { business: true }
+                },
                 memberships: {
                     where: { status: "ACTIVE" },
                     include: { category: true },
@@ -47,13 +50,11 @@ export default async function ClientProfilePage({ params }: { params: Promise<{ 
         prisma.loyaltyPoint.findFirst({
             where: { clientId: id }
         }),
-        // Phase 4: Lifetime Value
         prisma.serviceRecord.aggregate({
             where: { clientId: id, status: "COMPLETED" },
             _sum: { amount: true },
             _count: { id: true }
         }),
-        // Phase 4: Favorite Service
         prisma.serviceRecord.groupBy({
             by: ['serviceId'],
             where: { clientId: id, status: "COMPLETED" },
@@ -61,10 +62,14 @@ export default async function ClientProfilePage({ params }: { params: Promise<{ 
             orderBy: { _count: { id: 'desc' } },
             take: 1
         }),
-        // Phase 4: Audit Logs (Governance)
         prisma.auditLog.findMany({
             where: { entity: "Client", entityId: id },
             include: { user: { select: { fullName: true } } },
+            orderBy: { createdAt: 'desc' },
+            take: 10
+        }),
+        prisma.review.findMany({
+            where: { clientId: id },
             orderBy: { createdAt: 'desc' },
             take: 5
         })
@@ -85,32 +90,95 @@ export default async function ClientProfilePage({ params }: { params: Promise<{ 
         );
     }
 
-    // Secondary data fetching: service records and favorite service name
-    const [serviceRecords, favoriteService] = await Promise.all([
+    // Secondary data fetching for intelligence
+    const sixMonthsAgo = subMonths(new Date(), 6);
+    const [serviceRecords, favoriteService, spendByMonth, branchServices] = await Promise.all([
         prisma.serviceRecord.findMany({
             where: { clientId: client.id },
             include: { service: true, employee: true },
             orderBy: { createdAt: 'desc' },
-            take: 20 // increased for better history view
+            take: 50
         }),
         favoriteServiceAggr.length > 0 
             ? prisma.service.findUnique({ 
                 where: { id: favoriteServiceAggr[0].serviceId },
-                select: { name: true }
+                select: { name: true, category: true }
               })
-            : Promise.resolve(null)
+            : Promise.resolve(null),
+        // Expenditure Velocity Trend
+        prisma.serviceRecord.findMany({
+            where: {
+                clientId: id,
+                status: "COMPLETED",
+                completedAt: { gte: sixMonthsAgo }
+            },
+            select: { amount: true, completedAt: true },
+            orderBy: { completedAt: 'asc' }
+        }),
+        // For Next Suggested Service logic
+        prisma.service.findMany({
+            where: { branchId: client.branchId, status: "ACTIVE" },
+            select: { id: true, name: true, category: true },
+            take: 10
+        })
     ]);
 
+    // Intelligence Calculations
     const ltv = totalSpendAggr._sum.amount || 0;
     const avgTicket = totalSpendAggr._count.id > 0 ? ltv / totalSpendAggr._count.id : 0;
     
-    // Package intelligence data
+    // Relationship Health Metrics
+    const completedRecords = serviceRecords.filter(r => r.status === "COMPLETED" && r.completedAt);
+    let avgFrequency = 0;
+    let daysSinceLastVisit = 0;
+    let relationshipHealth: 'ACTIVE' | 'DRIFTING' | 'AT_RISK' = 'ACTIVE';
+
+    if (completedRecords.length >= 2) {
+        const firstVisit = completedRecords[completedRecords.length - 1].completedAt!;
+        const lastVisit = completedRecords[0].completedAt!;
+        const span = differenceInDays(lastVisit, firstVisit);
+        avgFrequency = Math.round(span / (completedRecords.length - 1));
+        daysSinceLastVisit = differenceInDays(new Date(), lastVisit);
+        
+        if (daysSinceLastVisit > avgFrequency * 2.5) relationshipHealth = 'AT_RISK';
+        else if (daysSinceLastVisit > avgFrequency * 1.5) relationshipHealth = 'DRIFTING';
+    }
+
+    // Sentiment Calculation
+    const avgRating = allReviews.length > 0 
+        ? allReviews.reduce((acc, r) => acc + r.rating, 0) / allReviews.length 
+        : 0;
+
+    // Expenditure Velocity Map (Last 6 Months)
+    const velocityMap = new Array(6).fill(0);
+    spendByMonth.forEach(record => {
+        const monthsAgo = differenceInDays(new Date(), record.completedAt!) / 30;
+        const index = 5 - Math.floor(monthsAgo);
+        if (index >= 0 && index < 6) {
+            velocityMap[index] += record.amount;
+        }
+    });
+
+    // Next Suggested Service (Logic: popular but not their favorite)
+    const suggestedService = branchServices.find(s => 
+        s.name !== favoriteService?.name && 
+        !completedRecords.some(r => r.serviceId === s.id)
+    ) || branchServices[0];
+
     const intelligence = {
         ltv,
         avgTicket,
         favoriteService: favoriteService?.name || "N/A",
         totalVisits: totalSpendAggr._count.id,
-        auditLogs
+        auditLogs,
+        avgFrequency,
+        daysSinceLastVisit,
+        relationshipHealth,
+        lastSeen: completedRecords[0]?.completedAt || null,
+        avgRating,
+        recentReviews: allReviews,
+        velocityData: velocityMap,
+        suggestedService: suggestedService?.name || "Premium Aromatherapy"
     };
 
     const activeMembership = client.memberships[0];
@@ -119,7 +187,7 @@ export default async function ClientProfilePage({ params }: { params: Promise<{ 
 
     return (
         <ClientProfile 
-            client={{ ...client, serviceRecords } as any}
+            client={{ ...client, serviceRecords, notes: client.notes || "" } as any}
             activeMembership={activeMembership}
             loyaltyInfo={loyaltyInfo}
             tierConfig={tierConfig}

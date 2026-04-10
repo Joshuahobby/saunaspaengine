@@ -5,16 +5,26 @@ import ReportsRevenueClientPage from "./client-page";
 
 export const dynamic = "force-dynamic";
 
-export default async function ReportsRevenuePage() {
+import { getActiveBranchContext } from "@/lib/branch-context";
+
+export default async function ReportsRevenuePage(props: { searchParams: Promise<{ branchId?: string }> }) {
+    const searchParams = await props.searchParams;
     const session = await requireRole(["MANAGER", "ADMIN", "OWNER"]);
     if (!session?.user) redirect("/login");
-    if (!session.user.branchId && session.user.role !== 'OWNER') redirect("/dashboard");
 
-    const branchIds = session.user.role === 'OWNER'
-        ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string }, select: { id: true } })).map(b => b.id)
-        : [session.user.branchId as string];
+    // Unified & Secure Branch Context Resolution
+    const { authorizedBranchIds } = await getActiveBranchContext(session, searchParams);
 
-    const branchWhere = { in: branchIds };
+    if (authorizedBranchIds.length === 0) {
+        return (
+            <div className="flex h-[70vh] items-center justify-center bg-black/20 rounded-[40px] border border-white/5 text-white/50 p-10 font-serif italic text-lg text-center">
+                Access to financial records in this context is restricted or unavailable.<br/>
+                Please select an authorized branch.
+            </div>
+        );
+    }
+
+    const branchWhere = { in: authorizedBranchIds };
 
     // Fetch total revenue components
     const completedRecords = await prisma.serviceRecord.findMany({

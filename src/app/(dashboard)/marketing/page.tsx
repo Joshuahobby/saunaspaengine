@@ -57,7 +57,7 @@ export default function MarketingCampaignPage() {
                                     key={a.id}
                                     onClick={() => setSelectedAudience(a.id)}
                                     className={`p-4 rounded-xl border-2 flex flex-col gap-2 cursor-pointer relative overflow-hidden group transition-all ${selectedAudience === a.id
-                                        ? "border-[var(--color-primary)] bg-[var(--color-primary)]/5"
+                                        ? "border-[var(--color-primary)] bg-[var(--color-primary)]/10 shadow-lg"
                                         : "border-[var(--border-muted)] hover:border-[var(--color-primary)]/50"
                                         }`}
                                 >
@@ -149,7 +149,7 @@ export default function MarketingCampaignPage() {
                     <div className="sticky top-24">
                         {/* Phone Preview */}
                         <div className="bg-slate-900 rounded-[3rem] p-4 shadow-2xl border-[8px] border-slate-800 max-w-[320px] mx-auto aspect-[9/18.5] relative overflow-hidden">
-                            <div className="flex justify-between items-center px-6 py-2 text-white/80 text-[10px]">
+                            <div className="flex justify-between items-center px-6 py-2 text-[var(--text-main)]/60 text-[10px]">
                                 <span>9:41</span>
                                 <div className="flex gap-1 items-center">
                                     <span className="material-symbols-outlined text-xs">signal_cellular_alt</span>
@@ -158,20 +158,20 @@ export default function MarketingCampaignPage() {
                                 </div>
                             </div>
                             <div className="h-full bg-white dark:bg-slate-900 rounded-[2rem] overflow-hidden flex flex-col">
-                                <div className="bg-slate-100 dark:bg-slate-800 p-4 border-b border-slate-200 dark:border-slate-700 flex flex-col items-center">
+                                <div className="bg-[var(--bg-card)] p-4 border-b border-[var(--border-muted)] flex flex-col items-center">
                                     <div className="size-10 rounded-full bg-[var(--color-primary)]/20 flex items-center justify-center text-[var(--color-primary)] font-bold mb-1">SS</div>
-                                    <p className="text-[10px] font-bold text-slate-900 dark:text-white">Sauna SPA Engine</p>
+                                    <p className="text-[10px] font-bold text-[var(--text-main)]">Sauna SPA Engine</p>
                                 </div>
-                                <div className="flex-1 p-4 space-y-4">
+                                <div className="flex-1 p-4 space-y-4 bg-[var(--bg-app)]">
                                     <div className="text-center">
-                                        <span className="bg-slate-200 dark:bg-slate-800 text-[8px] text-slate-500 px-2 py-0.5 rounded-full">Today 10:48 AM</span>
+                                        <span className="bg-[var(--bg-surface-muted)] text-[8px] text-[var(--text-muted)] px-2 py-0.5 rounded-full">Today 10:48 AM</span>
                                     </div>
-                                    <div className="bg-slate-100 dark:bg-slate-800 rounded-2xl p-3 text-xs leading-relaxed max-w-[85%]">
+                                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl p-3 text-[var(--text-main)] text-xs leading-relaxed max-w-[85%]">
                                         {messageText.replace("[Client Name]", "Sarah").replace("[Promo Code]", "WELCOME20").replace("[Expiry Date]", "Oct 31").replace("[Booking Link]", "spaconnect.com/b/spa")}
                                     </div>
                                 </div>
-                                <div className="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2">
-                                    <div className="flex-1 h-8 bg-slate-100 dark:bg-slate-800 rounded-full px-4 flex items-center">
+                                <div className="p-3 bg-[var(--bg-card)] border-t border-[var(--border-muted)] flex items-center gap-2">
+                                    <div className="flex-1 h-8 bg-[var(--bg-surface-muted)] rounded-full px-4 flex items-center">
                                         <div className="h-4 w-px bg-[var(--color-primary)] animate-pulse"></div>
                                     </div>
                                     <div className="size-8 rounded-full bg-[var(--color-primary)] flex items-center justify-center">

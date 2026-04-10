@@ -148,6 +148,7 @@ model Client {
   phone          String?
   clientType     ClientType      @default(WALK_IN)
   qrCode         String?         @unique
+  membershipCardUrl String?         @db.Text
   status         EntityStatus    @default(ACTIVE)
   branchId       String          @map("businessId")
   createdAt      DateTime        @default(now())
@@ -157,6 +158,7 @@ model Client {
   memberships    Membership[]
   serviceRecords ServiceRecord[]
   reviews        Review[]
+  notes          String?         @db.Text
 
   @@map("clients")
 }

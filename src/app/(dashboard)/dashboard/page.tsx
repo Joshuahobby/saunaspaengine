@@ -137,10 +137,10 @@ export default async function DashboardPage() {
                 <h3 className="text-3xl font-display font-bold tracking-tight text-[var(--text-main)]">
                     Welcome back, <span className="text-[var(--color-primary)]">{session.user.fullName.split(' ')[0]}!</span> 👋
                 </h3>
-                <p className="text-[var(--text-muted)] mt-2 font-bold uppercase tracking-[0.2em] text-[9px] opacity-70">
+                <p className="text-[var(--text-muted)] mt-2 font-bold uppercase tracking-[0.2em] text-[10px]">
                     {isEmployee
-                        ? "Here\u0027s your shift overview and today\u0027s tasks."
-                        : "Here\u0027s a summary of your spa\u0027s performance today."
+                        ? "Here's your shift overview and today's tasks."
+                        : "Here's a summary of your spa's performance today."
                     }
                 </p>
             </div>
@@ -196,7 +196,7 @@ export default async function DashboardPage() {
                                 </span>
                                 <span className="text-[9px] font-bold px-3 py-1.5 rounded-full uppercase tracking-widest bg-[var(--color-primary)] text-white group-hover/leaderboard:scale-105 transition-transform">View Full</span>
                             </div>
-                            <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-60">Staff Rewards</p>
+                            <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Staff Rewards</p>
                             <p className="text-xl font-display font-bold mt-2 text-[var(--text-main)] tracking-tight">Leaderboard</p>
                         </div>
                     </Link>
@@ -211,7 +211,7 @@ export default async function DashboardPage() {
                     <div className="flex items-center justify-between mb-6">
                         <div>
                             <h4 className="text-xl font-bold font-display text-[var(--text-main)]">Weekly <span className="text-[var(--color-primary)]">Revenue</span></h4>
-                            <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mt-1 opacity-60">
+                            <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mt-1">
                                 Daily sales performance overview
                             </p>
                         </div>
@@ -230,7 +230,7 @@ export default async function DashboardPage() {
                                             style: { "--bar-h": `${pct || 2}%` } as React.CSSProperties
                                         })}
                                     </div>
-                                    <span className="text-[10px] font-bold text-[var(--text-muted)] tracking-widest opacity-60">
+                                    <span className="text-[10px] font-bold text-[var(--text-muted)] tracking-widest">
                                         {day}
                                     </span>
                                 </div>
@@ -275,14 +275,14 @@ export default async function DashboardPage() {
                     <div className="p-6 glass-card border-none">
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="text-xl font-bold text-[var(--text-main)]">Recent Activity</h3>
-                            <Link href="/operations" className="text-[10px] font-bold text-[var(--color-primary)] uppercase tracking-widest hover:underline decoration-2 underline-offset-4 opacity-60">View All</Link>
+                            <Link href="/operations" className="text-[10px] font-bold text-[var(--color-primary)] uppercase tracking-widest hover:underline decoration-2 underline-offset-4">View All</Link>
                         </div>
                         <div className="space-y-4">
                             {recentTransactions.map((tx) => (
                                 <div key={tx.id} className="flex justify-between items-center text-sm border-b border-[var(--border-muted)] pb-6 last:border-0 last:pb-0">
                                     <div className="min-w-0">
                                         <p className="font-bold font-display text-[var(--text-main)] truncate">{tx.service?.name}</p>
-                                        <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-60">{tx.client?.fullName}</p>
+                                        <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">{tx.client?.fullName}</p>
                                     </div>
                                     {!isEmployee && <p className="font-bold text-[var(--text-main)]">RWF {tx.amount.toLocaleString()}</p>}
                                 </div>
@@ -299,7 +299,7 @@ export default async function DashboardPage() {
                                 <span className="material-symbols-outlined text-lg font-bold">eco</span>
                                 <h4 className="text-[10px] font-bold uppercase tracking-[0.2em]">Inventory <span className="text-[var(--text-main)]">Alerts</span></h4>
                             </div>
-                            <a href="/inventory" className="text-[10px] font-bold text-[var(--color-primary)] hover:underline transition-transform uppercase tracking-widest opacity-60">Manage</a>
+                            <a href="/inventory" className="text-[10px] font-bold text-[var(--color-primary)] hover:underline transition-transform uppercase tracking-widest">Manage</a>
                         </div>
                         <div className="space-y-4">
                             {lowStockItems.map((item) => (
@@ -310,7 +310,7 @@ export default async function DashboardPage() {
                                     </span>
                                 </div>
                             ))}
-                            {lowStockItems.length === 0 && <p className="text-[10px] text-[var(--color-primary)] font-bold tracking-widest uppercase opacity-60">All essentials in stock</p>}
+                            {lowStockItems.length === 0 && <p className="text-[10px] text-[var(--color-primary)] font-bold tracking-widest uppercase">All essentials in stock</p>}
                         </div>
                     </div>
                     )}
@@ -318,21 +318,21 @@ export default async function DashboardPage() {
             </div>
 
             {/* Footer Quick Stats */}
-            <div className="mt-8 flex flex-wrap gap-4 items-center justify-between zen-status-bar p-6 overflow-hidden relative">
-                <div className="absolute top-0 left-0 w-32 h-32 bg-white/5 blur-3xl -ml-16 -mt-16 rounded-full"></div>
+            <div className="mt-8 flex flex-wrap gap-4 items-center justify-between zen-status-bar p-6 overflow-hidden relative border border-[var(--border-main)] rounded-3xl bg-[var(--bg-card)]">
+                <div className="absolute top-0 left-0 w-32 h-32 bg-[var(--color-primary)]/5 blur-3xl -ml-16 -mt-16 rounded-full"></div>
                 <div className="flex items-center gap-4 relative z-10">
-                    <p className="text-[10px] font-bold text-[var(--text-main)] opacity-60 uppercase tracking-[0.4em]">
+                    <p className="text-[10px] font-bold text-[var(--text-main)] uppercase tracking-[0.4em]">
                         {staffOnDuty} staff members on duty
                     </p>
                 </div>
                 <div className="flex gap-10 relative z-10">
                     <div className="flex items-center gap-3">
                         <span className="size-2 bg-[var(--color-primary)] rounded-full animate-pulse shadow-[0_0_15px_var(--color-primary)]"></span>
-                        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-main)] opacity-80">0 Rooms Free</span>
+                        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-main)]">0 Rooms Free</span>
                     </div>
                     <div className="flex items-center gap-3">
-                        <span className="size-2 bg-[var(--color-forest-400)] rounded-full border border-white/10 opacity-60"></span>
-                        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-main)] opacity-40">{activeServicesCount} Rooms In-Use</span>
+                        <span className="size-2 bg-slate-500 rounded-full border border-[var(--border-muted)]"></span>
+                        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)]">{activeServicesCount} Rooms In-Use</span>
                     </div>
                 </div>
             </div>
@@ -370,7 +370,7 @@ function KPICard({
                     {trend}
                 </span>
             </div>
-            <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-60">{label}</p>
+            <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">{label}</p>
             <p className="text-3xl font-display font-bold mt-2 text-[var(--text-main)] tracking-tight">{value}</p>
         </div>
     );

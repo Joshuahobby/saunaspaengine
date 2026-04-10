@@ -84,7 +84,7 @@ export function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
     }, [onScanSuccess]);
 
     return (
-        <div className="relative w-full overflow-hidden rounded-2xl border-2 border-[var(--border-main)] bg-black aspect-video group">
+        <div className="relative w-full overflow-hidden rounded-2xl border-2 border-[var(--border-main)] bg-[var(--bg-card)] aspect-video group">
             <div id={containerId} className="w-full h-full object-cover brightness-[0.85] group-hover:brightness-110 transition-all duration-700"></div>
             
             {/* Design Overlays inspired by the HTML Screen */}
@@ -106,24 +106,24 @@ export function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
             )}
 
             {/* Status Badges */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full border border-[var(--color-primary)]/30 flex items-center gap-2">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[var(--bg-app)]/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-[var(--color-primary)]/40 flex items-center gap-2 shadow-xl shadow-black/10">
                 <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-primary)] opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-primary)]"></span>
                 </span>
-                <span className="text-[var(--color-primary)] font-bold tracking-widest text-[10px] uppercase">
+                <span className="text-[var(--color-primary)] font-black tracking-[0.15em] text-[9px] uppercase">
                     {isScannerStarted ? "Active Scanner" : "Initializing..."}
                 </span>
             </div>
 
             {/* Error State */}
             {error && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 p-8 text-center backdrop-blur-sm">
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-[var(--bg-app)]/90 p-8 text-center backdrop-blur-sm">
                     <XCircle className="w-12 h-12 text-rose-500 mb-4" />
-                    <p className="text-white font-medium mb-4">{error}</p>
+                    <p className="text-[var(--text-main)] font-bold mb-4">{error}</p>
                     <button 
                         onClick={() => window.location.reload()}
-                        className="flex items-center gap-2 bg-[var(--color-primary)] text-white px-6 py-2 rounded-lg font-bold"
+                        className="flex items-center gap-2 bg-[var(--color-primary)] text-[var(--bg-app)] px-6 py-2.5 rounded-xl font-black uppercase text-[10px] tracking-widest hover:brightness-110 transition-all shadow-lg shadow-[var(--color-primary)]/20"
                     >
                         <RefreshCw className="w-4 h-4" />
                         Retry
@@ -132,9 +132,9 @@ export function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
             )}
 
             {!isScannerStarted && !error && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm">
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-[var(--bg-app)]/60 backdrop-blur-sm">
                     <Loader2 className="w-10 h-10 text-[var(--color-primary)] animate-spin mb-3" />
-                    <p className="text-white font-medium tracking-wide">Starting Camera...</p>
+                    <p className="text-[var(--text-main)] font-black uppercase text-[9px] tracking-widest">Starting Camera...</p>
                 </div>
             )}
 
@@ -143,7 +143,7 @@ export function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
                     <button 
                         onClick={onClose}
                         title="Close Scanner"
-                        className="absolute top-4 right-4 bg-black/40 hover:bg-black/60 text-white p-2 rounded-lg transition-all"
+                        className="absolute top-4 right-4 bg-[var(--bg-card)]/80 hover:bg-[var(--bg-card)] text-[var(--text-main)] p-2 rounded-xl transition-all border border-[var(--border-muted)] shadow-lg"
                     >
                     <XCircle className="w-6 h-6" />
                 </button>

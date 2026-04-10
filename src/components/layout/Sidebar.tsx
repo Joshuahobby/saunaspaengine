@@ -66,36 +66,37 @@ const adminNavItems: NavItem[] = [
 ];
 
 const businessNavItems: NavItem[] = [
-    { label: "Executive Overview", isHeader: true },
-    { label: "Command Center", href: "/dashboard", icon: "dashboard" },
-    { label: "Branch Network", href: "/branches", icon: "corporate_fare" },
-    { label: "Branch Comparison", href: "/branches/compare", icon: "compare_arrows" },
+    { label: "Business Overview", isHeader: true },
+    { label: "Business Dashboard", href: "/dashboard", icon: "dashboard" },
+    { label: "Branch Locations", href: "/branches", icon: "corporate_fare" },
+    { label: "Performance comparisons", href: "/branches/compare", icon: "leaderboard" },
     
-    { label: "Network Resources", isHeader: true },
-    { label: "Employees", href: "/employees", icon: "badge" },
-    { label: "Universal Registry", href: "/clients/universal", icon: "public" },
-    { label: "Clients", href: "/clients", icon: "group" },
-    { label: "Services", href: "/services", icon: "auto_awesome" },
-    { label: "Inventory", href: "/inventory", icon: "inventory_2" },
+    { label: "Staff Management", isHeader: true },
+    { label: "Employee List", href: "/employees", icon: "diversity_3" },
+    { label: "Staff Performance", href: "/employees/performance", icon: "query_stats" },
+    { label: "Staff Rewards", href: "/employees/gamification", icon: "emoji_events" },
     
-    { label: "Growth & Retention", isHeader: true },
+    { label: "Customer Relations", isHeader: true },
+    { label: "Client List", href: "/clients", icon: "group" },
+    { label: "Loyalty Programs", href: "/loyalty/performance", icon: "loyalty" },
     { label: "Memberships", href: "/memberships", icon: "card_membership" },
-    { label: "Loyalty", href: "/loyalty/performance", icon: "loyalty" },
-    { label: "Staff Leaderboard", href: "/employees/gamification", icon: "emoji_events" },
-    { label: "Performance Index", href: "/employees/performance", icon: "query_stats" },
     
-    { label: "Performance Hub", isHeader: true },
-    { label: "Operations", href: "/operations", icon: "receipt_long" },
-    { label: "Safety Hub", href: "/safety", icon: "shield_with_heart" },
+    { label: "Service Operations", isHeader: true },
+    { label: "Daily Activity", href: "/operations", icon: "receipt_long" },
+    { label: "Services List", href: "/services", icon: "auto_awesome" },
+    { label: "Stock & Inventory", href: "/inventory", icon: "inventory_2" },
+    { label: "Health & Safety", href: "/safety", icon: "shield_with_heart" },
+    
+    { label: "Finance & Reports", isHeader: true },
     { label: "Revenue Reports", href: "/reports/revenue", icon: "trending_up" },
-    { label: "Settlements", href: "/finance/settlements", icon: "account_balance_wallet" },
-    { label: "Aggregated Metrics", href: "/reports/aggregated", icon: "analytics" },
+    { label: "Payments & Settlements", href: "/finance/settlements", icon: "account_balance_wallet" },
+    { label: "Business Analytics", href: "/reports/aggregated", icon: "analytics" },
     
-    { label: "Audit & Config", isHeader: true },
-    { label: "Audit Log", href: "/audit", icon: "history" },
-    { label: "Role & Permissions", href: "/settings/roles", icon: "security" },
-    { label: "Feedback Hub", href: "/settings/feedback", icon: "reviews" },
+    { label: "Settings & Security", isHeader: true },
     { label: "System Settings", href: "/governance", icon: "settings" },
+    { label: "Audit Logs", href: "/audit", icon: "history" },
+    { label: "Roles & Permissions", href: "/settings/roles", icon: "security" },
+    { label: "User Feedback", href: "/settings/feedback", icon: "reviews" },
 ];
 
 const employeeNavItems: NavItem[] = [
@@ -148,6 +149,7 @@ export default function Sidebar({
                 initial={false}
                 animate={{ width: isCollapsed ? 80 : 256 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                style={{ width: isCollapsed ? 80 : 256 }}
                 className={`bg-[var(--bg-card)] flex flex-col h-[100dvh] fixed top-0 left-0 lg:sticky lg:top-0 lg:relative border-r border-[var(--border-main)] z-50 shadow-[4px_0_24px_rgba(0,0,0,0.02)] transition-transform duration-300 ease-in-out ${isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
             >
                 <div className="flex flex-col h-full w-full overflow-hidden">
@@ -168,7 +170,7 @@ export default function Sidebar({
                                     className="whitespace-nowrap"
                                 >
                                     <h1 className="text-sm font-serif font-bold leading-tight tracking-tight text-[var(--text-main)] italic">Sauna <span className="not-italic text-[var(--color-primary)]">SPA</span></h1>
-                                    <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] truncate max-w-[140px] opacity-60">
+                                    <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] truncate max-w-[140px]">
                                         {branchName}
                                     </p>
                                 </motion.div>
@@ -183,7 +185,7 @@ export default function Sidebar({
                             return !isCollapsed ? (
                                 <div 
                                     key={`header-${idx}`} 
-                                    className="px-4 pt-6 pb-2 text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.25em] opacity-50"
+                                    className="px-4 pt-6 pb-2 text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.25em]"
                                 >
                                     {item.label}
                                 </div>
@@ -192,14 +194,16 @@ export default function Sidebar({
                             );
                         }
 
-                        const isActive =
-                            pathname === item.href || (item.href && pathname.startsWith(item.href + "/"));
+                        const isExactMatch = navItems.some(nav => nav.href === pathname);
+                        const isActive = isExactMatch 
+                            ? pathname === item.href 
+                            : (item.href && item.href !== '/' && pathname.startsWith(item.href + "/"));
                         return (
                             <Link
                                 key={item.href}
                                 href={item.href || "#"}
                                 className={`flex items-center min-h-[44px] rounded-xl text-sm transition-all duration-300 group relative ${isActive
-                                    ? "bg-[var(--color-primary)] text-white font-bold shadow-lg shadow-[var(--color-primary)]/15"
+                                    ? "bg-[var(--color-primary)] text-[var(--bg-app)] font-bold shadow-lg shadow-[var(--color-primary)]/15"
                                     : "text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)] hover:text-[var(--text-main)] font-semibold"
                                     } ${isCollapsed ? 'justify-center px-0' : 'px-3 gap-3'}`}
                             >
@@ -221,7 +225,7 @@ export default function Sidebar({
                                 </AnimatePresence>
 
                                 {isCollapsed && (
-                                    <div className="absolute left-full ml-4 px-3 py-1 bg-gray-900 text-white text-[11px] rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 whitespace-nowrap z-50 shadow-xl translate-x-1 group-hover:translate-x-0 font-bold uppercase tracking-wider">
+                                    <div className="absolute left-full ml-4 px-3 py-1 bg-[var(--text-main)] text-[var(--bg-app)] text-[11px] rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 whitespace-nowrap z-50 shadow-xl translate-x-1 group-hover:translate-x-0 font-bold uppercase tracking-wider border border-[var(--border-main)]">
                                         {item.label}
                                     </div>
                                 )}
@@ -234,7 +238,7 @@ export default function Sidebar({
                 <div className={`${isCollapsed ? 'p-2' : 'p-4'} border-t border-[var(--border-main)] space-y-2 bg-[var(--bg-card)]`}>
                     <Link
                         href="/help"
-                        className={`w-full flex items-center min-h-[44px] text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors font-bold uppercase tracking-widest text-[9px] opacity-60 group relative ${isCollapsed ? 'justify-center px-0' : 'px-3 gap-2'}`}
+                        className={`w-full flex items-center min-h-[44px] text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors font-bold uppercase tracking-widest text-[9px] group relative ${isCollapsed ? 'justify-center px-0' : 'px-3 gap-2'}`}
                     >
                         <span className="material-symbols-outlined text-[18px] shrink-0">help</span>
                         <AnimatePresence>
@@ -250,7 +254,7 @@ export default function Sidebar({
                             )}
                         </AnimatePresence>
                         {isCollapsed && (
-                            <div className="absolute left-full ml-4 px-3 py-1 bg-gray-900 text-white text-[11px] rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 whitespace-nowrap z-50 shadow-xl font-bold uppercase tracking-wider">
+                            <div className="absolute left-full ml-4 px-3 py-1 bg-[var(--text-main)] text-[var(--bg-app)] text-[11px] rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 whitespace-nowrap z-50 shadow-xl font-bold uppercase tracking-wider border border-[var(--border-main)]">
                                 Help & Support
                             </div>
                         )}
@@ -259,7 +263,7 @@ export default function Sidebar({
                     {userRole && ["MANAGER", "RECEPTIONIST", "EMPLOYEE"].includes(userRole) && (
                         <Link
                             href="/check-in"
-                            className={`w-full bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white font-bold rounded-xl flex items-center min-h-[44px] transition-all text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-[var(--color-primary)]/10 ${isCollapsed ? 'justify-center px-0 py-0' : 'justify-center px-3 py-4 gap-2'}`}
+                            className={`w-full bg-[var(--color-primary)] hover:brightness-110 text-[var(--bg-app)] font-bold rounded-xl flex items-center min-h-[44px] transition-all text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-[var(--color-primary)]/10 ${isCollapsed ? 'justify-center px-0 py-0' : 'justify-center px-3 py-4 gap-2'}`}
                         >
                             <span className="material-symbols-outlined text-[20px] font-bold shrink-0">
                                 add_circle
@@ -277,7 +281,7 @@ export default function Sidebar({
                                 )}
                             </AnimatePresence>
                             {isCollapsed && (
-                                <div className="absolute left-full ml-4 px-3 py-1 bg-gray-900 text-white text-[11px] rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 whitespace-nowrap z-50 shadow-xl font-bold uppercase tracking-wider">
+                                <div className="absolute left-full ml-4 px-3 py-1 bg-[var(--text-main)] text-[var(--bg-app)] text-[11px] rounded-md opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-200 whitespace-nowrap z-50 shadow-xl font-bold uppercase tracking-wider border border-[var(--border-main)]">
                                     Reception
                                 </div>
                             )}

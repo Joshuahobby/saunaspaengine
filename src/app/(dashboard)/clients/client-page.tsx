@@ -114,6 +114,13 @@ export default function ClientListClient({
                     <p className="text-[var(--text-muted)] text-base font-bold mt-1">Manage and search your spa&apos;s active members and walk-in clients.</p>
                 </div>
                 <div className="flex gap-3">
+                    <Link 
+                        href="/clients/universal" 
+                        className="flex items-center justify-center rounded-xl h-12 px-5 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[var(--text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]/30 text-sm font-bold transition-all shadow-sm group"
+                    >
+                        <span className="material-symbols-outlined mr-2 text-lg opacity-60 group-hover:opacity-100 transition-opacity">public</span>
+                        Search Ecosystem
+                    </Link>
                     <button
                         onClick={exportCSV}
                         className="flex items-center justify-center rounded-xl h-12 px-5 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[var(--text-main)] text-sm font-bold hover:bg-[var(--color-primary)] hover:text-[var(--color-bg-dark)] transition-all"

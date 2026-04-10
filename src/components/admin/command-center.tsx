@@ -97,11 +97,11 @@ export function CommandCenter() {
             {/* Trigger Button */}
             <button 
                 onClick={toggle}
-                className="relative hidden md:flex items-center gap-3 pl-4 pr-3 py-2 bg-[var(--bg-card)]/50 border border-[var(--border-muted)] rounded-xl text-[10px] font-bold text-[var(--text-muted)] hover:border-[var(--color-primary)] transition-all group w-72"
+                className="relative hidden md:flex items-center gap-3 pl-4 pr-3 py-2 bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-xl text-[10px] font-bold text-[var(--text-muted)] hover:border-[var(--color-primary)] transition-all group w-72"
             >
-                <span className="material-symbols-outlined text-[18px] opacity-40 group-hover:opacity-100 transition-opacity">search</span>
-                <span className="flex-1 text-left opacity-40 group-hover:opacity-100 transition-opacity">Command Center...</span>
-                <kbd className="px-1.5 py-0.5 rounded bg-white/5 border border-white/5 text-[9px] font-black opacity-30 group-hover:opacity-80 transition-opacity">
+                <span className="material-symbols-outlined text-[18px] opacity-60 group-hover:opacity-100 transition-opacity">search</span>
+                <span className="flex-1 text-left opacity-60 group-hover:opacity-100 transition-opacity">Command Center...</span>
+                <kbd className="px-1.5 py-0.5 rounded bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[9px] font-black opacity-60 group-hover:opacity-90 transition-opacity text-[var(--text-muted)]">
                     {navigator?.platform?.toUpperCase().indexOf('MAC') >= 0 ? '⌘K' : 'Ctrl+K'}
                 </kbd>
             </button>
@@ -122,14 +122,14 @@ export function CommandCenter() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setIsOpen(false)}
-                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+                            className="absolute inset-0 bg-[var(--bg-app)]/80 backdrop-blur-md"
                         />
                         
                         <motion.div 
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="bg-[#0f1412] border border-[var(--border-muted)] rounded-[2rem] w-full max-w-2xl overflow-hidden shadow-2xl relative z-10"
+                            className="bg-[var(--bg-card)] border border-[var(--border-main)] rounded-[2rem] w-full max-w-2xl overflow-hidden shadow-2xl relative z-10"
                         >
                             <div className="p-4 border-b border-[var(--border-muted)] flex items-center gap-4">
                                 <span className={`material-symbols-outlined text-[var(--color-primary)] ${isLoading ? 'animate-spin' : ''}`}>
@@ -141,11 +141,11 @@ export function CommandCenter() {
                                     onKeyDown={onKeyDown}
                                     onChange={e => setQuery(e.target.value)}
                                     placeholder="Type to find businesses, branches, or clients..."
-                                    className="flex-1 bg-transparent border-none outline-none text-white font-bold placeholder:text-[var(--text-muted)]/30 text-base py-2"
+                                    className="flex-1 bg-transparent border-none outline-none text-[var(--text-main)] font-bold placeholder:text-[var(--text-muted)]/40 text-base py-2"
                                 />
                                 <button 
                                     onClick={() => setIsOpen(false)}
-                                    className="px-2 py-1 rounded bg-white/5 text-[8px] font-black uppercase text-[var(--text-muted)] hover:text-white transition-colors"
+                                    className="px-2 py-1 rounded bg-[var(--bg-surface-muted)] text-[8px] font-black uppercase text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors border border-[var(--border-muted)]"
                                 >
                                     Esc
                                 </button>
@@ -153,16 +153,16 @@ export function CommandCenter() {
 
                             <div className="max-h-[60vh] overflow-y-auto">
                                 {!query && (
-                                    <div className="p-8 text-center space-y-4 opacity-40">
-                                        <span className="material-symbols-outlined text-4xl">travel_explore</span>
-                                        <p className="text-[10px] font-black uppercase tracking-[0.2em]">Global Command Center</p>
-                                        <p className="text-[9px] font-medium max-w-xs mx-auto">Start typing to search your resources. Find anything in seconds.</p>
+                                    <div className="p-8 text-center space-y-4 opacity-70">
+                                        <span className="material-symbols-outlined text-4xl text-[var(--color-primary)]">travel_explore</span>
+                                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-main)]">Global Command Center</p>
+                                        <p className="text-[9px] font-medium max-w-xs mx-auto text-[var(--text-muted)]">Start typing to search your resources. Find anything in seconds.</p>
                                     </div>
                                 )}
 
                                 {query && !isLoading && flatResults.length === 0 && (
-                                    <div className="p-12 text-center opacity-30">
-                                        <p className="text-sm font-bold italic">No results found for &quot;{query}&quot;</p>
+                                    <div className="p-12 text-center opacity-60">
+                                        <p className="text-sm font-bold italic text-[var(--text-muted)]">No results found for &quot;{query}&quot;</p>
                                     </div>
                                 )}
 
@@ -173,18 +173,18 @@ export function CommandCenter() {
                                 </div>
                             </div>
 
-                            <div className="p-4 border-t border-[var(--border-muted)] bg-white/[0.02] flex items-center justify-between">
+                            <div className="p-4 border-t border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/50 flex items-center justify-between">
                                 <div className="flex items-center gap-4">
-                                    <div className="flex items-center gap-1.5 opacity-40">
-                                        <kbd className="px-1 py-0.5 rounded bg-white/5 border border-white/5 text-[8px]">↑↓</kbd>
-                                        <span className="text-[8px] font-bold uppercase tracking-widest">Navigate</span>
+                                    <div className="flex items-center gap-1.5 opacity-60">
+                                        <kbd className="px-1 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-muted)] text-[8px] text-[var(--text-muted)]">↑↓</kbd>
+                                        <span className="text-[8px] font-bold uppercase tracking-widest text-[var(--text-muted)]">Navigate</span>
                                     </div>
-                                    <div className="flex items-center gap-1.5 opacity-40">
-                                        <kbd className="px-1 py-0.5 rounded bg-white/5 border border-white/5 text-[8px]">Enter</kbd>
-                                        <span className="text-[8px] font-bold uppercase tracking-widest">Select</span>
+                                    <div className="flex items-center gap-1.5 opacity-60">
+                                        <kbd className="px-1 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-muted)] text-[8px] text-[var(--text-muted)]">Enter</kbd>
+                                        <span className="text-[8px] font-bold uppercase tracking-widest text-[var(--text-muted)]">Select</span>
                                     </div>
                                 </div>
-                                <div className="text-[8px] font-black text-[var(--color-primary)] uppercase tracking-widest opacity-40">
+                                <div className="text-[8px] font-black text-[var(--color-primary)] uppercase tracking-widest opacity-60">
                                     Command Center V1.0
                                 </div>
                             </div>
@@ -201,7 +201,7 @@ function ResultSection({ title, results, activeIndex, offset, onSelect }: { titl
 
     return (
         <div className="space-y-1">
-            <h3 className="px-4 py-1 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-30">{title}</h3>
+            <h3 className="px-4 py-1 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">{title}</h3>
             {results.map((item, idx: number) => {
                 const isFocused = activeIndex === offset + idx;
                 const type = title.toLowerCase().slice(0, -1);
@@ -210,20 +210,20 @@ function ResultSection({ title, results, activeIndex, offset, onSelect }: { titl
                     <button
                         key={item.id}
                         onClick={() => onSelect({ ...item, type })}
-                        className={`w-full text-left px-4 py-3 rounded-2xl flex items-center justify-between transition-all group ${isFocused ? 'bg-[var(--color-primary)] text-black' : 'hover:bg-white/5 text-white'}`}
+                        className={`w-full text-left px-4 py-3 rounded-2xl flex items-center justify-between transition-all group ${isFocused ? 'bg-[var(--color-primary)] text-[var(--bg-app)]' : 'hover:bg-[var(--bg-surface-muted)] text-[var(--text-main)]'}`}
                     >
                         <div className="flex items-center gap-4">
-                            <span className={`material-symbols-outlined text-lg ${isFocused ? 'text-black' : 'text-[var(--text-muted)] group-hover:text-[var(--color-primary)]'}`}>
+                            <span className={`material-symbols-outlined text-lg ${isFocused ? 'text-[var(--bg-app)]' : 'text-[var(--text-muted)] group-hover:text-[var(--color-primary)]'}`}>
                                 {type === "business" ? "corporate_fare" : type === "branch" ? "storefront" : "person"}
                             </span>
                             <div>
                                 <p className="font-bold text-sm tracking-tight">{item.name || item.fullName}</p>
-                                <p className={`text-[9px] font-medium opacity-60 ${isFocused ? 'text-black' : ''}`}>
+                                <p className={`text-[9px] font-medium opacity-70 ${isFocused ? 'text-[var(--bg-app)] opacity-90' : ''}`}>
                                     {item.ownerEmail || item.identifier || (item.branch ? `Branch: ${item.branch.name}` : item.id)}
                                 </p>
                             </div>
                         </div>
-                        <span className={`material-symbols-outlined text-sm opacity-0 group-hover:opacity-60 ${isFocused ? 'opacity-100 text-black' : ''}`}>
+                        <span className={`material-symbols-outlined text-sm opacity-0 group-hover:opacity-70 ${isFocused ? 'opacity-100 text-[var(--bg-app)]' : ''}`}>
                             chevron_right
                         </span>
                     </button>

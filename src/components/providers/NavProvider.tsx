@@ -14,15 +14,19 @@ interface NavContextType {
 const NavContext = createContext<NavContextType | undefined>(undefined);
 
 export function NavProvider({ children }: { children: React.ReactNode }) {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(true);
     const [isMobileOpen, setIsMobileOpen] = useState(false);
     const pathname = usePathname();
 
     // Persist state in localStorage after initial mount
     useEffect(() => {
-        const saved = localStorage.getItem("sidebar-collapsed");
+        const saved = localStorage.getItem("sauna-sidebar-state");
         if (saved !== null) {
             setIsCollapsed(saved === "true");
+        } else {
+            // First time or key change: ensure it defaults to collapsed
+            setIsCollapsed(true);
+            localStorage.setItem("sauna-sidebar-state", "true");
         }
     }, []);
 
@@ -34,7 +38,7 @@ export function NavProvider({ children }: { children: React.ReactNode }) {
     const toggleSidebar = () => {
         setIsCollapsed((prev) => {
             const newState = !prev;
-            localStorage.setItem("sidebar-collapsed", String(newState));
+            localStorage.setItem("sauna-sidebar-state", String(newState));
             return newState;
         });
     };

@@ -4,10 +4,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 interface BranchFilterProps {
     branches: { id: string; name: string }[];
-    selectedBranchId?: string;
+    activeBranchId?: string;
 }
 
-export function BranchFilter({ branches, selectedBranchId }: BranchFilterProps) {
+export function BranchFilter({ branches, activeBranchId }: BranchFilterProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -28,7 +28,7 @@ export function BranchFilter({ branches, selectedBranchId }: BranchFilterProps) 
         <div className="relative w-full md:w-48">
             <select 
                 aria-label="Filter by branch location"
-                defaultValue={selectedBranchId || ""}
+                defaultValue={activeBranchId || ""}
                 onChange={handleChange}
                 className="w-full pl-4 pr-10 py-2 bg-[var(--bg-surface-muted)] border-[var(--border-muted)] border rounded-xl text-sm focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] text-[var(--text-main)] appearance-none cursor-pointer"
             >

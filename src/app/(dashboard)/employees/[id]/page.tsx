@@ -1,8 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect, notFound } from "next/navigation";
-import Link from "next/link";
-import EditEmployeeForm from "@/components/employees/edit-form";
+import { startOfMonth, subMonths, differenceInMonths } from "date-fns";
+import EmployeeUI from "./employee-ui";
 
 export default async function EmployeeProfilePage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -16,16 +16,24 @@ export default async function EmployeeProfilePage({ params }: { params: Promise<
         redirect("/dashboard");
     }
 
-    const employee = await prisma.employee.findUnique({
-        where: { id },
-        include: {
-            branch: true,
-            category: true,
-            user: {
-                select: { email: true, username: true }
-            },
-        }
-    });
+    // 1. Core Fetching
+    const [employee, categories, branches] = await Promise.all([
+        prisma.employee.findUnique({
+            where: { id },
+            include: {
+                branch: true,
+                category: true,
+                user: { select: { email: true, username: true } },
+            }
+        }),
+        prisma.employeeCategory.findMany({ orderBy: { name: 'asc' } }),
+        (role === "OWNER" || role === "ADMIN")
+            ? prisma.branch.findMany({
+                where: { businessId: session.user.businessId as string },
+                orderBy: { name: 'asc' }
+            })
+            : []
+    ]);
 
     if (!employee) notFound();
 
@@ -34,43 +42,72 @@ export default async function EmployeeProfilePage({ params }: { params: Promise<
         redirect("/employees");
     }
 
-    const categories = await prisma.employeeCategory.findMany({
-        orderBy: { name: 'asc' }
+    // 2. Intelligence Gathering: Revenue Trend (Last 12 Months)
+    const twelveMonthsAgo = subMonths(new Date(), 12);
+    const serviceRecords = await prisma.serviceRecord.findMany({
+        where: { 
+            employeeId: id,
+            status: "COMPLETED",
+            completedAt: { gte: twelveMonthsAgo }
+        },
+        include: { service: true, client: true, review: true },
+        orderBy: { completedAt: 'desc' }
     });
 
-    // Owners and Admins can see all branches to move staff
-    const branches = (role === "OWNER" || role === "ADMIN")
-        ? await prisma.branch.findMany({
-            where: { businessId: session.user.businessId as string },
-            orderBy: { name: 'asc' }
-        })
-        : [];
+    // 3. Performance Metrics
+    const totalYield = serviceRecords.reduce((acc, r) => acc + (r.amount || 0), 0);
+    const totalServices = serviceRecords.length;
+    
+    // Quality Index (Reviews)
+    const ratedRecords = serviceRecords.filter(r => r.review);
+    const avgRating = ratedRecords.length > 0 
+        ? ratedRecords.reduce((acc, r) => acc + (r.review?.rating || 0), 0) / ratedRecords.length
+        : 0;
+
+    // Customer Retention (Repeat Rate)
+    const clientVisitCounts: Record<string, number> = {};
+    serviceRecords.forEach(r => {
+        clientVisitCounts[r.clientId] = (clientVisitCounts[r.clientId] || 0) + 1;
+    });
+    
+    const uniqueClients = Object.keys(clientVisitCounts).length;
+    const repeatClients = Object.values(clientVisitCounts).filter(count => count > 1).length;
+    const retentionRate = uniqueClients > 0 ? (repeatClients / uniqueClients) * 100 : 0;
+
+    // Revenue Velocity Map (Last 12 Months)
+    const velocityData = new Array(12).fill(0);
+    serviceRecords.forEach(r => {
+        const monthsAgo = differenceInMonths(new Date(), r.completedAt!);
+        const index = 11 - monthsAgo;
+        if (index >= 0 && index < 12) {
+            velocityData[index] += r.amount;
+        }
+    });
+
+    const intelligence = {
+        totalYield,
+        totalServices,
+        avgRating,
+        retentionRate,
+        uniqueClients,
+        velocityData,
+        lastActive: serviceRecords[0]?.completedAt || employee.createdAt,
+        performanceStatus: totalServices > 10 ? (avgRating >= 4.5 ? 'ELITE' : 'STABLE') : 'PROBATION'
+    };
 
     return (
-        <div className="max-w-4xl mx-auto p-6 space-y-8 pb-20">
-            <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-widest opacity-60">
-                    <Link href="/employees" className="hover:text-[var(--color-primary)] transition-all">Directory</Link>
-                    <span className="material-symbols-outlined text-[10px]">chevron_right</span>
-                    <span>Staff Profile</span>
-                </div>
-                <h1 className="text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">
-                    Manage <span className="text-[var(--color-primary)]">Staff Member</span>
-                </h1>
-                <p className="text-sm text-[var(--text-muted)] font-medium">Update professional credentials or record maintenance for staff portfolio.</p>
-            </div>
-
-            <EditEmployeeForm 
-                employee={{
-                    ...employee,
-                    phone: employee.phone || null,
-                    commissionRate: employee.commissionRate,
-                    user: employee.user || null,
-                }} 
-                categories={categories}
-                branches={branches}
-                isOwner={role === "OWNER" || role === "ADMIN"}
-            />
-        </div>
+        <EmployeeUI 
+            employee={{
+                ...employee,
+                phone: employee.phone || null,
+                commissionRate: employee.commissionRate,
+                user: employee.user || null,
+                serviceRecords: serviceRecords.slice(0, 20) // Limit list to recent
+            } as any}
+            categories={categories}
+            branches={branches}
+            isOwner={role === "OWNER" || role === "ADMIN"}
+            intelligence={intelligence}
+        />
     );
 }

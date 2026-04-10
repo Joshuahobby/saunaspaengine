@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { StatusToggle } from "@/components/employees/status-toggle";
 import { BranchFilter } from "@/components/employees/branch-filter";
 import Link from "next/link";
+import { getActiveBranchContext } from "@/lib/branch-context";
 
 export default async function EmployeesPage({ 
     searchParams 
@@ -14,29 +15,30 @@ export default async function EmployeesPage({
     const resolvedSearchParams = await searchParams;
     const session = await auth();
     if (!session?.user) redirect("/login");
-    if (!session.user.branchId && session.user.role !== 'OWNER') redirect("/login");
+
+    // Unified & Secure Branch Context Resolution
+    const { authorizedBranchIds, activeBranchId } = await getActiveBranchContext(session, resolvedSearchParams);
+
+    if (authorizedBranchIds.length === 0) {
+        return (
+            <div className="flex h-[70vh] items-center justify-center bg-black/20 rounded-[40px] border border-white/5 text-white/50 p-10 font-serif italic text-lg">
+                Access to staff records in this context is restricted or unavailable.
+            </div>
+        );
+    }
 
     const businessBranches = session.user.role === 'OWNER'
         ? await prisma.branch.findMany({ 
-            where: { businessId: session.user.businessId as string }, 
+            where: { businessId: session.user.businessId as string, status: 'ACTIVE' }, 
             select: { id: true, name: true } 
           })
         : [];
-
-    const allBranchIds = session.user.role === 'OWNER'
-        ? businessBranches.map(b => b.id)
-        : [session.user.branchId as string];
-
-    const selectedBranchId = resolvedSearchParams.branchId;
-    const filterBranchIds = selectedBranchId && allBranchIds.includes(selectedBranchId)
-        ? [selectedBranchId]
-        : allBranchIds;
 
     const searchTerm = resolvedSearchParams.q?.toLowerCase();
 
     const employees = await prisma.employee.findMany({
         where: { 
-            branchId: { in: filterBranchIds },
+            branchId: { in: authorizedBranchIds },
             ...(searchTerm ? {
                 OR: [
                     { fullName: { contains: searchTerm, mode: 'insensitive' } },
@@ -122,17 +124,17 @@ export default async function EmployeesPage({
             <div className="bg-[var(--bg-card)] rounded-3xl border border-[var(--border-main)] overflow-hidden shadow-sm">
                 <div className="p-4 border-b border-[var(--border-muted)] flex flex-col md:flex-row gap-4 items-center justify-between">
                     <div className="flex gap-6 self-start md:self-center">
-                        <Link href={`/employees?${new URLSearchParams({ ...(selectedBranchId && { branchId: selectedBranchId }), ...(searchTerm && { q: searchTerm }) }).toString()}`} 
+                        <Link href={`/employees?${new URLSearchParams({ ...(activeBranchId && { branchId: activeBranchId }), ...(searchTerm && { q: searchTerm }) }).toString()}`} 
                               className={`flex items-center gap-2 border-b-2 pb-2 font-bold text-sm transition-colors ${viewStatus === 'ACTIVE' ? 'border-[var(--color-primary)] text-[var(--text-main)]' : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)]'}`}>
-                            {selectedBranchId ? "Active Filtered" : "Active Staff"}
+                            {activeBranchId ? "Active Filtered" : "Active Staff"}
                             <span className={`${viewStatus === 'ACTIVE' ? 'bg-[var(--color-primary)]/20 text-[var(--color-primary)]' : 'bg-[var(--bg-card)] text-[var(--text-muted)]'} text-[10px] px-2 py-0.5 rounded-full not-italic transition-colors`}>{activeNow}</span>
                         </Link>
-                        <Link href={`/employees?${new URLSearchParams({ ...(selectedBranchId && { branchId: selectedBranchId }), ...(searchTerm && { q: searchTerm }), status: 'INACTIVE' }).toString()}`} 
+                        <Link href={`/employees?${new URLSearchParams({ ...(activeBranchId && { branchId: activeBranchId }), ...(searchTerm && { q: searchTerm }), status: 'INACTIVE' }).toString()}`} 
                               className={`flex items-center gap-2 border-b-2 pb-2 font-bold text-sm transition-colors ${viewStatus === 'INACTIVE' ? 'border-[var(--color-primary)] text-[var(--text-main)]' : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)]'}`}>
                             Inactive Staff
                             <span className={`${viewStatus === 'INACTIVE' ? 'bg-[var(--color-primary)]/20 text-[var(--color-primary)]' : 'bg-[var(--bg-card)] text-[var(--text-muted)]'} text-[10px] px-2 py-0.5 rounded-full not-italic transition-colors`}>{onLeave}</span>
                         </Link>
-                        <Link href={`/employees?${new URLSearchParams({ ...(selectedBranchId && { branchId: selectedBranchId }), ...(searchTerm && { q: searchTerm }), status: 'ARCHIVED' }).toString()}`} 
+                        <Link href={`/employees?${new URLSearchParams({ ...(activeBranchId && { branchId: activeBranchId }), ...(searchTerm && { q: searchTerm }), status: 'ARCHIVED' }).toString()}`} 
                               className={`flex items-center gap-2 border-b-2 pb-2 font-bold text-sm transition-colors ${viewStatus === 'ARCHIVED' ? 'border-[var(--color-primary)] text-[var(--text-main)]' : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-main)]'}`}>
                             Archived
                             <span className={`${viewStatus === 'ARCHIVED' ? 'bg-[var(--color-primary)]/20 text-[var(--color-primary)]' : 'bg-[var(--bg-card)] text-[var(--text-muted)]'} text-[10px] px-2 py-0.5 rounded-full not-italic transition-colors`}>{archivedCount}</span>
@@ -144,14 +146,14 @@ export default async function EmployeesPage({
                         {session.user.role === 'OWNER' && businessBranches.length > 0 && (
                             <BranchFilter 
                                 branches={businessBranches.map(b => ({ id: b.id, name: b.name }))}
-                                selectedBranchId={selectedBranchId}
+                                activeBranchId={activeBranchId}
                             />
                         )}
 
                         <div className="relative flex-1 md:w-80">
                             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] text-lg opacity-50">search</span>
                             <form action="/employees" method="GET">
-                                {selectedBranchId && <input type="hidden" name="branchId" value={selectedBranchId} />}
+                                {activeBranchId && <input type="hidden" name="branchId" value={activeBranchId} />}
                                 <input
                                     type="text"
                                     name="q"
@@ -216,8 +218,12 @@ export default async function EmployeesPage({
                                     </td>
 
                                     <td className="px-6 py-4 whitespace-nowrap text-right">
-                                        <Link href={`/employees/${employee.id}`} className="text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-all p-2 hover:bg-[var(--bg-surface-muted)] rounded-xl inline-flex">
-                                            <span className="material-symbols-outlined">edit</span>
+                                        <Link 
+                                            href={`/employees/${employee.id}`} 
+                                            title="View Performance Profile"
+                                            className="text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-all p-2 hover:bg-[var(--bg-surface-muted)] rounded-xl inline-flex group/btn"
+                                        >
+                                            <span className="material-symbols-outlined group-hover/btn:scale-110 transition-transform">query_stats</span>
                                         </Link>
                                     </td>
                                 </tr>
@@ -226,7 +232,7 @@ export default async function EmployeesPage({
                             {displayedEmployees.length === 0 && (
                                 <tr>
                                     <td colSpan={isOwnerOrAdmin ? 6 : 5} className="px-6 py-12 text-center text-[var(--text-muted)] font-bold opacity-60">
-                                        {searchTerm || selectedBranchId ? "No employees match your active filters." : `No ${viewStatus.toLowerCase()} employees found.`}
+                                        {searchTerm || activeBranchId ? "No employees match your active filters." : `No ${viewStatus.toLowerCase()} employees found.`}
                                     </td>
                                 </tr>
                             )}
@@ -237,7 +243,7 @@ export default async function EmployeesPage({
                 {displayedEmployees.length > 0 && (
                     <div className="p-4 bg-[var(--bg-surface-muted)] flex items-center justify-between border-t border-[var(--border-muted)]">
                         <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest opacity-40">
-                            {selectedBranchId ? "Branch Specific view" : "Network-wide view"} — Showing {displayedEmployees.length} employees
+                            {activeBranchId ? "Branch Specific view" : "Network-wide view"} — Showing {displayedEmployees.length} employees
                         </p>
                     </div>
                 )}
