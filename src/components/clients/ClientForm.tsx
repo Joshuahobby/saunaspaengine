@@ -128,19 +128,19 @@ export default function ClientForm({
 
     return (
         <form onSubmit={handleSubmit} className="bg-[var(--bg-card)] rounded-[2.5rem] p-8 shadow-sm border border-[var(--border-muted)] space-y-6">
-            <h2 className="text-2xl font-display font-bold text-[var(--text-main)] italic">
+            <h2 className="text-2xl font-display font-bold text-[var(--text-main)]">
                 {isEdit ? "Update Client Profile" : "Register New Guest"}
             </h2>
 
             {error && (
-                <div className="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 text-[10px] text-red-600 dark:text-red-400 font-bold italic">
+                <div className="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 text-[10px] text-red-600 dark:text-red-400 font-bold">
                     {error}
                 </div>
             )}
 
             {branches.length > 0 && (
                 <div className="flex flex-col gap-2 pb-6 border-b border-[var(--border-muted)]/30">
-                    <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 italic opacity-60">Target Branch <span className="text-red-500">*</span></label>
+                    <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-60">Target Branch <span className="text-red-500">*</span></label>
                     <div className="relative">
                         <select 
                             title="Target Branch"
@@ -163,7 +163,7 @@ export default function ClientForm({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2 col-span-2">
-                    <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 italic opacity-60">Full Name <span className="text-red-500">*</span></label>
+                    <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-60">Full Name <span className="text-red-500">*</span></label>
                     <input 
                         name="fullName" 
                         required 
@@ -174,7 +174,7 @@ export default function ClientForm({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 italic opacity-60">Phone Number <span className="text-red-500">*</span></label>
+                    <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-60">Phone Number <span className="text-red-500">*</span></label>
                     <div className="relative">
                         <span className="absolute left-3 top-3 material-symbols-outlined text-[var(--text-muted)] opacity-50">call</span>
                         <input 
@@ -188,7 +188,7 @@ export default function ClientForm({
                 </div>
 
                 <div className="flex flex-col gap-2">
-                    <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 italic opacity-60">Email Address (Optional)</label>
+                    <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-60">Email Address (Optional)</label>
                     <div className="relative">
                         <span className="absolute left-3 top-3 material-symbols-outlined text-[var(--text-muted)] opacity-50">mail</span>
                         <input 
@@ -201,7 +201,7 @@ export default function ClientForm({
                 </div>
 
                 <div className="col-span-2 pt-4 border-t border-[var(--border-muted)]/30">
-                    <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 italic opacity-60 block mb-3">Guest Category</label>
+                    <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-60 block mb-3">Guest Category</label>
                     <div className="flex bg-[var(--bg-surface-muted)] p-1 rounded-2xl w-fit border border-[var(--border-muted)]/50">
                         <button
                             type="button"
@@ -224,14 +224,14 @@ export default function ClientForm({
             </div>
 
             <div className="flex gap-4 pt-6 border-t border-[var(--border-muted)]">
-                <button type="submit" disabled={isSubmitting} className="flex-[2] bg-[var(--color-primary)] text-[var(--color-bg-dark)] py-4 rounded-xl font-black text-[10px] hover:brightness-110 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest shadow-md shadow-[var(--color-primary)]/10 italic">
+                <button type="submit" disabled={isSubmitting} className="flex-[2] bg-[var(--color-primary)] text-[var(--color-bg-dark)] py-4 rounded-xl font-black text-[10px] hover:brightness-110 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest shadow-md shadow-[var(--color-primary)]/10">
                     <span className="material-symbols-outlined">{isEdit ? "save" : "how_to_reg"}</span>
                     {isSubmitting ? "Processing..." : isEdit ? "Save Changes" : "Create Profile & Activate"}
                 </button>
                 <button 
                     type="button" 
                     onClick={() => router.back()} 
-                    className="flex-1 py-4 border border-[var(--border-muted)] bg-[var(--bg-surface-muted)] rounded-xl font-black text-[10px] text-[var(--text-muted)] hover:text-red-500 hover:border-red-500/30 transition-all disabled:opacity-50 uppercase tracking-widest italic" 
+                    className="flex-1 py-4 border border-[var(--border-muted)] bg-[var(--bg-surface-muted)] rounded-xl font-black text-[10px] text-[var(--text-muted)] hover:text-red-500 hover:border-red-500/30 transition-all disabled:opacity-50 uppercase tracking-widest" 
                     disabled={isSubmitting}
                 >
                     Cancel

@@ -72,12 +72,14 @@ export default async function HelpPage() {
                     <span className="material-symbols-outlined text-[14px]">info</span>
                     Knowledge & Support Hub
                 </div>
-                <h1 className="text-6xl font-display font-bold tracking-tight text-[var(--text-main)]">
-                    System <span className="text-[var(--color-primary)] italic">Manual</span>
-                </h1>
-                <p className="text-[var(--text-muted)] mt-5 max-w-3xl text-xl font-bold leading-relaxed">
-                    The definitive guide to platform governance, commercial operations, and administrative mastery.
-                </p>
+                <div className="flex items-baseline gap-6">
+                    <h1 className="text-6xl font-display font-bold tracking-tight text-[var(--text-main)] shrink-0">
+                        System <span className="text-[var(--color-primary)]">Manual</span>
+                    </h1>
+                    <p className="text-[var(--text-muted)] text-sm leading-relaxed font-bold opacity-60">
+                        — The definitive guide to platform governance, commercial operations, and administrative mastery.
+                    </p>
+                </div>
 
                 {/* Global Search Bar */}
                 <div className="max-w-2xl mt-10 relative group">
@@ -137,7 +139,7 @@ export default async function HelpPage() {
                 
                 <div className="space-y-4">
                     <h3 className="text-3xl font-display font-bold text-[var(--text-main)]">Still need assistance?</h3>
-                    <p className="text-[var(--text-muted)] max-w-xl font-bold text-lg leading-relaxed">
+                    <p className="text-[var(--text-muted)] max-w-3xl font-bold text-lg leading-relaxed">
                         If you've encountered a system anomaly or require architectural guidance, our primary support oracles are available to assist.
                     </p>
                 </div>

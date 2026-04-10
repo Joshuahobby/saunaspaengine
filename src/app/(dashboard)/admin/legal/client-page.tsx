@@ -17,11 +17,13 @@ export default function LegalTemplatesClientPage() {
         <main className="flex flex-1 flex-col px-6 lg:px-10 py-12 gap-12 max-w-[1440px] mx-auto w-full overflow-y-auto">
             {/* Header Actions */}
             <div className="flex flex-col md:flex-row justify-between items-end gap-10 border-b border-[var(--border-muted)] pb-12">
-                <div className="flex flex-col gap-4">
-                    <h1 className="text-5xl lg:text-6xl font-display font-bold text-[var(--text-main)] tracking-tight">
-                        Legal <span className="text-[var(--color-primary)] opacity-50">&</span> Compliance
+                <div className="space-y-1">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">
+                        Legal <span className="text-[var(--color-primary)]">Framework</span>
                     </h1>
-                    <p className="text-xl text-[var(--text-muted)] font-medium opacity-80 max-w-2xl">Manage legally-binding documents and privacy harmonics across all global branch regions.</p>
+                    <p className="text-sm font-medium text-[var(--text-muted)] opacity-60">
+                        Defining the jurisdictional resonance and compliance rules for your operations.
+                    </p>
                 </div>
                 <button className="flex items-center gap-3 px-10 py-4 bg-[var(--text-main)] text-[var(--bg-app)] rounded-2xl text-[10px] font-bold uppercase tracking-[0.3em] hover:scale-[1.05] active:scale-[0.98] transition-all shadow-xl shadow-black/10">
                     <span className="material-symbols-outlined text-xl font-bold">add_circle</span>
@@ -108,7 +110,7 @@ export default function LegalTemplatesClientPage() {
                         </div>
                         <div className="space-y-4 relative z-10">
                             <h3 className="text-4xl font-display font-bold tracking-tight">Standardized <span className="text-[var(--color-primary)] underline decoration-4 decoration-[var(--color-primary)]/20 underline-offset-8">Compliance</span> Archetype</h3>
-                            <p className="text-[var(--bg-app)] opacity-60 text-xl leading-relaxed max-w-xl">Ensure every sanctuary operates under the same legal shield. Updates made here permeate your entire branch infrastructure throughout the universal plane.</p>
+                            <p className="text-[var(--bg-app)] opacity-60 text-xl leading-relaxed max-w-3xl">Ensure every sanctuary operates under the same legal shield. Updates made here permeate your entire branch infrastructure throughout the universal plane.</p>
                         </div>
                         <button className="w-fit px-10 py-5 bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90 text-[var(--bg-app)] rounded-2xl text-[10px] font-bold uppercase tracking-[0.3em] transition-all flex items-center gap-4 shadow-xl shadow-black/10 active:scale-[0.98] relative z-10 group/broadcast">
                             Broadcast Global Update

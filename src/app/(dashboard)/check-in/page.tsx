@@ -58,7 +58,7 @@ export default async function CheckInPage() {
                     Front-Desk <span className="text-[var(--color-primary)]">Reception</span>
                 </h1>
                 <p className="text-[var(--text-muted)] mt-2 font-medium text-base leading-relaxed">
-                    Verify guest membership via QR code or manage new entries manually.
+                    Verify client membership via QR code or manage check-ins manually.
                 </p>
             </div>
 

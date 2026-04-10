@@ -17,7 +17,7 @@ export default function LoginForm() {
     return (
         <div className="bg-[var(--bg-card)] p-8 md:p-12 rounded-[2.5rem] shadow-xl shadow-black/5 border border-[var(--border-main)]">
             <div className="text-center mb-10">
-                <h2 className="text-[var(--text-main)] text-3xl font-black font-serif italic">Welcome <span className="not-italic text-[var(--color-primary)]">Back</span></h2>
+                <h2 className="text-[var(--text-main)] text-3xl font-black font-serif">Welcome <span className="not-italic text-[var(--color-primary)]">Back</span></h2>
                 <p className="text-[var(--text-muted)] text-sm mt-3 font-medium">Access your spa operations dashboard</p>
             </div>
 

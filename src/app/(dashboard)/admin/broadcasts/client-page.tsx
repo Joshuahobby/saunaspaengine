@@ -79,17 +79,19 @@ export default function AdminBroadcastsClientPage() {
     return (
         <div className="flex flex-col gap-8 px-4 lg:px-6 py-6 max-w-[1600px] mx-auto w-full">
             {/* Transmission Hub Header */}
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 border-b border-[var(--border-muted)] pb-8 relative overflow-hidden group">
+            <div className="flex flex-col gap-8 border-b border-[var(--border-muted)] pb-8 relative overflow-hidden group">
                 <div className="absolute top-0 left-0 w-96 h-96 bg-[var(--color-primary)] opacity-[0.03] blur-[100px] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
                 
-                <div className="space-y-1 relative z-10">
-                    <h1 className="text-3xl lg:text-4xl font-serif font-bold text-white italic tracking-tight leading-tight">
-                        Transmission <span className="text-[var(--color-primary)]">Hub</span>
+                <div className="space-y-1">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">
+                        Platform <span className="text-[var(--color-primary)]">Broadcasts</span>
                     </h1>
-                    <p className="text-sm text-[var(--text-muted)] font-medium opacity-60 italic">Global resonance distribution across the branch network.</p>
+                    <p className="text-sm font-medium text-[var(--text-muted)] opacity-60">
+                        Orchestrating high-impact communications across your global business network.
+                    </p>
                 </div>
 
-                <div className="flex items-center gap-4 relative z-10">
+                <div className="flex flex-wrap items-center gap-4 relative z-10">
                     <div className="flex items-center gap-2 p-1 bg-black/30 rounded-xl border border-[var(--border-muted)]">
                         {(["compose", "archives"] as const).map((mode) => (
                             <button
@@ -125,7 +127,7 @@ export default function AdminBroadcastsClientPage() {
                                 <form onSubmit={handleSend} className="space-y-8 relative z-10">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                         <div className="space-y-3">
-                                            <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2 italic">Audience Spectrum</label>
+                                            <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2">Audience Spectrum</label>
                                             <div className="relative group/sel">
                                                 <select 
                                                     title="Target Audience"
@@ -139,12 +141,12 @@ export default function AdminBroadcastsClientPage() {
                                                     <option>High-Yield Branches</option>
                                                     <option>Fragment: North Celestial</option>
                                                 </select>
-                                                <span className="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] group-hover/sel:text-[var(--color-primary)] pointer-events-none transition-colors italic">unfold_more</span>
+                                                <span className="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] group-hover/sel:text-[var(--color-primary)] pointer-events-none transition-colors">unfold_more</span>
                                             </div>
                                         </div>
 
                                         <div className="space-y-3">
-                                            <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2 italic">Intensity Level</label>
+                                            <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2">Intensity Level</label>
                                             <div className="flex gap-4 h-14">
                                                 <button 
                                                     type="button"
@@ -165,17 +167,17 @@ export default function AdminBroadcastsClientPage() {
                                     </div>
 
                                     <div className="space-y-3">
-                                        <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2 italic">Transmission Subject</label>
+                                        <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2">Transmission Subject</label>
                                         <input 
                                             value={subject}
                                             onChange={e => setSubject(e.target.value)}
                                             placeholder="Archetype Synchronization..."
-                                            className="w-full h-14 bg-black/20 border border-[var(--border-muted)] rounded-2xl px-6 text-sm font-serif font-bold text-white italic outline-none hover:border-[var(--color-primary)]/40 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all"
+                                            className="w-full h-14 bg-black/20 border border-[var(--border-muted)] rounded-2xl px-6 text-sm font-serif font-bold text-white outline-none hover:border-[var(--color-primary)]/40 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all"
                                         />
                                     </div>
 
                                     <div className="space-y-3">
-                                        <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2 italic">Signal Content</label>
+                                        <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2">Signal Content</label>
                                         <div className="rounded-[2rem] border border-[var(--border-muted)] bg-black/10 overflow-hidden focus-within:border-[var(--color-primary)]/40 transition-all p-1">
                                             <div className="flex items-center gap-2 p-3 border-b border-[var(--border-muted)]/50">
                                                 {["format_bold", "format_italic", "format_list_bulleted", "link", "attachment"].map((icon) => (
@@ -189,7 +191,7 @@ export default function AdminBroadcastsClientPage() {
                                                 onChange={e => setContent(e.target.value)}
                                                 rows={8}
                                                 placeholder="Begin transmission of platform insights..."
-                                                className="w-full bg-transparent p-6 text-base font-serif font-medium text-white/80 italic outline-none resize-none leading-relaxed"
+                                                className="w-full bg-transparent p-6 text-base font-serif font-medium text-white/80 outline-none resize-none leading-relaxed"
                                             />
                                         </div>
                                     </div>
@@ -198,11 +200,11 @@ export default function AdminBroadcastsClientPage() {
                                         <div className="flex items-center gap-6">
                                             <div className="flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--color-primary)] cursor-pointer transition-colors group/opt">
                                                 <span className="material-symbols-outlined text-lg font-bold">schedule</span>
-                                                <span className="text-[8px] font-black uppercase tracking-widest italic border-b border-transparent group-hover/opt:border-current">Delayed Broadcast</span>
+                                                <span className="text-[8px] font-black uppercase tracking-widest border-b border-transparent group-hover/opt:border-current">Delayed Broadcast</span>
                                             </div>
                                             <div className="flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--color-primary)] cursor-pointer transition-colors group/opt">
                                                 <span className="material-symbols-outlined text-lg font-bold">visibility</span>
-                                                <span className="text-[8px] font-black uppercase tracking-widest italic border-b border-transparent group-hover/opt:border-current">Signal Preview</span>
+                                                <span className="text-[8px] font-black uppercase tracking-widest border-b border-transparent group-hover/opt:border-current">Signal Preview</span>
                                             </div>
                                         </div>
 
@@ -213,7 +215,7 @@ export default function AdminBroadcastsClientPage() {
                                             {sent ? (
                                                 <>Signal Dispersed <span className="material-symbols-outlined text-base">task_alt</span></>
                                             ) : (
-                                                <>Initiate Broadcast <span className="material-symbols-outlined text-lg font-black group-hover:translate-x-1 transition-transform italic">sensors</span></>
+                                                <>Initiate Broadcast <span className="material-symbols-outlined text-lg font-black group-hover:translate-x-1 transition-transform">sensors</span></>
                                             )}
                                         </button>
                                     </div>
@@ -224,7 +226,7 @@ export default function AdminBroadcastsClientPage() {
                         {/* Quick Metrics sidebar */}
                         <div className="xl:col-span-4 space-y-8">
                              <div className="rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm backdrop-blur-md relative overflow-hidden group">
-                                <h3 className="text-xl font-serif font-bold text-white italic mb-8 border-b border-[var(--border-muted)] pb-5">Signal Resonance</h3>
+                                <h3 className="text-xl font-serif font-bold text-white mb-8 border-b border-[var(--border-muted)] pb-5">Signal Resonance</h3>
                                 <div className="space-y-8">
                                     <ResonanceCard label="Total Reach" value="1,248" sub="Global Branches" icon="groups_3" />
                                     <ResonanceCard label="Engagement" value="94.2%" sub="Sync Rate" icon="query_stats" />
@@ -237,8 +239,8 @@ export default function AdminBroadcastsClientPage() {
                                     <span className="material-symbols-outlined text-3xl font-bold">bolt</span>
                                 </div>
                                 <div>
-                                    <h4 className="text-lg font-serif font-black text-white italic">Urgent Override</h4>
-                                    <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1 italic">Bypass standard distribution cycles for immediate branch alert.</p>
+                                    <h4 className="text-lg font-serif font-black text-white">Urgent Override</h4>
+                                    <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1">Bypass standard distribution cycles for immediate branch alert.</p>
                                 </div>
                                 <button className="w-full py-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-[9px] font-black uppercase tracking-[0.2em] hover:bg-rose-500/20 transition-all">
                                     Activate High-Intensity Signal
@@ -255,8 +257,8 @@ export default function AdminBroadcastsClientPage() {
                     >
                         <div className="p-10 border-b border-[var(--border-muted)] flex justify-between items-center bg-black/10">
                             <div className="space-y-1">
-                                <h3 className="text-xl font-serif font-bold text-white italic">Transmission Archives</h3>
-                                <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 italic">Historical mapping of platform communication resonance.</p>
+                                <h3 className="text-xl font-serif font-bold text-white">Transmission Archives</h3>
+                                <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40">Historical mapping of platform communication resonance.</p>
                             </div>
                             <div className="flex gap-4">
                                 <button className="px-5 py-2.5 rounded-xl border border-[var(--border-muted)] bg-black/20 text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] hover:text-white transition-all">
@@ -272,7 +274,7 @@ export default function AdminBroadcastsClientPage() {
                                 <thead>
                                     <tr className="border-b border-[var(--border-muted)]/50 bg-black/5">
                                         {["Signal Spectrum", "Target Hub", "Impact", "Timing", "Status", "Actions"].map((h) => (
-                                            <th key={h} className="px-10 py-5 text-left text-[8px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-50 italic">{h}</th>
+                                            <th key={h} className="px-10 py-5 text-left text-[8px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-50">{h}</th>
                                         ))}
                                     </tr>
                                 </thead>
@@ -282,19 +284,19 @@ export default function AdminBroadcastsClientPage() {
                                             <td className="px-10 py-6">
                                                 <div className="flex items-center gap-5">
                                                     <div className="size-10 rounded-xl bg-[var(--bg-surface-muted)]/20 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] group-hover:scale-110 group-hover:-rotate-6 transition-transform">
-                                                        <span className="material-symbols-outlined text-xl font-black italic">{b.intensity === 'URGENT' ? 'bolt' : 'sensors'}</span>
+                                                        <span className="material-symbols-outlined text-xl font-black">{b.intensity === 'URGENT' ? 'bolt' : 'sensors'}</span>
                                                     </div>
-                                                    <span className="text-sm font-serif font-bold italic group-hover:text-[var(--color-primary)] transition-colors">{b.subject}</span>
+                                                    <span className="text-sm font-serif font-bold group-hover:text-[var(--color-primary)] transition-colors">{b.subject}</span>
                                                 </div>
                                             </td>
-                                            <td className="px-10 py-6 text-[10px] font-black text-white/40 uppercase tracking-widest italic">{b.audience}</td>
+                                            <td className="px-10 py-6 text-[10px] font-black text-white/40 uppercase tracking-widest">{b.audience}</td>
                                             <td className="px-10 py-6">
                                                 <div className="flex items-center gap-2">
-                                                    <span className="text-[10px] font-black italic text-[var(--color-primary)]">{b.reach}</span>
-                                                    <span className="text-[8px] font-black text-white/20 uppercase tracking-widest italic">Recipients</span>
+                                                    <span className="text-[10px] font-black text-[var(--color-primary)]">{b.reach}</span>
+                                                    <span className="text-[8px] font-black text-white/20 uppercase tracking-widest">Recipients</span>
                                                 </div>
                                             </td>
-                                            <td className="px-10 py-6 text-[10px] font-black text-white/50 italic">{formatDateTime(b.createdAt)}</td>
+                                            <td className="px-10 py-6 text-[10px] font-black text-white/50">{formatDateTime(b.createdAt)}</td>
                                             <td className="px-10 py-6">
                                                 <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[7px] font-black uppercase tracking-widest shadow-[0_0_10px_rgba(16,185,129,0.1)]">
                                                     {b.status}
@@ -302,7 +304,7 @@ export default function AdminBroadcastsClientPage() {
                                             </td>
                                             <td className="px-10 py-6">
                                                 <button className="p-2 h-9 w-9 rounded-xl bg-black/20 border border-white/5 text-[var(--text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]/40 transition-all">
-                                                    <span className="material-symbols-outlined text-sm italic">open_in_new</span>
+                                                    <span className="material-symbols-outlined text-sm">open_in_new</span>
                                                 </button>
                                             </td>
                                         </tr>
@@ -321,12 +323,12 @@ function ResonanceCard({ label, value, sub, icon }: { label: string, value: stri
     return (
         <div className="flex items-center gap-5 group cursor-default">
             <div className="size-14 rounded-2xl bg-black/20 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-inner">
-                <span className="material-symbols-outlined text-2xl font-black italic">{icon}</span>
+                <span className="material-symbols-outlined text-2xl font-black">{icon}</span>
             </div>
             <div className="flex flex-col gap-0.5">
-                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-30 italic leading-none">{label}</p>
-                <h4 className="text-2xl font-serif font-black text-white italic tracking-tighter leading-none">{value}</h4>
-                <p className="text-[10px] font-bold text-[var(--color-primary)] opacity-60 italic leading-none mt-1">{sub}</p>
+                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-30 leading-none">{label}</p>
+                <h4 className="text-2xl font-serif font-black text-white tracking-tighter leading-none">{value}</h4>
+                <p className="text-[10px] font-bold text-[var(--color-primary)] opacity-60 leading-none mt-1">{sub}</p>
             </div>
         </div>
     );

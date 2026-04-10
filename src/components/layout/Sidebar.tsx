@@ -17,29 +17,14 @@ const managerNavItems: NavItem[] = [
     { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
     { label: "Reception", href: "/check-in", icon: "qr_code_scanner" },
     
-    { label: "Activity", isHeader: true },
-    { label: "Visit Logs", href: "/operations", icon: "receipt_long" },
-    { label: "Floor Manager", href: "/floor-manager", icon: "dashboard_customize" },
-    { label: "Safety Hub", href: "/safety", icon: "shield_with_heart" },
+    { label: "Core Business", isHeader: true },
+    { label: "Work & Tasks", href: "/operations", icon: "sensors" },
+    { label: "Clients & Sales", href: "/growth", icon: "chronic" },
+    { label: "Our Team", href: "/staff", icon: "groups_3" },
     
-    { label: "Management", isHeader: true },
-    { label: "Employees", href: "/employees", icon: "badge" },
-    { label: "Staff Leaderboard", href: "/employees/gamification", icon: "emoji_events" },
-    { label: "Guest Directory", href: "/clients", icon: "group" },
-    { label: "Services", href: "/services", icon: "auto_awesome" },
-    { label: "Inventory", href: "/inventory", icon: "inventory_2" },
-    
-    { label: "Programs", isHeader: true },
-    { label: "Memberships", href: "/memberships", icon: "card_membership" },
-    { label: "Loyalty", href: "/loyalty/performance", icon: "loyalty" },
-    
-    { label: "Intelligence", isHeader: true },
-    { label: "Reports", href: "/reports/revenue", icon: "analytics" },
-    { label: "Guest Feedback", href: "/settings/feedback", icon: "reviews" },
-    { label: "System Activity", href: "/audit", icon: "history" },
-    
-    { label: "Account", isHeader: true },
-    { label: "My Card", href: "/membership-card", icon: "credit_card" },
+    { label: "Company", isHeader: true },
+    { label: "Corporate Setup", href: "/settings/corporate", icon: "settings" },
+    { label: "Activity Logs", href: "/audit", icon: "history" },
 ];
 
 const adminNavItems: NavItem[] = [
@@ -61,63 +46,51 @@ const adminNavItems: NavItem[] = [
     { label: "Broadcasts", href: "/broadcasts", icon: "campaign" },
     { label: "System Health", href: "/monitoring", icon: "monitor_heart" },
     { label: "Audit Logs", href: "/audit", icon: "history" },
-    { label: "Role & Permissions", href: "/settings/roles", icon: "security" },
-    { label: "Governance Hub", href: "/governance", icon: "rule" },
+    { label: "Governance Hub", href: "/settings", icon: "rule" },
 ];
 
 const businessNavItems: NavItem[] = [
-    { label: "Business Overview", isHeader: true },
+    { label: "Executive Control", isHeader: true },
     { label: "Business Dashboard", href: "/dashboard", icon: "dashboard" },
     { label: "Branch Locations", href: "/branches", icon: "corporate_fare" },
-    { label: "Performance comparisons", href: "/branches/compare", icon: "leaderboard" },
     
-    { label: "Staff Management", isHeader: true },
-    { label: "Employee List", href: "/employees", icon: "diversity_3" },
-    { label: "Staff Performance", href: "/employees/performance", icon: "query_stats" },
-    { label: "Staff Rewards", href: "/employees/gamification", icon: "emoji_events" },
+    { label: "The Hubs", isHeader: true },
+    { label: "Work Tracking", href: "/operations", icon: "sensors" },
+    { label: "Clients & Sales", href: "/growth", icon: "chronic" },
+    { label: "Our Team", href: "/staff", icon: "groups_3" },
     
-    { label: "Customer Relations", isHeader: true },
-    { label: "Client List", href: "/clients", icon: "group" },
-    { label: "Loyalty Programs", href: "/loyalty/performance", icon: "loyalty" },
-    { label: "Memberships", href: "/memberships", icon: "card_membership" },
-    
-    { label: "Service Operations", isHeader: true },
-    { label: "Daily Activity", href: "/operations", icon: "receipt_long" },
-    { label: "Services List", href: "/services", icon: "auto_awesome" },
-    { label: "Stock & Inventory", href: "/inventory", icon: "inventory_2" },
-    { label: "Health & Safety", href: "/safety", icon: "shield_with_heart" },
-    
-    { label: "Finance & Reports", isHeader: true },
-    { label: "Revenue Reports", href: "/reports/revenue", icon: "trending_up" },
-    { label: "Payments & Settlements", href: "/finance/settlements", icon: "account_balance_wallet" },
-    { label: "Business Analytics", href: "/reports/aggregated", icon: "analytics" },
-    
-    { label: "Settings & Security", isHeader: true },
-    { label: "System Settings", href: "/governance", icon: "settings" },
-    { label: "Audit Logs", href: "/audit", icon: "history" },
-    { label: "Roles & Permissions", href: "/settings/roles", icon: "security" },
-    { label: "User Feedback", href: "/settings/feedback", icon: "reviews" },
+    { label: "Finance & Safety", isHeader: true },
+    { label: "Settlements", href: "/finance/settlements", icon: "account_balance_wallet" },
+    { label: "Performance Reports", href: "/reports/revenue", icon: "trending_up" },
+    { label: "Corporate Setup", href: "/settings/corporate", icon: "settings" },
+    { label: "Activity Audit", href: "/audit", icon: "history" },
 ];
 
 const employeeNavItems: NavItem[] = [
     { label: "My Workspace", isHeader: true },
     { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
-    { label: "My Earnings", href: "/employees/my-earnings", icon: "payments" },
-    { label: "Staff Leaderboard", href: "/employees/gamification", icon: "emoji_events" },
     { label: "Reception", href: "/check-in", icon: "qr_code_scanner" },
-    { label: "Visit Logs", href: "/operations", icon: "receipt_long" },
-    { label: "Floor Manager", href: "/floor-manager", icon: "dashboard_customize" },
-    { label: "Safety Hub", href: "/safety", icon: "shield_with_heart" },
+    
+    { label: "The Hubs", isHeader: true },
+    { label: "Daily Work", href: "/operations", icon: "sensors" },
+    { label: "Our Team", href: "/staff", icon: "groups_3" },
+    
+    { label: "Personal", isHeader: true },
+    { label: "My Earnings", href: "/employees/my-earnings", icon: "payments" },
 ];
 
 interface SidebarProps {
     userRole?: "ADMIN" | "OWNER" | "MANAGER" | "RECEPTIONIST" | "EMPLOYEE";
+    businessName?: string;
     branchName?: string;
+    logo?: string | null;
 }
 
 export default function Sidebar({
     userRole,
+    businessName,
     branchName,
+    logo,
 }: SidebarProps) {
     const pathname = usePathname();
     const { isCollapsed, toggleSidebar, isMobileOpen, closeMobileNav } = useNav();
@@ -157,8 +130,12 @@ export default function Sidebar({
                 {/* Logo Section */}
                 <div className={`p-6 flex items-center justify-between min-h-[88px]`}>
                     <div className="flex items-center gap-3 overflow-hidden">
-                        <div className="shrink-0 size-10 bg-[var(--bg-surface-muted)] rounded-xl flex items-center justify-center text-[var(--color-primary)] shadow-sm">
-                            <span className="material-symbols-outlined font-black">spa</span>
+                        <div className="shrink-0 size-10 bg-[var(--bg-surface-muted)] rounded-xl flex items-center justify-center text-[var(--color-primary)] shadow-sm overflow-hidden border border-[var(--border-muted)]">
+                            {logo ? (
+                                <img src={logo} alt="Brand" className="w-full h-full object-contain p-1" />
+                            ) : (
+                                <span className="material-symbols-outlined font-black">spa</span>
+                            )}
                         </div>
                         <AnimatePresence>
                             {!isCollapsed && (
@@ -169,7 +146,9 @@ export default function Sidebar({
                                     transition={{ duration: 0.2 }}
                                     className="whitespace-nowrap"
                                 >
-                                    <h1 className="text-sm font-serif font-bold leading-tight tracking-tight text-[var(--text-main)] italic">Sauna <span className="not-italic text-[var(--color-primary)]">SPA</span></h1>
+                                    <h1 className="text-sm font-serif font-bold leading-tight tracking-tight text-[var(--text-main)] whitespace-nowrap overflow-hidden">
+                                        {businessName || "Sauna SPA"}
+                                    </h1>
                                     <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] truncate max-w-[140px]">
                                         {branchName}
                                     </p>

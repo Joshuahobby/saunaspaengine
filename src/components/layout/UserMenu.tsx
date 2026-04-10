@@ -35,10 +35,10 @@ export default function UserMenu({ user }: UserMenuProps) {
                 className="flex items-center gap-4 border-l border-[var(--color-border-light)] pl-6 ml-4 group"
             >
                 <div className="hidden md:flex flex-col items-end">
-                    <span className="text-sm font-bold font-serif leading-tight group-hover:text-[var(--color-primary)] transition-colors text-[var(--text-main)]">
+                    <span className="text-sm font-black font-serif leading-tight group-hover:text-[var(--color-primary)] transition-colors text-[var(--text-main)]">
                         {user.fullName}
                     </span>
-                    <span className="text-[9px] text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] leading-none mt-1 opacity-60">
+                    <span className="text-[10px] text-[var(--color-primary)] font-black uppercase tracking-[0.25em] leading-none mt-1.5 opacity-80">
                         {roleLabel}
                     </span>
                 </div>
@@ -50,13 +50,13 @@ export default function UserMenu({ user }: UserMenuProps) {
             {isOpen && (
                 <div className="absolute right-0 mt-2 w-56 glass-card border border-[var(--border-muted)] py-2 z-50 animate-fade-in shadow-xl">
                     <div className="px-4 py-3 border-b border-[var(--border-muted)] md:hidden">
-                        <p className="text-sm font-bold font-serif text-[var(--text-main)] italic">{user.fullName}</p>
+                        <p className="text-sm font-bold font-serif text-[var(--text-main)]">{user.fullName}</p>
                         <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest opacity-60">{roleLabel}</p>
                     </div>
 
-                    <Link href="/settings/profile" onClick={() => setIsOpen(false)} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[var(--color-forest-700)] dark:text-[var(--color-forest-100)] hover:bg-[var(--color-forest-50)] dark:hover:bg-slate-800 transition-colors">
+                    <Link href="/settings/corporate" onClick={() => setIsOpen(false)} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[var(--color-forest-700)] dark:text-[var(--color-forest-100)] hover:bg-[var(--color-forest-50)] dark:hover:bg-slate-800 transition-colors">
                         <span className="material-symbols-outlined text-lg">person</span>
-                        My Profile
+                        Account Settings
                     </Link>
 
                     <div className="h-[1px] bg-[var(--color-border-light)] dark:bg-[var(--color-border-dark)] my-1"></div>

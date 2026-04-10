@@ -46,7 +46,7 @@ export default function MyEarningsClient({ employee, initialEarnings }: MyEarnin
             <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-surface-muted)] border border-[var(--border-main)] p-8 md:p-12 shadow-2xl">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-primary)] opacity-[0.03] blur-[100px] -mr-48 -mt-48 transition-all duration-1000 group-hover:opacity-[0.05]"></div>
                 
-                <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                <div className="relative z-10 flex flex-col gap-8">
                     <div className="space-y-4">
                         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-[10px] font-bold uppercase tracking-[0.2em] border border-[var(--color-primary)]/20 animate-pulse">
                             <span className="relative flex h-2 w-2">
@@ -55,12 +55,14 @@ export default function MyEarningsClient({ employee, initialEarnings }: MyEarnin
                             </span>
                             Live Earnings Tracking
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-display font-bold tracking-tight text-[var(--text-main)] italic">
-                            Hello, <span className="text-[var(--color-primary)] not-italic">{employee.fullName.split(' ')[0]}</span>
-                        </h1>
-                        <p className="text-[var(--text-muted)] max-w-xl font-medium text-lg leading-relaxed">
-                            Transparency is power. Track every RWF you earn across the {employee.branch?.name} network in real-time.
-                        </p>
+                        <div className="space-y-1">
+                            <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold tracking-tight text-[var(--text-main)]">
+                                Hello, <span className="text-[var(--color-primary)]">{employee.fullName.split(' ')[0]}</span>
+                            </h1>
+                            <p className="text-[var(--text-muted)] font-medium text-sm leading-relaxed opacity-60">
+                                Transparency is power. Track every RWF you earn across the {employee.branch?.name} network in real-time.
+                            </p>
+                        </div>
                     </div>
 
                     <div className="flex flex-col items-center justify-center p-8 bg-[var(--bg-card)]/50 backdrop-blur-xl rounded-3xl border border-[var(--border-main)] shadow-inner group transition-all duration-500 hover:scale-[1.02]">
@@ -118,24 +120,26 @@ export default function MyEarningsClient({ employee, initialEarnings }: MyEarnin
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Transaction History */}
                 <div className="lg:col-span-2 bg-[var(--bg-card)] rounded-[2rem] border border-[var(--border-main)] overflow-hidden shadow-sm">
-                    <div className="p-8 border-b border-[var(--border-muted)] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+                    <div className="p-8 border-b border-[var(--border-muted)] flex flex-col gap-6">
                         <div>
                             <h3 className="text-xl font-display font-bold text-[var(--text-main)]">Earning Logs</h3>
-                            <p className="text-xs text-[var(--text-muted)] mt-1">Detailed history of every commission event.</p>
+                            <p className="text-xs text-[var(--text-muted)] mt-1 opacity-60">Detailed history of every commission event.</p>
                         </div>
 
-                        <div className="flex p-1 bg-[var(--bg-surface-muted)] rounded-xl border border-[var(--border-muted)]">
-                            {["ALL", "TODAY", "WEEK", "MONTH"].map((t) => (
-                                <button
-                                    key={t}
-                                    onClick={() => setFilter(t as "ALL" | "TODAY" | "WEEK" | "MONTH")}
-                                    className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${filter === t 
-                                        ? "bg-[var(--bg-card)] text-[var(--color-primary)] shadow-sm" 
-                                        : "text-[var(--text-muted)] hover:text-[var(--text-main)]"}`}
-                                >
-                                    {t}
-                                </button>
-                            ))}
+                        <div className="flex w-full overflow-x-auto no-scrollbar pb-1">
+                            <div className="flex p-1 bg-[var(--bg-surface-muted)] rounded-xl border border-[var(--border-muted)] w-fit whitespace-nowrap">
+                                {["ALL", "TODAY", "WEEK", "MONTH"].map((t) => (
+                                    <button
+                                        key={t}
+                                        onClick={() => setFilter(t as "ALL" | "TODAY" | "WEEK" | "MONTH")}
+                                        className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${filter === t 
+                                            ? "bg-[var(--bg-card)] text-[var(--color-primary)] shadow-sm" 
+                                            : "text-[var(--text-muted)] hover:text-[var(--text-main)]"}`}
+                                    >
+                                        {t}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
@@ -193,8 +197,8 @@ export default function MyEarningsClient({ employee, initialEarnings }: MyEarnin
                 <div className="space-y-8">
                     <div className="glass-card p-8 bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-surface-muted)] relative overflow-hidden group">
                         <div className="absolute -bottom-10 -right-10 size-40 bg-[var(--color-primary)] opacity-[0.03] blur-[40px] group-hover:opacity-[0.08] transition-all duration-1000"></div>
-                        <h3 className="text-xl font-display font-black text-[var(--text-main)] mb-2 italic">Growth <span className="text-[var(--color-primary)] not-italic">Projection</span></h3>
-                        <p className="text-xs text-[var(--text-muted)] font-medium leading-relaxed mb-8 opacity-60">Based on your last 30 days of performance, you are on track for a record month.</p>
+                        <h3 className="text-xl font-display font-black text-[var(--text-main)] mb-2">Growth <span className="text-[var(--color-primary)]">Projection</span></h3>
+                        <p className="text-xs text-[var(--text-muted)] font-medium leading-relaxed mb-8 opacity-60 max-w-2xl">Based on your last 30 days of performance, you are on track for a record month.</p>
                         
                         <div className="space-y-6">
                             <div>

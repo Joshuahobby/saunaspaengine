@@ -108,12 +108,12 @@ export default function ClientListClient({
 
     return (
         <div className="space-y-8">
-            <div className="flex flex-wrap justify-between items-end gap-4">
+            <div className="flex flex-col gap-8 border-b border-[var(--border-muted)] pb-10">
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-4xl font-display font-bold leading-tight tracking-tight text-[var(--text-main)]">Client &amp; Membership Records</h1>
-                    <p className="text-[var(--text-muted)] text-base font-bold mt-1">Manage and search your spa&apos;s active members and walk-in clients.</p>
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold leading-tight tracking-tight text-[var(--text-main)]">Client &amp; Membership Records</h1>
+                    <p className="text-[var(--text-muted)] text-sm font-bold opacity-60">Manage and search your spa&apos;s active members and walk-in clients.</p>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex flex-wrap gap-3">
                     <Link 
                         href="/clients/universal" 
                         className="flex items-center justify-center rounded-xl h-12 px-5 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[var(--text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]/30 text-sm font-bold transition-all shadow-sm group"

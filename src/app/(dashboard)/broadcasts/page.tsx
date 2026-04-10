@@ -1,10 +1,5 @@
-import AdminBroadcastsPage from "@/app/(dashboard)/admin/broadcasts/server-page";
-export const dynamic = "force-dynamic";
+import { redirect } from "next/navigation";
 
-export const metadata = {
-    title: "Broadcasts | Sauna SPA Engine",
-};
-
-export default function BroadcastsPage(props: Record<string, unknown>) {
-    return <AdminBroadcastsPage {...props} />;
+export default function BroadcastsRedirect() {
+    redirect("/growth?tab=promo");
 }

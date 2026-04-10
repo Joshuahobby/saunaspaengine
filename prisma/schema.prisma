@@ -13,6 +13,7 @@ model Business {
   name                   String
   taxId                  String?
   headquarters           String?
+  phone                  String?
   status                 EntityStatus     @default(ACTIVE)
   createdAt              DateTime         @default(now())
   updatedAt              DateTime         @updatedAt
@@ -25,6 +26,11 @@ model Business {
   subscriptionStatus     String?          @default("ACTIVE")
   permissions            Json?
   platformCommissionRate Float            @default(5.0)
+  logo                   String?
+  primaryColor           String?
+  currency               String?          @default("RWF")
+  timezone               String?          @default("Africa/Kigali")
+  taxLabel               String?          @default("VAT")
   branches               Branch[]
   subscriptionPlan       PlatformPackage? @relation(fields: [subscriptionPlanId], references: [id])
   users                  User[]
@@ -61,6 +67,12 @@ model Branch {
   updatedAt            DateTime             @updatedAt
   onboardingCompleted  Boolean              @default(false)
   onboardingStep       Int                  @default(0)
+  taxId                String?
+  taxLabel             String?
+  primaryColor         String?
+  currency             String?
+  timezone             String?
+  businessHours        Json?
   auditLogs            AuditLog[]
   broadcasts           Broadcast[]
   business             Business?            @relation(fields: [businessId], references: [id], onDelete: Cascade)

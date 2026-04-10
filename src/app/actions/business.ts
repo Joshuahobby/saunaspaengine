@@ -25,13 +25,15 @@ export async function updateBusinessProfileAction(formData: FormData) {
     const name = formData.get("name") as string;
     const taxId = formData.get("taxId") as string;
     const headquarters = formData.get("headquarters") as string;
+    const phone = formData.get("phone") as string;
 
     await db.business.update({
         where: { id: businessId },
         data: {
             name,
             taxId,
-            headquarters
+            headquarters,
+            phone
         }
     });
 

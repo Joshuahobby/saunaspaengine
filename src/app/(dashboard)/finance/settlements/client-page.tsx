@@ -72,7 +72,7 @@ export default function SettlementClientPage({
     return (
         <div className="max-w-[1440px] mx-auto w-full p-6 space-y-8">
             {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[var(--border-main)] pb-8">
+            <div className="flex flex-col gap-8 border-b border-[var(--border-main)] pb-8">
                 <div>
                     <h1 className="text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">Payout <span className="text-[var(--color-primary)]">Pipeline</span></h1>
                     <p className="text-[var(--text-muted)] mt-2 font-medium">Monitoring settlements and automated revenue distribution.</p>
@@ -80,7 +80,7 @@ export default function SettlementClientPage({
                 <div className="flex gap-3">
                     <button 
                         onClick={() => setIsModalOpen(true)}
-                        className="flex items-center gap-2 px-8 py-3 bg-[var(--color-primary)] rounded-xl text-[10px] uppercase tracking-widest font-bold text-white hover:bg-[var(--color-primary-hover)] transition-all shadow-lg shadow-[var(--color-primary)]/15"
+                        className="flex items-center gap-2 px-8 py-3 bg-[var(--color-primary)] rounded-xl text-[10px] uppercase tracking-widest font-bold text-white hover:bg-[var(--color-primary-hover)] transition-all shadow-lg shadow-[var(--color-primary)]/15 w-fit"
                     >
                         <span className="material-symbols-outlined text-lg font-bold">account_balance_wallet</span>
                         Process New Settlement

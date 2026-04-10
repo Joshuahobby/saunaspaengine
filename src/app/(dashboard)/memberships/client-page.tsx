@@ -68,23 +68,20 @@ export default function MembershipsClientPage({ categories, branches, userRole }
     return (
         <div className="max-w-7xl mx-auto space-y-12 pb-20">
             {/* Premium Header */}
-            <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-[var(--border-muted)] pb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                <div className="space-y-2">
-                    <div className="flex items-center gap-3">
-                        <div className="size-12 rounded-2xl bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)]">
-                            <span className="material-symbols-outlined text-3xl">loyalty</span>
-                        </div>
-                        <h1 className="text-4xl font-serif font-black italic tracking-tight text-[var(--text-main)]">Membership Hub</h1>
-                    </div>
-                    <p className="text-[var(--text-muted)] font-medium max-w-xl italic">
-                        Design your business&apos;s access tiers. From recurring subscriptions to flexible usage-based passes.
+            <div className="flex flex-col gap-8 border-b border-[var(--border-muted)] pb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                <div className="space-y-1">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold tracking-tight text-[var(--text-main)]">
+                        Memberships <span className="text-[var(--color-primary)]">Hub</span>
+                    </h1>
+                    <p className="text-sm font-medium text-[var(--text-muted)] opacity-60">
+                        Configure and manage the dimensional access tiers for your global client base.
                     </p>
                 </div>
                 <motion.button 
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleOpenModal()}
-                    className="h-14 px-8 rounded-full bg-[var(--text-main)] text-[var(--bg-app)] font-black uppercase tracking-[0.2em] text-xs flex items-center gap-3 shadow-2xl transition-all"
+                    className="h-14 px-8 rounded-full bg-[var(--text-main)] text-[var(--bg-app)] font-black uppercase tracking-[0.2em] text-xs flex items-center gap-3 shadow-2xl transition-all w-fit"
                 >
                     Create New Pass
                     <span className="material-symbols-outlined">add_circle</span>
@@ -340,8 +337,8 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                         <div className="p-10 space-y-8">
                             <div className="flex items-center justify-between">
                                 <div className="space-y-1">
-                                    <h2 className="text-3xl font-serif font-black italic text-[var(--text-main)]">{category ? "Modify Pass" : "Create New Pass"}</h2>
-                                    <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic">Defining access mechanics for your business</p>
+                                    <h2 className="text-3xl font-display font-bold text-[var(--text-main)]">{editingCategory ? "Modify Pass" : "Create New Pass"}</h2>
+                                    <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Defining access mechanics for your business</p>
                                 </div>
                                 <button onClick={onClose} className="size-12 rounded-full bg-[var(--bg-surface-muted)]/10 flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
                                     <span className="material-symbols-outlined">close</span>

@@ -26,14 +26,21 @@ export default async function AdminMembersPage() {
 
     return (
         <div className="max-w-[1440px] mx-auto w-full p-6 space-y-8">
-            <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-[var(--border-muted)] pb-8">
-                <div className="flex flex-col gap-2">
-                    <h1 className="text-4xl lg:text-5xl font-display font-bold text-[var(--text-main)] tracking-tight">
-                        Client <span className="text-[var(--color-primary)]">Records</span>
-                    </h1>
-                    <p className="text-base text-[var(--text-muted)] font-medium opacity-80">Comprehensive records of all registered clients across the platform.</p>
+            <div className="flex flex-col gap-8 border-b border-[var(--border-muted)] pb-10">
+                <div className="flex items-center gap-4">
+                    <div className="size-14 rounded-[1.5rem] bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] shadow-inner">
+                        <span className="material-symbols-outlined text-4xl font-black">database</span>
+                    </div>
+                    <div className="space-y-1">
+                        <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">
+                            Client <span className="text-[var(--color-primary)]">Records</span>
+                        </h1>
+                        <p className="text-sm font-medium text-[var(--text-muted)] opacity-60">
+                            Comprehensive records of all registered clients across the platform.
+                        </p>
+                    </div>
                 </div>
-                <div className="bg-[var(--bg-card)] px-6 py-4 rounded-2xl border border-[var(--border-muted)] shadow-sm flex flex-col gap-0.5 min-w-[200px] group/stats">
+                <div className="bg-[var(--bg-card)] px-6 py-4 rounded-2xl border border-[var(--border-muted)] shadow-sm flex flex-col gap-0.5 w-fit min-w-[200px] group/stats">
                     <p className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-60">Total Registered Clients</p>
                     <div className="flex items-center gap-3">
                         <p className="text-3xl font-display font-bold text-[var(--text-main)] tracking-tighter leading-none">{clients.length}</p>
@@ -43,7 +50,7 @@ export default async function AdminMembersPage() {
             </div>
 
             <div className="bg-[var(--bg-card)] rounded-[2rem] border border-[var(--border-muted)] overflow-hidden shadow-sm group/registry">
-                <div className="px-8 py-6 border-b border-[var(--border-muted)] flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div className="px-8 py-8 border-b border-[var(--border-muted)] flex flex-col gap-6">
                     <div>
                         <h2 className="text-xl font-display font-bold text-[var(--text-main)] flex items-center gap-3">
                             Registered Clients
@@ -51,7 +58,7 @@ export default async function AdminMembersPage() {
                         </h2>
                         <p className="text-sm text-[var(--text-muted)] font-medium opacity-60 mt-1">Administering profiles and service history for all clients.</p>
                     </div>
-                    <div className="relative flex-1 max-w-xl group/search">
+                    <div className="relative w-full max-w-xl group/search">
                         <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] opacity-40 group-hover/search:text-[var(--color-primary)] transition-colors font-bold">search</span>
                         <input
                             type="text"

@@ -11,18 +11,6 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default async function GovernancePage(props: any) {
-    const session = await auth();
-    const userRole = (session?.user as { role?: string })?.role;
-    
-    // Return appropriate settings experience per role
-    if (userRole === "ADMIN" || userRole === "MANAGER") {
-        return <AdminSettingsPage {...props} />;
-    }
-    if (userRole === "OWNER") {
-        return <ExecutiveSettingsPage {...props} />;
-    }
-
-    // Unauthorized roles
-    redirect("/dashboard");
+export default async function GovernancePage() {
+    redirect("/settings");
 }

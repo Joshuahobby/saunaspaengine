@@ -63,7 +63,7 @@ export default function BranchSwitcher({ branches, activeBranchId: propActiveBra
                     {activeBranch.id === "all" ? "corporate_fare" : "storefront"}
                 </span>
                 <div className="flex flex-col items-start gap-0.5">
-                    <span className="text-[9px] font-black uppercase tracking-[0.2em] opacity-40 leading-none italic">
+                    <span className="text-[9px] font-black uppercase tracking-[0.2em] opacity-40 leading-none">
                         Branch Context
                     </span>
                     <span className="text-xs font-bold leading-none tracking-tight">

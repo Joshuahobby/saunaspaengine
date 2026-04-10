@@ -59,9 +59,11 @@ export default function SubscriptionsClientPage({ branches }: { branches: Branch
             </header>
 
             {/* Title Section */}
-            <div className="flex flex-col gap-1 py-1">
-                <h1 className="text-2xl lg:text-3xl font-display font-bold text-[var(--text-main)] tracking-tight">System <span className="text-[var(--color-primary)]">Finance</span></h1>
-                <p className="text-[10px] text-[var(--text-muted)] font-medium opacity-50 uppercase tracking-[0.2em]">Collective revenue and business subscription health.</p>
+            <div className="space-y-1 py-1">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">Subscription <span className="text-[var(--color-primary)]">Management</span></h1>
+                <p className="text-sm text-[var(--text-muted)] font-medium opacity-60">
+                    Manage and monitor the recurring resonance of your platform access.
+                </p>
             </div>
 
             {/* Metrics Cards */}

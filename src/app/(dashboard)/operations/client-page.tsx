@@ -207,8 +207,8 @@ export default function OperationsClient({
             {/* Page Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
-                    <h2 className="text-2xl font-display font-black tracking-tighter text-[var(--text-main)] italic">Daily <span className="text-[var(--color-primary)]">Activity</span></h2>
-                    <p className="text-[10px] text-[var(--text-muted)] mt-1 font-bold uppercase tracking-widest">Guest visits and service records</p>
+                    <h2 className="text-2xl font-display font-black tracking-tighter text-[var(--text-main)] italic">Work <span className="text-[var(--color-primary)]">Activity.</span></h2>
+                    <p className="text-[10px] text-[var(--text-muted)] mt-1 font-bold uppercase tracking-widest">Client visits and service records</p>
                 </div>
                 <Link
                     href="/check-in"
@@ -272,7 +272,7 @@ export default function OperationsClient({
                 <EmptyState
                     icon="receipt_long"
                     title={statusFilter !== "all" || dateFilter !== "all" ? "No Matching Records" : "No Activity Recorded"}
-                    description={statusFilter !== "all" || dateFilter !== "all" ? "Try adjusting your filters to see more records." : "There are no guest records for this period. Start by checking in a guest."}
+                    description={statusFilter !== "all" || dateFilter !== "all" ? "Try adjusting your filters to see more records." : "There are no client records for this period. Start by checking in a client."}
                     actionLabel="New Entry"
                     actionHref="/check-in"
                 />
@@ -284,7 +284,7 @@ export default function OperationsClient({
                             <thead>
                                 <tr className="bg-[var(--bg-surface-muted)] border-b border-[var(--border-muted)]">
                                     <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">ID</th>
-                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Guest</th>
+                                    <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Client</th>
                                     <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] text-center">Station</th>
                                     <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Service</th>
                                     <th className="px-5 py-3 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Attendant</th>
@@ -407,7 +407,7 @@ export default function OperationsClient({
                         <span className="material-symbols-outlined text-xl font-bold">group</span>
                     </div>
                     <div>
-                        <p className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] mb-1">Guests On-Site</p>
+                        <p className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] mb-1">Clients On-Site</p>
                         <p className="text-xl font-sans font-black text-[var(--text-main)]">{activeCount}</p>
                     </div>
                 </div>
@@ -429,7 +429,7 @@ export default function OperationsClient({
                         <div className="p-6 border-b border-[var(--border-muted)] flex justify-between items-center bg-[var(--bg-surface-muted)]">
                             <div>
                                 <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest italic">Add <span className="text-[var(--color-primary)]">Extra Service</span></h3>
-                                <p className="text-[9px] text-[var(--text-muted)] font-bold mt-1 uppercase tracking-wider">For Guest: {selectedParent.clientName}</p>
+                                <p className="text-[9px] text-[var(--text-muted)] font-bold mt-1 uppercase tracking-wider">For Client: {selectedParent.clientName}</p>
                             </div>
                             <button onClick={() => { setIsExtraModalOpen(false); setExtraError(null); }} className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
                                 <span className="material-symbols-outlined">close</span>
@@ -558,7 +558,7 @@ export default function OperationsClient({
                                 <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1">Client Feedback (Optional)</label>
                                 <textarea 
                                     className="w-full bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl py-3 px-4 text-xs font-medium text-[var(--text-main)] focus:outline-none focus:border-yellow-500 transition-all min-h-[80px] resize-none"
-                                    placeholder="Write any additional feedback from the guest..."
+                                    placeholder="Write any additional feedback from the client..."
                                     value={reviewComment}
                                     onChange={(e) => setReviewComment(e.target.value)}
                                 />

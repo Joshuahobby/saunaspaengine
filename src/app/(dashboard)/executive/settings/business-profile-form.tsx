@@ -9,6 +9,7 @@ interface BusinessProfileFormProps {
         name: string;
         taxId: string | null;
         headquarters: string | null;
+        phone: string | null;
     };
 }
 
@@ -57,6 +58,16 @@ export default function BusinessProfileForm({ business }: BusinessProfileFormPro
                         placeholder="Address"
                         rows={3}
                         className="w-full bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl px-6 py-4 text-sm font-bold focus:border-[var(--color-primary)] outline-none transition-all placeholder:opacity-20 resize-none"
+                    />
+                </div>
+
+                <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60 px-2">Corporate Contact / Phone</label>
+                    <input 
+                        name="phone"
+                        defaultValue={business.phone || ""}
+                        placeholder="+250 ..."
+                        className="w-full bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl px-6 py-4 text-sm font-bold focus:border-[var(--color-primary)] outline-none transition-all placeholder:opacity-20"
                     />
                 </div>
             </div>

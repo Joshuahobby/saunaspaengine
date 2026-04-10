@@ -71,10 +71,10 @@ export default function ExecutiveBranchesClientPage({ branches, stats }: Branche
             {/* Header Actions */}
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-[var(--bg-card)]/50 border border-[var(--border-muted)] p-4 rounded-2xl backdrop-blur-sm">
                 <div className="flex flex-col gap-1">
-                    <h1 className="text-2xl font-serif font-bold text-[var(--text-main)] italic">
+                    <h1 className="text-2xl font-serif font-bold text-[var(--text-main)]">
                         Branch Network
                     </h1>
-                    <p className="text-xs text-[var(--text-muted)] italic font-medium opacity-60">Overview and management of your business locations.</p>
+                    <p className="text-xs text-[var(--text-muted)] font-medium opacity-60 max-w-3xl">Overview and management of your business locations.</p>
                 </div>
                 
                 <div className="flex items-center gap-3 w-full md:w-auto">
@@ -85,7 +85,7 @@ export default function ExecutiveBranchesClientPage({ branches, stats }: Branche
                             placeholder="Find branch..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full bg-[var(--bg-app)] border border-[var(--border-muted)] rounded-xl py-2 pl-9 pr-4 text-xs focus:border-[var(--color-primary)]/50 transition-all outline-none italic"
+                            className="w-full bg-[var(--bg-app)] border border-[var(--border-muted)] rounded-xl py-2 pl-9 pr-4 text-xs focus:border-[var(--color-primary)]/50 transition-all outline-none"
                         />
                     </div>
                     <select 
@@ -93,7 +93,7 @@ export default function ExecutiveBranchesClientPage({ branches, stats }: Branche
                         onChange={(e) => setStatusFilter(e.target.value)}
                         title="Filter branches by status"
                         aria-label="Filter branches by status"
-                        className="bg-[var(--bg-app)] border border-[var(--border-muted)] rounded-xl py-2 px-3 text-[10px] font-bold uppercase tracking-wider italic focus:border-[var(--color-primary)] outline-none cursor-pointer"
+                        className="bg-[var(--bg-app)] border border-[var(--border-muted)] rounded-xl py-2 px-3 text-[10px] font-bold uppercase tracking-wider focus:border-[var(--color-primary)] outline-none cursor-pointer"
                     >
                         <option value="ALL">All Status</option>
                         <option value="ACTIVE">Active Only</option>
@@ -138,11 +138,11 @@ export default function ExecutiveBranchesClientPage({ branches, stats }: Branche
                     <table className="w-full border-collapse text-left">
                         <thead>
                             <tr className="border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10">
-                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic">Branch Name</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic">Business</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic text-center">Stats</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic text-center">Status</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic text-right whitespace-nowrap">Registered</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">Branch Name</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">Business</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest text-center">Stats</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest text-center">Status</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest text-right whitespace-nowrap">Registered</th>
                                 <th className="px-6 py-4 text-right"></th>
                             </tr>
                         </thead>
@@ -159,26 +159,26 @@ export default function ExecutiveBranchesClientPage({ branches, stats }: Branche
                                                 className="flex flex-col group/link"
                                             >
                                                 <span className="text-xs font-bold text-[var(--text-main)] group-hover/link:text-[var(--color-primary)] transition-colors">{branch.name}</span>
-                                                <span className="text-[10px] text-[var(--text-muted)] italic opacity-60 truncate max-w-[150px]">{branch.address || "No address"}</span>
+                                                <span className="text-[10px] text-[var(--text-muted)] opacity-60 truncate max-w-[150px]">{branch.address || "No address"}</span>
                                             </Link>
                                         </div>
                                     </td>
                                     <td className="px-6 py-3">
                                         <div className="flex items-center gap-2">
                                             <span className="size-1.5 rounded-full bg-[var(--color-primary)]/40 shadow-sm shadow-[var(--color-primary)]/20"></span>
-                                            <span className="text-[11px] font-bold text-[var(--text-main)]/80 uppercase tracking-wide italic">{branch.businessName}</span>
+                                            <span className="text-[11px] font-bold text-[var(--text-main)]/80 uppercase tracking-wide">{branch.businessName}</span>
                                         </div>
                                     </td>
                                     <td className="px-6 py-3">
                                         <div className="flex items-center justify-center gap-4">
                                             <div className="flex flex-col items-center">
                                                 <span className="text-xs font-black text-[var(--text-main)]">{branch.employeeCount}</span>
-                                                <span className="text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] italic opacity-40 leading-none">Staff</span>
+                                                <span className="text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 leading-none">Staff</span>
                                             </div>
                                             <div className="w-[1px] h-4 bg-[var(--border-muted)] opacity-20"></div>
                                             <div className="flex flex-col items-center">
                                                 <span className="text-xs font-black text-[var(--text-main)]">{branch.clientCount}</span>
-                                                <span className="text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] italic opacity-40 leading-none">Guests</span>
+                                                <span className="text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 leading-none">Guests</span>
                                             </div>
                                         </div>
                                     </td>
@@ -187,7 +187,7 @@ export default function ExecutiveBranchesClientPage({ branches, stats }: Branche
                                             <button 
                                                 onClick={() => toggleStatus(branch.id, branch.status)}
                                                 disabled={toggling === branch.id}
-                                                className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest italic border transition-all ${
+                                                className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border transition-all ${
                                                     branch.status === "ACTIVE" 
                                                     ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" 
                                                     : "bg-rose-500/10 text-rose-500 border-rose-500/20"
@@ -216,8 +216,8 @@ export default function ExecutiveBranchesClientPage({ branches, stats }: Branche
                                 <tr>
                                     <td colSpan={6} className="px-6 py-20 text-center">
                                         <div className="flex flex-col items-center gap-3 opacity-20">
-                                            <span className="material-symbols-outlined text-5xl italic">database_off</span>
-                                            <p className="text-sm font-serif italic text-[var(--text-muted)]">No branches found.</p>
+                                            <span className="material-symbols-outlined text-5xl">database_off</span>
+                                            <p className="text-sm font-serif text-[var(--text-muted)]">No branches found.</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -253,16 +253,16 @@ function MetricCard({ title, value, subtitle, icon }: { title: string, value: st
             
             <div className="flex justify-between items-start mb-4 relative z-10 text-emerald-500">
                 <div className="space-y-0.5">
-                    <h4 className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic opacity-50 group-hover:opacity-100 transition-opacity">{title}</h4>
-                    <p className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-tighter opacity-30 italic leading-none">{subtitle}</p>
+                    <h4 className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-50 group-hover:opacity-100 transition-opacity">{title}</h4>
+                    <p className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-tighter opacity-30 leading-none">{subtitle}</p>
                 </div>
                 <div className="size-10 rounded-xl bg-[var(--color-primary)]/5 text-[var(--color-primary)] border border-[var(--border-muted)] flex items-center justify-center group-hover:scale-110 transition-all duration-500">
-                    <span className="material-symbols-outlined text-xl italic font-bold">{icon}</span>
+                    <span className="material-symbols-outlined text-xl font-bold">{icon}</span>
                 </div>
             </div>
             
             <div className="relative z-10">
-                <span className="text-3xl font-serif font-black text-[var(--text-main)] italic tracking-tighter leading-none">{value}</span>
+                <span className="text-3xl font-serif font-black text-[var(--text-main)] tracking-tighter leading-none">{value}</span>
             </div>
         </div>
     );
