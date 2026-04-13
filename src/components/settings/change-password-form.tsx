@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 function getPasswordStrength(password: string): { score: number; label: string; color: string } {
     let score = 0;
@@ -19,7 +18,6 @@ function getPasswordStrength(password: string): { score: number; label: string; 
 }
 
 export function ChangePasswordForm({ userId }: { userId: string }) {
-    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
@@ -83,8 +81,8 @@ export function ChangePasswordForm({ userId }: { userId: string }) {
             setNewPassword("");
             setConfirmPassword("");
             setPasswordStrength({ score: 0 });
-        } catch (err: any) {
-            setError(err.message || "An unexpected error occurred");
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : "An unexpected error occurred");
         } finally {
             setIsLoading(false);
         }

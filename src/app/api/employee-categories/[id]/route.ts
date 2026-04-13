@@ -18,14 +18,22 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         return NextResponse.json({ error: "Category name is required." }, { status: 400 });
     }
 
-    const where: any = { id };
-    if (session.user.role === 'OWNER') {
-        where.branch = { businessId: session.user.businessId };
-    }
-
     try {
+        // Scope check: ensure OWNER can only modify categories within their business
+        const existing = await prisma.employeeCategory.findFirst({
+            where: {
+                id,
+                ...(session.user.role === 'OWNER'
+                    ? { branch: { businessId: session.user.businessId ?? undefined } }
+                    : {}),
+            },
+        });
+        if (!existing) {
+            return NextResponse.json({ error: "Category not found or access denied." }, { status: 404 });
+        }
+
         const category = await prisma.employeeCategory.update({
-            where,
+            where: { id },
             data: {
                 name: name.trim(),
                 description: description?.trim() || null,
@@ -47,34 +55,39 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
 
     const { id } = await params;
 
-    const where: any = { id };
-    if (session.user.role === 'OWNER') {
-        where.branch = { businessId: session.user.businessId };
-    }
-
     // Check if any employees are assigned to this category
     const employeeCount = await prisma.employee.count({ where: { categoryId: id } });
     if (employeeCount > 0) {
-        return NextResponse.json({ 
-            error: `Cannot delete: ${employeeCount} employee(s) are using this role. Please reassign them first.` 
+        return NextResponse.json({
+            error: `Cannot delete: ${employeeCount} employee(s) are using this role. Please reassign them first.`
         }, { status: 409 });
     }
 
     try {
-        const deletedCategory = await prisma.employeeCategory.delete({ 
-            where,
-            include: { branch: true }
+        // Scope check: ensure OWNER can only delete categories within their business
+        const existing = await prisma.employeeCategory.findFirst({
+            where: {
+                id,
+                ...(session.user.role === 'OWNER'
+                    ? { branch: { businessId: session.user.businessId ?? undefined } }
+                    : {}),
+            },
+            include: { branch: true },
         });
+        if (!existing) {
+            return NextResponse.json({ error: "Category not found or access denied." }, { status: 404 });
+        }
 
-        // Add Audit Log
+        await prisma.employeeCategory.delete({ where: { id } });
+
         await prisma.auditLog.create({
             data: {
                 userId: session.user.id!,
                 action: "DELETE_EMPLOYEE_CATEGORY",
                 entity: "EmployeeCategory",
                 entityId: id,
-                details: `Permanently removed staff role: ${deletedCategory.name} in branch ${deletedCategory.branch.name}`,
-                branchId: deletedCategory.branchId
+                details: `Permanently removed staff role: ${existing.name} in branch ${existing.branch.name}`,
+                branchId: existing.branchId
             }
         });
 

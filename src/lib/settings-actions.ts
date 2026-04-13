@@ -1,8 +1,10 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
+import type { BusinessHours } from "@/lib/settings-utils";
 
 /**
  * Updates operational settings for a specific branch (Tax, Timezone, Hours, etc.)
@@ -13,7 +15,7 @@ export async function updateBranchSettingsAction(branchId: string, data: {
     primaryColor?: string | null;
     currency?: string | null;
     timezone?: string | null;
-    businessHours?: any;
+    businessHours?: BusinessHours | null;
     phone?: string | null;
     email?: string | null;
     address?: string | null;
@@ -23,10 +25,14 @@ export async function updateBranchSettingsAction(branchId: string, data: {
     if (!session?.user) return { error: "Unauthorized" };
 
     try {
+        const { businessHours, ...rest } = data;
         const updated = await prisma.branch.update({
             where: { id: branchId },
             data: {
-                ...data,
+                ...rest,
+                ...(businessHours !== undefined
+                    ? { businessHours: businessHours === null ? Prisma.JsonNull : businessHours }
+                    : {}),
                 updatedAt: new Date(),
             },
         });
@@ -44,11 +50,11 @@ export async function updateBranchSettingsAction(branchId: string, data: {
 
         revalidatePath("/settings");
         revalidatePath("/(dashboard)/settings", "layout");
-        
+
         return { success: true, data: updated };
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Failed to update branch settings:", error);
-        return { error: error.message };
+        return { error: error instanceof Error ? error.message : "Failed to update settings." };
     }
 }
 
@@ -91,16 +97,16 @@ export async function updateBusinessBrandingAction(businessId: string, data: {
         revalidatePath("/(dashboard)/settings", "layout");
 
         return { success: true, data: updated };
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Failed to update business branding:", error);
-        return { error: error.message };
+        return { error: error instanceof Error ? error.message : "Failed to update branding." };
     }
 }
 
 /**
  * Specifically updates the "Business Hours" JSON object for a branch.
  */
-export async function updateBranchHoursAction(branchId: string, businessHours: any) {
+export async function updateBranchHoursAction(branchId: string, businessHours: BusinessHours) {
     const session = await auth();
     if (!session?.user) return { error: "Unauthorized" };
 
@@ -122,7 +128,7 @@ export async function updateBranchHoursAction(branchId: string, businessHours: a
 
         revalidatePath("/settings");
         return { success: true };
-    } catch (error: any) {
-        return { error: error.message };
+    } catch (error: unknown) {
+        return { error: error instanceof Error ? error.message : "Failed to update hours." };
     }
 }

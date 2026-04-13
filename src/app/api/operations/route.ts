@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { ExtraService } from "@/types/operations";
 import { calculatePointsEarned, determineTier } from "@/lib/loyalty";
+import { randomUUID } from "crypto";
 
 
 // GET /api/operations — list service records for current branch
@@ -101,7 +102,7 @@ export async function POST(request: NextRequest) {
 
             
             const newExtra = {
-                id: Math.random().toString(36).substring(7),
+                id: randomUUID(),
                 serviceId,
                 serviceName: extraSvc.name,
                 amount: extraSvc.price,
@@ -113,7 +114,7 @@ export async function POST(request: NextRequest) {
             const updatedRecord = await prisma.serviceRecord.update({
                 where: { id: recordId },
                 data: {
-                    extraServices: [...currentExtras, newExtra] as any,
+                    extraServices: [...currentExtras, newExtra] as unknown as Parameters<typeof prisma.serviceRecord.update>[0]["data"]["extraServices"],
                     amount: { increment: extraSvc.price },
                     netAmount: { increment: extraSvc.price }
                 },
@@ -155,30 +156,20 @@ export async function POST(request: NextRequest) {
 
         // 3. Proactive Membership Validation
         if (paymentMode === "MEMBERSHIP") {
-            const membership = await (prisma.membership as any).findFirst({
+            const membership = await prisma.membership.findFirst({
                 where: {
                     clientId,
                     status: "ACTIVE",
                     OR: [
                         { category: { branchId: session.user.branchId } },
-                        { category: { isGlobal: true } }
+                        { category: { isGlobal: true } },
                     ],
                     AND: [
-                        {
-                            OR: [
-                                { endDate: null },
-                                { endDate: { gte: new Date() } }
-                            ]
-                        },
-                        {
-                            OR: [
-                                { balance: null },
-                                { balance: { gt: 0 } }
-                            ]
-                        }
-                    ]
+                        { OR: [{ endDate: null }, { endDate: { gte: new Date() } }] },
+                        { OR: [{ balance: null }, { balance: { gt: 0 } }] },
+                    ],
                 },
-                include: { category: true }
+                include: { category: true },
             });
 
             if (!membership) {
@@ -211,12 +202,17 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(record, { status: 201 });
     } catch (error: unknown) {
         console.error("Operations check-in error:", error);
-        return NextResponse.json({ 
-            error: "Internal server error", 
-            details: error instanceof Error ? error.message : String(error)
-        }, { status: 500 });
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
 
+}
+
+interface FinancialData {
+    taxAmount?: number;
+    platformFee?: number;
+    netAmount?: number;
+    employeeCommission?: number;
+    completedAt?: Date;
 }
 
 // PATCH /api/operations — update service record (e.g., mark as COMPLETED)
@@ -234,74 +230,58 @@ export async function PATCH(request: NextRequest) {
     }
 
     try {
-        // Fetch existing record to get financial context
+        // Fetch existing record and the financial context needed for completion.
+        // Two queries avoids the deep nested `as any` include workaround.
         const existingRecord = await prisma.serviceRecord.findUnique({
-
             where: { id, branchId: session.user.branchId },
             include: {
-                branch: {
-                    include: {
-                        business: {
-                            select: { platformCommissionRate: true } as any // eslint-disable-line @typescript-eslint/no-explicit-any
-                        }
-                    }
-                },
-                employee: {
-                    select: { id: true, commissionRate: true } as any // eslint-disable-line @typescript-eslint/no-explicit-any
-                }
-            }
-        } as any); // eslint-disable-line @typescript-eslint/no-explicit-any
+                employee: { select: { id: true, commissionRate: true } },
+            },
+        });
 
         if (!existingRecord) {
             return NextResponse.json({ error: "Record not found" }, { status: 404 });
         }
 
-        // Hierarchical service tracking is now handled via JSON field, 
-        // no independent status updates needed for extra services.
+        const financialData: FinancialData = {};
 
-        let financialData = {};
         if (status === "COMPLETED") {
-            // Fetch Regional Tax (Default to 18% if not found)
-            const compliance = await prisma.compliance.findFirst({
-                where: { region: "RWANDA" }
-            });
+            // Fetch tax rate and platform commission rate in parallel
+            const [compliance, branchWithBusiness] = await Promise.all([
+                prisma.compliance.findFirst({ where: { region: "RWANDA" } }),
+                prisma.branch.findUnique({
+                    where: { id: session.user.branchId },
+                    include: { business: { select: { platformCommissionRate: true } } },
+                }),
+            ]);
+
             const taxRate = compliance?.taxRate ?? 18.0;
-            const commissionRate = (existingRecord as any).branch?.business?.platformCommissionRate ?? 5.0;
-            
+            const commissionRate = branchWithBusiness?.business?.platformCommissionRate ?? 5.0;
             const totalAmount = existingRecord.amount;
 
             const taxAmount = totalAmount * (taxRate / 100);
             const netBeforeCommission = totalAmount - taxAmount;
             const platformFee = netBeforeCommission * (commissionRate / 100);
-            const netAmount = totalAmount - taxAmount - platformFee;
 
-            financialData = {
-                taxAmount,
-                platformFee,
-                netAmount,
-                completedAt: new Date()
-            };
+            financialData.taxAmount = taxAmount;
+            financialData.platformFee = platformFee;
+            financialData.netAmount = totalAmount - taxAmount - platformFee;
+            financialData.completedAt = new Date();
 
-            // Calculate Employee Commission (on Gross Amount)
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const employee = (existingRecord as any).employee;
-            if (employee && employee.commissionRate) {
-                const commissionAmount = totalAmount * (employee.commissionRate / 100);
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                (financialData as any).employeeCommission = commissionAmount;
+            // Calculate employee commission on gross amount
+            if (existingRecord.employee?.commissionRate) {
+                financialData.employeeCommission =
+                    totalAmount * (existingRecord.employee.commissionRate / 100);
             }
         }
 
         const record = await prisma.serviceRecord.update({
-            where: {
-                id,
-                branchId: session.user.branchId,
-            },
+            where: { id, branchId: session.user.branchId },
             data: {
                 ...(status && { status }),
                 ...(paymentMode && { paymentMode }),
                 ...(comment && { comment }),
-                ...financialData
+                ...financialData,
             },
             include: {
                 client: { select: { id: true } },
@@ -309,64 +289,46 @@ export async function PATCH(request: NextRequest) {
             },
         });
 
-        // Loyalty Accrual & Membership Deduction
+        // Post-completion side effects
         if (status === "COMPLETED") {
-            // 1. Membership Deduction
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            if ((record.paymentMode as any) === "MEMBERSHIP") {
-                const membership = await (prisma.membership as any).findFirst({
+            // 1. Membership deduction
+            // The correct filter uses `category.branchId` (Membership has no top-level branchId).
+            if (record.paymentMode === "MEMBERSHIP") {
+                const membership = await prisma.membership.findFirst({
                     where: {
                         clientId: record.clientId,
                         status: "ACTIVE",
                         OR: [
-                            { branchId: session.user.branchId },
-                            { category: { isGlobal: true } }
+                            { category: { branchId: session.user.branchId } },
+                            { category: { isGlobal: true } },
                         ],
                         AND: [
-                            {
-                                OR: [
-                                    { endDate: null },
-                                    { endDate: { gte: new Date() } }
-                                ]
-                            },
-                            {
-                                OR: [
-                                    { balance: null },
-                                    { balance: { gt: 0 } }
-                                ]
-                            }
-                        ]
-                    }
+                            { OR: [{ endDate: null }, { endDate: { gte: new Date() } }] },
+                            { OR: [{ balance: null }, { balance: { gt: 0 } }] },
+                        ],
+                    },
                 });
 
-                if (membership) {
-                    if (membership.balance !== null) {
-                        await (prisma.membership as any).update({
-                            where: { id: membership.id },
-                            data: { balance: { decrement: 1 } }
-                        });
-                    }
-                } else {
-                    // Log warning: Record was processed with MEMBERSHIP payment mode but no active membership was found.
-                    // In a production app, we might want to revert or flag this record.
+                if (membership?.balance !== null && membership?.balance !== undefined) {
+                    await prisma.membership.update({
+                        where: { id: membership.id },
+                        data: { balance: { decrement: 1 } },
+                    });
                 }
             }
 
-            // Fetch Loyalty Program for the branch
+            // 2. Loyalty points accrual
             const loyaltyProgram = await prisma.loyaltyProgram.findFirst({
-                where: { branchId: record.branchId, status: "ACTIVE" }
+                where: { branchId: record.branchId, status: "ACTIVE" },
             });
 
             if (loyaltyProgram) {
-                // 1. Fetch current loyalty data
                 const existingLoyalty = await prisma.loyaltyPoint.findFirst({
-                    where: { clientId: record.clientId, branchId: record.branchId }
+                    where: { clientId: record.clientId, branchId: record.branchId },
                 });
 
-                const currentPoints = existingLoyalty?.points || 0;
-                const currentTier = existingLoyalty?.tier || "BRONZE";
-
-                // 2. Traditional Points Accrual (based on tier multiplier)
+                const currentPoints = existingLoyalty?.points ?? 0;
+                const currentTier = existingLoyalty?.tier ?? "BRONZE";
                 const pointsToEarn = calculatePointsEarned(
                     record.amount,
                     currentTier,
@@ -374,16 +336,11 @@ export async function PATCH(request: NextRequest) {
                 );
 
                 if (pointsToEarn > 0) {
-                    const newTotalPoints = currentPoints + pointsToEarn;
-                    const nextTier = determineTier(newTotalPoints);
-
+                    const nextTier = determineTier(currentPoints + pointsToEarn);
                     if (existingLoyalty) {
                         await prisma.loyaltyPoint.update({
                             where: { id: existingLoyalty.id },
-                            data: { 
-                                points: { increment: pointsToEarn },
-                                tier: nextTier
-                            }
+                            data: { points: { increment: pointsToEarn }, tier: nextTier },
                         });
                     } else {
                         await prisma.loyaltyPoint.create({
@@ -392,45 +349,26 @@ export async function PATCH(request: NextRequest) {
                                 branchId: record.branchId,
                                 points: pointsToEarn,
                                 tier: nextTier,
-                            }
+                            },
                         });
                     }
                 }
-
-                // 3. "Buy X, Get Y" Session Tracking
-                if (loyaltyProgram.buyCount && loyaltyProgram.getCount) {
-                    const sessionCount = await prisma.serviceRecord.count({
-                        where: {
-                            clientId: record.clientId,
-                            branchId: record.branchId,
-                            serviceId: record.serviceId,
-                            status: "COMPLETED",
-                            amount: { gt: 0 } // Only count paid sessions
-                        }
-                    });
-
-                    // Logic: If sessionCount is a multiple of (buyCount + getCount), 
-                    // or meets other criteria, we could notify for a reward.
-                    // For now, we log it for potential front-end badges.
-                }
             }
 
-            // 3. Commission Logging
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            if ((record as any).employeeCommission > 0 && record.employeeId) {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                await (prisma as any).commissionLog.upsert({
+            // 3. Commission logging
+            if (financialData.employeeCommission && financialData.employeeCommission > 0 && record.employeeId) {
+                await prisma.commissionLog.upsert({
                     where: { serviceRecordId: record.id },
-                    update: { 
-                        amount: (record as any).employeeCommission,
-                        employeeId: record.employeeId
+                    update: {
+                        amount: financialData.employeeCommission,
+                        employeeId: record.employeeId,
                     },
                     create: {
                         serviceRecordId: record.id,
                         employeeId: record.employeeId,
-                        amount: (record as any).employeeCommission,
-                        status: "UNPAID"
-                    }
+                        amount: financialData.employeeCommission,
+                        status: "UNPAID",
+                    },
                 });
             }
         }
@@ -438,10 +376,6 @@ export async function PATCH(request: NextRequest) {
         return NextResponse.json(record);
     } catch (error: unknown) {
         console.error("Service record update error:", error);
-        return NextResponse.json({ 
-            error: "Failed to update record", 
-            details: error instanceof Error ? error.message : String(error)
-        }, { status: 500 });
+        return NextResponse.json({ error: "Failed to update record" }, { status: 500 });
     }
-
 }

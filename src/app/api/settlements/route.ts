@@ -22,9 +22,12 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Invalid settlement parameters." }, { status: 400 });
         }
 
-        // Verify the targeted employee exists
-        const employee = await prisma.employee.findUnique({
-            where: { id: employeeId }
+        // Verify the targeted employee exists AND belongs to the OWNER's business
+        const employee = await prisma.employee.findFirst({
+            where: {
+                id: employeeId,
+                branch: { businessId: session.user.businessId ?? undefined },
+            },
         });
 
         if (!employee) {

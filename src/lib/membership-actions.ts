@@ -39,8 +39,8 @@ export async function saveMembershipCardAction(clientId: string, imageUrl: strin
         revalidatePath("/clients");
 
         return { success: true };
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Failed to save membership card:", error);
-        return { error: "Failed to link card asset to database: " + error.message };
+        return { error: "Failed to link card asset to database: " + (error instanceof Error ? error.message : "Unknown error") };
     }
 }

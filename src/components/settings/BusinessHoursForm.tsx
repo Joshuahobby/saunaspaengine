@@ -3,25 +3,26 @@
 import React, { useState } from "react";
 import { updateBranchHoursAction } from "@/lib/settings-actions";
 import { toast } from "react-hot-toast";
+import type { BusinessHours, DayHours } from "@/lib/settings-utils";
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-const DEFAULT_HOURS = DAYS.reduce((acc, day) => ({
+const DEFAULT_HOURS: BusinessHours = DAYS.reduce<BusinessHours>((acc, day) => ({
     ...acc,
     [day]: { open: "08:00", close: "22:00", isClosed: false }
 }), {});
 
 interface BusinessHoursFormProps {
     branchId: string;
-    initialHours: any;
+    initialHours: BusinessHours | null;
 }
 
 export function BusinessHoursForm({ branchId, initialHours }: BusinessHoursFormProps) {
     const [loading, setLoading] = useState(false);
-    const [hours, setHours] = useState(initialHours || DEFAULT_HOURS);
+    const [hours, setHours] = useState<BusinessHours>(initialHours || DEFAULT_HOURS);
 
-    const updateDay = (day: string, field: string, value: any) => {
-        setHours((prev: any) => ({
+    const updateDay = (day: string, field: keyof DayHours, value: string | boolean) => {
+        setHours((prev) => ({
             ...prev,
             [day]: { ...prev[day], [field]: value }
         }));
@@ -36,7 +37,7 @@ export function BusinessHoursForm({ branchId, initialHours }: BusinessHoursFormP
             } else {
                 toast.error(res.error || "Failed to save hours.");
             }
-        } catch (err) {
+        } catch {
             toast.error("Internal server error.");
         } finally {
             setLoading(false);

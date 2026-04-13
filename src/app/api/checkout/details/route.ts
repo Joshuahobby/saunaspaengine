@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import type { ExtraService } from "@/types/operations";
 
 // GET /api/checkout/details?parentId=...
 export async function GET(request: NextRequest) {
@@ -17,34 +18,39 @@ export async function GET(request: NextRequest) {
     }
 
     try {
+        // Scope the lookup to the requesting user's branch to prevent IDOR
         const record = await prisma.serviceRecord.findUnique({
-            where: { id: parentId },
+            where: { id: parentId, branchId: session.user.branchId },
             include: {
                 service: true,
                 employee: { select: { fullName: true } },
                 client: { select: { fullName: true } }
             }
-        }) as any;
+        });
 
         if (!record) {
             return NextResponse.json({ error: "Record not found" }, { status: 404 });
         }
+
+        const extras: ExtraService[] = Array.isArray(record.extraServices)
+            ? (record.extraServices as unknown as ExtraService[])
+            : [];
 
         const consolidatedServices = [
             {
                 id: record.id,
                 serviceName: record.service.name,
                 isExtra: false,
-                employeeName: record.employee?.fullName || null,
+                employeeName: record.employee?.fullName ?? null,
                 amount: record.service.price
             },
-            ...(Array.isArray(record.extraServices) ? (record.extraServices as any[]).map(s => ({
+            ...extras.map(s => ({
                 id: s.id,
                 serviceName: s.serviceName,
                 isExtra: true,
                 employeeName: s.employeeName,
                 amount: s.amount
-            })) : [])
+            }))
         ];
 
         return NextResponse.json({

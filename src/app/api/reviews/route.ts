@@ -10,20 +10,27 @@ export async function POST(req: Request) {
         }
 
         const body = await req.json();
-        const { serviceRecordId, rating, comment, employeeId, clientId } = body;
+        const { serviceRecordId, rating, comment } = body;
 
-        // Input Validation
-        if (!serviceRecordId || !rating || !employeeId || !clientId) {
+        // Input Validation — clientId and employeeId are derived from the DB record,
+        // never accepted from the client to prevent IDOR / privilege escalation.
+        if (!serviceRecordId || !rating) {
             return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
         }
 
-        if (rating < 1 || rating > 5) {
-            return NextResponse.json({ error: "Rating must be between 1 and 5." }, { status: 400 });
+        const ratingNum = Number(rating);
+        if (!Number.isInteger(ratingNum) || ratingNum < 1 || ratingNum > 5) {
+            return NextResponse.json({ error: "Rating must be an integer between 1 and 5." }, { status: 400 });
         }
 
-        // Verify the Service Record exists and is COMPLETED, and does not already have a review
+        // Limit comment length
+        if (comment && typeof comment === "string" && comment.length > 1000) {
+            return NextResponse.json({ error: "Comment must not exceed 1000 characters." }, { status: 400 });
+        }
+
+        // Verify the Service Record exists within the session user's branch, is COMPLETED, and not yet reviewed
         const serviceRecord = await prisma.serviceRecord.findUnique({
-            where: { id: serviceRecordId },
+            where: { id: serviceRecordId, branchId: session.user.branchId ?? undefined },
             include: { review: true }
         });
 
@@ -39,14 +46,18 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "This service has already been reviewed." }, { status: 400 });
         }
 
+        if (!serviceRecord.employeeId) {
+            return NextResponse.json({ error: "No employee assigned to this service record." }, { status: 400 });
+        }
+
         // Create exactly one review attached to the service record
         const review = await prisma.review.create({
             data: {
-                rating,
-                comment: comment || null,
+                rating: ratingNum,
+                comment: comment ? String(comment).trim() : null,
                 serviceRecordId,
-                clientId,
-                employeeId,
+                clientId: serviceRecord.clientId,
+                employeeId: serviceRecord.employeeId,
                 branchId: serviceRecord.branchId,
             }
         });

@@ -1,20 +1,30 @@
 import { PrismaClient, PaymentMode } from '@prisma/client';
 import { PrismaNeon } from '@prisma/adapter-neon';
-import { Pool } from '@neondatabase/serverless';
+import { Pool, neonConfig } from '@neondatabase/serverless';
 import bcrypt from 'bcryptjs';
 import * as dotenv from 'dotenv';
+import ws from 'ws';
 
 dotenv.config({ override: true });
+
+// Setup WebSocket for serverless driver in Node environment (Windows compatibility)
+neonConfig.webSocketConstructor = ws;
 
 const connectionString = process.env.DATABASE_URL || "";
 
 let prisma: PrismaClient;
 
 try {
-    // Force native prisma for seed to bypass potential driver adapter handshake issues on Windows
-    prisma = new PrismaClient();
+    if (!connectionString) throw new Error("DATABASE_URL is missing");
+    
+    // Configure pool and adapter for the serverless driver
+    const pool = new Pool({ connectionString });
+    const adapter = new PrismaNeon(pool);
+    
+    prisma = new PrismaClient({ adapter });
 } catch (err) {
-    console.error("Initialization error:", err);
+    console.error("Initialization error with Neon adapter:", err);
+    console.log("Falling back to native client...");
     prisma = new PrismaClient();
 }
 

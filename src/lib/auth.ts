@@ -16,7 +16,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             },
             async authorize(credentials) {
                 try {
+                    console.log(`[AUTH] Attempting login for: ${credentials?.email}`);
+                    
                     if (!credentials?.email || !credentials?.password) {
+                        console.warn("[AUTH] Missing credentials");
                         return null;
                     }
 
@@ -29,7 +32,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                         },
                     });
 
-                    if (!user || user.status !== "ACTIVE") {
+                    if (!user) {
+                        console.warn(`[AUTH] User not found: ${credentials.email}`);
+                        return null;
+                    }
+
+                    if (user.status !== "ACTIVE") {
+                        console.warn(`[AUTH] User account status is not ACTIVE (was: ${user.status})`);
                         return null;
                     }
 
@@ -39,20 +48,28 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                     );
 
                     if (!isPasswordValid) {
+                        console.warn(`[AUTH] Invalid password for user: ${credentials.email}`);
                         return null;
                     }
+
+                    console.log(`[AUTH] Login successful: ${user.email} (${user.role})`);
 
                     return {
                         id: user.id,
                         email: user.email,
                         name: user.username,
                         fullName: user.fullName,
-                        role: user.role as any,
+                        role: user.role as "ADMIN" | "OWNER" | "MANAGER" | "RECEPTIONIST" | "EMPLOYEE",
                         branchId: user.usr_branchId,
                         businessId: user.usr_businessId || null,
                     };
                 } catch (error) {
-                    console.error("[AUTH] Authorization error:", error instanceof Error ? error.message : error);
+                    console.error("[AUTH] Authorization flow encountered an error:");
+                    console.error(error instanceof Error ? {
+                        message: error.message,
+                        stack: error.stack,
+                        name: error.name
+                    } : error);
                     return null;
                 }
             },

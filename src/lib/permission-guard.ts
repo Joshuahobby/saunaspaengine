@@ -25,7 +25,7 @@ export async function requirePermission(permission: PermissionKey) {
             select: { permissions: true }
         });
         if (business) {
-            businessPermissions = business.permissions as any as PermissionMatrix;
+            businessPermissions = business.permissions as unknown as PermissionMatrix;
         }
     }
 

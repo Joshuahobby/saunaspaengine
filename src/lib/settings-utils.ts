@@ -1,6 +1,9 @@
 import { prisma } from "./prisma";
 import { cache } from "react";
 
+export type DayHours = { open: string; close: string; isClosed: boolean };
+export type BusinessHours = Record<string, DayHours>;
+
 export interface EffectiveSettings {
     name: string;
     taxId: string | null;
@@ -9,7 +12,7 @@ export interface EffectiveSettings {
     primaryColor: string;
     currency: string;
     timezone: string;
-    businessHours: any;
+    businessHours: BusinessHours | null;
     businessName: string;
     branchName: string;
 }
@@ -44,7 +47,7 @@ export const getEffectiveSettings = cache(async (branchId: string): Promise<Effe
         primaryColor: branch.primaryColor ?? biz?.primaryColor ?? "#fbbf24", // Default Gold
         currency: branch.currency ?? biz?.currency ?? "RWF",
         timezone: branch.timezone ?? biz?.timezone ?? "Africa/Kigali",
-        businessHours: branch.businessHours ?? null,
+        businessHours: branch.businessHours as unknown as BusinessHours | null,
     };
 });
 

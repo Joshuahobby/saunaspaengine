@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { searchLimiter, getClientIp } from "@/lib/rate-limit";
 
 export async function GET(request: NextRequest) {
+    const rl = searchLimiter.check(getClientIp(request));
+    if (!rl.success) {
+        return NextResponse.json(
+            { error: "Too many requests" },
+            { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+        );
+    }
+
     const session = await auth();
     if (!session?.user?.branchId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -11,8 +20,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const query = searchParams.get("query");
 
-    if (!query) {
-        return NextResponse.json({ error: "Search query is required" }, { status: 400 });
+    if (!query || query.length > 100) {
+        return NextResponse.json({ error: "Search query is required and must be under 100 characters" }, { status: 400 });
     }
 
     try {
@@ -28,7 +37,7 @@ export async function GET(request: NextRequest) {
 
         // 2. Search for the client
         // We look specifically for the client across the whole corporate network
-        const client = await (prisma.client as any).findFirst({
+        const client = await prisma.client.findFirst({
             where: {
                 branch: { businessId: branch.businessId },
                 status: "ACTIVE",

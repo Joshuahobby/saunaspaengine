@@ -5,6 +5,9 @@ import { AuthError } from "next-auth";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { Resend } from "resend";
+import { headers } from "next/headers";
+import { loginLimiter, passwordResetLimiter } from "@/lib/rate-limit";
+import { randomInt, timingSafeEqual } from "crypto";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -12,10 +15,18 @@ export async function authenticate(
     prevState: string | undefined,
     formData: FormData,
 ) {
+    // Rate-limit by IP: 10 attempts per 15 minutes
+    const headerStore = await headers();
+    const ip = headerStore.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+    const rl = loginLimiter.check(ip);
+    if (!rl.success) {
+        return `Too many login attempts. Please wait ${rl.retryAfter} seconds before trying again.`;
+    }
+
     try {
         const plainFormData = Object.fromEntries(formData);
         const redirectTo = (plainFormData.redirectTo as string) || "/dashboard";
-        
+
         await signIn("credentials", { ...plainFormData, redirectTo });
     } catch (error) {
         if (error instanceof AuthError) {
@@ -33,17 +44,28 @@ export async function authenticate(
 
 
 export async function requestPasswordReset(email: string) {
+    // Rate-limit OTP requests by IP
+    const headerStore = await headers();
+    const ip = headerStore.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+    const rl = passwordResetLimiter.check(ip);
+    if (!rl.success) {
+        // Return success-looking response to prevent email enumeration timing attack
+        return { success: true };
+    }
+
     try {
         const user = await prisma.user.findUnique({
             where: { email },
         });
 
         if (!user) {
-            return { error: "No account linked to this email address." };
+            // Return success even when user not found to prevent email enumeration.
+            // The "success" response is intentionally indistinguishable from a real one.
+            return { success: true };
         }
 
-        // Generate 6-digit OTP
-        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        // Generate cryptographically secure 6-digit OTP
+        const otp = randomInt(100000, 999999).toString();
         const expiry = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
 
         await prisma.user.update({
@@ -91,13 +113,28 @@ export async function requestPasswordReset(email: string) {
     }
 }
 
+/** Constant-time OTP comparison to prevent timing attacks. */
+function otpMatches(stored: string | null, provided: string): boolean {
+    if (!stored || stored.length !== provided.length) return false;
+    try {
+        return timingSafeEqual(Buffer.from(stored), Buffer.from(provided));
+    } catch {
+        return false;
+    }
+}
+
 export async function verifyResetOtp(email: string, otp: string) {
     try {
         const user = await prisma.user.findUnique({
             where: { email },
         });
 
-        if (!user || user.resetOtp !== otp || !user.resetOtpExpiry || user.resetOtpExpiry < new Date()) {
+        if (
+            !user ||
+            !otpMatches(user.resetOtp, otp) ||
+            !user.resetOtpExpiry ||
+            user.resetOtpExpiry < new Date()
+        ) {
             return { error: "Invalid or expired verification code." };
         }
 
@@ -113,7 +150,12 @@ export async function performPasswordReset(email: string, otp: string, password:
             where: { email },
         });
 
-        if (!user || user.resetOtp !== otp || !user.resetOtpExpiry || user.resetOtpExpiry < new Date()) {
+        if (
+            !user ||
+            !otpMatches(user.resetOtp, otp) ||
+            !user.resetOtpExpiry ||
+            user.resetOtpExpiry < new Date()
+        ) {
             return { error: "Verification expired. Please restart the process." };
         }
 

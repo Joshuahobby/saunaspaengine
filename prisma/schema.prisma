@@ -172,6 +172,9 @@ model Client {
   reviews        Review[]
   notes          String?         @db.Text
 
+  // phone is searched frequently for client lookup
+  @@index([phone])
+  @@index([branchId, status])
   @@map("clients")
 }
 
@@ -254,6 +257,15 @@ model ServiceRecord {
   service            Service             @relation(fields: [serviceId], references: [id], onDelete: Cascade)
   review             Review?
 
+  // Indexes for the most common query patterns:
+  // - listing/filtering by branch + status (operations page)
+  // - revenue reports by branch + status + completedAt
+  // - loyalty & groupBy queries by clientId + branchId
+  // - employee commission queries by employeeId
+  @@index([branchId, status])
+  @@index([branchId, status, completedAt])
+  @@index([clientId, branchId])
+  @@index([employeeId])
   @@map("service_records")
 }
 
@@ -269,6 +281,8 @@ model CommissionLog {
   serviceRecord   ServiceRecord @relation(fields: [serviceRecordId], references: [id])
   payout          EmployeePayout? @relation(fields: [payoutId], references: [id])
 
+  // Settlement queries filter by employeeId + status
+  @@index([employeeId, status])
   @@map("commission_logs")
 }
 
@@ -371,6 +385,7 @@ model AuditLog {
   branch    Branch?  @relation(fields: [branchId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id])
 
+  @@index([branchId, createdAt])
   @@map("audit_logs")
 }
 

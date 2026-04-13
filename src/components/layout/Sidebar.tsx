@@ -21,6 +21,7 @@ const managerNavItems: NavItem[] = [
     { label: "Work & Tasks", href: "/operations", icon: "sensors" },
     { label: "Clients & Sales", href: "/growth", icon: "chronic" },
     { label: "Our Team", href: "/staff", icon: "groups_3" },
+    { label: "Register Staff", href: "/employees/new", icon: "person_add" },
     
     { label: "Company", isHeader: true },
     { label: "Corporate Setup", href: "/settings/corporate", icon: "settings" },
@@ -58,6 +59,7 @@ const businessNavItems: NavItem[] = [
     { label: "Work Tracking", href: "/operations", icon: "sensors" },
     { label: "Clients & Sales", href: "/growth", icon: "chronic" },
     { label: "Our Team", href: "/staff", icon: "groups_3" },
+    { label: "Register Staff", href: "/employees/new", icon: "person_add" },
     
     { label: "Finance & Safety", isHeader: true },
     { label: "Settlements", href: "/finance/settlements", icon: "account_balance_wallet" },

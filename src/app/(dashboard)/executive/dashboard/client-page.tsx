@@ -102,6 +102,13 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
                             Leaderboard
                         </Link>
                         <Link 
+                            href="/employees/new"
+                            className="h-10 px-6 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-card)] text-[var(--text-main)] text-[10px] font-black tracking-widest uppercase flex items-center gap-2 hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-sm"
+                        >
+                            <span className="material-symbols-outlined text-sm">person_add</span>
+                            Add Staff
+                        </Link>
+                        <Link 
                             href="/branches/new"
                             className="h-10 px-6 rounded-xl bg-[var(--color-primary)] text-white text-[10px] font-black tracking-widest uppercase flex items-center gap-2 hover:scale-[1.05] transition-all shadow-xl shadow-[var(--color-primary)]/20"
                         >

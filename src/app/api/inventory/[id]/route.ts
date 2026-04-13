@@ -14,16 +14,19 @@ export async function PUT(
         const body = await req.json();
         const { productName, stockCount, minThreshold, unit, supplierId } = body;
 
-        const where: any = { id };
-        if (user!.role === 'OWNER' || user!.role === 'ADMIN') {
-            where.branch = { businessId: user!.businessId };
-        } else {
-            if (!user!.branchId) return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
-            where.branchId = user!.branchId;
-        }
+        // Scope check before mutating
+        const existing = await prisma.inventory.findFirst({
+            where: {
+                id,
+                ...(user!.role === 'OWNER' || user!.role === 'ADMIN'
+                    ? { branch: { businessId: user!.businessId ?? undefined } }
+                    : { branchId: user!.branchId ?? undefined }),
+            },
+        });
+        if (!existing) return NextResponse.json({ error: "Item not found or access denied." }, { status: 404 });
 
         const item = await prisma.inventory.update({
-            where,
+            where: { id },
             data: {
                 ...(productName && { productName: String(productName).trim() }),
                 ...(stockCount !== undefined && { stockCount: parseInt(stockCount) }),
@@ -47,28 +50,26 @@ export async function DELETE(
         const { user, error } = await apiAuth(["ADMIN", "OWNER"]);
         if (error) return error;
 
-        const where: any = { id };
-        if (user!.role === 'OWNER' || user!.role === 'ADMIN') {
-            where.branch = { businessId: user!.businessId };
-        } else {
-            // Managers can't delete anyway per apiAuth above, but keep it safe
-            where.branchId = user!.branchId;
-        }
-
-        const deletedItem = await prisma.inventory.delete({
-            where,
-            include: { branch: true }
+        // Scope check before deleting
+        const existing = await prisma.inventory.findFirst({
+            where: {
+                id,
+                branch: { businessId: user!.businessId ?? undefined },
+            },
+            include: { branch: true },
         });
+        if (!existing) return NextResponse.json({ error: "Item not found or access denied." }, { status: 404 });
 
-        // Add Audit Log for record removal
+        await prisma.inventory.delete({ where: { id } });
+
         await prisma.auditLog.create({
             data: {
                 userId: user!.id!,
                 action: "DELETE_INVENTORY",
                 entity: "Inventory",
                 entityId: id,
-                details: `Permanently removed inventory record: ${deletedItem.productName} in branch ${deletedItem.branch.name}`,
-                branchId: deletedItem.branchId
+                details: `Permanently removed inventory record: ${existing.productName} in branch ${existing.branch.name}`,
+                branchId: existing.branchId
             }
         });
 
@@ -95,18 +96,21 @@ export async function PATCH(
 
         const quantity = parseInt(addStock);
 
-        const where: any = { id };
-        if (user!.role === 'OWNER' || user!.role === 'ADMIN') {
-            where.branch = { businessId: user!.businessId };
-        } else {
-            if (!user!.branchId) return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
-            where.branchId = user!.branchId;
-        }
+        // Scope check before mutating
+        const existing = await prisma.inventory.findFirst({
+            where: {
+                id,
+                ...(user!.role === 'OWNER' || user!.role === 'ADMIN'
+                    ? { branch: { businessId: user!.businessId ?? undefined } }
+                    : { branchId: user!.branchId ?? undefined }),
+            },
+        });
+        if (!existing) return NextResponse.json({ error: "Item not found or access denied." }, { status: 404 });
 
         // Use a transaction to update stock and create log atomically
         const [item] = await prisma.$transaction([
             prisma.inventory.update({
-                where,
+                where: { id },
                 data: {
                     stockCount: { increment: quantity },
                 },

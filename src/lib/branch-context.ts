@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { prisma } from "./prisma";
+import type { Session } from "next-auth";
 
 interface BranchContext {
     authorizedBranchIds: string[];
@@ -12,7 +13,7 @@ interface BranchContext {
  * Strictly enforces multitenancy by verifying branch ownership.
  */
 export async function getActiveBranchContext(
-    session: any, 
+    session: Session | null,
     searchParams: { branchId?: string }
 ): Promise<BranchContext> {
     const user = session?.user;

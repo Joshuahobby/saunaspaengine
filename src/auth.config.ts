@@ -50,7 +50,15 @@ export const authConfig: NextAuthConfig = {
             const isLoggedIn = !!auth?.user;
             const isAuthPage = nextUrl.pathname.startsWith("/login");
             const isApiAuthRoute = nextUrl.pathname.startsWith("/api/auth");
-            const isPublicRoute = ["/", "/help", "/security", "/privacy", "/terms"].includes(nextUrl.pathname);
+            const PUBLIC_PATHS = ["/", "/help", "/security", "/privacy", "/terms",
+                "/pricing", "/demo", "/contact", "/support", "/status",
+                "/case-studies", "/changelog", "/developer", "/booking"];
+            const isPublicRoute =
+                PUBLIC_PATHS.includes(nextUrl.pathname) ||
+                nextUrl.pathname.startsWith("/developer/") ||
+                nextUrl.pathname.startsWith("/demo/") ||
+                nextUrl.pathname.startsWith("/receipt/") ||
+                nextUrl.pathname.startsWith("/forgot-password");
 
             if (isApiAuthRoute) return true;
 

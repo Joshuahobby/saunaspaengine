@@ -15,16 +15,19 @@ export async function PUT(
         const body = await req.json();
         const { name, email, phone, category, address, notes, status } = body;
 
-        const where: any = { id };
-        if (user!.role === 'OWNER' || user!.role === 'ADMIN') {
-            where.branch = { businessId: user!.businessId };
-        } else {
-            if (!user!.branchId) return NextResponse.json({ error: "No branch assigned" }, { status: 403 });
-            where.branchId = user!.branchId;
-        }
+        // Scope check before mutating
+        const existing = await prisma.supplier.findFirst({
+            where: {
+                id,
+                ...(user!.role === 'OWNER' || user!.role === 'ADMIN'
+                    ? { branch: { businessId: user!.businessId ?? undefined } }
+                    : { branchId: user!.branchId ?? undefined }),
+            },
+        });
+        if (!existing) return NextResponse.json({ error: "Supplier not found or access denied." }, { status: 404 });
 
         const supplier = await prisma.supplier.update({
-            where,
+            where: { id },
             data: {
                 ...(name && { name: String(name).trim() }),
                 ...(email !== undefined && { email: email ? String(email).trim() : null }),
@@ -51,28 +54,26 @@ export async function DELETE(
         const { user, error } = await apiAuth(["ADMIN", "OWNER"]);
         if (error) return error;
 
-        const where: any = { id };
-        if (user!.role === 'OWNER' || user!.role === 'ADMIN') {
-            where.branch = { businessId: user!.businessId };
-        } else {
-            // Managers can't delete anyway per apiAuth above, but keep it safe
-            where.branchId = user!.branchId;
-        }
-
-        const deletedSupplier = await prisma.supplier.delete({
-            where,
-            include: { branch: true }
+        // Scope check before deleting
+        const existing = await prisma.supplier.findFirst({
+            where: {
+                id,
+                branch: { businessId: user!.businessId ?? undefined },
+            },
+            include: { branch: true },
         });
+        if (!existing) return NextResponse.json({ error: "Supplier not found or access denied." }, { status: 404 });
 
-        // Add Audit Log
+        await prisma.supplier.delete({ where: { id } });
+
         await prisma.auditLog.create({
             data: {
                 userId: user!.id!,
                 action: "DELETE_SUPPLIER",
                 entity: "Supplier",
                 entityId: id,
-                details: `Deleted supplier ${deletedSupplier.name} in branch ${deletedSupplier.branch.name}`,
-                branchId: deletedSupplier.branchId
+                details: `Deleted supplier ${existing.name} in branch ${existing.branch.name}`,
+                branchId: existing.branchId
             }
         });
 

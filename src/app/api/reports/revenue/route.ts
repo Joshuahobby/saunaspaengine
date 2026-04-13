@@ -14,7 +14,8 @@ export async function GET(req: NextRequest) {
         const period = searchParams.get("period") || "weekly";
         
         // Optimized branch filter: use relationship join instead of pre-fetching branch IDs
-        let branchFilter: any = {};
+        type BranchFilter = { branchId: string } | { branch: { businessId: string } } | Record<string, never>;
+        let branchFilter: BranchFilter = {};
         if (session.user.role === "MANAGER" && session.user.branchId) {
             branchFilter = { branchId: session.user.branchId };
         } else if (session.user.role === "OWNER" && session.user.businessId) {

@@ -68,14 +68,14 @@ export default async function TeamDirectoryTab({
                     ))}
                 </div>
 
-                <div className="flex items-center gap-4 w-full lg:w-auto">
+                <div className="flex items-center gap-4 w-full lg:w-auto flex-wrap lg:flex-nowrap">
                     {session.user.role === 'OWNER' && businessBranches.length > 0 && (
                         <BranchFilter 
                             branches={businessBranches.map(b => ({ id: b.id, name: b.name }))}
                             activeBranchId={activeBranchId ?? undefined}
                         />
                     )}
-                    <div className="relative flex-1 lg:w-80">
+                    <div className="relative flex-1 w-full lg:w-80 min-w-[200px]">
                          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] text-lg opacity-40">search</span>
                          <form action="/staff" method="GET">
                             <input type="hidden" name="tab" value="directory" />
@@ -89,6 +89,16 @@ export default async function TeamDirectoryTab({
                             />
                          </form>
                     </div>
+                    {isOwnerOrAdmin && (
+                        <Link
+                            href="/employees/new"
+                            className="h-[46px] px-6 bg-[var(--text-main)] text-[var(--bg-app)] rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all flex items-center justify-center gap-2 shrink-0 shadow-lg"
+                        >
+                            <span className="material-symbols-outlined text-sm">person_add</span>
+                            <span className="max-sm:hidden">Add Staff</span>
+                            <span className="sm:hidden">Add</span>
+                        </Link>
+                    )}
                 </div>
             </div>
 

@@ -1,25 +1,58 @@
 import { PrismaClient } from "@prisma/client";
+import { neonConfig } from '@neondatabase/serverless';
+import { PrismaNeon } from '@prisma/adapter-neon';
+import ws from 'ws';
 
-// Robust Singleton pattern for Prisma in Next.js
+/**
+ * PRISMA SINGLETON CONFIGURATION
+ * 
+ * Stability Strategy:
+ * - Development: Uses the NATIVE Prisma engine (TCP) for maximum stability on local machines.
+ * - Production: Uses the NEON Serverless Adapter for optimized performance in edge environments.
+ */
+
 const prismaClientSingleton = () => {
-    const connectionString = process.env.DATABASE_URL || "";
-    
-    if (!connectionString) {
-        throw new Error("DATABASE_URL is missing. Please check your Next.js env variables.");
-    }
+  const isDev = process.env.NODE_ENV === "development";
+  const databaseUrl = process.env.DATABASE_URL?.trim();
 
-    // Initialize native PrismaClient (uses Rust query engine with direct TCP pooling, bypassing buggy WS Serverless adapters)
+  if (!databaseUrl) {
+    throw new Error("DATABASE_URL is not defined in your environment.");
+  }
+
+  // 1. Local/Dev Mode: Native TCP Engine
+  if (isDev) {
+    console.log("[PRISMA] Initializing Native Engine (Local Mode)");
     return new PrismaClient({
-        datasourceUrl: connectionString
+      datasources: {
+        db: {
+          url: databaseUrl,
+        },
+      },
+      log: ["error", "warn"],
     });
+  }
+
+  // 2. Production/Edge Mode: Neon Serverless Adapter
+  console.log("[PRISMA] Initializing Neon Adapter (Production Mode)");
+  
+  if (typeof window === 'undefined') {
+    neonConfig.webSocketConstructor = ws;
+  }
+
+  const adapter = new PrismaNeon({ connectionString: databaseUrl });
+
+  return new PrismaClient({
+    adapter,
+    log: ["error"],
+  });
 };
 
-declare global {
-  var prisma: undefined | ReturnType<typeof prismaClientSingleton>;
-}
+type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>;
 
-export const prisma = globalThis.prisma ?? prismaClientSingleton();
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClientSingleton | undefined;
+};
 
-if (process.env.NODE_ENV !== "production") {
-    globalThis.prisma = prisma;
-}
+export const prisma = globalForPrisma.prisma ?? prismaClientSingleton();
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;

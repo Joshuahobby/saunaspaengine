@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     try {
         const session = await auth();
         if (!session?.user || !["OWNER", "ADMIN"].includes(session.user.role)) {
@@ -22,9 +22,10 @@ export async function GET(req: NextRequest) {
          * - Branch -> "businesses" ("corporateId" links to Business)
          * - ServiceRecord -> "service_records" ("businessId" links to Branch)
          */
-        const results = await prisma.$queryRaw`
-            SELECT 
-                EXTRACT(HOUR FROM sr."completedAt")::int as hour, 
+        type HourRow = { hour: number; count: number };
+        const results = await prisma.$queryRaw<HourRow[]>`
+            SELECT
+                EXTRACT(HOUR FROM sr."completedAt")::int as hour,
                 COUNT(*)::int as count
             FROM "service_records" sr
             JOIN "businesses" b ON sr."businessId" = b.id
@@ -37,7 +38,7 @@ export async function GET(req: NextRequest) {
 
         // Ensure all 24 hours are represented, even if count is 0
         const fullDay = Array.from({ length: 24 }, (_, i) => {
-            const result = (results as any[]).find(r => r.hour === i);
+            const result = results.find(r => r.hour === i);
             return {
                 hour: i,
                 display: `${i % 12 || 12}${i < 12 ? ' AM' : ' PM'}`,

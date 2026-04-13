@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { searchLimiter, getClientIp } from "@/lib/rate-limit";
 
 export async function GET(req: NextRequest) {
+    const rl = searchLimiter.check(getClientIp(req));
+    if (!rl.success) {
+        return NextResponse.json(
+            { error: "Too many requests" },
+            { status: 429, headers: { "Retry-After": String(rl.retryAfter) } }
+        );
+    }
+
     const session = await auth();
     const userRole = session?.user?.role;
     const userId = session?.user?.id;
@@ -14,7 +23,7 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const query = searchParams.get("q");
 
-    if (!query || query.length < 2) {
+    if (!query || query.length < 2 || query.length > 100) {
         return NextResponse.json({ businesses: [], branches: [], clients: [] });
     }
 

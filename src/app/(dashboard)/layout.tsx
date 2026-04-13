@@ -33,8 +33,8 @@ export default async function DashboardLayout({
     }
 
     const branchName = branding?.branchName || branding?.name || "Sauna SPA Engine";
-    const businessName = (branding as any)?.businessName || branding?.name || "Sauna SPA";
-    const primaryColor = branding?.primaryColor || "#fbbf24";
+    const businessName = (branding as unknown as Record<string, unknown>)?.businessName as string | undefined || branding?.name || "Sauna SPA";
+    const primaryColor = sanitizeHexColor(branding?.primaryColor);
     const logo = branding?.logo || null;
 
     // 3. Handle Onboarding Redirect
@@ -78,11 +78,22 @@ export default async function DashboardLayout({
 }
 
 /**
- * Utility to convert hex to RGB string for CSS variable usage with opacity
+ * Validates that the value is a safe 6-digit hex color.
+ * Prevents CSS injection via malicious primaryColor values stored in the DB.
+ */
+function sanitizeHexColor(color: string | null | undefined): string {
+    const DEFAULT = "#fbbf24";
+    if (!color) return DEFAULT;
+    return /^#[0-9a-fA-F]{6}$/.test(color.trim()) ? color.trim() : DEFAULT;
+}
+
+/**
+ * Utility to convert hex to RGB string for CSS variable usage with opacity.
+ * Assumes input has already been sanitized by sanitizeHexColor().
  */
 function hexToRgb(hex: string) {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result 
+    const result = /^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
         ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`
-        : "251, 191, 36"; // Fallback to default gold RGB
+        : "251, 191, 36";
 }
