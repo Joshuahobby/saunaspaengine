@@ -311,9 +311,9 @@ export default function PublicStatusPage() {
                         <span className="text-sm font-medium">© {new Date().getFullYear()} Sauna SPA Engine. All rights reserved.</span>
                     </div>
                     <div className="flex gap-6">
-                        <a className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Privacy Policy</a>
-                        <a className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Terms of Service</a>
-                        <a className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Contact Support</a>
+                        <a className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="/privacy">Privacy Policy</a>
+                        <a className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="/terms">Terms of Service</a>
+                        <a className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="/support">Contact Support</a>
                     </div>
                 </div>
             </footer>

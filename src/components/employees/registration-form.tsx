@@ -123,7 +123,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                                 required
                                 name="email"
                                 type="email"
-                                placeholder="e.g. jean.pierre@saunaspa.com"
+                                placeholder="e.g. jean.pierre@saunaspa.rw"
                                 className="w-full px-4 py-3 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl text-sm focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all"
                             />
                             <p className="text-[9px] text-[var(--text-muted)] opacity-60 px-1">This email will be used as the employee&apos;s login credential.</p>

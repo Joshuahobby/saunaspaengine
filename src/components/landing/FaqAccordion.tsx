@@ -67,7 +67,7 @@ const faqs = [
     },
     {
         question: "How does the billing work for my customers?",
-        answer: "You can track membership statuses, day passes, and remaining credits within the platform. The system will alert your front desk when a customer's subscription has expired or requires renewal upon scanning their pass."
+        answer: "Customers can pay via MTN MoMo, Airtel Money, or cash. The platform tracks membership statuses, day passes, and remaining credits automatically. Your front desk gets instant alerts when a customer's subscription has expired or requires renewal upon scanning their QR pass."
     },
     {
         question: "Is my data secure and compliant?",

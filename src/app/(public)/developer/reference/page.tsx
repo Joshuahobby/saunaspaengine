@@ -156,7 +156,7 @@ export default function ApiReferencePage() {
                                     <h2 className="text-sm font-bold text-white uppercase tracking-wider mb-4 border-l-2 border-primary pl-3">Endpoint</h2>
                                     <div className="flex items-center gap-3 bg-slate-800/30 border border-slate-700/50 rounded-lg p-3 font-mono text-sm max-w-full overflow-x-auto">
                                         <span className="text-emerald-400 font-bold bg-emerald-400/10 px-2 py-1 rounded">POST</span>
-                                        <span className="text-slate-300 select-all">https://api.saunaspa.io/v1/clients</span>
+                                        <span className="text-slate-300 select-all">https://api.saunaspa.rw/v1/clients</span>
                                     </div>
                                 </div>
 
@@ -246,7 +246,7 @@ export default function ApiReferencePage() {
                                         </div>
                                     </div>
                                     <CopyButton
-                                        text={`curl https://api.saunaspa.io/v1/clients \\
+                                        text={`curl https://api.saunaspa.rw/v1/clients \\
   -u sk_test_123456789: \\
   -d email="jane.doe@example.com" \\
   -d name="Jane Doe" \\
@@ -254,7 +254,7 @@ export default function ApiReferencePage() {
                                     />
                                 </div>
                                 <div className="bg-[#0c121a] p-4 overflow-auto text-[13px] font-mono leading-relaxed hide-scrollbar">
-                                    <div className="text-slate-300"><span className="text-emerald-400">curl</span> https://api.saunaspa.io/v1/clients \</div>
+                                    <div className="text-slate-300"><span className="text-emerald-400">curl</span> https://api.saunaspa.rw/v1/clients \</div>
                                     <div className="pl-4 text-slate-300"><span className="text-slate-500">-u</span> sk_test_123456789: \</div>
                                     <div className="pl-4 text-slate-300"><span className="text-slate-500">-d</span> email=<span className="text-amber-300">&quot;jane.doe@example.com&quot;</span> \</div>
                                     <div className="pl-4 text-slate-300"><span className="text-slate-500">-d</span> name=<span className="text-amber-300">&quot;Jane Doe&quot;</span> \</div>

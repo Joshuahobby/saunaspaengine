@@ -47,8 +47,8 @@ export default function NotFound() {
             </main>
             <footer className="flex flex-col gap-8 px-5 py-12 text-center border-t border-[var(--border-muted)]">
                 <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
-                    <Link className="text-[var(--text-muted)] hover:text-[var(--color-primary)] text-sm font-medium transition-colors" href="#">Privacy Policy</Link>
-                    <Link className="text-[var(--text-muted)] hover:text-[var(--color-primary)] text-sm font-medium transition-colors" href="#">Terms of Service</Link>
+                    <Link className="text-[var(--text-muted)] hover:text-[var(--color-primary)] text-sm font-medium transition-colors" href="/privacy">Privacy Policy</Link>
+                    <Link className="text-[var(--text-muted)] hover:text-[var(--color-primary)] text-sm font-medium transition-colors" href="/terms">Terms of Service</Link>
                     <Link className="text-[var(--text-muted)] hover:text-[var(--color-primary)] text-sm font-medium transition-colors" href="/status">System Status</Link>
                 </div>
                 <p className="text-[var(--text-muted)] text-xs">© 2026 Sauna SPA Engine Professional. All rights reserved.</p>

@@ -172,7 +172,7 @@ export default function DeveloperPortalPage() {
                                     <div className="text-slate-400 mb-2"># Authenticate with cURL</div>
                                     <div>
                                         <span className="text-primary">curl</span>
-                                        <span className="text-slate-300"> -X</span> POST https://api.saunaspa.io/v1/auth \
+                                        <span className="text-slate-300"> -X</span> POST https://api.saunaspa.rw/v1/auth \
                                     </div>
                                     <div className="pl-4">
                                         <span className="text-slate-300">-H</span> <span className="text-amber-300">&lsquo;Content-Type: application/json&rsquo;</span> \
@@ -208,7 +208,7 @@ export default function DeveloperPortalPage() {
                                     <p className="text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] leading-relaxed">
                                         Need help with your integration? Our technical support engineers are available for architecture reviews and debugging.
                                     </p>
-                                    <Link className="inline-flex items-center text-primary font-bold hover:underline" href="/help">
+                                    <Link className="inline-flex items-center text-primary font-bold hover:underline" href="/support">
                                         Open a ticket
                                     </Link>
                                 </div>
@@ -261,21 +261,21 @@ export default function DeveloperPortalPage() {
                                 <li><Link className="hover:text-primary transition-colors" href="#">Forum</Link></li>
                                 <li><Link className="hover:text-primary transition-colors" href="#">Discord</Link></li>
                                 <li><Link className="hover:text-primary transition-colors" href="#">GitHub</Link></li>
-                                <li><Link className="hover:text-primary transition-colors" href="#">Events</Link></li>
+                                <li><Link className="hover:text-primary transition-colors" href="/changelog">Changelog</Link></li>
                             </ul>
                         </div>
                         <div className="space-y-4">
                             <h4 className="font-bold text-sm uppercase tracking-widest text-slate-400">Company</h4>
                             <ul className="space-y-2 text-sm text-slate-500">
-                                <li><Link className="hover:text-primary transition-colors" href="#">About Us</Link></li>
-                                <li><Link className="hover:text-primary transition-colors" href="#">Privacy</Link></li>
-                                <li><Link className="hover:text-primary transition-colors" href="#">Security</Link></li>
+                                <li><Link className="hover:text-primary transition-colors" href="/contact">Contact Us</Link></li>
+                                <li><Link className="hover:text-primary transition-colors" href="/privacy">Privacy</Link></li>
+                                <li><Link className="hover:text-primary transition-colors" href="/security">Security</Link></li>
                                 <li><Link className="hover:text-primary transition-colors" href="/status">Status</Link></li>
                             </ul>
                         </div>
                     </div>
                     <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-slate-200 dark:border-primary/5 text-slate-500 text-xs gap-4">
-                        <p>© 2024 Sauna SPA Engine Engine. All rights reserved.</p>
+                        <p>© {new Date().getFullYear()} Sauna SPA Engine. All rights reserved.</p>
                         <div className="flex gap-6">
                             <Link className="hover:text-primary transition-colors" href="#">Twitter</Link>
                             <Link className="hover:text-primary transition-colors" href="#">LinkedIn</Link>

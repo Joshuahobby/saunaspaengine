@@ -18,7 +18,7 @@ export async function GET() {
         // 1. Create Business
         const business = await prisma.business.create({
             data: {
-                name: "GetRwanda Wellness Group",
+                name: "Sauna SPA Wellness Group",
                 taxId: "CORP-RW-2026-001",
                 headquarters: "Kigali Heights, 5th Floor",
             },
@@ -63,7 +63,7 @@ export async function GET() {
         await prisma.user.create({
             data: {
                 username: "ceo",
-                email: "exec@getrwanda.rw",
+                email: "exec@saunaspa.rw",
                 passwordHash: managerPassword,
                 fullName: "Kagame Paul (Group CEO)",
                 role: "OWNER",

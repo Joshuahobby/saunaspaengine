@@ -86,7 +86,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="text-[var(--text-main)] text-xl font-bold font-serif mb-3">10. Contact</h2>
-            <p>For questions about these Terms of Service, contact us at <span className="text-[var(--color-primary)] font-bold">legal@saunaspa.com</span> or write to our offices in Kigali, Rwanda.</p>
+            <p>For questions about these Terms of Service, contact us at <span className="text-[var(--color-primary)] font-bold">legal@saunaspa.rw</span> or write to our offices in Kigali, Rwanda.</p>
           </section>
         </article>
 

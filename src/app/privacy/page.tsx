@@ -66,7 +66,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-[var(--text-main)] text-xl font-bold font-serif mb-3">6. Your Rights</h2>
-            <p>You have the right to access, correct, or delete your personal data at any time. Business owners can export all client and operational data through the platform&apos;s admin panel. To exercise your rights, contact us at <span className="text-[var(--color-primary)] font-bold">privacy@saunaspa.com</span>.</p>
+            <p>You have the right to access, correct, or delete your personal data at any time. Business owners can export all client and operational data through the platform&apos;s admin panel. To exercise your rights, contact us at <span className="text-[var(--color-primary)] font-bold">privacy@saunaspa.rw</span>.</p>
           </section>
 
           <section>
@@ -76,7 +76,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="text-[var(--text-main)] text-xl font-bold font-serif mb-3">8. Contact Us</h2>
-            <p>If you have questions or concerns about this Privacy Policy, please contact our Data Protection Officer at <span className="text-[var(--color-primary)] font-bold">privacy@saunaspa.com</span> or write to us at Kigali, Rwanda.</p>
+            <p>If you have questions or concerns about this Privacy Policy, please contact our Data Protection Officer at <span className="text-[var(--color-primary)] font-bold">privacy@saunaspa.rw</span> or write to us at Kigali, Rwanda.</p>
           </section>
         </article>
 

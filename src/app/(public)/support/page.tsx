@@ -189,11 +189,11 @@ export default function SupportPage() {
                 <div className="max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="flex items-center gap-4 text-[var(--text-muted)]">
                         <span className="material-symbols-outlined">spa</span>
-                        <p className="text-sm">© 2026 Sauna SPA Engine. All rights reserved.</p>
+                        <p className="text-sm">© {new Date().getFullYear()} Sauna SPA Engine. All rights reserved.</p>
                     </div>
                     <div className="flex gap-8">
-                        <Link href="#" className="text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm">Privacy Policy</Link>
-                        <Link href="#" className="text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm">Terms of Service</Link>
+                        <Link href="/privacy" className="text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm">Privacy Policy</Link>
+                        <Link href="/terms" className="text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm">Terms of Service</Link>
                         <Link href="/status" className="text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors text-sm">Service Status</Link>
                     </div>
                 </div>

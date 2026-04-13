@@ -6,23 +6,23 @@ import Link from "next/link";
 const PLANS = [
     {
         name: "Basic",
-        monthly: 49,
-        annual: 39,
+        monthly: "50,000",
+        annual: "40,000",
         desc: "Perfect for boutique spas and single locations starting their digital journey.",
         cta: "Start Free Trial",
         ctaStyle: "bg-[var(--bg-surface-muted)]/50 text-[var(--text-main)] hover:bg-[var(--color-primary)]/20",
         features: [
             { text: "Up to 5 Employees", included: true },
             { text: "500 QR Scans /mo", included: true },
-            { text: "1 Branch Branch", included: true },
+            { text: "1 Branch Location", included: true },
             { text: "Advanced Analytics", included: false },
         ],
         popular: false,
     },
     {
         name: "Pro",
-        monthly: 99,
-        annual: 79,
+        monthly: "150,000",
+        annual: "120,000",
         desc: "Our most comprehensive plan for growing branches with multiple teams.",
         cta: "Start Free Trial",
         ctaStyle: "bg-[var(--color-primary)] text-[var(--bg-app)] hover:opacity-90",
@@ -63,17 +63,18 @@ const COMPARISON = [
         { feature: "Custom Reporting", basic: false, pro: true, enterprise: true },
         { feature: "API Access", basic: false, pro: "Basic", enterprise: "Full" },
     ]},
-    { section: "Security & Enterprise", rows: [
+    { section: "Payments & Security", rows: [
+        { feature: "Mobile Money (MTN/Airtel)", basic: true, pro: true, enterprise: true },
         { feature: "Audit Logs", basic: false, pro: false, enterprise: true },
         { feature: "SLA Guarantee", basic: false, pro: false, enterprise: "99.99%" },
         { feature: "Priority Support", basic: false, pro: false, enterprise: true },
-        { feature: "Whitelabeling", basic: false, pro: false, enterprise: true },
     ]},
 ];
 
 const FAQS = [
     { q: "Can I upgrade or downgrade my plan?", a: "Yes, you can change your plan at any time. If you upgrade, the new pricing is prorated. If you downgrade, your new rate starts at the next billing cycle." },
     { q: "What happens after my 14-day free trial?", a: "At the end of your trial, you'll be prompted to select a plan and provide payment details. Your data will be preserved so you can pick up where you left off." },
+    { q: "What payment methods do you accept?", a: "We accept MTN MoMo, Airtel Money, bank transfers, and cash payments for annual plans." },
 ];
 
 function renderCell(val: boolean | string) {
@@ -97,7 +98,7 @@ export default function PricingPage() {
                     <nav className="hidden md:flex items-center gap-8">
                         <Link href="/" className="text-sm font-medium hover:text-[var(--color-primary)] transition-colors">Features</Link>
                         <span className="text-[var(--color-primary)] text-sm font-bold">Pricing</span>
-                        <Link href="/" className="text-sm font-medium hover:text-[var(--color-primary)] transition-colors">Solutions</Link>
+                        <Link href="/case-studies" className="text-sm font-medium hover:text-[var(--color-primary)] transition-colors">Case Studies</Link>
                     </nav>
                     <div className="flex gap-2">
                         <Link href="/login" className="px-4 py-2 rounded-lg bg-[var(--color-primary)] text-[var(--bg-app)] text-sm font-bold hover:opacity-90 transition-opacity">Get Started</Link>
@@ -110,7 +111,7 @@ export default function PricingPage() {
                 {/* Header Section */}
                 <div className="max-w-[960px] w-full text-center mb-12">
                     <h1 className="text-4xl md:text-5xl font-black leading-tight tracking-tight mb-4">Simple, Transparent Pricing</h1>
-                    <p className="text-[var(--text-muted)] text-lg max-w-2xl mx-auto">Choose the plan that&apos;s right for your sauna or spa branch operations. Scale seamlessly as you grow.</p>
+                    <p className="text-[var(--text-muted)] text-lg max-w-2xl mx-auto">Choose the plan that&apos;s right for your sauna or spa branch operations. All prices in RWF.</p>
                     {/* Toggle */}
                     <div className="flex justify-center mt-10">
                         <div className="flex h-12 w-full max-w-sm items-center justify-center rounded-xl bg-[var(--bg-surface-muted)]/30 p-1.5 border border-[var(--border-muted)]">
@@ -132,8 +133,8 @@ export default function PricingPage() {
                             <div className="flex flex-col gap-2">
                                 <h3 className="text-[var(--color-primary)] text-sm font-bold uppercase tracking-widest">{plan.name}</h3>
                                 <div className="flex items-baseline gap-1">
-                                    <span className="text-5xl font-black leading-tight tracking-tight">{plan.monthly ? `$${billing === "annual" ? plan.annual : plan.monthly}` : "Custom"}</span>
-                                    {plan.monthly && <span className="text-base font-medium opacity-70">/mo</span>}
+                                    <span className="text-4xl font-black leading-tight tracking-tight">{plan.monthly ? `${billing === "annual" ? plan.annual : plan.monthly}` : "Custom"}</span>
+                                    {plan.monthly && <span className="text-base font-medium opacity-70">RWF/mo</span>}
                                 </div>
                                 <p className="text-[var(--text-muted)] text-sm mt-2 leading-relaxed">{plan.desc}</p>
                             </div>
@@ -199,10 +200,10 @@ export default function PricingPage() {
                 <div className="w-full max-w-[960px] bg-[var(--color-primary)] rounded-2xl p-10 md:p-16 text-center text-[var(--bg-app)] overflow-hidden relative">
                     <div className="relative z-10">
                         <h2 className="text-3xl md:text-4xl font-black mb-4">Ready to fuel your spa engine?</h2>
-                        <p className="text-lg mb-8 opacity-80 font-medium">Join 2,000+ wellness branches optimizing their operations daily.</p>
+                        <p className="text-lg mb-8 opacity-80 font-medium">Join wellness branches across Rwanda optimizing their operations daily.</p>
                         <div className="flex flex-col sm:flex-row justify-center gap-4">
                             <Link href="/login" className="bg-[var(--bg-app)] text-[var(--text-main)] px-8 py-4 rounded-xl font-bold hover:opacity-90 transition-all">Get Started Now</Link>
-                            <button className="bg-white/30 backdrop-blur-md px-8 py-4 rounded-xl font-bold border border-[var(--bg-app)]/10 hover:bg-white/50 transition-all">Schedule a Demo</button>
+                            <Link href="/demo" className="bg-white/30 backdrop-blur-md px-8 py-4 rounded-xl font-bold border border-[var(--bg-app)]/10 hover:bg-white/50 transition-all">Schedule a Demo</Link>
                         </div>
                     </div>
                     <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full -mr-20 -mt-20 blur-3xl"></div>

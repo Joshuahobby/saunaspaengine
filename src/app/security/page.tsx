@@ -80,7 +80,7 @@ export default function SecurityPage() {
 
           <section>
             <h2 className="text-[var(--text-main)] text-xl font-bold font-serif mb-3">Responsible Disclosure</h2>
-            <p>If you discover a security vulnerability, we encourage responsible disclosure. Please report any findings to <span className="text-[var(--color-primary)] font-bold">security@saunaspa.com</span>. We commit to acknowledging reports within 24 hours and providing updates throughout the resolution process.</p>
+            <p>If you discover a security vulnerability, we encourage responsible disclosure. Please report any findings to <span className="text-[var(--color-primary)] font-bold">security@saunaspa.rw</span>. We commit to acknowledging reports within 24 hours and providing updates throughout the resolution process.</p>
           </section>
         </article>
 
