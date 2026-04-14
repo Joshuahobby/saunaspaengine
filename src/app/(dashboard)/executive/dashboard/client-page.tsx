@@ -88,11 +88,11 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
                     <p className="text-base text-[var(--text-muted)] font-bold opacity-80">Monitoring the performance of {stats.totalLocations} spa locations.</p>
                     <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                         <Link 
-                            href="/settings/roles"
-                            className="h-10 px-4 sm:px-6 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-card)] text-[var(--text-main)] text-[10px] font-black tracking-widest uppercase flex items-center gap-1 sm:gap-2 hover:bg-[var(--bg-surface-muted)] transition-all shadow-sm"
+                            href="/check-in"
+                            className="h-10 px-4 sm:px-6 rounded-xl bg-[var(--color-primary)] text-white text-[10px] font-black tracking-widest uppercase flex items-center gap-1 sm:gap-2 hover:scale-[1.05] transition-all shadow-xl shadow-[var(--color-primary)]/20"
                         >
-                            <span className="material-symbols-outlined text-sm">security</span>
-                            <span className="hidden sm:inline">Permissions</span>
+                            <span className="material-symbols-outlined text-sm">qr_code_scanner</span>
+                            <span className="hidden sm:inline">Check-In</span>
                         </Link>
                         <Link 
                             href="/employees/gamification"
@@ -110,7 +110,7 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
                         </Link>
                         <Link 
                             href="/branches/new"
-                            className="h-10 px-4 sm:px-6 rounded-xl bg-[var(--color-primary)] text-white text-[10px] font-black tracking-widest uppercase flex items-center gap-1 sm:gap-2 hover:scale-[1.05] transition-all shadow-xl shadow-[var(--color-primary)]/20"
+                            className="h-10 px-4 sm:px-6 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-card)] text-[var(--text-main)] text-[10px] font-black tracking-widest uppercase flex items-center gap-1 sm:gap-2 hover:bg-[var(--bg-surface-muted)] transition-all shadow-sm"
                         >
                             <span className="material-symbols-outlined text-sm">add_location_alt</span>
                             <span>Add Branch</span>
