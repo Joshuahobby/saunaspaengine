@@ -7,7 +7,7 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
-    
+
     const [formData, setFormData] = useState({
         name: business.name,
         taxId: business.taxId || "",
@@ -18,9 +18,9 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
         e.preventDefault();
         setError("");
         setIsSubmitting(true);
-        
+
         const res = await updateBusinessAction(business.id, formData);
-        
+
         setIsSubmitting(false);
         if (res.success) {
             router.refresh();
@@ -44,18 +44,18 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
                     initial={{ scale: 0.95, y: 20, opacity: 0 }}
                     animate={{ scale: 1, y: 0, opacity: 1 }}
                     exit={{ scale: 0.95, y: 20, opacity: 0 }}
-                    className="w-full max-w-md bg-[#0a0f0d] rounded-[3rem] border border-white/10 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] relative"
+                    className="w-full max-w-md bg-[var(--bg-card)] rounded-[3rem] border border-[var(--border-muted)] overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.2)] relative"
                 >
                     <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[var(--color-primary)] to-transparent opacity-50"></div>
-                    
+
                     <div className="p-10 pb-6 text-center">
-                        <h2 className="text-3xl font-serif font-black text-white italic tracking-tight">Hub Architect</h2>
+                        <h2 className="text-3xl font-serif font-black text-[var(--text-main)] italic tracking-tight">Hub Architect</h2>
                         <p className="text-[10px] font-bold text-[var(--text-muted)] mt-2 uppercase tracking-[0.3em] italic opacity-60">Updating Organizational Identity</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="p-10 pt-4 space-y-8">
                         {error && (
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-500 text-[10px] font-black uppercase tracking-widest text-center"
@@ -72,7 +72,7 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
                                     type="text"
                                     value={formData.name}
                                     onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                                    className="w-full h-14 px-6 bg-white/5 border border-white/10 rounded-2xl text-white font-serif italic text-lg focus:border-[var(--color-primary)]/50 focus:ring-0 outline-none transition-all placeholder:text-[var(--text-muted)]/20"
+                                    className="w-full h-14 px-6 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl text-[var(--text-main)] font-serif italic text-lg focus:border-[var(--color-primary)]/50 focus:ring-0 outline-none transition-all placeholder:text-[var(--text-muted)]/40"
                                     placeholder="Sauna SPA Global..."
                                 />
                             </div>
@@ -83,7 +83,7 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
                                     type="text"
                                     value={formData.taxId}
                                     onChange={e => setFormData(prev => ({ ...prev, taxId: e.target.value }))}
-                                    className="w-full h-14 px-6 bg-white/5 border border-white/10 rounded-2xl text-white font-mono text-sm tracking-widest focus:border-[var(--color-primary)]/50 focus:ring-0 outline-none transition-all placeholder:text-[var(--text-muted)]/20"
+                                    className="w-full h-14 px-6 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl text-[var(--text-main)] font-mono text-sm tracking-widest focus:border-[var(--color-primary)]/50 focus:ring-0 outline-none transition-all placeholder:text-[var(--text-muted)]/40"
                                     placeholder="Optional"
                                 />
                             </div>
@@ -94,7 +94,7 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
                                     type="text"
                                     value={formData.headquarters}
                                     onChange={e => setFormData(prev => ({ ...prev, headquarters: e.target.value }))}
-                                    className="w-full h-14 px-6 bg-white/5 border border-white/10 rounded-2xl text-white text-sm font-bold focus:border-[var(--color-primary)]/50 focus:ring-0 outline-none transition-all placeholder:text-[var(--text-muted)]/20"
+                                    className="w-full h-14 px-6 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl text-[var(--text-main)] text-sm font-bold focus:border-[var(--color-primary)]/50 focus:ring-0 outline-none transition-all placeholder:text-[var(--text-muted)]/40"
                                     placeholder="City, Country"
                                 />
                             </div>
@@ -104,7 +104,7 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="h-14 w-full rounded-2xl bg-white text-black hover:bg-[var(--color-primary)] hover:text-white transition-all duration-500 font-black tracking-[0.2em] text-[10px] uppercase disabled:opacity-50 flex items-center justify-center gap-3 group shadow-xl"
+                                className="h-14 w-full rounded-2xl bg-[var(--text-main)] text-[var(--bg-app)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-500 font-black tracking-[0.2em] text-[10px] uppercase disabled:opacity-50 flex items-center justify-center gap-3 group shadow-xl"
                             >
                                 {isSubmitting ? <span className="material-symbols-outlined animate-spin">refresh</span> : (
                                     <>
@@ -117,7 +117,7 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
                                 type="button"
                                 onClick={onClose}
                                 disabled={isSubmitting}
-                                className="h-10 w-full rounded-xl text-[var(--text-muted)] hover:text-white transition-colors font-bold tracking-widest text-[9px] uppercase disabled:opacity-50"
+                                className="h-10 w-full rounded-xl text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors font-bold tracking-widest text-[9px] uppercase disabled:opacity-50"
                             >
                                 Discard Edits
                             </button>
@@ -127,4 +127,4 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
             </motion.div>
         </AnimatePresence>
     );
-} 
+}

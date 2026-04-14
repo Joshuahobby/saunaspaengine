@@ -181,7 +181,7 @@ export default function AdminBroadcastsClientPage() {
                                         <div className="rounded-[2rem] border border-[var(--border-muted)] bg-black/10 overflow-hidden focus-within:border-[var(--color-primary)]/40 transition-all p-1">
                                             <div className="flex items-center gap-2 p-3 border-b border-[var(--border-muted)]/50">
                                                 {["format_bold", "format_italic", "format_list_bulleted", "link", "attachment"].map((icon) => (
-                                                    <button key={icon} type="button" className="p-2 rounded-lg hover:bg-white/5 text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-all">
+                                                    <button key={icon} type="button" className="p-2 rounded-lg hover:bg-[var(--bg-surface-muted)] text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-all">
                                                         <span className="material-symbols-outlined text-lg font-bold">{icon}</span>
                                                     </button>
                                                 ))}
@@ -235,7 +235,7 @@ export default function AdminBroadcastsClientPage() {
                              </div>
 
                              <div className="rounded-[2rem] border-2 border-dashed border-[var(--border-muted)] p-10 flex flex-col items-center text-center gap-6 hover:border-[var(--color-primary)]/40 transition-all hover:bg-[var(--color-primary)]/[0.02]">
-                                <div className="size-16 rounded-full bg-white/5 flex items-center justify-center text-[var(--color-primary)] shadow-inner">
+                                <div className="size-16 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] shadow-inner">
                                     <span className="material-symbols-outlined text-3xl font-bold">bolt</span>
                                 </div>
                                 <div>

@@ -14,30 +14,11 @@ import {
     LayoutDashboard
 } from 'lucide-react';
 
+import { PublicLayout } from "@/components/layout/PublicLayout";
+
 export default function PublicStatusPage() {
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-[#10221c] text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] font-sans selection:bg-primary/30">
-            {/* Top Navigation */}
-            <header className="flex items-center justify-between whitespace-nowrap border-b border-border/40 dark:border-[#23483c] px-6 md:px-20 py-4 bg-white dark:bg-[#10221c] sticky top-0 z-50">
-                <div className="flex items-center gap-4 text-primary">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/20">
-                        <Activity className="h-5 w-5 text-primary" />
-                    </div>
-                    <h2 className="text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
-                </div>
-                <div className="flex flex-1 justify-end gap-8 items-center">
-                    <nav className="hidden md:flex items-center gap-9">
-                        <a className="text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] text-sm font-medium hover:text-primary transition-colors" href="#">Status</a>
-                        <a className="text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] text-sm font-medium hover:text-primary transition-colors" href="#">Maintenance</a>
-                        <a className="text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] text-sm font-medium hover:text-primary transition-colors" href="#">Uptime</a>
-                        <a className="text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] text-sm font-medium hover:text-primary transition-colors" href="#">History</a>
-                    </nav>
-                    <button className="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-primary-foreground text-sm font-bold hover:opacity-90 transition-opacity">
-                        <span className="truncate">Subscribe to Updates</span>
-                    </button>
-                </div>
-            </header>
-
+        <PublicLayout>
             <main className="flex-1 max-w-5xl mx-auto w-full px-6 py-10">
                 {/* Hero Status Banner */}
                 <section className="mb-10">
@@ -302,21 +283,6 @@ export default function PublicStatusPage() {
                     </div>
                 </section>
             </main>
-
-            {/* Footer */}
-            <footer className="border-t border-border/40 dark:border-[#23483c] bg-white dark:bg-[#10221c] py-10 px-6 mt-auto">
-                <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
-                        <Activity className="h-5 w-5" />
-                        <span className="text-sm font-medium">© {new Date().getFullYear()} Sauna SPA Engine. All rights reserved.</span>
-                    </div>
-                    <div className="flex gap-6">
-                        <a className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="/privacy">Privacy Policy</a>
-                        <a className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="/terms">Terms of Service</a>
-                        <a className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="/support">Contact Support</a>
-                    </div>
-                </div>
-            </footer>
-        </div >
+        </PublicLayout>
     );
 }

@@ -53,24 +53,24 @@ export default function BranchSwitcher({ branches, activeBranchId: propActiveBra
         <div className="relative">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl border transition-all duration-300 ${
+                className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 rounded-xl border transition-all duration-300 ${
                     isOpen 
                         ? "bg-[var(--bg-surface-muted)] border-[var(--color-primary)] text-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/5 scale-[1.02]" 
                         : "bg-transparent border-[var(--border-muted)] text-[var(--text-muted)] hover:border-[var(--text-muted)]"
                 }`}
             >
-                <span className="material-symbols-outlined text-[18px]">
+                <span className="material-symbols-outlined text-[16px] sm:text-[18px]">
                     {activeBranch.id === "all" ? "corporate_fare" : "storefront"}
                 </span>
-                <div className="flex flex-col items-start gap-0.5">
-                    <span className="text-[9px] font-black uppercase tracking-[0.2em] opacity-40 leading-none">
+                <div className="flex flex-col items-start gap-0.5 max-w-[90px] sm:max-w-[200px]">
+                    <span className="hidden sm:block text-[9px] font-black uppercase tracking-[0.2em] opacity-40 leading-none">
                         Branch Context
                     </span>
-                    <span className="text-xs font-bold leading-none tracking-tight">
+                    <span className="text-[10px] sm:text-xs font-bold leading-none tracking-tight truncate w-full">
                         {activeBranch.name}
                     </span>
                 </div>
-                <span className={`material-symbols-outlined text-[18px] transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
+                <span className={`material-symbols-outlined text-[16px] sm:text-[18px] transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
                     expand_more
                 </span>
             </button>

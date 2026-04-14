@@ -94,11 +94,11 @@ export function BranchForm({ availableBusinesses, session }: BranchFormProps) {
                                 value={formData.businessId}
                                 onChange={(e) => setFormData(d => ({ ...d, businessId: e.target.value }))}
                                 title="Target Business Selection"
-                                className="w-full h-12 bg-[var(--bg-app)] border border-[var(--border-muted)] rounded-xl px-4 font-bold text-sm text-white focus:border-[var(--color-primary)]/50 transition-all outline-none italic appearance-none"
+                                className="w-full h-12 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/50 transition-all outline-none italic appearance-none"
                             >
-                                <option value="" disabled className="bg-[#0a0f0d]">Select target business...</option>
+                                <option value="" disabled className="bg-[var(--bg-card)]">Select target business...</option>
                                 {availableBusinesses.map(b => (
-                                    <option key={b.id} value={b.id} className="bg-[#0a0f0d]">{b.name}</option>
+                                    <option key={b.id} value={b.id} className="bg-[var(--bg-card)]">{b.name}</option>
                                 ))}
                             </select>
                         )}

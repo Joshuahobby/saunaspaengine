@@ -33,9 +33,30 @@ model Business {
   taxLabel               String?          @default("VAT")
   branches               Branch[]
   subscriptionPlan       PlatformPackage? @relation(fields: [subscriptionPlanId], references: [id])
+  subscriptionPayments   SubscriptionPayment[]
   users                  User[]
 
   @@map("corporates")
+}
+
+model SubscriptionPayment {
+  id            String   @id @default(cuid())
+  depositId     String   @unique
+  businessId    String
+  amount        Float
+  currency      String   @default("RWF")
+  phone         String
+  correspondent String
+  status        String   @default("PENDING")
+  failureReason String?
+  metadata      Json?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  business      Business @relation(fields: [businessId], references: [id])
+
+  @@index([businessId])
+  @@index([status])
+  @@map("subscription_payments")
 }
 
 model PlatformPackage {
@@ -81,6 +102,7 @@ model Branch {
   employees            Employee[]
   inventory            Inventory[]
   inventoryLogs        InventoryLog[]
+  lockers              Locker[]
   loyaltyPrograms      LoyaltyProgram?
   membershipCategories MembershipCategory[]
   safetyAlerts         SafetyAlert[]
@@ -235,7 +257,7 @@ model ServiceRecord {
   serviceId          String
   employeeId         String?
   branchId           String              @map("businessId")
-  boxNumber          String?
+  lockerNumber       String?
   paymentMode        PaymentMode         @default(CASH)
   amount             Float               @default(0)
   comment            String?
@@ -267,6 +289,23 @@ model ServiceRecord {
   @@index([clientId, branchId])
   @@index([employeeId])
   @@map("service_records")
+}
+
+model Locker {
+  id           String   @id @default(cuid())
+  branchId     String
+  name         String
+  lockerNumber String
+  type         String?
+  isActive     Boolean  @default(true)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  branch       Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
+
+  @@unique([branchId, lockerNumber])
+  @@index([branchId, isActive])
+  @@map("lockers")
 }
 
 model CommissionLog {

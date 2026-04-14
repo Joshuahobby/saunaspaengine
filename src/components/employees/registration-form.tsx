@@ -69,7 +69,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
             if (result?.error) {
                 setError(result.error);
             } else {
-                router.push("/employees");
+                router.push("/staff?tab=directory");
                 router.refresh();
             }
         } catch {

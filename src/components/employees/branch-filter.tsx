@@ -21,7 +21,8 @@ export function BranchFilter({ branches, activeBranchId }: BranchFilterProps) {
             params.delete('branchId');
         }
         
-        router.push(`/employees?${params.toString()}`);
+        params.set('tab', 'directory');
+        router.push(`/staff?${params.toString()}`);
     };
 
     return (

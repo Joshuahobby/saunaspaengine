@@ -58,8 +58,8 @@ export async function registerClient(formData: FormData) {
             });
 
             // 2. If MEMBER and category selected, create Membership
-            let membership = null;
-            let selectedCategory = null;
+            let membership: Record<string, unknown> | null = null;
+            let selectedCategory: { name: string } | null = null;
             if (clientType === "MEMBER" && membershipCategoryId) {
                 const category = await tx.membershipCategory.findUnique({
                     where: { id: membershipCategoryId }
@@ -68,7 +68,7 @@ export async function registerClient(formData: FormData) {
                 if (category) {
                     selectedCategory = category;
                     // Calculate end date if applicable
-                    let endDate = null;
+                    let endDate: Date | null = null;
                     if (category.durationDays) {
                         endDate = new Date();
                         endDate.setDate(endDate.getDate() + category.durationDays);

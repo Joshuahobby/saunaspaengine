@@ -1,68 +1,80 @@
-import { prisma } from "@/lib/prisma";
-import { auth } from "@/lib/auth";
 export const dynamic = "force-dynamic";
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
+import { resolveEffectiveBranchId } from "@/lib/branch-context";
 
 export async function GET() {
-    const session = await auth();
-    if (!session?.user?.branchId) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    try {
+        const session = await auth();
+        const branchId = await resolveEffectiveBranchId(session);
+        if (!session?.user || !branchId) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
+        const alerts = await prisma.safetyAlert.findMany({
+            where: {
+                branchId,
+                status: { not: "RESOLVED" },
+            },
+            orderBy: { createdAt: "desc" },
+        });
+        return NextResponse.json(alerts);
+    } catch (error) {
+        console.error("Safety alerts GET error:", error);
+        const msg = error instanceof Error ? error.message : "An unexpected error occurred";
+        return NextResponse.json({ error: msg }, { status: 500 });
     }
-
-    const alerts = await prisma.safetyAlert.findMany({
-        where: {
-            branchId: session.user.branchId,
-            status: { not: "RESOLVED" },
-        },
-        orderBy: { createdAt: "desc" },
-    });
-
-    return NextResponse.json(alerts);
 }
 
 export async function POST(req: Request) {
-    const session = await auth();
-    if (!session?.user?.branchId) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     try {
+        const session = await auth();
+        const branchId = await resolveEffectiveBranchId(session);
+        if (!session?.user || !branchId) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
         const { type, location, message } = await req.json();
 
         const alert = await prisma.safetyAlert.create({
             data: {
                 type: type || "SILENT",
-                location,
-                message,
-                branchId: session.user.branchId,
+                location: location || null,
+                message: message || null,
+                branchId,
             },
         });
 
         return NextResponse.json(alert);
     } catch (error) {
-        const message = error instanceof Error ? error.message : "An unexpected error occurred";
-        return NextResponse.json({ error: message }, { status: 500 });
+        console.error("Safety alerts POST error:", error);
+        const msg = error instanceof Error ? error.message : "An unexpected error occurred";
+        return NextResponse.json({ error: msg }, { status: 500 });
     }
 }
 
 export async function PATCH(req: Request) {
-    const session = await auth();
-    if (!session?.user?.branchId) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     try {
+        const session = await auth();
+        const branchId = await resolveEffectiveBranchId(session);
+        if (!session?.user || !branchId) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
         const { id, status } = await req.json();
 
+        // Scope update to the requesting branch to prevent cross-branch mutations
         const alert = await prisma.safetyAlert.update({
-            where: { id },
+            where: { id, branchId },
             data: { status },
         });
 
         return NextResponse.json(alert);
     } catch (error) {
-        const message = error instanceof Error ? error.message : "An unexpected error occurred";
-        return NextResponse.json({ error: message }, { status: 500 });
+        console.error("Safety alerts PATCH error:", error);
+        const msg = error instanceof Error ? error.message : "An unexpected error occurred";
+        return NextResponse.json({ error: msg }, { status: 500 });
     }
 }

@@ -118,7 +118,7 @@ export default async function AdminAnalyticsPage() {
     ]);
 
     // --- Process Growth Trends ---
-    const growthData = [];
+    const growthData: { name: string; businesses: number; users: number }[] = [];
     for (let i = 5; i >= 0; i--) {
         const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
         

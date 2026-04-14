@@ -74,7 +74,7 @@ export default async function ReportsRevenuePage(props: { searchParams: Promise<
         return acc;
     }, {});
 
-    const topServices = Object.values(serviceStats)
+    const topServices = (Object.values(serviceStats) as any[])
         .sort((a: any, b: any) => b.revenue - a.revenue)
         .slice(0, 5);
 

@@ -1,15 +1,19 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { resolveEffectiveBranchId } from "@/lib/branch-context";
 import { format } from "date-fns";
 
 export default async function TodaysActivityTab({
     searchParams
 }: {
-    searchParams: Promise<{ page?: string; search?: string }>
+    searchParams: Promise<{ page?: string; search?: string; branchId?: string }>
 }) {
     const params = await searchParams;
     const session = await auth();
-    if (!session?.user?.branchId) return null;
+    if (!session?.user) return null;
+
+    const branchId = await resolveEffectiveBranchId(session, params);
+    if (!branchId) return null;
 
     const page = parseInt(params.page || "1");
     const limit = 15;
@@ -21,7 +25,7 @@ export default async function TodaysActivityTab({
     const [records, totalCount] = await Promise.all([
         prisma.serviceRecord.findMany({
             where: {
-                branchId: session.user.branchId,
+                branchId,
                 createdAt: { gte: today }
             },
             include: {
@@ -35,7 +39,7 @@ export default async function TodaysActivityTab({
         }),
         prisma.serviceRecord.count({
             where: {
-                branchId: session.user.branchId,
+                branchId,
                 createdAt: { gte: today }
             }
         })

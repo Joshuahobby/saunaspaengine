@@ -24,10 +24,9 @@ export default async function CorporateProfilePage({
     const context = await getActiveBranchContext(session, resolvedParams);
     const globalBiz = await getGlobalBusinessSettings(session.user.businessId!);
     
-    let effective = null;
-    if (context.activeBranchId) {
-        effective = await getEffectiveSettings(context.activeBranchId);
-    }
+    const effective = context.activeBranchId
+        ? await getEffectiveSettings(context.activeBranchId)
+        : null;
 
     const isGlobalView = !context.activeBranchId && isOwner;
 
@@ -108,9 +107,9 @@ export default async function CorporateProfilePage({
                             branchId={context.activeBranchId}
                             initialData={{
                                 logo: effective?.logo || null,
-                                primaryColor: effective?.primaryColor || globalBiz.primaryColor,
-                                corporateLogo: globalBiz.logo,
-                                corporateColor: globalBiz.primaryColor,
+                                primaryColor: effective?.primaryColor || globalBiz?.primaryColor || "#fbbf24",
+                                corporateLogo: globalBiz?.logo || null,
+                                corporateColor: globalBiz?.primaryColor || "#fbbf24",
                                 isGlobal: isGlobalView
                             }}
                         />

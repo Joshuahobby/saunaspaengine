@@ -8,7 +8,7 @@ import { OnboardingClient } from "./onboarding-client";
 export default async function OnboardingPage() {
     const session = await auth();
 
-    if (!session || session.user.role !== "MANAGER") {
+    if (!session || (session.user.role !== "MANAGER" && session.user.role !== "OWNER")) {
         redirect("/dashboard");
     }
 
@@ -29,6 +29,13 @@ export default async function OnboardingPage() {
         include: {
             services: true,
             employees: true,
+            business: {
+                select: {
+                    subscriptionStatus: true,
+                    subscriptionPlan: { select: { name: true, priceMonthly: true, priceYearly: true } },
+                    subscriptionCycle: true,
+                }
+            },
         }
     }) as any;
 
@@ -48,7 +55,9 @@ export default async function OnboardingPage() {
         redirect("/dashboard");
     }
 
+    const paymentPending = branch.business?.subscriptionStatus === "PENDING_PAYMENT";
+
     return (
-        <OnboardingClient branch={branch} initialStep={branch.onboardingStep} />
+        <OnboardingClient branch={branch} initialStep={branch.onboardingStep} paymentPending={paymentPending} />
     );
 }

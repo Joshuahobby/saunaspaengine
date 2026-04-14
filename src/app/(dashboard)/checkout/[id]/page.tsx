@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 interface CartItem {
     id: string;
@@ -28,14 +28,25 @@ interface ProductItem {
     badge?: string;
 }
 
+const PAYMENT_MODE_MAP: Record<string, string> = {
+    cash: "CASH",
+    momo: "MOMO",
+    pos: "CARD",
+};
+
 export default function CheckoutPage() {
     const params = useParams();
+    const router = useRouter();
     const id = params?.id as string;
 
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
     const [clientName, setClientName] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
+    const [selectedPaymentMode, setSelectedPaymentMode] = useState("cash");
+    const [isCompleting, setIsCompleting] = useState(false);
+    const [isCompleted, setIsCompleted] = useState(false);
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -107,6 +118,32 @@ export default function CheckoutPage() {
 
     const handleRemoveItem = (idToRemove: string) => {
         setCartItems(cartItems.filter(item => item.id !== idToRemove));
+    };
+
+    const handleCompletePayment = async () => {
+        if (isCompleting || isCompleted) return;
+        setIsCompleting(true);
+        setError(null);
+        try {
+            const res = await fetch("/api/operations", {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id,
+                    status: "COMPLETED",
+                    paymentMode: PAYMENT_MODE_MAP[selectedPaymentMode] ?? "CASH",
+                }),
+            });
+            if (!res.ok) {
+                const data = await res.json();
+                throw new Error(data.error || "Failed to complete payment");
+            }
+            setIsCompleted(true);
+            setTimeout(() => router.push("/operations"), 1500);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Failed to complete payment");
+            setIsCompleting(false);
+        }
     };
 
     const handleAddItem = (item: ProductItem) => {
@@ -184,13 +221,16 @@ export default function CheckoutPage() {
                                     </div>
                                 ) : (
                                     <div className="size-16 rounded-lg bg-white dark:bg-slate-800 flex items-center justify-center shrink-0 border border-[var(--color-primary)]/20 overflow-hidden relative">
-                                        {item.image && (
+                                        {item.image && !failedImages.has(item.id) ? (
                                             <Image
                                                 src={item.image}
                                                 alt={item.name}
                                                 fill
                                                 className="object-cover"
+                                                onError={() => setFailedImages(prev => new Set(prev).add(item.id))}
                                             />
+                                        ) : (
+                                            <span className="material-symbols-outlined text-2xl text-slate-400 dark:text-slate-600">shopping_bag</span>
                                         )}
                                     </div>
                                 )}
@@ -255,7 +295,7 @@ export default function CheckoutPage() {
                                         { id: 'pos', label: 'POS / Card', icon: 'point_of_sale' }
                                     ].map((pm) => (
                                         <label key={pm.id} className="cursor-pointer group">
-                                            <input type="radio" name="paymentOption" value={pm.id} defaultChecked={pm.id === 'cash'} className="sr-only peer" />
+                                            <input type="radio" name="paymentOption" value={pm.id} checked={selectedPaymentMode === pm.id} onChange={() => setSelectedPaymentMode(pm.id)} className="sr-only peer" />
                                             <div className="flex flex-col items-center gap-2 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 peer-checked:border-[var(--color-primary)] peer-checked:bg-[var(--color-primary)]/[0.05] transition-all hover:bg-slate-50 dark:hover:bg-slate-800">
                                                 <span className="material-symbols-outlined text-slate-400 peer-checked:text-[var(--color-primary)]">{pm.icon}</span>
                                                 <span className="text-[9px] font-bold uppercase tracking-wider text-slate-500 peer-checked:text-white">{pm.label}</span>
@@ -266,8 +306,19 @@ export default function CheckoutPage() {
                             </div>
 
                             <div className="pt-6">
-                                <button className="w-full bg-[var(--color-primary)] hover:opacity-90 text-[var(--color-bg-dark)] font-black py-4 rounded-xl shadow-[0_4px_0_0_rgba(17,212,196,0.3)] hover:shadow-none hover:translate-y-1 transition-all flex items-center justify-center gap-2">
-                                    COMPLETE PAYMENT <span className="material-symbols-outlined">arrow_forward</span>
+                                <button
+                                    type="button"
+                                    onClick={handleCompletePayment}
+                                    disabled={isCompleting || isCompleted || cartItems.length === 0}
+                                    className="w-full bg-[var(--color-primary)] hover:opacity-90 text-[var(--color-bg-dark)] font-black py-4 rounded-xl shadow-[0_4px_0_0_rgba(17,212,196,0.3)] hover:shadow-none hover:translate-y-1 transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0 disabled:shadow-none"
+                                >
+                                    {isCompleted ? (
+                                        <>PAYMENT COMPLETE <span className="material-symbols-outlined">check_circle</span></>
+                                    ) : isCompleting ? (
+                                        <>Processing... <span className="material-symbols-outlined animate-spin">progress_activity</span></>
+                                    ) : (
+                                        <>COMPLETE PAYMENT <span className="material-symbols-outlined">arrow_forward</span></>
+                                    )}
                                 </button>
                             </div>
                         </div>
@@ -286,14 +337,17 @@ export default function CheckoutPage() {
                     <div className="flex flex-col gap-4">
                         {suggestedItems.map((product) => (
                             <div key={product.id} className="group border border-slate-100 dark:border-slate-800 rounded-xl p-3 hover:border-[var(--color-primary)]/50 transition-colors glass-card">
-                                <div className="aspect-square rounded-lg bg-slate-100 dark:bg-slate-800 mb-3 relative overflow-hidden">
-                                    {product.image && (
+                                <div className="aspect-square rounded-lg bg-slate-100 dark:bg-slate-800 mb-3 relative overflow-hidden flex items-center justify-center">
+                                    {product.image && !failedImages.has(product.id) ? (
                                         <Image
                                             src={product.image}
                                             alt={product.name}
                                             fill
                                             className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                            onError={() => setFailedImages(prev => new Set(prev).add(product.id))}
                                         />
+                                    ) : (
+                                        <span className="material-symbols-outlined text-4xl text-slate-400 dark:text-slate-600">shopping_bag</span>
                                     )}
                                     {product.badge && (
                                         <div className="absolute top-2 right-2 bg-white/90 dark:bg-slate-900/90 px-2 py-1 rounded text-[10px] font-black text-slate-900 dark:text-white shadow-sm">

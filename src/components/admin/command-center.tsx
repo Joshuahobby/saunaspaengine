@@ -109,7 +109,8 @@ export function CommandCenter() {
             {/* Mobile Icon */}
             <button 
                 onClick={toggle}
-                className="lg:hidden p-2 text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors"
+                className="md:hidden p-2 text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors"
+                aria-label="Search"
             >
                 <span className="material-symbols-outlined">search</span>
             </button>

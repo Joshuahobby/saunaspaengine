@@ -19,13 +19,12 @@ export default async function OperationsPage({
     const context = await getActiveBranchContext(session, resolvedParams);
     const activeTab = resolvedParams.tab || "hours";
 
-    let branch = null;
-    if (context.activeBranchId) {
-        branch = await db.branch.findUnique({
+    const branch = context.activeBranchId
+        ? await db.branch.findUnique({
             where: { id: context.activeBranchId },
             select: { id: true, name: true, businessHours: true }
-        });
-    }
+        })
+        : null;
 
     return (
         <main className="flex-1 overflow-y-auto p-6 md:p-10 no-scrollbar">

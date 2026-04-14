@@ -48,10 +48,10 @@ export default function SubscriptionsClientPage({ branches }: { branches: Branch
                     </div>
                 </div>
                 <div className="flex items-center gap-3 w-full md:w-auto justify-end">
-                    <button aria-label="Notifications" className="size-9 rounded-xl text-[var(--text-muted)] hover:text-white hover:bg-white/5 border border-[var(--border-muted)] transition-all flex items-center justify-center group relative">
+                    <button aria-label="Notifications" className="size-9 rounded-xl text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] transition-all flex items-center justify-center group relative">
                         <span className="material-symbols-outlined text-sm">notifications</span>
                     </button>
-                    <Link href="/subscriptions/platform" className="flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg whitespace-nowrap">
+                    <Link href="/subscriptions/platform" className="flex items-center gap-2 bg-[var(--text-main)] text-[var(--bg-app)] px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg whitespace-nowrap">
                         <span className="material-symbols-outlined text-base">inventory_2</span>
                         Manage Packages
                     </Link>
@@ -214,20 +214,20 @@ function SubscriptionRow({ id, initial, name, identifier, plan, cycle, date, sta
     };
 
     return (
-        <tr className="hover:bg-white/[0.01] transition-all group border-l-2 border-transparent hover:border-[var(--color-primary)]/40">
+        <tr className="hover:bg-[var(--bg-surface-muted)] transition-all group border-l-2 border-transparent hover:border-[var(--color-primary)]/40">
             <td className="px-6 py-3.5">
                 <div className="flex items-center gap-3">
-                    <div className="size-8 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center text-[var(--color-primary)] font-display font-black text-xs group-hover:bg-[var(--color-primary)] group-hover:text-white transition-all">
+                    <div className="size-8 rounded-lg bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] font-display font-black text-xs group-hover:bg-[var(--color-primary)] group-hover:text-white transition-all">
                         {initial}
                     </div>
                     <div>
-                        <p className="font-display font-bold text-white text-sm group-hover:text-[var(--color-primary)] transition-colors">{name}</p>
+                        <p className="font-display font-bold text-[var(--text-main)] text-sm group-hover:text-[var(--color-primary)] transition-colors">{name}</p>
                         <p className="text-[8px] text-[var(--text-muted)] font-black uppercase tracking-[0.1em] opacity-30 italic">{identifier}</p>
                     </div>
                 </div>
             </td>
             <td className="px-4 py-3.5 text-center">
-                <span className="px-2.5 py-1 rounded-lg bg-white/5 text-white border border-white/5 font-display font-bold text-[10px] tracking-tight">
+                <span className="px-2.5 py-1 rounded-lg bg-[var(--bg-surface-muted)] text-[var(--text-main)] border border-[var(--border-muted)] font-display font-bold text-[10px] tracking-tight">
                     {plan}
                 </span>
             </td>
@@ -235,7 +235,7 @@ function SubscriptionRow({ id, initial, name, identifier, plan, cycle, date, sta
                 <span className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-30">{cycle}</span>
             </td>
             <td className="px-4 py-3.5 text-center">
-                <span className="text-[10px] font-black text-white/80">{date}</span>
+                <span className="text-[10px] font-black text-[var(--text-muted)]">{date}</span>
             </td>
             <td className="px-4 py-3.5 text-center">
                 <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-display font-black text-[8px] uppercase tracking-widest border ${getStatusStyles(status)}`}>
@@ -246,7 +246,7 @@ function SubscriptionRow({ id, initial, name, identifier, plan, cycle, date, sta
             <td className="px-6 py-3.5 text-right flex justify-end">
                 <Link 
                     href={`/businesses/${id}`}
-                    className="flex justify-center items-center px-4 py-1.5 bg-white/5 hover:bg-[var(--color-primary)] hover:text-white text-[var(--text-muted)] border border-white/5 rounded-lg transition-all active:scale-95 text-[9px] uppercase tracking-widest font-black gap-2"
+                    className="flex justify-center items-center px-4 py-1.5 bg-[var(--bg-surface-muted)] hover:bg-[var(--color-primary)] hover:text-white text-[var(--text-muted)] border border-[var(--border-muted)] rounded-lg transition-all active:scale-95 text-[9px] uppercase tracking-widest font-black gap-2"
                 >
                     MANAGE
                     <span className="material-symbols-outlined text-sm">chevron_right</span>

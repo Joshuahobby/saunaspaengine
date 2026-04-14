@@ -18,9 +18,10 @@ interface OnboardingClientProps {
         phone: string | null;
     };
     initialStep: number;
+    paymentPending?: boolean;
 }
 
-export function OnboardingClient({ branch, initialStep }: OnboardingClientProps) {
+export function OnboardingClient({ branch, initialStep, paymentPending = false }: OnboardingClientProps) {
     const [step, setStep] = useState(initialStep);
     const [saving, setSaving] = useState(false);
     const router = useRouter();
@@ -68,6 +69,23 @@ export function OnboardingClient({ branch, initialStep }: OnboardingClientProps)
             )}
             
             <div className="w-full max-w-[960px] flex flex-col gap-12">
+                {/* Payment Pending Banner */}
+                {paymentPending && (
+                    <div className="flex items-start gap-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl px-6 py-4">
+                        <span className="material-symbols-outlined text-amber-500 text-2xl mt-0.5 shrink-0">pending_actions</span>
+                        <div className="flex-1 min-w-0">
+                            <p className="font-black text-amber-600 dark:text-amber-400 text-sm">Payment Verification Pending</p>
+                            <p className="text-amber-700 dark:text-amber-300 text-xs font-medium mt-1 opacity-80 leading-relaxed">
+                                Your account is active while we verify your Mobile Money payment. You can finish setting up your branch — it goes live once payment is confirmed (usually within 2 business hours).
+                            </p>
+                        </div>
+                        <a href="/signup/payment"
+                            className="shrink-0 text-[10px] font-black uppercase tracking-widest text-amber-600 dark:text-amber-400 hover:underline whitespace-nowrap mt-0.5">
+                            View Instructions
+                        </a>
+                    </div>
+                )}
+
                 {/* Stepper Header */}
                 <div className="flex items-center justify-between relative px-2">
                     {/* Background Progress Bar */}

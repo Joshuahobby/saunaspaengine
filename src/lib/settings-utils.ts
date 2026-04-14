@@ -19,9 +19,9 @@ export interface EffectiveSettings {
 
 /**
  * Resolves settings using the "Global Default → Branch Override" pattern.
- * If a branch-specific setting is null, it falls back to the Business (Corporate) value.
+ * Returns null if the branch no longer exists (e.g. stale session after a reseed).
  */
-export const getEffectiveSettings = cache(async (branchId: string): Promise<EffectiveSettings> => {
+export const getEffectiveSettings = cache(async (branchId: string): Promise<EffectiveSettings | null> => {
     const branch = await prisma.branch.findUnique({
         where: { id: branchId },
         include: {
@@ -30,7 +30,8 @@ export const getEffectiveSettings = cache(async (branchId: string): Promise<Effe
     });
 
     if (!branch) {
-        throw new Error(`Branch with ID ${branchId} not found.`);
+        console.warn(`[settings] Branch ${branchId} not found — returning null (stale session?)`);
+        return null;
     }
 
     const biz = branch.business;
@@ -39,12 +40,12 @@ export const getEffectiveSettings = cache(async (branchId: string): Promise<Effe
         name: branch.name,
         branchName: branch.name,
         businessName: biz?.name || "Corporate",
-        
+
         // Resolution Logic: Branch (Override) ?? Business (Default) ?? System Fallback
         taxId: branch.taxId ?? biz?.taxId ?? null,
         taxLabel: branch.taxLabel ?? biz?.taxLabel ?? "VAT",
         logo: branch.logo ?? biz?.logo ?? null,
-        primaryColor: branch.primaryColor ?? biz?.primaryColor ?? "#fbbf24", // Default Gold
+        primaryColor: branch.primaryColor ?? biz?.primaryColor ?? "#fbbf24",
         currency: branch.currency ?? biz?.currency ?? "RWF",
         timezone: branch.timezone ?? biz?.timezone ?? "Africa/Kigali",
         businessHours: branch.businessHours as unknown as BusinessHours | null,
@@ -53,21 +54,23 @@ export const getEffectiveSettings = cache(async (branchId: string): Promise<Effe
 
 /**
  * Resolves global corporate settings when no branch is selected.
+ * Returns null if the business no longer exists (e.g. stale session after a reseed).
  */
-export const getGlobalBusinessSettings = cache(async (businessId: string): Promise<EffectiveSettings> => {
+export const getGlobalBusinessSettings = cache(async (businessId: string): Promise<EffectiveSettings | null> => {
     const biz = await prisma.business.findUnique({
         where: { id: businessId },
     });
 
     if (!biz) {
-        throw new Error(`Business with ID ${businessId} not found.`);
+        console.warn(`[settings] Business ${businessId} not found — returning null (stale session?)`);
+        return null;
     }
 
     return {
         name: biz.name,
         businessName: biz.name,
         branchName: "Global Dashboard",
-        
+
         taxId: biz.taxId,
         taxLabel: biz.taxLabel ?? "VAT",
         logo: biz.logo,

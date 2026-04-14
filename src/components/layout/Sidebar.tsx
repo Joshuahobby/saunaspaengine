@@ -34,6 +34,7 @@ const adminNavItems: NavItem[] = [
     { label: "Analytics", href: "/analytics", icon: "insights" },
     { label: "Subscriptions", href: "/subscriptions", icon: "payments" },
     { label: "Platform Plans", href: "/subscriptions/platform", icon: "layers" },
+    { label: "Payments", href: "/payments", icon: "mobile_friendly" },
     
     { label: "Treasury Hub", href: "/finance/settlements", icon: "account_balance" },
     { label: "Staff Leaderboard", href: "/employees/gamification", icon: "emoji_events" },
@@ -272,6 +273,7 @@ export default function Sidebar({
             </div>
 
             <button
+                type="button"
                 onClick={toggleSidebar}
                 className="hidden lg:flex absolute -right-3 top-20 size-7 bg-[var(--bg-card)] border border-[var(--border-main)] rounded-full items-center justify-center text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-all shadow-md z-40 cursor-pointer"
             >

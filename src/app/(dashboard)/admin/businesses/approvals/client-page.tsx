@@ -62,11 +62,11 @@ export default function ApprovalsClientPage({ businesses: initialBusinesses }: {
                         <div className="absolute top-0 left-0 w-1 h-full bg-amber-500/40"></div>
                         
                         <div className="flex items-center gap-5 flex-1">
-                            <div className="size-14 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-[var(--color-primary)] font-display font-black text-xl shadow-inner group-hover:scale-110 transition-transform">
+                            <div className="size-14 rounded-2xl bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] font-display font-black text-xl shadow-inner group-hover:scale-110 transition-transform">
                                 {b.name.charAt(0).toUpperCase()}
                             </div>
                             <div className="space-y-1">
-                                <h3 className="text-lg font-display font-bold text-white tracking-tight">{b.name}</h3>
+                                <h3 className="text-lg font-display font-bold text-[var(--text-main)] tracking-tight">{b.name}</h3>
                                 <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
                                     <span className="text-[9px] font-black uppercase tracking-widest text-amber-500/70 flex items-center gap-1">
                                         <span className="material-symbols-outlined text-[10px]">inventory_2</span>

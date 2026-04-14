@@ -1,29 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface CheckInFormProps {
     clients: { id: string; fullName: string }[];
     services: { id: string; name: string; category: string; duration: number; price: number }[];
     employees: { id: string; fullName: string }[];
+    /** Locker number lifted from the parent container (pre-filled from URL or room map) */
+    lockerNumber?: string;
+    onLockerChange?: (value: string) => void;
 }
 
-export default function CheckInForm({ clients, services, employees }: CheckInFormProps) {
+export default function CheckInForm({ clients, services, employees, lockerNumber = "", onLockerChange }: CheckInFormProps) {
     const router = useRouter();
-    const searchParams = useSearchParams();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
     const [selectedService, setSelectedService] = useState("");
     const [selectedClient, setSelectedClient] = useState("");
-
-    // Handle initial client from URL
-    useEffect(() => {
-        const clientId = searchParams.get("clientId");
-        if (clientId && clients.find(c => c.id === clientId)) {
-            setSelectedClient(clientId);
-        }
-    }, [searchParams, clients]);
 
     const serviceInfo = services.find(s => s.id === selectedService);
 
@@ -37,7 +31,7 @@ export default function CheckInForm({ clients, services, employees }: CheckInFor
             clientId: formData.get("clientId"),
             serviceId: formData.get("serviceId"),
             employeeId: formData.get("employeeId") || null,
-            boxNumber: formData.get("boxNumber") || null,
+            lockerNumber: formData.get("lockerNumber") || null,
             paymentMode: formData.get("paymentMode") || "CASH",
             comment: formData.get("comment") || null,
         };
@@ -68,7 +62,7 @@ export default function CheckInForm({ clients, services, employees }: CheckInFor
             <div className="p-5 border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]">
                 <h3 className="font-bold text-[var(--text-main)] flex items-center gap-2 text-sm">
                     <span className="material-symbols-outlined text-[var(--color-primary)] not-italic font-bold text-lg">medical_services</span>
-                    Select Service & <span className="not-italic text-[var(--color-primary)]">Details</span>
+                    Select Service &amp; <span className="not-italic text-[var(--color-primary)]">Details</span>
                 </h3>
             </div>
 
@@ -139,14 +133,24 @@ export default function CheckInForm({ clients, services, employees }: CheckInFor
                         </select>
                     </div>
 
-                    {/* Box / Room */}
+                    {/* Locker (was: Box / Station Number) */}
                     <div className="flex flex-col gap-2">
-                        <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-60">Station Number</label>
+                        <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-60 flex items-center gap-1.5">
+                            <span className="material-symbols-outlined text-[var(--color-primary)] text-sm">lock</span>
+                            Locker
+                            {lockerNumber && (
+                                <span className="ml-auto text-[var(--color-primary)] font-black bg-[var(--color-primary)]/10 px-2 py-0.5 rounded-full text-[8px] tracking-widest">
+                                    Pre-assigned
+                                </span>
+                            )}
+                        </label>
                         <input
-                            name="boxNumber"
+                            name="lockerNumber"
                             type="text"
-                            placeholder="e.g. B-104"
-                            className="w-full bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-4 py-3 focus:ring-4 focus:ring-[var(--color-primary)]/5 focus:border-[var(--color-primary)] transition-all outline-none font-bold text-[var(--text-main)] tracking-tight placeholder:opacity-50 text-sm"
+                            placeholder="e.g. B-101"
+                            value={lockerNumber}
+                            onChange={e => onLockerChange?.(e.target.value)}
+                            className={`w-full bg-[var(--bg-surface-muted)] border rounded-2xl px-4 py-3 focus:ring-4 focus:ring-[var(--color-primary)]/5 focus:border-[var(--color-primary)] transition-all outline-none font-bold text-[var(--text-main)] tracking-tight placeholder:opacity-50 text-sm ${lockerNumber ? "border-[var(--color-primary)]/40 bg-[var(--color-primary)]/5" : "border-[var(--border-muted)]"}`}
                         />
                     </div>
                 </div>
@@ -184,7 +188,7 @@ export default function CheckInForm({ clients, services, employees }: CheckInFor
 
                 {/* Actions */}
                 <div className="pt-5 border-t border-[var(--border-muted)] flex items-center gap-3">
-                    <button type="reset" className="h-10 px-4 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] hover:text-red-500 hover:border-red-500/30 transition-all rounded-xl flex-1">
+                    <button type="reset" onClick={() => onLockerChange?.("")} className="h-10 px-4 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] hover:text-red-500 hover:border-red-500/30 transition-all rounded-xl flex-1">
                         Clear
                     </button>
                     <button

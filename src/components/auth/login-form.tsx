@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation";
 export default function LoginForm() {
     const searchParams = useSearchParams();
     const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+    const justRegistered = searchParams.get("registered") === "true";
 
     const [errorMessage, dispatch, isPending] = useActionState(
         authenticate,
@@ -16,6 +17,12 @@ export default function LoginForm() {
 
     return (
         <div className="bg-[var(--bg-card)] p-8 md:p-12 rounded-[2.5rem] shadow-xl shadow-black/5 border border-[var(--border-main)]">
+            {justRegistered && (
+                <div className="bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/30 p-4 rounded-xl flex items-center gap-3 text-[var(--color-primary)] text-sm mb-6 animate-fade-in">
+                    <span className="material-symbols-outlined text-lg shrink-0">check_circle</span>
+                    <p className="font-bold">Account created! Sign in to start setting up your branch.</p>
+                </div>
+            )}
             <div className="text-center mb-10">
                 <h2 className="text-[var(--text-main)] text-3xl font-black font-serif">Welcome <span className="not-italic text-[var(--color-primary)]">Back</span></h2>
                 <p className="text-[var(--text-muted)] text-sm mt-3 font-medium">Access your spa operations dashboard</p>
@@ -116,7 +123,13 @@ export default function LoginForm() {
 
             </form>
 
-            <div className="mt-8 pt-6 border-t border-[var(--border-muted)] text-center">
+            <div className="mt-8 pt-6 border-t border-[var(--border-muted)] text-center space-y-3">
+                <p className="text-[var(--text-muted)] text-sm font-medium">
+                    New to Sauna SPA Engine?{" "}
+                    <Link href="/signup" className="text-[var(--color-primary)] font-black hover:underline">
+                        Create an account
+                    </Link>
+                </p>
                 <p className="text-[var(--text-muted)] text-xs flex items-center justify-center gap-2 font-medium opacity-60">
                     <span className="material-symbols-outlined text-sm">verified_user</span>
                     256-bit Encrypted Connection

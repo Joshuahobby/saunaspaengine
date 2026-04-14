@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
         }
 
         const startDate = new Date();
-        let endDate = null;
+        let endDate: Date | null = null;
         if (category.durationDays) {
             endDate = new Date(startDate);
             endDate.setDate(endDate.getDate() + category.durationDays);

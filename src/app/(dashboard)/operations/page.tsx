@@ -75,7 +75,7 @@ export default async function OperationsHubPage(props: {
 
             {/* Hub Content */}
             <div className="min-h-[600px] relative">
-                {activeTab === "map" && <RoomMapTab />}
+                {activeTab === "map" && <RoomMapTab searchParams={props.searchParams} />}
                 {activeTab === "logs" && <TodaysActivityTab searchParams={props.searchParams} />}
                 {activeTab === "menu" && <ServiceMenuTab />}
                 {activeTab === "stock" && <StockTab />}

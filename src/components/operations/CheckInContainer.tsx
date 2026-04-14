@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import { QRScanner } from "./QRScanner";
 import { ClientCheckInResult } from "./ClientCheckInResult";
 import CheckInForm from "./check-in-form";
@@ -49,9 +50,14 @@ interface CheckInContainerProps {
 }
 
 export function CheckInContainer({ services, employees, clients }: CheckInContainerProps) {
+    const searchParams = useSearchParams();
+
     const [mode, setMode] = useState<'SCANNING' | 'RESULT' | 'MANUAL'>('SCANNING');
     const [selectedClient, setSelectedClient] = useState<ClientWithMemberships | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+
+    // Locker is lifted here so it persists when switching between QR and Manual modes
+    const [lockerNumber, setLockerNumber] = useState<string>(searchParams.get("lockerNumber") ?? "");
 
     const handleScanSuccess = useCallback(async (qrCode: string) => {
         if (isLoading) return;
@@ -76,8 +82,10 @@ export function CheckInContainer({ services, employees, clients }: CheckInContai
         }
     }, [isLoading]);
 
-    const handleCompleteCheckIn = useCallback(async (serviceId: string) => {
+    const handleCompleteCheckIn = useCallback(async (serviceId: string, locker?: string) => {
         setIsLoading(true);
+        const effectiveLocker = locker ?? lockerNumber ?? null;
+
         try {
             const res = await fetch("/api/operations", {
                 method: "POST",
@@ -85,8 +93,9 @@ export function CheckInContainer({ services, employees, clients }: CheckInContai
                 body: JSON.stringify({
                     clientId: selectedClient?.id,
                     serviceId: serviceId,
-                    paymentMode: "MEMBERSHIP", // Scanned clients with valid memberships use this
-                    status: "CREATED"
+                    paymentMode: "MEMBERSHIP",
+                    status: "CREATED",
+                    lockerNumber: effectiveLocker,
                 }),
             });
 
@@ -95,7 +104,7 @@ export function CheckInContainer({ services, employees, clients }: CheckInContai
                 throw new Error(data.error || "Failed to complete check-in");
             }
 
-            toast.success("Check-in completed successfully!");
+            toast.success(`Check-in complete${effectiveLocker ? ` · Locker ${effectiveLocker}` : ""}!`);
             setMode('SCANNING');
             setSelectedClient(null);
         } catch (err: unknown) {
@@ -104,7 +113,7 @@ export function CheckInContainer({ services, employees, clients }: CheckInContai
         } finally {
             setIsLoading(false);
         }
-    }, [selectedClient]);
+    }, [selectedClient, lockerNumber]);
 
     return (
         <div className="space-y-6">
@@ -116,13 +125,13 @@ export function CheckInContainer({ services, employees, clients }: CheckInContai
                         <div className="space-y-8 animate-in fade-in slide-in-from-left-4 duration-500">
                             <div className="glass-card p-0 overflow-hidden rounded-[2.5rem] border-[var(--border-main)] shadow-sm">
                                 <div className="p-5 border-b border-[var(--border-muted)] flex justify-between items-center bg-[var(--bg-surface-muted)]">
-                                    <h3 className="font-bold text-[var(--text-main)] flex items-center gap-2 text-sm italic">
+                                    <h3 className="font-bold text-[var(--text-main)] flex items-center gap-2 text-sm">
                                         <QrCode className="w-5 h-5 text-[var(--color-primary)]" />
-                                        Guest <span className="text-[var(--color-primary)] not-italic">Verification</span>
+                                        Guest <span className="text-[var(--color-primary)]">Verification</span>
                                     </h3>
                                     <button 
                                         onClick={() => setMode('MANUAL')}
-                                        className="px-4 py-1.5 bg-[var(--bg-surface)] hover:bg-[var(--bg-app)] text-[var(--text-muted)] border border-[var(--border-muted)] text-[9px] font-bold rounded-lg uppercase tracking-widest transition-all italic opacity-70 hover:opacity-100"
+                                        className="px-4 py-1.5 bg-[var(--bg-surface)] hover:bg-[var(--bg-app)] text-[var(--text-muted)] border border-[var(--border-muted)] text-[9px] font-bold rounded-lg uppercase tracking-widest transition-all opacity-70 hover:opacity-100"
                                     >
                                         Manual Search
                                     </button>
@@ -130,7 +139,7 @@ export function CheckInContainer({ services, employees, clients }: CheckInContai
                                 <div className="p-6">
                                     <QRScanner onScanSuccess={handleScanSuccess} />
                                     <div className="mt-6 text-center p-4 bg-[var(--bg-surface-muted)] rounded-2xl border border-[var(--border-muted)]">
-                                        <p className="text-[var(--text-muted)] text-[10px] font-bold italic opacity-60">
+                                        <p className="text-[var(--text-muted)] text-[10px] font-medium opacity-60">
                                             Scan QR code to automatically verify membership.
                                         </p>
                                     </div>
@@ -145,6 +154,8 @@ export function CheckInContainer({ services, employees, clients }: CheckInContai
                             onBack={() => setMode('SCANNING')}
                             onComplete={handleCompleteCheckIn}
                             services={services}
+                            lockerNumber={lockerNumber}
+                            onLockerChange={setLockerNumber}
                         />
                     )}
 
@@ -162,7 +173,9 @@ export function CheckInContainer({ services, employees, clients }: CheckInContai
                             <CheckInForm 
                                 clients={clients.map(c => ({ ...c, phoneNumber: c.phone }))} 
                                 services={services.map(s => ({ ...s, category: s.category || "Uncategorized" }))} 
-                                employees={employees} 
+                                employees={employees}
+                                lockerNumber={lockerNumber}
+                                onLockerChange={setLockerNumber}
                             />
                         </div>
                     )}
@@ -177,7 +190,9 @@ export function CheckInContainer({ services, employees, clients }: CheckInContai
                                 <CheckInForm 
                                     clients={clients.map(c => ({ ...c, phoneNumber: c.phone }))} 
                                     services={services.map(s => ({ ...s, category: s.category || "Uncategorized" }))} 
-                                    employees={employees} 
+                                    employees={employees}
+                                    lockerNumber={lockerNumber}
+                                    onLockerChange={setLockerNumber}
                                 />
                             </div>
                         </div>
@@ -186,8 +201,8 @@ export function CheckInContainer({ services, employees, clients }: CheckInContai
                             <div className="size-12 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)]">
                                 <Keyboard className="w-6 h-6" />
                             </div>
-                            <h4 className="font-bold text-[var(--text-main)] text-base italic">Verification Active</h4>
-                            <p className="text-[var(--text-muted)] text-[10px] leading-relaxed italic opacity-60">
+                            <h4 className="font-bold text-[var(--text-main)] text-base">Verification Active</h4>
+                            <p className="text-[var(--text-muted)] text-[10px] leading-relaxed opacity-60">
                                 Complete verification or reset for a new guest.
                             </p>
                             <button 
@@ -195,7 +210,7 @@ export function CheckInContainer({ services, employees, clients }: CheckInContai
                                     setMode('SCANNING');
                                     setSelectedClient(null);
                                 }}
-                                className="bg-[var(--bg-surface)] border border-[var(--border-muted)] px-6 py-2 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-[var(--bg-app)] transition-colors italic"
+                                className="bg-[var(--bg-surface)] border border-[var(--border-muted)] px-6 py-2 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-[var(--bg-app)] transition-colors"
                             >
                                 New Check-In
                             </button>

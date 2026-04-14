@@ -88,7 +88,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
 
 
             {/* Hero Header Section */}
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-[var(--border-muted)] pb-5">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[var(--border-muted)] pb-5">
                 <div className="flex flex-col gap-1.5">
                     <div className="flex items-center gap-3">
                         <h1 className="text-2xl lg:text-3xl font-display font-bold text-[var(--text-main)] tracking-tight">
@@ -107,26 +107,26 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                         </div>
                     </div>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full md:w-auto">
                     <Link 
                         href="/employees/gamification"
-                        className="flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95"
+                        className="flex-1 md:flex-none justify-center items-center flex gap-2 px-4 sm:px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95"
                     >
                         <span className="material-symbols-outlined text-base">emoji_events</span>
-                        Staff Records
+                        <span className="hidden sm:inline">Records</span>
                     </Link>
                     <Link 
                         href="/settings/roles"
-                        className="flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95"
+                        className="flex-1 md:flex-none justify-center items-center flex gap-2 px-4 sm:px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95"
                     >
                         <span className="material-symbols-outlined text-base">security</span>
-                        Permissions Matrix
+                        <span className="hidden sm:inline">Permissions</span>
                     </Link>
                     <Link 
                         href="/businesses/new"
-                        className="flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95">
+                        className="flex-1 md:flex-none justify-center items-center flex gap-2 w-full sm:w-auto px-4 sm:px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95">
                         <span className="material-symbols-outlined text-base">add_box</span>
-                        Register New Business
+                        Register
                     </Link>
                 </div>
             </div>
@@ -176,8 +176,8 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                         <p className="text-[10px] text-[var(--text-muted)] font-medium opacity-50 italic">Live feed of active platform businesses.</p>
                     </div>
                     
-                    <div className="flex items-center gap-3">
-                        <div className="relative group/search">
+                    <div className="flex flex-col sm:flex-row items-center w-full lg:w-auto gap-3">
+                        <div className="relative group/search w-full sm:w-auto">
                             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]/40 group-focus-within/search:text-[var(--color-primary)] transition-colors text-sm">search</span>
                             <input 
                                 type="text" 
@@ -187,10 +187,10 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                                     setSearchTerm(e.target.value);
                                     setCurrentPage(1);
                                 }}
-                                className="w-64 pl-9 pr-4 py-2 bg-[var(--bg-app)]/30 border border-[var(--border-muted)] rounded-xl text-[9px] font-bold uppercase tracking-widest focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]/20 transition-all placeholder:text-[var(--text-muted)]/20"
+                                className="w-full sm:w-64 pl-9 pr-4 py-2 bg-[var(--bg-app)]/30 border border-[var(--border-muted)] rounded-xl text-[9px] font-bold uppercase tracking-widest focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]/20 transition-all placeholder:text-[var(--text-muted)]/20"
                             />
                         </div>
-                        <div className="relative">
+                        <div className="relative w-full sm:w-auto">
                             <select 
                                 aria-label="Filter status"
                                 value={filterStatus}
@@ -198,7 +198,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                                     setFilterStatus(e.target.value as "ALL" | "ACTIVE" | "INACTIVE" | "ARCHIVED");
                                     setCurrentPage(1);
                                 }}
-                                className="appearance-none pl-4 pr-10 py-2 bg-[var(--bg-app)]/30 border border-[var(--border-muted)] rounded-xl text-[9px] font-bold uppercase tracking-widest focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]/20 transition-all cursor-pointer"
+                                className="appearance-none w-full sm:w-auto pl-4 pr-10 py-2 bg-[var(--bg-app)]/30 border border-[var(--border-muted)] rounded-xl text-[9px] font-bold uppercase tracking-widest focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]/20 transition-all cursor-pointer"
                             >
                                 <option value="ALL">Collective</option>
                                 <option value="ACTIVE">Vitality</option>
@@ -352,7 +352,7 @@ function AdminStatCard({
             
             <div className="relative z-10 space-y-3">
                 <div className="flex items-center justify-between">
-                    <div className="size-8 rounded-lg bg-white/5 flex items-center justify-center group-hover/card:bg-[var(--color-primary)] group-hover/card:text-white transition-all duration-300 border border-white/5">
+                    <div className="size-8 rounded-lg bg-[var(--bg-surface-muted)] flex items-center justify-center group-hover/card:bg-[var(--color-primary)] group-hover/card:text-white transition-all duration-300 border border-[var(--border-muted)]">
                         <span className="material-symbols-outlined text-lg">{icon}</span>
                     </div>
                     <div className={`px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest flex items-center gap-1.5 ${

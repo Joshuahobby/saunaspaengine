@@ -1,64 +1,28 @@
 import { PrismaClient, PaymentMode } from '@prisma/client';
-import { PrismaNeon } from '@prisma/adapter-neon';
-import { Pool, neonConfig } from '@neondatabase/serverless';
 import bcrypt from 'bcryptjs';
 import * as dotenv from 'dotenv';
-import ws from 'ws';
 
 dotenv.config({ override: true });
 
-// Setup WebSocket for serverless driver in Node environment (Windows compatibility)
-neonConfig.webSocketConstructor = ws;
+const connectionString = (process.env.DATABASE_URL ?? process.env.DIRECT_URL ?? "").trim();
 
-const connectionString = process.env.DATABASE_URL || "";
-
-let prisma: PrismaClient;
-
-try {
-    if (!connectionString) throw new Error("DATABASE_URL is missing");
-    
-    // Configure pool and adapter for the serverless driver
-    const pool = new Pool({ connectionString });
-    const adapter = new PrismaNeon(pool);
-    
-    prisma = new PrismaClient({ adapter });
-} catch (err) {
-    console.error("Initialization error with Neon adapter:", err);
-    console.log("Falling back to native client...");
-    prisma = new PrismaClient();
+if (!connectionString) {
+    console.error("❌ DATABASE_URL / DIRECT_URL is not set. Check your .env file.");
+    process.exit(1);
 }
+
+// Use native PrismaClient (TCP) – same strategy as lib/prisma.ts in dev mode.
+// The Neon serverless Pool adapter is designed for edge runtimes, not Node scripts.
+const prisma = new PrismaClient({
+    datasources: { db: { url: connectionString } },
+});
 
 async function main() {
   console.log('🌱 Starting database seeding...');
 
   try {
-    // 1. Clean up existing data (following dependency order)
-    console.log('Cleaning up existing data...');
-    await prisma.commissionLog.deleteMany();
-    await prisma.review.deleteMany();
-    await prisma.serviceRecord.deleteMany();
-    await prisma.shift.deleteMany();
-    await prisma.employeePayout.deleteMany();
-    await prisma.membership.deleteMany();
-    await prisma.loyaltyPoint.deleteMany();
-    await prisma.safetyAlert.deleteMany();
-    await prisma.inventoryLog.deleteMany();
-    await prisma.inventory.deleteMany();
-    await prisma.supplier.deleteMany();
-    await prisma.broadcast.deleteMany();
-    await prisma.auditLog.deleteMany();
-    await prisma.service.deleteMany();
-    await prisma.membershipCategory.deleteMany();
-    await prisma.employee.deleteMany();
-    await prisma.employeeCategory.deleteMany();
-    await prisma.client.deleteMany();
-    await prisma.user.deleteMany();
-    await prisma.loyaltyProgram.deleteMany();
-    await prisma.branch.deleteMany();
-    await prisma.business.deleteMany();
-    await prisma.platformPackage.deleteMany();
-    await prisma.compliance.deleteMany();
-    await prisma.settlement.deleteMany();
+    // Note: The destructive "clean up existing data" block has been permanently removed 
+    // to prevent accidental data loss. Seed operations should be additive or upsert-based.
 
     // 2. Setup Base Entities
     console.log('Creating Compliance and Platform Packages...');
@@ -67,10 +31,11 @@ async function main() {
     });
 
     console.log('Creating Platform Packages...');
+    // Prices in RWF to match landing page
     const packages = [
-      { name: 'Essential', priceMonthly: 49, priceYearly: 490, branchLimit: 3, description: 'Core operations for small wellness centers.' },
-      { name: 'Premium', priceMonthly: 99, priceYearly: 990, branchLimit: 10, description: 'Advanced features for growing spa chains.' },
-      { name: 'Elite', priceMonthly: 199, priceYearly: 1990, branchLimit: 50, description: 'Unlimited potential for large luxury resorts.' },
+      { name: 'Essential', priceMonthly: 50000, priceYearly: 500000, branchLimit: 1, features: ['Up to 500 Check-ins/mo', 'QR Code Scanner', 'Mobile Money Payments', 'Standard Support'], description: 'Core operations for single-location boutique spas.' },
+      { name: 'Premium', priceMonthly: 150000, priceYearly: 1500000, branchLimit: 3, features: ['Unlimited Check-ins', 'Advanced Analytics', 'Up to 3 Branches', 'Staff Scheduling', 'Priority WhatsApp Support'], description: 'Advanced features for growing wellness centers.' },
+      { name: 'Elite', priceMonthly: 350000, priceYearly: 3500000, branchLimit: 50, features: ['White-labeled Platform', 'Custom API Integration', 'Dedicated Manager', 'On-site Staff Training', 'Unlimited Branches'], description: 'Unlimited potential for large luxury resorts & chains.', isCustom: true },
     ];
 
     const platformPackages = [];
@@ -149,6 +114,23 @@ async function main() {
                 role: 'MANAGER',
                 usr_branchId: branch.id
             }
+        });
+
+        // Seed lockers for this branch
+        const lockerDefs = [
+            { name: 'Locker 1',  lockerNumber: 'L-101', type: 'Swedish Massage',   order: 1 },
+            { name: 'Locker 2',  lockerNumber: 'L-102', type: 'Infrared Sauna',    order: 2 },
+            { name: 'Locker 3',  lockerNumber: 'L-103', type: 'Aromatherapy',      order: 3 },
+            { name: 'Locker 4',  lockerNumber: 'L-104', type: 'Deep Tissue',       order: 4 },
+            { name: 'Locker 5',  lockerNumber: 'L-105', type: 'Steam Room',        order: 5 },
+            { name: 'Locker 6',  lockerNumber: 'L-106', type: 'Hot Stone',         order: 6 },
+            { name: 'Locker 7',  lockerNumber: 'L-107', type: 'Sauna Therapy',     order: 7 },
+            { name: 'Locker 8',  lockerNumber: 'L-108', type: 'Relaxation Suite',  order: 8 },
+            { name: 'Locker 9',  lockerNumber: 'L-109', type: "Couple's Suite",    order: 9 },
+            { name: 'Locker 10', lockerNumber: 'L-110', type: 'VIP Steam Room',    order: 10 },
+        ];
+        await prisma.locker.createMany({
+            data: lockerDefs.map(l => ({ ...l, branchId: branch.id }))
         });
     }
 
@@ -250,7 +232,7 @@ async function main() {
             serviceId: srv.id,
             employeeId: empId,
             branchId: branch1Id,
-            boxNumber: `Room-${Math.floor(Math.random() * 5) + 1}`,
+            lockerNumber: `L-10${Math.floor(Math.random() * 10) + 1}`,
             paymentMode: pMode,
             amount: srv.price,
             status: 'COMPLETED' as const,

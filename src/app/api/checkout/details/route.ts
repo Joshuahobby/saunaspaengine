@@ -1,26 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { resolveEffectiveBranchId } from "@/lib/branch-context";
 import type { ExtraService } from "@/types/operations";
 
-// GET /api/checkout/details?parentId=...
+// GET /api/checkout/details?id=...
 export async function GET(request: NextRequest) {
     const session = await auth();
-    if (!session?.user?.branchId) {
+    const branchId = await resolveEffectiveBranchId(session);
+    if (!session?.user || !branchId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const { searchParams } = new URL(request.url);
-    const parentId = searchParams.get("parentId");
+    const id = searchParams.get("id");
 
-    if (!parentId) {
-        return NextResponse.json({ error: "Parent ID is required" }, { status: 400 });
+    if (!id) {
+        return NextResponse.json({ error: "Record ID is required" }, { status: 400 });
     }
 
     try {
         // Scope the lookup to the requesting user's branch to prevent IDOR
         const record = await prisma.serviceRecord.findUnique({
-            where: { id: parentId, branchId: session.user.branchId },
+            where: { id, branchId },
             include: {
                 service: true,
                 employee: { select: { fullName: true } },

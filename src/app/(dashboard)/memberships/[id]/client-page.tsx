@@ -81,31 +81,33 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                         <span className="opacity-20">/</span>
                         <Link href="/memberships" className="hover:text-[var(--color-primary)] transition-colors">Memberships</Link>
                         <span className="opacity-20">/</span>
-                        <span className="text-white">{category.name}</span>
+                        <span className="text-[var(--text-main)]">{category.name}</span>
                     </nav>
                     <div className="flex items-center gap-4">
                         <div className="size-14 rounded-[1.5rem] bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] border border-[var(--color-primary)]/20 shadow-xl">
                             <span className="material-symbols-outlined text-3xl">token</span>
                         </div>
                         <div>
-                            <h1 className="text-4xl font-serif font-black italic tracking-tight text-white">{category.name}</h1>
+                            <h1 className="text-4xl font-serif font-black italic tracking-tight text-[var(--text-main)]">{category.name}</h1>
                             <p className="text-[var(--text-muted)] font-medium italic opacity-60">Architecting the rules of access for this tier.</p>
                         </div>
                     </div>
                 </div>
                 <div className="flex gap-3">
-                    <button 
+                    <button
+                        type="button"
                         onClick={() => setFormData({...formData, status: formData.status === "ACTIVE" ? "INACTIVE" : "ACTIVE"})}
                         className={`h-14 px-8 rounded-full font-black uppercase tracking-widest text-[10px] border transition-all ${formData.status === "ACTIVE" ? "bg-red-500/10 border-red-500/20 text-red-500" : "bg-emerald-500/10 border-emerald-500/20 text-emerald-500"}`}
                     >
                         {formData.status === "ACTIVE" ? "Deactivate Tier" : "Activate Tier"}
                     </button>
-                    <motion.button 
+                    <motion.button
+                        type="button"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={handleSave}
                         disabled={isSaving}
-                        className="h-14 px-10 rounded-full bg-white text-black font-black uppercase tracking-[0.2em] text-xs flex items-center gap-3 shadow-2xl transition-all disabled:opacity-50"
+                        className="h-14 px-10 rounded-full bg-[var(--text-main)] text-[var(--bg-app)] font-black uppercase tracking-[0.2em] text-xs flex items-center gap-3 shadow-2xl transition-all disabled:opacity-50"
                     >
                         {isSaving ? "Synchronizing..." : "Commit Refinements"}
                         {!isSaving && <span className="material-symbols-outlined">save</span>}
@@ -116,87 +118,87 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Left Section: Settings & Rules */}
                 <div className="lg:col-span-2 space-y-8 animate-in fade-in slide-in-from-left-4 duration-1000">
-                    <section className="bg-[#0f1412] p-10 rounded-[3rem] border border-[var(--border-muted)] shadow-2xl space-y-10">
+                    <section className="bg-[var(--bg-card)] p-10 rounded-[3rem] border border-[var(--border-muted)] shadow-2xl space-y-10">
                         <div className="flex items-center gap-3">
                             <span className="material-symbols-outlined text-[var(--color-primary)]">tune</span>
-                            <h2 className="text-xl font-serif font-black italic text-white">Base Configuration</h2>
+                            <h2 className="text-xl font-serif font-black italic text-[var(--text-main)]">Base Configuration</h2>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div className="space-y-3">
                                 <label htmlFor="membership-name" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic ml-4">Tier Identity</label>
-                                <input 
+                                <input
                                     id="membership-name"
                                     title="Tier Identity"
                                     placeholder="e.g. Platinum Access"
                                     value={formData.name}
                                     onChange={e => setFormData({...formData, name: e.target.value})}
-                                    className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-3xl px-8 text-white font-serif italic text-lg outline-none focus:border-[var(--color-primary)] transition-all"
+                                    className="w-full h-16 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-3xl px-8 text-[var(--text-main)] font-serif italic text-lg outline-none focus:border-[var(--color-primary)] transition-all"
                                 />
                             </div>
                             <div className="space-y-3">
                                 <label htmlFor="membership-price" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic ml-4">Unit Yield (RWF)</label>
-                                <input 
+                                <input
                                     id="membership-price"
                                     type="number"
                                     title="Unit Yield"
                                     placeholder="e.g. 50000"
                                     value={formData.price}
                                     onChange={e => setFormData({...formData, price: e.target.value})}
-                                    className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-3xl px-8 text-white font-mono font-black text-lg outline-none focus:border-[var(--color-primary)] transition-all"
+                                    className="w-full h-16 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-3xl px-8 text-[var(--text-main)] font-mono font-black text-lg outline-none focus:border-[var(--color-primary)] transition-all"
                                 />
                             </div>
                             <div className="space-y-3 col-span-2">
                                 <label htmlFor="membership-description" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic ml-4">Philosophical Justification</label>
-                                <textarea 
+                                <textarea
                                     id="membership-description"
                                     title="Philosophical Justification"
                                     placeholder="Describe the intention behind this access tier..."
                                     value={formData.description}
                                     onChange={e => setFormData({...formData, description: e.target.value})}
-                                    className="w-full min-h-[120px] bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-[2rem] p-8 text-white text-sm font-medium italic outline-none focus:border-[var(--color-primary)] transition-all resize-none"
+                                    className="w-full min-h-[120px] bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-[2rem] p-8 text-[var(--text-main)] text-sm font-medium italic outline-none focus:border-[var(--color-primary)] transition-all resize-none"
                                 />
                             </div>
                         </div>
                     </section>
 
-                    <section className="bg-[#0f1412] p-10 rounded-[3rem] border border-[var(--border-muted)] shadow-2xl space-y-10">
+                    <section className="bg-[var(--bg-card)] p-10 rounded-[3rem] border border-[var(--border-muted)] shadow-2xl space-y-10">
                         <div className="flex items-center gap-3">
                             <span className="material-symbols-outlined text-[var(--color-primary)]">gavel</span>
-                            <h2 className="text-xl font-serif font-black italic text-white">Validation Mechanics</h2>
+                            <h2 className="text-xl font-serif font-black italic text-[var(--text-main)]">Validation Mechanics</h2>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="flex items-center justify-between p-6 bg-white/5 rounded-3xl border border-white/5 group hover:border-[var(--color-primary)]/30 transition-all">
+                            <div className="flex items-center justify-between p-6 bg-[var(--bg-surface-muted)] rounded-3xl border border-[var(--border-muted)] group hover:border-[var(--color-primary)]/30 transition-all">
                                 <div className="space-y-1">
                                     <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-50">Temporal Validity</p>
-                                    <p className="text-white font-bold text-sm italic">Enrollment duration in solar days.</p>
+                                    <p className="text-[var(--text-main)] font-bold text-sm italic">Enrollment duration in solar days.</p>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <input 
+                                    <input
                                         type="number"
                                         title="Duration in days"
                                         value={formData.durationDays}
                                         onChange={e => setFormData({...formData, durationDays: e.target.value})}
-                                        className="w-20 h-12 bg-black border border-[var(--border-muted)] rounded-xl text-center text-white font-mono font-black"
+                                        className="w-20 h-12 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl text-center text-[var(--text-main)] font-mono font-black"
                                         placeholder="∞"
                                     />
                                     <span className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-tighter">Days</span>
                                 </div>
                             </div>
 
-                            <div className="flex items-center justify-between p-6 bg-white/5 rounded-3xl border border-white/5 group hover:border-[var(--color-primary)]/30 transition-all">
+                            <div className="flex items-center justify-between p-6 bg-[var(--bg-surface-muted)] rounded-3xl border border-[var(--border-muted)] group hover:border-[var(--color-primary)]/30 transition-all">
                                 <div className="space-y-1">
                                     <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-50">Visit Lifecycle</p>
-                                    <p className="text-white font-bold text-sm italic">Maximum session allowance.</p>
+                                    <p className="text-[var(--text-main)] font-bold text-sm italic">Maximum session allowance.</p>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                    <input 
+                                    <input
                                         type="number"
                                         title="Usage limit in visits"
                                         value={formData.usageLimit}
                                         onChange={e => setFormData({...formData, usageLimit: e.target.value})}
-                                        className="w-20 h-12 bg-black border border-[var(--border-muted)] rounded-xl text-center text-white font-mono font-black"
+                                        className="w-20 h-12 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl text-center text-[var(--text-main)] font-mono font-black"
                                         placeholder="∞"
                                     />
                                     <span className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-tighter">Uses</span>
@@ -211,12 +213,12 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                     <div className="bg-[var(--color-primary)]/5 p-10 rounded-[3rem] border border-[var(--color-primary)]/20 shadow-2xl space-y-8">
                         <div className="space-y-1">
                             <h3 className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-[0.3em] font-sans">Tier Insights</h3>
-                            <p className="text-xl font-serif font-black italic text-white">Revenue Velocity</p>
+                            <p className="text-xl font-serif font-black italic text-[var(--text-main)]">Revenue Velocity</p>
                         </div>
 
                         <div className="space-y-6">
                             <div className="space-y-1">
-                                <p className="text-5xl font-mono font-black text-white tracking-tighter">{activeMemberships.length}</p>
+                                <p className="text-5xl font-mono font-black text-[var(--text-main)] tracking-tighter">{activeMemberships.length}</p>
                                 <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-60 italic">Active Enrolled Clients</p>
                             </div>
                             <div className="h-px bg-[var(--color-primary)]/10" />
@@ -227,14 +229,14 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                         </div>
                     </div>
 
-                    <div className="bg-[#0f1412] p-8 rounded-[2.5rem] border border-[var(--border-muted)] shadow-xl space-y-6">
+                    <div className="bg-[var(--bg-card)] p-8 rounded-[2.5rem] border border-[var(--border-muted)] shadow-xl space-y-6">
                         <h3 className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest italic ml-2 opacity-50">Rapid Actions</h3>
                         <div className="grid grid-cols-1 gap-3">
-                            <button className="h-14 w-full rounded-2xl bg-white/5 border border-white/5 flex items-center gap-4 px-6 text-[10px] font-black text-white uppercase tracking-widest hover:bg-white/10 hover:border-[var(--color-primary)]/30 transition-all">
+                            <button type="button" className="h-14 w-full rounded-2xl bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] flex items-center gap-4 px-6 text-[10px] font-black text-[var(--text-main)] uppercase tracking-widest hover:bg-[var(--color-primary)]/5 hover:border-[var(--color-primary)]/30 transition-all">
                                 <span className="material-symbols-outlined text-[var(--color-primary)]">mail</span>
                                 Broadcast Intelligence
                             </button>
-                            <button className="h-14 w-full rounded-2xl bg-white/5 border border-white/5 flex items-center gap-4 px-6 text-[10px] font-black text-white uppercase tracking-widest hover:bg-white/10 hover:border-[var(--color-primary)]/30 transition-all">
+                            <button type="button" className="h-14 w-full rounded-2xl bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] flex items-center gap-4 px-6 text-[10px] font-black text-[var(--text-main)] uppercase tracking-widest hover:bg-[var(--color-primary)]/5 hover:border-[var(--color-primary)]/30 transition-all">
                                 <span className="material-symbols-outlined text-[var(--color-primary)]">download</span>
                                 Extract Cohort Data
                             </button>
@@ -246,15 +248,15 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
             {/* Enrolled Clients List */}
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-serif font-black italic text-white flex items-center gap-3">
+                    <h2 className="text-2xl font-serif font-black italic text-[var(--text-main)] flex items-center gap-3">
                         <span className="material-symbols-outlined text-[var(--color-primary)]">group</span>
                         Enrolled Cohort
                     </h2>
                 </div>
-                <div className="bg-[#0f1412] border border-[var(--border-muted)] rounded-[2.5rem] overflow-hidden shadow-2xl">
+                <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2.5rem] overflow-hidden shadow-2xl">
                     <table className="w-full text-left">
                         <thead>
-                            <tr className="bg-[var(--bg-surface-muted)]/10 border-b border-[var(--border-muted)]">
+                            <tr className="bg-[var(--bg-surface-muted)] border-b border-[var(--border-muted)]">
                                 <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Guest Presence</th>
                                 <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Operational Status</th>
                                 <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Allowance Velocity</th>
@@ -263,14 +265,14 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                         </thead>
                         <tbody className="divide-y divide-[var(--border-muted)]/50">
                             {category.memberships.map((membership) => (
-                                <tr key={membership.id} className="group hover:bg-[var(--bg-surface-muted)]/5 transition-all">
+                                <tr key={membership.id} className="group hover:bg-[var(--bg-surface-muted)] transition-all">
                                     <td className="px-8 py-5">
                                         <div className="flex items-center gap-4">
-                                            <div className="size-10 rounded-[1.2rem] bg-white/5 flex items-center justify-center font-serif font-black italic text-[var(--color-primary)] border border-white/10 shadow-lg">
+                                            <div className="size-10 rounded-[1.2rem] bg-[var(--color-primary)]/10 flex items-center justify-center font-serif font-black italic text-[var(--color-primary)] border border-[var(--border-muted)] shadow-lg">
                                                 {membership.client.fullName.charAt(0)}
                                             </div>
                                             <div className="flex flex-col">
-                                                <Link href={`/clients/${membership.client.id}`} className="font-serif font-bold italic text-white hover:text-[var(--color-primary)] transition-colors">
+                                                <Link href={`/clients/${membership.client.id}`} className="font-serif font-bold italic text-[var(--text-main)] hover:text-[var(--color-primary)] transition-colors">
                                                     {membership.client.fullName}
                                                 </Link>
                                                 <span className="text-[9px] font-mono font-bold text-[var(--text-muted)] opacity-50 uppercase tracking-tighter">UID: {membership.client.id.slice(-6)}</span>
@@ -284,14 +286,14 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                                     </td>
                                     <td className="px-8 py-5">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-24 h-1.5 bg-white/5 rounded-full overflow-hidden">
-                                                <motion.div 
+                                            <div className="w-24 h-1.5 bg-[var(--bg-surface-muted)] rounded-full overflow-hidden">
+                                                <motion.div
                                                     initial={{ width: 0 }}
                                                     animate={{ width: `${category.usageLimit ? ((membership.balance || 0) / category.usageLimit) * 100 : 100}%` }}
                                                     className="h-full bg-[var(--color-primary)] rounded-full"
                                                 />
                                             </div>
-                                            <span className="text-[10px] font-mono font-black text-white">{membership.balance || '∞'} <span className="opacity-30">/ {category.usageLimit || '∞'}</span></span>
+                                            <span className="text-[10px] font-mono font-black text-[var(--text-main)]">{membership.balance || '∞'} <span className="opacity-30">/ {category.usageLimit || '∞'}</span></span>
                                         </div>
                                     </td>
                                     <td className="px-8 py-5 text-right">

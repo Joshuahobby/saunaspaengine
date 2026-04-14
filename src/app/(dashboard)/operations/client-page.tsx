@@ -78,7 +78,7 @@ export default function OperationsClient({
                     clientId: selectedParent.clientId,
                     serviceId: extraServiceId,
                     employeeId: extraEmployeeId || null,
-                    boxNumber: selectedParent.boxNumber,
+                    lockerNumber: selectedParent.lockerNumber,
                     recordId: selectedParent.id,
                     paymentMode: "CASH",
                     comment: extraComment || `Extra for visit ${selectedParent.id.slice(-4)}`,
@@ -207,7 +207,7 @@ export default function OperationsClient({
             {/* Page Header */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
-                    <h2 className="text-2xl font-display font-black tracking-tighter text-[var(--text-main)] italic">Work <span className="text-[var(--color-primary)]">Activity.</span></h2>
+                    <h2 className="text-2xl font-display font-black tracking-tight text-[var(--text-main)]">Work <span className="text-[var(--color-primary)]">Activity</span></h2>
                     <p className="text-[10px] text-[var(--text-muted)] mt-1 font-bold uppercase tracking-widest">Client visits and service records</p>
                 </div>
                 <Link
@@ -299,7 +299,7 @@ export default function OperationsClient({
                                     const isCompleted = record.status === "COMPLETED";
                                     return (
                                         <tr key={record.id} className={`transition-all ${isCompleted ? "opacity-60 bg-[var(--bg-surface-muted)]/50" : "hover:bg-[var(--bg-surface-muted)]/30"}`}>
-                                            <td className="px-5 py-3 text-[10px] font-bold text-[var(--text-main)] italic">
+                                            <td className="px-5 py-3 text-[10px] font-bold text-[var(--text-main)]">
                                                 #{record.id.slice(-4).toUpperCase()}
                                             </td>
                                             <td className="px-5 py-3">
@@ -311,7 +311,7 @@ export default function OperationsClient({
                                                 </div>
                                             </td>
                                             <td className="px-5 py-3 text-center">
-                                                <span className="bg-[var(--bg-card)] border border-[var(--border-muted)] px-3 py-1 rounded-lg text-[8px] font-black text-[var(--text-main)] shadow-sm">{record.boxNumber || "—"}</span>
+                                                <span className="bg-[var(--bg-card)] border border-[var(--border-muted)] px-3 py-1 rounded-lg text-[8px] font-black text-[var(--text-main)] shadow-sm">{record.lockerNumber || "—"}</span>
                                             </td>
                                             <td className="px-5 py-3">
                                                  <div className="flex flex-col gap-1">
@@ -333,7 +333,7 @@ export default function OperationsClient({
                                                 <div className="flex flex-col gap-0.5">
                                                     <span>{record.employeeName || "—"}</span>
                                                     {record.extraServices?.map((extra: ExtraService) => (
-                                                        <span key={extra.id} className="text-[7px] italic font-medium">
+                                                        <span key={extra.id} className="text-[7px] font-medium">
                                                             {extra.employeeName || "—"}
                                                         </span>
                                                     ))}
@@ -428,7 +428,7 @@ export default function OperationsClient({
                     <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
                         <div className="p-6 border-b border-[var(--border-muted)] flex justify-between items-center bg-[var(--bg-surface-muted)]">
                             <div>
-                                <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest italic">Add <span className="text-[var(--color-primary)]">Extra Service</span></h3>
+                                <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest">Add <span className="text-[var(--color-primary)]">Extra Service</span></h3>
                                 <p className="text-[9px] text-[var(--text-muted)] font-bold mt-1 uppercase tracking-wider">For Client: {selectedParent.clientName}</p>
                             </div>
                             <button onClick={() => { setIsExtraModalOpen(false); setExtraError(null); }} className="text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
@@ -513,7 +513,7 @@ export default function OperationsClient({
                     <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
                         <div className="p-6 border-b border-[var(--border-muted)] flex justify-between items-center bg-yellow-500/5">
                             <div>
-                                <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest italic">Service <span className="text-yellow-600">Review</span></h3>
+                                <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest">Service <span className="text-yellow-600">Review</span></h3>
                                 <p className="text-[9px] text-[var(--text-muted)] font-bold mt-1 uppercase tracking-wider">
                                     Therapist: <span className="text-[var(--text-main)]">{selectedReviewParent.employeeName}</span>
                                 </p>

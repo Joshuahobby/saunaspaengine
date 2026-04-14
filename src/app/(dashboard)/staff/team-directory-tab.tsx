@@ -136,8 +136,8 @@ export default async function TeamDirectoryTab({
                                 </div>
                              </div>
 
-                             <Link 
-                                href={`/staff/${employee.id}/performance`}
+                             <Link
+                                href={`/employees/${employee.id}`}
                                 className="w-full h-14 rounded-2xl border border-[var(--border-muted)] mt-10 flex items-center justify-center text-[9px] font-black uppercase tracking-[0.3em] hover:bg-[var(--text-main)] hover:text-[var(--bg-app)] transition-all"
                              >
                                 View Profile

@@ -32,8 +32,10 @@ interface ClientCheckInResultProps {
         isExternal?: boolean;
     };
     onBack: () => void;
-    onComplete: (serviceId: string) => void;
+    onComplete: (serviceId: string, lockerNumber?: string) => void;
     services: Array<{ id: string; name: string; price: number }>;
+    lockerNumber?: string;
+    onLockerChange?: (value: string) => void;
 }
 
 const TIER_CONFIG: Record<string, { color: string; bg: string; border: string; icon: string }> = {
@@ -43,7 +45,7 @@ const TIER_CONFIG: Record<string, { color: string; bg: string; border: string; i
     PLATINUM: { color: "text-violet-700 dark:text-violet-300", bg: "bg-violet-100 dark:bg-violet-900/30", border: "border-violet-200 dark:border-violet-800/40", icon: "💎" },
 };
 
-export function ClientCheckInResult({ client, onBack, onComplete, services }: ClientCheckInResultProps) {
+export function ClientCheckInResult({ client, onBack, onComplete, services, lockerNumber = "", onLockerChange }: ClientCheckInResultProps) {
     const activeMembership = client.memberships.find(m => m.status === "ACTIVE");
     const loyaltyInfo = client.loyaltyPoints?.[0];
     const tier = loyaltyInfo?.tier || "BRONZE";
@@ -55,7 +57,7 @@ export function ClientCheckInResult({ client, onBack, onComplete, services }: Cl
             {/* Back button */}
             <button 
                 onClick={onBack}
-                className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors italic opacity-70"
+                className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors opacity-70"
             >
                 <ArrowLeft className="w-3 h-3" />
                 Reset Scanner
@@ -68,7 +70,7 @@ export function ClientCheckInResult({ client, onBack, onComplete, services }: Cl
                         <CheckCircle className="w-5 h-5" />
                     </div>
                     <div className="flex flex-col">
-                        <h1 className="text-[var(--text-main)] text-sm font-bold italic">Identity <span className="text-[var(--color-primary)] not-italic">Verified</span></h1>
+                        <h1 className="text-[var(--text-main)] text-sm font-bold">Identity <span className="text-[var(--color-primary)]">Verified</span></h1>
                         <div className="flex items-center gap-2 mt-0.5">
                             <span className="text-[var(--text-main)] font-black text-sm">{client.fullName}</span>
                             <span className="h-1 w-1 bg-[var(--border-muted)] rounded-full"></span>
@@ -147,7 +149,7 @@ export function ClientCheckInResult({ client, onBack, onComplete, services }: Cl
                             : `Welcome back, ${client.fullName.split(' ')[0]}!`
                         }
                     </p>
-                    <p className="text-[10px] text-[var(--text-muted)] mt-1 opacity-60 italic">
+                    <p className="text-[10px] text-[var(--text-muted)] mt-1 opacity-60">
                         {isBirthday 
                             ? "Offer a complimentary herbal infusion"
                             : "Great to see them again"
@@ -202,11 +204,37 @@ export function ClientCheckInResult({ client, onBack, onComplete, services }: Cl
             </div>
 
             {/* Quick Check-in Section */}
-            <div className="glass-card p-6 border-[var(--border-main)] shadow-sm">
-                <h3 className="text-[var(--text-main)] font-bold mb-4 flex items-center gap-2 text-[11px] uppercase tracking-widest italic opacity-80">
+            <div className="glass-card p-6 border-[var(--border-main)] shadow-sm space-y-5">
+                <h3 className="text-[var(--text-main)] font-bold flex items-center gap-2 text-[11px] uppercase tracking-widest opacity-80">
                     <CheckCircle className="w-3.5 h-3.5 text-[var(--color-primary)]" />
                     Visit Registration
                 </h3>
+
+                {/* Locker Assignment */}
+                <div className="space-y-2">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] flex items-center gap-1.5">
+                        <span className="material-symbols-outlined text-[var(--color-primary)] text-sm">lock</span>
+                        Locker
+                        {lockerNumber && (
+                            <span className="ml-auto text-[var(--color-primary)] font-black bg-[var(--color-primary)]/10 px-2 py-0.5 rounded-full text-[8px] tracking-widest">
+                                Pre-assigned
+                            </span>
+                        )}
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="e.g. B-101"
+                        value={lockerNumber}
+                        onChange={e => onLockerChange?.(e.target.value)}
+                        className={`w-full h-10 rounded-xl px-4 text-sm font-bold outline-none border transition-all focus:ring-2 focus:ring-[var(--color-primary)] text-[var(--text-main)] bg-[var(--bg-app)] ${
+                            lockerNumber
+                                ? "border-[var(--color-primary)]/40 bg-[var(--color-primary)]/5"
+                                : "border-[var(--border-main)]"
+                        }`}
+                    />
+                </div>
+
+                {/* Service + Actions */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
                     <div className="space-y-3">
                         <label htmlFor="service-select" className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">Select Service</label>
@@ -215,7 +243,7 @@ export function ClientCheckInResult({ client, onBack, onComplete, services }: Cl
                                 title="Service for this visit"
                                 className="w-full h-11 bg-[var(--bg-app)] border-[var(--border-main)] rounded-xl px-4 text-[var(--text-main)] focus:ring-2 focus:ring-[var(--color-primary)] text-sm"
                                 onChange={(e) => {
-                                    if (e.target.value) onComplete(e.target.value);
+                                    if (e.target.value) onComplete(e.target.value, lockerNumber || undefined);
                                 }}
                                 defaultValue=""
                             >
@@ -225,7 +253,7 @@ export function ClientCheckInResult({ client, onBack, onComplete, services }: Cl
                             ))}
                         </select>
                         {activeMembership && (
-                            <p className="text-[10px] font-bold text-[var(--color-primary)] italic">
+                            <p className="text-[10px] font-bold text-[var(--color-primary)]">
                                 ✓ Payment will deduct from {activeMembership.category.name} membership
                                 {activeMembership.balance !== null && activeMembership.balance !== undefined && ` (${activeMembership.balance} remaining)`}
                             </p>

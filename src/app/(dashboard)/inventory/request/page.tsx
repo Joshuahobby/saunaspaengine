@@ -85,7 +85,7 @@ export default async function InventoryRequestPage() {
                                                 <span className="material-symbols-outlined">remove</span>
                                             </button>
                                             <span className="text-lg font-bold w-6 text-center text-slate-900 dark:text-white">0</span>
-                                            <button type="button" className="size-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-[var(--color-primary)] hover:text-[#102220] transition-all">
+                                            <button type="button" className="size-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-[var(--color-primary)] hover:text-white transition-all">
                                                 <span className="material-symbols-outlined">add</span>
                                             </button>
                                         </div>
@@ -132,7 +132,7 @@ export default async function InventoryRequestPage() {
                                 </div>
                             </div>
 
-                            <button className="w-full bg-[var(--color-primary)] hover:brightness-110 text-[#102220] font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-all transform active:scale-[0.98]">
+                            <button className="w-full bg-[var(--color-primary)] hover:brightness-110 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-all transform active:scale-[0.98]">
                                 <span className="material-symbols-outlined">send</span>
                                 Submit Request
                             </button>

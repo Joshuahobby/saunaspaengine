@@ -13,7 +13,7 @@ export interface RecordData {
     clientId: string;
     status: string;
     amount: number;
-    boxNumber: string | null;
+    lockerNumber: string | null;
     createdAt: string;
     clientName: string;
     serviceName: string;

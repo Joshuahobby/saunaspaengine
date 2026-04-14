@@ -38,7 +38,7 @@ export default function EditEmployeeForm({ employee, categories, branches, isOwn
             if (result?.error) {
                 setError(result.error);
             } else {
-                router.push("/employees");
+                router.push("/staff?tab=directory");
                 router.refresh();
             }
         } catch {
@@ -56,7 +56,7 @@ export default function EditEmployeeForm({ employee, categories, branches, isOwn
                 setError(result.error);
                 setShowDeleteConfirm(false);
             } else {
-                router.push("/employees");
+                router.push("/staff?tab=directory");
                 router.refresh();
             }
         } catch {

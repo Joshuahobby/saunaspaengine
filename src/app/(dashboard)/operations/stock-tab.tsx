@@ -1,14 +1,18 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { resolveEffectiveBranchId } from "@/lib/branch-context";
 import InventoryClientPage from "../inventory/client-page";
 
 export default async function StockTab() {
     const session = await auth();
     if (!session?.user) return null;
 
+    const effectiveBranchId = await resolveEffectiveBranchId(session);
+    if (!effectiveBranchId) return null;
+
     const branchIds = (session.user.role === 'OWNER' || session.user.role === 'ADMIN')
-        ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string }, select: { id: true } })).map(b => b.id)
-        : [session.user.branchId as string];
+        ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string, status: 'ACTIVE' }, select: { id: true } })).map(b => b.id)
+        : [effectiveBranchId];
 
     const [items, suppliers] = await Promise.all([
         prisma.inventory.findMany({
@@ -31,7 +35,7 @@ export default async function StockTab() {
         <InventoryClientPage
             items={JSON.parse(JSON.stringify(items))}
             suppliers={JSON.parse(JSON.stringify(suppliers))}
-            branchId={session.user.branchId || branchIds[0] || ""}
+            branchId={effectiveBranchId}
         />
     );
 }

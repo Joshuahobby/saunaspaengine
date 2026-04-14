@@ -112,9 +112,9 @@ export default function RolesClientPage({ initialCategories }: { initialCategori
         <div className="max-w-4xl mx-auto space-y-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
                 <div>
-                    <Link href="/employees" className="text-[var(--color-primary)] hover:underline text-sm font-bold flex items-center gap-1 mb-2">
+                    <Link href="/staff?tab=directory" className="text-[var(--color-primary)] hover:underline text-sm font-bold flex items-center gap-1 mb-2">
                         <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-                        Back to Employees
+                        Back to Staff
                     </Link>
                     <h2 className="text-3xl font-display font-bold tracking-tight text-[var(--text-main)]">Manage Roles</h2>
                     <p className="mt-2 text-[var(--text-muted)] max-w-2xl font-medium">

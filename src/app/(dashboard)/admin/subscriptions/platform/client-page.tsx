@@ -187,15 +187,15 @@ function PackageModal({ isOpen, onClose, onSave, pkg }: { isOpen: boolean, onClo
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#050706]/80 backdrop-blur-md overflow-y-auto">
-            <motion.div 
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md overflow-y-auto">
+            <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                className="bg-[#0f1412] border border-[var(--border-muted)] rounded-[2.5rem] w-full max-w-2xl p-8 lg:p-10 space-y-8 my-auto"
+                className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2.5rem] w-full max-w-2xl p-8 lg:p-10 space-y-8 my-auto"
             >
                 <div className="flex justify-between items-center">
-                    <h2 className="text-3xl font-serif font-bold italic text-white">{pkg ? "Edit" : "New"} Platform Package</h2>
-                    <button onClick={onClose} className="size-10 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:text-white transition-colors">
+                    <h2 className="text-3xl font-serif font-bold italic text-[var(--text-main)]">{pkg ? "Edit" : "New"} Platform Package</h2>
+                    <button type="button" onClick={onClose} className="size-10 rounded-full bg-[var(--bg-surface-muted)] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
                         <span className="material-symbols-outlined">close</span>
                     </button>
                 </div>
@@ -203,33 +203,33 @@ function PackageModal({ isOpen, onClose, onSave, pkg }: { isOpen: boolean, onClo
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                         <label htmlFor="package-name" className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-2">Package Name</label>
-                        <input id="package-name" title="Package Name" placeholder="e.g. Enterprise" value={name} onChange={e => setName(e.target.value)} className="w-full h-14 bg-white/5 border border-[var(--border-muted)] rounded-2xl px-6 text-white font-bold outline-none focus:border-[var(--color-primary)]/50 transition-all" />
+                        <input id="package-name" title="Package Name" placeholder="e.g. Enterprise" value={name} onChange={e => setName(e.target.value)} className="w-full h-14 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-6 text-[var(--text-main)] font-bold outline-none focus:border-[var(--color-primary)]/50 transition-all" />
                     </div>
                     <div className="space-y-2">
                         <label htmlFor="branch-limit" className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-2">Branch Limit</label>
-                        <input id="branch-limit" title="Branch Limit" placeholder="e.g. 5" type="number" value={branchLimit} onChange={e => setBranchLimit(Number(e.target.value))} className="w-full h-14 bg-white/5 border border-[var(--border-muted)] rounded-2xl px-6 text-white font-bold outline-none focus:border-[var(--color-primary)]/50 transition-all" />
+                        <input id="branch-limit" title="Branch Limit" placeholder="e.g. 5" type="number" value={branchLimit} onChange={e => setBranchLimit(Number(e.target.value))} className="w-full h-14 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-6 text-[var(--text-main)] font-bold outline-none focus:border-[var(--color-primary)]/50 transition-all" />
                     </div>
                     <div className="space-y-2">
                         <label htmlFor="price-monthly" className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-2">Monthly Price ($)</label>
-                        <input id="price-monthly" title="Monthly Price" placeholder="e.g. 99" type="number" value={priceMonthly} onChange={e => setPriceMonthly(Number(e.target.value))} className="w-full h-14 bg-white/5 border border-[var(--border-muted)] rounded-2xl px-6 text-white font-bold outline-none focus:border-[var(--color-primary)]/50 transition-all" />
+                        <input id="price-monthly" title="Monthly Price" placeholder="e.g. 99" type="number" value={priceMonthly} onChange={e => setPriceMonthly(Number(e.target.value))} className="w-full h-14 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-6 text-[var(--text-main)] font-bold outline-none focus:border-[var(--color-primary)]/50 transition-all" />
                     </div>
                     <div className="space-y-2">
                         <label htmlFor="price-yearly" className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-2">Yearly Price ($)</label>
-                        <input id="price-yearly" title="Yearly Price" placeholder="e.g. 990" type="number" value={priceYearly} onChange={e => setPriceYearly(Number(e.target.value))} className="w-full h-14 bg-white/5 border border-[var(--border-muted)] rounded-2xl px-6 text-white font-bold outline-none focus:border-[var(--color-primary)]/50 transition-all" />
+                        <input id="price-yearly" title="Yearly Price" placeholder="e.g. 990" type="number" value={priceYearly} onChange={e => setPriceYearly(Number(e.target.value))} className="w-full h-14 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-6 text-[var(--text-main)] font-bold outline-none focus:border-[var(--color-primary)]/50 transition-all" />
                     </div>
                     <div className="md:col-span-2 space-y-2">
                         <label htmlFor="features" className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-2">Features (comma separated)</label>
-                        <textarea id="features" title="Package Features" placeholder="e.g. Multi-location, Analytics, Support" value={features} onChange={e => setFeatures(e.target.value)} className="w-full h-24 bg-white/5 border border-[var(--border-muted)] rounded-2xl px-6 py-4 text-white font-bold outline-none focus:border-[var(--color-primary)]/50 transition-all resize-none" />
+                        <textarea id="features" title="Package Features" placeholder="e.g. Multi-location, Analytics, Support" value={features} onChange={e => setFeatures(e.target.value)} className="w-full h-24 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-6 py-4 text-[var(--text-main)] font-bold outline-none focus:border-[var(--color-primary)]/50 transition-all resize-none" />
                     </div>
-                    <div className="md:col-span-2 flex items-center gap-4 px-4 py-2 bg-white/5 rounded-2xl border border-dashed border-[var(--border-muted)]">
+                    <div className="md:col-span-2 flex items-center gap-4 px-4 py-2 bg-[var(--bg-surface-muted)] rounded-2xl border border-dashed border-[var(--border-muted)]">
                         <input type="checkbox" checked={isCustom} onChange={e => setIsCustom(e.target.checked)} id="isCustom" className="size-5 rounded border-[var(--border-muted)] bg-transparent text-[var(--color-primary)] focus:ring-0" />
-                        <label htmlFor="isCustom" className="text-sm font-bold text-white/70 cursor-pointer">Mark as Custom/Enterprise Plan (API, White-labeling)</label>
+                        <label htmlFor="isCustom" className="text-sm font-bold text-[var(--text-muted)] cursor-pointer">Mark as Custom/Enterprise Plan (API, White-labeling)</label>
                     </div>
                 </div>
 
                 <div className="flex gap-4 pt-4">
-                    <button onClick={onClose} className="h-14 flex-1 rounded-2xl border border-[var(--border-muted)] text-[var(--text-muted)] font-bold uppercase text-xs hover:bg-white/5 transition-all">Cancel</button>
-                    <button onClick={handleSave} disabled={isLoading} className="h-14 flex-[2] rounded-2xl bg-white text-black font-black uppercase text-xs tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                    <button type="button" onClick={onClose} className="h-14 flex-1 rounded-2xl border border-[var(--border-muted)] text-[var(--text-muted)] font-bold uppercase text-xs hover:bg-[var(--bg-surface-muted)] transition-all">Cancel</button>
+                    <button type="button" onClick={handleSave} disabled={isLoading} className="h-14 flex-[2] rounded-2xl bg-[var(--text-main)] text-[var(--bg-app)] font-black uppercase text-xs tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
                         {isLoading ? <span className="animate-spin material-symbols-outlined">sync</span> : "Save Package"}
                     </button>
                 </div>

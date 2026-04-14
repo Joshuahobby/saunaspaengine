@@ -2,6 +2,20 @@ import { cookies } from "next/headers";
 import { prisma } from "./prisma";
 import type { Session } from "next-auth";
 
+/**
+ * Resolves a single definitive branch ID for the current user/request.
+ * - Staff roles: always their assigned branch.
+ * - OWNER/ADMIN: the branch stored in the cookie/URL, falling back to the
+ *   first active branch in their business so pages never get a null branch.
+ */
+export async function resolveEffectiveBranchId(
+    session: Session | null,
+    searchParams: Record<string, string | undefined> = {},
+): Promise<string | null> {
+    const ctx = await getActiveBranchContext(session, searchParams);
+    return ctx.activeBranchId ?? ctx.authorizedBranchIds[0] ?? null;
+}
+
 interface BranchContext {
     authorizedBranchIds: string[];
     isFiltered: boolean;

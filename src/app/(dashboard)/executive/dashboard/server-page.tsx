@@ -94,40 +94,32 @@ export default async function ExecutiveDashboard() {
     const clientTrend = previousClients > 0 ? ((newClients - previousClients) / previousClients) * 100 : 0;
 
     // --- Requires Attention (Alerts) ---
+    // Each query has an individual .catch(() => []) so a transient DB connection failure
+    // (e.g. Neon cold start) returns empty data instead of crashing the page.
     const [lowInventoryRaw, pendingAlertsRaw, recentActivityRaw] = await Promise.all([
-        // Low Inventory
+        // Low Inventory — field-level comparison is not valid Prisma syntax, filter in JS
         prisma.inventory.findMany({
-            where: {
-                branch: { businessId },
-                stockCount: { lte: prisma.inventory.fields.minThreshold } // Using prisma raw relationship comparison
-            },
+            where: { branch: { businessId } },
             include: { branch: { select: { name: true } } },
-            take: 10
-        }).catch(async () => {
-             // Fallback if field comparison fails: query all and filter in memory
-             const allItems = await prisma.inventory.findMany({
-                 where: { branch: { businessId } },
-                 include: { branch: { select: { name: true } } }
-             });
-             return allItems.filter(i => i.stockCount <= i.minThreshold).slice(0, 10);
-        }),
+        }).then(all => all.filter(i => i.stockCount <= i.minThreshold).slice(0, 10))
+          .catch(() => []),
         // Safety Alerts
         prisma.safetyAlert.findMany({
             where: { branch: { businessId }, status: "PENDING" },
             include: { branch: { select: { name: true } } },
             orderBy: { createdAt: "desc" },
             take: 5
-        }),
+        }).catch(() => []),
         // Audit Logs (Recent Activity)
         prisma.auditLog.findMany({
             where: { branch: { businessId } },
-            include: { 
+            include: {
                 user: { select: { fullName: true } },
                 branch: { select: { name: true } }
             },
             orderBy: { createdAt: "desc" },
             take: 10
-        })
+        }).catch(() => []),
     ]);
 
     const stats = {

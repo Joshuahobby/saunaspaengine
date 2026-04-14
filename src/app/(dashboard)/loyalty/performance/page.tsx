@@ -87,7 +87,7 @@ export default async function LoyaltyPerformancePage() {
                         <span className="material-symbols-outlined mr-2 text-xl">download</span>
                         Export Report
                     </button>
-                    <Link href="/loyalty/settings" className="flex items-center justify-center rounded-lg h-11 px-6 bg-[var(--color-primary)] text-[#102220] text-sm font-bold hover:brightness-110 transition-all shadow-lg shadow-[var(--color-primary)]/20">
+                    <Link href="/loyalty/settings" className="flex items-center justify-center rounded-lg h-11 px-6 bg-[var(--color-primary)] text-white text-sm font-bold hover:brightness-110 transition-all shadow-lg shadow-[var(--color-primary)]/20">
                         <span className="material-symbols-outlined mr-2 text-xl">settings</span>
                         Configure Rules
                     </Link>

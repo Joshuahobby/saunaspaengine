@@ -16,7 +16,7 @@ export default async function EmployeeSchedulePage() {
 
     // For EMPLOYEE role: find their linked employee profile
     // For MANAGER role: show all employees in their branch with a selector
-    let employee = null;
+    let employee: { id: string; fullName: string; category: { name: string } } | null = null;
     let branchEmployees: { id: string; fullName: string; category: { name: string } }[] = [];
 
     if (isEmployee) {

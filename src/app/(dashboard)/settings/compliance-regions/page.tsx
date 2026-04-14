@@ -178,8 +178,8 @@ export default async function RegionalCompliancePage({
                                     initialData={{
                                         taxId: branchSettings?.taxId || null,
                                         taxLabel: branchSettings?.taxLabel || "VAT",
-                                        corporateTaxId: globalBiz.taxId,
-                                        corporateTaxLabel: globalBiz.taxLabel || "VAT"
+                                        corporateTaxId: globalBiz?.taxId ?? null,
+                                        corporateTaxLabel: globalBiz?.taxLabel || "VAT"
                                     }} 
                                 />
                             </div>

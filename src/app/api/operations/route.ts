@@ -2,7 +2,9 @@ export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { auth } from "@/lib/auth";
+import { resolveEffectiveBranchId } from "@/lib/branch-context";
 import { ExtraService } from "@/types/operations";
 import { calculatePointsEarned, determineTier } from "@/lib/loyalty";
 import { randomUUID } from "crypto";
@@ -11,7 +13,8 @@ import { randomUUID } from "crypto";
 // GET /api/operations — list service records for current branch
 export async function GET(request: NextRequest) {
     const session = await auth();
-    if (!session?.user?.branchId) {
+    const branchId = await resolveEffectiveBranchId(session);
+    if (!session?.user || !branchId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -20,7 +23,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "15");
 
-    const where: Record<string, unknown> = { branchId: session.user.branchId };
+    const where: Record<string, unknown> = { branchId };
     if (status && status !== "ALL") {
         where.status = status;
     }
@@ -46,12 +49,13 @@ export async function GET(request: NextRequest) {
 // POST /api/operations — create a new service record
 export async function POST(request: NextRequest) {
     const session = await auth();
-    if (!session?.user?.branchId) {
+    const branchId = await resolveEffectiveBranchId(session);
+    if (!session?.user || !branchId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body = await request.json();
-    const { clientId, serviceId, employeeId, boxNumber, paymentMode, comment, recordId } = body;
+    const { clientId, serviceId, employeeId, lockerNumber, paymentMode, comment, recordId } = body;
 
     if (!clientId || !serviceId) {
         return NextResponse.json({ error: "Client and Service are required" }, { status: 400 });
@@ -61,7 +65,7 @@ export async function POST(request: NextRequest) {
         // 1. If recordId is provided, we are adding an EXTRA SERVICE to an existing session
         if (recordId) {
             const existing = await prisma.serviceRecord.findUnique({
-                where: { id: recordId, branchId: session.user.branchId }
+                where: { id: recordId, branchId }
             });
 
 
@@ -114,7 +118,7 @@ export async function POST(request: NextRequest) {
             const updatedRecord = await prisma.serviceRecord.update({
                 where: { id: recordId },
                 data: {
-                    extraServices: [...currentExtras, newExtra] as unknown as Parameters<typeof prisma.serviceRecord.update>[0]["data"]["extraServices"],
+                    extraServices: [...currentExtras, newExtra] as unknown as Prisma.InputJsonValue,
                     amount: { increment: extraSvc.price },
                     netAmount: { increment: extraSvc.price }
                 },
@@ -137,7 +141,7 @@ export async function POST(request: NextRequest) {
                 include: { branch: { select: { businessId: true } } }
             }),
             prisma.branch.findUnique({
-                where: { id: session.user.branchId },
+                where: { id: branchId },
                 select: { businessId: true }
             })
         ]);
@@ -161,7 +165,7 @@ export async function POST(request: NextRequest) {
                     clientId,
                     status: "ACTIVE",
                     OR: [
-                        { category: { branchId: session.user.branchId } },
+                        { category: { branchId } },
                         { category: { isGlobal: true } },
                     ],
                     AND: [
@@ -184,8 +188,8 @@ export async function POST(request: NextRequest) {
                 clientId,
                 serviceId,
                 employeeId: employeeId || null,
-                branchId: session.user.branchId,
-                boxNumber: boxNumber || null,
+                branchId,
+                lockerNumber: lockerNumber || null,
                 paymentMode: paymentMode || "CASH",
                 amount: service.price,
                 netAmount: service.price,
@@ -218,7 +222,8 @@ interface FinancialData {
 // PATCH /api/operations — update service record (e.g., mark as COMPLETED)
 export async function PATCH(request: NextRequest) {
     const session = await auth();
-    if (!session?.user?.branchId) {
+    const branchId = await resolveEffectiveBranchId(session);
+    if (!session?.user || !branchId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -233,7 +238,7 @@ export async function PATCH(request: NextRequest) {
         // Fetch existing record and the financial context needed for completion.
         // Two queries avoids the deep nested `as any` include workaround.
         const existingRecord = await prisma.serviceRecord.findUnique({
-            where: { id, branchId: session.user.branchId },
+            where: { id, branchId },
             include: {
                 employee: { select: { id: true, commissionRate: true } },
             },
@@ -250,7 +255,7 @@ export async function PATCH(request: NextRequest) {
             const [compliance, branchWithBusiness] = await Promise.all([
                 prisma.compliance.findFirst({ where: { region: "RWANDA" } }),
                 prisma.branch.findUnique({
-                    where: { id: session.user.branchId },
+                    where: { id: branchId },
                     include: { business: { select: { platformCommissionRate: true } } },
                 }),
             ]);
@@ -276,7 +281,7 @@ export async function PATCH(request: NextRequest) {
         }
 
         const record = await prisma.serviceRecord.update({
-            where: { id, branchId: session.user.branchId },
+            where: { id, branchId },
             data: {
                 ...(status && { status }),
                 ...(paymentMode && { paymentMode }),
@@ -299,7 +304,7 @@ export async function PATCH(request: NextRequest) {
                         clientId: record.clientId,
                         status: "ACTIVE",
                         OR: [
-                            { category: { branchId: session.user.branchId } },
+                            { category: { branchId } },
                             { category: { isGlobal: true } },
                         ],
                         AND: [

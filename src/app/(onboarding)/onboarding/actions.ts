@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export async function updateOnboardingStepAction(branchId: string, step: number) {
@@ -23,8 +24,10 @@ export async function saveBranchProfileAction(branchId: string, data: any) {
             where: { id: branchId },
             data: {
                 name: data.name,
-                email: data.email,
-                phone: data.phone,
+                email: data.email || null,
+                phone: data.phone || null,
+                address: data.address || null,
+                businessHours: data.businessHours ?? undefined,
             }
         });
         revalidatePath("/onboarding");
@@ -38,7 +41,7 @@ export async function saveBranchProfileAction(branchId: string, data: any) {
 export async function saveBranchServicesAction(branchId: string, servicesData: any[]) {
     try {
         // We'll create the selected services for the branch
-        const result = await prisma.$transaction(async (tx) => {
+        const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
             for (const service of servicesData) {
                 await tx.service.create({
                     data: {
@@ -63,7 +66,7 @@ export async function saveBranchServicesAction(branchId: string, servicesData: a
 export async function saveBranchTeamAction(branchId: string, teamData: any[]) {
     try {
         // Need to ensure an employee category exists first
-        const result = await prisma.$transaction(async (tx) => {
+        const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
             let category = await tx.employeeCategory.findFirst({
                 where: { branchId, name: "General Staff" }
             });

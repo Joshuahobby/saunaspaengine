@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Metadata } from "next";
+import { PublicLayout } from "@/components/layout/PublicLayout";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — Sauna SPA Engine",
@@ -9,25 +10,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-[var(--bg-app)] text-[var(--text-main)]">
-      {/* Header */}
-      <header className="flex items-center justify-between px-6 md:px-10 py-5 border-b border-[var(--border-main)] bg-[var(--bg-app)]/80 backdrop-blur-xl sticky top-0 z-50">
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="size-10 text-white flex items-center justify-center bg-[var(--color-primary)] rounded-xl shadow-sm group-hover:scale-105 transition-transform">
-            <span className="material-symbols-outlined text-2xl font-black">spa</span>
-          </div>
-          <h2 className="text-[var(--text-main)] text-lg font-black font-serif leading-tight tracking-tight italic group-hover:text-[var(--color-primary)] transition-colors">
-            Sauna <span className="not-italic text-[var(--color-primary)]">SPA</span> Engine
-          </h2>
-        </Link>
-        <Link
-          href="/"
-          className="flex items-center justify-center rounded-xl h-10 px-6 bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-[10px] font-black uppercase tracking-widest border border-[var(--border-main)] hover:bg-[var(--border-muted)] transition-all"
-        >
-          Home
-        </Link>
-      </header>
-
+    <PublicLayout>
       {/* Content */}
       <main className="max-w-3xl mx-auto px-6 py-16 md:py-24">
         <div className="flex flex-col gap-4 mb-12">
@@ -98,6 +81,6 @@ export default function PrivacyPage() {
           </Link>
         </div>
       </main>
-    </div>
+    </PublicLayout>
   );
 }

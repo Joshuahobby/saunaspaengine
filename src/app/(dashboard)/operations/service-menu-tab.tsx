@@ -1,14 +1,18 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { resolveEffectiveBranchId } from "@/lib/branch-context";
 import ServicesClientPage from "../services/client-page";
 
 export default async function ServiceMenuTab() {
     const session = await auth();
     if (!session?.user) return null;
 
+    const effectiveBranchId = await resolveEffectiveBranchId(session);
+    if (!effectiveBranchId) return null;
+
     const branchIds = session.user.role === 'OWNER'
-        ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string }, select: { id: true } })).map(b => b.id)
-        : [session.user.branchId as string];
+        ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string, status: 'ACTIVE' }, select: { id: true } })).map(b => b.id)
+        : [effectiveBranchId];
 
     const services = await prisma.service.findMany({
         where: { branchId: { in: branchIds } },

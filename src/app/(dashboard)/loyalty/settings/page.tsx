@@ -111,7 +111,7 @@ export default async function LoyaltySettingsPage() {
                         <Link href="/loyalty/performance" className="px-4 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors flex items-center justify-center">
                             View Analytics
                         </Link>
-                        <button className="px-4 py-2 rounded-lg bg-[var(--color-primary)] text-[#102220] text-sm font-bold shadow-lg shadow-[var(--color-primary)]/20 hover:brightness-110 transition-all">
+                        <button className="px-4 py-2 rounded-lg bg-[var(--color-primary)] text-white text-sm font-bold shadow-lg shadow-[var(--color-primary)]/20 hover:brightness-110 transition-all">
                             + Add New Rule
                         </button>
                     </div>
@@ -132,7 +132,7 @@ export default async function LoyaltySettingsPage() {
                                 <div className="flex items-center gap-2">
                                     <span className="text-xs font-medium text-slate-500 uppercase">Status</span>
                                     <div className="w-10 h-5 bg-[var(--color-primary)] rounded-full relative">
-                                        <div className="absolute right-1 top-1 size-3 bg-[#102220] rounded-full"></div>
+                                        <div className="absolute right-1 top-1 size-3 bg-white rounded-full"></div>
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +175,7 @@ export default async function LoyaltySettingsPage() {
                                     <input defaultChecked className="w-5 h-5 rounded border-slate-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)]" type="checkbox" />
                                     <span className="text-sm font-medium text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)]">Exclude Discounted Services from point accrual</span>
                                 </label>
-                                <button type="submit" className="px-6 py-2 rounded-lg bg-[var(--color-primary)] text-[#102220] text-sm font-bold shadow-sm hover:brightness-110 transition-all">
+                                <button type="submit" className="px-6 py-2 rounded-lg bg-[var(--color-primary)] text-white text-sm font-bold shadow-sm hover:brightness-110 transition-all">
                                     Save Rules
                                 </button>
                             </div>
@@ -197,7 +197,7 @@ export default async function LoyaltySettingsPage() {
                                     </div>
                                     <h3 className="font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">100 Points</h3>
                                     <p className="text-xs text-slate-500 mb-4">5,000 RWF Off Any Service</p>
-                                    <button type="button" className="w-full py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-bold rounded-lg group-hover:bg-[var(--color-primary)] group-hover:text-[#102220] transition-colors">Manage Reward</button>
+                                    <button type="button" className="w-full py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-bold rounded-lg group-hover:bg-[var(--color-primary)] group-hover:text-white transition-colors">Manage Reward</button>
                                 </div>
 
                                 <div className="p-4 rounded-xl border-2 border-[var(--color-primary)]/20 flex flex-col items-center text-center group hover:border-[var(--color-primary)] transition-colors cursor-pointer">
@@ -206,7 +206,7 @@ export default async function LoyaltySettingsPage() {
                                     </div>
                                     <h3 className="font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">500 Points</h3>
                                     <p className="text-xs text-slate-500 mb-4">Free 30-min Sauna Session</p>
-                                    <button type="button" className="w-full py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-bold rounded-lg group-hover:bg-[var(--color-primary)] group-hover:text-[#102220] transition-colors">Manage Reward</button>
+                                    <button type="button" className="w-full py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-bold rounded-lg group-hover:bg-[var(--color-primary)] group-hover:text-white transition-colors">Manage Reward</button>
                                 </div>
                             </div>
                         </section>
@@ -282,7 +282,7 @@ export default async function LoyaltySettingsPage() {
                                     <div className="flex justify-between items-start">
                                         <div className="flex items-center gap-2">
                                             <div className="size-8 bg-[var(--color-primary)] rounded-lg flex items-center justify-center">
-                                                <span className="material-symbols-outlined text-[#102220] text-lg font-bold">celebration</span>
+                                                <span className="material-symbols-outlined text-white text-lg font-bold">celebration</span>
                                             </div>
                                             <span className="text-white text-sm font-bold tracking-tight">VIP REWARDS</span>
                                         </div>

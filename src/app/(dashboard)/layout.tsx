@@ -25,12 +25,11 @@ export default async function DashboardLayout({
     const context = await getActiveBranchContext(session, {});
     
     // 2. Fetch Effective Branding Settings
-    let branding = null;
-    if (context.activeBranchId) {
-        branding = await getEffectiveSettings(context.activeBranchId);
-    } else if (session.user.businessId) {
-        branding = await getGlobalBusinessSettings(session.user.businessId);
-    }
+    const branding = context.activeBranchId
+        ? await getEffectiveSettings(context.activeBranchId)
+        : session.user.businessId
+        ? await getGlobalBusinessSettings(session.user.businessId)
+        : null;
 
     const branchName = branding?.branchName || branding?.name || "Sauna SPA Engine";
     const businessName = (branding as unknown as Record<string, unknown>)?.businessName as string | undefined || branding?.name || "Sauna SPA";
@@ -38,7 +37,7 @@ export default async function DashboardLayout({
     const logo = branding?.logo || null;
 
     // 3. Handle Onboarding Redirect
-    if (session.user.role === "MANAGER" && session.user.branchId) {
+    if ((session.user.role === "MANAGER" || session.user.role === "OWNER") && session.user.branchId) {
         const branchShort = await prisma.branch.findUnique({
             where: { id: session.user.branchId },
             select: { onboardingCompleted: true }

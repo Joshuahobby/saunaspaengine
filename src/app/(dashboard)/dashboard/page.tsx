@@ -244,7 +244,7 @@ export default async function DashboardPage() {
                 {isEmployee && (
                 <div className="lg:col-span-2 p-6 glass-card border-none">
                     <h4 className="text-xl font-bold font-display text-[var(--text-main)] mb-4">Quick <span className="text-[var(--color-primary)]">Actions</span></h4>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <Link href="/employees/gamification" className="p-6 bg-[var(--bg-surface-muted)] rounded-2xl hover:bg-[var(--color-primary)]/10 transition-all text-center group border border-[var(--border-muted)] border-l-4 border-l-[var(--color-primary)]">
                             <span className="material-symbols-outlined text-3xl text-[var(--color-primary)] mb-2 block group-hover:scale-110 transition-transform">emoji_events</span>
                             <p className="text-sm font-bold text-[var(--text-main)]">Staff Leaderboard</p>
@@ -317,15 +317,14 @@ export default async function DashboardPage() {
                 </div>
             </div>
 
-            {/* Footer Quick Stats */}
-            <div className="mt-8 flex flex-wrap gap-4 items-center justify-between zen-status-bar p-6 overflow-hidden relative border border-[var(--border-main)] rounded-3xl bg-[var(--bg-card)]">
+            <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-4 items-start sm:items-center justify-between zen-status-bar p-6 overflow-hidden relative border border-[var(--border-main)] rounded-3xl bg-[var(--bg-card)]">
                 <div className="absolute top-0 left-0 w-32 h-32 bg-[var(--color-primary)]/5 blur-3xl -ml-16 -mt-16 rounded-full"></div>
-                <div className="flex items-center gap-4 relative z-10">
+                <div className="flex items-center gap-4 relative z-10 w-full sm:w-auto">
                     <p className="text-[10px] font-bold text-[var(--text-main)] uppercase tracking-[0.4em]">
                         {staffOnDuty} staff members on duty
                     </p>
                 </div>
-                <div className="flex gap-10 relative z-10">
+                <div className="flex flex-col min-[400px]:flex-row gap-4 sm:gap-10 relative z-10 w-full sm:w-auto">
                     <div className="flex items-center gap-3">
                         <span className="size-2 bg-[var(--color-primary)] rounded-full animate-pulse shadow-[0_0_15px_var(--color-primary)]"></span>
                         <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-main)]">0 Rooms Free</span>
