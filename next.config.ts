@@ -10,7 +10,7 @@ const securityHeaders = [
     // Restrict browser features
     {
         key: "Permissions-Policy",
-        value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+        value: "camera=(self), microphone=(), geolocation=(), interest-cohort=()",
     },
     // Force HTTPS for 1 year, include subdomains
     {
