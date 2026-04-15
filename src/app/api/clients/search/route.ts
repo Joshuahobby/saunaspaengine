@@ -37,15 +37,25 @@ export async function GET(request: NextRequest) {
 
         // 2. Search for the client
         // We look specifically for the client across the whole corporate network
-        const client = await prisma.client.findFirst({
-            where: {
-                branch: { businessId: branch.businessId },
-                status: "ACTIVE",
+        let searchCondition: any;
+        if (query.startsWith("spa-client:")) {
+            const extractedId = query.replace("spa-client:", "");
+            searchCondition = { id: extractedId };
+        } else {
+            searchCondition = {
                 OR: [
                     { qrCode: query },
                     { phone: query },
                     { phone: `+25${query}` }, 
-                ],
+                ]
+            };
+        }
+
+        const client = await prisma.client.findFirst({
+            where: {
+                branch: { businessId: branch.businessId },
+                status: "ACTIVE",
+                ...searchCondition,
             },
             include: {
                 branch: true,

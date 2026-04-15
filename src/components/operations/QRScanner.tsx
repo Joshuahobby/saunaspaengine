@@ -32,7 +32,11 @@ export function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
                         fps: 10,
                         qrbox: { width: 250, height: 250 },
                         aspectRatio: 1.0,
-                        formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE]
+                        formatsToSupport: [
+                            Html5QrcodeSupportedFormats.QR_CODE,
+                            Html5QrcodeSupportedFormats.EAN_13,
+                            Html5QrcodeSupportedFormats.CODE_128
+                        ]
                     };
 
                     // Check if already scanning to avoid transition errors
@@ -41,6 +45,25 @@ export function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
                             { facingMode: "environment" },
                             config,
                             (decodedText) => {
+                                try {
+                                    const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+                                    const oscillator = audioCtx.createOscillator();
+                                    const gainNode = audioCtx.createGain();
+                                    
+                                    oscillator.connect(gainNode);
+                                    gainNode.connect(audioCtx.destination);
+                                    
+                                    oscillator.type = "sine";
+                                    oscillator.frequency.setValueAtTime(880, audioCtx.currentTime);
+                                    oscillator.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.1);
+                                    
+                                    gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+                                    
+                                    oscillator.start(audioCtx.currentTime);
+                                    oscillator.stop(audioCtx.currentTime + 0.15);
+                                } catch(e) { console.warn("Audio chime failed"); }
+
                                 setIsSuccess(true);
                                 setTimeout(() => setIsSuccess(false), 500);
                                 onScanSuccess(decodedText);

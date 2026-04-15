@@ -158,6 +158,20 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "Client does not belong to this business network" }, { status: 403 });
         }
 
+        // Locker Double Booking Prevention
+        if (lockerNumber) {
+            const occupiedLocker = await prisma.serviceRecord.findFirst({
+                where: {
+                    branchId,
+                    lockerNumber,
+                    status: { in: ["CREATED", "IN_PROGRESS"] }
+                }
+            });
+            if (occupiedLocker) {
+                return NextResponse.json({ error: `Locker ${lockerNumber} is currently occupied.` }, { status: 400 });
+            }
+        }
+
         // 3. Proactive Membership Validation
         if (paymentMode === "MEMBERSHIP") {
             const membership = await prisma.membership.findFirst({
@@ -315,10 +329,14 @@ export async function PATCH(request: NextRequest) {
                 });
 
                 if (membership?.balance !== null && membership?.balance !== undefined) {
-                    await prisma.membership.update({
-                        where: { id: membership.id },
+                    const updateResult = await prisma.membership.updateMany({
+                        where: { id: membership.id, balance: { gt: 0 } },
                         data: { balance: { decrement: 1 } },
                     });
+                    
+                    if (updateResult.count === 0) {
+                        throw new Error("Membership balance exhausted during transaction.");
+                    }
                 }
             }
 
