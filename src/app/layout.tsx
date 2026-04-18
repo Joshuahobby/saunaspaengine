@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { ToastProvider } from "@/components/providers/toast-provider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import "./globals.css";
@@ -73,6 +74,7 @@ export default function RootLayout({
           {children}
           <ToastProvider />
         </ThemeProvider>
+        <Analytics />
 
         {/* Self-destructing script for phantom service workers on localhost:3000 */}
         <script
