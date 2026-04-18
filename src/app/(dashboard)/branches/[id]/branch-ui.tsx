@@ -28,6 +28,7 @@ interface BranchUIProps {
             id: string;
             service?: { name: string } | null;
             employee?: { fullName: string } | null;
+            client?: { fullName: string } | null;
             amount: number;
             createdAt: Date | string;
             status: string;
