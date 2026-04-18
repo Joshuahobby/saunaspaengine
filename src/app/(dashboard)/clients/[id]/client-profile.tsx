@@ -380,7 +380,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                                                     <p className="text-sm font-medium text-[var(--text-main)] opacity-70 leading-tight">
                                                         {log.details || `Administrative entry recorded`}
                                                     </p>
-                                                    <p className="text-[9px] text-[var(--text-muted)] opacity-30 mt-2 font-bold uppercase">SECURED_BY_{log.user.fullName.replace(' ', '_')}</p>
+                                                    <p className="text-[9px] text-[var(--text-muted)] opacity-30 mt-2 font-bold uppercase">SECURED_BY_{(log.user?.fullName ?? 'SYSTEM').replace(' ', '_')}</p>
                                                 </div>
                                             </div>
                                         ))
