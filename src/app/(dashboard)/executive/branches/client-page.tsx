@@ -100,13 +100,13 @@ export default function ExecutiveBranchesClientPage({ branches, stats }: Branche
                         <option value="INACTIVE">Inactive</option>
                     </select>
 
-                    <a 
+                    <Link
                         href="/branches/new"
                         className="h-10 px-6 rounded-xl bg-[var(--text-main)] text-[var(--bg-app)] text-[10px] font-black tracking-widest uppercase flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-black/20"
                     >
                         <span className="material-symbols-outlined text-sm">add_circle</span>
                         Add Branch
-                    </a>
+                    </Link>
                 </div>
             </div>
 
@@ -184,7 +184,8 @@ export default function ExecutiveBranchesClientPage({ branches, stats }: Branche
                                     </td>
                                     <td className="px-6 py-3">
                                         <div className="flex justify-center">
-                                            <button 
+                                            <button
+                                                type="button"
                                                 onClick={() => toggleStatus(branch.id, branch.status)}
                                                 disabled={toggling === branch.id}
                                                 className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border transition-all ${

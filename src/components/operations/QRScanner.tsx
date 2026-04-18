@@ -46,7 +46,8 @@ export function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
                             config,
                             (decodedText) => {
                                 try {
-                                    const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+                                    const AudioCtx = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+                                    const audioCtx = new (AudioCtx!)();
                                     const oscillator = audioCtx.createOscillator();
                                     const gainNode = audioCtx.createGain();
                                     
@@ -144,7 +145,8 @@ export function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-[var(--bg-app)]/90 p-8 text-center backdrop-blur-sm">
                     <XCircle className="w-12 h-12 text-rose-500 mb-4" />
                     <p className="text-[var(--text-main)] font-bold mb-4">{error}</p>
-                    <button 
+                    <button
+                        type="button"
                         onClick={() => window.location.reload()}
                         className="flex items-center gap-2 bg-[var(--color-primary)] text-[var(--bg-app)] px-6 py-2.5 rounded-xl font-black uppercase text-[10px] tracking-widest hover:brightness-110 transition-all shadow-lg shadow-[var(--color-primary)]/20"
                     >
@@ -163,7 +165,8 @@ export function QRScanner({ onScanSuccess, onClose }: QRScannerProps) {
 
             {/* Controls */}
             {onClose && (
-                    <button 
+                    <button
+                        type="button"
                         onClick={onClose}
                         title="Close Scanner"
                         className="absolute top-4 right-4 bg-[var(--bg-card)]/80 hover:bg-[var(--bg-card)] text-[var(--text-main)] p-2 rounded-xl transition-all border border-[var(--border-muted)] shadow-lg"

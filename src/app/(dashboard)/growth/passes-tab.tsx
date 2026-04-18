@@ -29,5 +29,5 @@ export default async function PassesTab() {
         orderBy: { createdAt: 'asc' }
     });
 
-    return <MembershipsClientPage categories={categories as any} branches={branches} userRole={session.user.role} />;
+    return <MembershipsClientPage categories={categories as Parameters<typeof MembershipsClientPage>[0]["categories"]} branches={branches} userRole={session.user.role} />;
 }

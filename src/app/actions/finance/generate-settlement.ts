@@ -23,7 +23,7 @@ export async function generateSettlement(formData: FormData) {
     endDate.setHours(23, 59, 59, 999);
 
     // 1. Identify unpaid CommissionLog entries for the branch and period
-    const unpaidLogs = await (prisma as any).commissionLog.findMany({
+    const unpaidLogs = await prisma.commissionLog.findMany({
         where: {
             status: "UNPAID",
             createdAt: {
@@ -47,7 +47,7 @@ export async function generateSettlement(formData: FormData) {
     let totalGross = 0;
     let totalCommission = 0;
     
-    unpaidLogs.forEach((log: any) => {
+    unpaidLogs.forEach((log) => {
         totalGross += log.serviceRecord.amount || 0;
         totalCommission += log.amount || 0;
     });
@@ -55,7 +55,7 @@ export async function generateSettlement(formData: FormData) {
     const totalNet = totalGross - totalCommission;
 
     // 3. Create the Settlement record
-    const settlement = await (prisma as any).settlement.create({
+    const settlement = await prisma.settlement.create({
         data: {
             businessId: session.user.businessId,
             branchId,
@@ -76,9 +76,9 @@ export async function generateSettlement(formData: FormData) {
     // It seems Payout is for employees, and Settlement is for the business/branch.
     
     // For now, let's mark logs as PAID.
-    await (prisma as any).commissionLog.updateMany({
+    await prisma.commissionLog.updateMany({
         where: {
-            id: { in: unpaidLogs.map((l: any) => l.id) }
+            id: { in: unpaidLogs.map(l => l.id) }
         },
         data: {
             status: "PAID"

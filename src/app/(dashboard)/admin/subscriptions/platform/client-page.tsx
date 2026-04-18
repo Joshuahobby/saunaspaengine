@@ -23,14 +23,17 @@ export default function PlatformPackagesClientPage({ initialPackages }: { initia
     const [packages, setPackages] = useState(initialPackages);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingPackage, setEditingPackage] = useState<PlatformPackage | null>(null);
+    const [deletingId, setDeletingId] = useState<string | null>(null);
+    const [deleteError, setDeleteError] = useState<string | null>(null);
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this package?")) return;
+        setDeletingId(null);
+        setDeleteError(null);
         const res = await deletePlatformPackageAction(id);
         if (res.success) {
             setPackages(packages.filter(p => p.id !== id));
         } else {
-            alert(res.error);
+            setDeleteError(res.error ?? "Failed to delete package.");
         }
     };
 
@@ -43,7 +46,8 @@ export default function PlatformPackagesClientPage({ initialPackages }: { initia
                     <p className="text-[var(--text-muted)] font-medium opacity-70">Manage subscription tiers, branch limits, and feature sets.</p>
                 </div>
                 <div className="flex items-center gap-4">
-                    <button 
+                    <button
+                        type="button"
                         onClick={() => {
                             setEditingPackage(null);
                             setIsModalOpen(true);
@@ -71,7 +75,8 @@ export default function PlatformPackagesClientPage({ initialPackages }: { initia
                                 )}
                             </div>
                             <div className="flex gap-2">
-                                <button 
+                                <button
+                                    type="button"
                                     onClick={() => {
                                         setEditingPackage(pkg);
                                         setIsModalOpen(true);
@@ -80,8 +85,9 @@ export default function PlatformPackagesClientPage({ initialPackages }: { initia
                                 >
                                     <span className="material-symbols-outlined text-xl">edit</span>
                                 </button>
-                                <button 
-                                    onClick={() => handleDelete(pkg.id)}
+                                <button
+                                    type="button"
+                                    onClick={() => { setDeletingId(pkg.id); setDeleteError(null); }}
                                     className="size-10 rounded-xl bg-[var(--bg-surface-muted)]/10 flex items-center justify-center text-[var(--text-muted)] hover:text-rose-500 transition-all border border-[var(--border-muted)]"
                                 >
                                     <span className="material-symbols-outlined text-xl">delete</span>
@@ -120,6 +126,52 @@ export default function PlatformPackagesClientPage({ initialPackages }: { initia
                 ))}
             </div>
 
+            {deleteError && (
+                <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-2xl text-sm font-bold flex items-center gap-2">
+                    <span className="material-symbols-outlined">error</span>
+                    {deleteError}
+                </div>
+            )}
+
+            {deletingId && (() => {
+                const pkg = packages.find(p => p.id === deletingId);
+                if (!pkg) return null;
+                return (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                        <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-3xl p-8 w-full max-w-sm shadow-2xl space-y-6">
+                            <div className="flex items-center gap-4">
+                                <div className="size-12 rounded-2xl bg-red-500/10 flex items-center justify-center shrink-0">
+                                    <span className="material-symbols-outlined text-red-500 text-2xl">delete</span>
+                                </div>
+                                <div>
+                                    <h3 className="text-sm font-black uppercase tracking-widest text-[var(--text-main)]">Delete Package</h3>
+                                    <p className="text-[10px] text-[var(--text-muted)] mt-1">This action cannot be undone.</p>
+                                </div>
+                            </div>
+                            <p className="text-xs font-bold text-[var(--text-main)] px-1">
+                                Delete the <span className="text-red-500">{pkg.name}</span> package permanently?
+                            </p>
+                            <div className="flex gap-3">
+                                <button
+                                    type="button"
+                                    onClick={() => setDeletingId(null)}
+                                    className="flex-1 h-12 rounded-2xl border border-[var(--border-muted)] text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)] transition-all"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => handleDelete(deletingId)}
+                                    className="flex-1 h-12 rounded-2xl bg-red-500 text-white text-[10px] font-black uppercase tracking-widest hover:bg-red-600 transition-all shadow-lg shadow-red-500/20"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            })()}
+
             {/* Modal placeholder - for brevity I'll implement logic, but ideally it's a separate component */}
             <PackageModal 
                 isOpen={isModalOpen} 
@@ -146,6 +198,7 @@ function PackageModal({ isOpen, onClose, onSave, pkg }: { isOpen: boolean, onClo
     const [branchLimit, setBranchLimit] = useState(pkg?.branchLimit || 3);
     const [features, setFeatures] = useState(pkg?.features.join(", ") || "");
     const [isLoading, setIsLoading] = useState(false);
+    const [saveError, setSaveError] = useState<string | null>(null);
 
     // Ensure state updates when pkg changes (modal reuse)
     useState(() => {
@@ -179,7 +232,7 @@ function PackageModal({ isOpen, onClose, onSave, pkg }: { isOpen: boolean, onClo
             onSave({ ...data, id: pkg?.id || Date.now().toString() }); // Simplified ID for local state
             onClose();
         } else {
-            alert(res.error);
+            setSaveError(res.error ?? "Failed to save package.");
         }
         setIsLoading(false);
     };
@@ -227,6 +280,12 @@ function PackageModal({ isOpen, onClose, onSave, pkg }: { isOpen: boolean, onClo
                     </div>
                 </div>
 
+                {saveError && (
+                    <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded-2xl text-xs font-bold flex items-center gap-2">
+                        <span className="material-symbols-outlined text-sm">error</span>
+                        {saveError}
+                    </div>
+                )}
                 <div className="flex gap-4 pt-4">
                     <button type="button" onClick={onClose} className="h-14 flex-1 rounded-2xl border border-[var(--border-muted)] text-[var(--text-muted)] font-bold uppercase text-xs hover:bg-[var(--bg-surface-muted)] transition-all">Cancel</button>
                     <button type="button" onClick={handleSave} disabled={isLoading} className="h-14 flex-[2] rounded-2xl bg-[var(--text-main)] text-[var(--bg-app)] font-black uppercase text-xs tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">

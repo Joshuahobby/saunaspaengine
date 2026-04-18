@@ -11,7 +11,7 @@ import Link from "next/link";
 export default async function CorporateProfilePage({
     searchParams,
 }: {
-    searchParams: Promise<any>;
+    searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
     const session = await auth();
     if (!session?.user) redirect("/login");

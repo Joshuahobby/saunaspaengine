@@ -95,7 +95,7 @@ export async function registerBusinessAction(formData: FormData) {
         });
 
         return { success: true };
-    } catch (e: any) {
+    } catch (e) {
         console.error("registerBusinessAction error:", e);
         return { error: "Failed to create account. Please try again." };
     }

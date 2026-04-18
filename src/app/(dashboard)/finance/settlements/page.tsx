@@ -17,7 +17,7 @@ export default async function SettlementsPage() {
     const where = session.user.role === "ADMIN" ? {} : { businessId };
 
     const [settlements, branches] = await Promise.all([
-        (prisma as any).settlement.findMany({
+        prisma.settlement.findMany({
             where,
             orderBy: { periodEnd: "desc" },
             take: 20
@@ -29,15 +29,15 @@ export default async function SettlementsPage() {
     ]);
 
     // Format data for client
-    const branchMap = Object.fromEntries(branches.map((b: any) => [b.id, b.name]));
-    const settlementData = settlements.map((s: any) => ({
+    const branchMap = Object.fromEntries(branches.map((b) => [b.id, b.name]));
+    const settlementData = settlements.map((s) => ({
         ...s,
         branchName: branchMap[s.branchId] || "Unknown Branch",
         period: `${s.periodStart.toLocaleDateString()} - ${s.periodEnd.toLocaleDateString()}`
     }));
 
     return <SettlementClientPage 
-        settlements={settlementData as any} 
+        settlements={settlementData as Parameters<typeof SettlementClientPage>[0]["settlements"]}
         branches={branches.map(b => ({ id: b.id, name: b.name }))} 
     />;
 }

@@ -14,7 +14,7 @@ import ws from 'ws';
 const prismaClientSingleton = () => {
   // Return a dummy object on the client to prevent evaluation errors in browser bundles
   if (typeof window !== "undefined") {
-    return {} as any;
+    return {} as unknown as PrismaClient;
   }
 
   const isDev = process.env.NODE_ENV === "development";
@@ -23,6 +23,7 @@ const prismaClientSingleton = () => {
   if (!process.env.DATABASE_URL && isDev) {
     try {
       // Inline dynamic require prevents the bundler from pulling Node-specific logic into client components
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const dotenv = require("dotenv");
       dotenv.config();
       console.log("[PRISMA] Environment fallback triggered: .env loaded manually.");

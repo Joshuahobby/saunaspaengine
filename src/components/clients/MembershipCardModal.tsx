@@ -76,7 +76,7 @@ export default function MembershipCardModal({
         if (!cardRef.current) return null;
         
         // Surgical Fix for SecurityError: Temporarily disable external stylesheets that don't allow rule access
-        const disabledSheets: HTMLStyleElement[] = [];
+        const disabledSheets: (HTMLStyleElement | HTMLLinkElement)[] = [];
         Array.from(document.styleSheets).forEach(sheet => {
             try {
                 // Test if we can access rules
@@ -84,8 +84,8 @@ export default function MembershipCardModal({
             } catch (e) {
                 // If we can't, this sheet will cause html-to-image to crash
                 if (sheet.ownerNode instanceof HTMLStyleElement || sheet.ownerNode instanceof HTMLLinkElement) {
-                    (sheet.ownerNode as any).disabled = true;
-                    disabledSheets.push(sheet.ownerNode as any);
+                    (sheet.ownerNode as HTMLLinkElement).disabled = true;
+                    disabledSheets.push(sheet.ownerNode);
                 }
             }
         });
@@ -110,7 +110,7 @@ export default function MembershipCardModal({
             });
         } finally {
             // Restore stylesheets
-            disabledSheets.forEach(sheet => { sheet.disabled = false; });
+            disabledSheets.forEach(s => { (s as HTMLLinkElement).disabled = false; });
         }
     };
 

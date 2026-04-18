@@ -62,7 +62,7 @@ export default async function OperationsPage({
                                     <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-500 opacity-5 rounded-full blur-[100px] group-hover:opacity-10 transition-opacity duration-1000"></div>
                                     <BusinessHoursForm 
                                         branchId={branch.id} 
-                                        initialHours={branch.businessHours as any} 
+                                        initialHours={branch.businessHours as Parameters<typeof BusinessHoursForm>[0]["initialHours"]}
                                     />
                                 </div>
 
@@ -71,7 +71,7 @@ export default async function OperationsPage({
                                     <div className="space-y-2">
                                         <h4 className="font-bold text-emerald-500/80 uppercase text-[10px] tracking-widest">Smart Scheduling</h4>
                                         <p className="text-sm text-[var(--text-muted)] leading-relaxed font-bold">
-                                            Setting a "Closed" status or blocking specific hours will automatically disable online bookings and staff assignments for those times.
+                                            Setting a &quot;Closed&quot; status or blocking specific hours will automatically disable online bookings and staff assignments for those times.
                                         </p>
                                     </div>
                                 </div>

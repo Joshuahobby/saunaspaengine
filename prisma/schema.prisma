@@ -9,30 +9,30 @@ datasource db {
 }
 
 model Business {
-  id                     String           @id @default(cuid())
+  id                     String                @id @default(cuid())
   name                   String
   taxId                  String?
   headquarters           String?
   phone                  String?
-  status                 EntityStatus     @default(ACTIVE)
-  createdAt              DateTime         @default(now())
-  updatedAt              DateTime         @updatedAt
+  status                 EntityStatus          @default(ACTIVE)
+  createdAt              DateTime              @default(now())
+  updatedAt              DateTime              @updatedAt
   subscriptionCycle      String?
   subscriptionRenewal    DateTime?
   subscriptionPlanId     String?
-  approvalStatus         ApprovalStatus   @default(PENDING)
+  approvalStatus         ApprovalStatus        @default(PENDING)
   kycNotes               String?
   kycVerifiedAt          DateTime?
-  subscriptionStatus     String?          @default("ACTIVE")
+  subscriptionStatus     String?               @default("ACTIVE")
   permissions            Json?
-  platformCommissionRate Float            @default(5.0)
+  platformCommissionRate Float                 @default(5.0)
   logo                   String?
   primaryColor           String?
-  currency               String?          @default("RWF")
-  timezone               String?          @default("Africa/Kigali")
-  taxLabel               String?          @default("VAT")
+  currency               String?               @default("RWF")
+  timezone               String?               @default("Africa/Kigali")
+  taxLabel               String?               @default("VAT")
   branches               Branch[]
-  subscriptionPlan       PlatformPackage? @relation(fields: [subscriptionPlanId], references: [id])
+  subscriptionPlan       PlatformPackage?      @relation(fields: [subscriptionPlanId], references: [id])
   subscriptionPayments   SubscriptionPayment[]
   users                  User[]
 
@@ -177,22 +177,22 @@ model Employee {
 }
 
 model Client {
-  id             String          @id @default(cuid())
-  fullName       String
-  phone          String?
-  clientType     ClientType      @default(WALK_IN)
-  qrCode         String?         @unique
+  id                String          @id @default(cuid())
+  fullName          String
+  phone             String?
+  clientType        ClientType      @default(WALK_IN)
+  qrCode            String?         @unique
   membershipCardUrl String?         @db.Text
-  status         EntityStatus    @default(ACTIVE)
-  branchId       String          @map("businessId")
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  branch         Branch          @relation(fields: [branchId], references: [id], onDelete: Cascade)
-  loyaltyPoints  LoyaltyPoint[]
-  memberships    Membership[]
-  serviceRecords ServiceRecord[]
-  reviews        Review[]
-  notes          String?         @db.Text
+  status            EntityStatus    @default(ACTIVE)
+  branchId          String          @map("businessId")
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  branch            Branch          @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  loyaltyPoints     LoyaltyPoint[]
+  memberships       Membership[]
+  serviceRecords    ServiceRecord[]
+  reviews           Review[]
+  notes             String?         @db.Text
 
   // phone is searched frequently for client lookup
   @@index([phone])
@@ -259,6 +259,8 @@ model ServiceRecord {
   branchId           String              @map("businessId")
   lockerNumber       String?
   paymentMode        PaymentMode         @default(CASH)
+  pawapayDepositId   String?             @unique
+  paymentStatus      String?             @default("PENDING")
   amount             Float               @default(0)
   comment            String?
   status             ServiceRecordStatus @default(CREATED)
@@ -309,15 +311,15 @@ model Locker {
 }
 
 model CommissionLog {
-  id              String        @id @default(cuid())
-  serviceRecordId String        @unique
+  id              String          @id @default(cuid())
+  serviceRecordId String          @unique
   employeeId      String
   amount          Float
-  status          String        @default("UNPAID")
+  status          String          @default("UNPAID")
   payoutId        String?
-  createdAt       DateTime      @default(now())
-  employee        Employee      @relation(fields: [employeeId], references: [id])
-  serviceRecord   ServiceRecord @relation(fields: [serviceRecordId], references: [id])
+  createdAt       DateTime        @default(now())
+  employee        Employee        @relation(fields: [employeeId], references: [id])
+  serviceRecord   ServiceRecord   @relation(fields: [serviceRecordId], references: [id])
   payout          EmployeePayout? @relation(fields: [payoutId], references: [id])
 
   // Settlement queries filter by employeeId + status
@@ -326,19 +328,19 @@ model CommissionLog {
 }
 
 model Supplier {
-  id          String       @id @default(cuid())
-  name        String
-  email       String?
-  phone       String?
-  category    String?      // e.g., "Essential Oils", "Linens", "Wood & Charcoal"
-  address     String?
-  notes       String?
-  status      EntityStatus @default(ACTIVE)
-  branchId    String       @map("businessId")
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  branch      Branch       @relation(fields: [branchId], references: [id], onDelete: Cascade)
-  inventory   Inventory[]
+  id        String       @id @default(cuid())
+  name      String
+  email     String?
+  phone     String?
+  category  String? // e.g., "Essential Oils", "Linens", "Wood & Charcoal"
+  address   String?
+  notes     String?
+  status    EntityStatus @default(ACTIVE)
+  branchId  String       @map("businessId")
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  branch    Branch       @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  inventory Inventory[]
 
   @@map("suppliers")
 }
@@ -361,14 +363,14 @@ model Inventory {
 }
 
 model InventoryLog {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   inventoryId String
-  type        String   // "RESTOCK" or "USAGE"
+  type        String // "RESTOCK" or "USAGE"
   quantity    Int
   notes       String?
-  performedBy String?  // userId who performed the action
-  branchId    String   @map("businessId")
-  createdAt   DateTime @default(now())
+  performedBy String? // userId who performed the action
+  branchId    String    @map("businessId")
+  createdAt   DateTime  @default(now())
   inventory   Inventory @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
   branch      Branch    @relation(fields: [branchId], references: [id], onDelete: Cascade)
 
@@ -475,54 +477,54 @@ model Settlement {
 }
 
 model Review {
-  id              String        @id @default(cuid())
+  id              String   @id @default(cuid())
   rating          Int
   comment         String?
-  serviceRecordId String        @unique
+  serviceRecordId String   @unique
   clientId        String
   employeeId      String
-  branchId        String        @map("businessId")
-  createdAt       DateTime      @default(now())
-  
-  serviceRecord   ServiceRecord @relation(fields: [serviceRecordId], references: [id], onDelete: Cascade)
-  client          Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  employee        Employee      @relation(fields: [employeeId], references: [id], onDelete: Cascade)
-  branch          Branch        @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  branchId        String   @map("businessId")
+  createdAt       DateTime @default(now())
+
+  serviceRecord ServiceRecord @relation(fields: [serviceRecordId], references: [id], onDelete: Cascade)
+  client        Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  employee      Employee      @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  branch        Branch        @relation(fields: [branchId], references: [id], onDelete: Cascade)
 
   @@map("reviews")
 }
 
 model Shift {
-  id          String      @id @default(cuid())
-  employeeId  String
-  branchId    String      @map("businessId")
-  date        DateTime
-  startTime   String
-  endTime     String
-  status      ShiftStatus @default(SCHEDULED)
-  notes       String?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id         String      @id @default(cuid())
+  employeeId String
+  branchId   String      @map("businessId")
+  date       DateTime
+  startTime  String
+  endTime    String
+  status     ShiftStatus @default(SCHEDULED)
+  notes      String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 
-  employee    Employee    @relation(fields: [employeeId], references: [id], onDelete: Cascade)
-  branch      Branch      @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  branch   Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
 
   @@map("shifts")
 }
 
 model EmployeePayout {
-  id          String           @id @default(cuid())
-  employeeId  String
-  branchId    String           @map("businessId")
-  amount      Float
-  status      PayoutStatus     @default(PENDING)
-  paidAt      DateTime?
-  reference   String?
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  id         String       @id @default(cuid())
+  employeeId String
+  branchId   String       @map("businessId")
+  amount     Float
+  status     PayoutStatus @default(PENDING)
+  paidAt     DateTime?
+  reference  String?
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 
-  employee      Employee         @relation(fields: [employeeId], references: [id], onDelete: Cascade)
-  branch        Branch           @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  employee       Employee        @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  branch         Branch          @relation(fields: [branchId], references: [id], onDelete: Cascade)
   commissionLogs CommissionLog[]
 
   @@map("employee_payouts")
@@ -559,7 +561,6 @@ enum ServiceRecordStatus {
   IN_PROGRESS
   COMPLETED
   CANCELLED
-
 }
 
 enum EntityStatus {

@@ -14,13 +14,42 @@ interface StepProps {
     onPrev: () => void;
 }
 
+interface ServiceEntry {
+    id: number;
+    name: string;
+    price: number;
+    duration: number;
+    category: string;
+    status: string;
+}
+
 export function Step2Services({ branch, onNext, onPrev }: StepProps) {
     const [loading, setLoading] = useState(false);
-    const [services, setServices] = useState([
-        { id: 1, name: "Traditional Swedish Massage", price: 25000, duration: 60, category: "Masseuse", status: "Active" },
-        { id: 2, name: "Deep Tissue Therapy", price: 35000, duration: 90, category: "Masseuse", status: "Active" },
-        { id: 3, name: "Steam Room Access", price: 10000, duration: 30, category: "General", status: "Active" },
-    ]);
+    const [services, setServices] = useState<ServiceEntry[]>([]);
+
+    // Form inputs
+    const [nameInput, setNameInput] = useState("");
+    const [categoryInput, setCategoryInput] = useState("General");
+    const [priceInput, setPriceInput] = useState("");
+    const [durationInput, setDurationInput] = useState("60");
+    const [formError, setFormError] = useState("");
+
+    const addService = () => {
+        if (!nameInput.trim()) { setFormError("Service name is required."); return; }
+        if (!priceInput || Number(priceInput) <= 0) { setFormError("Enter a valid price."); return; }
+        setFormError("");
+        setServices(prev => [...prev, {
+            id: Date.now(),
+            name: nameInput.trim(),
+            price: Number(priceInput),
+            duration: Number(durationInput) || 60,
+            category: categoryInput || "General",
+            status: "Active",
+        }]);
+        setNameInput("");
+        setPriceInput("");
+        setDurationInput("60");
+    };
 
     const removeService = (id: number) => {
         setServices(services.filter(s => s.id !== id));
@@ -61,38 +90,94 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
                 <div className="bg-white/5 border border-white/5 rounded-2xl p-5 space-y-1">
                     <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40">Categories</p>
                     <p className="text-2xl font-black text-[var(--text-main)]">
-                        {new Set(services.map(s => s.category)).size}
+                        {new Set(services.map(s => s.category)).size || 0}
                     </p>
                 </div>
                 <div className="bg-white/5 border border-white/5 rounded-2xl p-5 space-y-1">
                     <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40">Setup Status</p>
-                    <p className="text-2xl font-black text-[var(--color-primary)]">Optimized</p>
+                    <p className="text-2xl font-black text-[var(--color-primary)]">
+                        {services.length > 0 ? "Configured" : "Pending"}
+                    </p>
                 </div>
             </div>
 
             {/* Add Service Section */}
-            <section className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 space-y-8">
+            <section className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 space-y-6">
                 <div className="flex items-center gap-3 border-b border-white/5 pb-4">
                     <span className="material-symbols-outlined text-[var(--color-primary)]">add_circle</span>
                     <h2 className="text-xl font-bold text-[var(--text-main)]">Add New Service</h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
-                    <div className="md:col-span-1 space-y-2">
-                        <label htmlFor="treatment-name" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Treatment Name</label>
-                        <input id="treatment-name" title="Treatment Name" type="text" placeholder="e.g. Hot Stone" className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all" />
+                <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <label htmlFor="treatment-name" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Treatment Name</label>
+                            <input
+                                id="treatment-name"
+                                title="Treatment Name"
+                                type="text"
+                                placeholder="e.g. Hot Stone Massage"
+                                value={nameInput}
+                                onChange={e => setNameInput(e.target.value)}
+                                onKeyDown={e => e.key === "Enter" && addService()}
+                                className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all"
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label htmlFor="treatment-category" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Category</label>
+                            <select
+                                id="treatment-category"
+                                title="Service Category"
+                                value={categoryInput}
+                                onChange={e => setCategoryInput(e.target.value)}
+                                className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all appearance-none cursor-pointer"
+                            >
+                                <option value="General">General</option>
+                                <option value="Masseuse">Masseuse</option>
+                                <option value="Therapist">Therapist</option>
+                                <option value="Sauna">Sauna</option>
+                                <option value="Beauty">Beauty</option>
+                            </select>
+                        </div>
                     </div>
-                    <div className="space-y-2">
-                        <label htmlFor="treatment-price" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Currency (RWF)</label>
-                        <input id="treatment-price" title="Treatment Price" type="number" placeholder="15000" className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all" />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                        <div className="space-y-2">
+                            <label htmlFor="treatment-price" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Price (RWF)</label>
+                            <input
+                                id="treatment-price"
+                                title="Treatment Price"
+                                type="number"
+                                min="0"
+                                placeholder="15000"
+                                value={priceInput}
+                                onChange={e => setPriceInput(e.target.value)}
+                                className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all"
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label htmlFor="treatment-duration" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Duration (min)</label>
+                            <input
+                                id="treatment-duration"
+                                title="Treatment Duration"
+                                type="number"
+                                min="5"
+                                placeholder="60"
+                                value={durationInput}
+                                onChange={e => setDurationInput(e.target.value)}
+                                className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all"
+                            />
+                        </div>
+                        <button
+                            type="button"
+                            onClick={addService}
+                            className="h-12 bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[var(--color-primary)] hover:text-[var(--bg-app)] transition-all"
+                        >
+                            Add Service
+                        </button>
                     </div>
-                    <div className="space-y-2">
-                        <label htmlFor="treatment-duration" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-50">Duration (min)</label>
-                        <input id="treatment-duration" title="Treatment Duration" type="number" placeholder="60" className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all" />
-                    </div>
-                    <button className="h-12 bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[var(--color-primary)] hover:text-[var(--bg-app)] transition-all">
-                        Add Service
-                    </button>
+                    {formError && (
+                        <p className="text-red-400 text-xs font-bold">{formError}</p>
+                    )}
                 </div>
             </section>
 
@@ -112,12 +197,12 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
                         <tbody className="divide-y divide-white/5">
                             <AnimatePresence mode="popLayout">
                                 {services.map((s) => (
-                                    <motion.tr 
+                                    <motion.tr
                                         layout
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, x: -20 }}
-                                        key={s.id} 
+                                        key={s.id}
                                         className="hover:bg-white/[0.02] transition-colors group/row"
                                     >
                                         <td className="px-8 py-5">
@@ -144,7 +229,11 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
                                         </td>
                                         <td className="px-8 py-5">
                                             <div className="flex items-center justify-center gap-3">
-                                                <button onClick={() => removeService(s.id)} className="size-8 rounded-lg flex items-center justify-center text-[var(--text-muted)] hover:text-red-500 hover:bg-red-500/10 transition-all">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeService(s.id)}
+                                                    className="size-8 rounded-lg flex items-center justify-center text-[var(--text-muted)] hover:text-red-500 hover:bg-red-500/10 transition-all"
+                                                >
                                                     <span className="material-symbols-outlined text-lg">delete</span>
                                                 </button>
                                             </div>
@@ -157,7 +246,7 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
                                     <td colSpan={5} className="px-8 py-16 text-center">
                                         <div className="flex flex-col items-center gap-3 opacity-30">
                                             <span className="material-symbols-outlined text-4xl">inventory_2</span>
-                                            <p className="text-sm font-bold">Catalog is currently empty</p>
+                                            <p className="text-sm font-bold">Add your first service above</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -169,8 +258,8 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
 
             {/* Actions */}
             <div className="flex items-center justify-between pt-12 border-t border-white/5">
-                <button 
-                    type="button" 
+                <button
+                    type="button"
                     onClick={onPrev}
                     className="h-14 px-8 rounded-2xl border border-white/5 font-bold text-sm text-[var(--text-muted)] hover:bg-white/5 hover:text-[var(--text-main)] transition-all flex items-center gap-3"
                 >
@@ -181,14 +270,15 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
                     <p className="text-xs text-[var(--text-muted)] font-bold opacity-40 hidden md:block">
                         Recommended: At least 3 treatments for initial launch.
                     </p>
-                    <button 
+                    <button
+                        type="button"
                         onClick={handleContinue}
                         disabled={loading}
                         className="h-14 px-12 bg-[var(--text-main)] text-[var(--bg-app)] rounded-2xl font-bold flex items-center gap-4 shadow-2xl shadow-black/20 hover:scale-[1.02] active:scale-[0.98] transition-all group overflow-hidden relative"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full duration-1000 transition-transform" />
                         {loading ? (
-                            <span className="size-5 border-3 border-[var(--bg-app)] border-t-transparent rounded-full animate-spin"></span>
+                            <span className="size-5 border-3 border-[var(--bg-app)] border-t-transparent rounded-full animate-spin" />
                         ) : (
                             <>
                                 Save Services

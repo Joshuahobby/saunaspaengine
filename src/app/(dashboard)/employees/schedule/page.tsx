@@ -5,14 +5,20 @@ import { format, startOfDay, endOfDay, startOfWeek, addDays } from "date-fns";
 import Link from "next/link";
 import ScheduleClient from "./client-page";
 
-export default async function EmployeeSchedulePage() {
+export default async function EmployeeSchedulePage({
+    searchParams,
+}: {
+    searchParams: Promise<{ empId?: string }>;
+}) {
     const session = await auth();
     if (!session?.user) redirect("/login");
-    
+
     const isEmployee = session.user.role === "EMPLOYEE";
     const isManager = session.user.role === "MANAGER";
-    
+
     if (!session.user.branchId) redirect("/dashboard");
+
+    const { empId } = await searchParams;
 
     // For EMPLOYEE role: find their linked employee profile
     // For MANAGER role: show all employees in their branch with a selector
@@ -30,8 +36,11 @@ export default async function EmployeeSchedulePage() {
             include: { category: true },
             orderBy: { fullName: "asc" }
         });
-        // Default to first employee for initial view
-        employee = branchEmployees[0] || null;
+        // Use empId param if provided and valid for this branch, otherwise default to first
+        const requested = empId
+            ? branchEmployees.find(e => e.id === empId) ?? null
+            : null;
+        employee = requested ?? branchEmployees[0] ?? null;
     }
 
     if (!employee) {
@@ -49,9 +58,9 @@ export default async function EmployeeSchedulePage() {
                         : "No active employees found in your branch. Register staff from the employee directory."
                     }
                 </p>
-                <Link href="/employees" className="inline-flex items-center gap-2 text-sm text-[var(--color-primary)] font-bold hover:underline mt-4">
+                <Link href="/staff?tab=directory" className="inline-flex items-center gap-2 text-sm text-[var(--color-primary)] font-bold hover:underline mt-4">
                     <span className="material-symbols-outlined text-lg">arrow_back</span>
-                    Go to Employee Directory
+                    Go to Staff Directory
                 </Link>
             </div>
         );
@@ -174,7 +183,7 @@ export default async function EmployeeSchedulePage() {
                     <div className="glass-card p-5">
                         <h3 className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-3 opacity-60">Quick Links</h3>
                         <div className="flex flex-col gap-2">
-                            <Link href="/employees" className="flex items-center gap-3 p-2 rounded-lg hover:bg-[var(--bg-surface-muted)] text-sm transition-colors text-[var(--text-muted)] w-full">
+                            <Link href="/staff?tab=directory" className="flex items-center gap-3 p-2 rounded-lg hover:bg-[var(--bg-surface-muted)] text-sm transition-colors text-[var(--text-muted)] w-full">
                                 <span className="material-symbols-outlined text-[var(--color-primary)]">groups</span>
                                 <span>Staff Directory</span>
                             </Link>
@@ -192,11 +201,11 @@ export default async function EmployeeSchedulePage() {
 
                 {/* Right Column: Schedule View */}
                 <div className="lg:col-span-9 flex flex-col gap-6">
-                    <ScheduleClient 
-                        employee={employee as any}
-                        isManager={isManager} 
-                        shifts={shifts as any} 
-                        weekStart={weekStart} 
+                    <ScheduleClient
+                        employee={employee}
+                        isManager={isManager}
+                        shifts={shifts}
+                        weekStart={weekStart}
                     />
                 </div>
             </div>

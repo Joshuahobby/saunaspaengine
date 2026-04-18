@@ -71,8 +71,8 @@ export async function createBusinessAction(formData: FormData) {
 
         return { success: true, data: result };
 
-    } catch (e: any) {
+    } catch (e) {
         console.error("Create business failed: ", e);
-        return { error: e.message || "Failed to register business." };
+        return { error: (e as Error).message || "Failed to register business." };
     }
 }

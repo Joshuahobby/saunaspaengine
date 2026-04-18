@@ -115,13 +115,13 @@ function ReviewEntry({ name, initials, rating, text, replied, reply }: { name: s
             </div>
 
             <p className="text-base font-bold text-[var(--text-main)] opacity-80 leading-relaxed pl-6 border-l-2 border-emerald-500/20 italic mb-8">
-                "{text}"
+                &quot;{text}&quot;
             </p>
 
             {replied && reply && (
                 <div className="p-8 bg-emerald-500/5 rounded-[2rem] border border-emerald-500/10 mb-8">
                     <p className="text-[9px] font-black uppercase tracking-widest text-emerald-500 mb-2">Spa Management Response</p>
-                    <p className="text-sm font-bold opacity-90 leading-relaxed italic">"{reply}"</p>
+                    <p className="text-sm font-bold opacity-90 leading-relaxed italic">&quot;{reply}&quot;</p>
                 </div>
             )}
 

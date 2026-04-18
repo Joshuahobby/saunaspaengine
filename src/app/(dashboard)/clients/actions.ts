@@ -20,8 +20,8 @@ export async function updateClientStatus(id: string, status: EntityStatus) {
         revalidatePath("/clients");
         revalidatePath(`/clients/${id}`);
         return { success: true };
-    } catch (error: any) {
-        return { error: "Failed to update client status: " + error.message };
+    } catch (error) {
+        return { error: "Failed to update client status: " + (error as Error).message };
     }
 }
 
@@ -70,8 +70,8 @@ export async function deleteClient(id: string) {
 
         revalidatePath("/clients");
         return { success: true };
-    } catch (error: any) {
-        return { error: "Failed to delete client: " + error.message };
+    } catch (error) {
+        return { error: "Failed to delete client: " + (error as Error).message };
     }
 }
 
@@ -104,10 +104,11 @@ export async function updateClientAction(id: string, formData: FormData) {
         revalidatePath("/clients");
         revalidatePath(`/clients/${id}`);
         return { success: true };
-    } catch (error: any) {
-        if (error.code === 'P2002' && error.meta?.target?.includes('phone')) {
+    } catch (error) {
+        const e = error as { code?: string; meta?: { target?: string[] }; message?: string };
+        if (e.code === 'P2002' && e.meta?.target?.includes('phone')) {
             return { error: "A client with this phone number already exists." };
         }
-        return { error: "Failed to update client: " + error.message };
+        return { error: "Failed to update client: " + (e.message ?? "Unknown error") };
     }
 }

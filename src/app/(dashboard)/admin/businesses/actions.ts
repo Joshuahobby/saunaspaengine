@@ -64,8 +64,7 @@ export async function updateBusinessApprovalAction(id: string, data: {
     kycNotes?: string;
 }) {
     try {
-        const db = prisma as any;
-        await db.business.update({
+        await prisma.business.update({
             where: { id },
             data: {
                 approvalStatus: data.approvalStatus,

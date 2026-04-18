@@ -14,6 +14,38 @@ import { motion, AnimatePresence } from "framer-motion";
 import { formatCurrency } from "@/lib/utils";
 import { updateBranchAction } from "../../admin/branches/actions";
 
+interface BranchUIProps {
+    branch: {
+        id: string;
+        name: string;
+        status: string;
+        email?: string | null;
+        phone?: string | null;
+        address?: string | null;
+        business?: { name: string } | null;
+        _count: { clients: number; employees: number; services: number };
+        serviceRecords: Array<{
+            id: string;
+            service?: { name: string } | null;
+            employee?: { fullName: string } | null;
+            amount: number;
+            createdAt: Date | string;
+            status: string;
+            completedAt?: Date | string | null;
+        }>;
+    };
+    intelligence: {
+        totalYield: number;
+        totalServices: number;
+        avgRating: number;
+        occupancyRate: number;
+        velocityData: number[];
+        leaderboard: Array<{ name: string; yield: number; count: number; avgRating: number }>;
+        lastActive: Date | string;
+    };
+    isOwner: boolean;
+}
+
 // Revenue Sparkline Component
 const BranchSparkline = ({ data }: { data: number[] }) => {
     const max = Math.max(...data, 1);
@@ -28,7 +60,7 @@ const BranchSparkline = ({ data }: { data: number[] }) => {
     );
 };
 
-export default function BranchUI({ branch, intelligence, isOwner }: any) {
+export default function BranchUI({ branch, intelligence, isOwner }: BranchUIProps) {
     const [activeTab, setActiveTab] = useState<"performance" | "manage">("performance");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -55,8 +87,8 @@ export default function BranchUI({ branch, intelligence, isOwner }: any) {
             } else {
                 setError(res.error || "Failed to update branch");
             }
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err) {
+            setError((err as Error).message);
         } finally {
             setLoading(false);
         }
@@ -104,7 +136,8 @@ export default function BranchUI({ branch, intelligence, isOwner }: any) {
                 </div>
                 
                 <div className="flex items-center gap-3 w-full lg:w-auto relative z-10">
-                    <button 
+                    <button
+                        type="button"
                         onClick={() => setActiveTab(activeTab === 'performance' ? 'manage' : 'performance')}
                         className={`flex-1 lg:flex-none flex items-center justify-center gap-3 px-8 py-4 rounded-2xl transition-all text-xs font-black uppercase tracking-widest ${activeTab === 'manage' ? 'bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20' : 'bg-[var(--text-main)] text-[var(--bg-card)] hover:opacity-90 shadow-sm'}`}
                     >
@@ -150,7 +183,7 @@ export default function BranchUI({ branch, intelligence, isOwner }: any) {
                             <div className="bg-[var(--bg-card)] border border-[var(--border-main)] p-6 rounded-[32px] shadow-sm flex flex-col gap-4">
                                 <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-30 border-b border-[var(--border-muted)] pb-3">Staff Leaderboard</h2>
                                 <div className="space-y-4">
-                                    {intelligence.leaderboard.map((staff: any, idx: number) => (
+                                    {intelligence.leaderboard.map((staff, idx) => (
                                         <div key={idx} className="flex items-center justify-between group">
                                             <div className="flex items-center gap-3">
                                                 <div className="size-8 rounded-lg bg-[var(--bg-surface-muted)] flex items-center justify-center text-[9px] font-black text-[var(--text-muted)] opacity-40 border border-[var(--border-muted)] group-hover:border-[var(--color-primary)]/40 transition-all">
@@ -188,7 +221,7 @@ export default function BranchUI({ branch, intelligence, isOwner }: any) {
                             </div>
                             <div className="p-8 flex-1 custom-scrollbar overflow-y-auto space-y-3">
                                 {branch.serviceRecords?.length > 0 ? (
-                                    branch.serviceRecords.map((record: any) => (
+                                    branch.serviceRecords.map((record) => (
                                         <div key={record.id} className="group p-4 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl flex items-center justify-between hover:bg-[var(--bg-card)] hover:border-[var(--color-primary)]/20 transition-all">
                                             <div className="flex items-center gap-5">
                                                 <div className="size-12 rounded-xl bg-[var(--bg-card)] border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] shadow-inner">
@@ -273,7 +306,8 @@ export default function BranchUI({ branch, intelligence, isOwner }: any) {
                                 </div>
 
                                 <div className="flex justify-end pt-4">
-                                    <button 
+                                    <button
+                                        type="submit"
                                         disabled={loading}
                                         className="bg-[var(--text-main)] text-[var(--bg-app)] px-12 py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all shadow-2xl flex items-center gap-3 disabled:opacity-50"
                                     >

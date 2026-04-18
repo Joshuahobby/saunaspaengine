@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { deleteBusinessAction } from "./actions";
 
-export function DeleteBusinessModal({ isOpen, onClose, business }: { isOpen: boolean, onClose: () => void, business: any }) {
+export function DeleteBusinessModal({ isOpen, onClose, business }: { isOpen: boolean; onClose: () => void; business: { id: string; name: string } }) {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [confirmationName, setConfirmationName] = useState("");
@@ -66,7 +66,7 @@ export function DeleteBusinessModal({ isOpen, onClose, business }: { isOpen: boo
                         )}
 
                         <div className="space-y-2">
-                            <label className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest pl-2">Type "{business.name}"</label>
+                            <label className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest pl-2">Type &quot;{business.name}&quot;</label>
                             <input
                                 required
                                 type="text"

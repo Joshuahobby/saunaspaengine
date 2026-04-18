@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { resolveEffectiveBranchId } from "@/lib/branch-context";
 import { format } from "date-fns";
+import CheckoutButton from "@/components/operations/checkout-button";
 
 export default async function TodaysActivityTab({
     searchParams
@@ -29,7 +30,7 @@ export default async function TodaysActivityTab({
                 createdAt: { gte: today }
             },
             include: {
-                client: { select: { fullName: true } },
+                client: { select: { fullName: true, phone: true } },
                 service: { select: { name: true } },
                 employee: { select: { fullName: true } }
             },
@@ -52,7 +53,7 @@ export default async function TodaysActivityTab({
             {/* Day Summary */}
             <div className="flex flex-wrap gap-6">
                 <div className="glass-card p-8 rounded-3xl border border-[var(--border-muted)] flex-1 min-w-[200px]">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-60 mb-2">Today's Attendance</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-60 mb-2">Today&apos;s Attendance</p>
                     <p className="text-4xl font-black">{totalCount} Clients</p>
                 </div>
                 <div className="glass-card p-8 rounded-3xl border border-[var(--border-muted)] flex-1 min-w-[200px] bg-[var(--color-primary)]/5">
@@ -86,22 +87,23 @@ export default async function TodaysActivityTab({
                                 records.map((r) => (
                                     <tr key={r.id} className="hover:bg-[var(--bg-surface-muted)]/20 transition-all group">
                                         <td className="px-8 py-6 font-black text-xs opacity-40">{format(r.createdAt, "HH:mm")}</td>
-                                        <td className="px-8 py-6 font-bold text-sm tracking-tight">{r.client.fullName}</td>
+                                        <td className="px-8 py-6 font-bold text-sm tracking-tight">{r.client?.fullName || "Unknown Client"}</td>
                                         <td className="px-8 py-6">
                                             <span className="text-[10px] font-black uppercase tracking-wider text-[var(--color-primary)] bg-[var(--color-primary)]/5 px-3 py-1 rounded-full border border-[var(--color-primary)]/10">
-                                                {r.service.name}
+                                                {r.service?.name || "Unknown Service"}
                                             </span>
                                         </td>
                                         <td className="px-8 py-6 text-xs font-bold text-[var(--text-muted)]">{r.employee?.fullName || "Unassigned"}</td>
-                                        <td className="px-8 py-6 text-right font-black text-sm">RWF {r.amount.toLocaleString()}</td>
+                                        <td className="px-8 py-6 text-right font-black text-sm">RWF {(r.amount || 0).toLocaleString()}</td>
+
                                         <td className="px-8 py-6 text-right">
-                                            <span className={`text-[8px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full border ${
-                                                r.status === 'COMPLETED' ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" : 
-                                                r.status === 'CANCELLED' ? "bg-red-500/10 text-red-500 border-red-500/20" :
-                                                "bg-amber-500/10 text-amber-500 border-amber-500/20"
-                                            }`}>
-                                                {r.status}
-                                            </span>
+                                            <CheckoutButton 
+                                                recordId={r.id}
+                                                currentStatus={r.status}
+                                                clientName={r.client?.fullName || "Unknown"}
+                                                amount={r.amount || 0}
+                                                phone={r.client?.phone || undefined}
+                                            />
                                         </td>
                                     </tr>
                                 ))

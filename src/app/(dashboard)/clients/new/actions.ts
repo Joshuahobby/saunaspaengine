@@ -98,11 +98,12 @@ export async function registerClient(formData: FormData) {
 
         revalidatePath("/clients");
         return { success: true, ...result };
-    } catch (error: any) {
+    } catch (error) {
         // Simple duplicate phone catch
-        if (error.code === 'P2002' && error.meta?.target?.includes('phone')) {
+        const e = error as { code?: string; meta?: { target?: string[] }; message?: string };
+        if (e.code === 'P2002' && e.meta?.target?.includes('phone')) {
             return { error: "A client with this phone number already exists." };
         }
-        return { error: "Failed to register client: " + error.message };
+        return { error: "Failed to register client: " + (e.message ?? "Unknown error") };
     }
 }

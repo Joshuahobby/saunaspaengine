@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { PermissionMatrix } from "@/lib/permissions";
@@ -20,7 +21,7 @@ export async function updateRolePermissionsAction(matrix: PermissionMatrix) {
     await prisma.business.update({
         where: { id: businessId },
         data: {
-            permissions: matrix as any
+            permissions: matrix as unknown as Prisma.InputJsonValue
         }
     });
 

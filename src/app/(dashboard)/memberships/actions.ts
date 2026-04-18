@@ -3,7 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
-import { MembershipType, EntityStatus } from "@prisma/client";
+import { Prisma, MembershipType, EntityStatus } from "@prisma/client";
 
 export async function createMembershipCategoryAction(data: {
     name: string;
@@ -60,7 +60,7 @@ export async function updateMembershipCategoryAction(id: string, data: {
     if (!session?.user) throw new Error("Unauthorized");
 
     // Owners can update any category in their business, managers only their branch
-    const where: any = { id };
+    const where: { id: string; branchId?: string | null; branch?: { businessId?: string | null } } = { id };
     if (session.user.role !== 'OWNER' && session.user.role !== 'ADMIN') {
         if (!session.user.branchId) throw new Error("Unauthorized");
         where.branchId = session.user.branchId;
@@ -70,7 +70,7 @@ export async function updateMembershipCategoryAction(id: string, data: {
 
     try {
         await prisma.membershipCategory.update({
-            where,
+            where: where as Prisma.MembershipCategoryWhereUniqueInput,
             data
         });
         revalidatePath("/memberships");
@@ -91,14 +91,14 @@ export async function deleteMembershipCategoryAction(id: string) {
         return { success: false, error: "Critical Violation: Only Business Owners can remove membership categories." };
     }
 
-    const where: any = { 
+    const where: { id: string; branch: { businessId?: string | null } } = {
         id,
         branch: { businessId: session.user.businessId }
     };
 
     try {
         const archived = await prisma.membershipCategory.update({
-            where,
+            where: where as Prisma.MembershipCategoryWhereUniqueInput,
             data: { status: "INACTIVE" },
             include: { branch: true }
         });

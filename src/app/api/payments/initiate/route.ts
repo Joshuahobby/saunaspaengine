@@ -3,9 +3,6 @@ import { randomUUID } from "crypto";
 import { prisma } from "@/lib/prisma";
 import { createDeposit, detectCorrespondent, normalizePhone } from "@/lib/pawapay";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const db = prisma as any;
-
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json() as { email?: string; phone?: string };
@@ -72,7 +69,7 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        await db.subscriptionPayment.create({
+        await prisma.subscriptionPayment.create({
             data: {
                 depositId,
                 businessId: business.id,

@@ -19,6 +19,7 @@ export default function RolesClientPage({ initialCategories }: { initialCategori
     const [formData, setFormData] = useState({ name: "", description: "" });
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [deletingId, setDeletingId] = useState<string | null>(null);
 
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -73,14 +74,7 @@ export default function RolesClientPage({ initialCategories }: { initialCategori
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this role?")) return;
-        
-        const category = categories.find(c => c.id === id);
-        if (category && category._count.employees > 0) {
-            alert(`Cannot delete: ${category._count.employees} employee(s) are using this role. Please assign them to a different role first.`);
-            return;
-        }
-
+        setDeletingId(null);
         setError(null);
         try {
             const res = await fetch(`/api/employee-categories/${id}`, { method: "DELETE" });
@@ -109,6 +103,7 @@ export default function RolesClientPage({ initialCategories }: { initialCategori
     };
 
     return (
+        <>
         <div className="max-w-4xl mx-auto space-y-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
                 <div>
@@ -122,7 +117,8 @@ export default function RolesClientPage({ initialCategories }: { initialCategori
                     </p>
                 </div>
                 {!isAdding && !editingId && (
-                    <button 
+                    <button
+                        type="button"
                         onClick={() => { setIsAdding(true); setFormData({ name: "", description: "" }); setError(null); }}
                         className="bg-[var(--color-primary)] text-[var(--color-bg-dark)] px-5 py-3 rounded-lg text-sm font-bold flex items-center gap-2 hover:brightness-110 shadow-lg shadow-[var(--color-primary)]/20 transition-all"
                     >
@@ -216,19 +212,21 @@ export default function RolesClientPage({ initialCategories }: { initialCategori
                                 </td>
                                 <td className="px-6 py-4 text-right">
                                     <div className="flex justify-end gap-2">
-                                        <button 
+                                        <button
+                                            type="button"
                                             onClick={() => startEditing(category)}
                                             className="text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-all p-2 hover:bg-[var(--bg-surface-muted)] rounded-xl"
                                             title="Edit Role"
                                         >
                                             <span className="material-symbols-outlined text-[18px]">edit</span>
                                         </button>
-                                        <button 
-                                            onClick={() => handleDelete(category.id)}
+                                        <button
+                                            type="button"
+                                            onClick={() => setDeletingId(category.id)}
                                             disabled={category._count.employees > 0}
                                             className={`transition-all p-2 rounded-xl text-[18px] ${
-                                                category._count.employees > 0 
-                                                    ? 'text-[var(--border-muted)] cursor-not-allowed' 
+                                                category._count.employees > 0
+                                                    ? 'text-[var(--border-muted)] cursor-not-allowed'
                                                     : 'text-red-400/70 hover:text-red-400 hover:bg-red-400/10 cursor-pointer'
                                             }`}
                                             title={category._count.employees > 0 ? "Cannot delete role with assigned staff" : "Delete Role"}
@@ -250,5 +248,45 @@ export default function RolesClientPage({ initialCategories }: { initialCategori
                 </table>
             </div>
         </div>
+
+        {deletingId && (() => {
+                const category = categories.find(c => c.id === deletingId);
+                if (!category) return null;
+                return (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                        <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-3xl p-8 w-full max-w-sm shadow-2xl space-y-6">
+                            <div className="flex items-center gap-4">
+                                <div className="size-12 rounded-2xl bg-red-500/10 flex items-center justify-center shrink-0">
+                                    <span className="material-symbols-outlined text-red-500 text-2xl">delete</span>
+                                </div>
+                                <div>
+                                    <h3 className="text-sm font-black uppercase tracking-widest text-[var(--text-main)]">Delete Role</h3>
+                                    <p className="text-[10px] text-[var(--text-muted)] mt-1">This action cannot be undone.</p>
+                                </div>
+                            </div>
+                            <p className="text-xs font-bold text-[var(--text-main)] px-1">
+                                Delete the <span className="text-red-500">{category.name}</span> role permanently?
+                            </p>
+                            <div className="flex gap-3">
+                                <button
+                                    type="button"
+                                    onClick={() => setDeletingId(null)}
+                                    className="flex-1 h-12 rounded-2xl border border-[var(--border-muted)] text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)] transition-all"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => handleDelete(deletingId)}
+                                    className="flex-1 h-12 rounded-2xl bg-red-500 text-white text-[10px] font-black uppercase tracking-widest hover:bg-red-600 transition-all shadow-lg shadow-red-500/20"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+        })()}
+        </>
     );
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import { searchLimiter, getClientIp } from "@/lib/rate-limit";
 
@@ -37,7 +38,7 @@ export async function GET(request: NextRequest) {
 
         // 2. Search for the client
         // We look specifically for the client across the whole corporate network
-        let searchCondition: any;
+        let searchCondition: Prisma.ClientWhereInput;
         if (query.startsWith("spa-client:")) {
             const extractedId = query.replace("spa-client:", "");
             searchCondition = { id: extractedId };

@@ -9,7 +9,7 @@ export const metadata = {
     title: "Intelligence Hub | Sauna SPA",
 };
 
-export default async function AnalyticsPage(props: any) {
+export default async function AnalyticsPage(props: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
     const session = await auth();
     
     if (!session?.user) {

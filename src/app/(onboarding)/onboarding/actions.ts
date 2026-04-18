@@ -18,7 +18,7 @@ export async function updateOnboardingStepAction(branchId: string, step: number)
     }
 }
 
-export async function saveBranchProfileAction(branchId: string, data: any) {
+export async function saveBranchProfileAction(branchId: string, data: { name: string; email?: string | null; phone?: string | null; address?: string | null; businessHours?: unknown }) {
     try {
         await prisma.branch.update({
             where: { id: branchId },
@@ -38,7 +38,7 @@ export async function saveBranchProfileAction(branchId: string, data: any) {
     }
 }
 
-export async function saveBranchServicesAction(branchId: string, servicesData: any[]) {
+export async function saveBranchServicesAction(branchId: string, servicesData: Array<{ name: string; category: string; duration: number; price: number }>) {
     try {
         // We'll create the selected services for the branch
         const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
@@ -63,7 +63,7 @@ export async function saveBranchServicesAction(branchId: string, servicesData: a
     }
 }
 
-export async function saveBranchTeamAction(branchId: string, teamData: any[]) {
+export async function saveBranchTeamAction(branchId: string, teamData: Array<{ fullName: string; role?: string; phone?: string; email?: string }>) {
     try {
         // Need to ensure an employee category exists first
         const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {

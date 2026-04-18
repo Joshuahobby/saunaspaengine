@@ -20,6 +20,8 @@ export default function MatrixClient({ initialMatrix }: MatrixClientProps) {
     const [matrix, setMatrix] = useState<PermissionMatrix>(initialMatrix || DEFAULT_ROLE_PERMISSIONS);
     const [isSaving, setIsSaving] = useState(false);
     const [lastSaved, setLastSaved] = useState<Date | null>(null);
+    const [saveError, setSaveError] = useState<string | null>(null);
+    const [showResetConfirm, setShowResetConfirm] = useState(false);
 
     const togglePermission = (role: UserRole, permission: PermissionKey) => {
         if (role === "ADMIN") return; // Admin permissions are immutable (always full)
@@ -39,21 +41,21 @@ export default function MatrixClient({ initialMatrix }: MatrixClientProps) {
 
     const handleSave = async () => {
         setIsSaving(true);
+        setSaveError(null);
         try {
             await updateRolePermissionsAction(matrix);
             setLastSaved(new Date());
         } catch (error) {
             console.error("Failed to save matrix:", error);
-            alert("Security breach detected or failed validation. Check audit logs.");
+            setSaveError("Validation failed. Check audit logs and try again.");
         } finally {
             setIsSaving(false);
         }
     };
 
     const handleReset = () => {
-        if (confirm("Reset to sanctuary defaults? This will erase all custom overrides.")) {
-            setMatrix(DEFAULT_ROLE_PERMISSIONS);
-        }
+        setShowResetConfirm(false);
+        setMatrix(DEFAULT_ROLE_PERMISSIONS);
     };
 
     return (
@@ -69,11 +71,12 @@ export default function MatrixClient({ initialMatrix }: MatrixClientProps) {
                     </p>
                 </div>
                 <div className="flex gap-4">
-                    <button className="flex items-center justify-center gap-3 rounded-2xl border border-[var(--border-muted)] px-6 py-4 font-bold text-[var(--text-main)] transition-all hover:bg-[var(--bg-card)]">
+                    <button type="button" className="flex items-center justify-center gap-3 rounded-2xl border border-[var(--border-muted)] px-6 py-4 font-bold text-[var(--text-main)] transition-all hover:bg-[var(--bg-card)]">
                         <span className="material-symbols-outlined font-bold">history</span>
                         Audit Trail
                     </button>
-                    <button 
+                    <button
+                        type="button"
                         onClick={handleSave}
                         disabled={isSaving}
                         className="flex items-center justify-center gap-3 rounded-2xl bg-[var(--text-main)] px-8 py-4 font-bold text-[var(--bg-app)] shadow-xl shadow-[var(--text-main)]/10 transition-all hover:scale-[1.05] disabled:opacity-50 disabled:scale-100"
@@ -96,8 +99,9 @@ export default function MatrixClient({ initialMatrix }: MatrixClientProps) {
                         </p>
                     </div>
                     <div className="flex gap-4">
-                        <button 
-                            onClick={handleReset}
+                        <button
+                            type="button"
+                            onClick={() => setShowResetConfirm(true)}
                             className="h-12 px-6 rounded-2xl border border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/50 text-[10px] font-black uppercase tracking-widest text-[var(--text-main)] hover:bg-[var(--bg-card)] transition-all"
                         >
                             Reset Defaults
@@ -145,13 +149,55 @@ export default function MatrixClient({ initialMatrix }: MatrixClientProps) {
                     </table>
                 </div>
             </div>
+            {saveError && (
+                <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-2xl text-sm font-bold flex items-center gap-3">
+                    <span className="material-symbols-outlined shrink-0">error</span>
+                    {saveError}
+                </div>
+            )}
+
+            {showResetConfirm && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-3xl p-8 w-full max-w-sm shadow-2xl space-y-6">
+                        <div className="flex items-center gap-4">
+                            <div className="size-12 rounded-2xl bg-amber-500/10 flex items-center justify-center shrink-0">
+                                <span className="material-symbols-outlined text-amber-500 text-2xl">restart_alt</span>
+                            </div>
+                            <div>
+                                <h3 className="text-sm font-black uppercase tracking-widest text-[var(--text-main)]">Reset Permissions</h3>
+                                <p className="text-[10px] text-[var(--text-muted)] mt-1">All custom overrides will be erased.</p>
+                            </div>
+                        </div>
+                        <p className="text-xs font-bold text-[var(--text-main)] px-1">
+                            Reset to sanctuary defaults?
+                        </p>
+                        <div className="flex gap-3">
+                            <button
+                                type="button"
+                                onClick={() => setShowResetConfirm(false)}
+                                className="flex-1 h-12 rounded-2xl border border-[var(--border-muted)] text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)] transition-all"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleReset}
+                                className="flex-1 h-12 rounded-2xl bg-amber-500 text-white text-[10px] font-black uppercase tracking-widest hover:bg-amber-600 transition-all shadow-lg shadow-amber-500/20"
+                            >
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
 
 function PermissionToggle({ active, disabled, onClick }: { active: boolean; disabled?: boolean; onClick: () => void }) {
     return (
-        <button 
+        <button
+            type="button"
             onClick={onClick}
             disabled={disabled}
             className={`flex justify-center mx-auto transition-all duration-500 ${disabled ? 'cursor-default' : 'hover:scale-110 active:scale-95'}`}

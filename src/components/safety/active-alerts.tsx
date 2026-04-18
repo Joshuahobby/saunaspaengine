@@ -28,6 +28,7 @@ export default function ActiveAlerts() {
     }, []);
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         fetchAlerts();
         const interval = setInterval(fetchAlerts, 10000); // Poll every 10 seconds
         return () => clearInterval(interval);

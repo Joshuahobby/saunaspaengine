@@ -22,6 +22,8 @@ const managerNavItems: NavItem[] = [
     { label: "Clients & Sales", href: "/growth", icon: "chronic" },
     { label: "Our Team", href: "/staff", icon: "groups_3" },
     { label: "Register Staff", href: "/employees/new", icon: "person_add" },
+    { label: "Staff Roles", href: "/employees/roles", icon: "badge" },
+    { label: "View Schedule", href: "/employees/schedule", icon: "calendar_month" },
     
     { label: "Company", isHeader: true },
     { label: "Corporate Setup", href: "/settings/corporate", icon: "settings" },
@@ -61,6 +63,7 @@ const businessNavItems: NavItem[] = [
     { label: "Clients & Sales", href: "/growth", icon: "chronic" },
     { label: "Our Team", href: "/staff", icon: "groups_3" },
     { label: "Register Staff", href: "/employees/new", icon: "person_add" },
+    { label: "Staff Roles", href: "/employees/roles", icon: "badge" },
     
     { label: "Finance & Safety", isHeader: true },
     { label: "Settlements", href: "/finance/settlements", icon: "account_balance_wallet" },
@@ -80,6 +83,8 @@ const employeeNavItems: NavItem[] = [
     
     { label: "Personal", isHeader: true },
     { label: "My Earnings", href: "/employees/my-earnings", icon: "payments" },
+    { label: "My Schedule", href: "/employees/schedule", icon: "calendar_month" },
+    { label: "Leaderboard", href: "/employees/gamification", icon: "emoji_events" },
 ];
 
 interface SidebarProps {

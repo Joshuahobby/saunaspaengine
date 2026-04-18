@@ -14,14 +14,64 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { formatCurrency } from "@/lib/utils";
-import { updateClientNotes } from "./actions";
+import { updateClientNotes, generateClientQrAction } from "./actions";
+import { toast } from "react-hot-toast";
 
 const MembershipCardModal = dynamic(() => import("@/components/clients/MembershipCardModal"), { 
     ssr: false,
     loading: () => <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm"><span className="text-white font-serif font-bold text-sm">Synchronizing...</span></div>
 });
 
-// Simple Sparkline Component 
+interface ClientProfileProps {
+    client: {
+        id: string;
+        fullName: string;
+        phone: string;
+        email?: string | null;
+        clientType: string;
+        notes: string;
+        qrCode?: string | null;
+        membershipCardUrl?: string | null;
+        createdAt: Date | string;
+        branch?: { name: string; business?: { name: string } | null } | null;
+        serviceRecords: Array<{
+            id: string;
+            serviceId?: string | null;
+            service?: { name: string } | null;
+            employee?: { fullName: string } | null;
+            amount: number;
+            createdAt: Date | string;
+            status: string;
+            completedAt?: Date | string | null;
+        }>;
+    };
+    activeMembership?: {
+        id: string;
+        balance: number;
+        status: string;
+        category?: { name: string } | null;
+    } | null;
+    loyaltyInfo?: { tier: string; points: number } | null;
+    tierConfig: { color: string; bg: string; border: string; icon: string };
+    visitsThisMonth: number;
+    intelligence: {
+        ltv: number;
+        avgTicket: number;
+        favoriteService: string;
+        totalVisits: number;
+        auditLogs: Array<{ id: string; action: string; createdAt: Date | string; user?: { fullName: string } | null; details?: string | null }>;
+        avgFrequency: number;
+        daysSinceLastVisit: number;
+        relationshipHealth: 'ACTIVE' | 'DRIFTING' | 'AT_RISK';
+        lastSeen: Date | string | null;
+        avgRating: number;
+        recentReviews: Array<{ id: string; rating: number; comment?: string | null; createdAt: Date | string }>;
+        velocityData: number[];
+        suggestedService: string;
+    };
+}
+
+// Simple Sparkline Component
 const VelocitySparkline = ({ data }: { data: number[] }) => {
     const max = Math.max(...data, 1);
     const min = Math.min(...data);
@@ -35,13 +85,14 @@ const VelocitySparkline = ({ data }: { data: number[] }) => {
     );
 };
 
-export default function ClientProfile({ client, activeMembership, loyaltyInfo, tierConfig, visitsThisMonth, intelligence }: any) {
+export default function ClientProfile({ client, activeMembership, loyaltyInfo, tierConfig, visitsThisMonth, intelligence }: ClientProfileProps) {
     const [isCardModalOpen, setCardModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState<"history" | "pulse">("history");
     const [notes, setNotes] = useState(client.notes || "");
+    const [qrCode, setQrCode] = useState(client.qrCode);
     const [isSaving, setIsSaving] = useState(false);
 
-    const qrCodePayload = `spa-client:${client.id}`;
+    const qrCodePayload = qrCode || `spa-client:${client.id}`;
 
     // Handle Notes Save
     const handleSaveNotes = useCallback(async (val: string) => {
@@ -49,6 +100,18 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
         await updateClientNotes(client.id, val);
         setIsSaving(false);
     }, [client.id]);
+
+    const handleGenerateQr = async () => {
+        setIsSaving(true);
+        const res = await generateClientQrAction(client.id);
+        if (res.success) {
+            setQrCode(res.qrCode);
+            toast.success("System QR Code Generated!");
+        } else {
+            toast.error(res.error || "Failed to generate QR");
+        }
+        setIsSaving(false);
+    };
 
     const healthConfig = {
         ACTIVE: { label: "ACTIVE", color: "text-emerald-400", bg: "bg-emerald-500/5", border: "border-emerald-500/10", icon: Heart },
@@ -88,6 +151,16 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                                 <Target className="size-3" />
                                 SUGGESTED: {intelligence.suggestedService}
                             </div>
+                            {!qrCode && (
+                                <button 
+                                    onClick={handleGenerateQr}
+                                    disabled={isSaving}
+                                    className="flex items-center gap-2 px-3 py-1 bg-rose-500/10 text-rose-500 border border-rose-500/10 rounded-lg text-[9px] font-bold uppercase tracking-widest shadow-lg animate-pulse hover:animate-none transition-all"
+                                >
+                                    <Fingerprint className="size-3" />
+                                    Generate System QR
+                                </button>
+                            )}
                         </div>
                         
                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-[var(--text-muted)] text-[9px] font-bold uppercase tracking-wider">
@@ -264,7 +337,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                             {activeTab === "history" ? (
                                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} key="history" className="space-y-2">
                                     {client.serviceRecords?.length > 0 ? (
-                                        client.serviceRecords.map((record: any) => (
+                                        client.serviceRecords.map((record) => (
                                             <div key={record.id} className="group p-4 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl flex items-center justify-between hover:bg-[var(--border-main)] transition-all">
                                                 <div className="flex items-center gap-4">
                                                     <div className="size-10 rounded-lg bg-[var(--bg-card)] border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] shadow-sm">
@@ -293,7 +366,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                             ) : (
                                 <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} key="pulse" className="space-y-6 pl-2">
                                     {intelligence.auditLogs?.length > 0 ? (
-                                        intelligence.auditLogs.map((log: any, idx: number) => (
+                                        intelligence.auditLogs.map((log, idx) => (
                                             <div key={log.id} className="flex gap-6 relative">
                                                 <div className="flex flex-col items-center">
                                                     <div className={`size-3 rounded-full border ${log.action.includes('DELETE') ? 'border-rose-500 bg-rose-500/20' : 'border-[var(--color-primary)] bg-[var(--color-primary)]/20'} z-10`} />

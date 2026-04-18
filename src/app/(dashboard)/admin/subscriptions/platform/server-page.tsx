@@ -10,11 +10,11 @@ export const metadata = {
 export default async function PlatformPackagesPage() {
     await requireRole(["ADMIN"]);
 
-    const packages = await (prisma as any).platformPackage.findMany({
+    const packages = await prisma.platformPackage.findMany({
         orderBy: { createdAt: 'asc' },
     });
 
-    const mappedPackages = packages.map((p: any) => ({
+    const mappedPackages = packages.map((p) => ({
         ...p,
         priceMonthly: Number(p.priceMonthly),
         priceYearly: Number(p.priceYearly),

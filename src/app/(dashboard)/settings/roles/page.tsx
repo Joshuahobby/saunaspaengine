@@ -23,7 +23,7 @@ export default async function RolesAndPermissionsPage() {
             select: { permissions: true }
         });
         if (business?.permissions) {
-            initialMatrix = business.permissions as any as PermissionMatrix;
+            initialMatrix = business.permissions as unknown as PermissionMatrix;
         }
     }
 

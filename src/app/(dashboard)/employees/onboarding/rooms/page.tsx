@@ -10,7 +10,7 @@ export default function OnboardingStep2() {
                 <div className="glass-card rounded-2xl border border-[var(--border-muted)] p-8">
                     <div className="flex items-center gap-4 mb-6"><div className="flex items-center gap-1 text-sm font-bold text-[var(--text-muted)]"><span className="size-6 bg-green-500 text-white rounded-full flex items-center justify-center"><span className="material-symbols-outlined text-xs">check</span></span><div className="w-8 h-0.5 bg-[var(--color-primary)]"></div><span className="size-6 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center text-xs">2</span><div className="w-8 h-0.5 bg-[var(--bg-surface-muted)]/30"></div><span className="size-6 bg-[var(--bg-surface-muted)]/30 rounded-full flex items-center justify-center text-xs">3</span></div></div>
                     <h2 className="text-xl font-bold mb-4">Understanding Room Statuses</h2>
-                    <p className="text-[var(--text-muted)] text-sm mb-6">The Floor Manager view shows all your rooms and their current status. Here's what each status means:</p>
+                    <p className="text-[var(--text-muted)] text-sm mb-6">The Floor Manager view shows all your rooms and their current status. Here&apos;s what each status means:</p>
                     <div className="space-y-3 mb-8">
                         {[
                             { color: "bg-green-500", label: "Available", desc: "Room is clean and ready for the next guest." },

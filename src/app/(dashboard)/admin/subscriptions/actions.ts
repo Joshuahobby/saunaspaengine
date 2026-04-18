@@ -13,7 +13,7 @@ export async function createPlatformPackageAction(data: {
     features?: string[];
 }) {
     try {
-        await (prisma as any).platformPackage.create({
+        await prisma.platformPackage.create({
             data: {
                 ...data,
                 features: data.features || [],
@@ -37,7 +37,7 @@ export async function updatePlatformPackageAction(id: string, data: {
     features?: string[];
 }) {
     try {
-        await (prisma as any).platformPackage.update({
+        await prisma.platformPackage.update({
             where: { id },
             data: {
                 ...data,
@@ -55,7 +55,7 @@ export async function updatePlatformPackageAction(id: string, data: {
 export async function deletePlatformPackageAction(id: string) {
     try {
         // Check if any business is using this package
-        const count = await (prisma as any).business.count({
+        const count = await prisma.business.count({
             where: { subscriptionPlanId: id }
         });
 
@@ -63,7 +63,7 @@ export async function deletePlatformPackageAction(id: string) {
             return { success: false, error: "Cannot delete package while it is assigned to branches." };
         }
 
-        await (prisma as any).platformPackage.delete({
+        await prisma.platformPackage.delete({
             where: { id }
         });
         revalidatePath("/subscriptions/platform");

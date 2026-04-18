@@ -37,7 +37,9 @@ export default function ClientForm({
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
     const [successData, setSuccessData] = useState<{ id?: string, fullName?: string, qrCode?: string, tierName?: string } | null>(null);
-    const [clientType, setClientType] = useState<"WALK_IN" | "MEMBER">((initialData?.clientType as any) || "MEMBER");
+    const [clientType, setClientType] = useState<"WALK_IN" | "MEMBER">(
+        initialData?.clientType === "WALK_IN" ? "WALK_IN" : "MEMBER"
+    );
     const [activeThemeId, setActiveThemeId] = useState(PremiumCardThemes[0].id);
     const [selectedBranchId, setSelectedBranchId] = useState(initialData?.branchId || "");
 
@@ -65,9 +67,10 @@ export default function ClientForm({
             } else {
                 res = await registerClient(formData);
                 if ("success" in res && res.success) {
+                    const r = res as { client?: { id?: string; fullName?: string; qrCode?: string }; membership?: { categoryName?: string } };
                     setSuccessData({
-                        ...((res as any).client || {}),
-                        tierName: (res as any).membership?.categoryName
+                        ...(r.client || {}),
+                        tierName: r.membership?.categoryName
                     });
                 }
             }
@@ -113,11 +116,12 @@ export default function ClientForm({
                         />
                     </div>
                 )}
-                <button 
+                <button
+                    type="button"
                     onClick={() => {
                         router.push("/clients");
                         router.refresh();
-                    }} 
+                    }}
                     className="mt-6 px-6 py-2 border border-slate-300 rounded-lg text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
                 >
                     Return to Clients

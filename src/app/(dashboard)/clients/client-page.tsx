@@ -53,6 +53,7 @@ export default function ClientListClient({
     
     const [search, setSearch] = useState(initialSearch);
     const [isLoading, setIsLoading] = useState(false);
+    const [restoreError, setRestoreError] = useState<string | null>(null);
     const debouncedSearch = useDebounce(search, 500);
 
     const createQueryString = useCallback(
@@ -122,6 +123,7 @@ export default function ClientListClient({
                         Search Ecosystem
                     </Link>
                     <button
+                        type="button"
                         onClick={exportCSV}
                         className="flex items-center justify-center rounded-xl h-12 px-5 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[var(--text-main)] text-sm font-bold hover:bg-[var(--color-primary)] hover:text-[var(--color-bg-dark)] transition-all"
                     >
@@ -147,7 +149,7 @@ export default function ClientListClient({
                             placeholder="Search clients by name or phone number..."
                         />
                         {search && (
-                            <button onClick={() => setSearch("")} className="flex items-center px-4 text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors">
+                            <button type="button" onClick={() => setSearch("")} className="flex items-center px-4 text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors">
                                 <span className="material-symbols-outlined">close</span>
                             </button>
                         )}
@@ -158,30 +160,41 @@ export default function ClientListClient({
             {/* Filter Tabs */}
             <div className="flex gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide">
                 <button
+                    type="button"
                     onClick={() => handleFilterChange("all")}
                     className={`flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full px-6 font-bold text-sm transition-all ${initialFilter === "all" ? "bg-[var(--color-primary)] text-[var(--color-bg-dark)] shadow-lg shadow-[var(--color-primary)]/20" : "bg-[var(--bg-card)] border border-[var(--border-main)] text-[var(--text-main)] hover:border-[var(--color-primary)]"}`}
                 >
                     All Clients <span className={`px-2 py-0.5 rounded-full text-xs ${initialFilter === "all" ? "bg-[var(--color-bg-dark)]/10" : "text-[var(--color-primary)] font-bold"}`}>{metrics.all}</span>
                 </button>
                 <button
+                    type="button"
                     onClick={() => handleFilterChange("MEMBER")}
                     className={`flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full px-6 text-sm font-bold transition-all ${initialFilter === "MEMBER" ? "bg-[var(--color-primary)] text-[var(--color-bg-dark)] shadow-lg shadow-[var(--color-primary)]/20" : "bg-[var(--bg-card)] border border-[var(--border-main)] text-[var(--text-main)] hover:border-[var(--color-primary)]"}`}
                 >
                     Active Members <span className={`text-xs font-bold ${initialFilter === "MEMBER" ? "" : "text-[var(--color-primary)]"}`}>{metrics.members}</span>
                 </button>
                 <button
+                    type="button"
                     onClick={() => handleFilterChange("WALK_IN")}
                     className={`flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full px-6 text-sm font-bold transition-all ${initialFilter === "WALK_IN" ? "bg-[var(--color-primary)] text-[var(--color-bg-dark)] shadow-lg shadow-[var(--color-primary)]/20" : "bg-[var(--bg-card)] border border-[var(--border-main)] text-[var(--text-main)] hover:border-[var(--color-primary)]"}`}
                 >
                     Walk-ins <span className={`text-xs font-bold ${initialFilter === "WALK_IN" ? "" : "text-[var(--color-primary)]"}`}>{metrics.walkIns}</span>
                 </button>
                 <button
+                    type="button"
                     onClick={() => handleFilterChange("ARCHIVED")}
                     className={`flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full px-6 text-sm font-bold transition-all ${initialFilter === "ARCHIVED" ? "bg-amber-500 text-white shadow-lg shadow-amber-500/20" : "bg-[var(--bg-card)] border border-[var(--border-main)] text-[var(--text-main)] hover:border-amber-500"}`}
                 >
                     Archived <span className={`text-xs font-bold ${initialFilter === "ARCHIVED" ? "" : "text-amber-500"}`}>{metrics.archived}</span>
                 </button>
             </div>
+
+            {restoreError && (
+                <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-2xl text-sm font-bold flex items-center gap-2">
+                    <span className="material-symbols-outlined">error</span>
+                    {restoreError}
+                </div>
+            )}
 
             {/* Table Results */}
             <div className="bg-[var(--bg-card)] rounded-[2.5rem] border border-[var(--border-muted)] shadow-sm overflow-visible">
@@ -250,11 +263,13 @@ export default function ClientListClient({
                                             <td className="px-6 py-5 text-right">
                                                 <div className="flex justify-end items-center gap-2">
                                                     {client.status === "ARCHIVED" && (
-                                                        <button 
+                                                        <button
+                                                            type="button"
                                                             onClick={async () => {
+                                                                setRestoreError(null);
                                                                 const { updateClientStatus } = await import("@/app/(dashboard)/clients/actions");
                                                                 const res = await updateClientStatus(client.id, "ACTIVE");
-                                                                if (res.error) alert(res.error);
+                                                                if (res.error) setRestoreError(res.error);
                                                             }}
                                                             title="Restore Client"
                                                             className="h-10 px-4 flex items-center gap-2 rounded-xl bg-green-500/10 text-green-600 hover:bg-green-500 hover:text-white transition-all text-[10px] font-black uppercase tracking-tighter border border-green-500/20"
@@ -296,6 +311,7 @@ export default function ClientListClient({
                     </p>
                     <div className="flex items-center gap-2">
                         <button
+                            type="button"
                             onClick={() => handlePageChange(currentPage - 1)}
                             disabled={currentPage <= 1}
                             className="h-10 px-4 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-card)] text-sm font-bold hover:border-[var(--color-primary)] disabled:opacity-30 disabled:cursor-not-allowed transition-all"
@@ -308,6 +324,7 @@ export default function ClientListClient({
                             <span className="text-sm font-bold text-[var(--text-muted)]">{totalPages || 1}</span>
                         </div>
                         <button
+                            type="button"
                             onClick={() => handlePageChange(currentPage + 1)}
                             disabled={currentPage >= totalPages}
                             className="h-10 px-4 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-card)] text-sm font-bold hover:border-[var(--color-primary)] disabled:opacity-30 disabled:cursor-not-allowed transition-all"

@@ -28,6 +28,7 @@ export default function ScheduleClient({
     const [isShiftModalOpen, setIsShiftModalOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [shiftError, setShiftError] = useState<string | null>(null);
+    const [isDeleteConfirm, setIsDeleteConfirm] = useState(false);
 
     // Form state
     const [shiftDate, setShiftDate] = useState("");
@@ -42,6 +43,7 @@ export default function ScheduleClient({
         setStartTime("09:00");
         setEndTime("17:00");
         setShiftError(null);
+        setIsDeleteConfirm(false);
         setIsShiftModalOpen(true);
     };
 
@@ -52,6 +54,7 @@ export default function ScheduleClient({
         setStartTime(shift.startTime);
         setEndTime(shift.endTime);
         setShiftError(null);
+        setIsDeleteConfirm(false);
         setIsShiftModalOpen(true);
     };
 
@@ -91,8 +94,7 @@ export default function ScheduleClient({
 
     const handleDeleteShift = async () => {
         if (!selectedShift) return;
-        if (!confirm("Are you sure you want to delete this shift?")) return;
-        
+        setIsDeleteConfirm(false);
         setIsSubmitting(true);
         try {
             const res = await fetch(`/api/shifts/${selectedShift.id}`, {
@@ -119,6 +121,7 @@ export default function ScheduleClient({
                 <h2 className="text-xl font-display font-bold text-[var(--text-main)]">Weekly Shifts</h2>
                 {isManager && (
                     <button
+                        type="button"
                         onClick={openCreateModal}
                         className="bg-[var(--color-primary)] text-white px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-opacity shadow-lg shadow-[var(--color-primary)]/20 flex items-center gap-2"
                     >
@@ -179,7 +182,7 @@ export default function ScheduleClient({
                                 <h3 className="text-sm font-black text-[var(--text-main)] uppercase tracking-widest italic">{selectedShift ? 'Edit' : 'Assign'} <span className="text-[var(--color-primary)]">Shift</span></h3>
                                 <p className="text-[9px] text-[var(--text-muted)] font-bold mt-1 uppercase tracking-wider">Employee: {employee.fullName}</p>
                             </div>
-                            <button onClick={() => setIsShiftModalOpen(false)} className="text-[var(--text-muted)] hover:text-[var(--text-main)]">
+                            <button type="button" onClick={() => { setIsShiftModalOpen(false); setIsDeleteConfirm(false); }} className="text-[var(--text-muted)] hover:text-[var(--text-main)]">
                                 <span className="material-symbols-outlined">close</span>
                             </button>
                         </div>
@@ -226,31 +229,55 @@ export default function ScheduleClient({
                             )}
 
                             <div className="pt-4 border-t border-[var(--border-muted)] flex flex-wrap gap-3">
-                                {selectedShift && (
-                                    <button
-                                        type="button"
-                                        onClick={handleDeleteShift}
-                                        disabled={isSubmitting}
-                                        className="flex-none py-3.5 px-4 rounded-xl text-[10px] font-black uppercase text-red-500 border border-red-500/20 hover:bg-red-500/5 transition-colors disabled:opacity-50"
-                                    >
-                                        Delete
-                                    </button>
+                                {isDeleteConfirm ? (
+                                    <>
+                                        <p className="w-full text-[10px] font-bold text-red-500 px-1">Delete this shift permanently?</p>
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsDeleteConfirm(false)}
+                                            disabled={isSubmitting}
+                                            className="flex-1 py-3.5 rounded-xl text-[10px] font-black uppercase text-[var(--text-muted)] border border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)]"
+                                        >
+                                            Keep
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={handleDeleteShift}
+                                            disabled={isSubmitting}
+                                            className="flex-1 py-3.5 rounded-xl text-[10px] font-black uppercase text-white bg-red-500 hover:bg-red-600 transition-colors disabled:opacity-50"
+                                        >
+                                            {isSubmitting ? "Deleting..." : "Confirm Delete"}
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        {selectedShift && (
+                                            <button
+                                                type="button"
+                                                onClick={() => setIsDeleteConfirm(true)}
+                                                disabled={isSubmitting}
+                                                className="flex-none py-3.5 px-4 rounded-xl text-[10px] font-black uppercase text-red-500 border border-red-500/20 hover:bg-red-500/5 transition-colors disabled:opacity-50"
+                                            >
+                                                Delete
+                                            </button>
+                                        )}
+                                        <button
+                                            type="button"
+                                            onClick={() => setIsShiftModalOpen(false)}
+                                            className="flex-1 py-3.5 rounded-xl text-[10px] font-black uppercase text-[var(--text-muted)] border border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)]"
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                            className="flex-2 py-3.5 rounded-xl text-[10px] font-black uppercase text-white bg-[var(--color-primary)] hover:opacity-90 flex items-center justify-center gap-2 px-8 disabled:opacity-50"
+                                        >
+                                            {isSubmitting ? "Saving..." : selectedShift ? "Update Shift" : "Create Shift"}
+                                            {!isSubmitting && <span className="material-symbols-outlined text-sm font-black">save</span>}
+                                        </button>
+                                    </>
                                 )}
-                                <button
-                                    type="button"
-                                    onClick={() => setIsShiftModalOpen(false)}
-                                    className="flex-1 py-3.5 rounded-xl text-[10px] font-black uppercase text-[var(--text-muted)] border border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)]"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="flex-2 py-3.5 rounded-xl text-[10px] font-black uppercase text-white bg-[var(--color-primary)] hover:opacity-90 flex items-center justify-center gap-2 px-8 disabled:opacity-50"
-                                >
-                                    {isSubmitting ? "Saving..." : selectedShift ? "Update Shift" : "Create Shift"}
-                                    {!isSubmitting && <span className="material-symbols-outlined text-sm font-black">save</span>}
-                                </button>
                             </div>
                         </form>
                     </div>

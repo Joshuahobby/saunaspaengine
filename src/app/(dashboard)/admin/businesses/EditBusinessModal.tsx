@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { updateBusinessAction } from "./actions";
 
-export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boolean, onClose: () => void, business: any }) {
+export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boolean; onClose: () => void; business: { id: string; name: string; taxId?: string | null; headquarters?: string | null } }) {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");

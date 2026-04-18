@@ -21,8 +21,7 @@ interface BusinessRecord {
 export default async function AdminBranchesPage() {
     await requireRole(["ADMIN"]);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const branches: BusinessRecord[] = await (prisma as unknown as Record<string, Record<string, Function>>).business.findMany({
+    const branches = await prisma.business.findMany({
         include: {
             branches: true
         },

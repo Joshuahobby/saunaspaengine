@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ActionDropdown } from "@/components/ui/action-dropdown";
 
 interface Branch {
@@ -100,13 +101,13 @@ export default function AdminBranchesClientPage({ branches, stats }: BranchesPro
                         <option value="INACTIVE">Inactive</option>
                     </select>
 
-                    <a 
+                    <Link
                         href="/branches/new"
                         className="h-10 px-6 rounded-xl bg-[var(--text-main)] text-[var(--bg-app)] text-[10px] font-black tracking-widest uppercase flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-black/20"
                     >
                         <span className="material-symbols-outlined text-sm">add_circle</span>
                         Register Branch
-                    </a>
+                    </Link>
                 </div>
             </div>
 

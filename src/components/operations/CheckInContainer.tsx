@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { QRScanner } from "./QRScanner";
 import { ClientCheckInResult } from "./ClientCheckInResult";
@@ -114,6 +114,44 @@ export function CheckInContainer({ services, employees, clients }: CheckInContai
             setIsLoading(false);
         }
     }, [selectedClient, lockerNumber]);
+
+    // --- USB Scanner Listener Logic ---
+    useEffect(() => {
+        let buffer = "";
+        let lastKeyTime = 0;
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Only intercept if we are in SCANNING mode
+            if (mode !== 'SCANNING') return;
+
+            // If the focus is in an input field, we might be typing manually
+            const target = e.target as HTMLElement;
+            
+            const currentTime = Date.now();
+            const diff = currentTime - lastKeyTime;
+
+            // HID scanners typically emit events 5-20ms apart.
+            if (diff > 50) {
+                buffer = "";
+            }
+
+            lastKeyTime = currentTime;
+
+            if (e.key === "Enter") {
+                if (buffer.length >= 8) { // Our QR codes like 'spa-client:id' are long
+                    e.preventDefault();
+                    handleScanSuccess(buffer);
+                    buffer = "";
+                }
+            } else if (e.key.length === 1) {
+                buffer += e.key;
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [mode, handleScanSuccess]);
+    // ----------------------------------
 
     return (
         <div className="space-y-6">

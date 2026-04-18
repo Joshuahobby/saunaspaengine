@@ -29,10 +29,7 @@ interface PaymentRow {
 export default async function AdminPaymentsPage() {
     await requireRole(["ADMIN"]);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const db = prisma as any;
-
-    const payments: any[] = await db.subscriptionPayment.findMany({
+    const payments = await prisma.subscriptionPayment.findMany({
         orderBy: { createdAt: "desc" },
         include: {
             business: {
@@ -50,15 +47,15 @@ export default async function AdminPaymentsPage() {
 
     const stats = {
         total: payments.length,
-        pending: payments.filter((p: any) => p.status === "PENDING").length,
-        completed: payments.filter((p: any) => p.status === "COMPLETED").length,
-        failed: payments.filter((p: any) => p.status === "FAILED").length,
+        pending: payments.filter(p => p.status === "PENDING").length,
+        completed: payments.filter(p => p.status === "COMPLETED").length,
+        failed: payments.filter(p => p.status === "FAILED").length,
         totalRevenue: payments
-            .filter((p: any) => p.status === "COMPLETED")
-            .reduce((sum: number, p: any) => sum + p.amount, 0),
+            .filter(p => p.status === "COMPLETED")
+            .reduce((sum, p) => sum + p.amount, 0),
     };
 
-    const serialised: PaymentRow[] = payments.map((p: any) => ({
+    const serialised: PaymentRow[] = payments.map(p => ({
         id: p.id,
         depositId: p.depositId,
         businessId: p.business.id,

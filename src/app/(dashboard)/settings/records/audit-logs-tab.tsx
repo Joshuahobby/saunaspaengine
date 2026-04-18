@@ -71,14 +71,14 @@ export default function AuditLogsTab() {
                     <span className="material-symbols-outlined font-black">verified_user</span>
                 </div>
                 <p className="text-xs font-bold text-[var(--text-muted)] leading-relaxed italic">
-                    All records in this hub are cryptographically locked. <span className="text-emerald-500 underline decoration-dotted">Chain of custody</span> is maintained by the platform's immutable vault.
+                    All records in this hub are cryptographically locked. <span className="text-emerald-500 underline decoration-dotted">Chain of custody</span> is maintained by the platform&apos;s immutable vault.
                 </p>
             </div>
         </div>
     );
 }
 
-function AuditRow({ time, actor, role, action, target, status, critical }: any) {
+function AuditRow({ time, actor, role, action, target, status, critical }: { time: string; actor: string; role: string; action: string; target: string; status: string; critical?: boolean }) {
     return (
         <tr className={`group hover:bg-[var(--bg-surface-muted)]/10 transition-all ${critical ? "bg-red-500/[0.02]" : ""}`}>
             <td className="px-8 py-5">

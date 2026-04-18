@@ -3,9 +3,6 @@ import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import type { PawapayWebhookPayload } from "@/lib/pawapay";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const db = prisma as any;
-
 export async function POST(req: NextRequest) {
     try {
         const payload = await req.json() as PawapayWebhookPayload;
@@ -15,7 +12,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
         }
 
-        const payment = await db.subscriptionPayment.findUnique({
+        const payment = await prisma.subscriptionPayment.findUnique({
             where: { depositId },
         });
 
@@ -26,7 +23,7 @@ export async function POST(req: NextRequest) {
 
         if (status === "COMPLETED") {
             await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
-                await (tx as any).subscriptionPayment.update({
+                await tx.subscriptionPayment.update({
                     where: { depositId },
                     data: { status: "COMPLETED", metadata: payload as unknown as Prisma.InputJsonValue },
                 });
@@ -40,7 +37,7 @@ export async function POST(req: NextRequest) {
                 });
             });
         } else if (status === "FAILED") {
-            await db.subscriptionPayment.update({
+            await prisma.subscriptionPayment.update({
                 where: { depositId },
                 data: {
                     status: "FAILED",

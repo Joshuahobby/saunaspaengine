@@ -22,6 +22,7 @@ export function NavProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         const saved = localStorage.getItem("sauna-sidebar-state");
         if (saved !== null) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setIsCollapsed(saved === "true");
         } else {
             // First time or key change: ensure it defaults to collapsed
@@ -32,6 +33,7 @@ export function NavProvider({ children }: { children: React.ReactNode }) {
 
     // Close mobile nav on route change
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsMobileOpen(false);
     }, [pathname]);
 

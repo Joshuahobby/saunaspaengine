@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
-export async function updateBranchAction(id: string, data: any) {
+export async function updateBranchAction(id: string, data: { name: string; email?: string | null; phone?: string | null; address?: string | null }) {
     const session = await auth();
     if (!session?.user || (session.user.role !== "ADMIN" && session.user.role !== "OWNER")) {
         throw new Error("Unauthorized");

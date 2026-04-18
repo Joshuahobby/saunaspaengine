@@ -187,7 +187,7 @@ export default async function ClientProfilePage({ params }: { params: Promise<{ 
 
     return (
         <ClientProfile 
-            client={{ ...client, serviceRecords, notes: client.notes || "" } as any}
+            client={{ ...client, serviceRecords, notes: client.notes || "" } as Parameters<typeof ClientProfile>[0]["client"]}
             activeMembership={activeMembership}
             loyaltyInfo={loyaltyInfo}
             tierConfig={tierConfig}

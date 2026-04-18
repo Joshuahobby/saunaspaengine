@@ -78,12 +78,20 @@ export function Header({ isLoggedIn }: { isLoggedIn?: boolean }) {
                             Dashboard
                         </Link>
                     ) : (
-                        <Link
-                            href="/login"
-                            className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-6 sm:px-8 bg-[var(--color-primary)] text-white text-[10px] font-black uppercase tracking-widest transition-all hover:opacity-90 shadow-xl shadow-[var(--color-primary)]/20"
-                        >
-                            Get Started
-                        </Link>
+                        <div className="flex items-center gap-3">
+                            <Link
+                                href="/login"
+                                className="flex cursor-pointer items-center justify-center rounded-xl h-10 px-4 text-[var(--text-main)] text-[10px] font-black uppercase tracking-widest transition-all hover:text-[var(--color-primary)]"
+                            >
+                                Log In
+                            </Link>
+                            <Link
+                                href="/signup"
+                                className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-6 sm:px-8 bg-[var(--color-primary)] text-white text-[10px] font-black uppercase tracking-widest transition-all hover:opacity-90 shadow-xl shadow-[var(--color-primary)]/20"
+                            >
+                                Register Spa
+                            </Link>
+                        </div>
                     )}
                 </div>
 
@@ -131,9 +139,16 @@ export function Header({ isLoggedIn }: { isLoggedIn?: boolean }) {
                             <Link
                                 onClick={closeMenu}
                                 href="/login"
+                                className="flex w-full cursor-pointer items-center justify-center rounded-xl h-14 bg-[var(--bg-surface)] border border-[var(--border-main)] text-[var(--text-main)] text-sm font-black uppercase tracking-widest shadow-sm"
+                            >
+                                Log In
+                            </Link>
+                            <Link
+                                onClick={closeMenu}
+                                href="/signup"
                                 className="flex w-full cursor-pointer items-center justify-center rounded-xl h-14 bg-[var(--color-primary)] text-white text-sm font-black uppercase tracking-widest shadow-xl shadow-[var(--color-primary)]/20"
                             >
-                                Get Started
+                                Register Spa
                             </Link>
                         </>
                     )}

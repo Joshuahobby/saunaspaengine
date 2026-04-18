@@ -14,7 +14,40 @@ import { motion, AnimatePresence } from "framer-motion";
 import { formatCurrency } from "@/lib/utils";
 import EditEmployeeForm from "@/components/employees/edit-form";
 
-// Simple Sparkline Component 
+interface EmployeeUIProps {
+    employee: {
+        id: string;
+        fullName: string;
+        status: string;
+        commissionRate: number;
+        createdAt: Date | string;
+        category?: { name: string } | null;
+        branch?: { name: string } | null;
+        serviceRecords: Array<{
+            id: string;
+            service?: { name: string } | null;
+            amount: number;
+            createdAt: Date | string;
+            status: string;
+            completedAt?: Date | string | null;
+        }>;
+    };
+    intelligence: {
+        totalYield: number;
+        totalServices: number;
+        avgRating: number;
+        retentionRate: number;
+        uniqueClients: number;
+        velocityData: number[];
+        lastActive: Date | string;
+        performanceStatus: string;
+    };
+    categories: Array<{ id: string; name: string }>;
+    branches: Array<{ id: string; name: string }>;
+    isOwner: boolean;
+}
+
+// Simple Sparkline Component
 const RevenueSparkline = ({ data }: { data: number[] }) => {
     const max = Math.max(...data, 1);
     const min = Math.min(...data);
@@ -28,7 +61,7 @@ const RevenueSparkline = ({ data }: { data: number[] }) => {
     );
 };
 
-export default function EmployeeUI({ employee, categories, branches, isOwner, intelligence }: any) {
+export default function EmployeeUI({ employee, categories, branches, isOwner, intelligence }: EmployeeUIProps) {
     const [activeTab, setActiveTab] = useState<"performance" | "manage">("performance");
 
     return (
@@ -77,7 +110,8 @@ export default function EmployeeUI({ employee, categories, branches, isOwner, in
                 </div>
                 
                 <div className="flex items-center gap-3 w-full lg:w-auto mt-4 lg:mt-0 relative z-10">
-                    <button 
+                    <button
+                        type="button"
                         onClick={() => setActiveTab(activeTab === 'performance' ? 'manage' : 'performance')}
                         className={`flex-1 lg:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl transition-all text-[10px] font-bold uppercase tracking-wider shadow-lg ${activeTab === 'manage' ? 'bg-[var(--color-primary)] text-white' : 'bg-[var(--text-main)] text-[var(--bg-card)] hover:opacity-90'}`}
                     >
@@ -161,7 +195,7 @@ export default function EmployeeUI({ employee, categories, branches, isOwner, in
                             </div>
                             <div className="p-6 flex-1 custom-scrollbar overflow-y-auto space-y-2">
                                 {employee.serviceRecords?.length > 0 ? (
-                                    employee.serviceRecords.map((record: any) => (
+                                    employee.serviceRecords.map((record) => (
                                         <div key={record.id} className="group p-4 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl flex items-center justify-between hover:bg-[var(--border-main)] transition-all">
                                             <div className="flex items-center gap-4">
                                                 <div className="size-10 rounded-lg bg-[var(--bg-card)] border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)]">

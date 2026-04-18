@@ -36,8 +36,8 @@ export function DeleteBranchModal({ isOpen, onClose, branch }: DeleteBranchModal
             } else {
                 setError(res.error || "Failed to delete branch");
             }
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err) {
+            setError((err as Error).message);
         } finally {
             setLoading(false);
         }

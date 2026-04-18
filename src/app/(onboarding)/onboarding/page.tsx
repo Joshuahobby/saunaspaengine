@@ -37,7 +37,7 @@ export default async function OnboardingPage() {
                 }
             },
         }
-    }) as any;
+    });
 
     if (!branch) {
         return (

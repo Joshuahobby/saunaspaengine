@@ -164,10 +164,11 @@ export default async function FloorMapTab({ searchParams }: FloorMapTabProps) {
                     const record = occupiedMap.get(locker.lockerNumber);
 
                     if (record) {
-                        const minsRemaining = getMinutesRemaining(record.createdAt, record.service.duration);
-                        const progress = Math.max(0, Math.min(100,
-                            ((record.service.duration - Math.max(0, minsRemaining)) / record.service.duration) * 100
-                        ));
+                        const minsRemaining = getMinutesRemaining(record.createdAt, record.service?.duration || 0);
+                        const duration = record.service?.duration || 0;
+                        const progress = duration > 0 ? Math.max(0, Math.min(100,
+                            ((duration - Math.max(0, minsRemaining)) / duration) * 100
+                        )) : 0;
                         const isOvertime = minsRemaining <= 0;
 
                         return (
@@ -188,7 +189,7 @@ export default async function FloorMapTab({ searchParams }: FloorMapTabProps) {
                                 <div className="flex justify-between items-start mb-6">
                                     <div>
                                         <h4 className="font-display font-black text-xl text-[var(--text-main)] leading-tight tracking-tight">{locker.name}</h4>
-                                        <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-primary)] mt-1">{record.service.name}</p>
+                                        <p className="text-[9px] font-black uppercase tracking-widest text-[var(--color-primary)] mt-1">{record.service?.name || "Unknown Service"}</p>
                                     </div>
                                     <span className={`px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest ${
                                         isOvertime
@@ -212,7 +213,7 @@ export default async function FloorMapTab({ searchParams }: FloorMapTabProps) {
                                     <div className="flex flex-col items-end gap-2">
                                         {record.employee && (
                                             <div className="size-10 rounded-2xl border border-[var(--border-muted)] bg-[var(--bg-app)] flex items-center justify-center text-[9px] font-black uppercase shadow-sm">
-                                                {getInitials(record.employee.fullName)}
+                                                {getInitials(record.employee?.fullName || "??")}
                                             </div>
                                         )}
                                         <CompleteSessionButton recordId={record.id} boxName={locker.name} />

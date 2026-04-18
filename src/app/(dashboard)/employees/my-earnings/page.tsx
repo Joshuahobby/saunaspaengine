@@ -18,7 +18,7 @@ export default async function MyEarningsPage() {
                 select: { name: true }
             }
         }
-    }) as any;
+    });
 
     if (!employee) {
         return (
@@ -36,7 +36,7 @@ export default async function MyEarningsPage() {
     }
 
     // Fetch commission logs
-    const earnings = await (prisma as any).commissionLog.findMany({
+    const earnings = await prisma.commissionLog.findMany({
         where: { employeeId: employee.id },
         include: {
             serviceRecord: {

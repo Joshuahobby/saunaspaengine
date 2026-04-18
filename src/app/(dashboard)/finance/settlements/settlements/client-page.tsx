@@ -17,12 +17,12 @@ export default function SettlementsClient({ pendingData }: { pendingData: Pendin
     const router = useRouter();
     const [isPayingOut, setIsPayingOut] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [pendingSettlement, setPendingSettlement] = useState<PendingSettlement | null>(null);
 
     const formatRWF = (amount: number) => `RWF ${amount.toLocaleString()}`;
 
     const handlePayout = async (settlement: PendingSettlement) => {
-        if (!confirm(`Are you sure you want to mark RWF ${settlement.unpaidTotal.toLocaleString()} as PAID for ${settlement.fullName}?`)) return;
-
+        setPendingSettlement(null);
         setIsPayingOut(settlement.employeeId);
         setError(null);
 
@@ -63,6 +63,7 @@ export default function SettlementsClient({ pendingData }: { pendingData: Pendin
     const totalOwed = pendingData.reduce((sum, s) => sum + s.unpaidTotal, 0);
 
     return (
+        <>
         <div className="space-y-6">
             <div className="bg-[var(--bg-card)] p-6 flex flex-col items-center justify-center gap-2 rounded-2xl border border-[var(--border-muted)] glass-card shadow-sm w-full md:w-1/3">
                 <span className="material-symbols-outlined text-[var(--color-primary)] text-3xl">account_balance_wallet</span>
@@ -113,7 +114,8 @@ export default function SettlementsClient({ pendingData }: { pendingData: Pendin
                                     </td>
                                     <td className="px-6 py-4 text-right">
                                         <button
-                                            onClick={() => handlePayout(data)}
+                                            type="button"
+                                            onClick={() => setPendingSettlement(data)}
                                             disabled={isPayingOut === data.employeeId}
                                             className={`inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-[9px] font-black uppercase tracking-widest shadow-sm transition-all ${
                                                 isPayingOut === data.employeeId
@@ -132,5 +134,41 @@ export default function SettlementsClient({ pendingData }: { pendingData: Pendin
                 </div>
             </div>
         </div>
+
+        {pendingSettlement && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-3xl p-8 w-full max-w-sm shadow-2xl space-y-6">
+                        <div className="flex items-center gap-4">
+                            <div className="size-12 rounded-2xl bg-[var(--color-primary)]/10 flex items-center justify-center shrink-0">
+                                <span className="material-symbols-outlined text-[var(--color-primary)] text-2xl">price_check</span>
+                            </div>
+                            <div>
+                                <h3 className="text-sm font-black uppercase tracking-widest text-[var(--text-main)]">Confirm Payout</h3>
+                                <p className="text-[10px] text-[var(--text-muted)] mt-1">This will mark the commission as settled.</p>
+                            </div>
+                        </div>
+                        <p className="text-xs font-bold text-[var(--text-main)] px-1">
+                            Mark <span className="text-[var(--color-primary)]">{formatRWF(pendingSettlement.unpaidTotal)}</span> as paid to <span className="text-[var(--color-primary)]">{pendingSettlement.fullName}</span>?
+                        </p>
+                        <div className="flex gap-3">
+                            <button
+                                type="button"
+                                onClick={() => setPendingSettlement(null)}
+                                className="flex-1 h-12 rounded-2xl border border-[var(--border-muted)] text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)] transition-all"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => handlePayout(pendingSettlement)}
+                                className="flex-1 h-12 rounded-2xl bg-[var(--color-primary)] text-white text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-[var(--color-primary)]/20"
+                            >
+                                Settle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        )}
+        </>
     );
 }

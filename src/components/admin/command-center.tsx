@@ -197,7 +197,7 @@ export function CommandCenter() {
     );
 }
 
-function ResultSection({ title, results, activeIndex, offset, onSelect }: { title: string; results?: Array<{ id: string; name?: string; fullName?: string; ownerEmail?: string; identifier?: string; branch?: { name: string } }>; activeIndex: number; offset: number; onSelect: (item: { id: string; type: string }) => void; router: any }) {
+function ResultSection({ title, results, activeIndex, offset, onSelect }: { title: string; results?: Array<{ id: string; name?: string; fullName?: string; ownerEmail?: string; identifier?: string; branch?: { name: string } }>; activeIndex: number; offset: number; onSelect: (item: { id: string; type: string }) => void; router: ReturnType<typeof useRouter> }) {
     if (!results || results.length === 0) return null;
 
     return (

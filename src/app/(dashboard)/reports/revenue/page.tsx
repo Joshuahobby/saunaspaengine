@@ -40,9 +40,10 @@ export default async function ReportsRevenuePage(props: { searchParams: Promise<
     });
 
     const totalRevenue = completedRecords.reduce((sum: number, r) => sum + r.amount, 0);
-    const totalTax = completedRecords.reduce((sum: number, r: any) => sum + (r.taxAmount || 0), 0);
-    const totalCommission = completedRecords.reduce((sum: number, r: any) => sum + (r.platformFee || 0), 0);
-    const totalNet = completedRecords.reduce((sum: number, r: any) => sum + (r.netAmount || 0), 0);
+    type FinancialRecord = typeof completedRecords[number] & { taxAmount?: number | null; platformFee?: number | null; netAmount?: number | null };
+    const totalTax = completedRecords.reduce((sum, r) => sum + ((r as FinancialRecord).taxAmount || 0), 0);
+    const totalCommission = completedRecords.reduce((sum, r) => sum + ((r as FinancialRecord).platformFee || 0), 0);
+    const totalNet = completedRecords.reduce((sum, r) => sum + ((r as FinancialRecord).netAmount || 0), 0);
     const avgTransactionValue = completedRecords.length > 0 ? totalRevenue / completedRecords.length : 0;
 
     const activeMembersCount = await prisma.membership.count({
@@ -59,7 +60,8 @@ export default async function ReportsRevenuePage(props: { searchParams: Promise<
     }, {});
 
     // Top Services
-    const serviceStats = completedRecords.reduce((acc: Record<string, any>, r) => {
+    interface ServiceStat { name: string; category: string; bookings: number; revenue: number }
+    const serviceStats = completedRecords.reduce((acc: Record<string, ServiceStat>, r) => {
         const key = r.serviceId;
         if (!acc[key]) {
             acc[key] = {
@@ -74,8 +76,8 @@ export default async function ReportsRevenuePage(props: { searchParams: Promise<
         return acc;
     }, {});
 
-    const topServices = (Object.values(serviceStats) as any[])
-        .sort((a: any, b: any) => b.revenue - a.revenue)
+    const topServices = Object.values(serviceStats)
+        .sort((a, b) => b.revenue - a.revenue)
         .slice(0, 5);
 
     const metrics = {

@@ -17,6 +17,7 @@ interface MembershipCategory {
     usageLimit: number | null;
     isGlobal: boolean;
     status: EntityStatus;
+    branchId?: string | null;
     _count?: {
         memberships: number;
     };
@@ -259,7 +260,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
         durationDays: category?.durationDays?.toString() || "30",
         usageLimit: category?.usageLimit?.toString() || "10",
         isGlobal: category?.isGlobal || false,
-        branchId: category?.id ? (category as any).branchId : (branches[0]?.id || "")
+        branchId: category?.id ? category.branchId : (branches[0]?.id || "")
     });
 
     // Sync form data when category changes
@@ -273,7 +274,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                 durationDays: category.durationDays?.toString() || "30",
                 usageLimit: category.usageLimit?.toString() || "10",
                 isGlobal: category.isGlobal,
-                branchId: (category as any).branchId || (branches[0]?.id || "")
+                branchId: category.branchId || (branches[0]?.id || "")
             });
         } else {
             setFormData({

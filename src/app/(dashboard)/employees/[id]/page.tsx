@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect, notFound } from "next/navigation";
-import { startOfMonth, subMonths, differenceInMonths } from "date-fns";
+import { subMonths, differenceInMonths } from "date-fns";
 import EmployeeUI from "./employee-ui";
 
 export default async function EmployeeProfilePage({ params }: { params: Promise<{ id: string }> }) {
@@ -39,7 +39,7 @@ export default async function EmployeeProfilePage({ params }: { params: Promise<
 
     // Secondary security: Managers can only see staff in their branch
     if (role === "MANAGER" && employee.branchId !== session.user.branchId) {
-        redirect("/employees");
+        redirect("/staff?tab=directory");
     }
 
     // 2. Intelligence Gathering: Revenue Trend (Last 12 Months)
@@ -96,14 +96,14 @@ export default async function EmployeeProfilePage({ params }: { params: Promise<
     };
 
     return (
-        <EmployeeUI 
+        <EmployeeUI
             employee={{
                 ...employee,
                 phone: employee.phone || null,
                 commissionRate: employee.commissionRate,
                 user: employee.user || null,
-                serviceRecords: serviceRecords.slice(0, 20) // Limit list to recent
-            } as any}
+                serviceRecords: serviceRecords.slice(0, 20), // Limit list to recent
+            }}
             categories={categories}
             branches={branches}
             isOwner={role === "OWNER" || role === "ADMIN"}

@@ -140,7 +140,7 @@ export default async function HelpPage() {
                 <div className="space-y-4">
                     <h3 className="text-3xl font-display font-bold text-[var(--text-main)]">Still need assistance?</h3>
                     <p className="text-[var(--text-muted)] max-w-3xl font-bold text-lg leading-relaxed">
-                        If you've encountered a system anomaly or require architectural guidance, our primary support oracles are available to assist.
+                        If you&apos;ve encountered a system anomaly or require architectural guidance, our primary support oracles are available to assist.
                     </p>
                 </div>
 

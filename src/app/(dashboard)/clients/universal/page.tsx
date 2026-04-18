@@ -14,7 +14,7 @@ export default async function UniversalMemberRegistryPage() {
     const businessId = session.user.businessId;
 
     // 2. Fetch all clients across all branches of the business
-    const clientsData = await (prisma.client as any).findMany({
+    const clientsData = await prisma.client.findMany({
         where: {
             branch: { businessId: businessId }
         },
@@ -32,7 +32,7 @@ export default async function UniversalMemberRegistryPage() {
         }
     });
 
-    const formattedClients = clientsData.map((c: any) => ({
+    const formattedClients = clientsData.map((c) => ({
         id: c.id,
         fullName: c.fullName,
         phone: c.phone || "No phone",

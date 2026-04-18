@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
-import { format } from "date-fns";
 import { StatusToggle } from "@/components/employees/status-toggle";
 import { BranchFilter } from "@/components/employees/branch-filter";
 import Link from "next/link";
@@ -25,12 +24,12 @@ export default async function TeamDirectoryTab({
         : [];
 
     const searchTerm = resolvedSearchParams.q?.toLowerCase();
-    const viewStatus = resolvedSearchParams.status || 'ACTIVE';
+    const viewStatus = (resolvedSearchParams.status || "ACTIVE") as "ACTIVE" | "INACTIVE" | "ARCHIVED";
 
     const employees = await prisma.employee.findMany({
-        where: { 
+        where: {
             branchId: { in: authorizedBranchIds },
-            status: viewStatus as any,
+            status: viewStatus,
             ...(searchTerm ? {
                 OR: [
                     { fullName: { contains: searchTerm, mode: 'insensitive' } },

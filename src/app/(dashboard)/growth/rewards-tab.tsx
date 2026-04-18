@@ -145,7 +145,7 @@ export default async function RewardsTab() {
     );
 }
 
-function StatCard({ label, value, sub, icon, highlight = false }: any) {
+function StatCard({ label, value, sub, icon, highlight = false }: { label: string; value: string | number; sub?: string; icon?: string; highlight?: boolean }) {
     return (
         <div className={`p-8 rounded-[2.5rem] border transition-all duration-500 shadow-sm ${
             highlight 

@@ -62,8 +62,8 @@ export default function SettlementClientPage({
             } else {
                 setError(result.message || "Failed to generate settlement");
             }
-        } catch (err: any) {
-            setError(err.message || "An unexpected error occurred");
+        } catch (err) {
+            setError((err as Error).message || "An unexpected error occurred");
         } finally {
             setIsSubmitting(false);
         }

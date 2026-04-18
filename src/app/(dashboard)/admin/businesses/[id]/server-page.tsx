@@ -31,7 +31,7 @@ export default async function BranchDetailsPage({ params }: { params: Promise<{ 
         orderBy: { createdAt: 'asc' },
     });
 
-    const mappedPackages = platformPackages.map((p: any) => ({
+    const mappedPackages = platformPackages.map((p) => ({
         ...p,
         priceMonthly: Number(p.priceMonthly),
         priceYearly: Number(p.priceYearly),
@@ -43,12 +43,12 @@ export default async function BranchDetailsPage({ params }: { params: Promise<{ 
         createdAt: business.createdAt.toISOString(),
         updatedAt: business.updatedAt.toISOString(),
         subscriptionRenewal: business.subscriptionRenewal?.toISOString() || null,
-        branches: business.branches.map((b: any) => ({
+        branches: business.branches.map((b) => ({
             ...b,
             createdAt: b.createdAt.toISOString(),
             updatedAt: b.updatedAt.toISOString(),
         })),
     };
 
-    return <BranchDetailsClientPage business={serializableBusiness as any} platformPackages={mappedPackages} />;
+    return <BranchDetailsClientPage business={serializableBusiness as Parameters<typeof BranchDetailsClientPage>[0]["business"]} platformPackages={mappedPackages} />;
 }

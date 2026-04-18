@@ -6,8 +6,8 @@ import { Prisma } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import { resolveEffectiveBranchId } from "@/lib/branch-context";
 import { ExtraService } from "@/types/operations";
-import { calculatePointsEarned, determineTier } from "@/lib/loyalty";
 import { randomUUID } from "crypto";
+import { completeServiceRecord } from "@/lib/operations-logic";
 
 
 // GET /api/operations — list service records for current branch
@@ -225,14 +225,6 @@ export async function POST(request: NextRequest) {
 
 }
 
-interface FinancialData {
-    taxAmount?: number;
-    platformFee?: number;
-    netAmount?: number;
-    employeeCommission?: number;
-    completedAt?: Date;
-}
-
 // PATCH /api/operations — update service record (e.g., mark as COMPLETED)
 export async function PATCH(request: NextRequest) {
     const session = await auth();
@@ -249,152 +241,37 @@ export async function PATCH(request: NextRequest) {
     }
 
     try {
-        // Fetch existing record and the financial context needed for completion.
-        // Two queries avoids the deep nested `as any` include workaround.
-        const existingRecord = await prisma.serviceRecord.findUnique({
-            where: { id, branchId },
-            include: {
-                employee: { select: { id: true, commissionRate: true } },
-            },
-        });
-
-        if (!existingRecord) {
-            return NextResponse.json({ error: "Record not found" }, { status: 404 });
-        }
-
-        const financialData: FinancialData = {};
-
-        if (status === "COMPLETED") {
-            // Fetch tax rate and platform commission rate in parallel
-            const [compliance, branchWithBusiness] = await Promise.all([
-                prisma.compliance.findFirst({ where: { region: "RWANDA" } }),
-                prisma.branch.findUnique({
-                    where: { id: branchId },
-                    include: { business: { select: { platformCommissionRate: true } } },
-                }),
-            ]);
-
-            const taxRate = compliance?.taxRate ?? 18.0;
-            const commissionRate = branchWithBusiness?.business?.platformCommissionRate ?? 5.0;
-            const totalAmount = existingRecord.amount;
-
-            const taxAmount = totalAmount * (taxRate / 100);
-            const netBeforeCommission = totalAmount - taxAmount;
-            const platformFee = netBeforeCommission * (commissionRate / 100);
-
-            financialData.taxAmount = taxAmount;
-            financialData.platformFee = platformFee;
-            financialData.netAmount = totalAmount - taxAmount - platformFee;
-            financialData.completedAt = new Date();
-
-            // Calculate employee commission on gross amount
-            if (existingRecord.employee?.commissionRate) {
-                financialData.employeeCommission =
-                    totalAmount * (existingRecord.employee.commissionRate / 100);
+        // If status is COMPLETED and it's NOT a MOMO payment (which is handled by webhook)
+        // or if it's already PAID (we just mark as completed)
+        if (status === "COMPLETED" && (paymentMode === "CASH" || paymentMode === "POS" || paymentMode === "MEMBERSHIP")) {
+            // Update comments or other metadata first if provided
+            if (comment || paymentMode) {
+                await prisma.serviceRecord.update({
+                    where: { id, branchId },
+                    data: {
+                        ...(comment && { comment }),
+                        ...(paymentMode && { paymentMode }),
+                    }
+                });
             }
+
+            const record = await completeServiceRecord(id, branchId);
+            return NextResponse.json(record);
         }
 
+        // Generic update for other statuses or data changes
         const record = await prisma.serviceRecord.update({
             where: { id, branchId },
             data: {
                 ...(status && { status }),
                 ...(paymentMode && { paymentMode }),
                 ...(comment && { comment }),
-                ...financialData,
             },
             include: {
                 client: { select: { id: true } },
                 service: { select: { price: true } },
             },
         });
-
-        // Post-completion side effects
-        if (status === "COMPLETED") {
-            // 1. Membership deduction
-            // The correct filter uses `category.branchId` (Membership has no top-level branchId).
-            if (record.paymentMode === "MEMBERSHIP") {
-                const membership = await prisma.membership.findFirst({
-                    where: {
-                        clientId: record.clientId,
-                        status: "ACTIVE",
-                        OR: [
-                            { category: { branchId } },
-                            { category: { isGlobal: true } },
-                        ],
-                        AND: [
-                            { OR: [{ endDate: null }, { endDate: { gte: new Date() } }] },
-                            { OR: [{ balance: null }, { balance: { gt: 0 } }] },
-                        ],
-                    },
-                });
-
-                if (membership?.balance !== null && membership?.balance !== undefined) {
-                    const updateResult = await prisma.membership.updateMany({
-                        where: { id: membership.id, balance: { gt: 0 } },
-                        data: { balance: { decrement: 1 } },
-                    });
-                    
-                    if (updateResult.count === 0) {
-                        throw new Error("Membership balance exhausted during transaction.");
-                    }
-                }
-            }
-
-            // 2. Loyalty points accrual
-            const loyaltyProgram = await prisma.loyaltyProgram.findFirst({
-                where: { branchId: record.branchId, status: "ACTIVE" },
-            });
-
-            if (loyaltyProgram) {
-                const existingLoyalty = await prisma.loyaltyPoint.findFirst({
-                    where: { clientId: record.clientId, branchId: record.branchId },
-                });
-
-                const currentPoints = existingLoyalty?.points ?? 0;
-                const currentTier = existingLoyalty?.tier ?? "BRONZE";
-                const pointsToEarn = calculatePointsEarned(
-                    record.amount,
-                    currentTier,
-                    loyaltyProgram.pointsPerRwf
-                );
-
-                if (pointsToEarn > 0) {
-                    const nextTier = determineTier(currentPoints + pointsToEarn);
-                    if (existingLoyalty) {
-                        await prisma.loyaltyPoint.update({
-                            where: { id: existingLoyalty.id },
-                            data: { points: { increment: pointsToEarn }, tier: nextTier },
-                        });
-                    } else {
-                        await prisma.loyaltyPoint.create({
-                            data: {
-                                clientId: record.clientId,
-                                branchId: record.branchId,
-                                points: pointsToEarn,
-                                tier: nextTier,
-                            },
-                        });
-                    }
-                }
-            }
-
-            // 3. Commission logging
-            if (financialData.employeeCommission && financialData.employeeCommission > 0 && record.employeeId) {
-                await prisma.commissionLog.upsert({
-                    where: { serviceRecordId: record.id },
-                    update: {
-                        amount: financialData.employeeCommission,
-                        employeeId: record.employeeId,
-                    },
-                    create: {
-                        serviceRecordId: record.id,
-                        employeeId: record.employeeId,
-                        amount: financialData.employeeCommission,
-                        status: "UNPAID",
-                    },
-                });
-            }
-        }
 
         return NextResponse.json(record);
     } catch (error: unknown) {

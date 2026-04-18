@@ -42,6 +42,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
     const [restockQty, setRestockQty] = useState("");
     const [restockNotes, setRestockNotes] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [deletingSupplier, setDeletingSupplier] = useState<string | null>(null);
 
     // Supplier form
     const [supplierForm, setSupplierForm] = useState({ name: "", email: "", phone: "", category: "", address: "" });
@@ -99,7 +100,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
     };
 
     const handleDeleteSupplier = async (id: string) => {
-        if (!confirm("Remove this supplier?")) return;
+        setDeletingSupplier(null);
         try {
             const res = await fetch(`/api/suppliers/${id}`, { method: "DELETE" });
             if (res.ok) setSuppliers(prev => prev.filter(s => s.id !== id));
@@ -122,7 +123,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                 </div>
                 <div className="flex gap-4">
                     {activeTab === "suppliers" ? (
-                        <button onClick={() => setSupplierModal(true)} className="flex items-center gap-3 px-8 py-4 bg-[var(--color-primary)] text-[var(--color-bg-dark)] rounded-3xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-[var(--color-primary)]/10">
+                        <button type="button" onClick={() => setSupplierModal(true)} className="flex items-center gap-3 px-8 py-4 bg-[var(--color-primary)] text-[var(--color-bg-dark)] rounded-3xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-[var(--color-primary)]/10">
                             <span className="material-symbols-outlined text-lg">person_add</span>
                             Add Supplier
                         </button>
@@ -165,6 +166,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
             <div className="flex border-b border-[var(--border-muted)] mb-12 overflow-x-auto whitespace-nowrap scrollbar-hide">
                 {tabs.map(tab => (
                     <button
+                        type="button"
                         key={tab.key}
                         onClick={() => setActiveTab(tab.key)}
                         className={`px-10 py-5 text-[10px] font-bold uppercase tracking-widest border-b-2 transition-all ${activeTab === tab.key
@@ -231,7 +233,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                                                         )}
                                                     </td>
                                                     <td className="px-8 py-6 text-right">
-                                                        <button onClick={() => setRestockModal(item)} className={`px-5 py-3 rounded-2xl text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${isLowStock ? 'bg-[var(--text-main)] text-[var(--bg-app)] shadow-lg shadow-[var(--text-main)]/10' : 'bg-[var(--bg-surface-muted)] text-[var(--text-main)] border border-[var(--border-muted)] hover:bg-[var(--border-muted)]'}`}>
+                                                        <button type="button" onClick={() => setRestockModal(item)} className={`px-5 py-3 rounded-2xl text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${isLowStock ? 'bg-[var(--text-main)] text-[var(--bg-app)] shadow-lg shadow-[var(--text-main)]/10' : 'bg-[var(--bg-surface-muted)] text-[var(--text-main)] border border-[var(--border-muted)] hover:bg-[var(--border-muted)]'}`}>
                                                             Restock
                                                         </button>
                                                     </td>
@@ -280,16 +282,16 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                             <div className="flex items-start justify-between mb-6">
                                 <div className="flex items-center gap-4">
                                     <div className="size-14 rounded-2xl bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] font-bold text-lg font-display border border-[var(--color-primary)]/10 shadow-sm group-hover:scale-110 transition-transform duration-500">
-                                        {supplier.name.substring(0, 2).toUpperCase()}
+                                        {supplier.name?.substring(0, 2).toUpperCase() || "??"}
                                     </div>
                                     <div>
-                                        <p className="text-base font-bold font-display text-[var(--text-main)]">{supplier.name}</p>
+                                        <p className="text-base font-bold font-display text-[var(--text-main)]">{supplier.name || "Unknown Supplier"}</p>
                                         <p className="text-[10px] font-bold text-[var(--color-primary)] uppercase tracking-widest mt-0.5">
                                             {supplier.category || "General Supplier"}
                                         </p>
                                     </div>
                                 </div>
-                                <button onClick={() => handleDeleteSupplier(supplier.id)} className="p-2 opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all" aria-label={`Delete ${supplier.name}`}>
+                                <button type="button" onClick={() => setDeletingSupplier(supplier.id)} className="p-2 opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all" aria-label={`Delete ${supplier.name}`}>
                                     <span className="material-symbols-outlined text-lg">delete</span>
                                 </button>
                             </div>
@@ -375,7 +377,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                                             <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-60">
                                                 Min threshold: {item.minThreshold} {item.unit}
                                             </span>
-                                            <button onClick={() => setRestockModal(item)} className="px-5 py-2.5 bg-[var(--text-main)] text-[var(--bg-app)] rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all cursor-pointer shadow-sm">
+                                            <button type="button" onClick={() => setRestockModal(item)} className="px-5 py-2.5 bg-[var(--text-main)] text-[var(--bg-app)] rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all cursor-pointer shadow-sm">
                                                 Restock Now
                                             </button>
                                         </div>
@@ -406,8 +408,8 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                         </div>
 
                         <div className="flex gap-4 mt-10">
-                            <button onClick={() => setRestockModal(null)} className="flex-1 px-6 py-4 bg-[var(--bg-surface-muted)] text-[var(--text-main)] rounded-2xl text-[10px] font-bold uppercase tracking-widest border border-[var(--border-muted)] hover:bg-[var(--border-muted)] transition-all cursor-pointer">Cancel</button>
-                            <button onClick={handleRestock} disabled={isLoading || !restockQty} className="flex-1 px-6 py-4 bg-[var(--color-primary)] text-[var(--color-bg-dark)] rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer shadow-lg shadow-[var(--color-primary)]/20">
+                            <button type="button" onClick={() => setRestockModal(null)} className="flex-1 px-6 py-4 bg-[var(--bg-surface-muted)] text-[var(--text-main)] rounded-2xl text-[10px] font-bold uppercase tracking-widest border border-[var(--border-muted)] hover:bg-[var(--border-muted)] transition-all cursor-pointer">Cancel</button>
+                            <button type="button" onClick={handleRestock} disabled={isLoading || !restockQty} className="flex-1 px-6 py-4 bg-[var(--color-primary)] text-[var(--color-bg-dark)] rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer shadow-lg shadow-[var(--color-primary)]/20">
                                 {isLoading ? "Restocking..." : "Confirm Restock"}
                             </button>
                         </div>
@@ -450,14 +452,53 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                         </div>
 
                         <div className="flex gap-4 mt-10">
-                            <button onClick={() => setSupplierModal(false)} className="flex-1 px-6 py-4 bg-[var(--bg-surface-muted)] text-[var(--text-main)] rounded-2xl text-[10px] font-bold uppercase tracking-widest border border-[var(--border-muted)] hover:bg-[var(--border-muted)] transition-all cursor-pointer">Cancel</button>
-                            <button onClick={handleAddSupplier} disabled={isLoading || !supplierForm.name.trim()} className="flex-1 px-6 py-4 bg-[var(--color-primary)] text-[var(--color-bg-dark)] rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer shadow-lg shadow-[var(--color-primary)]/20">
+                            <button type="button" onClick={() => setSupplierModal(false)} className="flex-1 px-6 py-4 bg-[var(--bg-surface-muted)] text-[var(--text-main)] rounded-2xl text-[10px] font-bold uppercase tracking-widest border border-[var(--border-muted)] hover:bg-[var(--border-muted)] transition-all cursor-pointer">Cancel</button>
+                            <button type="button" onClick={handleAddSupplier} disabled={isLoading || !supplierForm.name.trim()} className="flex-1 px-6 py-4 bg-[var(--color-primary)] text-[var(--color-bg-dark)] rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer shadow-lg shadow-[var(--color-primary)]/20">
                                 {isLoading ? "Creating..." : "Add Supplier"}
                             </button>
                         </div>
                     </div>
                 </div>
             )}
+
+            {deletingSupplier && (() => {
+                const supplier = suppliers.find(s => s.id === deletingSupplier);
+                if (!supplier) return null;
+                return (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                        <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-3xl p-8 w-full max-w-sm shadow-2xl space-y-6">
+                            <div className="flex items-center gap-4">
+                                <div className="size-12 rounded-2xl bg-red-500/10 flex items-center justify-center shrink-0">
+                                    <span className="material-symbols-outlined text-red-500 text-2xl">local_shipping</span>
+                                </div>
+                                <div>
+                                    <h3 className="text-sm font-black uppercase tracking-widest text-[var(--text-main)]">Remove Supplier</h3>
+                                    <p className="text-[10px] text-[var(--text-muted)] mt-1">This action cannot be undone.</p>
+                                </div>
+                            </div>
+                            <p className="text-xs font-bold text-[var(--text-main)] px-1">
+                                Remove <span className="text-red-500">{supplier.name}</span> from your supplier list?
+                            </p>
+                            <div className="flex gap-3">
+                                <button
+                                    type="button"
+                                    onClick={() => setDeletingSupplier(null)}
+                                    className="flex-1 h-12 rounded-2xl border border-[var(--border-muted)] text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)] transition-all"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => handleDeleteSupplier(deletingSupplier)}
+                                    className="flex-1 h-12 rounded-2xl bg-red-500 text-white text-[10px] font-black uppercase tracking-widest hover:bg-red-600 transition-all shadow-lg shadow-red-500/20"
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            })()}
         </div>
     );
 }

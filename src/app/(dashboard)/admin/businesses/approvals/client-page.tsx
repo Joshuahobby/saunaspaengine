@@ -16,18 +16,20 @@ interface PendingBusiness {
 export default function ApprovalsClientPage({ businesses: initialBusinesses }: { businesses: PendingBusiness[] }) {
     const [businesses, setBusinesses] = useState(initialBusinesses);
     const [processingId, setProcessingId] = useState<string | null>(null);
+    const [actionError, setActionError] = useState<string | null>(null);
 
     const handleApproval = async (id: string, status: "APPROVED" | "REJECTED") => {
         setProcessingId(id);
-        const result = await updateBusinessApprovalAction(id, { 
+        setActionError(null);
+        const result = await updateBusinessApprovalAction(id, {
             approvalStatus: status,
             kycNotes: status === "APPROVED" ? "Verified via platform governance audit." : "Documentation incomplete or invalid."
         });
-        
+
         if (result.success) {
             setBusinesses(prev => prev.filter(b => b.id !== id));
         } else {
-            alert("Failed to process compliance action.");
+            setActionError("Failed to process compliance action.");
         }
         setProcessingId(null);
     };
@@ -44,6 +46,12 @@ export default function ApprovalsClientPage({ businesses: initialBusinesses }: {
                         Manual verification of new-entry business organizations.
                     </p>
                 </div>
+                {actionError && (
+                    <div className="px-5 py-2 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-[9px] font-black uppercase tracking-widest flex items-center gap-2">
+                        <span className="material-symbols-outlined text-sm">error</span>
+                        {actionError}
+                    </div>
+                )}
                 <div className="flex items-center gap-3">
                     <div className="px-5 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[9px] font-black uppercase tracking-widest flex items-center gap-2">
                         <span className="material-symbols-outlined text-sm animate-pulse">lock_person</span>

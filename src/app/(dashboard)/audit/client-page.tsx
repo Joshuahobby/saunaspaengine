@@ -81,7 +81,7 @@ export default function LocalAuditLogClientPage() {
                                         </span>
                                     </td>
                                     <td className="px-6 py-5 text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] text-sm font-medium">Premium Sauna Suite #04</td>
-                                    <td className="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm italic">"Customer loyalty discount applied manually; system auto-calc overrode due to expired coupon."</td>
+                                    <td className="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm italic">&quot;Customer loyalty discount applied manually; system auto-calc overrode due to expired coupon.&quot;</td>
                                     <td className="px-6 py-5 text-right">
                                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold border border-[var(--color-primary)] text-[var(--color-primary)]">VERIFIED</span>
                                     </td>
@@ -103,7 +103,7 @@ export default function LocalAuditLogClientPage() {
                                         </span>
                                     </td>
                                     <td className="px-6 py-5 text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] text-sm font-medium">Swedish Massage (60m)</td>
-                                    <td className="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm italic">"Seasonal rate adjustment - increased base rate by $15 for Q4 peak."</td>
+                                    <td className="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm italic">&quot;Seasonal rate adjustment - increased base rate by $15 for Q4 peak.&quot;</td>
                                     <td className="px-6 py-5 text-right">
                                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold border border-blue-500 text-blue-500">APPROVED</span>
                                     </td>
@@ -125,7 +125,7 @@ export default function LocalAuditLogClientPage() {
                                         </span>
                                     </td>
                                     <td className="px-6 py-5 text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] text-sm font-medium">Maria Garcia</td>
-                                    <td className="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm italic">"Updated professional certification expiry date to 2025."</td>
+                                    <td className="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm italic">&quot;Updated professional certification expiry date to 2025.&quot;</td>
                                     <td className="px-6 py-5 text-right">
                                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold border border-slate-400 text-slate-400 uppercase">Logged</span>
                                     </td>
@@ -147,7 +147,7 @@ export default function LocalAuditLogClientPage() {
                                         </span>
                                     </td>
                                     <td className="px-6 py-5 text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] text-sm font-medium">Deep Tissue Session ID: #882</td>
-                                    <td className="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm italic">"Overrode locked service record to resolve double-booking scheduling error."</td>
+                                    <td className="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm italic">&quot;Overrode locked service record to resolve double-booking scheduling error.&quot;</td>
                                     <td className="px-6 py-5 text-right">
                                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold border border-[var(--color-primary)] text-[var(--color-primary)]">VERIFIED</span>
                                     </td>
@@ -169,7 +169,7 @@ export default function LocalAuditLogClientPage() {
                                         </span>
                                     </td>
                                     <td className="px-6 py-5 text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] text-sm font-medium">Aromatherapy Add-on</td>
-                                    <td className="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm italic">"Updated session duration standard from 45 to 60 minutes."</td>
+                                    <td className="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm italic">&quot;Updated session duration standard from 45 to 60 minutes.&quot;</td>
                                     <td className="px-6 py-5 text-right">
                                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-bold border border-slate-400 text-slate-400 uppercase">Logged</span>
                                     </td>

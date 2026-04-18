@@ -112,7 +112,7 @@ export default async function BranchProfilePage({ params }: { params: Promise<{ 
             branch={{
                 ...branch,
                 serviceRecords: serviceRecords.slice(0, 20)
-            } as any}
+            } as Parameters<typeof BranchUI>[0]["branch"]}
             intelligence={intelligence}
             isOwner={role === "OWNER" || role === "ADMIN"}
         />

@@ -67,10 +67,10 @@ export default async function LandingPage() {
               <ScrollReveal direction="up" delay={0.4} duration={0.8} className="flex flex-wrap gap-6">
                 <Link
                   href={isLoggedIn ? "/dashboard" : "/signup"}
-                  aria-label={isLoggedIn ? "Go to Dashboard" : "Start Your Journey"}
+                  aria-label={isLoggedIn ? "Go to Dashboard" : "Register Spa"}
                   className="flex min-w-[200px] cursor-pointer items-center justify-center rounded-2xl h-16 px-10 bg-[var(--color-primary)] text-white text-sm font-black uppercase tracking-widest shadow-2xl shadow-[var(--color-primary)]/30 transition-all hover:scale-105 hover:bg-[var(--color-primary-hover)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)] selection:bg-white selection:text-[var(--color-primary)]"
                 >
-                  {isLoggedIn ? "Go to Dashboard" : "Start Your Journey"}
+                  {isLoggedIn ? "Go to Dashboard" : "Register Spa"}
                 </Link>
                 <Link
                   href="#how-it-works"

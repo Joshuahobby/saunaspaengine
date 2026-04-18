@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import { formatDistanceToNow } from "date-fns";
 import ClientListClient from "../clients/client-page";
@@ -29,7 +30,7 @@ export default async function ClientListTab({
             ? (await prisma.branch.findMany({ where: { businessId: session.user.businessId as string }, select: { id: true } })).map(b => b.id)
             : [session.user.branchId as string]);
 
-    const searchWhere: any = {
+    const searchWhere: Prisma.ClientWhereInput = {
         branchId: { in: branchIds }
     };
 

@@ -28,9 +28,6 @@ export default async function AdminAnalyticsPage() {
     const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 5, 1);
     const twentyEightDaysAgo = new Date(now.getTime() - 28 * 24 * 60 * 60 * 1000);
 
-    // Using any cast for business queries since Prisma types might need refresh
-    const db = prisma as any;
-
     const [
         totalRevenueAgg,
         totalBusinesses,
@@ -56,7 +53,7 @@ export default async function AdminAnalyticsPage() {
             _sum: { amount: true },
             where: { status: "COMPLETED" }
         }),
-        db.business.count(),
+        prisma.business.count(),
         prisma.branch.count({ where: { status: "ACTIVE" } }),
         prisma.user.count(),
         prisma.auditLog.findMany({
@@ -64,7 +61,7 @@ export default async function AdminAnalyticsPage() {
             orderBy: { createdAt: "desc" },
             include: { user: { select: { fullName: true, role: true } } }
         }),
-        db.business.findMany({
+        prisma.business.findMany({
             where: { createdAt: { gte: sixMonthsAgo } },
             select: { createdAt: true }
         }),
@@ -72,7 +69,7 @@ export default async function AdminAnalyticsPage() {
             where: { createdAt: { gte: sixMonthsAgo } },
             select: { createdAt: true }
         }),
-        db.business.findMany({
+        prisma.business.findMany({
             where: { approvalStatus: "APPROVED" },
             select: {
                 subscriptionPlan: {
@@ -100,7 +97,7 @@ export default async function AdminAnalyticsPage() {
             by: ['role'],
             _count: { _all: true }
         }),
-        db.business.groupBy({
+        prisma.business.groupBy({
             by: ['approvalStatus'],
             _count: { _all: true }
         }),
@@ -122,7 +119,7 @@ export default async function AdminAnalyticsPage() {
     for (let i = 5; i >= 0; i--) {
         const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
         
-        const bCount = monthlyBusinesses.filter((b: any) => {
+        const bCount = monthlyBusinesses.filter((b) => {
             const bd = new Date(b.createdAt);
             return bd.getFullYear() === d.getFullYear() && bd.getMonth() === d.getMonth();
         }).length;
@@ -143,7 +140,7 @@ export default async function AdminAnalyticsPage() {
     const planCounts = new Map<string, number>();
     let projectedMRR = 0;
     
-    businessesWithPlans.forEach((b: any) => {
+    businessesWithPlans.forEach((b) => {
         const plan = b.subscriptionPlan;
         const planName = plan?.name || "No Plan";
         planCounts.set(planName, (planCounts.get(planName) || 0) + 1);
@@ -168,7 +165,7 @@ export default async function AdminAnalyticsPage() {
         REJECTED: 0,
         SUSPENDED: 0
     };
-    approvalDistributionRaw.forEach((item: any) => {
+    approvalDistributionRaw.forEach((item) => {
         approvalMap[item.approvalStatus] = item._count._all;
     });
 

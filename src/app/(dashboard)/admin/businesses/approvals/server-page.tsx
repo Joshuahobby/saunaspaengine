@@ -10,8 +10,7 @@ export const metadata = {
 export default async function BusinessApprovalsPage() {
     await requireRole(["ADMIN"]);
 
-    const db = prisma as any;
-    const pendingBusinesses = await db.business.findMany({
+    const pendingBusinesses = await prisma.business.findMany({
         where: {
             approvalStatus: "PENDING"
         },
@@ -20,7 +19,7 @@ export default async function BusinessApprovalsPage() {
         }
     });
 
-    const businesses = pendingBusinesses.map((b: any) => ({
+    const businesses = pendingBusinesses.map((b) => ({
         id: b.id,
         name: b.name,
         taxId: b.taxId,

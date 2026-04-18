@@ -16,3 +16,21 @@ export async function updateClientNotes(clientId: string, notes: string) {
         return { success: false, error: "Failed to save governance notes" };
     }
 }
+
+export async function generateClientQrAction(clientId: string) {
+    try {
+        // Uniform format for spa clients
+        const qrCode = `spa-client:${clientId}`;
+        
+        await prisma.client.update({
+            where: { id: clientId },
+            data: { qrCode }
+        });
+        
+        revalidatePath(`/clients/${clientId}`);
+        return { success: true, qrCode };
+    } catch (error) {
+        console.error("Failed to generate QR code:", error);
+        return { success: false, error: "Failed to generate client QR code" };
+    }
+}

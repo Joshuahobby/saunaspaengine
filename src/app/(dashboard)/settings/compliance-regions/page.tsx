@@ -190,7 +190,7 @@ export default async function RegionalCompliancePage({
                                     <h4 className="font-bold text-blue-500/80 uppercase text-[10px] tracking-widest">Receipt Compliance</h4>
                                     <p className="text-sm text-[var(--text-muted)] leading-relaxed italic">
                                         These settings control what appears on printed and digital receipts at this location. 
-                                        If you leave them blank, we will use your company's master tax record.
+                                        If you leave them blank, we will use your company&apos;s master tax record.
                                     </p>
                                 </div>
                             </div>
