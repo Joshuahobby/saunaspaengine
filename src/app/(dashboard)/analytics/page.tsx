@@ -9,7 +9,7 @@ export const metadata = {
     title: "Intelligence Hub | Sauna SPA",
 };
 
-export default async function AnalyticsPage(props: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+export default async function AnalyticsPage() {
     const session = await auth();
     
     if (!session?.user) {
@@ -17,11 +17,11 @@ export default async function AnalyticsPage(props: { searchParams: Promise<Recor
     }
 
     if (session.user.role === "ADMIN") {
-        return <AdminAnalyticsPage {...props} />;
+        return <AdminAnalyticsPage />;
     }
 
     if (session.user.role === "OWNER") {
-        return <ExecutiveAnalyticsPage {...props} />;
+        return <ExecutiveAnalyticsPage />;
     }
 
     // Managers/Employees can be redirected to their specific reports if needed, 
