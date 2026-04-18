@@ -101,10 +101,10 @@ export default async function AdminAnalyticsPage() {
             by: ['approvalStatus'],
             _count: { _all: true }
         }),
-        db.business.count({
+        prisma.business.count({
             where: { createdAt: { gte: new Date(now.getFullYear(), now.getMonth(), 1) } }
         }),
-        db.business.count({
+        prisma.business.count({
             where: {
                 createdAt: {
                     gte: new Date(now.getFullYear(), now.getMonth() - 1, 1),
