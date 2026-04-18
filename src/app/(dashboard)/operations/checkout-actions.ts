@@ -66,7 +66,7 @@ export async function completeVisitAction(recordId: string, paymentMode: string,
             where: { id: recordId, branchId },
             data: {
                 ...(comment && { comment }),
-                ...(paymentMode && { paymentMode }),
+                ...(paymentMode && { paymentMode: paymentMode as any }),
             }
         });
     }

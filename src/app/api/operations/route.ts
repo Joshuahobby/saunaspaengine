@@ -81,13 +81,13 @@ export async function POST(request: NextRequest) {
                 return NextResponse.json({ error: "Service not found" }, { status: 404 });
             }
 
-            let employeeName = null;
+            let employeeName: string | null = null;
             if (employeeId) {
                 const emp = await prisma.employee.findUnique({
                     where: { id: employeeId },
                     select: { fullName: true }
                 });
-                employeeName = emp?.fullName;
+                employeeName = emp?.fullName || null;
             }
 
             let currentExtras: ExtraService[] = [];

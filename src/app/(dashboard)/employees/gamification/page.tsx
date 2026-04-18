@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import GamificationClient from "./client-page";
@@ -13,7 +14,7 @@ export default async function GamificationPage() {
     if (!isExecutive && !session.user.branchId) redirect("/dashboard");
 
     // Determine scope: executives see the full business network, managers/employees see their branch
-    const whereClause: Parameters<typeof prisma.employee.findMany>[0]["where"] = { status: "ACTIVE" };
+    const whereClause: Prisma.EmployeeWhereInput = { status: "ACTIVE" };
     if (isExecutive) {
         whereClause.branch = { businessId: session.user.businessId as string };
     } else {

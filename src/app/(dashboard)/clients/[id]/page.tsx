@@ -181,7 +181,10 @@ export default async function ClientProfilePage({ params }: { params: Promise<{ 
         suggestedService: suggestedService?.name || "Premium Aromatherapy"
     };
 
-    const activeMembership = client.memberships[0];
+    const rawMembership = client.memberships[0];
+    const activeMembership = rawMembership
+        ? { ...rawMembership, balance: rawMembership.balance ?? 0 }
+        : undefined;
     const tier = loyaltyInfo?.tier || "BRONZE";
     const tierConfig = TIER_CONFIG[tier] || TIER_CONFIG.BRONZE;
 

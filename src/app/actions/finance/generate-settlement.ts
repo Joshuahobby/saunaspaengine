@@ -57,7 +57,7 @@ export async function generateSettlement(formData: FormData) {
     // 3. Create the Settlement record
     const settlement = await prisma.settlement.create({
         data: {
-            businessId: session.user.businessId,
+            businessId: session.user.businessId as string,
             branchId,
             periodStart: startDate,
             periodEnd: endDate,

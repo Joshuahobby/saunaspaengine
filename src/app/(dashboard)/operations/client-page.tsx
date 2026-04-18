@@ -374,7 +374,7 @@ export default function OperationsClient({
                                                             Rated
                                                         </span>
                                                     )}
-                                                    <CheckoutButton recordId={record.id} currentStatus={record.status} />
+                                                    <CheckoutButton recordId={record.id} currentStatus={record.status} clientName={record.clientName} amount={record.amount} />
                                                 </div>
                                             </td>
                                         </tr>

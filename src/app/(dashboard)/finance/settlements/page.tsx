@@ -14,7 +14,7 @@ export default async function SettlementsPage() {
         redirect("/dashboard");
     }
 
-    const where = session.user.role === "ADMIN" ? {} : { businessId };
+    const where = session.user.role === "ADMIN" ? {} : { businessId: businessId as string };
 
     const [settlements, branches] = await Promise.all([
         prisma.settlement.findMany({

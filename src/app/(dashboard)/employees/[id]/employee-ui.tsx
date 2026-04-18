@@ -18,14 +18,20 @@ interface EmployeeUIProps {
     employee: {
         id: string;
         fullName: string;
+        phone: string | null;
+        categoryId: string;
+        branchId: string;
         status: string;
         commissionRate: number;
         createdAt: Date | string;
         category?: { name: string } | null;
         branch?: { name: string } | null;
+        user?: { email: string; username: string } | null;
         serviceRecords: Array<{
             id: string;
             service?: { name: string } | null;
+            client?: { fullName: string } | null;
+            review?: { rating: number } | null;
             amount: number;
             createdAt: Date | string;
             status: string;

@@ -86,7 +86,7 @@ export async function saveBranchTeamAction(branchId: string, teamData: Array<{ f
                     data: {
                         branchId,
                         categoryId: category.id,
-                        fullName: member.name,
+                        fullName: member.fullName,
                         phone: member.phone || null,
                     }
                 });

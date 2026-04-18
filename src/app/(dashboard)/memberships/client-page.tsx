@@ -260,7 +260,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
         durationDays: category?.durationDays?.toString() || "30",
         usageLimit: category?.usageLimit?.toString() || "10",
         isGlobal: category?.isGlobal || false,
-        branchId: category?.id ? category.branchId : (branches[0]?.id || "")
+        branchId: category?.branchId || (branches[0]?.id || "")
     });
 
     // Sync form data when category changes

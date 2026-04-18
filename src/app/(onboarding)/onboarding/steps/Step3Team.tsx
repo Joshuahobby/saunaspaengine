@@ -53,7 +53,7 @@ export function Step3Team({ branch, onNext, onPrev }: StepProps) {
     async function handleContinue() {
         setLoading(true);
         try {
-            await saveBranchTeamAction(branch.id, team);
+            await saveBranchTeamAction(branch.id, team.map((t) => ({ ...t, fullName: t.name })));
             onNext();
         } catch (error) {
             console.error(error);

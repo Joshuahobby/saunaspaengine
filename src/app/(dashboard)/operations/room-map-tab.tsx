@@ -99,7 +99,7 @@ export default async function FloorMapTab({ searchParams }: FloorMapTabProps) {
     ]);
 
     // Key: lockerNumber → active record
-    const occupiedMap = new Map<number | null, typeof activeRecords[number]>(activeRecords.map(r => [r.lockerNumber, r]));
+    const occupiedMap = new Map<string | null, typeof activeRecords[number]>(activeRecords.map(r => [r.lockerNumber, r]));
     const availableCount = totalLockers - occupiedMap.size;
     const inServiceCount = occupiedMap.size;
 

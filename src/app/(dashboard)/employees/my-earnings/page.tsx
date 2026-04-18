@@ -51,7 +51,7 @@ export default async function MyEarningsPage() {
     return (
         <MyEarningsClient 
             employee={employee}
-            initialEarnings={earnings}
+            initialEarnings={earnings as any}
         />
     );
 }
