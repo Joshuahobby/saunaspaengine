@@ -288,13 +288,13 @@ export default function BranchUI({ branch, intelligence, isOwner }: BranchUIProp
                                             <label className="text-[10px] font-black text-[var(--text-muted)] opacity-30 uppercase tracking-[0.3em] ml-1 flex items-center gap-2">
                                                 <Phone className="size-3" /> Digital Comms
                                             </label>
-                                            <input name="phone" defaultValue={branch.phone} placeholder="Phone Number" className="w-full bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-6 py-4 text-sm font-bold text-[var(--text-main)] outline-none focus:border-[var(--color-primary)]/40 transition-all" />
+                                            <input name="phone" defaultValue={branch.phone ?? undefined} placeholder="Phone Number" className="w-full bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-6 py-4 text-sm font-bold text-[var(--text-main)] outline-none focus:border-[var(--color-primary)]/40 transition-all" />
                                         </div>
                                         <div className="space-y-3">
                                             <label className="text-[10px] font-black text-[var(--text-muted)] opacity-30 uppercase tracking-[0.3em] ml-1 flex items-center gap-2">
                                                 <Mail className="size-3" /> System Inbox
                                             </label>
-                                            <input name="email" type="email" defaultValue={branch.email} placeholder="Email" className="w-full bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-6 py-4 text-sm font-bold text-[var(--text-main)] outline-none focus:border-[var(--color-primary)]/40 transition-all" />
+                                            <input name="email" type="email" defaultValue={branch.email ?? undefined} placeholder="Email" className="w-full bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-6 py-4 text-sm font-bold text-[var(--text-main)] outline-none focus:border-[var(--color-primary)]/40 transition-all" />
                                         </div>
                                     </div>
 
@@ -302,7 +302,7 @@ export default function BranchUI({ branch, intelligence, isOwner }: BranchUIProp
                                         <label className="text-[10px] font-black text-[var(--text-muted)] opacity-30 uppercase tracking-[0.3em] ml-1 flex items-center gap-2">
                                             <MapPin className="size-3" /> Physical Coordinates
                                         </label>
-                                        <input name="address" defaultValue={branch.address} placeholder="Street, City, Building" className="w-full bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-6 py-4 text-sm font-bold text-[var(--text-main)] outline-none focus:border-[var(--color-primary)]/40 transition-all" />
+                                        <input name="address" defaultValue={branch.address ?? undefined} placeholder="Street, City, Building" className="w-full bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-6 py-4 text-sm font-bold text-[var(--text-main)] outline-none focus:border-[var(--color-primary)]/40 transition-all" />
                                     </div>
                                 </div>
 
