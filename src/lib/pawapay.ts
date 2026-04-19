@@ -2,7 +2,7 @@ const PAWAPAY_BASE_URL = process.env.PAWAPAY_BASE_URL ?? "https://api.sandbox.pa
 const PAWAPAY_API_KEY = process.env.PAWAPAY_API_KEY ?? "";
 const PAWAPAY_CALLBACK_URL = process.env.PAWAPAY_CALLBACK_URL ?? "";
 
-export type Correspondent = "MTNRW" | "AIRTELRW";
+export type Correspondent = "MTN_MOMO_RWA" | "AIRTEL_RWA";
 
 export interface PawapayDepositRequest {
     depositId: string;
@@ -43,8 +43,8 @@ export function detectCorrespondent(phone: string): Correspondent | null {
         : digits.startsWith("0") ? digits.slice(1)
         : digits;
 
-    if (local.startsWith("78") || local.startsWith("79")) return "MTNRW";
-    if (local.startsWith("72") || local.startsWith("73")) return "AIRTELRW";
+    if (local.startsWith("78") || local.startsWith("79")) return "MTN_MOMO_RWA";
+    if (local.startsWith("72") || local.startsWith("73")) return "AIRTEL_RWA";
     return null;
 }
 

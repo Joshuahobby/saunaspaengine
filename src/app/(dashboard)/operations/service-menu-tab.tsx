@@ -2,11 +2,13 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { resolveEffectiveBranchId } from "@/lib/branch-context";
 import ServicesClientPage from "../services/client-page";
+import { getSubscriptionState } from "@/lib/subscription";
 
-export default async function ServiceMenuTab() {
+export default async function ServiceMenuTab({ isActive }: { isActive?: boolean }) {
     const session = await auth();
     if (!session?.user) return null;
 
+    const subState = session.user.businessId ? await getSubscriptionState(session.user.businessId) : null;
     const effectiveBranchId = await resolveEffectiveBranchId(session);
     if (!effectiveBranchId) return null;
 
@@ -28,5 +30,5 @@ export default async function ServiceMenuTab() {
         mostPopular: "Calculated"
     };
 
-    return <ServicesClientPage services={services} stats={stats} userRole={session.user.role || "EMPLOYEE"} />;
+    return <ServicesClientPage services={services} stats={stats} userRole={session.user.role || "EMPLOYEE"} subState={subState} />;
 }

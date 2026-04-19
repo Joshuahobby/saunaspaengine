@@ -10,7 +10,7 @@ const securityHeaders = [
     // Restrict browser features
     {
         key: "Permissions-Policy",
-        value: "camera=(self), microphone=(), geolocation=(), interest-cohort=()",
+        value: "camera=(self), microphone=(), geolocation=()",
     },
     // Force HTTPS for 1 year, include subdomains
     {
@@ -23,14 +23,14 @@ const securityHeaders = [
         value: [
             "default-src 'self'",
             // Next.js needs inline scripts for hydration; use nonce in production for strictest CSP
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com",
             // Allow inline styles (Tailwind + dynamic branding CSS vars)
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "font-src 'self' https://fonts.gstatic.com",
             // Images from Cloudinary, Unsplash, Google (OAuth avatars), and data URIs (QR codes)
-            "img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com https://lh3.googleusercontent.com",
-            // API calls are same-origin only
-            "connect-src 'self'",
+            "img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com https://lh3.googleusercontent.com https://api.qrserver.com",
+            // Allow Vercel Analytics and same-origin API calls
+            "connect-src 'self' https://va.vercel-scripts.com",
             "frame-src 'none'",
             "object-src 'none'",
             "base-uri 'self'",
@@ -43,6 +43,9 @@ const nextConfig: NextConfig = {
     experimental: {
         optimizePackageImports: ["lucide-react", "date-fns", "framer-motion", "@prisma/client"],
         viewTransition: true,
+        serverActions: {
+            bodySizeLimit: "10mb",
+        },
     },
     images: {
         remotePatterns: [

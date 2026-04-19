@@ -9,6 +9,7 @@ import TodaysActivityTab from "./todays-activity-tab";
 import ServiceMenuTab from "./service-menu-tab";
 import StockTab from "./stock-tab";
 import SafetyTab from "./safety-tab";
+import { getSubscriptionState } from "@/lib/subscription";
 
 const TABS = [
     { id: "map", label: "Room Map", icon: "grid_view" },
@@ -28,6 +29,9 @@ export default async function OperationsHubPage(props: {
     const searchParams = await props.searchParams;
     const session = await auth();
     if (!session?.user) redirect("/login");
+
+    const subState = session.user.businessId ? await getSubscriptionState(session.user.businessId) : null;
+    const isActive = subState?.isActive ?? true;
 
     const activeTab = searchParams.tab || "map";
 
@@ -75,9 +79,9 @@ export default async function OperationsHubPage(props: {
 
             {/* Hub Content */}
             <div className="min-h-[600px] relative">
-                {activeTab === "map" && <RoomMapTab searchParams={props.searchParams} />}
-                {activeTab === "logs" && <TodaysActivityTab searchParams={props.searchParams} />}
-                {activeTab === "menu" && <ServiceMenuTab />}
+                {activeTab === "map" && <RoomMapTab searchParams={props.searchParams} isActive={isActive} />}
+                {activeTab === "logs" && <TodaysActivityTab searchParams={props.searchParams} isActive={isActive} />}
+                {activeTab === "menu" && <ServiceMenuTab isActive={isActive} />}
                 {activeTab === "stock" && <StockTab />}
                 {activeTab === "safety" && <SafetyTab />}
             </div>

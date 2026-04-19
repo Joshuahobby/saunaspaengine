@@ -39,9 +39,10 @@ function PageDot({ page, current }: { page: number; current: number }) {
 // ─── Component ───────────────────────────────────────────────────────────────
 interface FloorMapTabProps {
     searchParams: Promise<{ [key: string]: string | undefined }>;
+    isActive?: boolean;
 }
 
-export default async function FloorMapTab({ searchParams }: FloorMapTabProps) {
+export default async function FloorMapTab({ searchParams, isActive }: FloorMapTabProps) {
     const session = await auth();
     if (!session?.user) return null;
 

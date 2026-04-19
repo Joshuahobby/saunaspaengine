@@ -141,6 +141,17 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* ── Select & Dropdown Visibility Fix ── */
+select {
+  background-color: var(--bg-surface-muted);
+  color: var(--text-main);
+}
+
+select option {
+  background-color: var(--bg-card);
+  color: var(--text-main);
+}
+
 /* Replaced @apply with raw CSS for diagnostic neutrality */
 button, a, input, select, textarea {
   transition-property: box-shadow;

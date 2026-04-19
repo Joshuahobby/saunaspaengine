@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
+import { addDays } from "date-fns";
 import type { PawapayWebhookPayload } from "@/lib/pawapay";
 
 export async function POST(req: NextRequest) {
@@ -23,6 +24,12 @@ export async function POST(req: NextRequest) {
 
         if (status === "COMPLETED") {
             await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+                const metadata = payment.metadata as { planId?: string; cycle?: string } || {};
+                const now = new Date();
+                const renewalDate = metadata.cycle === "Yearly" 
+                    ? addDays(now, 365) 
+                    : addDays(now, 30);
+
                 await tx.subscriptionPayment.update({
                     where: { depositId },
                     data: { status: "COMPLETED", metadata: payload as unknown as Prisma.InputJsonValue },
@@ -33,6 +40,9 @@ export async function POST(req: NextRequest) {
                     data: {
                         subscriptionStatus: "ACTIVE",
                         approvalStatus: "APPROVED",
+                        subscriptionPlanId: metadata.planId || undefined,
+                        subscriptionCycle: metadata.cycle || undefined,
+                        subscriptionRenewal: renewalDate,
                     },
                 });
             });

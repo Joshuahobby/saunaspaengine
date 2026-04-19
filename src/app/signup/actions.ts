@@ -58,14 +58,19 @@ export async function registerBusinessAction(formData: FormData) {
 
     try {
         await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+            const isFreePlan = plan.priceMonthly === 0;
+            const trialEndsAt = new Date();
+            trialEndsAt.setDate(trialEndsAt.getDate() + 14);
+
             const newBusiness = await tx.business.create({
                 data: {
                     name: businessName,
                     status: "ACTIVE",
                     subscriptionPlanId: plan.id,
                     subscriptionCycle: billingCycle,
-                    subscriptionStatus: "PENDING_PAYMENT",
+                    subscriptionStatus: isFreePlan ? "FREE" : "PENDING_PAYMENT",
                     subscriptionRenewal: renewalDate,
+                    trialEndsAt: trialEndsAt,
                     approvalStatus: "PENDING",
                 },
             });

@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { CheckInContainer } from "@/components/operations/CheckInContainer";
 import { UserRole } from "@prisma/client";
 import { resolveEffectiveBranchId } from "@/lib/branch-context";
+import { getSubscriptionState } from "@/lib/subscription";
 
 export default async function CheckInPage() {
     const session = await auth();
@@ -13,6 +14,7 @@ export default async function CheckInPage() {
         redirect("/dashboard");
     }
 
+    const subState = session.user.businessId ? await getSubscriptionState(session.user.businessId) : null;
     const branchId = await resolveEffectiveBranchId(session);
     if (!branchId) redirect("/dashboard");
 
@@ -57,6 +59,7 @@ export default async function CheckInPage() {
                 employees={employees}
                 clients={activeClients}
                 stats={[siteStats, dailyStats]}
+                subState={subState}
             />
         </div>
     );

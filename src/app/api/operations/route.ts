@@ -8,6 +8,7 @@ import { resolveEffectiveBranchId } from "@/lib/branch-context";
 import { ExtraService } from "@/types/operations";
 import { randomUUID } from "crypto";
 import { completeServiceRecord } from "@/lib/operations-logic";
+import { checkLimit } from "@/lib/subscription";
 
 
 // GET /api/operations — list service records for current branch
@@ -62,6 +63,15 @@ export async function POST(request: NextRequest) {
     }
 
     try {
+        // --- BACKEND ACTIVITY & LIMIT ENFORCEMENT ---
+        const limitCheck = await checkLimit(branchId, recordId ? "service" : "checkIn");
+        if (!limitCheck.allowed) {
+            return NextResponse.json({ 
+                error: limitCheck.reason === "INACTIVE_SUBSCRIPTION" ? "INACTIVE_SUBSCRIPTION" : "LIMIT_REACHED", 
+                message: limitCheck.message || "Action restricted due to subscription limits or status."
+            }, { status: 403 });
+        }
+
         // 1. If recordId is provided, we are adding an EXTRA SERVICE to an existing session
         if (recordId) {
             const existing = await prisma.serviceRecord.findUnique({

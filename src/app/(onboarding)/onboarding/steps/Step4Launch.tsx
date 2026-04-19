@@ -7,6 +7,11 @@ interface StepProps {
     branch: {
         id: string;
         name: string | null;
+        logo: string | null;
+        address: string | null;
+        phone: string | null;
+        services?: any[];
+        employees?: any[];
     };
     onNext: () => void;
     onPrev: () => void;
@@ -34,10 +39,6 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
         <div className="max-w-4xl mx-auto space-y-12 py-8">
             {/* Stage Header */}
             <div className="space-y-3">
-                <div className="flex items-center gap-2 text-[var(--color-primary)] font-bold text-xs uppercase tracking-[0.2em]">
-                    <span className="material-symbols-outlined !text-sm">verified_user</span>
-                    Step 4 of 4
-                </div>
                 <h1 className="text-4xl font-display font-black text-[var(--text-main)] tracking-tight">Final Review & Launch</h1>
                 <p className="text-lg text-[var(--text-muted)] leading-relaxed">
                     Your branch profile and settings are ready. Review your setup and launch your dashboard to start taking bookings.
@@ -45,47 +46,65 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Left: Checklist */}
-                <section className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 space-y-8">
-                    <div className="flex items-center gap-3 border-b border-white/5 pb-4">
-                        <span className="material-symbols-outlined text-[var(--color-primary)]">task_alt</span>
-                        <h2 className="text-xl font-bold text-[var(--text-main)]">Setup Checklist</h2>
-                    </div>
-
-                    <div className="space-y-2">
-                        <div className="flex items-center gap-4 py-4 px-2 hover:bg-white/[0.02] rounded-xl transition-colors group">
-                            <div className="size-6 rounded-full bg-[var(--color-primary)]/20 border border-[var(--color-primary)]/30 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-[var(--color-primary)] text-sm font-black">check</span>
+                {/* Left: Branch Preview Card */}
+                <section className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 space-y-8 flex flex-col">
+                    <div className="flex items-center justify-between border-b border-white/5 pb-6">
+                        <div className="flex items-center gap-4">
+                            <div className="size-16 rounded-2xl bg-white flex items-center justify-center overflow-hidden border-4 border-white/10 shadow-2xl">
+                                {branch.logo ? (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img src={branch.logo} alt="Branch Logo" className="w-full h-full object-cover" />
+                                ) : (
+                                    <span className="material-symbols-outlined text-[var(--color-primary)] text-3xl">storefront</span>
+                                )}
                             </div>
-                            <span className="font-bold text-sm text-[var(--text-main)] group-hover:translate-x-1 transition-transform">Branch Profile Set</span>
-                        </div>
-                        <div className="flex items-center gap-4 py-4 px-2 hover:bg-white/[0.02] rounded-xl transition-colors group">
-                            <div className="size-6 rounded-full bg-[var(--color-primary)]/20 border border-[var(--color-primary)]/30 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-[var(--color-primary)] text-sm font-black">check</span>
+                            <div className="min-w-0">
+                                <h3 className="text-2xl font-display font-black text-[var(--text-main)] truncate">{branch.name}</h3>
+                                <div className="flex items-center gap-2 text-[var(--color-primary)] text-[10px] font-black uppercase tracking-widest mt-0.5">
+                                    <span className="material-symbols-outlined !text-sm">verified</span>
+                                    Ready to Launch
+                                </div>
                             </div>
-                            <span className="font-bold text-sm text-[var(--text-main)] group-hover:translate-x-1 transition-transform">Branch Hours Configured</span>
-                        </div>
-                        <div className="flex items-center gap-4 py-4 px-2 hover:bg-white/[0.02] rounded-xl transition-colors group">
-                            <div className="size-6 rounded-full bg-[var(--color-primary)]/20 border border-[var(--color-primary)]/30 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-[var(--color-primary)] text-sm font-black">check</span>
-                            </div>
-                            <span className="font-bold text-sm text-[var(--text-main)] group-hover:translate-x-1 transition-transform">Services Added</span>
-                        </div>
-                        <div className="flex items-center gap-4 py-4 px-2 hover:bg-white/[0.02] rounded-xl transition-colors group">
-                            <div className="size-6 rounded-full bg-[var(--color-primary)]/20 border border-[var(--color-primary)]/30 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-[var(--color-primary)] text-sm font-black">check</span>
-                            </div>
-                            <span className="font-bold text-sm text-[var(--text-main)] group-hover:translate-x-1 transition-transform">Team Registered</span>
                         </div>
                     </div>
 
-                    <div className="bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/10 p-6 rounded-2xl space-y-3">
+                    <div className="grid grid-cols-1 gap-4">
+                        <div className="bg-white/[0.02] border border-white/5 p-5 rounded-3xl space-y-3">
+                            <div className="flex items-center gap-3 text-[var(--text-main)] opacity-40">
+                                <span className="material-symbols-outlined !text-lg">location_on</span>
+                                <span className="text-[10px] font-black uppercase tracking-widest">Location Information</span>
+                            </div>
+                            <div className="space-y-1">
+                                <p className="text-sm font-bold text-[var(--text-main)]">{branch.address || "Address not provided"}</p>
+                                <p className="text-xs font-medium text-[var(--text-muted)] opacity-60">{branch.phone || "Phone not provided"}</p>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="bg-white/[0.02] border border-white/5 p-5 rounded-3xl space-y-2 group hover:border-[var(--color-primary)]/30 transition-colors">
+                                <div className="flex items-center justify-between">
+                                    <span className="material-symbols-outlined text-[var(--color-primary)]">spa</span>
+                                    <span className="text-xl font-display font-black text-[var(--text-main)]">{branch.services?.length || 0}</span>
+                                </div>
+                                <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-60">Services Added</p>
+                            </div>
+                            <div className="bg-white/[0.02] border border-white/5 p-5 rounded-3xl space-y-2 group hover:border-[var(--color-primary)]/30 transition-colors">
+                                <div className="flex items-center justify-between">
+                                    <span className="material-symbols-outlined text-[var(--color-primary)]">badge</span>
+                                    <span className="text-xl font-display font-black text-[var(--text-main)]">{branch.employees?.length || 0}</span>
+                                </div>
+                                <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-60">Team Registered</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-auto bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/10 p-6 rounded-2xl space-y-3">
                         <div className="flex items-center gap-3">
                             <span className="material-symbols-outlined text-[var(--color-primary)]">mail</span>
                             <h4 className="font-bold text-sm text-[var(--text-main)]">Staff Notifications</h4>
                         </div>
-                        <p className="text-xs text-[var(--text-muted)] leading-relaxed font-bold opacity-60">
-                            Automatic notifications will be sent to your staff members to help them get started.
+                        <p className="text-xs text-[var(--text-muted)] leading-relaxed font-bold opacity-60 italic">
+                            Automatic onboarding invites will be sent to your {branch.employees?.length || 0} registered staff members once you launch.
                         </p>
                     </div>
                 </section>

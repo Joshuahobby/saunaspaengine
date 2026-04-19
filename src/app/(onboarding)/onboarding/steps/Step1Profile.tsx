@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { saveBranchProfileAction } from "../actions";
+import { uploadLogoAction } from "@/lib/upload-actions";
 
 interface DayHours {
     open: boolean;
@@ -15,7 +16,9 @@ interface StepProps {
         name: string | null;
         email: string | null;
         phone: string | null;
-        address?: string | null;
+        logo: string | null;
+        address: string | null;
+        businessHours: any;
     };
     onNext: () => void;
     onPrev: () => void;
@@ -35,7 +38,10 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
     const [email, setEmail] = useState(branch.email || "");
     const [phone, setPhone] = useState(branch.phone || "");
     const [address, setAddress] = useState(branch.address || "");
-    const [hours, setHours] = useState<Record<string, DayHours>>(DEFAULT_HOURS);
+    const [logoUrl, setLogoUrl] = useState<string | null>(branch.logo || null);
+    const [uploading, setUploading] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [hours, setHours] = useState<Record<string, DayHours>>(branch.businessHours || DEFAULT_HOURS);
 
     function updateHour(day: string, field: keyof DayHours, value: string | boolean) {
         setHours((prev) => ({ ...prev, [day]: { ...prev[day], [field]: value } }));
@@ -50,7 +56,14 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
         }
         setLoading(true);
         try {
-            const result = await saveBranchProfileAction(branch.id, { name, email, phone, address, businessHours: hours });
+            const result = await saveBranchProfileAction(branch.id, { 
+                name, 
+                email, 
+                phone, 
+                address, 
+                logoUrl,
+                businessHours: hours 
+            });
             if (result?.error) {
                 setError(result.error);
                 return;
@@ -64,14 +77,34 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
         }
     }
 
+    async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setUploading(true);
+        setError(null);
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            const result = await uploadLogoAction(formData);
+            if (result.error) {
+                setError(result.error);
+            } else if (result.url) {
+                setLogoUrl(result.url);
+            }
+        } catch (err) {
+            setError("Failed to upload logo.");
+            console.error(err);
+        } finally {
+            setUploading(false);
+        }
+    }
+
     return (
         <form onSubmit={handleSave} className="max-w-3xl mx-auto space-y-12 py-8">
-            {/* Stage Header */}
             <div className="space-y-3">
-                <div className="flex items-center gap-2 text-[var(--color-primary)] font-bold text-xs uppercase tracking-[0.2em]">
-                    <span className="material-symbols-outlined !text-sm">analytics</span>
-                    Step 1 of 4
-                </div>
                 <h1 className="text-4xl font-display font-black text-[var(--text-main)] tracking-tight">Branch Profile</h1>
                 <p className="text-lg text-[var(--text-muted)] leading-relaxed">
                     Set up your branch&apos;s public profile. This information helps customers find and contact you on our platform.
@@ -86,9 +119,32 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
                 </div>
 
                 <div className="flex flex-col md:flex-row items-center gap-8">
-                    <div className="size-32 rounded-[2rem] border-2 border-dashed border-[var(--color-primary)]/30 bg-[var(--color-primary)]/5 flex flex-col items-center justify-center text-[var(--color-primary)] cursor-pointer hover:bg-[var(--color-primary)]/10 transition-all group shrink-0">
-                        <span className="material-symbols-outlined !text-4xl transition-transform group-hover:scale-110">add_photo_alternate</span>
-                        <span className="text-[10px] font-black mt-2 tracking-widest uppercase">UPLOAD LOGO</span>
+                    <div 
+                        onClick={() => fileInputRef.current?.click()}
+                        className="size-32 rounded-[2rem] border-2 border-dashed border-[var(--color-primary)]/30 bg-[var(--color-primary)]/5 flex flex-col items-center justify-center text-[var(--color-primary)] cursor-pointer hover:bg-[var(--color-primary)]/10 transition-all group shrink-0 relative overflow-hidden">
+                        
+                        {logoUrl ? (
+                            <img src={logoUrl} alt="Logo" className="absolute inset-0 w-full h-full object-cover" />
+                        ) : (
+                            <>
+                                <span className="material-symbols-outlined !text-4xl transition-transform group-hover:scale-110">add_photo_alternate</span>
+                                <span className="text-[10px] font-black mt-2 tracking-widest uppercase">UPLOAD LOGO</span>
+                            </>
+                        )}
+                        
+                        {uploading && (
+                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                <span className="material-symbols-outlined text-white animate-spin">progress_activity</span>
+                            </div>
+                        )}
+                        
+                        <input 
+                            hidden 
+                            type="file" 
+                            ref={fileInputRef} 
+                            onChange={handleFileChange}
+                            accept="image/*"
+                        />
                     </div>
                     <div className="space-y-2 text-center md:text-left">
                         <h4 className="font-bold text-[var(--text-main)]">Branch Logo</h4>
@@ -242,8 +298,8 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
                 </button>
                 <button
                     type="submit"
-                    disabled={loading}
-                    className="h-14 px-12 bg-[var(--text-main)] text-[var(--bg-app)] rounded-2xl font-bold flex items-center gap-4 shadow-2xl shadow-black/20 hover:scale-[1.02] active:scale-[0.98] transition-all group overflow-hidden relative"
+                    disabled={loading || uploading}
+                    className="h-14 px-12 bg-[var(--color-primary)] text-white rounded-2xl font-black uppercase tracking-[0.2em] flex items-center gap-4 shadow-2xl shadow-[var(--color-primary)]/20 hover:scale-[1.02] active:scale-[0.98] transition-all group overflow-hidden relative"
                 >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full duration-1000 transition-transform" />
                     {loading ? (

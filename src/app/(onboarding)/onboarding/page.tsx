@@ -55,9 +55,18 @@ export default async function OnboardingPage() {
         redirect("/dashboard");
     }
 
-    const paymentPending = branch.business?.subscriptionStatus === "PENDING_PAYMENT";
+    const planPrice = branch.business?.subscriptionCycle === "Yearly"
+        ? branch.business?.subscriptionPlan?.priceYearly ?? 0
+        : branch.business?.subscriptionPlan?.priceMonthly ?? 0;
+
+    const paymentPending = branch.business?.subscriptionStatus === "PENDING_PAYMENT" && planPrice > 0;
 
     return (
-        <OnboardingClient branch={branch} initialStep={branch.onboardingStep} paymentPending={paymentPending} />
+        <OnboardingClient 
+            branch={branch} 
+            initialStep={branch.onboardingStep} 
+            paymentPending={paymentPending}
+            userEmail={session.user.email || ""} 
+        />
     );
 }

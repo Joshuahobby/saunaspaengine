@@ -20,6 +20,8 @@ interface Payment {
     createdAt: string;
     businessApprovalStatus: string;
     businessSubStatus: string;
+    creditApplied: number;
+    isUpgrade: boolean;
 }
 
 interface Stats {
@@ -28,6 +30,7 @@ interface Stats {
     completed: number;
     failed: number;
     totalRevenue: number;
+    totalCredits: number;
 }
 
 interface PageProps {
@@ -146,6 +149,7 @@ export default function AdminPaymentsClientPage({ payments, stats }: PageProps) 
                     { label: "Completed", value: stats.completed, icon: "check_circle", color: "emerald" },
                     { label: "Failed", value: stats.failed, icon: "cancel", color: "rose" },
                     { label: "Revenue Collected", value: `${fmt(stats.totalRevenue)} RWF`, icon: "account_balance", color: "primary" },
+                    { label: "Proration Credits", value: `${fmt(stats.totalCredits)} RWF`, icon: "loyalty", color: "amber" },
                 ].map((card) => (
                     <div key={card.label} className="p-5 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-muted)] shadow-sm space-y-2">
                         <div className="flex items-center justify-between">
@@ -177,6 +181,8 @@ export default function AdminPaymentsClientPage({ payments, stats }: PageProps) 
                                 <th className="px-8 py-5">Business</th>
                                 <th className="px-4 py-5">Plan</th>
                                 <th className="px-4 py-5 text-center">Amount</th>
+                                <th className="px-4 py-5 text-center">Credit</th>
+                                <th className="px-4 py-5 text-center">Total Value</th>
                                 <th className="px-4 py-5">Phone / Network</th>
                                 <th className="px-4 py-5 text-center">Status</th>
                                 <th className="px-4 py-5">Date</th>
@@ -211,7 +217,18 @@ export default function AdminPaymentsClientPage({ payments, stats }: PageProps) 
                                     </td>
                                     <td className="px-4 py-5 text-center">
                                         <span className="font-black text-[var(--color-primary)] text-sm">{fmt(p.amount)}</span>
-                                        <span className="text-[9px] text-[var(--text-muted)] ml-1">{p.currency}</span>
+                                        <p className="text-[9px] text-[var(--text-muted)] opacity-50 uppercase tracking-widest leading-none mt-1">Realised</p>
+                                    </td>
+                                    <td className="px-4 py-5 text-center">
+                                        <span className={p.creditApplied > 0 ? "text-amber-600 font-bold text-xs" : "text-[var(--text-muted)] opacity-20 text-xs"}>
+                                            {p.creditApplied > 0 ? `-${fmt(p.creditApplied)}` : "—"}
+                                        </span>
+                                    </td>
+                                    <td className="px-4 py-5 text-center opacity-60">
+                                        <span className="font-bold text-xs">{fmt(p.amount + p.creditApplied)}</span>
+                                        {p.isUpgrade && (
+                                            <p className="text-[8px] text-amber-600 font-black uppercase tracking-tighter mt-1">Upgrade</p>
+                                        )}
                                     </td>
                                     <td className="px-4 py-5">
                                         <div className="space-y-0.5">

@@ -35,9 +35,51 @@ async function main() {
     console.log('Creating Platform Packages...');
     // Prices in RWF to match landing page
     const packages = [
-      { name: 'Essential', priceMonthly: 50000, priceYearly: 500000, branchLimit: 1, features: ['Up to 500 Check-ins/mo', 'QR Code Scanner', 'Mobile Money Payments', 'Standard Support'], description: 'Core operations for single-location boutique spas.' },
-      { name: 'Premium', priceMonthly: 150000, priceYearly: 1500000, branchLimit: 3, features: ['Unlimited Check-ins', 'Advanced Analytics', 'Up to 3 Branches', 'Staff Scheduling', 'Priority WhatsApp Support'], description: 'Advanced features for growing wellness centers.' },
-      { name: 'Elite', priceMonthly: 350000, priceYearly: 3500000, branchLimit: 50, features: ['White-labeled Platform', 'Custom API Integration', 'Dedicated Manager', 'On-site Staff Training', 'Unlimited Branches'], description: 'Unlimited potential for large luxury resorts & chains.', isCustom: true },
+      { 
+        name: 'Free', 
+        priceMonthly: 0, 
+        priceYearly: 0, 
+        branchLimit: 1, 
+        employeeLimit: 1, 
+        serviceLimit: 5, 
+        checkInLimit: 100,
+        features: ['1 Staff Member', 'Up to 5 Services', '100 Check-ins/mo', 'Community Support'], 
+        description: 'Perfect for solo practitioners starting their wellness journey.' 
+      },
+      { 
+        name: 'Essential', 
+        priceMonthly: 50000, 
+        priceYearly: 500000, 
+        branchLimit: 1, 
+        employeeLimit: 5, 
+        serviceLimit: 15, 
+        checkInLimit: 500,
+        features: ['Up to 5 Staff', 'Up to 15 Services', '500 Check-ins/mo', 'Standard Support'], 
+        description: 'Great for small teams and boutique spas.' 
+      },
+      { 
+        name: 'Premium', 
+        priceMonthly: 150000, 
+        priceYearly: 1500000, 
+        branchLimit: 3, 
+        employeeLimit: 25, 
+        serviceLimit: 100, 
+        checkInLimit: 0, // 0 for unlimited
+        features: ['Unlimited Check-ins', 'Up to 25 Staff', 'Up to 100 Services', 'Multi-branch (3)', 'Staff Scheduling'], 
+        description: 'Advanced features for growing wellness centers.' 
+      },
+      { 
+        name: 'Elite', 
+        priceMonthly: 350000, 
+        priceYearly: 3500000, 
+        branchLimit: 50, 
+        employeeLimit: 0, 
+        serviceLimit: 0, 
+        checkInLimit: 0,
+        features: ['White-labeled Platform', 'Custom API Integration', 'Dedicated Manager', 'Unlimited Staff & Services'], 
+        description: 'Unlimited potential for large luxury resorts & chains.', 
+        isCustom: true 
+      },
     ];
 
     const platformPackages = [];

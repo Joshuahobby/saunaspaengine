@@ -18,7 +18,7 @@ export async function updateOnboardingStepAction(branchId: string, step: number)
     }
 }
 
-export async function saveBranchProfileAction(branchId: string, data: { name: string; email?: string | null; phone?: string | null; address?: string | null; businessHours?: unknown }) {
+export async function saveBranchProfileAction(branchId: string, data: { name: string; email?: string | null; phone?: string | null; address?: string | null; logoUrl?: string | null; businessHours?: unknown }) {
     try {
         await prisma.branch.update({
             where: { id: branchId },
@@ -27,6 +27,7 @@ export async function saveBranchProfileAction(branchId: string, data: { name: st
                 email: data.email || null,
                 phone: data.phone || null,
                 address: data.address || null,
+                logo: data.logoUrl || null,
                 businessHours: data.businessHours ?? undefined,
             }
         });
@@ -101,16 +102,43 @@ export async function saveBranchTeamAction(branchId: string, teamData: Array<{ f
     }
 }
 
+import { addDays } from "date-fns";
+
 export async function completeOnboardingAction(branchId: string) {
     try {
-        await prisma.branch.update({
+        const branch = await prisma.branch.findUnique({
             where: { id: branchId },
-            data: { 
-                onboardingCompleted: true,
-                onboardingStep: 4, // Final step
-                status: "ACTIVE" 
-            }
+            select: { businessId: true }
         });
+
+        const trialEndsAt = addDays(new Date(), 14);
+
+        // Find the "Free" package to set as default if none exists
+        const freePlan = await prisma.platformPackage.findFirst({
+            where: { name: "Free" }
+        });
+
+        await prisma.$transaction([
+            prisma.branch.update({
+                where: { id: branchId },
+                data: { 
+                    onboardingCompleted: true,
+                    onboardingStep: 4, // Final step
+                    status: "ACTIVE" 
+                }
+            }),
+            ...(branch?.businessId ? [
+                prisma.business.update({
+                    where: { id: branch.businessId },
+                    data: { 
+                        trialEndsAt,
+                        subscriptionStatus: "ACTIVE",
+                        subscriptionPlanId: freePlan?.id // default to Free
+                    }
+                })
+            ] : [])
+        ]);
+
         revalidatePath("/dashboard");
         revalidatePath("/onboarding");
         return { success: true };

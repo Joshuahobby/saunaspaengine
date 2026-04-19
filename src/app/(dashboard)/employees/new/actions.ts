@@ -14,6 +14,8 @@ function validatePasswordServer(password: string): string | null {
     return null;
 }
 
+import { checkLimit } from "@/lib/subscription";
+
 export async function registerEmployeeAction(formData: FormData) {
     const session = await auth();
     if (!session?.user) return { error: "Not authenticated" };
@@ -23,12 +25,21 @@ export async function registerEmployeeAction(formData: FormData) {
         return { error: "Unauthorized: Insufficient permissions to register staff." };
     }
 
+    const branchId = formData.get("branchId") as string;
+    
+    // --- BACKEND LIMIT ENFORCEMENT ---
+    const limitCheck = await checkLimit(branchId, "employee");
+    if (!limitCheck.allowed) {
+        return { 
+            error: `Limit Reached: Your current plan only allows ${limitCheck.limit} staff members. Please upgrade to add more.` 
+        };
+    }
+
     const fullName = formData.get("fullName") as string;
     const phone = formData.get("phone") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const categoryId = formData.get("categoryId") as string;
-    const branchId = formData.get("branchId") as string;
     const commissionRateRaw = formData.get("commissionRate") as string;
     const commissionRate = commissionRateRaw ? parseFloat(commissionRateRaw) : 5.0;
 

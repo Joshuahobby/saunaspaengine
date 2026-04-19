@@ -2,6 +2,9 @@
 
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
+import { SubscriptionState } from "@/lib/subscription";
+import UpgradeModal from "@/components/dashboard/UpgradeModal";
+import { toast } from "react-hot-toast";
 
 interface Service {
     id: string;
@@ -21,13 +24,15 @@ interface ServicesClientPageProps {
         mostPopular: string;
     };
     userRole: string;
+    subState: SubscriptionState | null;
 }
 
-export default function ServicesClientPage({ services, stats, userRole }: ServicesClientPageProps) {
+export default function ServicesClientPage({ services, stats, userRole, subState }: ServicesClientPageProps) {
     const router = useRouter();
     const isEmployee = userRole === "EMPLOYEE";
     const [filter, setFilter] = useState<"all" | "ACTIVE" | "INACTIVE">("all");
     const [showAddModal, setShowAddModal] = useState(false);
+    const [showUpgradeModal, setShowUpgradeModal] = useState(false);
     const [editingService, setEditingService] = useState<Service | null>(null);
     const [deletingId, setDeletingId] = useState<string | null>(null);
     const [saving, setSaving] = useState(false);
@@ -61,6 +66,17 @@ export default function ServicesClientPage({ services, stats, userRole }: Servic
     };
 
     function openAdd() {
+        // --- LIMIT CHECK ---
+        const limit = subState?.plan?.serviceLimit ?? 0;
+        if (!subState?.isActive) {
+            setShowUpgradeModal(true);
+            return;
+        }
+        if (limit > 0 && services.length >= limit) {
+            setShowUpgradeModal(true);
+            return;
+        }
+
         setFormName("");
         setFormCategory("");
         setFormPrice("");
@@ -79,24 +95,37 @@ export default function ServicesClientPage({ services, stats, userRole }: Servic
     async function handleSave() {
         setSaving(true);
         try {
+            let res;
             if (editingService) {
-                await fetch(`/api/services/${editingService.id}`, {
+                res = await fetch(`/api/services/${editingService.id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ name: formName, category: formCategory, price: formPrice, duration: formDuration }),
                 });
             } else {
-                await fetch("/api/services", {
+                res = await fetch("/api/services", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ name: formName, category: formCategory, price: formPrice, duration: formDuration }),
                 });
             }
+
+            if (!res.ok) {
+                const data = await res.json();
+                if (data.error === "LIMIT_REACHED") {
+                    setShowAddModal(false);
+                    setShowUpgradeModal(true);
+                    return;
+                }
+                throw new Error(data.error || "Failed to save");
+            }
+
             setShowAddModal(false);
             setEditingService(null);
             router.refresh();
-        } catch (err) {
+        } catch (err: any) {
             console.error("Save error:", err);
+            toast.error(err.message || "Failed to save service");
         } finally {
             setSaving(false);
         }
@@ -151,11 +180,11 @@ export default function ServicesClientPage({ services, stats, userRole }: Servic
                     </div>
                 </div>
                 <div className="glass-card p-5">
-                    <p className="text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-widest mb-1">Avg. Duration</p>
-                    <p className="text-3xl font-sans font-black text-[var(--text-main)]">{stats.avgDuration}m</p>
-                    <div className="flex items-center gap-1 text-[var(--text-muted)] text-[10px] font-bold mt-2 uppercase tracking-widest">
-                        <span className="material-symbols-outlined text-sm">schedule</span>
-                        <span>Standard optimized</span>
+                    <p className="text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-widest mb-1">Usage Limit</p>
+                    <p className="text-3xl font-sans font-black text-[var(--text-main)]">{stats.total} / {subState?.plan?.serviceLimit || "∞"}</p>
+                    <div className="flex items-center gap-1 text-[var(--color-primary)] text-[10px] font-bold mt-2 uppercase tracking-widest">
+                        <span className="material-symbols-outlined text-sm">rocket</span>
+                        <span>{subState?.plan?.name || "Free"} Plan</span>
                     </div>
                 </div>
                 <div className="glass-card p-5">

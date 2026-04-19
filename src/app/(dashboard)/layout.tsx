@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import Sidebar from "@/components/layout/Sidebar";
 import Header from "@/components/layout/Header";
 import MobileNav from "@/components/layout/MobileNav";
@@ -9,6 +7,10 @@ import { redirect } from "next/navigation";
 import { NavProvider } from "../../components/providers/NavProvider";
 import { getActiveBranchContext } from "@/lib/branch-context";
 import { getEffectiveSettings, getGlobalBusinessSettings } from "@/lib/settings-utils";
+import { SubscriptionBanner } from "@/components/dashboard/SubscriptionBanner";
+import { getSubscriptionState } from "@/lib/subscription";
+
+import { SubscriptionGate } from "@/components/dashboard/SubscriptionGate";
 
 export default async function DashboardLayout({
     children,
@@ -20,6 +22,9 @@ export default async function DashboardLayout({
     if (!session?.user) {
         redirect("/login");
     }
+
+    // 0. Fetch Subscription State
+    const subState = session.user.businessId ? await getSubscriptionState(session.user.businessId) : null;
 
     // 1. Resolve Branch Context (via URL or Cookie)
     const context = await getActiveBranchContext(session, {});
@@ -57,7 +62,7 @@ export default async function DashboardLayout({
                 }
             `}} />
             
-            <div className="flex h-screen overflow-hidden bg-[var(--bg-app)] text-[var(--text-main)] transition-colors duration-500">
+            <div className="flex h-screen overflow-hidden bg-[var(--bg-app)] text-[var(--text-main)] transition-colors duration-500 font-sans">
                 <Sidebar
                     userRole={session.user.role as "ADMIN" | "OWNER" | "MANAGER" | "EMPLOYEE"}
                     businessName={businessName}
@@ -65,10 +70,14 @@ export default async function DashboardLayout({
                     logo={logo}
                 />
                 <main className="flex-1 overflow-y-auto pb-20 lg:pb-0 relative">
-                    <Header />
-                    <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto animate-fade-in">
-                        {children}
-                    </div>
+                    {subState && <SubscriptionBanner state={subState} />}
+                    
+                    <SubscriptionGate state={subState}>
+                        <Header />
+                        <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto animate-fade-in">
+                            {children}
+                        </div>
+                    </SubscriptionGate>
                 </main>
                 <MobileNav />
             </div>

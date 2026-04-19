@@ -108,7 +108,7 @@ export default async function SignupPage() {
             </header>
 
             <main className="flex-1 flex items-center justify-center p-4 md:p-8">
-                <div className="w-full max-w-[640px] flex flex-col gap-6">
+                <div className="w-full max-w-[1240px] flex flex-col gap-6">
                     <SignupForm plans={plans} />
 
                     <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[var(--text-muted)] text-xs font-medium opacity-60">

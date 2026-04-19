@@ -64,12 +64,7 @@ export function Step3Team({ branch, onNext, onPrev }: StepProps) {
 
     return (
         <div className="max-w-4xl mx-auto space-y-12 py-8">
-            {/* Stage Header */}
             <div className="space-y-3">
-                <div className="flex items-center gap-2 text-[var(--color-primary)] font-bold text-xs uppercase tracking-[0.2em]">
-                    <span className="material-symbols-outlined !text-sm">group</span>
-                    Step 3 of 4
-                </div>
                 <h1 className="text-4xl font-display font-black text-[var(--text-main)] tracking-tight">Add Your Team</h1>
                 <p className="text-lg text-[var(--text-muted)] leading-relaxed">
                     Register the staff members who will work at your branch. You can always add more from the Staff directory later.
@@ -237,7 +232,7 @@ export function Step3Team({ branch, onNext, onPrev }: StepProps) {
                         type="button"
                         onClick={handleContinue}
                         disabled={loading}
-                        className="h-14 px-12 bg-[var(--text-main)] text-[var(--bg-app)] rounded-2xl font-bold flex items-center gap-4 shadow-2xl shadow-black/20 hover:scale-[1.02] active:scale-[0.98] transition-all group overflow-hidden relative"
+                        className="h-14 px-12 bg-[var(--color-primary)] text-white rounded-2xl font-black uppercase tracking-[0.2em] flex items-center gap-4 shadow-2xl shadow-[var(--color-primary)]/20 hover:scale-[1.02] active:scale-[0.98] transition-all group overflow-hidden relative"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full duration-1000 transition-transform" />
                         {loading ? (

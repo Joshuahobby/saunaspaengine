@@ -56,7 +56,7 @@ export default function LoginForm() {
                         </label>
                         <Link
                             href="/forgot-password"
-                            className="text-[var(--color-primary)] text-[10px] font-black uppercase tracking-widest hover:underline"
+                            className="text-[var(--color-primary)] text-[10px] font-black uppercase tracking-[0.2em] hover:text-[var(--text-main)] transition-colors"
                         >
                             Forgot Password?
                         </Link>
@@ -77,7 +77,7 @@ export default function LoginForm() {
                 </div>
 
                 {errorMessage && (
-                    <div className="bg-red-500/5 border border-red-500/20 p-4 rounded-xl flex items-center gap-3 text-red-500 text-sm animate-fade-in">
+                    <div className="bg-red-500/5 border border-red-500/20 p-4 rounded-xl flex items-center gap-3 text-red-500 text-sm animate-fade-in shadow-sm">
                         <span className="material-symbols-outlined text-lg shrink-0">error</span>
                         <p className="font-bold">{errorMessage}</p>
                     </div>
@@ -116,21 +116,28 @@ export default function LoginForm() {
                 </button>
                 
                 {isPending && (
-                    <p className="text-center text-[10px] text-[var(--text-muted)] mt-4 font-black uppercase tracking-widest animate-pulse">
+                    <p className="text-center text-[10px] text-[var(--text-muted)] mt-5 font-black uppercase tracking-widest animate-pulse opacity-60">
                         Connecting to Secure Vault. This may take a few moments.
                     </p>
                 )}
 
             </form>
 
-            <div className="mt-8 pt-6 border-t border-[var(--border-muted)] text-center space-y-3">
-                <p className="text-[var(--text-muted)] text-sm font-medium">
-                    New to Sauna SPA Engine?{" "}
-                    <Link href="/signup" className="text-[var(--color-primary)] font-black hover:underline">
-                        Create an account
+            <div className="mt-10 pt-8 border-t border-[var(--border-muted)]/50 text-center space-y-6">
+                <div className="flex flex-col gap-4 items-center">
+                    <p className="text-[var(--text-muted)] text-xs font-black uppercase tracking-[0.2em]">
+                        New to Sauna SPA Engine?
+                    </p>
+                    <Link 
+                        href="/signup" 
+                        className="w-full py-4 rounded-xl border border-[var(--border-main)] bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-[10px] font-black uppercase tracking-widest hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all flex items-center justify-center gap-2 group"
+                    >
+                        <span className="material-symbols-outlined text-base group-hover:rotate-12 transition-transform">person_add</span>
+                        Create Your Account
                     </Link>
-                </p>
-                <p className="text-[var(--text-muted)] text-xs flex items-center justify-center gap-2 font-medium opacity-60">
+                </div>
+                
+                <p className="text-[var(--text-muted)] text-[10px] flex items-center justify-center gap-2 font-black uppercase tracking-widest opacity-40">
                     <span className="material-symbols-outlined text-sm">verified_user</span>
                     256-bit Encrypted Connection
                 </p>

@@ -9,21 +9,34 @@ import { Step3Team } from "./steps/Step3Team";
 import { Step4Launch } from "./steps/Step4Launch";
 import { motion, AnimatePresence } from "framer-motion";
 import { updateOnboardingStepAction } from "./actions";
+import { PaymentForm } from "@/app/signup/payment/PaymentForm";
 
 interface OnboardingClientProps {
     branch: {
         id: string;
         name: string | null;
         email: string | null;
+        logo: string | null;
+        address: string | null;
         phone: string | null;
+        businessHours: any;
+        services?: any[];
+        employees?: any[];
+        business: {
+            subscriptionStatus: string | null;
+            subscriptionPlan: { name: string; priceMonthly: number; priceYearly: number; } | null;
+            subscriptionCycle: string | null;
+        } | null;
     };
     initialStep: number;
     paymentPending?: boolean;
+    userEmail: string;
 }
 
-export function OnboardingClient({ branch, initialStep, paymentPending = false }: OnboardingClientProps) {
+export function OnboardingClient({ branch, initialStep, paymentPending = false, userEmail }: OnboardingClientProps) {
     const [step, setStep] = useState(initialStep);
     const [saving, setSaving] = useState(false);
+    const [showPayment, setShowPayment] = useState(false);
     const router = useRouter();
 
     const steps = [
@@ -60,8 +73,12 @@ export function OnboardingClient({ branch, initialStep, paymentPending = false }
         }
     };
 
+    const amount = branch.business?.subscriptionCycle === "Yearly" 
+        ? branch.business?.subscriptionPlan?.priceYearly ?? 0
+        : branch.business?.subscriptionPlan?.priceMonthly ?? 0;
+
     return (
-        <div className="flex-1 h-full flex flex-col items-center py-12 px-6 overflow-y-auto">
+        <div className="flex-1 h-full flex flex-col items-center py-12 px-6 overflow-y-auto relative">
             {saving && (
                 <div className="fixed top-0 left-0 right-0 h-1 bg-[var(--color-primary)]/20 z-[200]">
                     <div className="h-full bg-[var(--color-primary)] animate-[shimmer_2s_infinite] w-[30%]"></div>
@@ -69,20 +86,44 @@ export function OnboardingClient({ branch, initialStep, paymentPending = false }
             )}
             
             <div className="w-full max-w-[960px] flex flex-col gap-12">
-                {/* Payment Pending Banner */}
-                {paymentPending && (
-                    <div className="flex items-start gap-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl px-6 py-4">
-                        <span className="material-symbols-outlined text-amber-500 text-2xl mt-0.5 shrink-0">pending_actions</span>
-                        <div className="flex-1 min-w-0">
-                            <p className="font-black text-amber-600 dark:text-amber-400 text-sm">Payment Verification Pending</p>
-                            <p className="text-amber-700 dark:text-amber-300 text-xs font-medium mt-1 opacity-80 leading-relaxed">
-                                Your account is active while we verify your Mobile Money payment. You can finish setting up your branch — it goes live once payment is confirmed (usually within 2 business hours).
-                            </p>
+                {/* Unified Payment/Verification Banner */}
+                {paymentPending && (step === 0 || step === 4 || showPayment) && (
+                    <div className="flex flex-col gap-6">
+                        <div className="flex items-start gap-4 bg-amber-500/10 border border-amber-500/30 rounded-2xl px-6 py-4 shadow-sm">
+                            <span className="material-symbols-outlined text-amber-500 text-2xl mt-0.5 shrink-0">pending_actions</span>
+                            <div className="flex-1 min-w-0">
+                                <p className="font-black text-amber-600 dark:text-amber-400 text-sm">Action Required: Activate Your Account</p>
+                                <p className="text-amber-700 dark:text-amber-300 text-xs font-medium mt-1 opacity-80 leading-relaxed">
+                                    Your branch setup is in progress. To go live and accept real bookings, please complete your subscription payment. You can continue configuring your branch below.
+                                </p>
+                            </div>
+                            <button 
+                                onClick={() => setShowPayment(!showPayment)}
+                                className="shrink-0 h-10 px-4 rounded-xl bg-amber-500 text-white text-[10px] font-black uppercase tracking-widest hover:bg-amber-600 transition-colors shadow-lg shadow-amber-500/20 flex items-center gap-2">
+                                <span className="material-symbols-outlined text-sm">{showPayment ? "close" : "payments"}</span>
+                                {showPayment ? "Hide Fix" : "Pay Now"}
+                            </button>
                         </div>
-                        <a href="/signup/payment"
-                            className="shrink-0 text-[10px] font-black uppercase tracking-widest text-amber-600 dark:text-amber-400 hover:underline whitespace-nowrap mt-0.5">
-                            View Instructions
-                        </a>
+
+                        <AnimatePresence>
+                            {showPayment && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: "auto", opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    className="overflow-hidden"
+                                >
+                                    <div className="max-w-[540px] mx-auto">
+                                        <PaymentForm 
+                                            email={userEmail || branch.email || ""}
+                                            amount={amount}
+                                            plan={branch.business?.subscriptionPlan?.name || "Plan"}
+                                            cycle={branch.business?.subscriptionCycle || "Monthly"}
+                                        />
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 )}
 
@@ -126,7 +167,7 @@ export function OnboardingClient({ branch, initialStep, paymentPending = false }
                             transition={{ duration: 0.4, ease: "easeOut" }}
                             className="flex-1"
                         >
-                            {step === 0 && <Step0Welcome branch={branch} onNext={nextStep} />}
+                            {step === 0 && <Step0Welcome branch={branch as any} onNext={nextStep} />}
                             {step === 1 && <Step1Profile branch={branch} onNext={nextStep} onPrev={prevStep} />}
                             {step === 2 && <Step2Services branch={branch} onNext={nextStep} onPrev={prevStep} />}
                             {step === 3 && <Step3Team branch={branch} onNext={nextStep} onPrev={prevStep} />}

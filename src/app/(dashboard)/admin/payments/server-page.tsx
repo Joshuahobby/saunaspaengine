@@ -24,6 +24,8 @@ interface PaymentRow {
     createdAt: string;
     businessApprovalStatus: string;
     businessSubStatus: string;
+    creditApplied: number;
+    isUpgrade: boolean;
 }
 
 export default async function AdminPaymentsPage() {
@@ -53,25 +55,36 @@ export default async function AdminPaymentsPage() {
         totalRevenue: payments
             .filter(p => p.status === "COMPLETED")
             .reduce((sum, p) => sum + p.amount, 0),
+        totalCredits: payments
+            .filter(p => p.status === "COMPLETED")
+            .reduce((sum, p) => {
+                const meta = p.metadata as { creditApplied?: number } | null;
+                return sum + (meta?.creditApplied || 0);
+            }, 0),
     };
 
-    const serialised: PaymentRow[] = payments.map(p => ({
-        id: p.id,
-        depositId: p.depositId,
-        businessId: p.business.id,
-        businessName: p.business.name,
-        planName: p.business.subscriptionPlan?.name ?? "—",
-        cycle: p.business.subscriptionCycle ?? "—",
-        amount: p.amount,
-        currency: p.currency,
-        phone: p.phone,
-        correspondent: p.correspondent,
-        status: p.status,
-        failureReason: p.failureReason ?? null,
-        createdAt: p.createdAt.toISOString(),
-        businessApprovalStatus: p.business.approvalStatus,
-        businessSubStatus: p.business.subscriptionStatus ?? "—",
-    }));
+    const serialised: PaymentRow[] = payments.map(p => {
+        const meta = p.metadata as { creditApplied?: number; isUpgrade?: boolean } | null;
+        return {
+            id: p.id,
+            depositId: p.depositId,
+            businessId: p.business.id,
+            businessName: p.business.name,
+            planName: p.business.subscriptionPlan?.name ?? "—",
+            cycle: p.business.subscriptionCycle ?? "—",
+            amount: p.amount,
+            currency: p.currency,
+            phone: p.phone,
+            correspondent: p.correspondent,
+            status: p.status,
+            failureReason: p.failureReason ?? null,
+            createdAt: p.createdAt.toISOString(),
+            businessApprovalStatus: p.business.approvalStatus,
+            businessSubStatus: p.business.subscriptionStatus ?? "—",
+            creditApplied: meta?.creditApplied || 0,
+            isUpgrade: meta?.isUpgrade || false,
+        };
+    });
 
     return <AdminPaymentsClientPage payments={serialised} stats={stats} />;
 }

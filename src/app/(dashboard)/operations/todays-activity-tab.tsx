@@ -5,9 +5,11 @@ import { format } from "date-fns";
 import CheckoutButton from "@/components/operations/checkout-button";
 
 export default async function TodaysActivityTab({
-    searchParams
+    searchParams,
+    isActive
 }: {
-    searchParams: Promise<{ page?: string; search?: string; branchId?: string }>
+    searchParams: Promise<{ page?: string; search?: string; branchId?: string }>;
+    isActive?: boolean;
 }) {
     const params = await searchParams;
     const session = await auth();

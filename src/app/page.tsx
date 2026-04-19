@@ -68,15 +68,17 @@ export default async function LandingPage() {
                 <Link
                   href={isLoggedIn ? "/dashboard" : "/signup"}
                   aria-label={isLoggedIn ? "Go to Dashboard" : "Register Spa"}
-                  className="flex min-w-[200px] cursor-pointer items-center justify-center rounded-2xl h-16 px-10 bg-[var(--color-primary)] text-white text-sm font-black uppercase tracking-widest shadow-2xl shadow-[var(--color-primary)]/30 transition-all hover:scale-105 hover:bg-[var(--color-primary-hover)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)] selection:bg-white selection:text-[var(--color-primary)]"
+                  className="flex min-w-[220px] cursor-pointer items-center justify-center rounded-2xl h-16 px-10 bg-[var(--color-primary)] text-white text-sm font-black uppercase tracking-[0.2em] shadow-2xl shadow-[var(--color-primary)]/30 transition-all hover:scale-[1.05] hover:bg-[var(--color-primary-hover)] active:scale-[0.98] group"
                 >
-                  {isLoggedIn ? "Go to Dashboard" : "Register Spa"}
+                  <span className="material-symbols-outlined mr-3 group-hover:rotate-12 transition-transform">{isLoggedIn ? "dashboard" : "rocket_launch"}</span>
+                  {isLoggedIn ? "Go to Dashboard" : "Register Your Spa"}
                 </Link>
                 <Link
                   href="#how-it-works"
                   aria-label="See how it works"
-                  className="flex min-w-[180px] cursor-pointer items-center justify-center rounded-2xl h-16 px-10 bg-[var(--bg-surface)] text-[var(--text-main)] text-sm font-black uppercase tracking-widest border border-[var(--border-main)] transition-all hover:bg-[var(--bg-surface-muted)] shadow-lg shadow-black/5 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--border-main)]"
+                  className="flex min-w-[200px] cursor-pointer items-center justify-center rounded-2xl h-16 px-10 bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-sm font-black uppercase tracking-[0.2em] border border-[var(--border-main)] transition-all hover:bg-[var(--bg-app)] hover:border-[var(--color-primary)]/30 shadow-lg shadow-black/5 active:scale-[0.98] group"
                 >
+                  <span className="material-symbols-outlined mr-3 group-hover:translate-y-1 transition-transform">keyboard_double_arrow_down</span>
                   How It Works
                 </Link>
               </ScrollReveal>
@@ -229,73 +231,98 @@ export default async function LandingPage() {
             </ScrollReveal>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch pt-8">
-              {/* Basic */}
+              {/* Free Forever */}
               <ScrollReveal direction="up" delay={0.1}>
-                <div className="h-full glass-card p-10 flex flex-col gap-8 shadow-sm hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 border border-[var(--border-main)] relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-primary)]/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-[var(--color-primary)]/10 transition-colors"></div>
+                <div className="h-full glass-card p-10 flex flex-col gap-8 shadow-sm hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 border border-[var(--border-main)] relative overflow-hidden group transition-all duration-500 rounded-[2.5rem]">
                   <div className="flex flex-col gap-2 relative z-10">
-                    <h4 className="text-[var(--color-primary)] font-bold uppercase tracking-[0.2em] text-xs">Starter</h4>
+                    <h4 className="text-[var(--color-primary)] font-black uppercase tracking-[0.2em] text-xs">Free Forever</h4>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl font-black text-[var(--text-main)] italic">50,000</span>
-                      <span className="text-[var(--text-muted)] text-sm font-black uppercase tracking-widest">RWF<span className="opacity-50">/mo</span></span>
+                      <span className="text-4xl font-black text-[var(--text-main)] italic">0</span>
+                      <span className="text-[var(--text-muted)] text-[10px] font-black uppercase tracking-[0.2em]">RWF<span className="opacity-50">/mo</span></span>
                     </div>
-                    <p className="text-[var(--text-muted)] text-sm font-medium">For single-location boutique spas.</p>
+                    <p className="text-[var(--text-muted)] text-sm font-medium">For solo practitioners starting out.</p>
                   </div>
-                  <ul className="flex flex-col gap-5 border-t border-[var(--border-muted)] pt-8 relative z-10">
-                    <PricingInclusion text="Up to 500 Check-ins/mo" />
-                    <PricingInclusion text="QR Code Scanner" />
-                    <PricingInclusion text="Mobile Money Payments" />
-                    <PricingInclusion text="Standard Support" />
+                  <ul className="flex flex-col gap-5 border-t border-[var(--border-muted)]/50 pt-8 relative z-10">
+                    <PricingInclusion text="100 Check-ins/mo" />
+                    <PricingInclusion text="1 Staff Member" />
+                    <PricingInclusion text="5 Services" />
+                    <PricingInclusion text="Basic Dashboard" />
                   </ul>
-                  <Link href="/signup" aria-label="Start Starter Plan" className="mt-auto w-full py-4 rounded-xl border-2 border-[var(--color-primary)] text-[var(--color-primary)] font-black uppercase tracking-widest hover:bg-[var(--color-primary)] hover:text-white transition-all text-center focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-primary)] text-xs">Get Started</Link>
+                  <Link href="/signup" className="mt-auto w-full py-5 rounded-2xl border-2 border-[var(--border-muted)] text-[var(--text-muted)] font-black uppercase tracking-[0.2em] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all text-center text-[10px] flex items-center justify-center gap-2">
+                    Get Started Free
+                  </Link>
                 </div>
               </ScrollReveal>
 
-              {/* Pro */}
-              <ScrollReveal direction="up" delay={0.2} className="relative z-10">
-                <div className="h-full bg-gradient-to-br from-[#1b3a1b] to-[#2d5a27] dark:from-[#2d5a27] dark:to-[#1b3a1b] rounded-[2.5rem] p-10 border border-white/10 flex flex-col gap-8 transform lg:scale-105 shadow-[0_20px_50px_rgba(45,90,39,0.3)] relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl group-hover:bg-white/20 transition-colors"></div>
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-white text-[var(--color-primary)] text-[10px] font-black px-6 py-2 rounded-full uppercase tracking-[0.2em] shadow-xl z-20">Most Popular</div>
+              {/* Essential */}
+              <ScrollReveal direction="up" delay={0.2}>
+                <div className="h-full glass-card p-10 flex flex-col gap-8 shadow-sm hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 border border-[var(--border-main)] relative overflow-hidden group transition-all duration-500 rounded-[2.5rem]">
                   <div className="flex flex-col gap-2 relative z-10">
-                    <h4 className="text-white/70 font-bold uppercase tracking-[0.2em] text-xs">Pro Growth</h4>
+                    <h4 className="text-[var(--color-primary)] font-black uppercase tracking-[0.2em] text-xs">Essential</h4>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl font-black text-[var(--text-main)] italic">50,000</span>
+                      <span className="text-[var(--text-muted)] text-[10px] font-black uppercase tracking-[0.2em]">RWF<span className="opacity-50">/mo</span></span>
+                    </div>
+                    <p className="text-[var(--text-muted)] text-sm font-medium">For single-location boutique spas.</p>
+                  </div>
+                  <ul className="flex flex-col gap-5 border-t border-[var(--border-muted)]/50 pt-8 relative z-10">
+                    <PricingInclusion text="Up to 500 Check-ins/mo" />
+                    <PricingInclusion text="Up to 10 Staff Members" />
+                    <PricingInclusion text="Up to 25 Services" />
+                    <PricingInclusion text="Standard Support" />
+                  </ul>
+                  <Link href="/signup" className="mt-auto w-full py-5 rounded-2xl border-2 border-[var(--color-primary)] text-[var(--color-primary)] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all text-center text-[10px] shadow-lg shadow-[var(--color-primary)]/5 flex items-center justify-center gap-2">
+                    <span className="material-symbols-outlined text-base">rocket</span>
+                    Subscribe
+                  </Link>
+                </div>
+              </ScrollReveal>
+
+              {/* Premium */}
+              <ScrollReveal direction="up" delay={0.3} className="relative z-10">
+                <div className="h-full bg-gradient-to-br from-[#1b3a1b] to-[#2d5a27] dark:from-[#2d5a27] dark:to-[#1b3a1b] rounded-[2.5rem] p-10 border border-white/10 flex flex-col gap-8 transform lg:scale-105 shadow-[0_20px_60px_rgba(45,90,39,0.4)] relative overflow-hidden group transition-all duration-500">
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl group-hover:bg-white/20 transition-colors"></div>
+                  <div className="absolute -top-3 left-1/2 -track-x-1/2 bg-white text-[var(--color-primary)] text-[10px] font-black px-6 py-2 rounded-full uppercase tracking-[0.3em] shadow-xl z-20 whitespace-nowrap -translate-x-1/2 leading-none">Best Value</div>
+                  <div className="flex flex-col gap-2 relative z-10">
+                    <h4 className="text-white/70 font-black uppercase tracking-[0.2em] text-xs">Premium</h4>
                     <div className="flex items-baseline gap-2">
                       <span className="text-5xl font-black text-white italic">150,000</span>
-                      <span className="text-white/60 text-sm font-black uppercase tracking-widest">RWF<span className="opacity-50">/mo</span></span>
+                      <span className="text-white/60 text-[10px] font-black uppercase tracking-[0.2em]">RWF<span className="opacity-50">/mo</span></span>
                     </div>
                     <p className="text-white/80 text-sm font-medium">For growing wellness centers.</p>
                   </div>
                   <ul className="flex flex-col gap-5 border-t border-white/10 pt-8 relative z-10">
                     <PricingInclusion text="Unlimited Check-ins" isDark />
-                    <PricingInclusion text="Advanced Analytics" isDark />
-                    <PricingInclusion text="Up to 3 Branches" isDark />
-                    <PricingInclusion text="Staff Scheduling" isDark />
-                    <PricingInclusion text="Priority WhatsApp Support" isDark />
+                    <PricingInclusion text="Up to 25 Staff Members" isDark />
+                    <PricingInclusion text="Up to 100 Services" isDark />
+                    <PricingInclusion text="Multi-branch (3 Branches)" isDark />
+                    <PricingInclusion text="Priority Support" isDark />
                   </ul>
-                  <Link href="/signup" aria-label="Go Pro Plan" className="mt-auto w-full py-5 rounded-2xl bg-white text-[var(--color-primary)] font-black uppercase tracking-widest shadow-2xl hover:scale-[1.02] active:scale-[0.98] transition-all text-center focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white text-xs">Upgrade to Pro</Link>
-                </div>
-              </ScrollReveal>
-
-              {/* Enterprise */}
-              <ScrollReveal direction="up" delay={0.3}>
-                <div className="h-full glass-card p-10 flex flex-col gap-8 shadow-sm hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 border border-[var(--border-main)] relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--text-main)]/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-[var(--text-main)]/10 transition-colors"></div>
-                  <div className="flex flex-col gap-2 relative z-10">
-                    <h4 className="text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] text-xs">Enterprise</h4>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-4xl font-black text-[var(--text-main)] italic">Custom</span>
-                    </div>
-                    <p className="text-[var(--text-muted)] text-sm font-medium">For 4+ branches or custom setups.</p>
-                  </div>
-                  <ul className="flex flex-col gap-5 border-t border-[var(--border-muted)] pt-8 relative z-10">
-                    <PricingInclusion text="White-labeled Platform" />
-                    <PricingInclusion text="Custom API Integration" />
-                    <PricingInclusion text="Dedicated Manager" />
-                    <PricingInclusion text="On-site Staff Training" />
-                  </ul>
-                  <Link href="/contact" aria-label="Contact Sales for Enterprise Plan" className="mt-auto w-full py-4 rounded-xl border-2 border-[var(--text-main)] text-[var(--text-main)] font-black uppercase tracking-widest hover:bg-[var(--text-main)] hover:text-white transition-all text-center focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--text-main)] text-xs">Contact Sales</Link>
+                  <Link href="/signup" className="mt-auto w-full py-5 rounded-2xl bg-white text-[var(--color-primary)] font-black uppercase tracking-[0.2em] shadow-2xl hover:bg-emerald-50 transition-all text-center text-[10px] flex items-center justify-center gap-2">
+                    <span className="material-symbols-outlined text-base font-black">upgrade</span>
+                    Go Premium
+                  </Link>
                 </div>
               </ScrollReveal>
             </div>
+
+            {/* Enterprise / Elite Callout */}
+            <ScrollReveal direction="up" delay={0.4}>
+              <div className="mt-8 glass-card border border-[var(--border-main)] p-8 rounded-[2.5rem] flex flex-col md:flex-row items-center justify-between gap-8 group hover:border-[var(--text-main)]/30 transition-all">
+                <div className="flex items-center gap-6">
+                  <div className="size-16 rounded-2xl bg-[var(--text-main)]/5 flex items-center justify-center text-[var(--text-main)] group-hover:bg-[var(--text-main)] group-hover:text-white transition-all">
+                    <span className="material-symbols-outlined text-4xl">corporate_fare</span>
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-xl font-black font-serif">Enterprise & Elite Solutions</h4>
+                    <p className="text-[var(--text-muted)] text-sm">For 4+ branches, white-label needs, or custom API integrations.</p>
+                  </div>
+                </div>
+                <Link href="/contact" className="px-10 py-5 rounded-2xl border-2 border-[var(--text-main)] text-[var(--text-main)] font-black uppercase tracking-[0.2em] hover:bg-[var(--text-main)] hover:text-white transition-all text-center text-[10px]">
+                  Contact Sales
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 

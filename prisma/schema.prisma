@@ -24,6 +24,7 @@ model Business {
   kycNotes               String?
   kycVerifiedAt          DateTime?
   subscriptionStatus     String?               @default("ACTIVE")
+  trialEndsAt            DateTime?
   permissions            Json?
   platformCommissionRate Float                 @default(5.0)
   logo                   String?
@@ -66,7 +67,10 @@ model PlatformPackage {
   priceYearly  Float      @default(0)
   isCustom     Boolean    @default(false)
   description  String?
-  branchLimit  Int        @default(3)
+  branchLimit  Int        @default(1)
+  employeeLimit Int       @default(1)
+  serviceLimit  Int       @default(5)
+  checkInLimit  Int       @default(100)
   features     String[]
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
@@ -94,6 +98,8 @@ model Branch {
   currency             String?
   timezone             String?
   businessHours        Json?
+  monthlyCheckInCount  Int                  @default(0)
+  checkInCounterResetAt DateTime            @default(now())
   auditLogs            AuditLog[]
   broadcasts           Broadcast[]
   business             Business?            @relation(fields: [businessId], references: [id], onDelete: Cascade)

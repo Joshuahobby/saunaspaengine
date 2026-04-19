@@ -4,11 +4,15 @@ import { StatusToggle } from "@/components/employees/status-toggle";
 import { BranchFilter } from "@/components/employees/branch-filter";
 import Link from "next/link";
 import { getActiveBranchContext } from "@/lib/branch-context";
+import { SubscriptionState } from "@/lib/subscription";
+import StaffAddButton from "@/components/employees/StaffAddButton";
 
 export default async function TeamDirectoryTab({ 
-    searchParams 
+    searchParams,
+    subState
 }: { 
-    searchParams: Promise<{ branchId?: string; q?: string; status?: string }> 
+    searchParams: Promise<{ branchId?: string; q?: string; status?: string }>,
+    subState: SubscriptionState | null
 }) {
     const resolvedSearchParams = await searchParams;
     const session = await auth();
@@ -88,16 +92,12 @@ export default async function TeamDirectoryTab({
                             />
                          </form>
                     </div>
-                    {isOwnerOrAdmin && (
-                        <Link
-                            href="/employees/new"
-                            className="h-[46px] px-6 bg-[var(--text-main)] text-[var(--bg-app)] rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all flex items-center justify-center gap-2 shrink-0 shadow-lg"
-                        >
-                            <span className="material-symbols-outlined text-sm">person_add</span>
-                            <span className="max-sm:hidden">Add Staff</span>
-                            <span className="sm:hidden">Add</span>
-                        </Link>
-                    )}
+                    <StaffAddButton 
+                        isOwnerOrAdmin={isOwnerOrAdmin}
+                        currentCount={employees.length}
+                        limit={subState?.plan?.employeeLimit || 0}
+                        isActive={subState?.isActive ?? true}
+                    />
                 </div>
             </div>
 

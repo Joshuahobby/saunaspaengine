@@ -52,9 +52,10 @@ export const authConfig: NextAuthConfig = {
             const isApiAuthRoute = nextUrl.pathname.startsWith("/api/auth");
             const PUBLIC_PATHS = ["/", "/help", "/security", "/privacy", "/terms",
                 "/pricing", "/demo", "/contact", "/support", "/status",
-                "/case-studies", "/changelog", "/developer", "/booking"];
+                "/case-studies", "/changelog", "/developer", "/booking", "/signup"];
             const isPublicRoute =
                 PUBLIC_PATHS.includes(nextUrl.pathname) ||
+                nextUrl.pathname.startsWith("/signup/") ||
                 nextUrl.pathname.startsWith("/developer/") ||
                 nextUrl.pathname.startsWith("/demo/") ||
                 nextUrl.pathname.startsWith("/receipt/") ||

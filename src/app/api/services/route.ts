@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { apiAuth, validateFields, apiHandler } from "@/lib/api-utils";
+import { checkLimit } from "@/lib/subscription";
 
 export async function POST(req: NextRequest) {
     return apiHandler(async () => {
@@ -31,6 +32,17 @@ export async function POST(req: NextRequest) {
 
         if (!targetBranchId) {
             return NextResponse.json({ error: "No branch assigned to user or business" }, { status: 403 });
+        }
+
+        // --- SUBSCRIPTION LIMIT CHECK ---
+        const limitCheck = await checkLimit(targetBranchId, "service");
+        if (!limitCheck.allowed) {
+            return NextResponse.json({ 
+                error: "LIMIT_REACHED", 
+                message: `You have reached the limit of ${limitCheck.limit} services for your current plan.`,
+                limit: limitCheck.limit,
+                current: limitCheck.current
+            }, { status: 403 });
         }
 
         const parsedPrice = parseFloat(price);

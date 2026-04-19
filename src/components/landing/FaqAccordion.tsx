@@ -58,24 +58,28 @@ function FAQItem({ id, question, answer, isOpen, onClick }: FAQItemProps) {
 
 const faqs = [
     {
+        question: "Is there a free trial available?",
+        answer: "Yes! Every new business signup automatically starts with a 14-day trial of our Premium features. No credit card or Mobile Money payment is required to start your trial. It's the best way to experience the full power of the SPA Engine."
+    },
+    {
+        question: "What happens after the 14-day trial ends?",
+        answer: "At the end of your trial, you can choose to subscribe to one of our paid plans (Essential, Premium, or Elite) to keep your advanced features. If you're not ready to commit, you can continue using the 'Free Forever' tier with limited capacity (1 Staff, 5 Services)."
+    },
+    {
         question: "Do I need special hardware to scan QR codes?",
-        answer: "No special hardware is required! Any modern smartphone, tablet, or webcam can be used to scan member QR codes directly from the Sauna SPA Engine dashboard. We also support dedicated USB barcode scanners if you prefer a traditional POS setup."
+        answer: "No special hardware is required! Any modern smartphone, tablet, or webcam can be used to scan member QR codes directly from our dashboard. We also support dedicated USB barcode scanners for high-volume front desks."
     },
     {
-        question: "Can I manage multiple spa locations from one account?",
-        answer: "Yes, our Pro and Enterprise plans are built specifically for multi-branch operations. You can seamlessly switch between locations, view consolidated analytics, and manage staff schedules across all your branches from a single unified dashboard."
+        question: "How does Mobile Money payment integration work?",
+        answer: "Our platform is natively integrated with MTN MoMo and Airtel Money Rwanda. When a customer pays for a service or membership, you can initiate a push request directly from the dashboard. The customer receives a prompt on their phone to enter their PIN, and your records are updated instantly."
     },
     {
-        question: "How does the billing work for my customers?",
-        answer: "Customers can pay via MTN MoMo, Airtel Money, or cash. The platform tracks membership statuses, day passes, and remaining credits automatically. Your front desk gets instant alerts when a customer's subscription has expired or requires renewal upon scanning their QR pass."
+        question: "Can I manage multiple spa locations?",
+        answer: "Yes, our Premium and Elite plans are designed for multi-branch operations. You can manage up to 3 branches on Premium, or unlimited branches on Elite, all from a single unified dashboard with shared customer profiles."
     },
     {
-        question: "Is my data secure and compliant?",
-        answer: "Absolutely. We employ bank-grade encryption for all data in transit and at rest. We run daily backups and maintain strict role-based access controls to ensure your branch data and client information remain completely private and secure."
-    },
-    {
-        question: "Can I upgrade or downgrade my plan?",
-        answer: "Yes, you can change your subscription tier at any time. Upgrades take effect immediately, prorating the cost, while downgrades will apply at the start of your next billing cycle."
+        question: "Can I upgrade or cancel my plan anytime?",
+        answer: "Absolutely. You can upgrade, downgrade, or cancel your subscription at any time from your billing settings. Upgrades are prorated, and cancellations take effect at the end of your current billing cycle."
     }
 ];
 

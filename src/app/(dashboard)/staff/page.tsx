@@ -18,6 +18,8 @@ export const metadata = {
     title: "Team Management | Sauna SPA Engine",
 };
 
+import { getSubscriptionState } from "@/lib/subscription";
+
 export default async function StaffHubPage(props: {
     searchParams: Promise<{ [key: string]: string | undefined }>;
 }) {
@@ -25,6 +27,7 @@ export default async function StaffHubPage(props: {
     const session = await auth();
     if (!session?.user) redirect("/login");
 
+    const subState = session.user.businessId ? await getSubscriptionState(session.user.businessId) : null;
     const activeTab = searchParams.tab || "directory";
 
     return (
@@ -71,7 +74,7 @@ export default async function StaffHubPage(props: {
 
             {/* Hub Content */}
             <div className="min-h-[600px] relative">
-                {activeTab === "directory" && <TeamDirectoryTab searchParams={props.searchParams} />}
+                {activeTab === "directory" && <TeamDirectoryTab searchParams={props.searchParams} subState={subState} />}
                 {activeTab === "performance" && <LeaderboardTab />}
                 {activeTab === "growth" && <AnalyticsTab />}
             </div>
