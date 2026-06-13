@@ -64,14 +64,14 @@ export default async function DashboardLayout({
             
             <div className="flex h-screen overflow-hidden bg-[var(--bg-app)] text-[var(--text-main)] transition-colors duration-500 font-sans">
                 <Sidebar
-                    userRole={session.user.role as "ADMIN" | "OWNER" | "MANAGER" | "EMPLOYEE"}
+                    userRole={session.user.role as "ADMIN" | "OWNER" | "MANAGER" | "RECEPTIONIST" | "EMPLOYEE"}
                     businessName={businessName}
                     branchName={branchName}
                     logo={logo}
                 />
                 <main className="flex-1 overflow-y-auto pb-20 lg:pb-0 relative">
                     {subState && <SubscriptionBanner state={subState} />}
-                    
+
                     <SubscriptionGate state={subState}>
                         <Header />
                         <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto animate-fade-in">
@@ -79,7 +79,7 @@ export default async function DashboardLayout({
                         </div>
                     </SubscriptionGate>
                 </main>
-                <MobileNav />
+                <MobileNav userRole={session.user.role as "ADMIN" | "OWNER" | "MANAGER" | "RECEPTIONIST" | "EMPLOYEE"} />
             </div>
         </NavProvider>
     );
@@ -90,7 +90,7 @@ export default async function DashboardLayout({
  * Prevents CSS injection via malicious primaryColor values stored in the DB.
  */
 function sanitizeHexColor(color: string | null | undefined): string {
-    const DEFAULT = "#fbbf24";
+    const DEFAULT = "#2d5a27";
     if (!color) return DEFAULT;
     return /^#[0-9a-fA-F]{6}$/.test(color.trim()) ? color.trim() : DEFAULT;
 }
