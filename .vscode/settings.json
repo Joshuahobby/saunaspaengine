@@ -1,0 +1,16 @@
+{
+  "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
+  "postcss.validate": false,
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore",
+  "files.associations": {
+    "*.css": "postcss"
+  },
+  "stylelint.enable": false,
+  "tailwindCSS.experimental.classRegex": [
+    ["className={`([^`]*)[`}]", "([^\\s\"'`]+)"]
+  ]
+}

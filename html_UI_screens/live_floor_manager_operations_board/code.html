@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Floor Manager Operations Board</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#101622",
+                        "status-green": "#10b981",
+                        "status-amber": "#f59e0b",
+                        "status-red": "#ef4444",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen flex-col overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-6 py-3 shrink-0">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary/10 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-primary text-sm font-semibold border-b-2 border-primary pb-1" href="#">Floor Manager</a>
+<a class="text-slate-500 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Schedule</a>
+<a class="text-slate-500 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Staff</a>
+<a class="text-slate-500 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary" placeholder="Search rooms or staff..."/>
+</div>
+<button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">sensors</span>
+                    Live View
+                </button>
+<div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden" data-alt="User profile avatar circle">
+<img alt="User" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD24YgKde03EIa0orVo7V7mS4LaWBY1ZllkvfAjGRi3VU0-dXVgFnPSHUBNW4tbKL1ocSmQseQZJ5K6cYenOsRhEQXKhb3koHelNtSA_dmIiwKwup1TyVESyBvMFr59axaZcUOCQpx37heBCVdtB1jPeXlA4CugvP0RnKZ7OnLnPdh7R2jv0zQwvUxzgP3mN6GLhPfCIdji5FPX4IyYzhoyHXQY7hO-i5YsvSF4yIRLUdvBfiddMF04VSqopshDsbFtma9kwWx4SBdM"/>
+</div>
+</div>
+</header>
+<!-- Main Dashboard Content -->
+<main class="flex flex-1 overflow-hidden">
+<!-- Sidebar Navigation & Quick Lists -->
+<aside class="w-72 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark overflow-y-auto hidden xl:flex flex-col p-6 gap-8">
+<!-- Nav Section -->
+<nav class="flex flex-col gap-2">
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Operations</h3>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-semibold">Overview</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+<span class="material-symbols-outlined">door_open</span>
+<span class="text-sm font-medium">Rooms Status</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Staff Rostering</span>
+</div>
+</nav>
+<!-- Arriving Soon -->
+<div>
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 flex justify-between">
+                        Arriving Soon
+                        <span class="bg-primary/20 text-primary px-1.5 rounded">3</span>
+</h3>
+<div class="space-y-3">
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800">
+<div class="flex justify-between items-start mb-1">
+<span class="text-sm font-bold">James Wilson</span>
+<span class="text-[10px] font-bold text-primary px-1.5 py-0.5 bg-primary/10 rounded-full">IN 5 MIN</span>
+</div>
+<p class="text-xs text-slate-500">Swedish Massage • 60m</p>
+</div>
+<div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800">
+<div class="flex justify-between items-start mb-1">
+<span class="text-sm font-bold">Sarah Chen</span>
+<span class="text-[10px] font-bold text-slate-500 px-1.5 py-0.5 bg-slate-200 dark:bg-slate-700 rounded-full">IN 15 MIN</span>
+</div>
+<p class="text-xs text-slate-500">Infrared Sauna • 45m</p>
+</div>
+</div>
+</div>
+<!-- Staff Status -->
+<div>
+<h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Staff Status</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Staff" class="w-8 h-8 rounded-full" data-alt="Staff member profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTsD8mVXq7aAl284mkSKVPJA6ZOJVJzjUPnOnalyGWSk-9CuKMGpwxseq11fMN8g8V0PEDBvxRKMFZQNd-ruAMj5t0XzcaCB85Ar_xA_NaoJSkRp55DLRuMnEyfVK7UU7B9e2Ar90EUHIkCkMST681P6fAS1siCi523vk_sNqJZ0z2S14z65z-QwNZebtSrUjR7Oj7ENBey0LjarCfI9_T7JDP7mGYMi_8GD95J8pD1YJOEtIy8lT3ry7R-1zm12vdXXv4UA65D0me"/>
+<div class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-status-green border-2 border-white dark:border-background-dark rounded-full"></div>
+</div>
+<div class="flex-1">
+<p class="text-xs font-bold">Elena R.</p>
+<p class="text-[10px] text-slate-500">Available</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="Staff" class="w-8 h-8 rounded-full" data-alt="Staff member profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfLzFVlaotFmqhSlAm7dHdZeCxY5IcUSc7fylrCDqbkDZG3smUm2Q_BpvlO62Udk0v0HPoIQV4vtZg0EsaLYj2-KOaUMjuW9VS7nVFuW9rlpX9gWsJahEqgnXd5tsfuAQ81qoHKRkCJMsMTrkMG19WkPX_qXjXtruly6O8AjFeGR5IQmji36StXL9af4nrWS_XRiom1cJGUy61BHoKHU5P5HeZrXkJVLwCneZm5jFey3utyZNSC--Q6BTv3PFQNKWOEqU2ZzxTG412"/>
+<div class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-primary border-2 border-white dark:border-background-dark rounded-full"></div>
+</div>
+<div class="flex-1">
+<p class="text-xs font-bold">Marcus T.</p>
+<p class="text-[10px] text-primary">In Box 2</p>
+</div>
+</div>
+<div class="flex items-center gap-3 opacity-60">
+<div class="relative">
+<img alt="Staff" class="w-8 h-8 rounded-full" data-alt="Staff member profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE5pYMTI0bN8y6-beuwHRhrCGhvuefu1cmLfgrcpyd2a8ehSvPtf-sETGLIwkykIxrw_cOyWC7YnOTk4W4wsRdxF-zXkfkZmcZrHzF6g8j1UfQ93nJxRdQsB5nzTd8BG0eZHRRpIp4rwH78f3l0xW3CS16kiMVrPT1P9Ui8xHqrPqiUC47Se4bHU5pvHxbezCR9uRQyV_uhEMaKr9eMwQrUDqLaLLa-NXwy2LLHBYlYha9iNxM0Nkk9P-fOX9zy4Zk3WwmMvTU3_U9"/>
+<div class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-status-amber border-2 border-white dark:border-background-dark rounded-full"></div>
+</div>
+<div class="flex-1">
+<p class="text-xs font-bold">David L.</p>
+<p class="text-[10px] text-slate-500">Break (10m left)</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Panel -->
+<section class="flex-1 flex flex-col bg-slate-50 dark:bg-[#0a0f1a] overflow-y-auto">
+<!-- Live Alerts Ticker -->
+<div class="bg-status-red/10 border-b border-status-red/20 px-6 py-4 flex items-center justify-between">
+<div class="flex items-center gap-4 overflow-hidden">
+<div class="flex items-center gap-2 text-status-red animate-pulse">
+<span class="material-symbols-outlined fill-1">warning</span>
+<span class="text-sm font-black uppercase tracking-tighter">Live Alerts</span>
+</div>
+<div class="h-4 w-px bg-status-red/30 mx-2"></div>
+<p class="text-sm font-medium text-status-red truncate">
+                            Box 4 timer ended • Client waiting at reception &gt; 5 mins • Staff required in Suite 2
+                        </p>
+</div>
+<button class="text-xs font-bold text-status-red hover:underline whitespace-nowrap px-4 py-1.5 border border-status-red/30 rounded-lg hover:bg-status-red/10 transition-colors">
+                        Dismiss All
+                    </button>
+</div>
+<!-- Dashboard Content Area -->
+<div class="p-6">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h1 class="text-2xl font-bold tracking-tight">Treatment Rooms Status</h1>
+<p class="text-slate-500 text-sm">Real-time floor utilization and turnover status</p>
+</div>
+<div class="flex gap-2">
+<div class="flex items-center gap-2 bg-white dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+<div class="w-2.5 h-2.5 rounded-full bg-status-green"></div>
+<span class="text-xs font-medium">12 Available</span>
+</div>
+<div class="flex items-center gap-2 bg-white dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+<div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
+<span class="text-xs font-medium">8 In-Service</span>
+</div>
+</div>
+</div>
+<!-- Room Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Room Card: In-Service -->
+<div class="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-lg">Box 1</h4>
+<p class="text-xs text-slate-500">Swedish Massage</p>
+</div>
+<span class="bg-primary/10 text-primary px-2 py-1 rounded text-[10px] font-black uppercase">In-Service</span>
+</div>
+<div class="flex items-center justify-between mt-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">timer</span>
+<span class="text-2xl font-black tracking-tighter">14:22</span>
+</div>
+<div class="flex -space-x-2">
+<img alt="Staff" class="w-8 h-8 rounded-full border-2 border-white dark:border-slate-800" data-alt="Staff avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-3aLasyV-XwI7B1Uoxjd8eDqfttv7Oz2AKRhQdeoOK0WQHTWyu7NWhuKcJjZoak8KI1UuZSkRla6DRErZUiw_1NabUKgvha1PUbNeLMD7Vc9rCPg0OyoLKXpVPQOdmJ6JpsYiICvmj4SgVlWwGfNegstJVAkw2_yLtenbF0hxOugDymy9p7a5wtnAS9gTJYyaiRXGHhXsLxGKh4LYU6J5qI4Imk0jej0BqEc4bPBg1OJJnpxH2SR5sKZ_t4-uAPBngqy0VxKWHIrc"/>
+</div>
+</div>
+<div class="mt-4 w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 65%"></div>
+</div>
+</div>
+<!-- Room Card: Needs Cleaning -->
+<div class="bg-white dark:bg-slate-800 rounded-xl p-5 border-2 border-status-amber shadow-lg shadow-status-amber/10 relative overflow-hidden group bg-status-amber/[0.03]">
+<div class="absolute top-0 left-0 w-full h-1 bg-status-amber"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-lg">Box 2</h4>
+<p class="text-xs text-slate-500">Session Ended</p>
+</div>
+<span class="bg-status-amber text-white px-2 py-1 rounded text-[10px] font-black uppercase animate-pulse">Needs Cleaning</span>
+</div>
+<div class="flex flex-col items-center justify-center py-4 gap-2">
+<span class="material-symbols-outlined text-4xl text-status-amber">cleaning_services</span>
+<button class="w-full bg-status-amber text-white py-2 rounded-lg text-sm font-bold mt-2 hover:bg-status-amber/90">
+                                    Mark Clean
+                                </button>
+</div>
+</div>
+<!-- Room Card: Available -->
+<div class="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden group hover:border-status-green transition-colors cursor-pointer">
+<div class="absolute top-0 left-0 w-1 h-full bg-status-green"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-lg">Box 3</h4>
+<p class="text-xs text-slate-500">Ready for Guest</p>
+</div>
+<span class="bg-status-green/10 text-status-green px-2 py-1 rounded text-[10px] font-black uppercase">Available</span>
+</div>
+<div class="flex flex-col items-center justify-center py-4 gap-2 border-2 border-dashed border-slate-100 dark:border-slate-700 rounded-lg">
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600">add_circle</span>
+<span class="text-xs font-medium text-slate-400">Assign Booking</span>
+</div>
+</div>
+<!-- Room Card: Time Up Alert -->
+<div class="bg-white dark:bg-slate-800 rounded-xl p-5 border-2 border-status-red shadow-lg shadow-status-red/10 relative overflow-hidden group bg-status-red/[0.03]">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-lg">Box 4</h4>
+<p class="text-xs text-slate-500">Deep Tissue</p>
+</div>
+<span class="bg-status-red text-white px-2 py-1 rounded text-[10px] font-black uppercase">Time Up!</span>
+</div>
+<div class="flex items-center justify-between mt-6">
+<div class="flex items-center gap-2 text-status-red">
+<span class="material-symbols-outlined text-lg animate-bounce">alarm_on</span>
+<span class="text-2xl font-black tracking-tighter">-02:15</span>
+</div>
+<div class="flex -space-x-2">
+<img alt="Staff" class="w-8 h-8 rounded-full border-2 border-white dark:border-slate-800" data-alt="Staff avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmqKizIsbcNuwXAaxj2gFR2zkPCYwVOHc8BdUqZqzkv-Chb6JABLMBPtE2Jfbuu-dDv9gqPI0dsR3n2am89vTye_xNM9QihMBjUvJVtqKsvldUkItE2CipJmYD04a-TowMSssj0dmtYjmac8nvoGJnn8dceTezFzyhQE8dFvHVYoZPqGW5le4tsIDLXJeqCdG8934kCQT-BdGk7TviwUyuKpv6RGb_upyRwe9Zk238kGCaaJglc93t1hphuRfQjnjcDGRAtGHO-gjR"/>
+</div>
+</div>
+<button class="w-full bg-status-red text-white py-2 rounded-lg text-sm font-bold mt-4 hover:bg-status-red/90">
+                                Send Alert to Staff
+                            </button>
+</div>
+<!-- Room Card: In-Service -->
+<div class="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-lg">Box 5</h4>
+<p class="text-xs text-slate-500">Aromatherapy</p>
+</div>
+<span class="bg-primary/10 text-primary px-2 py-1 rounded text-[10px] font-black uppercase">In-Service</span>
+</div>
+<div class="flex items-center justify-between mt-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">timer</span>
+<span class="text-2xl font-black tracking-tighter">48:10</span>
+</div>
+<div class="flex -space-x-2">
+<img alt="Staff" class="w-8 h-8 rounded-full border-2 border-white dark:border-slate-800" data-alt="Staff avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCkK6vgIgR0fQju7MB8K7QsOYkTJJ_h4gLAGSVJvQpp8Ha23TGHTV64SZtFrTwFZ-3dZuS1W1237bQfheJ1DxaMDqcATYXJlcBW1VmLCvOko69Lmqd3eGmEaUEHj03YIMqTu3JiDEum3ZMjLsrf90UoO1eDC4CGMs3ULr9lIiaT3RtQDWwun6vUOlriUB2PUQ2Bk2dTJkPrGXtse1Dcc8XEfiVgLWy-fmVf6978PyDOrEP0rqTkMyRRX2SD9SDTZNGxg7_MTLibyEw"/>
+</div>
+</div>
+<div class="mt-4 w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 15%"></div>
+</div>
+</div>
+<!-- Room Card: Available -->
+<div class="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden group hover:border-status-green transition-colors cursor-pointer">
+<div class="absolute top-0 left-0 w-1 h-full bg-status-green"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-lg">Box 6</h4>
+<p class="text-xs text-slate-500">Ready for Guest</p>
+</div>
+<span class="bg-status-green/10 text-status-green px-2 py-1 rounded text-[10px] font-black uppercase">Available</span>
+</div>
+<div class="flex flex-col items-center justify-center py-4 gap-2 border-2 border-dashed border-slate-100 dark:border-slate-700 rounded-lg">
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600">add_circle</span>
+<span class="text-xs font-medium text-slate-400">Assign Booking</span>
+</div>
+</div>
+<!-- Room Card: Cleaning -->
+<div class="bg-white dark:bg-slate-800 rounded-xl p-5 border border-status-amber/40 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-status-amber"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-lg">Box 7</h4>
+<p class="text-xs text-slate-500">In Progress</p>
+</div>
+<span class="bg-status-amber/10 text-status-amber px-2 py-1 rounded text-[10px] font-black uppercase">Cleaning</span>
+</div>
+<div class="flex flex-col items-center justify-center py-4 gap-2">
+<div class="w-12 h-12 rounded-full border-4 border-status-amber border-t-transparent animate-spin mb-2"></div>
+<p class="text-xs font-bold text-slate-500">EST. 4 MIN REMAINING</p>
+</div>
+</div>
+<!-- Room Card: In-Service -->
+<div class="bg-white dark:bg-slate-800 rounded-xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-lg">Box 8</h4>
+<p class="text-xs text-slate-500">Sauna Therapy</p>
+</div>
+<span class="bg-primary/10 text-primary px-2 py-1 rounded text-[10px] font-black uppercase">In-Service</span>
+</div>
+<div class="flex items-center justify-between mt-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">timer</span>
+<span class="text-2xl font-black tracking-tighter">05:45</span>
+</div>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white dark:border-slate-800 bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-[10px] font-bold">ST</div>
+</div>
+</div>
+<div class="mt-4 w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 88%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer / Global Stats -->
+<footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-3 px-6 flex items-center justify-between shrink-0">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-green"></span>
+<span class="text-xs font-medium text-slate-500">Systems Operational</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-slate-400">group</span>
+<span class="text-xs font-medium text-slate-500">24 Staff Active</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-slate-400">trending_up</span>
+<span class="text-xs font-medium text-slate-500">82% Efficiency Index</span>
+</div>
+</div>
+<div class="text-xs text-slate-400">
+                Last Refreshed: <span class="font-bold">14:32:01</span>
+</div>
+</footer>
+</div>
+</body></html>

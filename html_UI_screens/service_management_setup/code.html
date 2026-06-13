@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Service Management Setup - Sauna SPA Engine</title>
+<!-- Tailwind CSS with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13eca4",
+              "background-light": "#f6f8f7",
+              "background-dark": "#10221c",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-slate-100">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined text-2xl">spa</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<label class="flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-slate-500 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg" data-icon="search">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-slate-100 dark:bg-slate-800 h-full placeholder:text-slate-400 px-4 pl-2 text-base font-normal" placeholder="Search services..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Dashboard</a>
+<a class="text-primary text-sm font-semibold border-b-2 border-primary" href="#">Services</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Bookings</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Staff</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Customers</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="bg-primary/20 p-0.5 rounded-full ring-2 ring-primary">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile avatar of the business owner" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD_HrOmeKCphLJRLKPxgeB5SH_GNIMLeovUGUiR5k5qOGO6LxhVk1LShCkFo3xpmGLLFg8kqrJInJmGf6g41L-PfBrYarUM_ZFbmbsTnsuquA2QjgG028YNsoUh1uvvVHiO4Jh2HnF_iPyDm11mAzIj2D48MAEIfYlbgGYSXhIeWfTfeGZOCOoAM1J6xQFps-DLrmM3awaQ9g3feEhVtRId5jZw6F1MgEb6wmnpwIYh1q-dpoje0DijyIO9a9e54uYvArxM-8JE3peA");'></div>
+</div>
+</div>
+</header>
+<main class="flex flex-1 flex-col lg:flex-row">
+<!-- Sidebar Navigation -->
+<aside class="w-full lg:w-64 bg-white dark:bg-background-dark border-r border-slate-200 dark:border-slate-800 p-6 hidden lg:flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Business logo for the sauna spa engine" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCrXWgSyR9pFko5vYyPuJG25MNn4q7jMxsSb_gRstPDWTrO1YrWiDPhe0GhCfIkxBWCWKm1WeOvr5N4Z0B6Edfj4l8NgNGlgdOqO78B4BL0tbeAzCPIgO0MlWoAwtr7pygBhAOXWGOsLFqwtyGlyT5-K9y3URCV_VVlYAl3AnwBqLWVeRD5tCC0ZHcSGHkinnxFbJ_HvleIylTEYGd7BENnplHdjvmdBXGWOBro6slpsKI9MCp34KUqTXrQLKrZtgfgHpxnJnLPCwzb");'></div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-slate-100 text-sm font-bold">Azure Spa &amp; Wellness</h1>
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium uppercase tracking-wider">Premium Account</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<p class="text-sm font-semibold">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-background-dark shadow-lg shadow-primary/20" href="#">
+<span class="material-symbols-outlined text-xl">content_cut</span>
+<p class="text-sm font-bold">Service Catalog</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">calendar_month</span>
+<p class="text-sm font-semibold">Bookings</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">badge</span>
+<p class="text-sm font-semibold">Staff Members</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">group</span>
+<p class="text-sm font-semibold">Customer Base</p>
+</a>
+<div class="my-4 border-t border-slate-100 dark:border-slate-800"></div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">payments</span>
+<p class="text-sm font-semibold">Revenue</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">analytics</span>
+<p class="text-sm font-semibold">Reports</p>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-primary/10 rounded-xl border border-primary/20">
+<p class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase mb-2">Support</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Need help with your service setup?</p>
+<button class="w-full py-2 bg-background-dark text-white dark:bg-primary dark:text-background-dark rounded-lg text-xs font-bold transition-transform hover:scale-105">
+                    Live Chat
+                </button>
+</div>
+</aside>
+<!-- Content Area -->
+<div class="flex-1 p-8 lg:p-12 overflow-y-auto bg-background-light dark:bg-background-dark">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div>
+<h2 class="text-slate-900 dark:text-slate-100 text-3xl font-black leading-tight tracking-tight">Service Management</h2>
+<p class="text-slate-500 dark:text-slate-400 text-base font-medium mt-1">Configure and manage your spa's treatment menu and pricing.</p>
+</div>
+<button class="flex items-center justify-center gap-2 rounded-xl h-12 px-6 bg-primary text-background-dark font-bold shadow-lg shadow-primary/30 hover:shadow-primary/40 transition-all">
+<span class="material-symbols-outlined">add_circle</span>
+<span>Add New Service</span>
+</button>
+</div>
+<!-- Stats Overview -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Total Services</p>
+<p class="text-2xl font-black text-slate-900 dark:text-slate-100 mt-1">24</p>
+<div class="flex items-center gap-1 text-primary text-xs font-bold mt-2">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+2 this month</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Active Treatments</p>
+<p class="text-2xl font-black text-slate-900 dark:text-slate-100 mt-1">18</p>
+<div class="flex items-center gap-1 text-slate-400 text-xs font-bold mt-2">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span>75% Capacity</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Avg. Session Duration</p>
+<p class="text-2xl font-black text-slate-900 dark:text-slate-100 mt-1">54m</p>
+<div class="flex items-center gap-1 text-slate-400 text-xs font-bold mt-2">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>Standard optimized</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Most Popular</p>
+<p class="text-2xl font-black text-slate-900 dark:text-slate-100 mt-1">Sauna</p>
+<div class="flex items-center gap-1 text-primary text-xs font-bold mt-2">
+<span class="material-symbols-outlined text-sm">star</span>
+<span>4.9/5 Avg. Rating</span>
+</div>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-3 mb-6">
+<div class="bg-white dark:bg-slate-900 rounded-lg p-1 flex border border-slate-200 dark:border-slate-800">
+<button class="px-4 py-2 rounded-md bg-primary text-background-dark text-sm font-bold">All Services</button>
+<button class="px-4 py-2 rounded-md text-slate-500 dark:text-slate-400 text-sm font-bold hover:bg-slate-100 dark:hover:bg-slate-800">Active</button>
+<button class="px-4 py-2 rounded-md text-slate-500 dark:text-slate-400 text-sm font-bold hover:bg-slate-100 dark:hover:bg-slate-800">Inactive</button>
+</div>
+<div class="h-8 w-px bg-slate-200 dark:border-slate-800 mx-2"></div>
+<button class="flex items-center gap-2 rounded-lg bg-white dark:bg-slate-900 px-4 py-2 border border-slate-200 dark:border-slate-800 text-sm font-semibold text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+<span>Category</span>
+<span class="material-symbols-outlined text-lg">expand_more</span>
+</button>
+<button class="flex items-center gap-2 rounded-lg bg-white dark:bg-slate-900 px-4 py-2 border border-slate-200 dark:border-slate-800 text-sm font-semibold text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-lg">attach_money</span>
+<span>Price Range</span>
+<span class="material-symbols-outlined text-lg">expand_more</span>
+</button>
+</div>
+<!-- Services Table -->
+<div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50">
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">Service ID</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">Service Name</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">Category</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 text-right">Price</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">Duration</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">Status</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Service Row 1 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<span class="font-mono text-sm font-bold text-slate-400">#SRV-001</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">self_care</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100">Swedish Massage</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                                        Masseuse
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right font-bold text-slate-900 dark:text-slate-100">$85.00</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-lg">timer</span>
+<span class="text-sm">60 min</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-sm font-bold text-primary">Active</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-center gap-3">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Service Row 2 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<span class="font-mono text-sm font-bold text-slate-400">#SRV-002</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">hot_tub</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100">Steam Room Access</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                                        General
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right font-bold text-slate-900 dark:text-slate-100">$30.00</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-lg">timer</span>
+<span class="text-sm">30 min</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-primary"></span>
+<span class="text-sm font-bold text-primary">Active</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-center gap-3">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Service Row 3 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<span class="font-mono text-sm font-bold text-slate-400">#SRV-003</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">sports_handball</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100">Hot Stone Therapy</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                                        Masseuse
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right font-bold text-slate-900 dark:text-slate-100">$120.00</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-lg">timer</span>
+<span class="text-sm">90 min</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-slate-400"></span>
+<span class="text-sm font-bold text-slate-400">Inactive</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-center gap-3">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Service Row 4 -->
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+<td class="px-6 py-5">
+<span class="font-mono text-sm font-bold text-slate-400">#SRV-004</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">air</span>
+</div>
+<span class="font-bold text-slate-900 dark:text-slate-100">Aromatherapy Session</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                                        General
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right font-bold text-slate-900 dark:text-slate-100">$45.00</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-lg">timer</span>
+<span class="text-sm">45 min</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-primary"></span>
+<span class="text-sm font-bold text-primary">Active</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center justify-center gap-3">
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<p class="text-sm text-slate-500 dark:text-slate-400">Showing 4 of 24 services</p>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-400 disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="size-8 rounded-lg bg-primary text-background-dark font-bold text-sm">1</button>
+<button class="size-8 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold text-sm">2</button>
+<button class="size-8 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 font-bold text-sm">3</button>
+<button class="p-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-400">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer for Business Info -->
+<footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 px-10 py-6">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">shield</span>
+<p class="text-sm text-slate-500 dark:text-slate-400 font-medium">© 2024 Sauna SPA Engine. All payment data is encrypted with SSL.</p>
+</div>
+<div class="flex gap-6">
+<a class="text-xs font-bold text-slate-400 hover:text-primary transition-colors uppercase" href="#">Documentation</a>
+<a class="text-xs font-bold text-slate-400 hover:text-primary transition-colors uppercase" href="#">API Keys</a>
+<a class="text-xs font-bold text-slate-400 hover:text-primary transition-colors uppercase" href="#">Help Center</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

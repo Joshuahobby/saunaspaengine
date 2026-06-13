@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Platform Broadcast &amp; Notification Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-primary/10 bg-background-light/80 backdrop-blur-md px-6 py-3 dark:bg-background-dark/80">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="flex size-10 items-center justify-center rounded-lg bg-primary text-background-dark">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<h2 class="text-lg font-bold tracking-tight">Sauna SPA Engine</h2>
+</div>
+<div class="hidden md:flex">
+<label class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-slate-400">search</span>
+<input class="h-10 w-64 rounded-lg border-none bg-primary/5 pl-10 text-sm focus:ring-2 focus:ring-primary/50 placeholder:text-slate-400" placeholder="Search operations..." type="text"/>
+</label>
+</div>
+</div>
+<nav class="flex items-center gap-6">
+<div class="hidden lg:flex items-center gap-6 text-sm font-semibold">
+<a class="hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="hover:text-primary transition-colors" href="#">Operations</a>
+<a class="text-primary transition-colors" href="#">Broadcasts</a>
+<a class="hover:text-primary transition-colors" href="#">Settings</a>
+</div>
+<div class="flex items-center gap-3 border-l border-primary/10 pl-6">
+<button class="relative flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 hover:bg-primary/20 text-slate-700 dark:text-slate-200">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 flex h-2 w-2 rounded-full bg-primary"></span>
+</button>
+<div class="h-10 w-10 overflow-hidden rounded-full border-2 border-primary/20">
+<img class="h-full w-full object-cover" data-alt="Portrait of a professional system administrator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk1T0pJxIWYI4S8jH_RhJ9w-mLfSnJXCcxSYJjJshY1jSNmyeG9WFu0BIC0VG_v4u4mgVSkFqniFa7CKw6ggS8uxn3g1bpWYiJnRevjrfJZYigXAWl0SVU2tUCgAunYOtaDZOXtkcZVNgjNkERHMSTKS6S0aq0uZl4CfAiHTNfUtlZbKL7braQgeOlloZDgixKw1ivmLjdeZUlykiw_pgfE0K0Fs_9DOkO4dWjxxvn_-6GSsvtcqYbz-Qy3nJmlzSOzuA9eNPYYslj"/>
+</div>
+</div>
+</nav>
+</header>
+<main class="mx-auto flex w-full max-w-[1440px] flex-1 gap-6 p-6">
+<!-- Sidebar Navigation -->
+<aside class="hidden w-64 flex-col gap-2 lg:flex">
+<div class="mb-4">
+<h1 class="text-sm font-bold uppercase tracking-widest text-slate-400">Admin Center</h1>
+<p class="text-xs text-slate-500">System Management</p>
+</div>
+<a class="flex items-center gap-3 rounded-lg px-4 py-3 text-slate-600 hover:bg-primary/5 hover:text-primary dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 rounded-lg bg-primary/10 px-4 py-3 text-primary" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="text-sm font-semibold">Broadcast Center</span>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-4 py-3 text-slate-600 hover:bg-primary/5 hover:text-primary dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">schedule</span>
+<span class="text-sm font-medium">Scheduled Alerts</span>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-4 py-3 text-slate-600 hover:bg-primary/5 hover:text-primary dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-sm font-medium">Delivery History</span>
+</a>
+<a class="flex items-center gap-3 rounded-lg px-4 py-3 text-slate-600 hover:bg-primary/5 hover:text-primary dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Templates</span>
+</a>
+</aside>
+<!-- Main Content Area -->
+<div class="flex flex-1 flex-col gap-8">
+<!-- Header Section -->
+<section>
+<h2 class="text-3xl font-black tracking-tight">Platform Broadcast Center</h2>
+<p class="mt-1 text-slate-500 dark:text-slate-400">Global communication and platform-wide emergency notifications.</p>
+</section>
+<div class="grid grid-cols-1 gap-8 xl:grid-cols-3">
+<!-- Create Broadcast Form -->
+<div class="xl:col-span-2 flex flex-col gap-6">
+<div class="rounded-xl border border-primary/10 bg-white p-6 shadow-sm dark:bg-slate-900/50">
+<div class="mb-6 flex items-center gap-2 border-b border-slate-100 pb-4 dark:border-slate-800">
+<span class="material-symbols-outlined text-primary">add_circle</span>
+<h3 class="text-lg font-bold">Compose New Broadcast</h3>
+</div>
+<form class="space-y-5">
+<div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+<div class="space-y-2">
+<label class="text-sm font-semibold">Target Audience</label>
+<select class="w-full rounded-lg border-slate-200 bg-slate-50 text-sm focus:border-primary focus:ring-primary dark:border-slate-800 dark:bg-slate-900">
+<option>All Business Owners</option>
+<option>All Platform Employees</option>
+<option>Specific Business IDs</option>
+<option>Region: North America</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold">Broadcast Level</label>
+<div class="flex gap-2">
+<button class="flex flex-1 items-center justify-center gap-2 rounded-lg border border-primary bg-primary/10 px-3 py-2 text-xs font-bold text-primary" type="button">
+<span class="material-symbols-outlined text-sm">info</span> Normal
+                                            </button>
+<button class="flex flex-1 items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-xs font-bold text-slate-500 hover:border-red-400 hover:text-red-400 dark:border-slate-800" type="button">
+<span class="material-symbols-outlined text-sm">warning</span> Emergency
+                                            </button>
+</div>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold">Message Subject</label>
+<input class="w-full rounded-lg border-slate-200 bg-slate-50 text-sm focus:border-primary focus:ring-primary dark:border-slate-800 dark:bg-slate-900" placeholder="e.g. Scheduled System Maintenance for Oct 12" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold">Message Content</label>
+<div class="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-1 border-b border-slate-200 bg-slate-50 p-2 dark:border-slate-800 dark:bg-slate-900">
+<button class="p-1 hover:text-primary" type="button"><span class="material-symbols-outlined text-lg">format_bold</span></button>
+<button class="p-1 hover:text-primary" type="button"><span class="material-symbols-outlined text-lg">format_italic</span></button>
+<button class="p-1 hover:text-primary" type="button"><span class="material-symbols-outlined text-lg">format_list_bulleted</span></button>
+<div class="mx-2 h-4 w-px bg-slate-300 dark:bg-slate-700"></div>
+<button class="p-1 hover:text-primary" type="button"><span class="material-symbols-outlined text-lg">link</span></button>
+<button class="p-1 hover:text-primary" type="button"><span class="material-symbols-outlined text-lg">image</span></button>
+</div>
+<textarea class="w-full border-none bg-white p-4 text-sm focus:ring-0 dark:bg-slate-950" placeholder="Write your message here..." rows="6"></textarea>
+</div>
+</div>
+<div class="flex items-center justify-between pt-4">
+<div class="flex items-center gap-4">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-xs text-slate-500">Also send as Email</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-xs text-slate-500">Push Notification</span>
+</label>
+</div>
+<div class="flex gap-3">
+<button class="rounded-lg px-6 py-2 text-sm font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800" type="button">Save Draft</button>
+<button class="rounded-lg bg-primary px-8 py-2 text-sm font-bold text-background-dark shadow-lg shadow-primary/20 hover:brightness-110" type="submit">Send Broadcast</button>
+</div>
+</div>
+</form>
+</div>
+<!-- Scheduled Broadcasts -->
+<div class="rounded-xl border border-primary/10 bg-white p-6 shadow-sm dark:bg-slate-900/50">
+<div class="mb-6 flex items-center justify-between">
+<h3 class="text-lg font-bold">Upcoming Scheduled Messages</h3>
+<button class="text-sm font-bold text-primary hover:underline">View All</button>
+</div>
+<div class="space-y-4">
+<!-- Scheduled Item -->
+<div class="flex items-center justify-between rounded-lg border border-slate-100 p-4 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="flex h-12 w-12 flex-col items-center justify-center rounded-lg bg-primary/10 text-primary">
+<span class="text-xs font-bold uppercase">Oct</span>
+<span class="text-lg font-black leading-none">15</span>
+</div>
+<div>
+<p class="font-bold">Quarterly Performance Reports Available</p>
+<p class="text-xs text-slate-500">Target: All Business Owners • 09:00 AM</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="rounded-full bg-amber-100 px-3 py-1 text-[10px] font-bold uppercase text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">Pending</span>
+<button class="material-symbols-outlined text-slate-400 hover:text-primary">more_vert</button>
+</div>
+</div>
+<!-- Scheduled Item -->
+<div class="flex items-center justify-between rounded-lg border border-slate-100 p-4 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="flex h-12 w-12 flex-col items-center justify-center rounded-lg bg-primary/10 text-primary">
+<span class="text-xs font-bold uppercase">Oct</span>
+<span class="text-lg font-black leading-none">22</span>
+</div>
+<div>
+<p class="font-bold">Winter Season Prep Checklist</p>
+<p class="text-xs text-slate-500">Target: All Employees • 10:30 AM</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="rounded-full bg-slate-100 px-3 py-1 text-[10px] font-bold uppercase text-slate-600 dark:bg-slate-800 dark:text-slate-400">Draft</span>
+<button class="material-symbols-outlined text-slate-400 hover:text-primary">more_vert</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: History & Metrics -->
+<div class="flex flex-col gap-6">
+<div class="rounded-xl border border-primary/10 bg-white p-6 shadow-sm dark:bg-slate-900/50">
+<h3 class="mb-4 text-lg font-bold">Recent Notifications</h3>
+<div class="space-y-6">
+<!-- History Item -->
+<div class="relative pl-6 before:absolute before:left-0 before:top-2 before:h-full before:w-px before:bg-slate-200 dark:before:bg-slate-800 last:before:hidden">
+<span class="absolute left-[-4px] top-1.5 h-2 w-2 rounded-full bg-primary"></span>
+<p class="text-xs font-bold text-slate-400">Sent 2 hours ago</p>
+<p class="mt-1 text-sm font-bold">Emergency Server Downtime Notice</p>
+<div class="mt-3 flex items-center justify-between rounded-lg bg-primary/5 p-3">
+<div>
+<p class="text-[10px] font-bold uppercase text-slate-500">Read Rate</p>
+<p class="text-lg font-black text-primary">94.2%</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold uppercase text-slate-500">Recipients</p>
+<p class="text-sm font-bold">1,204</p>
+</div>
+</div>
+</div>
+<!-- History Item -->
+<div class="relative pl-6 before:absolute before:left-0 before:top-2 before:h-full before:w-px before:bg-slate-200 dark:before:bg-slate-800 last:before:hidden">
+<span class="absolute left-[-4px] top-1.5 h-2 w-2 rounded-full bg-slate-300"></span>
+<p class="text-xs font-bold text-slate-400">Sent Oct 09, 2023</p>
+<p class="mt-1 text-sm font-bold">Update: New Spa Booking Features</p>
+<div class="mt-3 flex items-center justify-between rounded-lg bg-slate-50 p-3 dark:bg-slate-800/50">
+<div>
+<p class="text-[10px] font-bold uppercase text-slate-500">Read Rate</p>
+<p class="text-lg font-black text-slate-700 dark:text-slate-300">76.8%</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold uppercase text-slate-500">Recipients</p>
+<p class="text-sm font-bold">892</p>
+</div>
+</div>
+</div>
+<!-- History Item -->
+<div class="relative pl-6 before:absolute before:left-0 before:top-2 before:h-full before:w-px before:bg-slate-200 dark:before:bg-slate-800 last:before:hidden">
+<span class="absolute left-[-4px] top-1.5 h-2 w-2 rounded-full bg-slate-300"></span>
+<p class="text-xs font-bold text-slate-400">Sent Oct 05, 2023</p>
+<p class="mt-1 text-sm font-bold">Platform Maintenance Completed</p>
+<div class="mt-3 flex items-center justify-between rounded-lg bg-slate-50 p-3 dark:bg-slate-800/50">
+<div>
+<p class="text-[10px] font-bold uppercase text-slate-500">Read Rate</p>
+<p class="text-lg font-black text-slate-700 dark:text-slate-300">62.1%</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold uppercase text-slate-500">Recipients</p>
+<p class="text-sm font-bold">1,150</p>
+</div>
+</div>
+</div>
+</div>
+<button class="mt-6 w-full rounded-lg border border-primary/20 py-2 text-sm font-bold text-primary hover:bg-primary/5">View Full Analytics</button>
+</div>
+<!-- System Status Card -->
+<div class="rounded-xl bg-background-dark p-6 text-white shadow-lg dark:bg-primary/5 dark:border dark:border-primary/20">
+<h3 class="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-primary">
+<span class="flex h-2 w-2 animate-pulse rounded-full bg-primary"></span>
+                                System Reach
+                            </h3>
+<div class="mt-4 grid grid-cols-2 gap-4">
+<div>
+<p class="text-2xl font-black">4.8k</p>
+<p class="text-[10px] text-slate-400 uppercase">Total Users</p>
+</div>
+<div>
+<p class="text-2xl font-black">12</p>
+<p class="text-[10px] text-slate-400 uppercase">Active Nodes</p>
+</div>
+</div>
+<div class="mt-6 flex flex-col gap-2">
+<div class="h-1 w-full overflow-hidden rounded-full bg-slate-800">
+<div class="h-full w-4/5 bg-primary"></div>
+</div>
+<p class="text-[10px] text-slate-400">Network load within optimal parameters</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="border-t border-primary/10 bg-white px-6 py-4 dark:bg-slate-900/50">
+<div class="mx-auto flex max-w-[1440px] items-center justify-between text-[10px] font-bold uppercase tracking-widest text-slate-400">
+<p>© 2023 Sauna SPA Engine • Global Admin Platform</p>
+<div class="flex gap-6">
+<a class="hover:text-primary" href="#">Legal</a>
+<a class="hover:text-primary" href="#">API Status</a>
+<a class="hover:text-primary" href="#">Support</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

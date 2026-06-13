@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employee Performance &amp; Earnings Dashboard - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#197fe6",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111921",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 py-3 bg-background-light dark:bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary/20 flex items-center justify-center rounded-lg text-primary">
+<span class="material-symbols-outlined text-2xl">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Sauna SPA Engine</h2>
+</div>
+<div class="hidden md:flex">
+<label class="flex flex-col min-w-40 h-10 w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-slate-400 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg" data-icon="search">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-0 h-full placeholder:text-slate-400 px-4 rounded-r-lg pl-2 text-sm font-normal" placeholder="Search data or services" value=""/>
+</div>
+</label>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-primary text-sm font-semibold leading-normal border-b-2 border-primary pb-1" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Schedule</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Earnings</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Ratings</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Settings</a>
+</nav>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg size-10 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-white hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<div class="h-10 w-[1px] bg-slate-200 dark:bg-slate-800"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-slate-900 dark:text-white">Alex Rivera</p>
+<p class="text-[10px] text-slate-500 uppercase tracking-wider">Senior Therapist</p>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="Employee profile picture of Alex Rivera" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC2vnIqsDPP4n9pRM5gsfQ6Am08WBOxr2GCUGwh6SC6GiNL2HIZYzHv1YFnv5cVbuXExu20qHHH0xqlNuFCriLL29N-DIqu4D1kLegDFu_0EV-_NPPW-Ag2uZ4y9ilVwspfN_J9FflH_ogODPSyknGCTT8Uc1Gy60yhckaBsQZtlCZhxGMFbHvwd4_tElVF6iksKg9pXtPPgejHDwhRi5SnuHythJwliuEG91ryEXc7mAxBoLGH3wRzUbVua7y96etxMIWYSuTgESqU");'></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto">
+<div class="max-w-[1200px] mx-auto px-6 py-8">
+<!-- Hero Header -->
+<div class="flex flex-wrap justify-between items-end gap-4 mb-8">
+<div class="flex flex-col gap-1">
+<h1 class="text-slate-900 dark:text-white text-3xl font-bold leading-tight tracking-tight">Personal Performance</h1>
+<p class="text-slate-500 dark:text-slate-400 text-base font-normal">Track your daily milestones and financial growth.</p>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 rounded-lg px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-semibold border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+<span>This Week</span>
+</button>
+<button class="flex items-center gap-2 rounded-lg px-4 py-2 bg-primary text-white text-sm font-semibold shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-lg">download</span>
+<span>Export Report</span>
+</button>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+<div class="flex flex-col gap-4 rounded-xl p-6 bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl">check_circle</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-emerald-100 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+<span class="material-symbols-outlined">assignment_turned_in</span>
+</div>
+<p class="text-slate-600 dark:text-slate-400 text-sm font-medium">Services Today</p>
+</div>
+<div class="flex items-baseline gap-2">
+<p class="text-slate-900 dark:text-white text-3xl font-bold">12</p>
+<p class="text-emerald-600 dark:text-emerald-400 text-xs font-bold bg-emerald-50 dark:bg-emerald-500/20 px-1.5 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>+20%
+                            </p>
+</div>
+</div>
+<div class="flex flex-col gap-4 rounded-xl p-6 bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl">payments</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<p class="text-slate-600 dark:text-slate-400 text-sm font-medium">Weekly Earnings</p>
+</div>
+<div class="flex items-baseline gap-2">
+<p class="text-slate-900 dark:text-white text-3xl font-bold">$1,240.50</p>
+<p class="text-emerald-600 dark:text-emerald-400 text-xs font-bold bg-emerald-50 dark:bg-emerald-500/20 px-1.5 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>+15%
+                            </p>
+</div>
+</div>
+<div class="flex flex-col gap-4 rounded-xl p-6 bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl">grade</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-lg bg-amber-100 dark:bg-amber-500/10 flex items-center justify-center text-amber-600 dark:text-amber-400">
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-slate-600 dark:text-slate-400 text-sm font-medium">Avg. Rating</p>
+</div>
+<div class="flex items-baseline gap-2">
+<p class="text-slate-900 dark:text-white text-3xl font-bold">4.9</p>
+<p class="text-emerald-600 dark:text-emerald-400 text-xs font-bold bg-emerald-50 dark:bg-emerald-500/20 px-1.5 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>+0.2%
+                            </p>
+</div>
+</div>
+</div>
+<!-- Table Section -->
+<div class="flex flex-col bg-white dark:bg-slate-800/30 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<div class="px-6 py-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<h2 class="text-slate-900 dark:text-white text-lg font-bold">Recent Services &amp; Commissions</h2>
+<div class="flex gap-2">
+<button class="text-primary text-sm font-bold hover:underline">View All History</button>
+</div>
+</div>
+<div class="@container overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/80">
+<th class="px-6 py-4 text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Date &amp; Time</th>
+<th class="px-6 py-4 text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Service Details</th>
+<th class="px-6 py-4 text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Duration</th>
+<th class="px-6 py-4 text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider text-center">Performance</th>
+<th class="px-6 py-4 text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider text-right">Earnings</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-slate-100 font-medium">Oct 24, 2023</span>
+<span class="text-slate-400 text-xs">02:30 PM</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">spa</span>
+</div>
+<span class="text-slate-900 dark:text-slate-100 font-semibold text-sm">Deep Tissue Massage</span>
+</div>
+</td>
+<td class="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm">60 min</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex items-center rounded-full bg-emerald-50 dark:bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-500/20">
+                                            Excellent
+                                        </span>
+</td>
+<td class="px-6 py-5 text-right font-bold text-slate-900 dark:text-white">$45.00</td>
+</tr>
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-slate-100 font-medium">Oct 24, 2023</span>
+<span class="text-slate-400 text-xs">01:00 PM</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">hot_tub</span>
+</div>
+<span class="text-slate-900 dark:text-slate-100 font-semibold text-sm">Swedish Sauna Session</span>
+</div>
+</td>
+<td class="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm">45 min</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex items-center rounded-full bg-blue-50 dark:bg-primary/10 px-3 py-1 text-xs font-bold text-primary dark:text-primary border border-blue-100 dark:border-primary/20">
+                                            Great
+                                        </span>
+</td>
+<td class="px-6 py-5 text-right font-bold text-slate-900 dark:text-white">$30.00</td>
+</tr>
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-slate-100 font-medium">Oct 23, 2023</span>
+<span class="text-slate-400 text-xs">11:15 AM</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">filter_vintage</span>
+</div>
+<span class="text-slate-900 dark:text-slate-100 font-semibold text-sm">Aromatherapy Spa</span>
+</div>
+</td>
+<td class="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm">90 min</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex items-center rounded-full bg-emerald-50 dark:bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-500/20">
+                                            Excellent
+                                        </span>
+</td>
+<td class="px-6 py-5 text-right font-bold text-slate-900 dark:text-white">$65.00</td>
+</tr>
+<tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-5">
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-slate-100 font-medium">Oct 23, 2023</span>
+<span class="text-slate-400 text-xs">09:00 AM</span>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">rounded_corner</span>
+</div>
+<span class="text-slate-900 dark:text-slate-100 font-semibold text-sm">Hot Stone Therapy</span>
+</div>
+</td>
+<td class="px-6 py-5 text-slate-500 dark:text-slate-400 text-sm">60 min</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex items-center rounded-full bg-slate-50 dark:bg-slate-700/50 px-3 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 border border-slate-100 dark:border-slate-600">
+                                            Good
+                                        </span>
+</td>
+<td class="px-6 py-5 text-right font-bold text-slate-900 dark:text-white">$50.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between border-t border-slate-200 dark:border-slate-800">
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Showing 4 of 28 services this week</p>
+<div class="flex gap-1">
+<button class="size-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 text-slate-400 hover:bg-white dark:hover:bg-slate-700">
+<span class="material-symbols-outlined text-base">chevron_left</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 text-slate-400 hover:bg-white dark:hover:bg-slate-700">
+<span class="material-symbols-outlined text-base">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Motivation Section -->
+<div class="mt-8 p-6 rounded-xl bg-gradient-to-r from-primary to-blue-600 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl shadow-primary/20">
+<div class="flex flex-col gap-2">
+<h3 class="text-xl font-bold">You're $160.00 away from your weekly bonus!</h3>
+<p class="text-white/80 text-sm">Maintain your 4.9 average rating to qualify for the 'Therapist of the Month' reward.</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg p-4 flex flex-col items-center min-w-[140px] border border-white/20">
+<span class="text-3xl font-black">92%</span>
+<span class="text-[10px] uppercase font-bold tracking-widest text-white/70">Bonus Progress</span>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,66 @@
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
+import { resolveEffectiveBranchId } from "@/lib/branch-context";
+import type { ExtraService } from "@/types/operations";
+
+// GET /api/checkout/details?id=...
+export async function GET(request: NextRequest) {
+    const session = await auth();
+    const branchId = await resolveEffectiveBranchId(session);
+    if (!session?.user || !branchId) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+        return NextResponse.json({ error: "Record ID is required" }, { status: 400 });
+    }
+
+    try {
+        // Scope the lookup to the requesting user's branch to prevent IDOR
+        const record = await prisma.serviceRecord.findUnique({
+            where: { id, branchId },
+            include: {
+                service: true,
+                employee: { select: { fullName: true } },
+                client: { select: { fullName: true } }
+            }
+        });
+
+        if (!record) {
+            return NextResponse.json({ error: "Record not found" }, { status: 404 });
+        }
+
+        const extras: ExtraService[] = Array.isArray(record.extraServices)
+            ? (record.extraServices as unknown as ExtraService[])
+            : [];
+
+        const consolidatedServices = [
+            {
+                id: record.id,
+                serviceName: record.service.name,
+                isExtra: false,
+                employeeName: record.employee?.fullName ?? null,
+                amount: record.service.price
+            },
+            ...extras.map(s => ({
+                id: s.id,
+                serviceName: s.serviceName,
+                isExtra: true,
+                employeeName: s.employeeName,
+                amount: s.amount
+            }))
+        ];
+
+        return NextResponse.json({
+            clientName: record.client.fullName,
+            services: consolidatedServices
+        });
+    } catch (error) {
+        console.error("Checkout details error:", error);
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    }
+}

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Service Completion | Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#197fe6",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111921",
+                        "surface-dark": "#1c2632",
+                        "border-dark": "#2d3d4f",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-dark px-6 md:px-20 py-3 bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<h2 class="text-slate-100 text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-slate-400 flex border-none bg-surface-dark items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-surface-dark text-slate-100 focus:ring-0 h-full placeholder:text-slate-500 px-4 rounded-r-lg pl-2 text-sm" placeholder="Search records..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Schedule</a>
+<a class="text-primary text-sm font-semibold border-b-2 border-primary py-1" href="#">Clients</a>
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Reports</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-surface-dark text-slate-300 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-surface-dark text-slate-300 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">settings</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-border-dark" data-alt="Employee profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBi-Q7Q1NLUXEb9nrFsg4UWpH1glJGVS0SlAQ3B_ZO-fNLmlnUkNBPncpeNCGBG_1PJskRu7CHF5w8p14FFYRn1f0YB-ivfCY4Zj50NehKKTSll2qtkcVzOJeQn6lXBpK_1yQD-NWyCW5NCKu0Y2em9Yk2SZSTZKqks25qSu_IRpYZRFJ-GQjH_OowgoMe35lD3b29mhPIrxhz64_Ndy8laTfbzUWyVxMLzFz37J1VNwcWPoHlLyoP9oRfjc9qqmRQPT8HvKgPROjZD");'></div>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center">
+<div class="w-full max-w-[960px] px-6 py-8">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 mb-6">
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Operations</a>
+<span class="material-symbols-outlined text-sm text-slate-600">chevron_right</span>
+<a class="text-slate-500 hover:text-primary text-sm transition-colors" href="#">Service Records</a>
+<span class="material-symbols-outlined text-sm text-slate-600">chevron_right</span>
+<span class="text-primary text-sm font-medium">Finalize Service</span>
+</div>
+<!-- Page Title -->
+<div class="mb-10">
+<h1 class="text-slate-100 text-4xl font-bold tracking-tight mb-2">Service Completion</h1>
+<p class="text-slate-400 text-lg">Review and lock the service record for the client visit.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Left Column: Visit Summary -->
+<div class="md:col-span-5 space-y-6">
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 shadow-sm">
+<h3 class="text-slate-100 text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">receipt_long</span>
+                                Visit Summary
+                            </h3>
+<div class="space-y-4">
+<div class="flex flex-col">
+<span class="text-slate-500 text-xs uppercase tracking-wider font-semibold">Client Name</span>
+<span class="text-slate-100 text-base font-medium">Jane Doe</span>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-500 text-xs uppercase tracking-wider font-semibold">Service Provided</span>
+<span class="text-slate-100 text-base font-medium">Swedish Massage (Hot Stones)</span>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-500 text-xs uppercase tracking-wider font-semibold">Assigned Staff</span>
+<div class="flex items-center gap-2 mt-1">
+<div class="size-6 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-primary">person</span>
+</div>
+<span class="text-slate-100 text-base font-medium">Marcus Aurelius</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-500 text-xs uppercase tracking-wider font-semibold">Duration</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-sm text-primary">schedule</span>
+<span class="text-slate-100 text-base font-medium">60 Minutes</span>
+</div>
+</div>
+<div class="pt-4 border-t border-border-dark flex justify-between items-center">
+<span class="text-slate-100 font-semibold">Service Fee</span>
+<span class="text-primary font-bold text-xl">$120.00</span>
+</div>
+</div>
+</div>
+<!-- Visual Asset -->
+<div class="rounded-xl overflow-hidden h-48 relative border border-border-dark shadow-sm">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark to-transparent z-10"></div>
+<img class="w-full h-full object-cover" data-alt="Relaxing spa treatment room with towels and stones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-DMIreVRzNOxIqSPpYgYUu6z6C8DUoD_QmRJV6m0ACQgiykr1lHOGCkNdLUQA0WB3OvmMp7F4-Ulo3VHCTqiU9cv8H4xQtL5p6gNUx43zLNLrRsGD-LrtCtz9wuDkNipwLRRcO_ouFMpvlAflOmECKoukZ0xUmuaXv5rbriGyP59dmudyv6BOqvlRgywJKQyNdDg6QceJ2ehXM5hiQDkx56-9dGCZ84KsmdbQFIbRk09eqHnaIVKk0bmERomuxPKoMadL5v_Mzbkg"/>
+<div class="absolute bottom-4 left-4 z-20">
+<span class="bg-primary/90 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">Room 04</span>
+<p class="text-white text-sm font-medium">Therapeutic Suite</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Finalize Form -->
+<div class="md:col-span-7 space-y-6">
+<div class="bg-surface-dark border border-border-dark rounded-xl p-6 shadow-sm">
+<h3 class="text-slate-100 text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">task_alt</span>
+                                Finalize Record
+                            </h3>
+<div class="space-y-8">
+<!-- Status Toggle -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-background-dark/40 border border-border-dark/50">
+<div>
+<p class="text-slate-100 font-medium">Service Completion</p>
+<p class="text-slate-500 text-sm">Mark the session as officially finished</p>
+</div>
+<button class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-primary" role="switch">
+<span class="translate-x-5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+</button>
+</div>
+<!-- Internal Comments (Rich Text Area) -->
+<div class="space-y-3">
+<label class="block text-slate-100 font-medium">Internal Comments</label>
+<div class="rounded-lg border border-border-dark overflow-hidden bg-background-dark/40">
+<div class="flex items-center gap-2 px-3 py-2 bg-surface-dark border-b border-border-dark">
+<button class="p-1 hover:bg-slate-700 rounded text-slate-400"><span class="material-symbols-outlined text-sm">format_bold</span></button>
+<button class="p-1 hover:bg-slate-700 rounded text-slate-400"><span class="material-symbols-outlined text-sm">format_italic</span></button>
+<button class="p-1 hover:bg-slate-700 rounded text-slate-400"><span class="material-symbols-outlined text-sm">list</span></button>
+<div class="w-px h-4 bg-border-dark mx-1"></div>
+<button class="p-1 hover:bg-slate-700 rounded text-slate-400"><span class="material-symbols-outlined text-sm">info</span></button>
+</div>
+<textarea class="w-full bg-transparent border-none text-slate-100 focus:ring-0 p-4 text-sm min-h-[140px]" placeholder="Note specific client preferences, skin sensitivity notes, or products used..."></textarea>
+</div>
+<p class="text-slate-500 text-xs italic">Only staff and managers can see these notes.</p>
+</div>
+<!-- Service Rating Slider -->
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<label class="block text-slate-100 font-medium">Service Performance Rating</label>
+<span class="text-primary font-bold">4.5 Stars</span>
+</div>
+<div class="relative py-4">
+<input class="w-full h-2 bg-border-dark rounded-lg appearance-none cursor-pointer accent-primary" max="5" min="1" step="0.5" type="range" value="4.5"/>
+<div class="flex justify-between mt-2 text-[10px] text-slate-500 font-bold px-1">
+<span>POOR</span>
+<span>EXCELLENT</span>
+</div>
+</div>
+<div class="flex justify-center gap-1">
+<span class="material-symbols-outlined text-primary fill-[1]">star</span>
+<span class="material-symbols-outlined text-primary fill-[1]">star</span>
+<span class="material-symbols-outlined text-primary fill-[1]">star</span>
+<span class="material-symbols-outlined text-primary fill-[1]">star</span>
+<span class="material-symbols-outlined text-primary opacity-50">star_half</span>
+</div>
+</div>
+<!-- Submit Button -->
+<div class="pt-6 border-t border-border-dark">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">lock</span>
+                                        Complete &amp; Lock Record
+                                    </button>
+<p class="text-center text-slate-500 text-xs mt-4">
+                                        Once locked, this record cannot be edited without manager approval.
+                                    </p>
+</div>
+</div>
+</div>
+<!-- Secondary Actions -->
+<div class="flex gap-4">
+<button class="flex-1 bg-surface-dark border border-border-dark text-slate-300 font-medium py-3 rounded-xl hover:bg-border-dark transition-colors text-sm">
+                                Save as Draft
+                            </button>
+<button class="flex-1 bg-surface-dark border border-border-dark text-slate-300 font-medium py-3 rounded-xl hover:bg-border-dark transition-colors text-sm">
+                                Print Summary
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-12 border-t border-border-dark py-8 px-6 md:px-20 bg-surface-dark/20">
+<div class="max-w-[960px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-slate-500 text-xs">© 2024 Sauna SPA Engine. Internal Personnel Access Only.</p>
+<div class="flex gap-6">
+<a class="text-slate-500 hover:text-slate-300 text-xs" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-slate-300 text-xs" href="#">System Status</a>
+<a class="text-slate-500 hover:text-slate-300 text-xs" href="#">Support</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

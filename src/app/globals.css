@@ -1,0 +1,304 @@
+/* stylelint-disable */
+/* eslint-disable */
+@import "tailwindcss";
+
+/* ── Sauna SPA Engine Design System ── */
+/* Extracted from Stitch screen design tokens */
+
+:root {
+  /* Organic Brand Colors */
+  --color-primary: #2d5a27; /* Sophisticated Eucalyptus Green */
+  --color-primary-hover: #21431d;
+  --color-primary-muted: rgba(45, 90, 39, 0.08);
+  --color-primary-border: rgba(45, 90, 39, 0.12);
+
+  /* ── Semantic Design System ── */
+  
+  /* Backgrounds */
+  --bg-app: var(--color-bg-light);
+  --bg-surface: var(--color-surface-light);
+  --bg-surface-muted: var(--color-forest-50);
+  --bg-card: #ffffff;
+  
+  /* Text */
+  --text-main: var(--color-forest-900);
+  --text-muted: var(--color-forest-500);
+  --text-on-primary: #ffffff;
+  
+  /* Borders */
+  --border-main: var(--color-border-light);
+  --border-muted: #f1f5f9;
+
+  /* Organic Backgrounds - Warm & Natural */
+  --color-bg-light: #faf9f6; /* Warm Pearl/Cream */
+  --color-bg-dark: #0a1412; /* Deep Forest at Night */
+  --color-surface-light: #ffffff;
+  --color-surface-dark: #121f1c;
+
+  /* Borders - Soft Eucalyptus Tones */
+  --color-border-light: #e8eceb; 
+  --color-border-dark: #1a2b26;
+  
+  /* Organic Forest Palette */
+  --color-forest-50: #fbfbf9;
+  --color-forest-100: #f1f5f2;
+  --color-forest-200: #e2ebe5;
+  --color-forest-300: #c5d7cc;
+  --color-forest-400: #a7c3b3;
+  --color-forest-500: #6b8f71; /* Sage */
+  --color-forest-600: #557a5d;
+  --color-forest-700: #4a6750; /* Moss */
+  --color-forest-800: #2d5a27; /* Eucalyptus */
+  --color-forest-900: #15241f; /* Deep Forest */
+
+  /* Legacy Teal Mapping (Seamless Migration) */
+  --color-teal-50: var(--color-forest-50);
+  --color-teal-100: var(--color-forest-100);
+  --color-teal-200: var(--color-forest-200);
+  --color-teal-300: var(--color-forest-300);
+  --color-teal-400: var(--color-forest-400);
+  --color-teal-500: var(--color-forest-500);
+  --color-teal-600: var(--color-forest-600);
+  --color-teal-700: var(--color-forest-700);
+  --color-teal-800: var(--color-forest-800);
+  --color-teal-900: var(--color-forest-900);
+
+  /* Fonts */
+  --font-display: var(--font-poppins), sans-serif;
+  --font-serif: var(--font-poppins), serif;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2.5rem;
+  --radius-full: 9999px;
+}
+
+/* ── Typography Utilities ── */
+
+/* ── Theme Definitions ── */
+
+:root {
+  --bg-app: var(--color-bg-light);
+  --bg-app-rgb: 250, 249, 246;
+  --bg-surface: var(--color-surface-light);
+  --bg-surface-muted: var(--color-forest-50);
+  --bg-card: #ffffff;
+  --text-main: var(--color-forest-900);
+  --text-muted: var(--color-forest-700);
+  --border-main: var(--color-border-light);
+  --border-muted: #f1f5f9;
+  --bg-tooltip: #0f172a;
+  --text-tooltip: #ffffff;
+}
+
+.dark {
+  --bg-app: var(--color-bg-dark);
+  --bg-app-rgb: 10, 20, 18;
+  --bg-surface: var(--color-surface-dark);
+  --bg-surface-muted: #0f1a18;
+  --bg-card: #121f1c;
+  --text-main: #f1f5f9;
+  --text-muted: var(--color-forest-400);
+  --border-main: var(--color-border-dark);
+  --border-muted: #1a2b26;
+  --bg-tooltip: #ffffff;
+  --text-tooltip: #0f172a;
+  
+  /* Lighter Eucalyptus for Dark Mode Contrast */
+  --color-primary: #4a8c43; 
+  --color-primary-hover: #5ba353;
+  --color-primary-muted: rgba(74, 140, 67, 0.15);
+  --color-primary-border: rgba(74, 140, 67, 0.25);
+}
+
+/* ── Base Styles ── */
+
+.bg-app-95 {
+  background-color: rgba(var(--bg-app-rgb), 0.95);
+}
+
+.bg-app-90 {
+  background-color: rgba(var(--bg-app-rgb), 0.90);
+}
+
+.bg-app-50 {
+  background-color: rgba(var(--bg-app-rgb), 0.50);
+}
+
+html {
+  font-family: var(--font-inter), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Select & Dropdown Visibility Fix ── */
+select {
+  background-color: var(--bg-surface-muted);
+  color: var(--text-main);
+}
+
+select option {
+  background-color: var(--bg-card);
+  color: var(--text-main);
+}
+
+/* Replaced @apply with raw CSS for diagnostic neutrality */
+button, a, input, select, textarea {
+  transition-property: box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--color-primary);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  --tw-ring-offset-width: 2px;
+}
+
+/* ── Material Symbols ── */
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ── Scrollbar Styling ── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-forest-200);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-forest-300);
+}
+
+/* ── Glassmorphism Utilities & Micro-Interactions ── */
+
+.glass-card {
+  background-color: var(--bg-card);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-main);
+  border-radius: var(--radius-3xl);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  box-shadow: 0 12px 30px rgba(45, 90, 39, 0.04);
+  transform: translateY(-4px);
+  border-color: var(--color-primary-border);
+}
+
+.glass-surface {
+  background-color: var(--bg-surface);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  border: 1px solid var(--border-main);
+}
+
+.glass-surface-teal {
+  background-color: var(--bg-surface-muted);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-muted);
+}
+
+.zen-status-bar {
+  background-color: var(--color-forest-900);
+  background-image: linear-gradient(to right, var(--color-forest-900), var(--color-forest-800));
+  border-radius: var(--radius-3xl);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.dark .zen-status-bar {
+  background-color: #0c1a16;
+  background-image: linear-gradient(to right, #0c1a16, #12241f);
+}
+
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.font-touch-observer {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ── Scanner Animations ── */
+
+@keyframes scan {
+  0%, 100% { top: 0%; }
+  50% { top: 100%; }
+}
+
+.scanner-overlay {
+  background: linear-gradient(rgba(45, 90, 39, 0.05) 0%, rgba(45, 90, 39, 0.05) 100%);
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 0 20px rgba(45, 90, 39, 0.2);
+}
+
+.scan-line {
+  height: 2px;
+  background: var(--color-primary);
+  box-shadow: 0 0 15px var(--color-primary);
+  position: absolute;
+  width: 100%;
+  animation: scan 4s linear infinite;
+  z-index: 10;
+}
+
+.scanner-corner {
+  width: 24px;
+  height: 24px;
+  border-color: var(--color-primary);
+  position: absolute;
+  z-index: 20;
+}
+
+/* ── Reduced Motion ── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

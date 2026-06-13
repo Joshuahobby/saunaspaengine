@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Booking Deposit &amp; Cancellation Policy Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3 lg:px-10">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="flex h-8 w-8 items-center justify-center rounded bg-primary text-white">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-tight">SpaManager Pro</h2>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Appointments</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Services</a>
+<a class="text-sm font-medium text-primary" href="#">Settings</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="h-10 w-64 rounded-lg border-none bg-slate-100 dark:bg-slate-800 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary" placeholder="Search settings..." type="text"/>
+</div>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border border-slate-200 dark:border-slate-800">
+<img class="h-full w-full object-cover" data-alt="User profile avatar of a spa manager" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_AuIL7ecU_SVTijzo0W3mSzV16QipNrttostCgGDObyUuEqouk-eTNMh26sYcFOmsZTIL6UJ754XUzwHPmIFRu0-Zx2DKqh5OiV-uU2-kD2sa-uiuj08sAOmwnESZ4y4kd4pIcJp3Qnr6nVFnkrsOmZHMFWEZV8GfpCarU9aGiPvicL6aBnXhLjW_O-kzJKj-W54HFU6kNmK9qMmmFMCsXLmdngCqe5XDBDlW6UEOnivPnEfHgIILvYmKSGt_ppgJrNkcJgTEk9eN"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 flex-col lg:flex-row">
+<!-- Sidebar Navigation -->
+<aside class="w-full lg:w-72 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-2">
+<div class="mb-6">
+<h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400">Business Settings</h3>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+                        General
+                    </a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+                        Booking Rules
+                    </a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+                        Payments
+                    </a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium bg-primary/10 text-primary border border-primary/20" href="#">
+<span class="material-symbols-outlined">gavel</span>
+                        Policies
+                    </a>
+<a class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">link</span>
+                        Integrations
+                    </a>
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 px-6 pt-6 lg:px-10 text-sm text-slate-500">
+<a class="hover:text-primary transition-colors" href="#">Settings</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">No-Show &amp; Cancellation Policy</span>
+</div>
+<!-- Page Header -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-6 py-6 lg:px-10">
+<div>
+<h1 class="text-3xl font-black tracking-tight">No-Show &amp; Cancellation Policy</h1>
+<p class="mt-1 text-slate-500 dark:text-slate-400 max-w-2xl">Manage how deposits and cancellations protect your business revenue from missed appointments.</p>
+</div>
+<button class="flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all">
+<span class="material-symbols-outlined text-base">save</span>
+                        Save Changes
+                    </button>
+</div>
+<div class="px-6 pb-20 lg:px-10 space-y-8">
+<!-- Policy Status Banner -->
+<div class="rounded-xl border border-primary/30 bg-primary/5 p-4 flex items-center gap-4">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary">
+<span class="material-symbols-outlined">info</span>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-slate-900 dark:text-slate-100">Automated protection is active</h4>
+<p class="text-xs text-slate-600 dark:text-slate-400">Your current policies saved $1,240 in potential lost revenue last month.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+<!-- Section: Booking Deposits -->
+<div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+<h3 class="text-lg font-bold">Booking Deposits</h3>
+</div>
+<p class="text-sm text-slate-500">Require clients to pay upfront to secure their time slot.</p>
+<div class="space-y-4 pt-2">
+<label class="flex flex-col gap-2">
+<span class="text-sm font-semibold">Deposit Type</span>
+<select class="rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-primary focus:border-primary">
+<option>Percentage of service total</option>
+<option>Flat amount per booking</option>
+<option>Full payment required</option>
+</select>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-semibold">Deposit Amount</span>
+<div class="relative">
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 py-2.5 pl-4 pr-10 text-sm focus:ring-primary focus:border-primary" type="number" value="50"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">%</span>
+</div>
+</label>
+<div class="flex items-center justify-between rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 p-3">
+<div class="flex flex-col">
+<span class="text-sm font-medium">Apply to all services</span>
+<span class="text-xs text-slate-500">Uncheck to set per-service deposits</span>
+</div>
+<input checked="" class="h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+</div>
+</div>
+</div>
+<!-- Section: Cancellation Window -->
+<div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">event_busy</span>
+<h3 class="text-lg font-bold">Cancellation Window</h3>
+</div>
+<p class="text-sm text-slate-500">Define the timeframe in which clients can cancel for free.</p>
+<div class="space-y-4 pt-2">
+<label class="flex flex-col gap-2">
+<span class="text-sm font-semibold">Free Cancellation Deadline</span>
+<div class="grid grid-cols-2 gap-4">
+<input class="rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 py-2.5 px-4 text-sm focus:ring-primary focus:border-primary" type="number" value="24"/>
+<select class="rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-primary focus:border-primary">
+<option>Hours before</option>
+<option>Days before</option>
+</select>
+</div>
+</label>
+<div class="space-y-3">
+<p class="text-sm font-semibold">Late Cancellation Penalty</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 rounded-lg border border-primary bg-primary/5 px-4 py-2.5 text-sm font-medium text-primary">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                                            Keep Deposit
+                                        </button>
+<button class="flex items-center justify-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800">
+                                            Charge Flat Fee
+                                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: No-Show Fees -->
+<div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">no_accounts</span>
+<h3 class="text-lg font-bold">No-Show Fees</h3>
+</div>
+<p class="text-sm text-slate-500">Automatically charge clients who fail to arrive for their appointment.</p>
+<div class="space-y-4 pt-2">
+<div class="flex items-center justify-between">
+<span class="text-sm font-semibold">Enable No-Show Charges</span>
+<label class="relative inline-flex cursor-pointer items-center">
+<input checked="" class="peer sr-only" type="checkbox"/>
+<div class="peer h-6 w-11 rounded-full bg-slate-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none dark:bg-slate-700"></div>
+</label>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<label class="flex flex-col gap-2">
+<span class="text-xs font-medium text-slate-500">Charge Basis</span>
+<select class="rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:ring-primary focus:border-primary">
+<option>Percentage</option>
+<option>Flat Fee</option>
+</select>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-xs font-medium text-slate-500">Value</span>
+<div class="relative">
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 py-2.5 px-4 text-sm focus:ring-primary focus:border-primary" type="number" value="100"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">%</span>
+</div>
+</label>
+</div>
+<p class="text-[11px] text-slate-500">Note: For 100% no-show fees, card details must be securely stored via our payment gateway at the time of booking.</p>
+</div>
+</div>
+<!-- Section: Automated Reminders -->
+<div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">notifications_active</span>
+<h3 class="text-lg font-bold">Automated Reminders</h3>
+</div>
+<p class="text-sm text-slate-500">Reduce no-shows by reminding clients before the cancellation window closes.</p>
+<div class="space-y-4 pt-2">
+<div class="flex items-center justify-between rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 p-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">sms</span>
+<div class="flex flex-col">
+<span class="text-sm font-semibold">SMS Reminders</span>
+<span class="text-xs text-slate-500">Send 2 hours before deadline</span>
+</div>
+</div>
+<input checked="" class="h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 p-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">mail</span>
+<div class="flex flex-col">
+<span class="text-sm font-semibold">Email Reminders</span>
+<span class="text-xs text-slate-500">Send 24 hours before deadline</span>
+</div>
+</div>
+<input checked="" class="h-5 w-5 rounded border-slate-300 text-primary focus:ring-primary" type="checkbox"/>
+</div>
+<button class="w-full rounded-lg border border-slate-200 dark:border-slate-700 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                                    Configure Reminder Templates
+                                </button>
+</div>
+</div>
+</div>
+<!-- Policy Disclosure Preview -->
+<div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/50 dark:bg-slate-800/30 p-8">
+<div class="max-w-3xl mx-auto space-y-4">
+<h4 class="text-sm font-bold uppercase tracking-widest text-slate-400 text-center">Customer Disclosure Preview</h4>
+<div class="bg-white dark:bg-slate-900 rounded-lg p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+<p class="text-sm italic text-slate-700 dark:text-slate-300 leading-relaxed">
+                                    "To secure your appointment, a <span class="font-bold text-primary">50% non-refundable deposit</span> is required. Cancellations must be made at least <span class="font-bold text-primary">24 hours</span> prior to the scheduled time. Cancellations made within the 24-hour window or failure to attend (no-show) will result in <span class="font-bold text-primary">forfeiture of the deposit and a potential 100% service fee charge</span> to the card on file."
+                                </p>
+</div>
+<p class="text-center text-xs text-slate-500">This text will be shown to customers during the final step of online booking.</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

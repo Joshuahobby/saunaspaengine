@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Client Profile &amp; History Details - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 bg-background-light dark:bg-background-dark px-10 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-slate-100">
+<div class="size-8 flex items-center justify-center rounded-lg bg-primary text-background-dark">
+<span class="material-symbols-outlined text-2xl">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-[-0.015em]">Sauna SPA Engine</h2>
+</div>
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-slate-500 flex border-none bg-primary/10 items-center justify-center pl-4 rounded-l-lg" data-icon="search">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-0 border-none bg-primary/10 focus:border-none h-full placeholder:text-slate-500 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search clients..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium leading-normal hover:text-primary" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary" href="#">Clients</a>
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium leading-normal hover:text-primary" href="#">Bookings</a>
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium leading-normal hover:text-primary" href="#">Inventory</a>
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium leading-normal hover:text-primary" href="#">Reports</a>
+</div>
+<div class="flex gap-2">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-primary/10 text-slate-900 dark:text-slate-100 gap-2 text-sm font-bold px-2.5">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-primary/10 text-slate-900 dark:text-slate-100 gap-2 text-sm font-bold px-2.5">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="Admin user profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCSVJ4KhdRaIgN6IVoX9HnpOf5O1zgIqDMHN5OWOh3vRSsY1NFfOFZB1EpR66UxWLoa0NL96NxXHDPKUEA33ajWoh9uTrTq-2ivhVPCReD9PfCL6dnPuwviYLu25cGYpWTc_MeHm8e8wqYeD7EUNOdHDZMX8jNafMaZOrrSl6huaQ0jEBTKK-hXDn8fDwWHwctxOdeZohuloL_xHXSEo-l0NniPXMx9xJnvia5wlMXjZvB5Su5anrApt2amsLJmt0VZbjle8WAwld52");'></div>
+</div>
+</div>
+</header>
+<main class="px-10 md:px-40 py-8 flex-1">
+<div class="layout-content-container flex flex-col max-w-[1200px] mx-auto">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap gap-2 mb-6">
+<a class="text-primary text-base font-medium leading-normal" href="#">Clients</a>
+<span class="text-slate-400 text-base font-medium leading-normal">/</span>
+<span class="text-slate-900 dark:text-slate-100 text-base font-medium leading-normal">Client Profile</span>
+</div>
+<!-- Header Profile Section -->
+<div class="flex flex-col md:flex-row gap-8 mb-8">
+<div class="flex-1 flex flex-col md:flex-row gap-6 bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-primary/5">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg min-h-32 w-32 shrink-0 shadow-lg" data-alt="Portrait of client John Doe" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhQaBpg9z_6IrtcF629eW_129Q1sgfdQ9gESLf5DQTpckSBC2GZgbqDnJWqdb0N9bLetPk9ida1lSqqRnSAxHPOoTLTYc1UejzfJRdj1GibGBkEQ_opIvKybMmIEZwZ1kPSjnM6G1JGex-6JL3ZzojtgS_QoM_ezeI-OtB7QQP49GMOyDk7pJ9i_PKgS0QISsysvnpjJwvY6wHmAMNf2ofc_p8Oez6IXqFa63Cia_PxcYq_AOi9Nac6LmhV_X9qxKLcDaFlClbbMY_");'></div>
+<div class="flex flex-col justify-between w-full">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<p class="text-slate-900 dark:text-slate-100 text-3xl font-bold tracking-tight">John Doe</p>
+<span class="bg-primary/20 text-primary text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Premium Member</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">call</span> +1 (555) 012-3456
+                                    </p>
+<p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Client ID: #88291 • Since Oct 2023</p>
+</div>
+<div class="mt-4 flex gap-3">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 h-11 bg-primary text-background-dark font-bold rounded-lg shadow-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-xl">edit</span>
+                                        Edit Profile
+                                    </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 h-11 bg-primary/10 text-primary font-bold rounded-lg hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-xl">send</span>
+                                        Message
+                                    </button>
+</div>
+</div>
+</div>
+<!-- QR Code Section -->
+<div class="w-full md:w-64 bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-primary/5 flex flex-col items-center justify-center text-center shadow-sm">
+<p class="text-slate-900 dark:text-slate-100 font-bold mb-4">Client QR Access</p>
+<div class="bg-white p-3 rounded-lg border-4 border-primary shadow-inner">
+<div class="w-32 h-32 bg-slate-100 flex items-center justify-center rounded border border-slate-200" data-alt="Unique QR Code for client identification" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAY17MMnmM_d0klCtZMW2fJEuTynhYhJss2bCHpCF2yJsBw748C0qtThCe3su99lqf3AzPu8mWiQjnuA6zOPye9siHljsW2eZzLzB3GpEquBHo-o079bmyuDJnk2eJ7VzFxrJkfy4BeSX9B9MD2tkGZwqRuL6RsQmkTI8E_xqtQRgzPouQbT3go4CgQCQ5zmsKExjnWZHGHvi9oIYCKcG0-0WfFgD59JQQcOjNmAtTQmvaivrKRV37kCXre89yaoVmwAtLQ6_d8zjLG");'>
+</div>
+</div>
+<button class="mt-4 text-primary text-sm font-bold flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm">download</span>
+                                Download Pass
+                            </button>
+</div>
+</div>
+<!-- Membership & Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-primary/5 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<p class="text-slate-500 dark:text-slate-400 font-medium">Active Membership</p>
+<span class="material-symbols-outlined text-primary">card_membership</span>
+</div>
+<p class="text-2xl font-bold text-slate-900 dark:text-slate-100">Annual Unlimited</p>
+<div class="mt-2 w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 65%;"></div>
+</div>
+<p class="text-xs text-slate-500 mt-2">Ends in 124 days (Feb 15, 2025)</p>
+</div>
+<div class="bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-primary/5 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<p class="text-slate-500 dark:text-slate-400 font-medium">Account Balance</p>
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+</div>
+<p class="text-2xl font-bold text-slate-900 dark:text-slate-100">$245.50</p>
+<p class="text-xs text-slate-500 mt-2">Last top-up: Sep 12, 2024</p>
+<button class="mt-3 w-full py-1 text-xs font-bold uppercase tracking-widest text-primary border border-primary/30 rounded hover:bg-primary/5 transition-colors">Top Up Credits</button>
+</div>
+<div class="bg-white dark:bg-slate-900/50 p-6 rounded-xl border border-primary/5 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<p class="text-slate-500 dark:text-slate-400 font-medium">Visits This Month</p>
+<span class="material-symbols-outlined text-primary">calendar_month</span>
+</div>
+<p class="text-2xl font-bold text-slate-900 dark:text-slate-100">12 Sessions</p>
+<p class="text-xs text-slate-500 mt-2">+3 visits from last month</p>
+</div>
+</div>
+<!-- Past Visits Section -->
+<div class="bg-white dark:bg-slate-900/50 rounded-xl border border-primary/5 shadow-sm overflow-hidden">
+<div class="px-6 py-5 border-b border-primary/5 flex items-center justify-between">
+<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">Past Visits History</h3>
+<button class="text-sm text-primary font-bold flex items-center gap-1">
+                                View Full History <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-primary/5">
+<th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Date</th>
+<th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Service</th>
+<th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Staff</th>
+<th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Duration</th>
+<th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 text-sm font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-4 text-slate-900 dark:text-slate-100 font-medium">Oct 12, 2023</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-slate-100">Finnish Sauna (Private)</span>
+<span class="text-xs text-slate-500">Includes towel service</span>
+</div>
+</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">Self-Service</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">90 mins</td>
+<td class="px-6 py-4">
+<span class="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold px-2 py-1 rounded">Completed</span>
+</td>
+<td class="px-6 py-4 text-slate-900 dark:text-slate-100 font-bold text-right">$0.00 (Memb)</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-4 text-slate-900 dark:text-slate-100 font-medium">Oct 08, 2023</td>
+<td class="px-6 py-4 text-slate-900 dark:text-slate-100">Deep Tissue Massage</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">Elena Petrova</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">60 mins</td>
+<td class="px-6 py-4">
+<span class="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold px-2 py-1 rounded">Completed</span>
+</td>
+<td class="px-6 py-4 text-slate-900 dark:text-slate-100 font-bold text-right">$120.00</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-4 text-slate-900 dark:text-slate-100 font-medium">Oct 05, 2023</td>
+<td class="px-6 py-4 text-slate-900 dark:text-slate-100">Cold Plunge Session</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">Self-Service</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">15 mins</td>
+<td class="px-6 py-4">
+<span class="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold px-2 py-1 rounded">Completed</span>
+</td>
+<td class="px-6 py-4 text-slate-900 dark:text-slate-100 font-bold text-right">$0.00 (Memb)</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-6 py-4 text-slate-900 dark:text-slate-100 font-medium">Sep 28, 2023</td>
+<td class="px-6 py-4 text-slate-900 dark:text-slate-100">Infrared Sauna</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">Self-Service</td>
+<td class="px-6 py-4 text-slate-500 dark:text-slate-400">45 mins</td>
+<td class="px-6 py-4">
+<span class="bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 text-xs font-bold px-2 py-1 rounded">No Show</span>
+</td>
+<td class="px-6 py-4 text-slate-900 dark:text-slate-100 font-bold text-right">$25.00 (Fee)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

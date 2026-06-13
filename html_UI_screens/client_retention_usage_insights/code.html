@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Client Retention &amp; Usage Insights - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .sidebar-item-active {
+            background-color: rgba(19, 236, 164, 0.15);
+            border-left: 4px solid #13eca4;
+        }
+        .cohort-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .cohort-cell-high { background-color: #13eca4; }
+        .cohort-cell-med { background-color: rgba(19, 236, 164, 0.6); }
+        .cohort-cell-low { background-color: rgba(19, 236, 164, 0.2); }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<h1 class="font-bold text-lg tracking-tight">SPA Engine</h1>
+</div>
+<nav class="flex-1 px-4 space-y-1 overflow-y-auto">
+<div class="py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">Main</div>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Clients</span>
+</a>
+<div class="py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Insights</div>
+<a class="flex items-center gap-3 px-3 py-2.5 sidebar-item-active text-slate-900 dark:text-slate-100" href="#">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<span class="text-sm font-semibold">Retention &amp; Usage</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Revenue</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-sm font-medium">Inventory</span>
+</a>
+<div class="py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Management</div>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="text-sm font-medium">Staff</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2 rounded-lg bg-slate-50 dark:bg-slate-900/50">
+<div class="size-9 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold truncate">Alex Rivera</p>
+<p class="text-xs text-slate-500 truncate">Owner</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark p-8">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<h2 class="text-3xl font-extrabold tracking-tight">Retention &amp; Usage Insights</h2>
+<p class="text-slate-500 dark:text-slate-400">Deep dive into member return rates and usage patterns.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-bold shadow-sm">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+                        Last 30 Days
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-background-dark rounded-lg text-sm font-bold shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-lg">file_download</span>
+                        Export Report
+                    </button>
+</div>
+</header>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="text-slate-500 text-sm font-medium uppercase tracking-wider">Avg. Return Rate</span>
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">sync</span>
+</div>
+</div>
+<div class="flex items-end gap-2">
+<span class="text-3xl font-bold">68.5%</span>
+<span class="text-emerald-500 text-sm font-bold pb-1">+4.2%</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="text-slate-500 text-sm font-medium uppercase tracking-wider">Active Members</span>
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">groups</span>
+</div>
+</div>
+<div class="flex items-end gap-2">
+<span class="text-3xl font-bold">1,240</span>
+<span class="text-emerald-500 text-sm font-bold pb-1">+1.5%</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="text-slate-500 text-sm font-medium uppercase tracking-wider">Weekly Visits</span>
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">event_available</span>
+</div>
+</div>
+<div class="flex items-end gap-2">
+<span class="text-3xl font-bold">452</span>
+<span class="text-rose-500 text-sm font-bold pb-1">-0.8%</span>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="text-slate-500 text-sm font-medium uppercase tracking-wider">Retention Health</span>
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">health_and_safety</span>
+</div>
+</div>
+<div class="flex items-end gap-2">
+<span class="text-3xl font-bold">Stable</span>
+<span class="text-primary text-sm font-bold pb-1">Good</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Cohort Analysis Chart -->
+<div class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-6 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold">Retention Cohort Analysis</h3>
+<div class="flex items-center gap-2 text-xs">
+<span class="flex items-center gap-1"><span class="size-2 rounded-sm cohort-cell-high"></span> 80%+</span>
+<span class="flex items-center gap-1"><span class="size-2 rounded-sm cohort-cell-med"></span> 50%+</span>
+<span class="flex items-center gap-1"><span class="size-2 rounded-sm cohort-cell-low"></span> &lt;50%</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left">
+<thead>
+<tr class="text-slate-400 font-medium">
+<th class="pb-4 pr-4">Cohort</th>
+<th class="pb-4">Month 1</th>
+<th class="pb-4">Month 2</th>
+<th class="pb-4">Month 3</th>
+<th class="pb-4">Month 4</th>
+<th class="pb-4">Month 5</th>
+<th class="pb-4">Month 6</th>
+</tr>
+</thead>
+<tbody class="space-y-2">
+<tr class="border-b border-slate-50 dark:border-slate-700/50">
+<td class="py-3 font-semibold">Jan 2024</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-high text-background-dark font-bold text-center">100%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-high text-background-dark font-bold text-center">88%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-med text-background-dark font-bold text-center">74%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-med text-background-dark font-bold text-center">62%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-low text-background-dark font-bold text-center">48%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-low text-background-dark font-bold text-center">42%</td>
+</tr>
+<tr class="border-b border-slate-50 dark:border-slate-700/50">
+<td class="py-3 font-semibold">Feb 2024</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-high text-background-dark font-bold text-center">100%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-high text-background-dark font-bold text-center">92%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-high text-background-dark font-bold text-center">81%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-med text-background-dark font-bold text-center">69%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-med text-background-dark font-bold text-center">55%</td>
+<td class="py-3 text-center">-</td>
+</tr>
+<tr class="border-b border-slate-50 dark:border-slate-700/50">
+<td class="py-3 font-semibold">Mar 2024</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-high text-background-dark font-bold text-center">100%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-high text-background-dark font-bold text-center">85%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-med text-background-dark font-bold text-center">72%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-med text-background-dark font-bold text-center">58%</td>
+<td class="py-3 text-center">-</td>
+<td class="py-3 text-center">-</td>
+</tr>
+<tr>
+<td class="py-3 font-semibold">Apr 2024</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-high text-background-dark font-bold text-center">100%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-high text-background-dark font-bold text-center">94%</td>
+<td class="py-3 px-2 rounded-sm cohort-cell-high text-background-dark font-bold text-center">89%</td>
+<td class="py-3 text-center">-</td>
+<td class="py-3 text-center">-</td>
+<td class="py-3 text-center">-</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Top Members List -->
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 p-6 shadow-sm">
+<h3 class="text-lg font-bold mb-6">Top Members <span class="text-slate-400 font-normal text-sm">(by visits)</span></h3>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center font-bold text-primary">S</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Sarah Jenkins</p>
+<p class="text-xs text-slate-500">Gold Member</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold">24 Visits</p>
+<p class="text-[10px] text-emerald-500 uppercase font-bold tracking-tight">Top 1%</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center font-bold text-primary">M</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Marcus Thorne</p>
+<p class="text-xs text-slate-500">Silver Member</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold">19 Visits</p>
+<p class="text-[10px] text-emerald-500 uppercase font-bold tracking-tight">Consistent</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center font-bold text-primary">E</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Elena Rodriguez</p>
+<p class="text-xs text-slate-500">Premium Plus</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold">18 Visits</p>
+<p class="text-[10px] text-emerald-500 uppercase font-bold tracking-tight">Active</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center font-bold text-primary">D</div>
+<div class="flex-1">
+<p class="text-sm font-bold">David Chen</p>
+<p class="text-xs text-slate-500">Standard</p>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold">15 Visits</p>
+<p class="text-[10px] text-primary uppercase font-bold tracking-tight">Improving</p>
+</div>
+</div>
+<button class="w-full py-2 text-primary text-sm font-bold hover:underline">View All Members</button>
+</div>
+</div>
+</div>
+<!-- Membership Expiry Alert Table -->
+<div class="mt-8 bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
+<div class="p-6 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+<div>
+<h3 class="text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-rose-500">notification_important</span>
+                            Membership Expiry Alerts
+                        </h3>
+<p class="text-sm text-slate-500">Subscribed clients ending within the next 7 days</p>
+</div>
+<span class="px-3 py-1 bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 text-xs font-bold rounded-full uppercase tracking-wider">
+                        12 Expiring Soon
+                    </span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-slate-50 dark:bg-slate-900/30 text-slate-500 text-xs font-bold uppercase tracking-wider">
+<tr>
+<th class="px-6 py-4">Client Name</th>
+<th class="px-6 py-4">Membership Type</th>
+<th class="px-6 py-4">Expiry Date</th>
+<th class="px-6 py-4">Last Visit</th>
+<th class="px-6 py-4">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-primary/10 flex items-center justify-center font-bold text-xs">JO</div>
+<span class="text-sm font-medium">Jordan O'Neal</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-slate-600 dark:text-slate-400">Monthly Gold</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-bold text-rose-500">In 2 Days</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-slate-600 dark:text-slate-400">Yesterday</span>
+</td>
+<td class="px-6 py-4">
+<button class="px-4 py-1.5 border border-primary text-primary text-xs font-bold rounded hover:bg-primary hover:text-background-dark transition-colors">
+                                        Send Reminder
+                                    </button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-primary/10 flex items-center justify-center font-bold text-xs">LW</div>
+<span class="text-sm font-medium">Lydia Walker</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-slate-600 dark:text-slate-400">Silver Annual</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-bold text-rose-500">In 4 Days</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-slate-600 dark:text-slate-400">3 days ago</span>
+</td>
+<td class="px-6 py-4">
+<button class="px-4 py-1.5 border border-primary text-primary text-xs font-bold rounded hover:bg-primary hover:text-background-dark transition-colors">
+                                        Send Reminder
+                                    </button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-900/20 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-primary/10 flex items-center justify-center font-bold text-xs">BK</div>
+<span class="text-sm font-medium">Brian Kim</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-slate-600 dark:text-slate-400">Weekend Pass</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm font-bold text-amber-500">In 6 Days</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-slate-600 dark:text-slate-400">Today</span>
+</td>
+<td class="px-6 py-4">
+<button class="px-4 py-1.5 border border-primary text-primary text-xs font-bold rounded hover:bg-primary hover:text-background-dark transition-colors">
+                                        Send Reminder
+                                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-slate-50 dark:bg-slate-900/30 flex justify-center">
+<button class="text-sm font-bold text-slate-500 hover:text-primary">View Full Expiry List</button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

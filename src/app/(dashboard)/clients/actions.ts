@@ -1,0 +1,114 @@
+"use server";
+
+import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
+import { EntityStatus } from "@prisma/client";
+
+/**
+ * Archive or Restore a client record.
+ */
+export async function updateClientStatus(id: string, status: EntityStatus) {
+    const session = await auth();
+    if (!session?.user) return { error: "Unauthorized" };
+
+    try {
+        await prisma.client.update({
+            where: { id },
+            data: { status }
+        });
+        revalidatePath("/clients");
+        revalidatePath(`/clients/${id}`);
+        return { success: true };
+    } catch (error) {
+        return { error: "Failed to update client status: " + (error as Error).message };
+    }
+}
+
+/**
+ * Permanently delete a client record.
+ * WARNING: This will cascade to all related records.
+ */
+export async function deleteClient(id: string) {
+    const session = await auth();
+    if (!session?.user) return { error: "Unauthorized" };
+    
+    // Only ADMIN or OWNER can delete
+    const role = session.user.role as string;
+    if (role !== "ADMIN" && role !== "OWNER") {
+        return { error: "Insufficient permissions to delete records." };
+    }
+
+    try {
+        // Integrity check: If OWNER, ensure client belongs to their business
+        if (role === "OWNER") {
+            const client = await prisma.client.findUnique({
+                where: { id },
+                include: { branch: { select: { businessId: true } } }
+            });
+            if (!client || client.branch.businessId !== session.user.businessId) {
+                return { error: "Security Violation: You do not have permission to delete this record." };
+            }
+        }
+
+        const deletedClient = await prisma.client.delete({
+            where: { id },
+            include: { branch: true }
+        });
+
+        // Add Audit Log
+        await prisma.auditLog.create({
+            data: {
+                userId: session.user.id!,
+                action: "DELETE_CLIENT",
+                entity: "Client",
+                entityId: id,
+                details: `Deleted client ${deletedClient.fullName} from branch ${deletedClient.branch.name}`,
+                branchId: deletedClient.branchId
+            }
+        });
+
+        revalidatePath("/clients");
+        return { success: true };
+    } catch (error) {
+        return { error: "Failed to delete client: " + (error as Error).message };
+    }
+}
+
+/**
+ * Update client profile details.
+ */
+export async function updateClientAction(id: string, formData: FormData) {
+    const session = await auth();
+    if (!session?.user) return { error: "Unauthorized" };
+
+    const fullName = formData.get("fullName") as string;
+    const phone = formData.get("phone") as string;
+    const email = formData.get("email") as string;
+    const clientType = formData.get("clientType") as "WALK_IN" | "MEMBER";
+
+    if (!fullName || !phone) {
+        return { error: "Full name and phone number are required" };
+    }
+
+    try {
+        await prisma.client.update({
+            where: { id },
+            data: {
+                fullName,
+                phone: phone.trim(),
+                clientType
+            }
+        });
+
+        revalidatePath("/clients");
+        revalidatePath(`/clients/${id}`);
+        return { success: true };
+    } catch (error) {
+        const e = error as { code?: string; meta?: { target?: string[] }; message?: string };
+        if (e.code === 'P2002' && e.meta?.target?.includes('phone')) {
+            return { error: "A client with this phone number already exists." };
+        }
+        return { error: "Failed to update client: " + (e.message ?? "Unknown error") };
+    }
+}

@@ -1,0 +1,289 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { motion, Variants } from "framer-motion";
+import { EditBusinessModal } from "../EditBusinessModal";
+import { AssignPackageModal } from "./AssignPackageModal";
+
+interface Branch {
+    id: string;
+    name: string;
+    address?: string | null;
+    phone?: string | null;
+    email?: string | null;
+    status: string;
+    onboardingCompleted: boolean;
+}
+
+interface Business {
+    id: string;
+    name: string;
+    taxId?: string | null;
+    headquarters?: string | null;
+    status: string;
+    approvalStatus?: string;
+    subscriptionPlanId?: string | null;
+    subscriptionPlan?: {
+        name: string;
+        priceMonthly: number;
+        priceYearly: number;
+    } | null;
+    subscriptionCycle?: string | null;
+    subscriptionStatus?: string | null;
+    subscriptionRenewal?: string | null;
+    createdAt: string;
+    branches: Branch[];
+}
+
+interface PlatformPackage {
+    id: string;
+    name: string;
+    priceMonthly: number;
+    priceYearly: number;
+    isCustom: boolean;
+    description: string | null;
+    branchLimit: number;
+    features: string[];
+}
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1,
+            delayChildren: 0.1
+        }
+    }
+};
+
+const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: "easeOut" }
+    }
+};
+
+export default function BranchDetailsClientPage({ business, platformPackages }: { business: Business, platformPackages: PlatformPackage[] }) {
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isPackageModalOpen, setIsPackageModalOpen] = useState(false);
+
+    const activeBranches = business.branches.filter(b => b.status === "ACTIVE").length;
+
+    const isPremium = business.subscriptionPlan && business.subscriptionPlan.priceMonthly > 0;
+    
+    // Calculate Monthly Recurring Revenue (MRR)
+    const basePlanPrice = business.subscriptionCycle === "Yearly" 
+        ? (business.subscriptionPlan?.priceYearly || 0) / 12 
+        : (business.subscriptionPlan?.priceMonthly || 0);
+    
+    const mrrContribution = business.status === "ACTIVE" ? Number(basePlanPrice.toFixed(2)) : 0;
+
+    return (
+        <motion.main 
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="flex-1 p-4 lg:p-6 w-full max-w-7xl mx-auto flex flex-col gap-6"
+        >
+            {/* Breadcrumb Navigation - Compact */}
+            <motion.div variants={itemVariants} className="flex items-center gap-2 text-[10px] text-[var(--text-muted)] font-bold italic uppercase tracking-[0.2em] border-b border-[var(--border-muted)] pb-4">
+                <Link href="/businesses" className="hover:text-[var(--color-primary)] transition-colors flex items-center gap-1.5 group">
+                    <span className="material-symbols-outlined text-[12px]">domain</span>
+                    <span>Businesses</span>
+                </Link>
+                <span className="material-symbols-outlined text-[10px] opacity-30 font-bold">chevron_right</span>
+                <span className="text-[var(--text-main)] opacity-100">{business.name}</span>
+            </motion.div>
+
+            {/* Business Header - Compact & Professional */}
+            <motion.div 
+                variants={itemVariants}
+                className="relative group h-40 rounded-[1.5rem] overflow-hidden border border-[var(--border-muted)] bg-[var(--bg-surface-muted)] flex items-center px-8"
+            >
+                {/* Dynamic Background Elements */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)]/10 to-transparent opacity-20 group-hover:opacity-40 transition-opacity duration-700"></div>
+                <div className="absolute -right-20 -top-20 w-80 h-80 bg-[var(--color-primary)]/5 blur-[80px] rounded-full"></div>
+                
+                {/* Noise Texture Overlay */}
+                <div className="absolute inset-0 opacity-[0.02] pointer-events-none mix-blend-overlay noise-overlay"></div>
+
+                <div className="relative z-10 w-full flex justify-between items-center gap-6">
+                    <div className="space-y-3">
+                        <div className="flex items-center gap-4">
+                            <h1 className="text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">
+                                {business.name}
+                            </h1>
+                            <motion.span 
+                                initial={{ scale: 0.9 }}
+                                animate={{ scale: 1 }}
+                                className={`px-2.5 py-0.5 rounded-full text-[8px] font-black uppercase tracking-[0.2em] border ${business.status === "ACTIVE" ? "text-emerald-400 border-emerald-400/20 bg-emerald-400/10" : "text-rose-500 border-rose-500/20 bg-rose-500/10"}`}>
+                                {business.status}
+                            </motion.span>
+                        </div>
+                        
+                        <div className="flex items-center gap-6">
+                            {business.taxId && (
+                                <div className="flex items-baseline gap-2 opacity-60">
+                                    <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">TIN</span>
+                                    <span className="text-xs font-mono text-[var(--text-main)] tracking-tight">{business.taxId}</span>
+                                </div>
+                            )}
+                            {business.headquarters && (
+                                <div className="flex items-baseline gap-2 opacity-60">
+                                    <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">HQ</span>
+                                    <span className="text-xs font-bold text-[var(--text-main)] tracking-tight">{business.headquarters}</span>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col items-end gap-3">
+                        <motion.button
+                            type="button"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => setIsEditModalOpen(true)}
+                            className="group h-12 px-6 rounded-xl bg-[var(--text-main)] text-[var(--bg-app)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-300 font-bold tracking-widest text-[10px] uppercase flex items-center gap-2 shadow-lg"
+                        >
+                            <span className="material-symbols-outlined text-lg">edit_note</span>
+                            RECONFIGURE
+                        </motion.button>
+                        <div className="flex items-center gap-2 opacity-30">
+                            <span className="material-symbols-outlined text-xs">history</span>
+                            <span suppressHydrationWarning className="text-[8px] font-bold uppercase tracking-[0.2em]">Updated: {new Date().toLocaleDateString()}</span>
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
+
+            {/* KPI Grid - Compact High-Density */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <AdminStatCard 
+                    label="Branch Network"
+                    value={business.branches.length.toString()}
+                    subtitle={`${activeBranches} Online / ${business.branches.length - activeBranches} Reserved`}
+                    icon="hub"
+                />
+                <AdminStatCard 
+                    label="Resource Tier"
+                    value={business.subscriptionPlan?.name || "N/A"}
+                    subtitle={isPremium ? `${business.subscriptionCycle} Cycle` : "No Plan Active"}
+                    icon="workspace_premium"
+                    actionLabel="RECONFIGURE PLAN"
+                    onAction={() => setIsPackageModalOpen(true)}
+                />
+                <AdminStatCard 
+                    label="Estimated MRR"
+                    value={`$${mrrContribution}`}
+                    subtitle="Platform Contribution"
+                    icon="payments"
+                />
+            </div>
+
+            {/* Business Network - High Density List */}
+            <motion.div variants={itemVariants} className="flex flex-col gap-6 mt-2">
+                <div className="flex justify-between items-end border-b border-[var(--border-muted)] pb-4">
+                    <div className="space-y-1">
+                        <h3 className="text-2xl font-display font-bold text-[var(--text-main)] tracking-tight">Active Branches</h3>
+                        <p className="text-[9px] text-[var(--text-muted)] font-black uppercase tracking-[0.2em] opacity-40 italic">Managing organizational branches and service locations.</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <Link 
+                            href="/branches"
+                            className="h-9 px-4 rounded-lg border border-[var(--border-muted)] text-[var(--text-muted)] hover:border-[var(--color-primary)] hover:text-white transition-all text-[9px] font-black tracking-widest flex items-center uppercase"
+                        >
+                            Branch List
+                        </Link>
+                        <Link 
+                            href="/branches/new"
+                            className="h-9 px-4 rounded-lg bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-dark)] transition-all text-[9px] font-black tracking-widest flex items-center uppercase shadow-sm"
+                        >
+                            Add Branch
+                        </Link>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {business.branches.map((branch, idx) => (
+                        <motion.div 
+                            key={branch.id} 
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: idx * 0.03 }}
+                            className="group relative p-4 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-muted)] hover:border-[var(--color-primary)]/40 transition-all duration-300"
+                        >
+                            <div className="flex items-start justify-between gap-4">
+                                <div className="flex items-center gap-3 min-w-0">
+                                    <div className={`size-10 rounded-xl flex items-center justify-center border shrink-0 ${branch.status === "ACTIVE" ? "bg-emerald-500/5 border-emerald-500/10 text-emerald-500" : "bg-rose-500/5 border-rose-500/10 text-rose-500"}`}>
+                                        <span className="material-symbols-outlined text-lg">
+                                            {branch.status === "ACTIVE" ? "vital_signs" : "power_off"}
+                                        </span>
+                                    </div>
+                                    <div className="min-w-0">
+                                        <h4 className="text-sm font-bold text-[var(--text-main)] truncate leading-tight mb-0.5">{branch.name}</h4>
+                                        <p className="text-[8px] font-black text-[var(--text-muted)] opacity-40 uppercase tracking-widest truncate flex items-center gap-1.5">
+                                            <span className="material-symbols-outlined text-[10px] opacity-40">location_on</span>
+                                            {branch.address || "Unset"}
+                                        </p>
+                                    </div>
+                                </div>
+                                <Link 
+                                    href={`/businesses?searchTerm=${encodeURIComponent(branch.name)}`}
+                                    className="size-8 rounded-lg bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] flex items-center justify-center text-[var(--text-muted)] opacity-40 hover:opacity-100 hover:bg-[var(--color-primary)] hover:text-white hover:border-[var(--color-primary)] transition-all shrink-0"
+                                    title="Locate in Portfolio"
+                                >
+                                    <span className="material-symbols-outlined text-sm font-bold italic">search</span>
+                                </Link>
+                            </div>
+                        </motion.div>
+                    ))}
+
+                    {business.branches.length === 0 && (
+                        <div className="col-span-full py-12 text-center border-2 border-dashed border-[var(--border-muted)] rounded-2xl opacity-40">
+                            <span className="material-symbols-outlined text-3xl mb-3 block">hub</span>
+                            <p className="text-[10px] font-bold uppercase tracking-[0.3em]">No branches registered</p>
+                        </div>
+                    )}
+                </div>
+            </motion.div>
+
+            {/* Modals */}
+            <EditBusinessModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} business={business} />
+            <AssignPackageModal 
+                isOpen={isPackageModalOpen} 
+                onClose={() => setIsPackageModalOpen(false)} 
+                business={business} 
+                availablePackages={platformPackages} 
+            />
+        </motion.main>
+    );
+}
+
+function AdminStatCard({ label, value, subtitle, icon, actionLabel, onAction }: { label: string, value: string, subtitle: string, icon: string, actionLabel?: string, onAction?: () => void }) {
+    return (
+        <div className="bg-[var(--bg-card)] rounded-2xl p-5 border border-[var(--border-muted)] group hover:border-[var(--color-primary)]/30 transition-all shadow-sm">
+            <div className="flex justify-between items-start mb-4">
+                <div className="size-9 rounded-xl bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] group-hover:scale-110 transition-transform">
+                    <span className="material-symbols-outlined text-lg">{icon}</span>
+                </div>
+                {actionLabel && (
+                    <button 
+                        onClick={onAction}
+                        className="text-[8px] font-black text-[var(--color-primary)] uppercase tracking-widest px-2 py-1 rounded-md bg-[var(--color-primary)]/5 hover:bg-[var(--color-primary)]/10 transition-colors"
+                    >
+                        {actionLabel}
+                    </button>
+                )}
+            </div>
+            <div className="space-y-0.5">
+                <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-60 italic">{label}</p>
+                <h3 className="text-2xl lg:text-3xl font-display font-bold text-[var(--text-main)] tracking-tight">{value}</h3>
+                <p className="text-[9px] font-bold text-[var(--text-muted)] opacity-50 uppercase tracking-[0.1em]">{subtitle}</p>
+            </div>
+        </div>
+    );
+}

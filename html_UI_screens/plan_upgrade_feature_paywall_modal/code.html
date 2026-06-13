@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Plan Upgrade &amp; Feature Paywall</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d4c4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar Component -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 md:px-10 py-3 bg-white dark:bg-slate-900">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8261 30.5736C16.7203 29.8826 20.2244 29.4783 24 29.4783C27.7756 29.4783 31.2797 29.8826 34.1739 30.5736C36.9144 31.2278 39.9967 32.7669 41.3563 33.8352L24.8486 7.36089C24.4571 6.73303 23.5429 6.73303 23.1514 7.36089L6.64374 33.8352C8.00331 32.7669 11.0856 31.2278 13.8261 30.5736Z" fill="currentColor"></path>
+<path clip-rule="evenodd" d="M39.998 35.764C39.9944 35.7463 39.9875 35.7155 39.9748 35.6706C39.9436 35.5601 39.8949 35.4259 39.8346 35.2825C39.8168 35.2403 39.7989 35.1993 39.7813 35.1602C38.5103 34.2887 35.9788 33.0607 33.7095 32.5189C30.9875 31.8691 27.6413 31.4783 24 31.4783C20.3587 31.4783 17.0125 31.8691 14.2905 32.5189C12.0012 33.0654 9.44505 34.3104 8.18538 35.1832C8.17384 35.2075 8.16216 35.233 8.15052 35.2592C8.09919 35.3751 8.05721 35.4886 8.02977 35.589C8.00356 35.6848 8.00039 35.7333 8.00004 35.7388C8.00004 35.739 8 35.7393 8.00004 35.7388C8.00004 35.7641 8.0104 36.0767 8.68485 36.6314C9.34546 37.1746 10.4222 37.7531 11.9291 38.2772C14.9242 39.319 19.1919 40 24 40C28.8081 40 33.0758 39.319 36.0709 38.2772C37.5778 37.7531 38.6545 37.1746 39.3151 36.6314C39.9006 36.1499 39.9857 35.8511 39.998 35.764ZM4.95178 32.7688L21.4543 6.30267C22.6288 4.4191 25.3712 4.41909 26.5457 6.30267L43.0534 32.777C43.0709 32.8052 43.0878 32.8338 43.104 32.8629L41.3563 33.8352C43.104 32.8629 43.1038 32.8626 43.104 32.8629L43.1051 32.865L43.1065 32.8675L43.1101 32.8739L43.1199 32.8918C43.1276 32.906 43.1377 32.9246 43.1497 32.9473C43.1738 32.9925 43.2062 33.0545 43.244 33.1299C43.319 33.2792 43.4196 33.489 43.5217 33.7317C43.6901 34.1321 44 34.9311 44 35.7391C44 37.4427 43.003 38.7775 41.8558 39.7209C40.6947 40.6757 39.1354 41.4464 37.385 42.0552C33.8654 43.2794 29.133 44 24 44C18.867 44 14.1346 43.2794 10.615 42.0552C8.86463 41.4464 7.30529 40.6757 6.14419 39.7209C4.99695 38.7775 3.99999 37.4427 3.99999 35.7391C3.99999 34.8725 4.29264 34.0922 4.49321 33.6393C4.60375 33.3898 4.71348 33.1804 4.79687 33.0311C4.83898 32.9556 4.87547 32.8935 4.9035 32.8471C4.91754 32.8238 4.92954 32.8043 4.93916 32.7889L4.94662 32.777L4.95178 32.7688ZM35.9868 29.004L24 9.77997L12.0131 29.004C12.4661 28.8609 12.9179 28.7342 13.3617 28.6282C16.4281 27.8961 20.0901 27.4783 24 27.4783C27.9099 27.4783 31.5719 27.8961 34.6383 28.6282C35.082 28.7342 35.5339 28.8609 35.9868 29.004Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">CloudManage</h2>
+</div>
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-slate-400 dark:text-slate-500 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-0 border-none bg-slate-100 dark:bg-slate-800 h-full placeholder:text-slate-400 dark:placeholder:text-slate-500 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal" placeholder="Search team..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-slate-900 dark:text-white text-sm font-semibold border-b-2 border-primary" href="#">Team</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Projects</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Settings</a>
+</nav>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-slate-200 dark:border-slate-700" data-alt="User profile picture with dark hair" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDDH8-6cr8BAtRQz_Vqq2HclkHCUQifwF8dehKS89qoiNVKyYZlrc_o5EzSNWhjG4fh4HmOsgUnbvmpLg2uw7LNTzih3oRc9NLA2XPzRePb8xutPfWiXMr4HUGbrpXSLzeGO_2Fa7vg9dzJg-W4f0rPD9uNbOkShAOXqeJBLuLlsmc6U0SyFM1SGVSrQPYWOoK0GlWnTHN-cMk026qSVLqBG0g-YdNqgm4iti3qGdKQXdgKMOXlL9yqbDgo3DdqTZ8OCCEth18lggjc");'></div>
+</div>
+</header>
+<!-- Main Content Area (Blurred Background) -->
+<main class="flex-1 px-4 md:px-10 py-8 relative">
+<div class="max-w-6xl mx-auto opacity-40 pointer-events-none select-none">
+<div class="flex justify-between items-center mb-6">
+<h1 class="text-2xl font-bold">Team Members</h1>
+<button class="bg-primary text-slate-900 px-4 py-2 rounded-lg font-bold">+ Add Member</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+<div>
+<div class="h-4 w-32 bg-slate-200 dark:bg-slate-700 rounded mb-2"></div>
+<div class="h-3 w-24 bg-slate-100 dark:bg-slate-800 rounded"></div>
+</div>
+</div>
+<div class="p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+<div>
+<div class="h-4 w-32 bg-slate-200 dark:bg-slate-700 rounded mb-2"></div>
+<div class="h-3 w-24 bg-slate-100 dark:bg-slate-800 rounded"></div>
+</div>
+</div>
+<div class="p-4 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+<div>
+<div class="h-4 w-32 bg-slate-200 dark:bg-slate-700 rounded mb-2"></div>
+<div class="h-3 w-24 bg-slate-100 dark:bg-slate-800 rounded"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Overlay / Paywall Modal Container -->
+<div class="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-4xl w-full overflow-hidden flex flex-col md:flex-row border border-slate-200 dark:border-slate-700">
+<!-- Left Content: Comparison & Info -->
+<div class="flex-1 p-8 md:p-12">
+<div class="flex items-center gap-2 mb-4 text-primary">
+<span class="material-symbols-outlined font-bold">error</span>
+<span class="uppercase tracking-widest text-xs font-black">Plan Limit Exceeded</span>
+</div>
+<h2 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4 leading-tight">Scale your team without limits</h2>
+<p class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+                                You've hit the 5-employee limit on the <span class="font-bold text-slate-900 dark:text-slate-100 underline decoration-primary/40">Basic Plan</span>. 
+                                Upgrade to Pro to add your 6th team member and unlock enterprise-grade controls.
+                            </p>
+<div class="space-y-6">
+<!-- Comparison Table Lite -->
+<div class="grid grid-cols-2 gap-8 border-t border-slate-100 dark:border-slate-800 pt-6">
+<div>
+<p class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-tighter mb-4">On Basic Plan</p>
+<ul class="space-y-3">
+<li class="flex items-center gap-2 text-sm text-slate-500">
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-lg">close</span>
+                                                Max 5 team members
+                                            </li>
+<li class="flex items-center gap-2 text-sm text-slate-500">
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-lg">close</span>
+                                                Standard support
+                                            </li>
+</ul>
+</div>
+<div>
+<p class="text-xs font-bold text-primary uppercase tracking-tighter mb-4">With Pro Plan</p>
+<ul class="space-y-3">
+<li class="flex items-center gap-2 text-sm text-slate-900 dark:text-slate-100 font-medium">
+<span class="material-symbols-outlined text-primary text-lg font-bold">check_circle</span>
+                                                Unlimited members
+                                            </li>
+<li class="flex items-center gap-2 text-sm text-slate-900 dark:text-slate-100 font-medium">
+<span class="material-symbols-outlined text-primary text-lg font-bold">check_circle</span>
+                                                Priority 24/7 support
+                                            </li>
+<li class="flex items-center gap-2 text-sm text-slate-900 dark:text-slate-100 font-medium">
+<span class="material-symbols-outlined text-primary text-lg font-bold">check_circle</span>
+                                                Advanced Analytics
+                                            </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Conversion -->
+<div class="w-full md:w-[340px] bg-slate-50 dark:bg-slate-800/50 p-8 border-t md:border-t-0 md:border-l border-slate-200 dark:border-slate-700 flex flex-col justify-center">
+<div class="mb-8">
+<div class="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-bold mb-4">RECOMMENDED</div>
+<div class="flex items-baseline gap-1">
+<span class="text-5xl font-black text-slate-900 dark:text-white">$49</span>
+<span class="text-slate-500 dark:text-slate-400 font-medium">/month</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Billed monthly. Cancel anytime.</p>
+</div>
+<div class="space-y-4">
+<button class="w-full py-4 bg-primary hover:bg-primary/90 text-slate-900 font-black rounded-xl shadow-lg shadow-primary/20 transition-all flex flex-col items-center group">
+<span>Upgrade to Pro</span>
+<span class="text-[10px] uppercase tracking-widest opacity-70 group-hover:opacity-100 transition-opacity">Instant Activation</span>
+</button>
+<button class="w-full py-3 bg-white dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-bold rounded-xl transition-colors">
+                                    Maybe Later
+                                </button>
+</div>
+<div class="mt-8 flex items-center justify-center gap-3">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-slate-50 dark:border-slate-800 bg-cover bg-center" data-alt="Trusted customer avatar 1" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA2aT_OYt2ILPS0vTPeE6IqL-HFqITqZCsuCTKANHcXG36MmcIo3oA7qzKdNTOmAanajDgYNCU11AYhDgVMLu2vhbN4hQcLa9KD70pXeXpq2vi7qYjy5RP75g7J43r4YIFZiJrthiOJYhbJoLMu-k2XFapv-xBTWoa2m1iCqZAftId0AJUAupbRJOxe-pbaYrvCe1O8AJLxYdNWmqBviTMLm5l7lmtoJpKaDrSBbJ95_jHpLGbxqbbstidqDBq9w3zBk-JI-tQR0F2k')"></div>
+<div class="w-6 h-6 rounded-full border-2 border-slate-50 dark:border-slate-800 bg-cover bg-center" data-alt="Trusted customer avatar 2" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCv__0YUb7h5OJYU0ccNjspL9r1nYE29Hu7-a7ifLYUcOwCkplA4hZjOEIfczwLzii_0xD2wFgxf4GAMbSSJjxgnQyR4UJw26mvCGr9cWbB4uYo_qQFmIVMeAAy2yowcQVtUeuNlbfhVcoTsazEmmFWGcuipKVB5ZBezGFYGbCG4ZPlp_bL4_g-aYDzcWn4ppPgDyzzfOz3fygVt5ysw2M6qgIwcRGnqOQSEVaN811zxGSRUsjwqSXyGHzxDjQdh9O-6ff_v-lXA9n3')"></div>
+<div class="w-6 h-6 rounded-full border-2 border-slate-50 dark:border-slate-800 bg-cover bg-center" data-alt="Trusted customer avatar 3" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCORwqfsX5V01qYlXmw7enH1x83HYQRCg7wlyhF2hKmq8qLZS431VB4U_NBExZxmdt18unsWOeMgCAKjSBPdS99AmQZHFmqgMVj0SboTx83zqk7XlAYy1bzgKGsr3NCt9ADl_nIhg8mwG_gOLlQkY5VAZWZPYaEyXNQ1OxytwxkEyzhoqSZ6zHLa5srfcrUWKfNnQE_FvhGn3e56eOc9_Gsb092uVc5hoonLgADxWQxwWr9pNsAhWAZIvJ7O_U3I1INpYiB90dVavKm')"></div>
+</div>
+<p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Joined by 2k+ teams this week</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Meta -->
+<footer class="px-10 py-6 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center bg-white dark:bg-slate-900">
+<p class="text-xs text-slate-400">© 2024 CloudManage SaaS Platform. All rights reserved.</p>
+<div class="flex gap-4">
+<a class="text-xs text-slate-400 hover:text-primary" href="#">Privacy Policy</a>
+<a class="text-xs text-slate-400 hover:text-primary" href="#">Terms of Service</a>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

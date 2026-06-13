@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Multi-Branch Management - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .branch-card:hover .switch-btn { @apply bg-primary text-slate-900; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<div class="flex h-screen overflow-hidden">
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 bg-primary rounded-full flex items-center justify-center text-slate-900">
+<span class="material-symbols-outlined font-bold text-2xl">spa</span>
+</div>
+<div>
+<h1 class="text-sm font-bold leading-tight uppercase tracking-wider">Sauna SPA Engine</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Business Manager</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary font-semibold" href="#">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+<span class="text-sm">Branches</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+<span class="text-sm">Employees</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-sm">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span class="text-sm">Services</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="text-sm">Global Reports</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 px-2 py-3">
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-800 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuChdAvHhtwnPX9DlHl9rqdek0Zwq3RPxg1T3_-0poHJ4Ps_GvyvDLOd6opvwHNiaZTjKH8Khv4UUZi-gjTaBiiXoAJUOJcmnmS36fJEb9Go2InwSlgYGlfLU1bA6s63851QX1xzF8-5JfVB8gBRnFnx73-rta7rmCZvaiwIS6Exdji5kzLgN6lJNRvYb8HiqITlpt2Sc4TMxB7T4vSCaPGvB2IEdunHXeYTtv3QOzklOdBTvvFX6UZruPZ8wrdDMJLl_34zKJher7X-')"></div>
+<div class="flex-1 overflow-hidden">
+<p class="text-xs font-bold truncate">Alex Rivera</p>
+<p class="text-[10px] text-slate-500">Corporate Owner</p>
+</div>
+<button class="text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark">
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md sticky top-0 z-10 px-8 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<h2 class="text-lg font-bold">Branch Management</h2>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Find a location..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5 px-3 py-1 bg-primary/10 text-primary rounded-full">
+<span class="size-2 bg-primary rounded-full animate-pulse"></span>
+<span class="text-[10px] font-bold uppercase tracking-wider">4 Branches Online</span>
+</div>
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<div class="p-8 max-w-7xl mx-auto">
+<div class="mb-8 flex justify-between items-end">
+<div>
+<h3 class="text-3xl font-black tracking-tight">Select a Location</h3>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Manage operations for your individual spa branches.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm font-semibold hover:border-primary transition-all">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+                        Filter
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="branch-card group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all flex flex-col h-full shadow-sm hover:shadow-xl hover:shadow-primary/5">
+<div class="flex justify-between items-start mb-6">
+<div class="size-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300 group-hover:text-primary">store</span>
+</div>
+<span class="px-2 py-1 rounded-md bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-wider">Active</span>
+</div>
+<h4 class="text-xl font-bold mb-1">Downtown Branch</h4>
+<p class="text-xs text-slate-500 flex items-center gap-1 mb-6">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                        124 Main St, Financial District
+                    </p>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800">
+<span class="text-xs text-slate-500">Active Staff</span>
+<span class="text-sm font-bold">12 on duty</span>
+</div>
+<div class="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800">
+<span class="text-xs text-slate-500">Today's Revenue</span>
+<span class="text-sm font-bold">$1,240.00</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs text-slate-500">Occupancy</span>
+<span class="text-sm font-bold text-primary">85%</span>
+</div>
+</div>
+<button class="switch-btn mt-auto w-full py-3 rounded-xl border border-slate-200 dark:border-slate-800 text-sm font-bold transition-all flex items-center justify-center gap-2">
+                        Switch to Branch
+                        <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+<div class="branch-card group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all flex flex-col h-full shadow-sm hover:shadow-xl hover:shadow-primary/5">
+<div class="flex justify-between items-start mb-6">
+<div class="size-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300 group-hover:text-primary">water_drop</span>
+</div>
+<span class="px-2 py-1 rounded-md bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-wider">Active</span>
+</div>
+<h4 class="text-xl font-bold mb-1">Harbor Side Spa</h4>
+<p class="text-xs text-slate-500 flex items-center gap-1 mb-6">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                        Pier 39, Waterfront Avenue
+                    </p>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800">
+<span class="text-xs text-slate-500">Active Staff</span>
+<span class="text-sm font-bold">8 on duty</span>
+</div>
+<div class="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800">
+<span class="text-xs text-slate-500">Today's Revenue</span>
+<span class="text-sm font-bold">$945.50</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs text-slate-500">Occupancy</span>
+<span class="text-sm font-bold text-amber-500">62%</span>
+</div>
+</div>
+<button class="switch-btn mt-auto w-full py-3 rounded-xl border border-slate-200 dark:border-slate-800 text-sm font-bold transition-all flex items-center justify-center gap-2">
+                        Switch to Branch
+                        <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+<div class="branch-card group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all flex flex-col h-full shadow-sm hover:shadow-xl hover:shadow-primary/5">
+<div class="flex justify-between items-start mb-6">
+<div class="size-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300 group-hover:text-primary">park</span>
+</div>
+<span class="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold uppercase tracking-wider">Maintenance</span>
+</div>
+<h4 class="text-xl font-bold mb-1">Mountain Retreat</h4>
+<p class="text-xs text-slate-500 flex items-center gap-1 mb-6">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                        45 Alpine Rd, Summit Peak
+                    </p>
+<div class="space-y-4 mb-8 opacity-50">
+<div class="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800">
+<span class="text-xs text-slate-500">Active Staff</span>
+<span class="text-sm font-bold">2 on site</span>
+</div>
+<div class="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800">
+<span class="text-xs text-slate-500">Today's Revenue</span>
+<span class="text-sm font-bold">$0.00</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs text-slate-500">Occupancy</span>
+<span class="text-sm font-bold">0%</span>
+</div>
+</div>
+<button class="switch-btn mt-auto w-full py-3 rounded-xl border border-slate-200 dark:border-slate-800 text-sm font-bold transition-all flex items-center justify-center gap-2">
+                        Switch to Branch
+                        <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+<div class="p-6 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center group hover:border-primary hover:bg-primary/5 transition-all cursor-pointer min-h-[400px]">
+<div class="size-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-slate-900 transition-all">
+<span class="material-symbols-outlined text-3xl">add</span>
+</div>
+<h4 class="text-xl font-bold mb-2">Add New Branch</h4>
+<p class="text-sm text-slate-500 dark:text-slate-400 max-w-[200px] mb-8">Expand your wellness empire with a new location.</p>
+<button class="px-6 py-2.5 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-sm font-bold rounded-lg group-hover:scale-105 transition-transform">
+                        Launch Branch Creator
+                    </button>
+</div>
+</div>
+<div class="mt-12 p-8 rounded-2xl bg-slate-950 text-white border border-slate-800 relative overflow-hidden">
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
+<div>
+<h4 class="text-2xl font-bold mb-2">Global Business Insights</h4>
+<p class="text-slate-400 text-sm">Combined performance metrics for all 4 locations.</p>
+</div>
+<div class="flex gap-12">
+<div class="text-center">
+<p class="text-3xl font-black text-primary">$3,420</p>
+<p class="text-[10px] uppercase font-bold text-slate-500 tracking-widest mt-1">Daily Revenue</p>
+</div>
+<div class="text-center">
+<p class="text-3xl font-black text-primary">24</p>
+<p class="text-[10px] uppercase font-bold text-slate-500 tracking-widest mt-1">Total Staff</p>
+</div>
+<div class="text-center">
+<p class="text-3xl font-black text-primary">156</p>
+<p class="text-[10px] uppercase font-bold text-slate-500 tracking-widest mt-1">Bookings Today</p>
+</div>
+</div>
+<button class="px-6 py-3 bg-primary text-slate-950 font-bold rounded-xl hover:bg-primary/90 transition-colors">
+                        View Aggregated Reports
+                    </button>
+</div>
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+<div class="absolute bottom-0 left-0 w-48 h-48 bg-primary/5 rounded-full blur-2xl -ml-24 -mb-24"></div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>

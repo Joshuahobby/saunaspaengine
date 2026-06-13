@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Loyalty Program Performance Summary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2bee2b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102210",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navigation -->
+<header class="flex items-center justify-between border-b border-primary/20 bg-background-light dark:bg-background-dark px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-slate-100">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<label class="flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-primary/10 border border-primary/20">
+<div class="flex items-center justify-center pl-4 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:ring-0 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 text-sm" placeholder="Search analytics..."/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-9">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors text-primary border-b-2 border-primary" href="#">Loyalty</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Customers</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Settings</a>
+</nav>
+<div class="bg-primary/20 border border-primary/30 aspect-square bg-cover rounded-full size-10 flex items-center justify-center overflow-hidden" data-alt="User profile avatar placeholder">
+<span class="material-symbols-outlined">person</span>
+</div>
+</div>
+</header>
+<main class="px-10 py-8 flex flex-col gap-8 max-w-[1400px] mx-auto w-full">
+<!-- Hero Section -->
+<div class="flex flex-wrap justify-between items-end gap-4">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">celebration</span>
+<span class="text-sm font-bold uppercase tracking-widest">30-Day Milestone</span>
+</div>
+<h1 class="text-4xl font-black leading-tight tracking-tight text-slate-900 dark:text-slate-100">Loyalty Program Success Dashboard</h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg">Your loyalty initiative is driving higher retention and incremental revenue.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-11 px-6 bg-primary/10 text-slate-900 dark:text-slate-100 text-sm font-bold hover:bg-primary/20 transition-all border border-primary/20">
+<span class="material-symbols-outlined mr-2 text-xl">download</span>
+                            Export Report
+                        </button>
+<button class="flex items-center justify-center rounded-lg h-11 px-6 bg-primary text-background-dark text-sm font-bold hover:brightness-110 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined mr-2 text-xl">share</span>
+                            Share Insights
+                        </button>
+</div>
+</div>
+<!-- High Level Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-primary/10 shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Enrolled Members</p>
+<span class="p-1.5 bg-primary/10 rounded text-primary material-symbols-outlined text-lg">group</span>
+</div>
+<p class="text-3xl font-black text-slate-900 dark:text-slate-100">1,284</p>
+<div class="flex items-center gap-1 text-emerald-500 text-sm font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+15% from last month</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-primary/10 shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Points Issued</p>
+<span class="p-1.5 bg-primary/10 rounded text-primary material-symbols-outlined text-lg">token</span>
+</div>
+<p class="text-3xl font-black text-slate-900 dark:text-slate-100">45,200</p>
+<div class="flex items-center gap-1 text-emerald-500 text-sm font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+22% velocity</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-white dark:bg-slate-900 border border-primary/10 shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Points Redeemed</p>
+<span class="p-1.5 bg-primary/10 rounded text-primary material-symbols-outlined text-lg">redeem</span>
+</div>
+<p class="text-3xl font-black text-slate-900 dark:text-slate-100">12,850</p>
+<div class="flex items-center gap-1 text-emerald-500 text-sm font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+10% engagement</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 bg-primary text-background-dark shadow-xl shadow-primary/10">
+<div class="flex justify-between items-start">
+<p class="text-background-dark/70 text-sm font-bold uppercase tracking-tight">Incremental Revenue</p>
+<span class="p-1.5 bg-background-dark/10 rounded text-background-dark material-symbols-outlined text-lg">payments</span>
+</div>
+<p class="text-3xl font-black">$8,420</p>
+<div class="flex items-center gap-1 text-background-dark/80 text-sm font-bold">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>+18% ROI growth</span>
+</div>
+</div>
+</div>
+<!-- Charts Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Redemption Breakdown -->
+<div class="flex flex-col gap-6 p-6 rounded-xl bg-white dark:bg-slate-900 border border-primary/10 shadow-sm">
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">Redemption Breakdown</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Most popular rewards by frequency</p>
+</div>
+<div class="flex flex-1 items-center justify-around">
+<!-- Visual representation of a Pie/Donut Chart -->
+<div class="relative size-48 rounded-full border-[16px] border-primary/10 flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-[16px] border-primary border-t-transparent border-r-transparent rotate-45"></div>
+<div class="absolute inset-0 rounded-full border-[16px] border-emerald-400 border-l-transparent border-b-transparent -rotate-12"></div>
+<div class="text-center">
+<p class="text-2xl font-black">62%</p>
+<p class="text-[10px] uppercase font-bold text-slate-400">Services</p>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-primary"></span>
+<span class="text-sm font-medium">Free Sauna Session (42%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-emerald-400"></span>
+<span class="text-sm font-medium">20% Discount (28%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-primary/40"></span>
+<span class="text-sm font-medium">Free Towel Service (18%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-slate-300"></span>
+<span class="text-sm font-medium">Guest Pass (12%)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Visit Frequency Comparison -->
+<div class="flex flex-col gap-6 p-6 rounded-xl bg-white dark:bg-slate-900 border border-primary/10 shadow-sm">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">Visit Frequency</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Loyalty Members vs. Regulars</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-1">
+<span class="size-2 rounded-full bg-primary"></span>
+<span class="text-[10px] font-bold uppercase text-slate-400">Members</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="size-2 rounded-full bg-slate-300"></span>
+<span class="text-[10px] font-bold uppercase text-slate-400">Non-Members</span>
+</div>
+</div>
+</div>
+<div class="flex-1 h-48 w-full relative pt-4">
+<!-- SVG Line Chart -->
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 400 100">
+<!-- Grid Lines -->
+<line class="text-slate-100 dark:text-slate-800" stroke="currentColor" stroke-dasharray="4" x1="0" x2="400" y1="0" y2="0"></line>
+<line class="text-slate-100 dark:text-slate-800" stroke="currentColor" stroke-dasharray="4" x1="0" x2="400" y1="50" y2="50"></line>
+<line class="text-slate-100 dark:text-slate-800" stroke="currentColor" stroke-dasharray="4" x1="0" x2="400" y1="100" y2="100"></line>
+<!-- Non-Member Line -->
+<path d="M0,80 Q50,75 100,85 T200,80 T300,90 T400,82" fill="none" stroke="#cbd5e1" stroke-width="2"></path>
+<!-- Member Line -->
+<path d="M0,70 Q50,40 100,55 T200,30 T300,20 T400,10" fill="none" stroke="#2bee2b" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<div class="flex justify-between mt-4">
+<span class="text-[10px] font-bold text-slate-400">WEEK 1</span>
+<span class="text-[10px] font-bold text-slate-400">WEEK 2</span>
+<span class="text-[10px] font-bold text-slate-400">WEEK 3</span>
+<span class="text-[10px] font-bold text-slate-400">WEEK 4</span>
+</div>
+</div>
+<div class="p-3 bg-primary/5 rounded-lg border border-primary/10">
+<p class="text-sm font-semibold text-primary">Insight: Members visit 35% more frequently than non-members since launch.</p>
+</div>
+</div>
+</div>
+<!-- Leaderboard Section -->
+<div class="flex flex-col gap-6 p-6 rounded-xl bg-white dark:bg-slate-900 border border-primary/10 shadow-sm">
+<div class="flex justify-between items-center">
+<h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">Top Loyal Customers</h3>
+<a class="text-primary text-sm font-bold hover:underline" href="#">View All Customers</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-slate-400 text-xs font-bold uppercase tracking-wider border-b border-primary/10">
+<th class="px-4 py-3">Rank</th>
+<th class="px-4 py-3">Customer</th>
+<th class="px-4 py-3">Total Points</th>
+<th class="px-4 py-3">Visits (30d)</th>
+<th class="px-4 py-3">Status</th>
+<th class="px-4 py-3 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/5">
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-4 py-4">
+<div class="size-6 bg-yellow-400 text-background-dark text-[10px] font-black rounded-full flex items-center justify-center">1</div>
+</td>
+<td class="px-4 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-200" data-alt="Customer avatar Sarah Johnson"></div>
+<span class="font-bold">Sarah Johnson</span>
+</div>
+</td>
+<td class="px-4 py-4 font-mono font-bold text-primary">2,450</td>
+<td class="px-4 py-4 font-medium">12 visits</td>
+<td class="px-4 py-4">
+<span class="px-2 py-1 rounded-full bg-primary/20 text-primary text-[10px] font-black uppercase">Platinum</span>
+</td>
+<td class="px-4 py-4 text-right">
+<button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-4 py-4">
+<div class="size-6 bg-slate-300 text-background-dark text-[10px] font-black rounded-full flex items-center justify-center">2</div>
+</td>
+<td class="px-4 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-200" data-alt="Customer avatar Marcus Chen"></div>
+<span class="font-bold">Marcus Chen</span>
+</div>
+</td>
+<td class="px-4 py-4 font-mono font-bold text-primary">1,920</td>
+<td class="px-4 py-4 font-medium">9 visits</td>
+<td class="px-4 py-4">
+<span class="px-2 py-1 rounded-full bg-primary/20 text-primary text-[10px] font-black uppercase">Gold</span>
+</td>
+<td class="px-4 py-4 text-right">
+<button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors">
+<td class="px-4 py-4">
+<div class="size-6 bg-amber-600 text-white text-[10px] font-black rounded-full flex items-center justify-center">3</div>
+</td>
+<td class="px-4 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-slate-200" data-alt="Customer avatar Emily Davis"></div>
+<span class="font-bold">Emily Davis</span>
+</div>
+</td>
+<td class="px-4 py-4 font-mono font-bold text-primary">1,780</td>
+<td class="px-4 py-4 font-medium">8 visits</td>
+<td class="px-4 py-4">
+<span class="px-2 py-1 rounded-full bg-primary/20 text-primary text-[10px] font-black uppercase">Gold</span>
+</td>
+<td class="px-4 py-4 text-right">
+<button class="text-slate-400 hover:text-primary"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- Footer Meta -->
+<footer class="mt-auto py-6 px-10 border-t border-primary/10 flex justify-between items-center text-slate-500 text-xs">
+<p>© 2023 Sauna SPA Engine - Loyalty Module v2.4</p>
+<div class="flex gap-4">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

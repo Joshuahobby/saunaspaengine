@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Client and Membership Directory - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-10 py-3 bg-white dark:bg-slate-900">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-slate-900 dark:text-slate-100">
+<div class="size-6 text-primary">
+<span class="material-symbols-outlined text-3xl">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-[-0.015em]">Sauna SPA Engine</h2>
+</div>
+<label class="flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full overflow-hidden">
+<div class="text-slate-500 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-slate-100 dark:bg-slate-800 focus:ring-0 h-full placeholder:text-slate-500 px-4 pl-2 text-sm font-normal" placeholder="Quick Search" value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-primary text-sm font-bold leading-normal" href="#">Clients</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Memberships</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Bookings</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Inventory</a>
+</nav>
+<button class="flex min-w-[140px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-background-dark text-sm font-bold leading-normal tracking-[0.015em] hover:opacity-90 transition-opacity">
+<span>Register New Client</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-slate-200 dark:border-slate-700" data-alt="User profile avatar circular thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA-J8mDee2ACdL1MDzzH05sTe86yGeN0IWx9pm16_PuGltpotdJ6kg5ARPQjnXrHkPugvTnFzPNA_HyXFfaF1fb-_w3ihXXUslesr3gtlrpOuTRRlxepZHE62IFw_focTjb0xYSB1cCzk16hYqrqyK3H17HSm91q2JWrnL0jYK7skn1HxQCQHTjGSTcdPFSVCtxQFPzkIKDEunr9bMJyP6lKrf0FrpFQT-X7MicgczkhcaR9m5MX9aKCjmszVhRf3xj5t9iV_PsIvIg");'></div>
+</div>
+</header>
+<main class="flex flex-col max-w-[1200px] mx-auto w-full px-6 py-10">
+<div class="flex flex-wrap justify-between items-end gap-4 mb-8">
+<div class="flex flex-col gap-2">
+<h1 class="text-slate-900 dark:text-slate-100 text-4xl font-black leading-tight tracking-[-0.033em]">Client &amp; Membership Directory</h1>
+<p class="text-slate-600 dark:text-slate-400 text-base font-normal leading-normal">Manage and search your spa's active members and walk-in clients.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined mr-2 text-lg">file_download</span> Export CSV
+                        </button>
+<button class="flex items-center justify-center rounded-lg h-10 px-4 bg-primary text-background-dark text-sm font-bold hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined mr-2 text-lg">person_add</span> Register New Client
+                        </button>
+</div>
+</div>
+<div class="mb-8">
+<label class="flex flex-col w-full">
+<div class="flex w-full items-stretch rounded-xl h-14 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-primary/50 transition-all">
+<div class="text-slate-400 flex items-center justify-center pl-5">
+<span class="material-symbols-outlined text-2xl">search</span>
+</div>
+<input class="form-input flex w-full border-none bg-transparent focus:ring-0 h-full placeholder:text-slate-400 px-4 text-lg font-normal" placeholder="Search clients by name, phone number, or email..." value=""/>
+<div class="flex items-center gap-2 px-4 border-l border-slate-200 dark:border-slate-800">
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+</div>
+</label>
+</div>
+<div class="flex gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide">
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-background-dark px-5 font-bold text-sm">
+                        All Clients <span class="bg-background-dark/10 px-2 py-0.5 rounded-full text-xs">1,248</span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-5 text-sm font-medium hover:border-primary transition-colors">
+                        Active Members <span class="text-slate-400 text-xs">842</span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-5 text-sm font-medium hover:border-primary transition-colors">
+                        Walk-ins <span class="text-slate-400 text-xs">406</span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-5 text-sm font-medium hover:border-primary transition-colors">
+                        Expired <span class="text-slate-400 text-xs">12</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl font-bold">person</span>
+</div>
+<div>
+<h3 class="text-slate-900 dark:text-slate-100 font-bold text-lg group-hover:text-primary transition-colors">John Doe</h3>
+<p class="text-slate-500 text-xs">+1 (555) 0123-4567</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-primary/20 text-primary text-[10px] font-bold uppercase tracking-wider rounded-full">Member</span>
+</div>
+<div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg mb-4">
+<div class="size-16 bg-white p-1 rounded border border-slate-200 shadow-sm">
+<div class="w-full h-full bg-center bg-no-repeat bg-contain" data-alt="Client unique identification QR code thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBjIoaKEcbtuiMnn33YeOdNFnA0pNin9wFHr0iqStOS9-nTas4fiTYF79XOiJuX4qEsaxDTOnkZ2YKr5QM7vhdmPSwdMRykewKg5_tsM8mbBlscfobTDE2Z8fOvCo6XsruqhM6X7XMkeqnJXy6gH46NNVW96k3bAZsn0jFOmBtfe-nzXmqnZu-U_s-FxWyjAxMLWGc-V_1ChFTTwS3A2HKAPb0rbGAsYR1ajA_TEk8FDOoVvR-4q8cVRMmh1m3aUxneh0VlGiv-FOA-");'></div>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-400 text-xs uppercase font-bold tracking-tight">Current Balance</span>
+<span class="text-xl font-black text-slate-900 dark:text-slate-100">$150.00</span>
+<span class="text-slate-500 text-xs">Expires: 12 Dec 2024</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-slate-100 dark:bg-slate-800 hover:bg-primary hover:text-background-dark py-2 rounded-lg text-sm font-bold transition-all">View Profile</button>
+<button class="w-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+</button>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-2xl font-bold">person</span>
+</div>
+<div>
+<h3 class="text-slate-900 dark:text-slate-100 font-bold text-lg group-hover:text-primary transition-colors">Jane Smith</h3>
+<p class="text-slate-500 text-xs">+1 (555) 9876-5432</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold uppercase tracking-wider rounded-full">Walk-in</span>
+</div>
+<div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg mb-4">
+<div class="size-16 bg-white p-1 rounded border border-slate-200 shadow-sm">
+<div class="w-full h-full bg-center bg-no-repeat bg-contain" data-alt="Client unique identification QR code thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAlP2bCYm4_teH6D8zasdL_k_2QbahLib2Hp44S-sQGK8vQ6-4jDLR73I3esYUqnfFGUXCltG81dyev2iVM-bNyEcLcMo4kTRtZkG7y3e-8lEnxvR_SbrutbLC5gdsaM_G8H-j9Dh5-DCsoRoVWGeSrwYI8HDAsep2vqCT9_G8PrzNeH7VgFGAq07qQ9oSIJC4aJzjuULBXLDRWYrajKvsJ9b40I6kgom1zAMrYOShBUwchTnymwoquhHKsYM4yT38epkD0L-EyoIkl");'></div>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-400 text-xs uppercase font-bold tracking-tight">Last Visit</span>
+<span class="text-xl font-black text-slate-900 dark:text-slate-100">Yesterday</span>
+<span class="text-slate-500 text-xs">Total Spent: $42.00</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-slate-100 dark:bg-slate-800 hover:bg-primary hover:text-background-dark py-2 rounded-lg text-sm font-bold transition-all">View Profile</button>
+<button class="w-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+</button>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl font-bold">person</span>
+</div>
+<div>
+<h3 class="text-slate-900 dark:text-slate-100 font-bold text-lg group-hover:text-primary transition-colors">Robert Brown</h3>
+<p class="text-slate-500 text-xs">+1 (555) 555-0199</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-primary/20 text-primary text-[10px] font-bold uppercase tracking-wider rounded-full">Member</span>
+</div>
+<div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg mb-4">
+<div class="size-16 bg-white p-1 rounded border border-slate-200 shadow-sm">
+<div class="w-full h-full bg-center bg-no-repeat bg-contain" data-alt="Client unique identification QR code thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBGcaIqwasvEutGkTCFOgPwTYJUPC3ZNIZzHoa62IZu2D4o3u0OXrxyvxSacdDKLKjWIsmNcZTFCtANZkgMrs60feZnUtXXOrW3gCEnpfjJtiSLckBxicug3_7PrgE6W8jVtSRkhNBzgtXJJ7S8ICRN1ZzAbetohTfgBuP9r8e-XeFKYGI9h08HxqK20X_OhYciTojr_Kfr1Gehec76phJzz9n6wSeUeZjxA-MDlsB8VC7_UMMYixkkfBjgUdjaL4z9njir-4HlnTj4");'></div>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-400 text-xs uppercase font-bold tracking-tight">Current Balance</span>
+<span class="text-xl font-black text-slate-900 dark:text-slate-100">$45.50</span>
+<span class="text-slate-500 text-xs">Expires: 15 Aug 2024</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-slate-100 dark:bg-slate-800 hover:bg-primary hover:text-background-dark py-2 rounded-lg text-sm font-bold transition-all">View Profile</button>
+<button class="w-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+</button>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl font-bold">person</span>
+</div>
+<div>
+<h3 class="text-slate-900 dark:text-slate-100 font-bold text-lg group-hover:text-primary transition-colors">Emily Davis</h3>
+<p class="text-slate-500 text-xs">+1 (555) 444-2211</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-primary/20 text-primary text-[10px] font-bold uppercase tracking-wider rounded-full">Member</span>
+</div>
+<div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg mb-4">
+<div class="size-16 bg-white p-1 rounded border border-slate-200 shadow-sm">
+<div class="w-full h-full bg-center bg-no-repeat bg-contain" data-alt="Client unique identification QR code thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuALTSS7-iw75BLPxxR_fKTmW73-ZdGIh-CEFXuOe4nvd8TgCjAtQsb9iA7Me1Pka6GxKQc0GBJ_hu7E9tEiyEJG9y503Cti2l_kabONrcEqmM-ISj5-3138w__pDoPxvxIK2bXtwtpGdnIylQO5luyw-ACY9FVqtxpp4UC0ZDrmRCY4K8HLzjCzg7U7NuXrsNr1wiDl5Gsqd3Y4DzZ_5yDLj2XEaSnBU6LpyxBvhc-34K6AyYirRHbI97rBY-4An4Oq--kSdgLUDKVB");'></div>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-400 text-xs uppercase font-bold tracking-tight">Current Balance</span>
+<span class="text-xl font-black text-slate-900 dark:text-slate-100">$200.00</span>
+<span class="text-slate-500 text-xs">Expires: 01 Jan 2025</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-slate-100 dark:bg-slate-800 hover:bg-primary hover:text-background-dark py-2 rounded-lg text-sm font-bold transition-all">View Profile</button>
+<button class="w-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+</button>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-2xl font-bold">person</span>
+</div>
+<div>
+<h3 class="text-slate-900 dark:text-slate-100 font-bold text-lg group-hover:text-primary transition-colors">Michael Chen</h3>
+<p class="text-slate-500 text-xs">+1 (555) 777-3344</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold uppercase tracking-wider rounded-full">Walk-in</span>
+</div>
+<div class="flex items-center gap-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg mb-4">
+<div class="size-16 bg-white p-1 rounded border border-slate-200 shadow-sm">
+<div class="w-full h-full bg-center bg-no-repeat bg-contain" data-alt="Client unique identification QR code thumbnail" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDawha0yR1Rec1_ywKgOCV3x60_NSx5W6HaTYL7lzBaD_P_9zTgwiYQTa7bgp19BoFZK4jj5YDTbqVhz9iL00BULt-MAaaD3VXBIpTDD4_-_S7J3AKXvEtRO5V15921vAUAXHVeq-wxK97mj2jnEFEDhQjnyeFkPrFb1VJUJfbInzW6nLGrQuhgPjqs51eEiiyTdlfqutcukPidz69xbkvapfYcF4NArI_6MsMGBIdunCX7X8fVjtxndYTqx6-rR9ae7Kap1zobbeQf");'></div>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-400 text-xs uppercase font-bold tracking-tight">Last Visit</span>
+<span class="text-xl font-black text-slate-900 dark:text-slate-100">2 Weeks Ago</span>
+<span class="text-slate-500 text-xs">Total Spent: $125.00</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-slate-100 dark:bg-slate-800 hover:bg-primary hover:text-background-dark py-2 rounded-lg text-sm font-bold transition-all">View Profile</button>
+<button class="w-10 flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-800/30 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl p-6 min-h-[300px] hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="size-16 rounded-full bg-white dark:bg-slate-900 flex items-center justify-center text-slate-400 group-hover:text-primary mb-4 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-4xl">add</span>
+</div>
+<p class="font-bold text-slate-900 dark:text-slate-100">Add New Client</p>
+<p class="text-slate-500 text-sm">Quickly register a new member or guest</p>
+</div>
+</div>
+<div class="mt-12 flex justify-between items-center bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+<span class="text-sm text-slate-500">Showing 1 to 5 of 1,248 clients</span>
+<div class="flex gap-2">
+<button class="size-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-lg bg-primary text-background-dark font-bold">1</button>
+<button class="size-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">2</button>
+<button class="size-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">3</button>
+<span class="flex items-center px-2">...</span>
+<button class="size-10 flex items-center justify-center rounded-lg border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

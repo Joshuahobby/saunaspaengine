@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Developer Handoff Style Guide | Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#11d4c4",
+              "background-light": "#f6f8f8",
+              "background-dark": "#102220",
+              "deep-teal": "#006064",
+              "soft-sand": "#F5F5DC",
+              "emerald": "#10B981",
+              "crimson": "#DC2626",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"],
+              "serif": ["Playfair Display", "serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header Section -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-10 py-4 bg-white dark:bg-slate-900/50 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-deep-teal dark:text-primary">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Style Guide</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Components</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Assets</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Docs</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<label class="hidden lg:flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800">
+<div class="text-slate-400 flex items-center justify-center pl-4">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full border-none bg-transparent focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 text-sm" placeholder="Search tokens..." value=""/>
+</div>
+</label>
+<button class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-slate-900 text-sm font-bold transition-all hover:opacity-90">
+<span>Share Guide</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="User profile avatar of a developer" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD4SFVn75RLpaJy41Wk7-sx-WVioY5_Ztf3ao0Q3igHQSN9-TjJzGYpNnMXxqQYN1RnzIdZPpzoFmthbz4TBshqqsJK1m-IAn9Ffo-4Ylq6EDaSiiNgjpuygNLuceKf3HuplckFL9ZjqZRd03q92n6S69v180rXFS26EmcfDcVFO0wM2-Pnid6TgYQzGx_P9myTm8fj8-WIHc_FuHsNmtEE9_wPHHCuLHKxtcXDfOxt-qTy0ds7KfdJwV9RqIEReJnEW2s0B-IMVvr8")'></div>
+</div>
+</header>
+<main class="flex-1 max-w-[1200px] mx-auto w-full px-6 py-12">
+<!-- Hero Section -->
+<div class="mb-16">
+<div class="flex flex-col gap-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider w-fit">
+                            Version 1.0.4 • Stable
+                        </div>
+<h1 class="text-slate-900 dark:text-white text-5xl font-black leading-tight tracking-tight">Developer Handoff Style Guide</h1>
+<p class="text-slate-600 dark:text-slate-400 text-xl max-w-2xl font-normal leading-relaxed">
+                            A comprehensive single source of truth for the Sauna SPA Engine design tokens, typography, and core component library implementation.
+                        </p>
+</div>
+</div>
+<!-- Color Palette Section -->
+<section class="mb-20">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary">palette</span>
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold tracking-tight">Color Palette</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Deep Teal -->
+<div class="flex flex-col gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+<div class="h-32 w-full rounded-lg bg-deep-teal shadow-inner"></div>
+<div class="flex flex-col gap-1">
+<h3 class="font-bold text-slate-900 dark:text-white">Deep Teal</h3>
+<p class="text-xs text-slate-500 font-mono">#006064</p>
+<div class="mt-2 text-xs font-medium px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded w-fit text-slate-600 dark:text-slate-300">Primary Action</div>
+</div>
+</div>
+<!-- Soft Sand -->
+<div class="flex flex-col gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+<div class="h-32 w-full rounded-lg bg-soft-sand shadow-inner border border-slate-100 dark:border-slate-800"></div>
+<div class="flex flex-col gap-1">
+<h3 class="font-bold text-slate-900 dark:text-white">Soft Sand</h3>
+<p class="text-xs text-slate-500 font-mono">#F5F5DC</p>
+<div class="mt-2 text-xs font-medium px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded w-fit text-slate-600 dark:text-slate-300">Background Light</div>
+</div>
+</div>
+<!-- Emerald -->
+<div class="flex flex-col gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+<div class="h-32 w-full rounded-lg bg-emerald shadow-inner"></div>
+<div class="flex flex-col gap-1">
+<h3 class="font-bold text-slate-900 dark:text-white">Emerald</h3>
+<p class="text-xs text-slate-500 font-mono">#10B981</p>
+<div class="mt-2 text-xs font-medium px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded w-fit text-slate-600 dark:text-slate-300">Success / Positive</div>
+</div>
+</div>
+<!-- Crimson -->
+<div class="flex flex-col gap-4 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+<div class="h-32 w-full rounded-lg bg-crimson shadow-inner"></div>
+<div class="flex flex-col gap-1">
+<h3 class="font-bold text-slate-900 dark:text-white">Crimson</h3>
+<p class="text-xs text-slate-500 font-mono">#DC2626</p>
+<div class="mt-2 text-xs font-medium px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded w-fit text-slate-600 dark:text-slate-300">Danger / Alert</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Typography Section -->
+<section class="mb-20">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary">text_fields</span>
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold tracking-tight">Typography Hierarchy</h2>
+</div>
+<div class="space-y-12 bg-white dark:bg-slate-900/50 p-8 rounded-2xl border border-slate-200 dark:border-slate-800">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+<div class="col-span-1">
+<p class="text-sm font-bold text-primary uppercase mb-1">Headings (Serif)</p>
+<p class="text-xs text-slate-500">Playfair Display, Bold</p>
+</div>
+<div class="col-span-2">
+<h1 class="font-serif text-4xl text-slate-900 dark:text-white">The Luxury of Relaxation</h1>
+<p class="mt-2 text-sm text-slate-400">Used for editorial sections, hero titles, and high-level branding touchpoints.</p>
+</div>
+</div>
+<div class="border-t border-slate-100 dark:border-slate-800 pt-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+<div class="col-span-1">
+<p class="text-sm font-bold text-primary uppercase mb-1">Subheadings</p>
+<p class="text-xs text-slate-500">Inter, SemiBold</p>
+</div>
+<div class="col-span-2">
+<h3 class="text-2xl font-semibold text-slate-900 dark:text-white">Experience Seamless Wellness</h3>
+<p class="mt-2 text-sm text-slate-400">Used for section headers and content grouping across the platform.</p>
+</div>
+</div>
+<div class="border-t border-slate-100 dark:border-slate-800 pt-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+<div class="col-span-1">
+<p class="text-sm font-bold text-primary uppercase mb-1">Body Text</p>
+<p class="text-xs text-slate-500">Inter, Regular/Medium</p>
+</div>
+<div class="col-span-2">
+<p class="text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+                                    Our platform provides the necessary tools for SPA managers to optimize their engine capacity and user scheduling effortlessly.
+                                </p>
+<p class="mt-2 text-sm text-slate-400">Primary interface font for readability and clarity.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Component Library Preview -->
+<section class="mb-20">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary">widgets</span>
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold tracking-tight">Component Library Preview</h2>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Buttons -->
+<div class="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<h4 class="text-lg font-bold mb-6 text-slate-900 dark:text-white">Button States</h4>
+<div class="flex flex-wrap gap-4 items-center">
+<div class="flex flex-col gap-2 items-center">
+<button class="bg-primary text-slate-900 px-6 py-2.5 rounded-lg font-bold text-sm">Primary</button>
+<span class="text-[10px] text-slate-500">Default</span>
+</div>
+<div class="flex flex-col gap-2 items-center">
+<button class="border border-primary text-primary px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-primary/5">Ghost</button>
+<span class="text-[10px] text-slate-500">Secondary</span>
+</div>
+<div class="flex flex-col gap-2 items-center">
+<button class="bg-slate-200 dark:bg-slate-800 text-slate-400 px-6 py-2.5 rounded-lg font-bold text-sm cursor-not-allowed" disabled="">Disabled</button>
+<span class="text-[10px] text-slate-500">Disabled</span>
+</div>
+<div class="flex flex-col gap-2 items-center">
+<button class="bg-deep-teal text-white px-4 py-2.5 rounded-lg font-bold text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+                                        Action
+                                    </button>
+<span class="text-[10px] text-slate-500">Icon Left</span>
+</div>
+</div>
+</div>
+<!-- Form Inputs -->
+<div class="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<h4 class="text-lg font-bold mb-6 text-slate-900 dark:text-white">Input Fields</h4>
+<div class="space-y-4">
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-bold text-slate-600 dark:text-slate-400">Full Name</label>
+<input class="w-full rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 focus:border-primary focus:ring-primary text-sm" placeholder="John Doe" type="text"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs font-bold text-slate-600 dark:text-slate-400">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">mail</span>
+<input class="w-full pl-10 rounded-lg border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 focus:border-primary focus:ring-primary text-sm" placeholder="john@example.com" type="email"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Status Badges -->
+<div class="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<h4 class="text-lg font-bold mb-6 text-slate-900 dark:text-white">Status Badges</h4>
+<div class="flex flex-wrap gap-4">
+<span class="px-3 py-1 bg-emerald/10 text-emerald text-xs font-bold rounded-full">Active</span>
+<span class="px-3 py-1 bg-primary/10 text-deep-teal dark:text-primary text-xs font-bold rounded-full">Pending</span>
+<span class="px-3 py-1 bg-crimson/10 text-crimson text-xs font-bold rounded-full">Error</span>
+<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 text-xs font-bold rounded-full">Draft</span>
+</div>
+</div>
+<!-- Cards -->
+<div class="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<h4 class="text-lg font-bold mb-6 text-slate-900 dark:text-white">Elevation &amp; Cards</h4>
+<div class="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">Usage Statistics</p>
+<p class="text-xs text-slate-500">Updated 2 mins ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Documentation Footer -->
+<section class="mt-24 border-t border-slate-200 dark:border-slate-800 pt-12 text-center">
+<p class="text-slate-500 text-sm">Design Assets &amp; Tokens exported from Figma using Sauna Engine Plugin v2.1</p>
+<div class="mt-6 flex justify-center gap-6">
+<a class="text-primary hover:underline text-sm font-medium" href="#">Download SVG Library</a>
+<a class="text-primary hover:underline text-sm font-medium" href="#">Export JSON Tokens</a>
+<a class="text-primary hover:underline text-sm font-medium" href="#">React Component Source</a>
+</div>
+</section>
+</main>
+<footer class="bg-white dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800 py-8 px-10">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-slate-400 text-xs">© 2024 Sauna SPA Engine. All rights reserved.</p>
+<div class="flex gap-8">
+<a class="text-slate-400 hover:text-primary text-xs transition-colors" href="#">Internal Privacy Policy</a>
+<a class="text-slate-400 hover:text-primary text-xs transition-colors" href="#">Developer Portal</a>
+<a class="text-slate-400 hover:text-primary text-xs transition-colors" href="#">Help Center</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Digital Membership Card | Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11c4d4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#102022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 lg:px-40 py-3 bg-white dark:bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-4 text-slate-900 dark:text-slate-100">
+<div class="size-6 text-primary">
+<span class="material-symbols-outlined text-3xl">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">My Card</a>
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Treatments</a>
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Bookings</a>
+<a class="text-slate-700 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Profile</a>
+</nav>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="User profile picture of a woman smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDvmDsSQX9fqRQk2mt5p0-MJpi7nazesPF0B-oHS4LTT0Hxp5_vvl5pvX1I3N65rnPzaBzfRgGcIBpW9zuZ8oAU7Y-R5JUufeaUzjF3e7J7vd3SXTDWws3kynChmi4DSNAQyBqUXYVZEAWYBgLHsrw4OzUMM3IzrOarLZxpm-pG5hzChAu05A6y093hGmQQnfZhafvh-UN3-_62x-D9KJ7jSQOOn7qMvi3P6ym8pUhtNJIRJBOW4RyKAQ1z1twYjZcv5sJryvCDxzFA");'></div>
+</div>
+</header>
+<main class="flex-1 px-4 md:px-40 py-10">
+<div class="max-w-[960px] mx-auto flex flex-col gap-8">
+<!-- Breadcrumbs & Title -->
+<div class="flex flex-col gap-4">
+<nav class="flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100">Digital Membership Card</span>
+</nav>
+<div class="flex flex-col gap-2">
+<h1 class="text-slate-900 dark:text-white text-4xl font-black leading-tight tracking-tight">Your Digital Pass</h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg">Scan this QR code at the reception for seamless check-in and loyalty tracking.</p>
+</div>
+</div>
+<!-- Digital Card Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Membership Card Visual -->
+<div class="lg:col-span-7">
+<div class="relative group">
+<!-- Card Background with Gradient/Glassmorphism -->
+<div class="w-full aspect-[1.6/1] rounded-3xl overflow-hidden shadow-2xl relative bg-slate-900 p-8 flex flex-col justify-between text-white ring-1 ring-white/20">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/30 to-black/80 z-0"></div>
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 z-0"></div>
+<div class="relative z-10 flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold uppercase tracking-[0.2em] text-primary">Sauna SPA Engine</span>
+<h3 class="text-2xl font-bold tracking-tight">Premium Gold Member</h3>
+</div>
+<div class="text-primary">
+<span class="material-symbols-outlined text-4xl">verified</span>
+</div>
+</div>
+<div class="relative z-10 flex items-end justify-between">
+<div class="flex flex-col">
+<p class="text-[10px] uppercase tracking-widest text-slate-400">Cardholder</p>
+<p class="text-lg font-medium">Alexandria Bennett</p>
+<p class="text-sm text-slate-400 font-mono mt-1">ID: #SPA-88291</p>
+</div>
+<div class="bg-white p-2 rounded-lg shadow-inner">
+<img alt="QR Code" class="w-20 h-20 md:w-24 md:h-24" data-alt="Membership QR Code for scanning at reception" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-Hdgq1bY2FjuOi3ohqXV98bewi1sts_FJlXlYDSpcMUlDkHmlvPdXIAeq5XsLdM0iBMeJnwkyF97Q7iRDSJOCc9-qkFVNqYtQqRyS5KcX0lKI2cXnnOTtknepT5xOkGfcry6-kXIlbRbpR0nypcVosyls8G8SaXZNbAT2Hxt7kfd6xisg0LKMBoz_fhNvKpXidGMMIzbCIfj_nPKytu2ttkxrxM2wjlZ-koP-sjgyAS3HibRA8SrQpHVqcXniuux39FP3R0W4PVcH"/>
+</div>
+</div>
+</div>
+<!-- Refresh Button -->
+<button class="absolute -bottom-4 right-8 flex items-center gap-2 bg-primary text-slate-900 px-6 py-3 rounded-full font-bold shadow-lg hover:bg-primary/90 transition-all active:scale-95">
+<span class="material-symbols-outlined">refresh</span>
+<span>Refresh Code</span>
+</button>
+</div>
+</div>
+<!-- Wallet & Quick Actions -->
+<div class="lg:col-span-5 flex flex-col gap-4 justify-center">
+<p class="text-sm font-bold text-slate-500 uppercase tracking-widest">Mobile Access</p>
+<button class="w-full flex items-center justify-center gap-3 bg-black text-white p-4 rounded-xl hover:bg-slate-800 transition-colors border border-slate-700">
+<svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24">
+<path d="M17.05 20.28c-.96.95-2.04 1.9-3.4 1.92-1.35.02-1.79-.83-3.34-.83-1.54 0-2.03.81-3.32.85-1.31.04-2.52-1.05-3.49-2.02-1.98-1.96-3.49-5.54-1.47-9.04 1-1.74 2.8-2.85 4.75-2.88 1.48-.02 2.87 1.01 3.78 1.01.91 0 2.6-1.24 4.39-1.06 1.13.05 2.18.46 2.99 1.18-.32.22-1.89 1.15-1.87 3.55.02 2.92 2.53 3.88 2.58 3.9-.02.05-.41 1.41-1.59 3.42zM12.03 7.25c-.02-2.13 1.76-3.95 3.85-4.04.14 2.44-2.12 4.41-3.85 4.04z"></path>
+</svg>
+<span class="text-lg font-semibold">Add to Apple Wallet</span>
+</button>
+<button class="w-full flex items-center justify-center gap-3 bg-white text-slate-900 p-4 rounded-xl border border-slate-200 shadow-sm hover:bg-slate-50 transition-colors">
+<img alt="Google Pay" class="h-6" data-alt="Google Pay logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNZBfJP8OhXiajH1Aa75ROEOkAUxlWeHNZa-dMZghHObzvlIL1ggw-aQcY4Nw28wx2hogDO25I1jUDGdUjXbaBWnUesIUKktBs4DTOCI1vi2Ym9rwudL3nOHUPWKref5YSzFpIoQ4IiMoOGRSV7CGBXxo0CprU3h3uf0_WJ4yBzRo57Npf1AED-elza71xCxuhCYj04DXYw5EcOxwpLIJUqbnBCfANQSrtQ63sylUnXe0w7thATzkkimr8ukVOrPnImNEzoZA2xA9k"/>
+<span class="text-lg font-semibold">Add to Google Pay</span>
+</button>
+<div class="mt-4 p-4 rounded-xl bg-primary/10 border border-primary/20 flex gap-4 items-start">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+<p class="text-sm text-slate-700 dark:text-slate-300">Tip: Increase screen brightness for faster scanning at the front desk.</p>
+</div>
+</div>
+</div>
+<!-- Statistics Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+<div class="flex flex-col gap-3 rounded-2xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Status</p>
+<span class="flex h-2 w-2 rounded-full bg-emerald-500"></span>
+</div>
+<p class="text-slate-900 dark:text-white text-3xl font-bold leading-tight">Active</p>
+<p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium">Expires Jan 2025</p>
+</div>
+<div class="flex flex-col gap-3 rounded-2xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Tier</p>
+<span class="material-symbols-outlined text-amber-500 text-xl">workspace_premium</span>
+</div>
+<p class="text-slate-900 dark:text-white text-3xl font-bold leading-tight">Gold</p>
+<p class="text-xs text-slate-500 font-medium">1,250 pts to Platinum</p>
+</div>
+<div class="flex flex-col gap-3 rounded-2xl p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between">
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">Balance</p>
+<span class="material-symbols-outlined text-primary text-xl">monetization_on</span>
+</div>
+<p class="text-slate-900 dark:text-white text-3xl font-bold leading-tight">4,250 pts</p>
+<p class="text-xs text-primary font-medium">Ready to redeem</p>
+</div>
+</div>
+<!-- Recent Activity Section -->
+<div class="flex flex-col gap-4 mt-4">
+<div class="flex items-center justify-between">
+<h2 class="text-xl font-bold text-slate-900 dark:text-white">Recent Activity</h2>
+<button class="text-primary text-sm font-bold hover:underline">View All History</button>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-4 flex items-center justify-between border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">hot_tub</span>
+</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">Full Day Spa Pass</p>
+<p class="text-xs text-slate-500">Downtown Location • 2 days ago</p>
+</div>
+</div>
+<p class="text-sm font-bold text-slate-900 dark:text-white">+150 pts</p>
+</div>
+<div class="p-4 flex items-center justify-between border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">self_care</span>
+</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">Swedish Massage (60 min)</p>
+<p class="text-xs text-slate-500">Uptown Location • Last week</p>
+</div>
+</div>
+<p class="text-sm font-bold text-slate-900 dark:text-white">+300 pts</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="border-t border-slate-200 dark:border-slate-800 px-6 lg:px-40 py-10 bg-white dark:bg-slate-900">
+<div class="max-w-[960px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2 opacity-50">
+<span class="material-symbols-outlined">spa</span>
+<span class="font-bold text-sm">Sauna SPA Engine © 2024</span>
+</div>
+<div class="flex gap-8 text-sm text-slate-500 font-medium">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

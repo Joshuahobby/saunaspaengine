@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11c4d4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#102022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>Global Compliance &amp; Regional Presets</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 transition-colors duration-300">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3 lg:px-12">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl font-bold">spa</span>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<div class="hidden md:flex relative w-64">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2 border-none bg-slate-100 dark:bg-slate-800 rounded-xl focus:ring-2 focus:ring-primary text-sm placeholder-slate-500" placeholder="Search regulations..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden lg:flex items-center gap-8 text-sm font-medium">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary border-b-2 border-primary pb-1" href="#">Compliance</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Regions</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Audit Logs</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="size-10 rounded-full border-2 border-primary/20 bg-cover bg-center" data-alt="User profile avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDzyWIY9RZUGxzhQR_f9ZThYgC8JkAPUrPA1GBNM8BXeMdO3DWFNNZ6s5KaNFEG9uSen5XD-7TlDHT7SYbAUzMrl1dbVdJDnMtbT1qYfTq2k9m77Wsp3T3Tyoe5OOIB2uZCVYLI3jNPK77dBEtMVtsfer8-K-vV-RscxTHHrBN4ZSgE8_zcpQX32_e7sVb0RaE-3J7tEJpmTbq-fwzM94UQoGnSx4e-6lB2rGKjn1KQSIvByvDFNj0bVrbhe5HbCE0xEasrWH-Rh47e')"></div>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col lg:flex-row">
+<!-- Left Sidebar Navigation -->
+<aside class="w-full lg:w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-6 space-y-8">
+<div>
+<h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">System Admin</h3>
+<div class="flex items-center gap-3 mb-6">
+<div class="size-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+</div>
+<div>
+<p class="text-sm font-bold">Alex Rivera</p>
+<p class="text-xs text-slate-500">Compliance Manager</p>
+</div>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined">public</span> Global Overview
+                    </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl bg-primary/10 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">verified_user</span> Regional Presets
+                    </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined">lock</span> Compliance Vault
+                    </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined">account_balance</span> Tax Configurations
+                    </a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined">description</span> Legal Templates
+                    </a>
+</nav>
+<div class="pt-8 border-t border-slate-100 dark:border-slate-800">
+<div class="bg-primary/5 rounded-xl p-4 border border-primary/10">
+<p class="text-xs font-bold text-primary mb-1 uppercase tracking-tighter">System Status</p>
+<p class="text-sm font-medium mb-3">All regions compliant</p>
+<div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[94%]"></div>
+</div>
+<p class="text-[10px] text-slate-500 mt-2 italic">Last audit: 2h ago</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<section class="flex-1 p-6 lg:p-10 max-w-7xl mx-auto w-full">
+<div class="mb-8">
+<h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100">Regional Compliance &amp; Tax Presets</h1>
+<p class="text-slate-500 mt-2 max-w-2xl text-lg">Manage international regulatory standards and automated tax logic for global scaling from a single interface.</p>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+<!-- Left Column: Map & Region Selection -->
+<div class="xl:col-span-7 flex flex-col gap-6">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+<h2 class="text-lg font-bold">Select Global Region</h2>
+<select class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-sm font-semibold focus:ring-primary py-1.5 pl-4 pr-10">
+<option>European Union</option>
+<option>North America</option>
+<option>GCC Countries</option>
+<option>Asia Pacific</option>
+</select>
+</div>
+<div class="relative aspect-video bg-slate-100 dark:bg-slate-800 flex items-center justify-center p-4">
+<!-- Simulated Map Component -->
+<div class="w-full h-full rounded-xl bg-cover bg-center opacity-80" data-alt="Abstract global map with highlighted regions" data-location="Europe" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA2VmOX_zZkF0sH_nrqUSZzmsFC50AMLoCObxSswjzNnsd9yzXjAy4RDwVdOluQYA1PDEV-yvr1SFjseHPetEKQyJR6vMTEfkn5qJi60xAOA4E4j6jTNN-gcU7fwpkhawFh0celUJddHJQwwSFviUZCTd9bsZo8EIkBHiNuoCO3Kr3JfBMsnRnnW2JRSR2KuXTCCqBSEj0TkI61XwlOq5GxnTQx87qKtVX2_XcrJVFY5-oZTiqEtldDkIdHFumzJTAZBtHqKQYPW6Ec')">
+</div>
+<!-- Map Overlays -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="size-6 bg-primary rounded-full animate-ping opacity-75"></div>
+<div class="absolute size-4 bg-primary border-2 border-white rounded-full"></div>
+</div>
+<div class="absolute bottom-4 left-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-lg text-xs">
+<p class="font-bold flex items-center gap-2">
+<span class="size-2 bg-green-500 rounded-full"></span> 
+                                        Active Region: European Union
+                                    </p>
+<p class="text-slate-500 mt-1">27 Member States | VAT Logic: Active</p>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
+<h3 class="text-sm font-bold uppercase tracking-widest text-slate-400 mb-4">Regional Summary</h3>
+<div class="grid grid-cols-3 gap-4">
+<div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl">
+<p class="text-xs text-slate-500 mb-1">Tax Engine</p>
+<p class="text-lg font-bold text-primary">OSS VAT</p>
+</div>
+<div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl">
+<p class="text-xs text-slate-500 mb-1">Currency</p>
+<p class="text-lg font-bold text-primary">EUR (€)</p>
+</div>
+<div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl">
+<p class="text-xs text-slate-500 mb-1">Privacy Standard</p>
+<p class="text-lg font-bold text-primary">GDPR</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Compliance Toggles -->
+<div class="xl:col-span-5 flex flex-col gap-6">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 h-full">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-lg font-bold">Compliance Presets</h2>
+<span class="px-2 py-1 bg-primary/10 text-primary text-[10px] font-black rounded uppercase">Standard v2.4</span>
+</div>
+<div class="space-y-6">
+<!-- Rule 1 -->
+<div class="flex items-start justify-between gap-4 p-4 border border-slate-100 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-sm">database</span>
+<h4 class="font-bold text-sm">GDPR Data Handling</h4>
+</div>
+<p class="text-xs text-slate-500 leading-relaxed">Automatic consent modals, data portability exports, and right-to-be-forgotten logic for EU residents.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer mt-1">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Rule 2 -->
+<div class="flex items-start justify-between gap-4 p-4 border border-slate-100 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-sm">calculate</span>
+<h4 class="font-bold text-sm">Tax Calculation (OSS VAT)</h4>
+</div>
+<p class="text-xs text-slate-500 leading-relaxed">Dynamic tax application based on customer's residence within the EU Single Market.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer mt-1">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Rule 3 -->
+<div class="flex items-start justify-between gap-4 p-4 border border-slate-100 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-sm">receipt_long</span>
+<h4 class="font-bold text-sm">Legal Receipt Format</h4>
+</div>
+<p class="text-xs text-slate-500 leading-relaxed">Includes mandatory business registration numbers, VAT IDs, and localized billing addresses.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer mt-1">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Rule 4 (Inactive) -->
+<div class="flex items-start justify-between gap-4 p-4 border border-slate-100 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors opacity-60">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-slate-400 text-sm">gavel</span>
+<h4 class="font-bold text-sm">Local Content Moderation</h4>
+</div>
+<p class="text-xs text-slate-500 leading-relaxed">Regional filtering of prohibited content types as required by specific national legislations.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer mt-1">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-200 peer-focus:outline-none dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800">
+<button class="w-full bg-primary text-white font-bold py-3 rounded-xl hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20">
+                                    Apply Global Presets
+                                </button>
+<p class="text-[11px] text-center text-slate-400 mt-3">Changes will propagate to all 12 platform nodes in the EU region within 5 minutes.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Activity Log -->
+<div class="mt-8 bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-sm font-bold">Recent Compliance Updates</h3>
+<a class="text-primary text-xs font-bold hover:underline" href="#">View Full Audit Log</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm">
+<thead>
+<tr class="text-slate-400 border-b border-slate-100 dark:border-slate-800">
+<th class="pb-3 font-medium">Timestamp</th>
+<th class="pb-3 font-medium">Administrator</th>
+<th class="pb-3 font-medium">Region</th>
+<th class="pb-3 font-medium">Action</th>
+<th class="pb-3 font-medium">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr>
+<td class="py-4 text-xs">Oct 24, 2023 14:22</td>
+<td class="py-4 font-medium">Alex Rivera</td>
+<td class="py-4">EU West</td>
+<td class="py-4">Enabled GDPR Auto-Purge</td>
+<td class="py-4"><span class="px-2 py-0.5 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded-full text-[10px] font-bold">SUCCESS</span></td>
+</tr>
+<tr>
+<td class="py-4 text-xs">Oct 23, 2023 09:15</td>
+<td class="py-4 font-medium">Sarah Chen</td>
+<td class="py-4">GCC South</td>
+<td class="py-4">Updated VAT logic to 5%</td>
+<td class="py-4"><span class="px-2 py-0.5 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded-full text-[10px] font-bold">SUCCESS</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Footer -->
+<footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-4 flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-400 uppercase tracking-widest">
+<p>© 2023 Sauna SPA Engine - Internal Administrative Tool</p>
+<div class="flex gap-4 mt-2 sm:mt-0">
+<a class="hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="hover:text-primary transition-colors" href="#">Support Portal</a>
+<a class="hover:text-primary transition-colors" href="#">Network Status</a>
+</div>
+</footer>
+</div>
+</body></html>

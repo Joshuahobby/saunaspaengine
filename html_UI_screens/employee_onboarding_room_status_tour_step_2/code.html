@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Employee Onboarding: Room Status Tour Step 2</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2bee2b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102210",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .tour-overlay { background-color: rgba(16, 34, 16, 0.7); }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-hidden">
+<!-- Main Layout (Dimmed) -->
+<div class="relative flex h-screen w-full flex-col overflow-hidden tour-overlay">
+<!-- Header -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white/10 backdrop-blur-sm px-10 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-white">
+<div class="size-6 bg-primary rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-900">spa</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-white/60">search</span>
+<input class="bg-white/10 border-none rounded-lg pl-10 pr-4 py-2 text-white placeholder:text-white/50 focus:ring-1 focus:ring-primary w-64" disabled="" placeholder="Search"/>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="flex items-center gap-9">
+<a class="text-white/80 text-sm font-medium" href="#">Dashboard</a>
+<a class="text-white text-sm font-medium border-b-2 border-primary pb-1" href="#">Live Floor</a>
+<a class="text-white/80 text-sm font-medium" href="#">Bookings</a>
+<a class="text-white/80 text-sm font-medium" href="#">Staff</a>
+<a class="text-white/80 text-sm font-medium" href="#">Reports</a>
+</nav>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-lg bg-white/10 text-white flex items-center justify-center"><span class="material-symbols-outlined">notifications</span></button>
+<button class="w-10 h-10 rounded-lg bg-white/10 text-white flex items-center justify-center"><span class="material-symbols-outlined">settings</span></button>
+</div>
+<div class="rounded-full size-10 bg-slate-300 overflow-hidden border-2 border-primary/50" data-alt="User profile avatar photo">
+<img alt="Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCykrjjEB3wAfSHGY3yvKRdPLxkyYItcTA-uCqzSndUPRmGHJaI0GwxKJSmuzXAMlCLEoDWq69dDxdEcVlIuehX4Ci65UKoGmtliuLDIW6Z17qDEVmftG8Jou28dtXTZc2NrPd21usRkIvUoT98qhzXViIl6INIqjICztqtRmif69dn0CBl0Z_yNTy0kOnHEXGnta1m3Yd4bnv_wQNBV0J0q4Y8iPGrtrJDPPjcwTmRAK3JRm8BMW-BpnYCCvI_E1_KTI-ecveVPvsR"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white/5 p-4 flex flex-col justify-between">
+<div class="flex flex-col gap-6">
+<div>
+<h3 class="text-white/50 text-[10px] uppercase tracking-widest font-bold mb-4">Operations</h3>
+<nav class="flex flex-col gap-1">
+<div class="flex items-center gap-3 px-3 py-2 text-white/70">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-sm font-medium">Overview</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 bg-primary/20 text-primary rounded-lg">
+<span class="material-symbols-outlined text-xl">meeting_room</span>
+<span class="text-sm font-medium">Room Management</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-white/70">
+<span class="material-symbols-outlined text-xl">calendar_today</span>
+<span class="text-sm font-medium">Schedule</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-white/70">
+<span class="material-symbols-outlined text-xl">inventory_2</span>
+<span class="text-sm font-medium">Inventory</span>
+</div>
+</nav>
+</div>
+</div>
+<div class="bg-white/10 rounded-xl p-4">
+<div class="flex justify-between items-end mb-2">
+<span class="text-xs text-white/70">Tour Progress</span>
+<span class="text-xs font-bold text-primary">66%</span>
+</div>
+<div class="h-1.5 w-full bg-white/20 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 66%"></div>
+</div>
+<p class="text-[10px] text-white/50 mt-2">Step 2: Operational Awareness</p>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 p-8 overflow-y-auto">
+<div class="max-w-5xl mx-auto">
+<header class="mb-8">
+<h1 class="text-3xl font-bold text-white mb-2">Live Floor Monitor</h1>
+<p class="text-white/60">Real-time status of all treatment rooms and saunas.</p>
+</header>
+<!-- Room Grid (The Highlighted Section) -->
+<div class="relative">
+<!-- HIGHLIGHT EFFECT -->
+<div class="absolute -inset-4 bg-white/10 rounded-2xl ring-4 ring-primary z-10"></div>
+<div class="relative z-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Room Card 1 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-5 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white">Swedish Sauna A</h4>
+<span class="text-xs text-slate-500">Capacity: 4 persons</span>
+</div>
+<span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-bold rounded-full uppercase">Ready</span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<span class="text-slate-500">Current Temp</span>
+<span class="font-semibold">82°C</span>
+</div>
+</div>
+<!-- Room Card 2 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-5 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white">Massage Room 3</h4>
+<span class="text-xs text-slate-500">Therapist: Sarah J.</span>
+</div>
+<span class="px-2.5 py-1 bg-orange-500/20 text-orange-500 text-[10px] font-bold rounded-full uppercase">Occupied</span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<span class="text-slate-500">Time Remaining</span>
+<span class="font-semibold">12 mins</span>
+</div>
+</div>
+<!-- Room Card 3 -->
+<div class="bg-white dark:bg-slate-900 rounded-xl p-5 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white">Steam Room B</h4>
+<span class="text-xs text-slate-500">Capacity: 6 persons</span>
+</div>
+<span class="px-2.5 py-1 bg-primary/20 text-primary text-[10px] font-bold rounded-full uppercase">Ready</span>
+</div>
+<div class="flex items-center justify-between text-sm">
+<span class="text-slate-500">Humidity</span>
+<span class="font-semibold">95%</span>
+</div>
+</div>
+</div>
+<!-- Tooltip Callout -->
+<div class="absolute -bottom-48 left-1/2 -translate-x-1/2 w-80 bg-white rounded-xl shadow-2xl p-6 z-50 ring-1 ring-slate-200">
+<!-- Triangle Tip -->
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-bottom-[12px] border-b-white"></div>
+<div class="flex items-center gap-3 mb-3">
+<div class="size-8 rounded-full bg-primary/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">info</span>
+</div>
+<h3 class="font-bold text-slate-900">Room Status</h3>
+</div>
+<p class="text-sm text-slate-600 leading-relaxed mb-6">
+                                Monitor room status here. <span class="font-bold text-primary">Green</span> means ready for a new client! Use this grid to quickly see availability at a glance.
+                            </p>
+<div class="flex items-center justify-between">
+<button class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                                    Back
+                                </button>
+<div class="flex gap-2">
+<button class="px-6 py-2 bg-primary text-slate-900 rounded-lg text-sm font-bold shadow-lg shadow-primary/30 hover:bg-primary/90">
+                                        Next
+                                    </button>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 flex justify-center gap-1.5">
+<div class="size-1.5 rounded-full bg-slate-200"></div>
+<div class="size-1.5 rounded-full bg-primary"></div>
+<div class="size-1.5 rounded-full bg-slate-200"></div>
+</div>
+</div>
+</div>
+<!-- Other content (dimmed further) -->
+<div class="mt-12 grid grid-cols-1 gap-6 opacity-30">
+<div class="bg-white/5 h-32 rounded-xl border border-white/10"></div>
+<div class="bg-white/5 h-32 rounded-xl border border-white/10"></div>
+</div>
+</div>
+</main>
+</div>
+</div>
+<!-- Exit Tour Button (Top Right) -->
+<button class="fixed top-20 right-10 z-[60] flex items-center gap-2 bg-white/10 backdrop-blur-md text-white border border-white/20 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-white/20">
+<span class="material-symbols-outlined text-sm">close</span>
+        Exit Tour
+    </button>
+</body></html>

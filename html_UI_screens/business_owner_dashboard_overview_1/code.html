@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Business Owner Dashboard - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .chart-bar { transition: height 0.3s ease; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 bg-primary rounded-full flex items-center justify-center text-slate-900">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<div>
+<h1 class="text-sm font-bold leading-tight">Sauna SPA Engine</h1>
+<p class="text-xs text-slate-500 dark:text-slate-400">Business Manager</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary font-semibold" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+<span class="text-sm">Employees</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-sm">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span class="text-sm">Services</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">card_membership</span>
+<span class="text-sm">Memberships</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="text-sm">Reports</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<button class="w-full bg-primary hover:bg-primary/90 text-slate-950 font-bold py-2.5 rounded-lg flex items-center justify-center gap-2 transition-all">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span class="text-sm">New Booking</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark">
+<!-- Header -->
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md sticky top-0 z-10 px-8 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<h2 class="text-lg font-bold">Business Overview</h2>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-slate-100 dark:bg-slate-900 border-none rounded-lg text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Search analytics..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold leading-none">Alex Rivera</p>
+<p class="text-[10px] text-slate-500">Owner</p>
+</div>
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-800 border border-primary/20 bg-cover bg-center" data-alt="Profile picture of male business owner" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuChdAvHhtwnPX9DlHl9rqdek0Zwq3RPxg1T3_-0poHJ4Ps_GvyvDLOd6opvwHNiaZTjKH8Khv4UUZi-gjTaBiiXoAJUOJcmnmS36fJEb9Go2InwSlgYGlfLU1bA6s63851QX1xzF8-5JfVB8gBRnFnx73-rta7rmCZvaiwIS6Exdji5kzLgN6lJNRvYb8HiqITlpt2Sc4TMxB7T4vSCaPGvB2IEdunHXeYTtv3QOzklOdBTvvFX6UZruPZ8wrdDMJLl_34zKJher7X-')"></div>
+</div>
+</div>
+</header>
+<div class="p-8 max-w-7xl mx-auto">
+<!-- Welcome Section -->
+<div class="mb-8">
+<h3 class="text-3xl font-black tracking-tight">Welcome back, Alex.</h3>
+<p class="text-slate-500 dark:text-slate-400">Here's a summary of your spa's performance today.</p>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-primary/20 text-primary rounded-lg">
+<span class="material-symbols-outlined">payments</span>
+</span>
+<span class="text-emerald-500 text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +12.5%
+                            </span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">Today's Revenue</p>
+<p class="text-2xl font-black mt-1">$1,240.00</p>
+</div>
+<div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-primary/20 text-primary rounded-lg">
+<span class="material-symbols-outlined">dry_cleaning</span>
+</span>
+<span class="text-emerald-500 text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +2
+                            </span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">Active Services</p>
+<p class="text-2xl font-black mt-1">12</p>
+</div>
+<div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-primary/20 text-primary rounded-lg">
+<span class="material-symbols-outlined">groups</span>
+</span>
+<span class="text-emerald-500 text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +5%
+                            </span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">Total Members</p>
+<p class="text-2xl font-black mt-1">458</p>
+</div>
+<div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-red-100 text-red-500 dark:bg-red-500/20 rounded-lg">
+<span class="material-symbols-outlined">person_check</span>
+</span>
+<span class="text-red-500 text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_down</span> -2%
+                            </span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">Employee Availability</p>
+<p class="text-2xl font-black mt-1">85%</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Revenue Trends Chart -->
+<div class="lg:col-span-2 p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-lg font-bold">Weekly Revenue Trends</h4>
+<p class="text-xs text-slate-500">Comparison of daily sales performance</p>
+</div>
+<select class="bg-slate-100 dark:bg-slate-800 border-none rounded-lg text-xs font-semibold py-1 focus:ring-primary">
+<option>Last 7 Days</option>
+<option>Last 30 Days</option>
+</select>
+</div>
+<div class="h-64 flex items-end justify-between gap-4 px-2">
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/10 rounded-t-lg relative flex items-end h-32 hover:bg-primary/20 transition-all">
+<div class="w-full bg-primary rounded-t-lg h-3/4"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">MON</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/10 rounded-t-lg relative flex items-end h-40 hover:bg-primary/20 transition-all">
+<div class="w-full bg-primary rounded-t-lg h-1/2"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">TUE</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/10 rounded-t-lg relative flex items-end h-36 hover:bg-primary/20 transition-all">
+<div class="w-full bg-primary rounded-t-lg h-4/5"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">WED</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/10 rounded-t-lg relative flex items-end h-48 hover:bg-primary/20 transition-all">
+<div class="w-full bg-primary rounded-t-lg h-[95%]"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">THU</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/10 rounded-t-lg relative flex items-end h-44 hover:bg-primary/20 transition-all">
+<div class="w-full bg-primary rounded-t-lg h-[60%]"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">FRI</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/10 rounded-t-lg relative flex items-end h-56 hover:bg-primary/20 transition-all">
+<div class="w-full bg-primary rounded-t-lg h-full"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">SAT</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full bg-primary/10 rounded-t-lg relative flex items-end h-28 hover:bg-primary/20 transition-all">
+<div class="w-full bg-primary rounded-t-lg h-1/3"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">SUN</span>
+</div>
+</div>
+</div>
+<!-- Recent Transactions -->
+<div class="p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+<div class="flex items-center justify-between mb-6">
+<h4 class="text-lg font-bold">Recent Transactions</h4>
+<a class="text-primary text-xs font-bold hover:underline" href="#">View All</a>
+</div>
+<div class="space-y-5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-500">person</span>
+</div>
+<div>
+<p class="text-sm font-bold">Emma Wilson</p>
+<p class="text-[10px] text-slate-500">Swedish Massage</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold">$85.00</p>
+<span class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400 font-bold uppercase tracking-wider">Completed</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-500">person</span>
+</div>
+<div>
+<p class="text-sm font-bold">James Miller</p>
+<p class="text-[10px] text-slate-500">Steam Room Access</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold">$30.00</p>
+<span class="text-[9px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400 font-bold uppercase tracking-wider">In Progress</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-500">person</span>
+</div>
+<div>
+<p class="text-sm font-bold">Sarah Chen</p>
+<p class="text-[10px] text-slate-500">HydraFacial Plus</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold">$120.00</p>
+<span class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400 font-bold uppercase tracking-wider">Completed</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-500">person</span>
+</div>
+<div>
+<p class="text-sm font-bold">Michael Ross</p>
+<p class="text-[10px] text-slate-500">Annual Membership</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold">$850.00</p>
+<span class="text-[9px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400 font-bold uppercase tracking-wider">Completed</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-500">person</span>
+</div>
+<div>
+<p class="text-sm font-bold">David Blake</p>
+<p class="text-[10px] text-slate-500">Deep Tissue Therapy</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold">$95.00</p>
+<span class="text-[9px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400 font-bold uppercase tracking-wider">In Progress</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Quick Stats -->
+<div class="mt-8 flex flex-wrap gap-4 items-center justify-between bg-primary/5 rounded-xl p-4 border border-primary/20">
+<div class="flex items-center gap-4">
+<div class="flex -space-x-2">
+<img class="size-8 rounded-full border-2 border-white dark:border-slate-900" data-alt="Female employee headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCicaioTAV40XTfcD8lUmdimMl2YBz3PkVMWbxD-pctWICJEGLEYQvGWJCpxpXkrBgvumiX45JN1wkjPq05xCqFkt6mDIT2kz6RlcO68lw07mIJY4OjOExDeyIzBdxWTQTidnDiCHcj8RtPMWjc4z66pTmyw6RAYN_9n-bNt8X_4YR6sZ5ZeJ6xYz6Xxx0-mmaLvm555HszuQJ_SE0vb06B3MYsnppMpO-j8BnbBoh5pVGbPeEdM5UsVXXU7mlxGhu6cJdCv9YtzdH5"/>
+<img class="size-8 rounded-full border-2 border-white dark:border-slate-900" data-alt="Male employee headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgFD7VM-MXZ9vw7b65v5z5WovLqOwwrbrrJuzIF7wt4qaGCojEKO1-1l8HMWjMy7tGQCj1p4vbAaVY6hQuFF8xUq00gVGjKZy2AvLTQOR5FY6duhSYJ0DYEYGK-2OVTapDV8rA4fKTlDH8_1qEMm0lgfCJWpedwfl-Ukj3CoU6nINUNQRng2IZ8CjC04sASCISG9iwuGG_CeARwWmpNHnms5DYFke6REjkwgEr49sG2aYPJmUHvRjY9kstP-ksi6yQ9EGCDuHKpvFE"/>
+<img class="size-8 rounded-full border-2 border-white dark:border-slate-900" data-alt="Female employee headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFNafYD7xyPLu-VyC9qd8uQTi8OcWsBVk8SWu1PNTIeTiEbKp0dcE8rBD6VdVDK-n7kUi4afbvaTrVBpvNS-6j_7ENpeBRrD6-S0bSrLB3ilNWSii170VGypM_M4oU1c4WDwrzl1CJdrNei7Xk1M-RYnLN1xx3E065HBfVLJFliQN0FnWHC2l-A7XWRcoBxB9Pp3OtHjG51-gHfyYARMtNJ7Nl5xmuGH8388SLwR7uXj9gbxZvyoVP1U5aac8eJqtGHC8PH_1oDnBD"/>
+<div class="size-8 rounded-full bg-slate-200 dark:bg-slate-800 border-2 border-white dark:border-slate-900 flex items-center justify-center text-[10px] font-bold">+5</div>
+</div>
+<p class="text-sm font-medium">8 staff members currently on duty</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="size-2 bg-emerald-500 rounded-full"></span>
+<span class="text-xs font-bold">4 Rooms Available</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-2 bg-amber-500 rounded-full"></span>
+<span class="text-xs font-bold">2 Rooms Cleaning</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>POS Retail Cart &amp; Service Checkout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2bee2b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102210",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-primary flex items-center justify-center rounded-lg text-slate-900">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Sauna SPA Engine</h2>
+</div>
+<label class="flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-slate-500 flex border-none bg-slate-100 dark:bg-slate-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-slate-100 dark:bg-slate-800 focus:outline-0 focus:ring-0 h-full placeholder:text-slate-500 px-4 rounded-r-lg text-base font-normal" placeholder="Search products or services" value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Services</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Inventory</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Reports</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg size-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg size-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="bg-primary/30 border-2 border-primary/50 aspect-square bg-cover bg-center rounded-full size-10 flex items-center justify-center" data-alt="User profile avatar placeholder">
+<span class="material-symbols-outlined text-slate-900">person</span>
+</div>
+</div>
+</header>
+<main class="flex flex-1 flex-col md:flex-row p-6 gap-6 max-w-[1440px] mx-auto w-full">
+<!-- Left Sidebar: Navigation & Session Info -->
+<aside class="w-full md:w-64 flex flex-col gap-6 shrink-0">
+<div class="bg-white dark:bg-slate-900 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex flex-col mb-6">
+<h1 class="text-slate-900 dark:text-white text-base font-bold">SPA Terminal 01</h1>
+<p class="text-primary text-xs font-semibold uppercase tracking-wider">Active Session</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">person_add</span>
+<span class="text-sm font-medium">Check-in</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-sm font-medium">Calendar</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-slate-900 dark:text-white border-l-4 border-primary rounded-r-lg" href="#">
+<span class="material-symbols-outlined text-primary fill-1">shopping_cart</span>
+<span class="text-sm font-bold">POS Cart</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Customers</span>
+</a>
+</nav>
+</div>
+<div class="bg-slate-900 text-white rounded-xl p-5 shadow-lg relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-xs text-slate-400 font-medium">Daily Revenue</p>
+<h3 class="text-2xl font-black mt-1">$4,280.00</h3>
+<div class="mt-4 flex items-center gap-2">
+<span class="text-primary text-xs font-bold">+12.5%</span>
+<span class="text-slate-500 text-[10px]">vs yesterday</span>
+</div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-8xl">payments</span>
+</div>
+</div>
+</aside>
+<!-- Central Content: Checkout Area -->
+<section class="flex-1 flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm">
+<span>POS</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">Checkout #8842</span>
+</div>
+<h2 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Service Checkout</h2>
+</div>
+<!-- Cart Items -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50">
+<span class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Current Order</span>
+<button class="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm">add</span> Add Custom Item
+                            </button>
+</div>
+<div class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Service Item -->
+<div class="p-6 flex items-center gap-4">
+<div class="size-16 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-3xl">hot_tub</span>
+</div>
+<div class="flex-1">
+<h4 class="text-slate-900 dark:text-white font-bold">Deep Tissue Swedish Massage</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm">60 Minute Session • Therapist: Elena R.</p>
+</div>
+<div class="text-right">
+<p class="text-slate-900 dark:text-white font-bold">$120.00</p>
+<p class="text-slate-400 text-xs">Qty: 1</p>
+</div>
+<button class="p-2 text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+<!-- Added Retail Item -->
+<div class="p-6 flex items-center gap-4 bg-primary/5">
+<div class="size-16 rounded-lg bg-white dark:bg-slate-800 flex items-center justify-center shrink-0 border border-primary/20 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Lavender massage oil bottle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzab-AzkIAIX312FGW4E_rJWCe7TmtGF04cV6XekfxbCkJ9pNHKodjrmDenNxTVi832el3P5FfUabma9dwjlAOrs4pTKY75fb7BGfDU1D30auYnrZizmwxUnTvXcWbt_fLXSEIQVapuTOm-vwFxkuK7_LJY1sufqZ17U1RAve3H1srUBUpzU9m2vQJgV5Zl08rC222wRzZ7m8ovbRZ5EamCagKezkgbVCOiH5rUK8OeBfTyUwiGz83_4iL7Uuc40oe5iQByNM50UqN"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-2">
+<h4 class="text-slate-900 dark:text-white font-bold">Lavender Calming Oil</h4>
+<span class="text-[10px] bg-primary text-slate-900 px-1.5 py-0.5 rounded font-bold uppercase">Retail</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm">250ml Professional Grade</p>
+</div>
+<div class="text-right">
+<p class="text-slate-900 dark:text-white font-bold">$35.00</p>
+<p class="text-slate-400 text-xs">Qty: 1</p>
+</div>
+<button class="p-2 text-slate-400 hover:text-red-500 transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<!-- Summary Area -->
+<div class="p-6 bg-slate-50 dark:bg-slate-800/40">
+<div class="space-y-3 max-w-sm ml-auto">
+<div class="flex justify-between text-slate-600 dark:text-slate-400 text-sm">
+<span>Subtotal</span>
+<span>$155.00</span>
+</div>
+<div class="flex justify-between text-slate-600 dark:text-slate-400 text-sm">
+<span>Service Tax (8%)</span>
+<span>$9.60</span>
+</div>
+<div class="flex justify-between text-slate-600 dark:text-slate-400 text-sm">
+<span>Retail Tax (5%)</span>
+<span>$1.75</span>
+</div>
+<div class="pt-3 border-t border-slate-200 dark:border-slate-700 flex justify-between items-end">
+<span class="text-lg font-bold text-slate-900 dark:text-white uppercase">Total Due</span>
+<span class="text-3xl font-black text-primary">$166.35</span>
+</div>
+<div class="pt-6">
+<button class="w-full bg-primary hover:bg-primary/90 text-slate-900 font-black py-4 rounded-xl shadow-[0_4px_0_0_rgba(0,0,0,0.1)] transition-all flex items-center justify-center gap-2">
+                                        COMPLETE PAYMENT <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Sidebar: Recommended Retail -->
+<aside class="w-full md:w-80 flex flex-col gap-4">
+<div class="bg-white dark:bg-slate-900 rounded-xl p-5 shadow-sm border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">stars</span>
+<h3 class="text-slate-900 dark:text-white font-bold">Recommended for Guest</h3>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Product 1 -->
+<div class="group border border-slate-100 dark:border-slate-800 rounded-xl p-3 hover:border-primary/50 transition-colors">
+<div class="aspect-square rounded-lg bg-slate-100 dark:bg-slate-800 mb-3 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Luxury white cotton robe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJkGylpagAPFuQBKb9-h2FIfsjU4WHj018vykfuIQqeE36iT-4DCGg1sUIADsj2abHU2wR9s-OmMaG4GlQ9gY8tGR7Sgpb5kQGexsvdvQO1gCda3OrqhGg5hkKkDmNwvLDD0molaZVYzS14Ocs9yQNGwwRSvhH_1c5Ft1YfTcKPcwST1FB1Ov95jiVBwL_FHby8cjU34v1ZFVNSOblO9Iffn93O8mesHVtBb5V2ZieETyZbJdhnGlWcBWNW3xfG3zEKjojpGYOK9hP"/>
+<div class="absolute top-2 right-2 bg-white/90 dark:bg-slate-900/90 px-2 py-1 rounded text-[10px] font-black text-slate-900 dark:text-white shadow-sm">
+                                        BEST SELLER
+                                    </div>
+</div>
+<h4 class="text-slate-900 dark:text-white font-bold text-sm">Luxury Cotton Robe</h4>
+<p class="text-slate-500 text-xs mb-2">Plush, 100% Organic Cotton</p>
+<div class="flex items-center justify-between">
+<span class="text-slate-900 dark:text-white font-black text-lg">$85.00</span>
+<button class="bg-primary/20 hover:bg-primary text-slate-900 p-2 rounded-lg transition-all">
+<span class="material-symbols-outlined text-sm font-bold">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="group border border-slate-100 dark:border-slate-800 rounded-xl p-3 hover:border-primary/50 transition-colors">
+<div class="aspect-square rounded-lg bg-slate-100 dark:bg-slate-800 mb-3 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Herbal detoxification tea set" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsSYPwTS2WmrpHz6hsu9oRTXXSJYrRPDSZkWfq39wJHapWaxwfqYqBLsdf-_G_CoxUIYbC5WhtA48QPUr2snRtZXRR9vVMNuMb1_-MQTofZNWIicilM2rnUwa2UJgMTvKKKhQ0wNG6OgjIZAGiGd20S_KmjPjdR4_wBeHwimOJF6cj2AnNscGgbap1XaZW8504ZwvvrY0Quo-7CJX45YtnSAe2jl4q7puDOnz2Oh7DKfnrloTTqPVRBMBBacVS_NiUissqwYii4rxt"/>
+</div>
+<h4 class="text-slate-900 dark:text-white font-bold text-sm">Herbal Recovery Tea</h4>
+<p class="text-slate-500 text-xs mb-2">Post-sauna detox blend</p>
+<div class="flex items-center justify-between">
+<span class="text-slate-900 dark:text-white font-black text-lg">$18.50</span>
+<button class="bg-primary/20 hover:bg-primary text-slate-900 p-2 rounded-lg transition-all">
+<span class="material-symbols-outlined text-sm font-bold">add_shopping_cart</span>
+</button>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="group border border-slate-100 dark:border-slate-800 rounded-xl p-3 hover:border-primary/50 transition-colors">
+<div class="aspect-square rounded-lg bg-slate-100 dark:bg-slate-800 mb-3 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Eucalyptus shower spray bottle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNeDpwhyL2Gokf0bpYjYD0gh7Qjez1jzaknKd1PUfbdgXRI6-WD9HKkfKseH_L48RiL5gRxFFIq5mTUggmrIBlquGmaScn4oj7u7aW-qoCLXeV7v8Hp8VrbQuc4hwCSosJIEikYmqc7RUwWvMxRb4JUYIP87nLISS7VszdTlVpT6mlQeJ-kliz3mC0ckhuCg61yfcyCBzLZc-D8HsJPv0GyspWplYy1Au6P4P7-l74euVdN8wE2LjjhrmRzB5JICS-Ey4Av-QVwgGu"/>
+</div>
+<h4 class="text-slate-900 dark:text-white font-bold text-sm">Eucalyptus Shower Spray</h4>
+<p class="text-slate-500 text-xs mb-2">Natural aromatherapy mist</p>
+<div class="flex items-center justify-between">
+<span class="text-slate-900 dark:text-white font-black text-lg">$24.00</span>
+<button class="bg-primary/20 hover:bg-primary text-slate-900 p-2 rounded-lg transition-all">
+<span class="material-symbols-outlined text-sm font-bold">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<button class="w-full mt-4 py-2 text-slate-500 dark:text-slate-400 text-sm font-bold hover:text-primary transition-colors border-t border-slate-100 dark:border-slate-800 pt-4">
+                            View All Products
+                        </button>
+</div>
+<!-- Membership Promo -->
+<div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl p-5 border border-primary/30 relative overflow-hidden group">
+<div class="relative z-10">
+<span class="text-primary text-[10px] font-black uppercase tracking-widest">Upgrade Available</span>
+<h4 class="text-white font-bold mt-1">Diamond Membership</h4>
+<p class="text-slate-300 text-xs mt-1">Save 15% on today's session and all future retail purchases.</p>
+<button class="mt-4 bg-white text-slate-900 px-4 py-2 rounded-lg text-xs font-bold hover:bg-primary transition-colors">
+                                ADD TO CART +$49/mo
+                            </button>
+</div>
+<div class="absolute -right-6 -bottom-6 opacity-20 transform group-hover:rotate-12 transition-transform">
+<span class="material-symbols-outlined text-7xl text-white">diamond</span>
+</div>
+</div>
+</aside>
+</main>
+<!-- Footer status bar -->
+<footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-3 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<div class="size-2 bg-green-500 rounded-full animate-pulse"></div>
+<span class="text-[10px] font-bold text-slate-500 uppercase">Payment Terminal Online</span>
+</div>
+<div class="h-4 w-px bg-slate-200 dark:bg-slate-700"></div>
+<span class="text-[10px] font-medium text-slate-400">Station ID: #SPA-T01-LV</span>
+</div>
+<div class="flex gap-4">
+<span class="text-[10px] text-slate-400">Terms of Service</span>
+<span class="text-[10px] text-slate-400">Privacy Policy</span>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

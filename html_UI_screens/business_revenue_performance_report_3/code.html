@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Detailed Revenue Report &amp; Transaction Log - Sauna SPA Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13eca4",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chart-gradient {
+            background: linear-gradient(180deg, rgba(19, 236, 164, 0.2) 0%, rgba(19, 236, 164, 0) 100%);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-full min-h-screen w-full flex-col">
+<header class="flex items-center justify-between border-b border-primary/10 bg-white dark:bg-background-dark/50 px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<label class="flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg bg-slate-100 dark:bg-slate-800">
+<div class="text-slate-500 flex items-center justify-center pl-4">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full border-none bg-transparent focus:ring-0 text-sm placeholder:text-slate-500 px-4 pl-2" placeholder="Search transactions..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<nav class="flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Bookings</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary" href="#">Revenue</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Inventory</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm font-medium" href="#">Customers</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-xl">settings</span>
+</button>
+</div>
+<div class="bg-primary/20 rounded-full size-10 flex items-center justify-center border border-primary/30 overflow-hidden">
+<img alt="User profile avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ41iVlILVUhlpWcFTC_omy-ykF6kx0Zb4oVp73q5kJP_uwWIXF28FLPSwxNTvXdN8ziY6NcIym-haSvX5glIpg0cccYdFUKIJDKN6aGS09Ljbdw1m8vrt7NOLNjPw4p8GSt6qO0e6cloC0NYOa0HXI-lFa3Mt1pxX0XqhqYxsJZBl_wsngYDU0YKG_5gRyrkjnTM9ISpfvm6dTdQTLrK7Ix6TsVrp0q7zCgNYEBTbF8apE0zRa9LS7CSIw8OlOfQJOna_vo4fC6fu"/>
+</div>
+</div>
+</header>
+<div class="flex grow overflow-hidden">
+<aside class="w-64 border-r border-primary/10 bg-white/50 dark:bg-background-dark/30 p-6 hidden lg:flex flex-col gap-6">
+<div>
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Financials</h3>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary/20 text-slate-900 dark:text-slate-100 rounded-lg" href="#">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<span class="text-sm font-bold">Detailed Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-sm font-medium">Expenses</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">credit_card</span>
+<span class="text-sm font-medium">Payment Modes</span>
+</a>
+</div>
+</div>
+<div>
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Operations</h3>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Staff Performance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-primary/10 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-sm font-medium">Tax Summary</span>
+</a>
+</div>
+</div>
+</aside>
+<main class="flex-1 p-8 overflow-y-auto bg-background-light/50 dark:bg-background-dark/10">
+<div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+<div>
+<h1 class="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Detailed Revenue &amp; Transaction Log</h1>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">Real-time financial analysis and itemized transaction history.</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-1 shadow-sm">
+<button class="px-3 py-1 text-xs font-bold rounded-md bg-primary text-background-dark">Daily</button>
+<button class="px-3 py-1 text-xs font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">Weekly</button>
+<button class="px-3 py-1 text-xs font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">Monthly</button>
+</div>
+<div class="h-6 w-px bg-slate-200 dark:bg-slate-700 mx-1"></div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 rounded-lg px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold hover:border-primary transition-colors shadow-sm">
+<span class="material-symbols-outlined text-lg text-red-500">picture_as_pdf</span>
+                            Export as PDF
+                        </button>
+<button class="flex items-center gap-2 rounded-lg px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold hover:border-primary transition-colors shadow-sm">
+<span class="material-symbols-outlined text-lg text-emerald-500">csv</span>
+                            Export as CSV
+                        </button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-4 gap-6 mb-8">
+<div class="xl:col-span-3 bg-white dark:bg-slate-800 p-5 rounded-xl border border-primary/10 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-4">
+<h3 class="text-sm font-bold text-slate-900 dark:text-slate-100">Revenue Trend</h3>
+<div class="text-2xl font-black text-primary">$45,280.00</div>
+</div>
+<div class="flex items-center gap-4 text-[10px] font-bold text-slate-400">
+<div class="flex items-center gap-1.5"><div class="size-2 rounded-full bg-primary"></div> Current</div>
+<div class="flex items-center gap-1.5"><div class="size-2 rounded-full bg-slate-300"></div> Target</div>
+</div>
+</div>
+<div class="relative h-32 w-full">
+<svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 800 120">
+<defs>
+<linearGradient id="areaGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#13eca4" stop-opacity="0.15"></stop>
+<stop offset="100%" stop-color="#13eca4" stop-opacity="0"></stop>
+</linearGradient>
+</defs>
+<line class="text-slate-100 dark:text-slate-700/50" stroke="currentColor" stroke-dasharray="4" x1="0" x2="800" y1="0" y2="0"></line>
+<line class="text-slate-100 dark:text-slate-700/50" stroke="currentColor" stroke-dasharray="4" x1="0" x2="800" y1="40" y2="40"></line>
+<line class="text-slate-100 dark:text-slate-700/50" stroke="currentColor" stroke-dasharray="4" x1="0" x2="800" y1="80" y2="80"></line>
+<path d="M0,100 L50,85 L100,90 L150,60 L200,65 L250,45 L300,55 L350,25 L400,40 L450,30 L500,45 L550,15 L600,30 L650,25 L700,10 L750,20 L800,5 L800,120 L0,120 Z" fill="url(#areaGradient)"></path>
+<path d="M0,100 L50,85 L100,90 L150,60 L200,65 L250,45 L300,55 L350,25 L400,40 L450,30 L500,45 L550,15 L600,30 L650,25 L700,10 L750,20 L800,5" fill="none" stroke="#13eca4" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+</svg>
+<div class="flex justify-between mt-2">
+<span class="text-[9px] font-bold text-slate-400">MAY 01</span>
+<span class="text-[9px] font-bold text-slate-400">MAY 15</span>
+<span class="text-[9px] font-bold text-slate-400">MAY 31</span>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-primary/10 shadow-sm flex flex-col">
+<h3 class="text-sm font-bold text-slate-900 dark:text-slate-100 mb-4">By Mode</h3>
+<div class="flex-1 flex flex-col items-center justify-center">
+<div class="size-20 rounded-full border-[6px] border-slate-100 dark:border-slate-700 relative flex items-center justify-center mb-4">
+<div class="absolute inset-0 rounded-full border-[6px] border-primary border-r-transparent border-b-transparent rotate-[20deg]"></div>
+<div class="absolute inset-0 rounded-full border-[6px] border-emerald-300 border-l-transparent border-t-transparent -rotate-[45deg]"></div>
+<span class="text-[10px] font-black">100%</span>
+</div>
+<div class="space-y-1.5 w-full">
+<div class="flex items-center justify-between text-[9px] uppercase font-bold text-slate-500">
+<span class="flex items-center gap-1.5"><div class="size-1.5 rounded-full bg-primary"></div> POS</span>
+<span>62%</span>
+</div>
+<div class="flex items-center justify-between text-[9px] uppercase font-bold text-slate-500">
+<span class="flex items-center gap-1.5"><div class="size-1.5 rounded-full bg-emerald-300"></div> MOMO</span>
+<span>28%</span>
+</div>
+<div class="flex items-center justify-between text-[9px] uppercase font-bold text-slate-500">
+<span class="flex items-center gap-1.5"><div class="size-1.5 rounded-full bg-slate-200"></div> CASH</span>
+<span>10%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-800 rounded-xl border border-primary/10 shadow-sm flex flex-col overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/20">
+<div class="flex items-center gap-3">
+<h3 class="text-lg font-bold text-slate-900 dark:text-slate-100">Transaction Log</h3>
+<span class="px-2 py-0.5 rounded-md bg-primary/10 text-primary text-[10px] font-black uppercase">530 Total</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 text-lg">filter_list</span>
+<select class="form-select pl-10 pr-8 py-1.5 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg text-xs font-bold focus:ring-primary focus:border-primary appearance-none">
+<option>All Services</option>
+<option>Massage</option>
+<option>Sauna</option>
+<option>Spa</option>
+</select>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 text-[11px] font-bold uppercase tracking-wider border-b border-slate-100 dark:border-slate-700">
+<th class="px-6 py-4 cursor-pointer hover:text-primary transition-colors">
+<div class="flex items-center gap-1">Date/Time <span class="material-symbols-outlined text-xs">arrow_drop_down</span></div>
+</th>
+<th class="px-6 py-4">Transaction ID</th>
+<th class="px-6 py-4">Client Name</th>
+<th class="px-6 py-4">Service Provided</th>
+<th class="px-6 py-4">Mode</th>
+<th class="px-6 py-4 text-right cursor-pointer hover:text-primary transition-colors">
+<div class="flex items-center justify-end gap-1">Amount <span class="material-symbols-outlined text-xs">unfold_more</span></div>
+</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="text-sm font-medium text-slate-900 dark:text-slate-100">May 24, 2024</div>
+<div class="text-[10px] text-slate-400 font-medium">14:32 PM</div>
+</td>
+<td class="px-6 py-4 text-xs font-mono text-slate-500 group-hover:text-primary transition-colors">#TX-94821</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-[10px] font-bold text-emerald-600">JD</div>
+<span class="text-sm font-bold text-slate-700 dark:text-slate-300">Jane Doe</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Swedish Massage (60m)</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5">
+<span class="size-2 rounded-full bg-primary"></span>
+<span class="text-xs font-bold">POS</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-sm font-black text-slate-900 dark:text-slate-100">$85.00</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="text-sm font-medium text-slate-900 dark:text-slate-100">May 24, 2024</div>
+<div class="text-[10px] text-slate-400 font-medium">12:15 PM</div>
+</td>
+<td class="px-6 py-4 text-xs font-mono text-slate-500 group-hover:text-primary transition-colors">#TX-94820</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-[10px] font-bold text-blue-600">MS</div>
+<span class="text-sm font-bold text-slate-700 dark:text-slate-300">Mark Smith</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Infrared Sauna</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5">
+<span class="size-2 rounded-full bg-emerald-300"></span>
+<span class="text-xs font-bold">MoMo</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-sm font-black text-slate-900 dark:text-slate-100">$45.00</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="text-sm font-medium text-slate-900 dark:text-slate-100">May 24, 2024</div>
+<div class="text-[10px] text-slate-400 font-medium">10:05 AM</div>
+</td>
+<td class="px-6 py-4 text-xs font-mono text-slate-500 group-hover:text-primary transition-colors">#TX-94819</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-[10px] font-bold text-purple-600">AL</div>
+<span class="text-sm font-bold text-slate-700 dark:text-slate-300">Alice Lee</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Hot Stone Therapy</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5">
+<span class="size-2 rounded-full bg-slate-300 dark:bg-slate-500"></span>
+<span class="text-xs font-bold">Cash</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-sm font-black text-slate-900 dark:text-slate-100">$120.00</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4">
+<div class="text-sm font-medium text-slate-900 dark:text-slate-100">May 23, 2024</div>
+<div class="text-[10px] text-slate-400 font-medium">18:45 PM</div>
+</td>
+<td class="px-6 py-4 text-xs font-mono text-slate-500 group-hover:text-primary transition-colors">#TX-94818</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="size-6 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-[10px] font-bold text-orange-600">RW</div>
+<span class="text-sm font-bold text-slate-700 dark:text-slate-300">Robert White</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">Membership Renewal</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-1.5">
+<span class="size-2 rounded-full bg-primary"></span>
+<span class="text-xs font-bold">POS</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-sm font-black text-slate-900 dark:text-slate-100">$299.00</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="bg-slate-50 dark:bg-slate-900/80 border-t border-slate-200 dark:border-slate-700">
+<td class="px-6 py-4 text-right" colspan="5">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Selected Page Revenue:</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="text-lg font-black text-slate-900 dark:text-slate-100">$549.00</div>
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div class="px-6 py-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between bg-white dark:bg-slate-800">
+<span class="text-xs text-slate-500 font-medium">Showing 1 to 4 of 530 entries</span>
+<div class="flex gap-1">
+<button class="size-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 text-slate-400 hover:border-primary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded bg-primary text-background-dark text-xs font-bold">1</button>
+<button class="size-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 text-xs font-bold hover:border-primary hover:text-primary transition-colors">2</button>
+<button class="size-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 text-xs font-bold hover:border-primary hover:text-primary transition-colors">3</button>
+<button class="size-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 text-slate-400 hover:border-primary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+
+</body></html>

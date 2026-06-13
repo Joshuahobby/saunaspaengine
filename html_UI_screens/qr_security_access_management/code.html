@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QR Security &amp; Access Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11c4d4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#102022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen flex-col">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-40 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-3">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Sauna SPA Engine</h2>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-semibold text-primary" href="#">Security Hub</a>
+<a class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Clients</a>
+<a class="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Access Logs</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="bg-slate-100 dark:bg-slate-800 border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary w-64" placeholder="Search members..." type="text"/>
+</div>
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white"></span>
+</button>
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border border-slate-300 dark:border-slate-600">
+<img alt="Admin user avatar" data-alt="Close up portrait of a smiling male administrator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZu1MAwdpdqJHgRUNYs50FS8kTVLtk90JrHffxW_UtRVJi4-e5-Y66ck9jkDl0iFcEwSWDOrjBIN8ZjemzbdAH9saSMvBSJXMO_uXQGj2hkGiT1mB4ixFGBz2-3io0znRBQaf7AnpUqCsNKXC6yETqXQyP4EQusEvp_EoO-B_mUxCePgonnNNQjHZK4p4iNj8EDY_M-cGaViNKlUICTDxETs-K3boHBRb3rV5bdjBuKyRRrfVuEVPS4E5Lc0YD1vJzBD3ueKCcV2fv"/>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-7xl mx-auto w-full p-6 space-y-8">
+<!-- Hero Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-2">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm">shield</span>
+                        Security Protocol Active
+                    </div>
+<h1 class="text-4xl font-black text-slate-900 dark:text-slate-100 tracking-tight">Lost Card &amp; QR Security</h1>
+<p class="text-slate-600 dark:text-slate-400 max-w-2xl">
+                        Instantly invalidate compromised credentials and issue new secure QR codes. Protect your facility from unauthorized entry with one-click regeneration.
+                    </p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-bold text-sm transition-all hover:opacity-90">
+<span class="material-symbols-outlined text-lg">history</span>
+                        View Audit Logs
+                    </button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-white font-bold text-sm shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined text-lg">refresh</span>
+                        Global Reset
+                    </button>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-white dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined">group</span>
+</div>
+<span class="text-green-500 text-sm font-bold flex items-center">+12% <span class="material-symbols-outlined text-sm">trending_up</span></span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Active Members</p>
+<h3 class="text-3xl font-bold mt-1">2,842</h3>
+</div>
+<div class="bg-white dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 bg-red-500/10 rounded-lg text-red-500">
+<span class="material-symbols-outlined">report_problem</span>
+</div>
+<span class="text-red-500 text-sm font-bold flex items-center">+5 today</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Lost Reports (24h)</p>
+<h3 class="text-3xl font-bold mt-1 text-red-500">14</h3>
+</div>
+<div class="bg-white dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 bg-orange-500/10 rounded-lg text-orange-500">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+</div>
+<span class="text-slate-400 text-sm font-medium">Auto-renew active</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">QR Regenerations</p>
+<h3 class="text-3xl font-bold mt-1">128</h3>
+</div>
+<div class="bg-white dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div class="p-2 bg-green-500/10 rounded-lg text-green-500">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<span class="text-green-500 text-sm font-bold">100% Secured</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Access Integrity</p>
+<h3 class="text-3xl font-bold mt-1 text-green-500">Secure</h3>
+</div>
+</div>
+<!-- Management Table Section -->
+<div class="bg-white dark:bg-slate-800/40 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-xl">
+<div class="p-6 border-b border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<h3 class="text-xl font-bold">Member Access Directory</h3>
+<div class="flex items-center gap-2">
+<button class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800">
+                            Filter: All Status
+                        </button>
+<button class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800">
+                            Export List
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50/50 dark:bg-slate-800/50">
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Client Name</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Member ID</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Last Entry</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">QR Status</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Security Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">JD</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-slate-100">Johnathan Doe</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">john.d@email.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-mono text-sm text-slate-600 dark:text-slate-400">MBR-88219</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-slate-400">12 mins ago <br/><span class="text-xs opacity-60">Main Entrance</span></td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800">
+                                        Active
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 text-xs font-black uppercase tracking-tighter hover:bg-red-600 hover:text-white dark:hover:bg-red-600 transition-all border border-red-200 dark:border-red-900">
+                                        Invalidate &amp; Regenerate
+                                    </button>
+</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center font-bold text-slate-500">AS</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-slate-100">Alice Smith</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">alice.smith@provider.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-mono text-sm text-slate-600 dark:text-slate-400">MBR-77102</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-slate-400">Yesterday <br/><span class="text-xs opacity-60">VIP Lounge</span></td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800">
+                                        Compromised
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 text-white text-xs font-black uppercase tracking-tighter shadow-lg shadow-red-500/30 hover:bg-red-700 transition-all">
+<span class="material-symbols-outlined text-sm">security</span>
+                                        Fix Security Issue
+                                    </button>
+</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">MR</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-slate-100">Marcus Reed</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">m.reed@corp.net</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-mono text-sm text-slate-600 dark:text-slate-400">MBR-90112</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-slate-400">3 days ago <br/><span class="text-xs opacity-60">Pool Area</span></td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800">
+                                        Active
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 text-xs font-black uppercase tracking-tighter hover:bg-red-600 hover:text-white dark:hover:bg-red-600 transition-all border border-red-200 dark:border-red-900">
+                                        Invalidate &amp; Regenerate
+                                    </button>
+</td>
+</tr>
+<tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="size-9 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center font-bold text-slate-500">LB</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-slate-100">Lana Brooks</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">lana.b@email.com</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-mono text-sm text-slate-600 dark:text-slate-400">MBR-11004</td>
+<td class="px-6 py-5 text-sm text-slate-600 dark:text-slate-400">45 mins ago <br/><span class="text-xs opacity-60">Changing Room</span></td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-900/30 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800">
+                                        Inactive
+                                    </span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 text-xs font-black uppercase tracking-tighter hover:bg-red-600 hover:text-white dark:hover:bg-red-600 transition-all border border-red-200 dark:border-red-900">
+                                        Invalidate &amp; Regenerate
+                                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50/30 dark:bg-slate-800/30 flex items-center justify-between">
+<p class="text-xs text-slate-500 font-medium">Showing 4 of 2,842 members</p>
+<div class="flex gap-2">
+<button class="p-2 border border-slate-200 dark:border-slate-700 rounded-lg disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-2 border border-slate-200 dark:border-slate-700 rounded-lg">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Confirmation Modal (Overlaid for presentation) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-background-dark/80 backdrop-blur-sm p-4">
+<div class="bg-white dark:bg-slate-900 w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-700">
+<div class="p-8 text-center">
+<div class="size-20 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-4xl">warning</span>
+</div>
+<h2 class="text-2xl font-black mb-2">Critical Security Action</h2>
+<p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed">
+                        You are about to <span class="font-bold text-red-600">permanently deactivate</span> the QR access code for <span class="font-bold">Alice Smith</span>. 
+                        This action cannot be undone.
+                    </p>
+<div class="mt-8 grid grid-cols-1 gap-4 text-left bg-slate-50 dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+<p class="text-xs font-semibold text-slate-600 dark:text-slate-300">New unique QR code will be generated instantly.</p>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+<p class="text-xs font-semibold text-slate-600 dark:text-slate-300">Member will receive new digital card via SMS/Email.</p>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-red-500 text-lg">cancel</span>
+<p class="text-xs font-semibold text-slate-600 dark:text-slate-300">The lost/compromised card will trigger an alarm if used.</p>
+</div>
+</div>
+</div>
+<div class="p-6 bg-slate-50 dark:bg-slate-800/50 flex gap-3 border-t border-slate-200 dark:border-slate-700">
+<button class="flex-1 px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-600 font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                        Cancel Action
+                    </button>
+<button class="flex-1 px-6 py-3 rounded-xl bg-red-600 text-white font-bold shadow-lg shadow-red-500/20 hover:bg-red-700 hover:scale-[1.02] active:scale-95 transition-all">
+                        Confirm &amp; Regenerate
+                    </button>
+</div>
+</div>
+</div>
+<footer class="mt-auto py-8 px-6 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2 opacity-60">
+<div class="size-6 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xs">spa</span>
+</div>
+<span class="text-xs font-bold">Sauna SPA Engine Security Hub v2.4.0</span>
+</div>
+<div class="flex items-center gap-6 text-xs font-medium text-slate-500">
+<a class="hover:text-primary" href="#">System Health</a>
+<a class="hover:text-primary" href="#">Compliance Docs</a>
+<a class="hover:text-primary" href="#">Technical Support</a>
+</div>
+<div class="text-xs text-slate-400">
+                    © 2024 SPA Engine. All access points encrypted.
+                </div>
+</div>
+</footer>
+</div>
+</body></html>

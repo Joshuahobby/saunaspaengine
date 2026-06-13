@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>System Feedback &amp; Notification Patterns - Sauna SPA Engine</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#11d4c4",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#102220",
+                        "success": "#10b981",
+                        "error": "#ef4444",
+                        "warning": "#f59e0b",
+                        "info": "#3b82f6",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-size: 20px; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-10 py-3 bg-white dark:bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary/10 rounded flex items-center justify-center">
+<span class="material-symbols-outlined font-bold">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold tracking-tight">Sauna SPA Engine</h2>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Patterns</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">Components</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Guidelines</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Tokens</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<label class="relative flex items-center">
+<span class="absolute left-3 text-slate-400 material-symbols-outlined">search</span>
+<input class="w-64 pl-10 pr-4 py-2 rounded-lg border-none bg-slate-100 dark:bg-slate-800 focus:ring-2 focus:ring-primary text-sm" placeholder="Search patterns..."/>
+</label>
+<button class="bg-primary text-slate-900 px-4 py-2 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity">
+                        Download Assets
+                    </button>
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover" data-alt="User profile avatar placeholder" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuANWvK7EWOCF5uUi45sjcU6u6L7LMFuACr9lGBkE7CsN3fJiLJ8Urt9gVMlob5rjSOsa1uNQhWIaUX9WAbig-BOTrxJgIpdg-OgAqSKkkfR9xJhDmRLmPDVMi25z9DK8Vwrpyd0HH4ejcXJlELeIQCZFjoP1garQlpll75sBfFwejzvo2W26Y1qFzUmG7ibsBgPSx3iAF4TxrfvxtAfpDlmn91T7SoVa2Bf1SOq4eR_qj7JaPuVRpi3P3sModnv9PJ3wd_2e3UKNgQK')"></div>
+</div>
+</header>
+<main class="flex-1 max-w-[1200px] mx-auto w-full px-10 py-8">
+<!-- Header Section -->
+<div class="mb-10">
+<div class="flex items-center gap-2 text-primary text-sm font-bold mb-2 uppercase tracking-widest">
+<span>Design System</span>
+<span class="size-1 bg-primary rounded-full"></span>
+<span>Feedback Patterns</span>
+</div>
+<h1 class="text-4xl font-black text-slate-900 dark:text-white mb-4">System Feedback &amp; Notification Patterns</h1>
+<p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl">Standardized responses for system states including success, error, warning, and informational feedback across the Sauna SPA platform.</p>
+</div>
+<!-- Tabs Navigation -->
+<div class="border-b border-slate-200 dark:border-slate-800 mb-8 flex gap-8">
+<button class="pb-4 border-b-2 border-primary text-slate-900 dark:text-white font-bold text-sm">Toast Notifications</button>
+<button class="pb-4 border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-medium text-sm transition-colors">System Banners</button>
+<button class="pb-4 border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-medium text-sm transition-colors">Inline Alerts</button>
+<button class="pb-4 border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-medium text-sm transition-colors">Interaction Logic</button>
+</div>
+<!-- Section: Compact Desktop Toasts (Snackbars) -->
+<section class="mb-16">
+<div class="flex items-end justify-between mb-6">
+<div>
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-1">Desktop Toasts</h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Compact snackbars for non-blocking feedback (Auto-dismisses in 3s).</p>
+</div>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold rounded uppercase tracking-wider">Variant: Snackbars</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Success Toast -->
+<div class="flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-lg shadow-slate-200/50 dark:shadow-none">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-success/10 text-success flex items-center justify-center">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">Profile updated</p>
+<p class="text-xs text-slate-500">Settings saved successfully</p>
+</div>
+</div>
+<button class="text-slate-400 hover:text-slate-600"><span class="material-symbols-outlined">close</span></button>
+</div>
+<!-- Error Toast -->
+<div class="flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-lg shadow-slate-200/50 dark:shadow-none">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-error/10 text-error flex items-center justify-center">
+<span class="material-symbols-outlined">error</span>
+</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">Upload failed</p>
+<p class="text-xs text-slate-500">File size exceeds 10MB limit</p>
+</div>
+</div>
+<button class="text-slate-400 hover:text-slate-600"><span class="material-symbols-outlined">close</span></button>
+</div>
+<!-- Warning Toast -->
+<div class="flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-lg shadow-slate-200/50 dark:shadow-none">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-warning/10 text-warning flex items-center justify-center">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">Storage limit</p>
+<p class="text-xs text-slate-500">You have used 90% of your quota</p>
+</div>
+</div>
+<button class="text-slate-400 hover:text-slate-600"><span class="material-symbols-outlined">close</span></button>
+</div>
+<!-- Info Toast -->
+<div class="flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-lg shadow-slate-200/50 dark:shadow-none">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-info/10 text-info flex items-center justify-center">
+<span class="material-symbols-outlined">info</span>
+</div>
+<div>
+<p class="font-bold text-slate-900 dark:text-white">Update available</p>
+<p class="text-xs text-slate-500">v1.2.1 is ready to install</p>
+</div>
+</div>
+<button class="text-slate-400 hover:text-slate-600"><span class="material-symbols-outlined">close</span></button>
+</div>
+</div>
+</section>
+<!-- Section: Critical Banners -->
+<section class="mb-16">
+<div class="flex items-end justify-between mb-6">
+<div>
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-1">Critical System Banners</h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm">Persistent alerts for critical system states requiring user action.</p>
+</div>
+<span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold rounded uppercase tracking-wider">Variant: Banners</span>
+</div>
+<div class="space-y-4">
+<!-- Success Banner -->
+<div class="flex items-start gap-4 p-5 bg-success/5 border-l-4 border-success rounded-r-xl">
+<span class="material-symbols-outlined text-success mt-1">check_circle</span>
+<div class="flex-1">
+<h4 class="font-bold text-slate-900 dark:text-white text-base">Subscription activated successfully</h4>
+<p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Your Enterprise plan is now active. You have full access to all SPA Engine features including advanced analytics and custom white-labeling options.</p>
+<div class="mt-3 flex gap-4">
+<button class="text-sm font-bold text-success hover:underline">View Receipt</button>
+<button class="text-sm font-bold text-slate-500 hover:text-slate-700">Dismiss</button>
+</div>
+</div>
+</div>
+<!-- Error Banner -->
+<div class="flex items-start gap-4 p-5 bg-error/5 border-l-4 border-error rounded-r-xl">
+<span class="material-symbols-outlined text-error mt-1">dangerous</span>
+<div class="flex-1">
+<h4 class="font-bold text-slate-900 dark:text-white text-base">Connection lost with API Server</h4>
+<p class="text-sm text-slate-600 dark:text-slate-400 mt-1">We are unable to reach the Sauna primary node. Data syncing is currently paused. Please check your internet connection or system firewall settings.</p>
+<div class="mt-3 flex gap-4">
+<button class="px-4 py-2 bg-error text-white rounded font-bold text-xs uppercase tracking-wider">Retry Connection</button>
+<button class="px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded font-bold text-xs uppercase tracking-wider">System Status</button>
+</div>
+</div>
+</div>
+<!-- Warning Banner -->
+<div class="flex items-start gap-4 p-5 bg-warning/5 border-l-4 border-warning rounded-r-xl">
+<span class="material-symbols-outlined text-warning mt-1">warning</span>
+<div class="flex-1">
+<h4 class="font-bold text-slate-900 dark:text-white text-base">Unsaved changes in Campaign Editor</h4>
+<p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Navigating away will result in lost progress for 'Summer Wellness 2024'. Auto-save is disabled during maintenance window.</p>
+<div class="mt-3 flex gap-4">
+<button class="text-sm font-bold text-warning hover:underline">Save Progress Now</button>
+<button class="text-sm font-bold text-slate-500 hover:text-slate-700">Don't Save</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Interaction Guidelines -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-slate-200 dark:border-slate-800 pt-12">
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">auto_mode</span>
+                            Auto-dismiss Guidelines
+                        </h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="size-6 rounded-full bg-primary/20 text-primary flex items-center justify-center shrink-0 font-bold text-xs">01</span>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Used for non-critical confirmations like "Saved", "Copied", or "Sent".</p>
+</li>
+<li class="flex items-start gap-3">
+<span class="size-6 rounded-full bg-primary/20 text-primary flex items-center justify-center shrink-0 font-bold text-xs">02</span>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Standard duration is 3000ms (3 seconds) before fading out.</p>
+</li>
+<li class="flex items-start gap-3">
+<span class="size-6 rounded-full bg-primary/20 text-primary flex items-center justify-center shrink-0 font-bold text-xs">03</span>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Pause timer on hover to allow users to read longer notification text.</p>
+</li>
+</ul>
+</div>
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">priority_high</span>
+                            Persistent Alert Rules
+                        </h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="size-6 rounded-full bg-primary/20 text-primary flex items-center justify-center shrink-0 font-bold text-xs">01</span>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Mandatory for Errors that block the primary user workflow.</p>
+</li>
+<li class="flex items-start gap-3">
+<span class="size-6 rounded-full bg-primary/20 text-primary flex items-center justify-center shrink-0 font-bold text-xs">02</span>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Must contain an explicit 'Close' or 'Dismiss' action button.</p>
+</li>
+<li class="flex items-start gap-3">
+<span class="size-6 rounded-full bg-primary/20 text-primary flex items-center justify-center shrink-0 font-bold text-xs">03</span>
+<p class="text-slate-600 dark:text-slate-400 text-sm">Place at the top of the content area or fixed to the viewport bottom.</p>
+</li>
+</ul>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="border-t border-slate-200 dark:border-slate-800 py-10 px-10 bg-white dark:bg-background-dark">
+<div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2 text-slate-400 text-sm">
+<span class="material-symbols-outlined">verified</span>
+<span>Sauna SPA Engine v1.2.0 • Last Updated Dec 2023</span>
+</div>
+<div class="flex gap-6">
+<a class="text-slate-500 hover:text-primary transition-colors text-sm font-medium" href="#">Documentation</a>
+<a class="text-slate-500 hover:text-primary transition-colors text-sm font-medium" href="#">Github</a>
+<a class="text-slate-500 hover:text-primary transition-colors text-sm font-medium" href="#">Accessibility Report</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

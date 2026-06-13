@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#197fe6",
+                "background-light": "#f6f7f8",
+                "background-dark": "#111921",
+              },
+              fontFamily: {
+                "display": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<title>Global Help &amp; Support Center | Sauna SPA Engine</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 lg:px-20 py-3 bg-white dark:bg-slate-900">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">Sauna SPA Engine</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden md:flex items-center gap-9">
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Operations</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Members</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Reports</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-tight hover:bg-primary/90 transition-all">
+                            Sign Out
+                        </button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-slate-200 dark:border-slate-700" data-alt="User profile avatar circle" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCCBpP4uqqU7P5UmEGIPj9XQRKiY4fh1EJ-xzMaD2cVZhH4OAcde6ehqJct6MalRbUPzl0GWU9Yo73MFYb60y6hrVTusJQzU2hcGDLkzlv6Bja7g23uEzXuIld6vEd6fVAef7DZbLBxCUsXCafgV_O8WDOdBSpohfCSfXxa9Wxh5RCHmRQk8QsBsiIuNmg_FwauElw2GeQ2KFa7oyaFWsTnQeeEbiCY57mH08tCGSwVTlBPNkIO9tkVOmrT5HYjqMA2XnkrV_jiTopr");'></div>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center">
+<!-- Hero Search Section -->
+<div class="w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 py-12 px-6">
+<div class="max-w-4xl mx-auto text-center">
+<h1 class="text-slate-900 dark:text-white text-4xl font-extrabold leading-tight mb-6">How can we help?</h1>
+<div class="relative max-w-2xl mx-auto">
+<label class="flex flex-col min-w-40 h-14 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm ring-1 ring-slate-200 dark:ring-slate-700">
+<div class="text-slate-400 flex items-center justify-center pl-5">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-transparent focus:outline-0 focus:ring-0 text-slate-900 dark:text-white px-4 text-lg font-normal placeholder:text-slate-400" placeholder="Search for articles, guides, and FAQs..."/>
+</div>
+</label>
+<div class="mt-4 flex flex-wrap justify-center gap-2 text-sm">
+<span class="text-slate-500">Popular:</span>
+<a class="text-primary hover:underline" href="#">Reset QR Code</a>
+<a class="text-primary hover:underline" href="#">Billing</a>
+<a class="text-primary hover:underline" href="#">Staff Permissions</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content Grid -->
+<div class="max-w-[1280px] w-full grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 lg:p-12">
+<!-- Sidebar Navigation -->
+<aside class="lg:col-span-3 space-y-8">
+<div class="bg-white dark:bg-slate-900 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+<h3 class="text-slate-900 dark:text-white font-bold mb-4 uppercase text-xs tracking-widest">Resources</h3>
+<nav class="space-y-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary font-medium" href="#">
+<span class="material-symbols-outlined text-[20px]">book</span>
+                                    Knowledge Base
+                                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">play_circle</span>
+                                    Tutorial Videos
+                                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+                                    API Documentation
+                                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">update</span>
+                                    Changelog
+                                </a>
+</nav>
+</div>
+<!-- Quick Contact Panel -->
+<div class="bg-primary rounded-xl p-6 shadow-lg text-white">
+<h3 class="font-bold text-lg mb-4">Still need help?</h3>
+<p class="text-white/80 text-sm mb-6 leading-relaxed">Our support team is available 24/7 to help you with any technical issues.</p>
+<div class="space-y-3">
+<button class="w-full flex items-center justify-center gap-2 bg-white text-primary font-bold py-3 rounded-lg hover:bg-slate-50 transition-colors shadow-sm">
+<span class="material-symbols-outlined">chat</span>
+                                    Live Chat
+                                </button>
+<button class="w-full flex items-center justify-center gap-2 bg-primary/20 border border-white/30 text-white font-bold py-3 rounded-lg hover:bg-primary/30 transition-colors">
+<span class="material-symbols-outlined">mail</span>
+                                    Email Support
+                                </button>
+</div>
+</div>
+</aside>
+<!-- Knowledge Categories & FAQs -->
+<div class="lg:col-span-9">
+<!-- Tabs -->
+<div class="flex border-b border-slate-200 dark:border-slate-800 gap-8 mb-8 overflow-x-auto">
+<button class="flex items-center gap-2 border-b-2 border-primary text-primary pb-4 font-bold whitespace-nowrap">
+<span class="material-symbols-outlined text-[20px]">shield_person</span>
+                                Admin Support
+                            </button>
+<button class="flex items-center gap-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 pb-4 font-bold whitespace-nowrap transition-all">
+<span class="material-symbols-outlined text-[20px]">business_center</span>
+                                Business Owner Guide
+                            </button>
+<button class="flex items-center gap-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 pb-4 font-bold whitespace-nowrap transition-all">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+                                Employee FAQs
+                            </button>
+</div>
+<!-- FAQ Content Section -->
+<div class="space-y-8">
+<!-- Admin Support Section -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Account &amp; System Administration</h2>
+<span class="text-sm text-slate-500">12 Articles</span>
+</div>
+<div class="space-y-4">
+<!-- Accordion Item 1 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<button class="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<span class="font-semibold text-slate-800 dark:text-slate-200">How to reset a member's entry QR code?</span>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">expand_more</span>
+</button>
+<div class="px-5 pb-5 text-slate-600 dark:text-slate-400 leading-relaxed">
+                                            To reset a QR code, navigate to the <span class="text-primary font-medium">Members</span> tab, search for the specific user, and click 'Regenerate Access Key'. The user will automatically receive their new QR code via the mobile app and email.
+                                        </div>
+</div>
+<!-- Accordion Item 2 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<button class="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<span class="font-semibold text-slate-800 dark:text-slate-200">Managing staff roles and granular permissions</span>
+<span class="material-symbols-outlined text-slate-400">expand_more</span>
+</button>
+</div>
+<!-- Accordion Item 3 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<button class="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<span class="font-semibold text-slate-800 dark:text-slate-200">Integrating third-party payment gateways</span>
+<span class="material-symbols-outlined text-slate-400">expand_more</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Business Owner Section -->
+<section>
+<div class="flex items-center justify-between mb-6 pt-4">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Growth &amp; Reporting</h2>
+<span class="text-sm text-slate-500">8 Articles</span>
+</div>
+<div class="space-y-4">
+<!-- Accordion Item 4 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<button class="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<span class="font-semibold text-slate-800 dark:text-slate-200">How to manage multi-branch reporting?</span>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors">expand_more</span>
+</button>
+<div class="px-5 pb-5 text-slate-600 dark:text-slate-400 leading-relaxed">
+                                            Multi-branch reporting can be accessed via the <span class="text-primary font-medium">Global Reports</span> dashboard. You can toggle between specific locations or view aggregated revenue and traffic data for your entire franchise network.
+                                        </div>
+</div>
+<!-- Accordion Item 5 -->
+<div class="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<button class="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<span class="font-semibold text-slate-800 dark:text-slate-200">Setting up automated loyalty campaigns</span>
+<span class="material-symbols-outlined text-slate-400">expand_more</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Tutorials Banner -->
+<section class="mt-12 bg-slate-900 dark:bg-slate-800 rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-xl">
+<div class="p-8 md:w-3/5 flex flex-col justify-center">
+<span class="text-primary font-bold text-sm tracking-widest uppercase mb-2">New Feature</span>
+<h3 class="text-white text-2xl font-bold mb-4">Video Tutorial: Advanced Heat Management</h3>
+<p class="text-slate-300 mb-6">Learn how to optimize your spa's energy consumption with our new smart sensor integration guide.</p>
+<div>
+<button class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-primary/90 transition-all">
+<span class="material-symbols-outlined">play_circle</span>
+                                            Watch Guide (12 min)
+                                        </button>
+</div>
+</div>
+<div class="md:w-2/5 min-h-[200px] bg-slate-800 relative group cursor-pointer">
+<div class="absolute inset-0 bg-cover bg-center opacity-60 group-hover:opacity-80 transition-opacity" data-alt="Interior of a modern luxury sauna" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAm7O4oAKMOjao8d4ELFFDbb2yvMvhso84Kgz8_vppD8krrTZPsRYeINIdabzVkfVsn04eiIAZWRajxwXrGZeFc53QYR781V0icMoX0YNSFQbMqEpmj-ghrJAY2qeBhArtJ8kWv-r0NFLf2LfYMuDbzZhrqTwHENOQ7f4aaMrm8xmoCxbebKVt9Ju0armQxG8ks01fMjmZvlpHyNWo9c_s7WqMQYQiHINbECLSRZ1nGbxb_Oi92yLnyXIkpVWcbrwWVEqsIA-_PSyKZ');"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="size-16 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-4xl">play_arrow</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12 px-6 lg:px-20 mt-12">
+<div class="max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-4 text-slate-400">
+<span class="material-symbols-outlined">spa</span>
+<p class="text-sm">© 2024 Sauna SPA Engine. All rights reserved.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-slate-500 hover:text-primary transition-colors text-sm" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-primary transition-colors text-sm" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-primary transition-colors text-sm" href="#">Service Status</a>
+</div>
+<div class="flex gap-4">
+<a class="size-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">public</span>
+</a>
+<a class="size-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">help_center</span>
+</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

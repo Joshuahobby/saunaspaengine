@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#13eca4",
+                "background-light": "#f6f8f7",
+                "background-dark": "#10221c",
+              },
+              fontFamily: {
+                "display": ["Manrope"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<title>Membership Category Configuration</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 hidden lg:flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary p-2 rounded-lg">
+<span class="material-symbols-outlined text-background-dark">spa</span>
+</div>
+<h2 class="text-xl font-bold tracking-tight">SPA Engine</h2>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">card_membership</span>
+<span class="text-sm font-medium">Membership Types</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Member Directory</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<div class="pt-4 pb-2 px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">System</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2">
+<div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="Professional profile headshot for spa manager" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCQ8BnACbmjO739FwHWkNRkJ7-39uoMvA9eSc2i8p4K6z7Vf5mVICPats4LRwlh_olpPT1Cm7LNe43ZzJ0Y6x66Q3iSLxawB0baMKe1Grv_8Qx4qCKOm5snlpZiiRBuwwGRR0rPJlIXpuAtAG8cz-cH6sm8AVv9t22h0fYID544q8e8Gf6MVS56ffk_rIskCK08AHmms_09GVzloZBWk2lvQlHIhlHLpGsUjbx9t-ogXYs8Ate8VObNrqghpqZOwnGFO8bx1qPGvWR"/>
+</div>
+<div>
+<p class="text-sm font-bold">Alex Rivera</p>
+<p class="text-xs text-slate-500">Business Owner</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark">
+<!-- Top Navbar -->
+<header class="sticky top-0 z-10 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-8 py-4 flex items-center justify-between">
+<div class="flex items-center gap-4 flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-900 border-none rounded-lg focus:ring-2 focus:ring-primary text-sm" placeholder="Search members, transactions, or settings..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<button class="bg-primary text-background-dark px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">add</span>
+                        New Category
+                    </button>
+</div>
+</header>
+<div class="p-8 max-w-7xl mx-auto">
+<!-- Page Header -->
+<div class="mb-8">
+<h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100">Membership Category Configuration</h1>
+<p class="mt-2 text-slate-600 dark:text-slate-400 max-w-2xl">
+                        Define and manage your sauna and spa membership offerings. Configure access rules, duration, and usage limits for different client segments.
+                    </p>
+</div>
+<!-- Membership Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Subscription Pass -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" data-alt="Zen spa atmosphere with warm lighting and towels" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4_MqeMNMYC8k2Yn1MnvvZXDHq0YMaS1lAf9xSt6pf-psAxqavBuCePT4EKM9v6p0TNDBMF6qpVykBmU77eztklqwIl56KvrxmCL1Tx-RjLehj9HlMesB6PkZDiclEDviI6zdodwfcAw7bm3e_c7yqmii1bgCwiIWKZn2VoHOqWZIhR4MX28EsZoReDuZWYLfk7qZSKLa0ZFgtpugKgTNsGj8vQ0EkxacwMdWl1HY_pMiCoOVxLu4nkt2p4tOLSu5zjB67banpHCZM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+<div class="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-bold">Subscription Pass</span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="mb-4">
+<span class="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-2 py-1 rounded">Time-Based</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Recurring Access</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-6">
+                                Monthly or yearly passes with automatic renewal. Ideal for regular local guests who visit weekly.
+                            </p>
+<div class="space-y-3 mb-8 text-sm">
+<div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Recurring billing engine</span>
+</div>
+<div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Unlimited/Limited hours per day</span>
+</div>
+<div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Automated cancellation rules</span>
+</div>
+</div>
+<button class="mt-auto w-full py-3 bg-slate-100 dark:bg-slate-800 hover:bg-primary hover:text-background-dark dark:hover:bg-primary font-bold rounded-lg transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">settings</span>
+                                Manage Rules
+                            </button>
+</div>
+</div>
+<!-- List Pass -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" data-alt="Traditional sauna wooden interior with steam" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_8m910gwIziMeltjGcpA50f6VRRRbD_-tn3PP232oK6SdJ5ZLQCkn8UWqZv_Ww9MKk2pG-fQsYEhUQsDzPrhalUJxD6A-8KPSoVrrDfPsHna0Sky-cmn-vPL7K__vjFV-GkiENH9hKVCcXAIcrP6rSqm-XwBmR4MXfND3FHaVzdp7i8ZIM7ZHAJOj7HLHJNEAe9o2JiJbADz2MM0ev-nexJPJfDKXrPjlJdy0H_jMfuA8Av36URYaE_zTgUeyLj-7Y_KOwlnjpHpE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+<div class="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+<span class="material-symbols-outlined">counter_5</span>
+<span class="font-bold">List Pass</span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="mb-4">
+<span class="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-2 py-1 rounded">Usage-Based</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Visit Bundles</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-6">
+                                Pre-paid bundles of 5, 10, or 20 visits. Best for occasional visitors or tourists staying for a short period.
+                            </p>
+<div class="space-y-3 mb-8 text-sm">
+<div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Punch-card style tracking</span>
+</div>
+<div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Custom expiration dates</span>
+</div>
+<div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Shareable between guests</span>
+</div>
+</div>
+<button class="mt-auto w-full py-3 bg-slate-100 dark:bg-slate-800 hover:bg-primary hover:text-background-dark dark:hover:bg-primary font-bold rounded-lg transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">settings</span>
+                                Manage Rules
+                            </button>
+</div>
+</div>
+<!-- Free Pass -->
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col shadow-sm hover:shadow-md transition-shadow">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" data-alt="Abstract water ripples in a blue pool" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD87wKne_hyeSEHhdD-5nlzJCdlq8KA2-mt6XhZcPMiiVbpyv-Iw5LY8t5teSjZCNEHECEzQExixJpJ2MXdDNFxAjAPXMz7bHAxIx94sRCXaSXCDhea2mOyexdfxQelqpAbWfPWNRuLArt-EzHeJffNXT4G2jO5m1C6XmWRJALgWTjtNoLsoS94V78Dgppcb2l4y6Q36Nx-c6Ap1zNddKIoUKO7fBQMyXKymlT8Hz7XQ_E1ZVYKra7myrOE_Ghwy5ANYQ-uEOhITOch"/>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+<div class="absolute bottom-4 left-4 flex items-center gap-2 text-white">
+<span class="material-symbols-outlined">card_giftcard</span>
+<span class="font-bold">Free Pass</span>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="mb-4">
+<span class="text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 px-2 py-1 rounded">Promotion</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Complimentary Access</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm mb-6">
+                                Trial sessions or VIP invitations. Use for marketing campaigns or influencer collaborations.
+                            </p>
+<div class="space-y-3 mb-8 text-sm">
+<div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Single-use voucher codes</span>
+</div>
+<div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Strict black-out dates</span>
+</div>
+<div class="flex items-center gap-2 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Marketing analytics tracking</span>
+</div>
+</div>
+<button class="mt-auto w-full py-3 bg-slate-100 dark:bg-slate-800 hover:bg-primary hover:text-background-dark dark:hover:bg-primary font-bold rounded-lg transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">settings</span>
+                                Manage Rules
+                            </button>
+</div>
+</div>
+</div>
+<!-- Active Configuration Summary -->
+<div class="mt-12 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+<h2 class="text-lg font-bold">Quick Activity Overview</h2>
+<button class="text-primary text-sm font-bold hover:underline">View All Reports</button>
+</div>
+<div class="p-0 overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-800/50">
+<th class="px-6 py-3 text-xs font-bold uppercase text-slate-400">Category Name</th>
+<th class="px-6 py-3 text-xs font-bold uppercase text-slate-400">Total Active</th>
+<th class="px-6 py-3 text-xs font-bold uppercase text-slate-400">Revenue (MTD)</th>
+<th class="px-6 py-3 text-xs font-bold uppercase text-slate-400">Growth</th>
+<th class="px-6 py-3 text-xs font-bold uppercase text-slate-400">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+<tr>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-medium">Monthly Unlimited</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">428 Members</td>
+<td class="px-6 py-4 text-sm">$21,400</td>
+<td class="px-6 py-4">
+<span class="text-green-500 text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">trending_up</span> +12%
+                                        </span>
+</td>
+<td class="px-6 py-4">
+<button class="material-symbols-outlined text-slate-400 hover:text-primary transition-colors">edit</button>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-blue-500"></div>
+<span class="font-medium">10-Visit Bundle</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">156 Active Packs</td>
+<td class="px-6 py-4 text-sm">$4,680</td>
+<td class="px-6 py-4">
+<span class="text-green-500 text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">trending_up</span> +5%
+                                        </span>
+</td>
+<td class="px-6 py-4">
+<button class="material-symbols-outlined text-slate-400 hover:text-primary transition-colors">edit</button>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-amber-500"></div>
+<span class="font-medium">Trial Guest Pass</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">84 Issued</td>
+<td class="px-6 py-4 text-sm">$0 (Promo)</td>
+<td class="px-6 py-4">
+<span class="text-slate-400 text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">remove</span> 0%
+                                        </span>
+</td>
+<td class="px-6 py-4">
+<button class="material-symbols-outlined text-slate-400 hover:text-primary transition-colors">edit</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
