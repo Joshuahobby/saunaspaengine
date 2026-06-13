@@ -234,7 +234,7 @@ export default function BranchDetailsClientPage({ business, platformPackages }: 
                                 <Link 
                                     href={`/businesses?searchTerm=${encodeURIComponent(branch.name)}`}
                                     className="size-8 rounded-lg bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] flex items-center justify-center text-[var(--text-muted)] opacity-40 hover:opacity-100 hover:bg-[var(--color-primary)] hover:text-white hover:border-[var(--color-primary)] transition-all shrink-0"
-                                    title="Locate in Portfolio"
+                                    title="Search businesses"
                                 >
                                     <span className="material-symbols-outlined text-sm font-bold italic">search</span>
                                 </Link>

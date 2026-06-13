@@ -230,9 +230,9 @@ export default async function AdminSettingsPage({
                     <div className="xl:col-span-12 2xl:col-span-5 flex flex-col gap-8">
                         <div className="glass-card border border-[var(--border-muted)] p-10 flex flex-col rounded-[2.5rem] bg-[var(--bg-card)] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
                             <div className="flex flex-col gap-6 mb-12">
-                                <span className="w-fit px-4 py-1.5 bg-[var(--color-primary)] text-[var(--text-main)] text-[9px] font-bold rounded-full uppercase tracking-[0.2em] shadow-lg shadow-[var(--color-primary)]/20">Preset Tuning v2.4</span>
-                                <h2 className="text-3xl font-display font-bold text-[var(--text-main)]">Regional <span className="text-[var(--color-primary)] font-sans uppercase text-sm font-bold tracking-[0.3em] block mt-2 opacity-50">Calibration</span></h2>
-                                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-bold">Refine the atmospheric constraints and fiscal rituals for the <span className="text-[var(--text-main)] font-bold">{activeRegionName}</span> territory.</p>
+                                <span className="w-fit px-4 py-1.5 bg-[var(--color-primary)] text-[var(--text-main)] text-[9px] font-bold rounded-full uppercase tracking-[0.2em] shadow-lg shadow-[var(--color-primary)]/20">Region Settings</span>
+                                <h2 className="text-3xl font-display font-bold text-[var(--text-main)]">Regional <span className="text-[var(--color-primary)] font-sans uppercase text-sm font-bold tracking-[0.3em] block mt-2 opacity-50">Configuration</span></h2>
+                                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-bold">Set tax, compliance, and fiscal defaults for the <span className="text-[var(--text-main)] font-bold">{activeRegionName}</span> region.</p>
                             </div>
 
                             <div className="bg-[var(--bg-surface-muted)]/30 rounded-[2.5rem] p-1 border border-[var(--border-muted)] shadow-inner">
@@ -243,7 +243,7 @@ export default async function AdminSettingsPage({
                                 <div className="size-14 rounded-2xl bg-[var(--bg-surface-muted)]/50 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)]">
                                     <span className="material-symbols-outlined text-2xl font-bold">lock_open</span>
                                 </div>
-                                <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest leading-relaxed italic opacity-50">Multi-factor authorization required for sensitive harmonic shifts.</p>
+                                <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest leading-relaxed italic opacity-50">Changes to regional settings require admin authorization.</p>
                             </div>
                         </div>
                     </div>

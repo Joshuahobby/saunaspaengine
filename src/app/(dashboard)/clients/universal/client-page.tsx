@@ -44,7 +44,7 @@ export default function UniversalMemberRegistryClient({ initialClients }: { init
                         <Users className="w-8 h-8 text-blue-400" />
                         Universal Member Registry
                     </h1>
-                    <p className="text-zinc-400 mt-1">Cross-branch client portfolio management</p>
+                    <p className="text-zinc-400 mt-1">View and manage clients across all branches</p>
                 </div>
             </div>
 

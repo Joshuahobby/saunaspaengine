@@ -56,7 +56,7 @@ export default function LegalTemplatesClientPage() {
                                     <th className="px-10 py-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40">Document Type</th>
                                     <th className="px-10 py-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40">Territory</th>
                                     <th className="px-10 py-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40">Iteration</th>
-                                    <th className="px-10 py-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40">Harmonic Shift</th>
+                                    <th className="px-10 py-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40">Last Updated</th>
                                     <th className="px-10 py-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40">State</th>
                                     <th className="px-10 py-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40 text-right">Actions</th>
                                 </tr>

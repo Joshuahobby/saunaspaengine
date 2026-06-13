@@ -5,7 +5,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Audit Log | System Integrity",
-    description: "Immutable logs and permissions management for platform governance.",
+    description: "Audit logs and access management for the platform.",
 };
 
 export const dynamic = "force-dynamic";

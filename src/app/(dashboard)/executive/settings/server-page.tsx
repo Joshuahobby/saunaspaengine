@@ -154,7 +154,7 @@ export default async function ExecutiveSettingsPage({
             {/* Main Content Area */}
             <section className="flex-1 p-6 lg:p-12 max-w-7xl mx-auto w-full overflow-y-auto no-scrollbar scroll-smooth">
                 <div className="mb-12 space-y-3">
-                    <h1 className="text-5xl font-display font-bold tracking-tight text-[var(--text-main)]">Execution <span className="text-[var(--color-primary)] underline decoration-2 decoration-[var(--color-primary)]/20 underline-offset-8">Governance</span></h1>
+                    <h1 className="text-5xl font-display font-bold tracking-tight text-[var(--text-main)]">Business <span className="text-[var(--color-primary)] underline decoration-2 decoration-[var(--color-primary)]/20 underline-offset-8">Settings</span></h1>
                     <p className="text-[var(--text-muted)] mt-5 max-w-3xl text-xl font-bold leading-relaxed">Refine your business profile, regional compliance presets, and operational audit trails.</p>
                 </div>
 

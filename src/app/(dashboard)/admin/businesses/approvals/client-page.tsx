@@ -23,7 +23,7 @@ export default function ApprovalsClientPage({ businesses: initialBusinesses }: {
         setActionError(null);
         const result = await updateBusinessApprovalAction(id, {
             approvalStatus: status,
-            kycNotes: status === "APPROVED" ? "Verified via platform governance audit." : "Documentation incomplete or invalid."
+            kycNotes: status === "APPROVED" ? "Verified by platform admin." : "Documentation incomplete or invalid."
         });
 
         if (result.success) {

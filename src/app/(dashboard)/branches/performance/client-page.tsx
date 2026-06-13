@@ -49,7 +49,7 @@ export default function BranchesPerformanceClient({ stats, leaderboard }: Branch
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="flex flex-col gap-4 bg-[var(--bg-card)] p-8 rounded-[2.5rem] border border-[var(--border-muted)] hover:-translate-y-1 transition-all duration-500 shadow-sm group relative overflow-hidden">
                     <div className="flex justify-between items-start relative z-10">
-                        <p className="text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-widest opacity-40">Total Portfolio Revenue</p>
+                        <p className="text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-widest opacity-40">Total Revenue</p>
                         <span className="size-10 rounded-2xl bg-[var(--bg-surface-muted)] flex items-center justify-center text-[var(--color-primary)] border border-[var(--border-muted)] material-symbols-outlined text-xl font-bold">payments</span>
                     </div>
                     <div className="relative z-10">

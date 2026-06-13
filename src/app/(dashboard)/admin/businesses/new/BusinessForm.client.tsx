@@ -140,7 +140,7 @@ export default function BusinessFormClient({ packages }: BusinessFormClientProps
                         href="/dashboard"
                         className="flex items-center justify-center w-full h-14 bg-[var(--bg-surface-muted)]/5 border border-[var(--border-muted)] text-[var(--text-main)] rounded-2xl font-bold text-xs uppercase tracking-[0.2em] hover:bg-[var(--bg-surface-muted)]/20 transition-all"
                     >
-                        Return to Business Portfolio
+                        Return to Businesses
                     </Link>
                 </div>
             </motion.div>

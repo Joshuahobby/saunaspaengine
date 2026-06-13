@@ -41,7 +41,7 @@ export default function BranchComparisonClient({ branches }: Props) {
                                 <p className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] italic mt-2 opacity-60">Status: <span className={biz.status === 'ACTIVE' ? "text-emerald-500 opacity-100" : ""}>{biz.status}</span></p>
                             </div>
                             <div className="text-right">
-                                <p className="text-sm font-bold text-[var(--text-muted)] uppercase tracking-[0.1em] italic opacity-60 mb-1">Total Yield</p>
+                                <p className="text-sm font-bold text-[var(--text-muted)] uppercase tracking-[0.1em] italic opacity-60 mb-1">Total Revenue</p>
                                 <p className="text-3xl font-serif font-black text-[var(--text-main)] italic tracking-tighter">{formatCurrency(biz.revenue)}</p>
                             </div>
                         </div>

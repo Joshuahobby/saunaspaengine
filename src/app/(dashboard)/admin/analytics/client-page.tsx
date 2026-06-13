@@ -120,14 +120,14 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
             trend: "up"
         },
         {
-            label: "Platform Yield",
+            label: "Projected MRR",
             value: formatCurrency(stats.projectedMRR),
-            change: "Projected MRR",
+            change: "Monthly Recurring",
             icon: "universal_currency_alt",
             trend: "up"
         },
         {
-            label: "Economic Activity",
+            label: "Total Revenue",
             value: formatCurrency(stats.totalRevenue),
             change: "Service Rev",
             icon: "payments",
@@ -149,7 +149,7 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                 <div className="absolute top-0 left-0 w-64 h-64 bg-[var(--color-primary)] opacity-[0.05] blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
                 <div className="space-y-1 relative z-10">
                     <h1 className="text-3xl lg:text-4xl font-serif font-bold text-[var(--text-main)] italic tracking-tight leading-tight">
-                        Platform <span className="text-[var(--color-primary)]/80">Governance & Yield</span>
+                        Platform <span className="text-[var(--color-primary)]/80">Analytics</span>
                     </h1>
                     <p className="text-sm text-[var(--text-muted)] font-medium opacity-60 italic">System-wide oversight of businesses, subscriptions, and platform health.</p>
                 </div>
@@ -306,8 +306,8 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                             </PieChart>
                         )}
                         <div className="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
-                            <span className="text-2xl font-black text-white/80 leading-none">Yield</span>
-                            <p className="text-[7px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-40">Portfolio Distribution</p>
+                            <span className="text-2xl font-black text-white/80 leading-none">Revenue</span>
+                            <p className="text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-40">Plan Distribution</p>
                         </div>
                     </div>
 
@@ -340,10 +340,10 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                 >
                     <div className="p-8 border-b border-[var(--border-muted)] flex justify-between items-center bg-black/10">
                         <div className="space-y-1">
-                            <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">High-Yield Corporates</h3>
+                            <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">Top Businesses by Revenue</h3>
                             <p className="text-xs text-[var(--text-muted)] font-medium opacity-40">Top performing businesses by platform revenue (28d).</p>
                         </div>
-                        <span className="px-5 py-2 bg-[var(--bg-card)] text-black text-[8px] font-black uppercase tracking-[0.2em] rounded-full shadow-lg">Enterprise Yield</span>
+                        <span className="px-5 py-2 bg-[var(--bg-card)] text-black text-[8px] font-black uppercase tracking-[0.2em] rounded-full shadow-lg">Top Revenue</span>
                     </div>
                     <div className="flex-1">
                         {topCorporates.length > 0 ? topCorporates.map((corp, idx) => (

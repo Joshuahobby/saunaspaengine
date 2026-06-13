@@ -92,7 +92,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                 <div className="flex flex-col gap-1.5">
                     <div className="flex items-center gap-3">
                         <h1 className="text-2xl lg:text-3xl font-display font-bold text-[var(--text-main)] tracking-tight">
-                            Platform <span className="text-[var(--color-primary)] opacity-50">&</span> Governance
+                            Platform <span className="text-[var(--color-primary)] opacity-50">&</span> Overview
                         </h1>
                         <div className="hidden sm:flex items-center gap-1.5 px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
                             <span className="size-1 bg-emerald-500 rounded-full animate-pulse"></span>
@@ -100,7 +100,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                         </div>
                     </div>
                     <div className="flex items-center gap-4">
-                        <p className="text-sm text-[var(--text-muted)] font-medium opacity-60">Collective branch oversight and financial monitoring.</p>
+                        <p className="text-sm text-[var(--text-muted)] font-medium opacity-60">Branch overview and financial monitoring.</p>
                         <div className="hidden lg:flex items-center gap-1.5 text-[9px] font-bold text-[var(--text-muted)] opacity-30 uppercase tracking-[0.2em]">
                             <span className="material-symbols-outlined text-xs">sync</span>
                             {mounted ? <span>{format(new Date(), 'HH:mm')}</span> : null}
@@ -170,7 +170,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                 <div className="px-5 py-3.5 border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                     <div className="space-y-0.5">
                         <div className="flex items-center gap-3">
-                            <h2 className="text-lg font-display font-bold text-[var(--text-main)]">Business Portfolio</h2>
+                            <h2 className="text-lg font-display font-bold text-[var(--text-main)]">Businesses</h2>
                             <span className="text-[8px] font-black px-2 py-0.5 rounded-full bg-[var(--bg-card)] text-black tracking-[0.2em] uppercase">{filteredBusinesses.length} Businesses</span>
                         </div>
                         <p className="text-[10px] text-[var(--text-muted)] font-medium opacity-50 italic">Live feed of active platform businesses.</p>
@@ -181,7 +181,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]/40 group-focus-within/search:text-[var(--color-primary)] transition-colors text-sm">search</span>
                             <input 
                                 type="text" 
-                                placeholder="Filter the network..." 
+                                placeholder="Search businesses..." 
                                 value={searchTerm}
                                 onChange={(e) => {
                                     setSearchTerm(e.target.value);
@@ -200,9 +200,9 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                                 }}
                                 className="appearance-none w-full sm:w-auto pl-4 pr-10 py-2 bg-[var(--bg-app)]/30 border border-[var(--border-muted)] rounded-xl text-[9px] font-bold uppercase tracking-widest focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]/20 transition-all cursor-pointer"
                             >
-                                <option value="ALL">Collective</option>
-                                <option value="ACTIVE">Vitality</option>
-                                <option value="INACTIVE">Hibernation</option>
+                                <option value="ALL">All</option>
+                                <option value="ACTIVE">Active</option>
+                                <option value="INACTIVE">Inactive</option>
                                 <option value="ARCHIVED">Archived</option>
                             </select>
                             <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]/40 pointer-events-none text-sm">filter_list</span>

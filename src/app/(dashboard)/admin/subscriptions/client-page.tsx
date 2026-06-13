@@ -85,10 +85,10 @@ export default function SubscriptionsClientPage({ branches }: { branches: Branch
                     color="amber"
                 />
                 <MetricCard
-                    title="Platform Yield"
+                    title="Projected MRR"
                     value={`$${platformMRR.toLocaleString()}`}
                     trend="Projected"
-                    subtitle="Universal MRR"
+                    subtitle="Monthly Recurring"
                     icon="universal_currency_alt"
                     color="emerald"
                 />

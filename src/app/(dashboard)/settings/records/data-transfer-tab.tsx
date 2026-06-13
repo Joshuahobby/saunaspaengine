@@ -60,7 +60,7 @@ export default function DataTransferTab() {
                         <span className="material-symbols-outlined font-black">description</span>
                     </div>
                     <div>
-                        <h4 className="font-bold text-lg font-serif italic">Structural Blueprints</h4>
+                        <h4 className="font-bold text-lg font-serif italic">CSV Templates</h4>
                         <p className="text-xs font-bold text-[var(--text-muted)] opacity-60 uppercase tracking-widest mt-1">Download CSV Templates</p>
                     </div>
                 </div>

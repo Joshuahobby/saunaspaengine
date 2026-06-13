@@ -157,7 +157,7 @@ export default function EmployeeUI({ employee, categories, branches, isOwner, in
                                             </div>
                                         </div>
                                         <h3 className="text-xl font-serif font-bold text-white leading-tight">
-                                            {kpi.label === 'Quality Index' && intelligence.avgRating > 0 ? (
+                                            {kpi.label === 'Avg Rating' && intelligence.avgRating > 0 ? (
                                                 <span className="flex items-center gap-1.5">
                                                     {kpi.value} <Star className="size-3 fill-yellow-400 text-yellow-400 invisible sm:visible" />
                                                 </span>
@@ -169,7 +169,7 @@ export default function EmployeeUI({ employee, categories, branches, isOwner, in
 
                             {/* Performance DNA Sidebar */}
                             <div className="bg-[var(--bg-card)] border border-[var(--border-main)] p-6 rounded-[24px] space-y-6 shadow-sm">
-                                <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] mb-2 border-b border-[var(--border-muted)] pb-3">Performance DNA</h2>
+                                <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] mb-2 border-b border-[var(--border-muted)] pb-3">Key Stats</h2>
                                 <div className="space-y-6">
                                     {[
                                         { label: "Unique Clients", value: intelligence.uniqueClients, icon: User },
@@ -196,7 +196,7 @@ export default function EmployeeUI({ employee, categories, branches, isOwner, in
                                 </div>
                                 <div className="text-[var(--text-muted)] opacity-20 text-[8px] font-bold uppercase tracking-[0.2em] lg:flex items-center gap-2 hidden">
                                     <Activity className="size-3" />
-                                    Live Performance Stream
+                                    Recent Activity
                                 </div>
                             </div>
                             <div className="p-6 flex-1 custom-scrollbar overflow-y-auto space-y-2">
@@ -246,8 +246,8 @@ export default function EmployeeUI({ employee, categories, branches, isOwner, in
                                 <Settings className="size-5" />
                             </div>
                             <div>
-                                <h2 className="text-lg font-serif font-bold text-[var(--text-main)] opacity-90">Staff Governance</h2>
-                                <p className="text-xs text-[var(--text-muted)]">Update credentials, categories, or physical branch placement.</p>
+                                <h2 className="text-lg font-serif font-bold text-[var(--text-main)] opacity-90">Edit Staff Details</h2>
+                                <p className="text-xs text-[var(--text-muted)]">Update credentials, categories, or branch assignment.</p>
                             </div>
                         </div>
                         <EditEmployeeForm 

@@ -116,7 +116,7 @@ export default function AdminBranchesClientPage({ branches, stats }: BranchesPro
                 <MetricCard 
                     title="Platform Revenue"
                     value={formatRevenue(stats.totalRevenue)}
-                    subtitle="Universal Yield"
+                    subtitle="All Branches"
                     icon="account_balance_wallet"
                 />
                 <MetricCard 

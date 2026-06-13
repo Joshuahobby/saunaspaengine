@@ -205,8 +205,8 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                     className="lg:col-span-4 rounded-[40px] border border-[var(--border-main)] bg-[var(--bg-card)] p-10 backdrop-blur-3xl shadow-2xl flex flex-col gap-8 relative overflow-hidden"
                 >
                     <div className="space-y-2 border-b border-[var(--border-main)] pb-8 relative z-10">
-                        <h3 className="text-2xl font-serif font-bold italic tracking-tight text-[var(--text-main)]">Catalog Yield</h3>
-                        <p className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] italic">Service Contribution Mix</p>
+                        <h3 className="text-2xl font-serif font-bold italic tracking-tight text-[var(--text-main)]">Revenue by Service</h3>
+                        <p className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] italic">Service revenue breakdown</p>
                     </div>
 
                     <div ref={pieChartRef} className="flex-1 h-[250px] relative z-10 flex items-center justify-center">

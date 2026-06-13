@@ -32,12 +32,12 @@ const INITIAL_BROADCASTS: Broadcast[] = [
     },
     {
         id: "b2",
-        subject: "New Yield Metrics Active",
-        content: "The refined yield calculation engine is now live. Please review your updated analytics.",
+        subject: "Analytics Dashboard Updated",
+        content: "Analytics data has been updated. Please review your dashboard for the latest metrics.",
         audience: "All Branches",
         intensity: "SERENE",
         createdAt: new Date(Date.now() - 86400000).toISOString(),
-        author: { fullName: "Yield Warden" },
+        author: { fullName: "Platform Admin" },
         reach: 842,
         status: "SENT"
     }
@@ -127,7 +127,7 @@ export default function AdminBroadcastsClientPage() {
                                 <form onSubmit={handleSend} className="space-y-8 relative z-10">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                         <div className="space-y-3">
-                                            <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2">Audience Spectrum</label>
+                                            <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2">Target Audience</label>
                                             <div className="relative group/sel">
                                                 <select 
                                                     title="Target Audience"
@@ -136,10 +136,10 @@ export default function AdminBroadcastsClientPage() {
                                                     onChange={e => setAudience(e.target.value)} 
                                                     className="w-full h-14 bg-black/20 border border-[var(--border-muted)] rounded-2xl px-6 text-[11px] font-black text-white uppercase tracking-widest outline-none appearance-none hover:border-[var(--color-primary)]/40 transition-all cursor-pointer"
                                                 >
-                                                    <option>All Collective Branches</option>
-                                                    <option>Legacy Tiers Only</option>
-                                                    <option>High-Yield Branches</option>
-                                                    <option>Fragment: North Celestial</option>
+                                                    <option>All Branches</option>
+                                                    <option>Members Only</option>
+                                                    <option>Active Branches</option>
+                                                    <option>Kigali Region</option>
                                                 </select>
                                                 <span className="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] group-hover/sel:text-[var(--color-primary)] pointer-events-none transition-colors">unfold_more</span>
                                             </div>
@@ -153,7 +153,7 @@ export default function AdminBroadcastsClientPage() {
                                                     onClick={() => setIntensity("SERENE")}
                                                     className={`flex-1 flex items-center justify-center gap-3 rounded-2xl border transition-all text-[9px] font-black uppercase tracking-widest ${intensity === "SERENE" ? "bg-[var(--color-primary)]/10 border-[var(--color-primary)]/40 text-[var(--color-primary)] shadow-sm" : "bg-black/20 border-[var(--border-muted)] text-[var(--text-muted)] hover:border-[var(--color-primary)]/20 hover:text-white"}`}
                                                 >
-                                                    <span className="material-symbols-outlined text-lg">waves</span> Serene
+                                                    <span className="material-symbols-outlined text-lg">waves</span> Standard
                                                 </button>
                                                 <button 
                                                     type="button"
@@ -167,7 +167,7 @@ export default function AdminBroadcastsClientPage() {
                                     </div>
 
                                     <div className="space-y-3">
-                                        <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2">Transmission Subject</label>
+                                        <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2">Subject</label>
                                         <input 
                                             value={subject}
                                             onChange={e => setSubject(e.target.value)}
@@ -257,7 +257,7 @@ export default function AdminBroadcastsClientPage() {
                     >
                         <div className="p-10 border-b border-[var(--border-muted)] flex justify-between items-center bg-black/10">
                             <div className="space-y-1">
-                                <h3 className="text-xl font-serif font-bold text-white">Transmission Archives</h3>
+                                <h3 className="text-xl font-serif font-bold text-white">Broadcast History</h3>
                                 <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40">History of all platform broadcasts.</p>
                             </div>
                             <div className="flex gap-4">
