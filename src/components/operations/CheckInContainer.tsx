@@ -296,7 +296,7 @@ export function CheckInContainer({ services, employees, clients, subState }: Che
                 onClose={() => setShowUpgradeModal(false)}
                 title={isOverLimit ? "Upgrade Your Plan" : "Resume Your Operations"}
                 message={isOverLimit 
-                    ? "Your business is growing fast! Upgrade your plan today to unlock higher check-in limits and advanced staff management tools."
+                    ? "You've reached your monthly check-in limit. Upgrade your plan to continue serving clients without interruption."
                     : "Don't let your business slow down. Reactivate your subscription to resume full access to all your wellness tools."}
                 limit={subState?.plan?.checkInLimit || 0}
                 current={subState?.usage?.monthlyCheckIns || 0}

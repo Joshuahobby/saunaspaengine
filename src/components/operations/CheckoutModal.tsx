@@ -125,7 +125,7 @@ export default function CheckoutModal({
                 <div className="p-5 pb-1 sm:p-8 sm:pb-4 flex items-center justify-between shrink-0">
                     <div>
                         <h2 className="text-lg sm:text-2xl font-black tracking-tight text-[var(--text-main)]">Checkout</h2>
-                        <p className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)] mt-1">Finalize Guest Session</p>
+                        <p className="text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)] mt-1">Process Payment</p>
                     </div>
                     <button 
                         onClick={onClose}
@@ -141,11 +141,11 @@ export default function CheckoutModal({
                     <div className="bg-[var(--bg-surface-muted)]/20 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 border border-[var(--border-muted)]/20 relative overflow-hidden shrink-0">
                         <div className="flex flex-row justify-between items-center">
                             <div className="space-y-0.5">
-                                <span className="text-[7px] font-black uppercase tracking-widest opacity-30">Client</span>
+                                <span className="text-[9px] font-black uppercase tracking-widest opacity-30">Client</span>
                                 <p className="font-black text-xs sm:text-2xl tracking-tight truncate max-w-[120px] sm:max-w-none uppercase text-[var(--text-main)]">{clientName}</p>
                             </div>
                             <div className="text-right space-y-0.5">
-                                <span className="text-[7px] font-black uppercase tracking-widest opacity-30">Total</span>
+                                <span className="text-[9px] font-black uppercase tracking-widest opacity-30">Total</span>
                                 <p className="text-xl sm:text-4xl font-black text-[var(--color-primary)] tracking-tighter">RWF {amount.toLocaleString()}</p>
                             </div>
                         </div>
@@ -172,7 +172,7 @@ export default function CheckoutModal({
                                             }`}
                                         >
                                             <Icon className={`w-3.5 h-3.5 sm:w-5 sm:h-5 ${isActive ? "font-black" : "opacity-50"}`} />
-                                            <span className="text-[6px] sm:text-[8px] font-black uppercase tracking-tighter sm:tracking-widest text-center">{pm.label}</span>
+                                            <span className="text-[8px] sm:text-[9px] font-black uppercase tracking-tighter sm:tracking-widest text-center">{pm.label}</span>
                                         </button>
                                     );
                                 })}
@@ -182,7 +182,7 @@ export default function CheckoutModal({
                             <div className="min-h-[80px] sm:min-h-[120px] flex flex-col justify-center animate-in fade-in zoom-in-95 duration-300">
                                 {mode === "MOMO" && (
                                     <div className="space-y-1.5 sm:space-y-3">
-                                        <label className="text-[7px] sm:text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] ml-2 opacity-50">MoMo Number</label>
+                                        <label className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] ml-2 opacity-50">MoMo Number</label>
                                         <div className="relative group">
                                             <input 
                                                 type="tel"
@@ -201,8 +201,8 @@ export default function CheckoutModal({
                                         {!membershipVerified ? (
                                             <div className="space-y-1.5 sm:space-y-3">
                                                 <div className="flex items-center justify-between px-2">
-                                                    <label className="text-[7px] sm:text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-50">Scan Membership</label>
-                                                    <span className="text-[6px] sm:text-[8px] font-bold text-[var(--color-primary)] animate-pulse">Awaiting...</span>
+                                                    <label className="text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-50">Scan Membership</label>
+                                                    <span className="text-[8px] sm:text-[9px] font-bold text-[var(--color-primary)] animate-pulse">Awaiting...</span>
                                                 </div>
                                                 <div className="h-56 sm:h-80 relative rounded-xl sm:rounded-2xl overflow-hidden border-2 border-[var(--border-muted)]/30 bg-black/20">
                                                     <QRScanner onScanSuccess={handleMembershipScan} />
@@ -219,7 +219,7 @@ export default function CheckoutModal({
                                                 </div>
                                                 <button 
                                                     onClick={() => setMembershipVerified(false)}
-                                                    className="ml-auto text-[6px] sm:text-[8px] font-black uppercase tracking-widest text-emerald-500/40 hover:text-emerald-500 px-2"
+                                                    className="ml-auto text-[8px] sm:text-[9px] font-black uppercase tracking-widest text-emerald-500/40 hover:text-emerald-500 px-2"
                                                 >
                                                     Rescan
                                                 </button>
@@ -254,7 +254,7 @@ export default function CheckoutModal({
                                     <div className="size-3.5 sm:size-5 border-2 sm:border-3 border-[var(--bg-app)] border-t-transparent rounded-full animate-spin"></div>
                                 ) : (
                                     <>
-                                        {mode === "MOMO" ? "Send MOMO Prompt" : "Success & Complete"}
+                                        {mode === "MOMO" ? "Send MOMO Prompt" : "Confirm & Complete"}
                                         <ArrowRight className="w-3.5 h-3.5 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                                     </>
                                 )}
@@ -281,7 +281,7 @@ export default function CheckoutModal({
                                 >
                                     Dismiss
                                 </button>
-                                <p className="text-[7px] font-bold text-[var(--text-muted)] opacity-40 uppercase tracking-widest">Updating automatically...</p>
+                                <p className="text-[9px] font-bold text-[var(--text-muted)] opacity-40 uppercase tracking-widest">Updating automatically...</p>
                             </div>
                         </div>
                     ) : (

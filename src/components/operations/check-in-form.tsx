@@ -168,7 +168,7 @@ export default function CheckInForm({ clients, services, employees, lockerNumber
                                 <input type="radio" name="paymentMode" value={pm.value} defaultChecked={pm.value === "CASH"} className="sr-only peer" />
                                 <div className="flex flex-col items-center justify-center py-2 rounded-xl peer-checked:bg-[var(--color-primary)]/10 peer-checked:border-[var(--color-primary)] transition-all hover:bg-[var(--color-primary)]/5 border border-transparent">
                                     <span className="material-symbols-outlined text-[var(--text-muted)] peer-checked:text-[var(--color-primary)] text-base font-bold transition-colors">{pm.icon}</span>
-                                    <span className="text-[7px] font-black text-[var(--text-muted)] peer-checked:text-[var(--text-main)] mt-0.5 tracking-tighter">{pm.label}</span>
+                                    <span className="text-[9px] font-black text-[var(--text-muted)] peer-checked:text-[var(--text-main)] mt-0.5 tracking-tighter">{pm.label}</span>
                                 </div>
                             </label>
                         ))}
