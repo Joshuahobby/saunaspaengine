@@ -5,7 +5,7 @@ import AdminDashboardClient from "./client-page";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Command Center | Admin Dashboard",
+    title: "Admin Dashboard",
     description: "Global operational oversight and platform health.",
 };
 

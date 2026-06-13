@@ -5,7 +5,7 @@ import ExecutiveSettingsPage from "@/app/(dashboard)/executive/settings/server-p
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Governance Hub | Sauna SPA Engine",
+    title: "Settings | Sauna SPA Engine",
     description: "Regional settings, privacy, and compliance configuration.",
 };
 

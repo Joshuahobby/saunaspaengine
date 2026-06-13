@@ -3,8 +3,8 @@ import AdminBroadcastsClientPage from "./client-page";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Transmission Hub | Admin Broadcasts",
-    description: "Platforms-wide communication and global alert management center.",
+    title: "Broadcasts | Admin",
+    description: "Platform-wide announcements and alert management.",
 };
 
 export const dynamic = "force-dynamic";

@@ -136,7 +136,7 @@ export function ChangePasswordForm({ userId }: { userId: string }) {
                                 ))}
                             </div>
                             <div className="flex justify-between items-center mt-1">
-                                <p className={`text-[9px] font-bold uppercase tracking-widest ${
+                                <p className={`text-xs font-bold uppercase tracking-widest ${
                                     passwordStrength.label === 'Weak' ? 'text-red-500' :
                                     passwordStrength.label === 'Fair' ? 'text-orange-500' :
                                     passwordStrength.label === 'Good' ? 'text-amber-500' :
@@ -145,7 +145,7 @@ export function ChangePasswordForm({ userId }: { userId: string }) {
                                     {passwordStrength.label || 'Evaluating...'}
                                 </p>
                                 {passwordStrength.score > 0 && passwordStrength.score < 6 && (
-                                <p className="text-[9px] text-[var(--color-primary)] font-medium px-1">
+                                <p className="text-xs text-[var(--color-primary)] font-medium px-1">
                                     Include more complexity: Numbers, symbols, mixed casing.
                                 </p>
                             )}

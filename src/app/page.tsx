@@ -9,11 +9,11 @@ import { auth } from "@/lib/auth";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Sauna SPA Engine â€” Spa & Sauna Management Platform for Rwanda",
+  title: "Sauna SPA Engine — Spa & Sauna Management Platform for Rwanda",
   description:
     "Rwanda's #1 management platform for spas and saunas. Fast QR check-ins, Mobile Money payments, real-time reports, and mobile-first operations.",
   openGraph: {
-    title: "Sauna SPA Engine â€” Spa & Sauna Management for Rwanda",
+    title: "Sauna SPA Engine — Spa & Sauna Management for Rwanda",
     description: "Rwanda's #1 management platform for spas and saunas. Digitize operations, delight your clients, grow your revenue.",
     url: "https://saunaspa.rw",
     siteName: "Sauna SPA Engine",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sauna SPA Engine â€” Rwanda's #1 Spa Management Platform",
+    title: "Sauna SPA Engine — Rwanda's #1 Spa Management Platform",
     description: "Digitize your sauna and spa with fast QR check-ins, Mobile Money payments, and real-time reports.",
     images: ["https://lh3.googleusercontent.com/aida-public/AB6AXuD377Rw1J3jJ50DFdv7DI9VFckbkX50HKLF-0MQoJ6UG7ZM7QXD5QnskGKx85GT7bGeapAnHwaf71_gIMa8Bn1IKNC9fmzjuWNDeiAOSqrfbQz-ihSJCxIBr1vXCAFeQ5_K_UuDdV43xr0rXle25Eyed_UiZBa4xqMi2gpUSnL6PGmkEGPq1aM2yw7UoZVN9BqvRbnVM0GFW4wzaEQms1Ok-WLoaHi6O6u2PFUCwzG_GcllwK7ks9mQhEtTATcLd2-kjcqhRPM2-B8S"],
   },
@@ -100,7 +100,7 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        {/* Platform Stats Bar â€” replaces fake brand logos */}
+        {/* Platform Stats Bar — replaces fake brand logos */}
         <section className="bg-[var(--bg-surface-muted)]/50 border-y border-[var(--border-main)] py-12">
           <ScrollReveal direction="up" duration={0.8}>
             <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 items-center text-center">
@@ -165,7 +165,7 @@ export default async function LandingPage() {
                 <FeatureCard
                   icon="calendar_month"
                   title="Staff & Scheduling"
-                  description="Create shift schedules, track attendance, and manage your team&apos;s performance â€” all from one centralized portal."
+                  description="Create shift schedules, track attendance, and manage your team&apos;s performance — all from one centralized portal."
                 />
               </ScrollReveal>
               <ScrollReveal direction="up" delay={0.6}>
@@ -179,7 +179,7 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        {/* How It Works Section â€” replaces fake testimonials */}
+        {/* How It Works Section — replaces fake testimonials */}
         <section id="how-it-works" className="bg-[var(--bg-surface-muted)]/30 border-t border-[var(--border-main)] py-24 px-6 md:px-20 lg:px-40 overflow-hidden">
           <div className="max-w-7xl mx-auto flex flex-col gap-16">
             <ScrollReveal direction="up" className="flex flex-col gap-4 text-center items-center">

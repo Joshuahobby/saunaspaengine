@@ -31,14 +31,14 @@ const managerNavItems: NavItem[] = [
 ];
 
 const adminNavItems: NavItem[] = [
-    { label: "Platform Control", isHeader: true },
+    { label: "Overview", isHeader: true },
     { label: "Admin Panel", href: "/dashboard", icon: "admin_panel_settings" },
     { label: "Analytics", href: "/analytics", icon: "insights" },
     { label: "Subscriptions", href: "/subscriptions", icon: "payments" },
     { label: "Platform Plans", href: "/subscriptions/platform", icon: "layers" },
     { label: "Payments", href: "/payments", icon: "mobile_friendly" },
     
-    { label: "Treasury Hub", href: "/finance/settlements", icon: "account_balance" },
+    { label: "Treasury", href: "/finance/settlements", icon: "account_balance" },
     { label: "Staff Leaderboard", href: "/employees/gamification", icon: "emoji_events" },
     
     { label: "Ecosystem", isHeader: true },
@@ -50,15 +50,15 @@ const adminNavItems: NavItem[] = [
     { label: "Broadcasts", href: "/broadcasts", icon: "campaign" },
     { label: "System Health", href: "/monitoring", icon: "monitor_heart" },
     { label: "Audit Logs", href: "/audit", icon: "history" },
-    { label: "Governance Hub", href: "/settings", icon: "rule" },
+    { label: "Settings", href: "/settings", icon: "rule" },
 ];
 
 const businessNavItems: NavItem[] = [
-    { label: "Executive Control", isHeader: true },
+    { label: "Overview", isHeader: true },
     { label: "Business Dashboard", href: "/dashboard", icon: "dashboard" },
     { label: "Branch Locations", href: "/branches", icon: "corporate_fare" },
-    
-    { label: "The Hubs", isHeader: true },
+
+    { label: "Operations", isHeader: true },
     { label: "Work Tracking", href: "/operations", icon: "sensors" },
     { label: "Clients & Sales", href: "/growth", icon: "chronic" },
     { label: "Our Team", href: "/staff", icon: "groups_3" },
@@ -76,8 +76,8 @@ const employeeNavItems: NavItem[] = [
     { label: "My Workspace", isHeader: true },
     { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
     { label: "Reception", href: "/check-in", icon: "qr_code_scanner" },
-    
-    { label: "The Hubs", isHeader: true },
+
+    { label: "Work", isHeader: true },
     { label: "Daily Work", href: "/operations", icon: "sensors" },
     { label: "Our Team", href: "/staff", icon: "groups_3" },
     

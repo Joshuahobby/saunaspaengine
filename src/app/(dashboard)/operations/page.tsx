@@ -20,7 +20,7 @@ const TABS = [
 ];
 
 export const metadata = {
-    title: "Business Work Hub | Sauna SPA Engine",
+    title: "Operations | Sauna SPA Engine",
 };
 
 export default async function OperationsHubPage(props: {

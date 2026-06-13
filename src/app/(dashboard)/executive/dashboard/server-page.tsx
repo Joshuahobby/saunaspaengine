@@ -6,7 +6,7 @@ import ExecutiveDashboardClient from "./client-page";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Command Center | Executive Dashboard",
+    title: "Executive Dashboard",
     description: "Business owner overview and analytics.",
 };
 

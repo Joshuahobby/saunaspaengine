@@ -4,7 +4,7 @@ import AnalyticsClientPage from "./client-page";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Yield Intelligence | Platform Analytics",
+    title: "Platform Analytics | Admin",
     description: "Deep-dive into platform revenue, growth, and business performance metrics.",
 };
 

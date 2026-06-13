@@ -24,7 +24,7 @@ const CORPORATE_CATEGORIES = [
 
 const SETTINGS_CATEGORIES = [
     {
-        title: "Safe & Secure",
+        title: "Safety & Compliance",
         description: "Physical health audits, safety checklists, and QR access protocols.",
         icon: "verified_user",
         href: "/settings/compliance",
@@ -32,7 +32,7 @@ const SETTINGS_CATEGORIES = [
         badge: "Safety"
     },
     {
-        title: "Daily Routine",
+        title: "Hours & Operations",
         description: "Manage opening hours, holiday schedules, and client reviews.",
         icon: "schedule",
         href: "/settings/operations",
@@ -58,7 +58,7 @@ const SETTINGS_CATEGORIES = [
 ];
 
 export const metadata = {
-    title: "System Settings Hub | Sauna SPA Engine",
+    title: "Settings | Sauna SPA Engine",
 };
 
 export default async function SettingsHubPage() {
@@ -76,7 +76,7 @@ export default async function SettingsHubPage() {
                         Business <span className="text-[var(--text-main)]">Setup.</span>
                     </h1>
                     <p className="text-sm font-bold text-[var(--text-muted)] opacity-60 leading-relaxed">
-                        Global configuration and administrative mechanics for your global branch network.
+                        Configure your branch settings, compliance rules, and team access.
                     </p>
                 </div>
 

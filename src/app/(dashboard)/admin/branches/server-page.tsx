@@ -4,8 +4,8 @@ import AdminBranchesClientPage from "./client-page";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Operational Network | Platform Governance",
-    description: "Monitor and manage individual branch branches across the platform.",
+    title: "Branch Network | Admin",
+    description: "Monitor and manage all branches across the platform.",
 };
 
 export const dynamic = "force-dynamic";

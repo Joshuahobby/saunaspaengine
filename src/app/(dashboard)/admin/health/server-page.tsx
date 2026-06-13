@@ -4,7 +4,7 @@ import AdminHealthClientPage from "./client-page";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "System Pulse | Platform Health",
+    title: "System Health | Admin",
     description: "Real-time diagnostics and system health monitoring for the entire platform.",
 };
 
