@@ -79,7 +79,7 @@ export default function DeveloperPortalPage() {
                 <div className="px-6 lg:px-20 py-12">
                     <div className="mb-10">
                         <h2 className="text-3xl font-extrabold tracking-tight text-[var(--text-main)]">Developer Pillars</h2>
-                        <p className="text-[var(--text-muted)] mt-2 text-lg">Foundation for building world-class spa management solutions.</p>
+                        <p className="text-[var(--text-muted)] mt-2 text-lg">Foundation for building spa management solutions.</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {[

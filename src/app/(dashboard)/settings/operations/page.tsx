@@ -69,7 +69,7 @@ export default async function OperationsPage({
                                 <div className="p-8 bg-emerald-500/5 border border-emerald-500/20 rounded-[2rem] flex items-start gap-6">
                                     <span className="material-symbols-outlined text-emerald-500 text-3xl">auto_awesome</span>
                                     <div className="space-y-2">
-                                        <h4 className="font-bold text-emerald-500/80 uppercase text-[10px] tracking-widest">Smart Scheduling</h4>
+                                        <h4 className="font-bold text-emerald-500/80 uppercase text-[10px] tracking-widest">Auto-Booking Rules</h4>
                                         <p className="text-sm text-[var(--text-muted)] leading-relaxed font-bold">
                                             Setting a &quot;Closed&quot; status or blocking specific hours will automatically disable online bookings and staff assignments for those times.
                                         </p>

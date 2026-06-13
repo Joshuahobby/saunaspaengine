@@ -105,7 +105,7 @@ export default function PerformanceIndexClient({ stats, rankings }: PerformanceI
                                 <th className="px-8 py-4 text-[10px] font-black text-[var(--text-muted)] opacity-50 uppercase tracking-[0.2em]">Branch Location</th>
                                 <th className="px-8 py-4 text-[10px] font-black text-[var(--text-muted)] opacity-50 uppercase tracking-[0.2em] text-center">Volume</th>
                                 <th className="px-8 py-4 text-[10px] font-black text-[var(--text-muted)] opacity-50 uppercase tracking-[0.2em]">Efficiency</th>
-                                <th className="px-8 py-4 text-[10px] font-black text-[var(--text-muted)] opacity-50 uppercase tracking-[0.2em] text-right">Earning ROI</th>
+                                <th className="px-8 py-4 text-[10px] font-black text-[var(--text-muted)] opacity-50 uppercase tracking-[0.2em] text-right">Revenue</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-[var(--border-muted)]">

@@ -38,7 +38,7 @@ const PLANS = [
         name: "Enterprise",
         monthly: null,
         annual: null,
-        desc: "Bespoke solutions for large-scale spa chains and wellness centers.",
+        desc: "Custom solutions for large spa chains and wellness centers.",
         cta: "Contact Sales",
         ctaStyle: "bg-[var(--text-main)] text-white dark:bg-[var(--color-primary)]/20 dark:text-[var(--color-primary)] hover:opacity-90",
         features: [
