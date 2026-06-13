@@ -106,7 +106,7 @@ export default function BranchesPerformanceClient({ stats, leaderboard }: Branch
                 {/* Global Branch Map */}
                 <div className="xl:col-span-2 bg-[var(--bg-card)] rounded-[2.5rem] border border-[var(--border-muted)] shadow-sm flex flex-col overflow-hidden">
                     <div className="p-8 border-b border-[var(--border-muted)] flex justify-between items-center">
-                        <h4 className="text-2xl font-display font-bold text-[var(--text-main)]">Network <span className="text-[var(--color-primary)]">Topology</span></h4>
+                        <h4 className="text-2xl font-display font-bold text-[var(--text-main)]">Branch <span className="text-[var(--color-primary)]">Locations</span></h4>
                         <div className="flex gap-4">
                             <span className="px-4 py-1.5 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-[9px] font-bold rounded-full uppercase tracking-widest">{stats.activeBranches} Locations Active</span>
                             <span className="px-4 py-1.5 bg-[var(--bg-surface-muted)] text-[var(--text-muted)] text-[9px] font-bold rounded-full uppercase tracking-widest">{stats.pendingBranches} Pending</span>
@@ -120,17 +120,17 @@ export default function BranchesPerformanceClient({ stats, leaderboard }: Branch
                         <div className="absolute top-[30%] left-[20%] group cursor-pointer z-10 transition-transform duration-500 hover:scale-125">
                             <div className="w-6 h-6 bg-[var(--color-primary)] rounded-full animate-ping absolute opacity-30"></div>
                             <div className="w-6 h-6 bg-[var(--color-primary)] rounded-full relative border-[3px] border-[var(--bg-card)] shadow-xl"></div>
-                            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-[var(--text-main)] text-[var(--bg-app)] text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap z-20 italic">New York HQ</div>
+                            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-[var(--text-main)] text-[var(--bg-app)] text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap z-20 italic">Kigali HQ</div>
                         </div>
 
                         <div className="absolute top-[45%] left-[48%] group cursor-pointer z-10 transition-transform duration-500 hover:scale-125">
                             <div className="w-6 h-6 bg-[var(--color-primary)] rounded-full relative border-[3px] border-[var(--bg-card)] shadow-xl"></div>
-                            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-[var(--text-main)] text-[var(--bg-app)] text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap z-20 italic">London Central</div>
+                            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-[var(--text-main)] text-[var(--bg-app)] text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap z-20 italic">Musanze Branch</div>
                         </div>
 
                         <div className="absolute top-[60%] left-[75%] group cursor-pointer z-10 transition-transform duration-500 hover:scale-125">
                             <div className="w-6 h-6 bg-[var(--color-primary)] rounded-full relative border-[3px] border-[var(--bg-card)] shadow-xl"></div>
-                            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-[var(--text-main)] text-[var(--bg-app)] text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap z-20 italic">Tokyo Branch</div>
+                            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-[var(--text-main)] text-[var(--bg-app)] text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap z-20 italic">Rubavu Branch</div>
                         </div>
                     </div>
                 </div>
@@ -138,11 +138,11 @@ export default function BranchesPerformanceClient({ stats, leaderboard }: Branch
                 {/* Branch Leaderboard */}
                 <div className="bg-[var(--bg-card)] rounded-[2.5rem] border border-[var(--border-muted)] shadow-sm flex flex-col overflow-hidden">
                     <div className="p-8 border-b border-[var(--border-muted)]">
-                        <h4 className="text-2xl font-display font-bold text-[var(--text-main)]">Efficiency <span className="text-[var(--color-primary)]">Index</span></h4>
+                        <h4 className="text-2xl font-display font-bold text-[var(--text-main)]">Branch <span className="text-[var(--color-primary)]">Rankings</span></h4>
                     </div>
                     <div className="p-6 flex flex-col gap-6 overflow-y-auto max-h-[450px] scrollbar-hide">
                         {leaderboard.length === 0 ? (
-                            <div className="text-center text-[var(--text-muted)] py-12 italic opacity-40">No units deployed</div>
+                            <div className="text-center text-[var(--text-muted)] py-12 italic opacity-40">No branches found</div>
                         ) : (
                             leaderboard.map((branch, idx) => (
                                 <div key={branch.id} className={`flex items-center gap-6 p-5 rounded-[1.5rem] border transition-all duration-500 ${idx === 0 ? "border-[var(--color-primary)]/20 bg-[var(--color-primary)]/5 shadow-inner" : "border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)]"}`}>

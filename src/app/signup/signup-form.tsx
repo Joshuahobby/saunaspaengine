@@ -291,10 +291,10 @@ export function SignupForm({ plans }: SignupFormProps) {
                                     <div className="mb-6">
                                         <div className="flex items-center gap-2 mb-2">
                                             {isPopular && (
-                                                <span className="px-3 py-1 bg-[var(--color-primary)] text-white text-[9px] font-black uppercase rounded-full tracking-wider shadow-lg shadow-[var(--color-primary)]/20">Popular</span>
+                                                <span className="px-3 py-1 bg-[var(--color-primary)] text-white text-[10px] font-black uppercase rounded-full tracking-wider shadow-lg shadow-[var(--color-primary)]/20">Popular</span>
                                             )}
                                             {isElite && (
-                                                <span className="px-3 py-1 bg-[var(--text-muted)]/10 text-[var(--text-muted)] text-[9px] font-black uppercase rounded-full tracking-wider border border-[var(--border-muted)]">Enterprise</span>
+                                                <span className="px-3 py-1 bg-[var(--text-muted)]/10 text-[var(--text-muted)] text-[10px] font-black uppercase rounded-full tracking-wider border border-[var(--border-muted)]">Enterprise</span>
                                             )}
                                         </div>
                                         <h3 className="font-black text-[var(--text-main)] text-xl tracking-tight">{plan.name}</h3>
@@ -316,7 +316,7 @@ export function SignupForm({ plans }: SignupFormProps) {
 
                                     {/* Features */}
                                     <div className="space-y-4 flex-1">
-                                        <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] mb-2">Includes:</p>
+                                        <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] mb-2">Includes:</p>
                                         {plan.features.slice(0, 5).map((f) => (
                                             <div key={f} className="flex items-start gap-3">
                                                 <span className="material-symbols-outlined text-[var(--color-primary)] text-base shrink-0 mt-0.5 font-black">check_circle</span>
@@ -350,7 +350,7 @@ export function SignupForm({ plans }: SignupFormProps) {
                                         <p className="text-3xl font-black text-[var(--text-main)] tracking-tight">{fmt(dueAmount)}</p>
                                         <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest">RWF</p>
                                     </div>
-                                    <p className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-wider mt-1 opacity-60 italic">Free trial applied automatically</p>
+                                    <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider mt-1 opacity-60 italic">Free trial applied automatically</p>
                                 </div>
                             </div>
                         )}

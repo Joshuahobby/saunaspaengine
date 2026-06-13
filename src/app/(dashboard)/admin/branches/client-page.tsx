@@ -73,7 +73,7 @@ export default function AdminBranchesClientPage({ branches, stats }: BranchesPro
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-[var(--bg-card)]/50 border border-[var(--border-muted)] p-4 rounded-2xl backdrop-blur-sm">
                 <div className="flex flex-col gap-1">
                     <h1 className="text-2xl font-serif font-bold text-[var(--text-main)] italic">
-                        Operational Network
+                        Branch Network
                     </h1>
                     <p className="text-xs text-[var(--text-muted)] italic font-medium opacity-60">Complete management and monitoring of all business branches.</p>
                 </div>
