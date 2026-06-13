@@ -228,9 +228,9 @@ export default function AdminBroadcastsClientPage() {
                              <div className="rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm backdrop-blur-md relative overflow-hidden group">
                                 <h3 className="text-xl font-serif font-bold text-white mb-8 border-b border-[var(--border-muted)] pb-5">Broadcast Stats</h3>
                                 <div className="space-y-8">
-                                    <ResonanceCard label="Total Reach" value="1,248" sub="Global Branches" icon="groups_3" />
-                                    <ResonanceCard label="Engagement" value="94.2%" sub="Open Rate" icon="query_stats" />
-                                    <ResonanceCard label="Delivery Health" value="Optimal" sub="Low Latency" icon="verified" />
+                                    <StatCard label="Total Reach" value="1,248" sub="Global Branches" icon="groups_3" />
+                                    <StatCard label="Engagement" value="94.2%" sub="Open Rate" icon="query_stats" />
+                                    <StatCard label="Delivery Health" value="Optimal" sub="Low Latency" icon="verified" />
                                 </div>
                              </div>
 
@@ -258,7 +258,7 @@ export default function AdminBroadcastsClientPage() {
                         <div className="p-10 border-b border-[var(--border-muted)] flex justify-between items-center bg-black/10">
                             <div className="space-y-1">
                                 <h3 className="text-xl font-serif font-bold text-white">Transmission Archives</h3>
-                                <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40">Historical mapping of platform communication resonance.</p>
+                                <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40">History of all platform broadcasts.</p>
                             </div>
                             <div className="flex gap-4">
                                 <button className="px-5 py-2.5 rounded-xl border border-[var(--border-muted)] bg-black/20 text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] hover:text-white transition-all">
@@ -319,7 +319,7 @@ export default function AdminBroadcastsClientPage() {
     );
 }
 
-function ResonanceCard({ label, value, sub, icon }: { label: string, value: string, sub: string, icon: string }) {
+function StatCard({ label, value, sub, icon }: { label: string, value: string, sub: string, icon: string }) {
     return (
         <div className="flex items-center gap-5 group cursor-default">
             <div className="size-14 rounded-2xl bg-black/20 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-inner">

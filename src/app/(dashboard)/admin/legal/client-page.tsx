@@ -22,7 +22,7 @@ export default function LegalTemplatesClientPage() {
                         Legal <span className="text-[var(--color-primary)]">Framework</span>
                     </h1>
                     <p className="text-sm font-medium text-[var(--text-muted)] opacity-60">
-                        Defining the jurisdictional resonance and compliance rules for your operations.
+                        Define compliance rules and legal defaults for your operations.
                     </p>
                 </div>
                 <button className="flex items-center gap-3 px-10 py-4 bg-[var(--text-main)] text-[var(--bg-app)] rounded-2xl text-[10px] font-bold uppercase tracking-[0.3em] hover:scale-[1.05] active:scale-[0.98] transition-all shadow-xl shadow-black/10">

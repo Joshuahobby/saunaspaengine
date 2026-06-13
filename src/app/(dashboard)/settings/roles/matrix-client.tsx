@@ -67,7 +67,7 @@ export default function MatrixClient({ initialMatrix }: MatrixClientProps) {
                         Access <span className="text-[var(--color-primary)] opacity-50">&</span> Permission Matrix
                     </h1>
                     <p className="text-lg font-bold text-[var(--text-muted)] mt-2 opacity-80">
-                        Govern the digital hierarchy of your sanctuary with precision.
+                        Set access rights for each role across all platform features.
                     </p>
                 </div>
                 <div className="flex gap-4">
@@ -84,7 +84,7 @@ export default function MatrixClient({ initialMatrix }: MatrixClientProps) {
                         <span className="material-symbols-outlined font-bold">
                             {isSaving ? "sync" : "save_as"}
                         </span>
-                        {isSaving ? "Safeguarding..." : "Finalize Changes"}
+                        {isSaving ? "Saving..." : "Save Changes"}
                     </button>
                 </div>
             </div>
@@ -93,7 +93,7 @@ export default function MatrixClient({ initialMatrix }: MatrixClientProps) {
             <div className="overflow-hidden rounded-[2.5rem] border border-[var(--border-muted)] bg-[var(--bg-card)] shadow-sm group/matrix">
                 <div className="flex items-center justify-between border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10 px-10 py-8">
                     <div>
-                        <h2 className="text-2xl font-display font-bold text-[var(--text-main)]">Authority Configuration Matrix</h2>
+                        <h2 className="text-2xl font-display font-bold text-[var(--text-main)]">Role Permissions</h2>
                         <p className="text-sm font-bold text-[var(--text-muted)] opacity-60 mt-1">
                             {lastSaved ? `Last saved at ${lastSaved.toLocaleTimeString()}` : "Configure permissions for each role."}
                         </p>
@@ -112,7 +112,7 @@ export default function MatrixClient({ initialMatrix }: MatrixClientProps) {
                     <table className="w-full border-collapse text-left">
                         <thead className="bg-[var(--bg-surface-muted)]/5">
                             <tr className="border-b border-[var(--border-muted)]">
-                                <th className="px-10 py-6 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)]">Foundational Modules</th>
+                                <th className="px-10 py-6 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)]">Permission</th>
                                 {ROLES.map(role => (
                                     <th key={role} className="px-6 py-6 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-main)]">
                                         {role}
@@ -169,7 +169,7 @@ export default function MatrixClient({ initialMatrix }: MatrixClientProps) {
                             </div>
                         </div>
                         <p className="text-xs font-bold text-[var(--text-main)] px-1">
-                            Reset to sanctuary defaults?
+                            Reset all permissions to their default values?
                         </p>
                         <div className="flex gap-3">
                             <button

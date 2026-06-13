@@ -43,7 +43,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
         }
     };
 
-    const getResonanceTheme = (role: string) => {
+    const getRoleBadgeTheme = (role: string) => {
         switch (role) {
             case "ADMIN": return {
                 color: "text-purple-400",
@@ -174,7 +174,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                     <tbody className="divide-y divide-[var(--border-muted)] text-[var(--text-main)]">
                                         {logs.length > 0 ? (
                                             logs.map((log, idx) => {
-                                                const theme = getResonanceTheme(log.user.role);
+                                                const theme = getRoleBadgeTheme(log.user.role);
                                                 return (
                                                     <motion.tr 
                                                         key={log.id} 

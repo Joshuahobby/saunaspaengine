@@ -48,7 +48,7 @@ export default function BookingSettingsPage() {
                     <div className="flex flex-col gap-4">
                         <div className="flex items-center gap-3 text-[var(--color-primary)]">
                             <span className="material-symbols-outlined text-2xl font-bold">security</span>
-                            <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">Revenue Safeguard</span>
+                            <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">Revenue Protection</span>
                         </div>
                         <h1 className="text-5xl font-display font-bold leading-tight tracking-tight">Cancellation <span className="text-[var(--color-primary)] underline decoration-2 decoration-[var(--color-primary)]/20 underline-offset-8">Policy</span></h1>
                         <p className="text-[var(--text-muted)] text-xl font-bold max-w-2xl leading-relaxed">Manage how deposits and automated penalties protect your branch from no-shows and late cancellations.</p>
@@ -67,7 +67,7 @@ export default function BookingSettingsPage() {
                         </div>
                         <div className="flex-1">
                             <h4 className="text-xl font-display font-bold text-[var(--text-main)]">Automated protection is active</h4>
-                            <p className="text-sm text-[var(--text-muted)] font-bold mt-1">Your current policies safeguarded <span className="text-[var(--color-primary)] font-bold">1,240,000 RWF</span> in potential lost revenue last month.</p>
+                            <p className="text-sm text-[var(--text-muted)] font-bold mt-1">Your current policies protected <span className="text-[var(--color-primary)] font-bold">1,240,000 RWF</span> in potential lost revenue last month.</p>
                         </div>
                     </div>
 

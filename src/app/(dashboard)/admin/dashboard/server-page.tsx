@@ -6,7 +6,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Command Center | Admin Dashboard",
-    description: "Global operational oversight and platform health nexus.",
+    description: "Global operational oversight and platform health.",
 };
 
 export const dynamic = "force-dynamic";

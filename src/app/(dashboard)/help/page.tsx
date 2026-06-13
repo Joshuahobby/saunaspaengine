@@ -76,8 +76,8 @@ export default async function HelpPage() {
                     <h1 className="text-6xl font-display font-bold tracking-tight text-[var(--text-main)] shrink-0">
                         System <span className="text-[var(--color-primary)]">Manual</span>
                     </h1>
-                    <p className="text-[var(--text-muted)] text-sm leading-relaxed font-bold opacity-60">
-                        â€” The definitive guide to platform governance, commercial operations, and administrative mastery.
+                    <p className=”text-[var(--text-muted)] text-sm leading-relaxed font-bold opacity-60”>
+                        The complete guide to managing your sauna and spa business on this platform.
                     </p>
                 </div>
 
@@ -88,7 +88,7 @@ export default async function HelpPage() {
                     </div>
                     <input 
                         type="text" 
-                        placeholder="Search protocols, guides, or system logic..."
+                        placeholder="Search guides and documentation..."
                         className="w-full bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl py-5 pl-16 pr-6 text-sm font-bold focus:outline-none focus:border-[var(--color-primary)]/50 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all shadow-xl shadow-black/5"
                     />
                 </div>

@@ -330,7 +330,7 @@ export default async function LandingPage() {
         <section className="py-24 px-6 relative">
           <div className="max-w-7xl mx-auto flex flex-col gap-16">
             <ScrollReveal direction="up" className="text-center flex flex-col gap-4">
-              <h2 className="text-[var(--text-main)] text-4xl md:text-5xl font-black font-serif">Frequently Asked Questions</h2>
+              <h2 className="text-[var(--text-main)] text-4xl md:text-6xl font-black font-serif">Frequently Asked Questions</h2>
               <p className="text-[var(--text-muted)] text-lg">Everything you need to know about adopting our platform.</p>
             </ScrollReveal>
             <ScrollReveal direction="up" delay={0.2} duration={0.6}>
@@ -346,7 +346,7 @@ export default async function LandingPage() {
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-[var(--color-primary)]/10 rounded-full -ml-32 -mb-32 blur-3xl"></div>
             <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
               <div className="flex flex-col gap-4 md:w-1/2">
-                <h2 className="text-white text-4xl font-black font-serif leading-tight">Stay updated with Spa Insights</h2>
+                <h2 className="text-white text-4xl md:text-5xl font-black font-serif leading-tight">Stay updated with Spa Insights</h2>
                 <p className="text-white/80 text-lg">Join Rwanda&apos;s growing community of spa professionals receiving our weekly operations newsletter.</p>
               </div>
               <NewsletterForm />

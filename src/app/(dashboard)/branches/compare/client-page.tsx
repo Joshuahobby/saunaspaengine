@@ -25,9 +25,9 @@ export default function BranchComparisonClient({ branches }: Props) {
         <main className="flex flex-col flex-1 gap-12 max-w-[1440px] mx-auto w-full px-6 lg:px-10 py-12 overflow-y-auto">
             {/* Header */}
             <div className="flex flex-col gap-3 border-b border-[var(--border-muted)] pb-8">
-                <h1 className="text-4xl font-serif font-bold text-[var(--text-main)] italic">Entity Constellation</h1>
+                <h1 className="text-4xl font-serif font-bold text-[var(--text-main)] italic">Branch Comparison</h1>
                 <p className="text-lg text-[var(--text-muted)] italic font-medium opacity-80">
-                    Comparative resonance across all {branches.length} sanctuary locations.
+                    Comparing performance across all {branches.length} locations.
                 </p>
             </div>
 

@@ -190,7 +190,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                         <div className="p-8 border-b border-[var(--border-muted)] flex justify-between items-center bg-[var(--bg-app)]/50">
                             <div className="space-y-1">
                                 <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">System Matrix</h3>
-                                <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Live mapping of every edge and core sanctuary service.</p>
+                                <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Live status of all platform services.</p>
                             </div>
                             <div className="flex items-center gap-4">
                                 <div className="flex items-center gap-2">
@@ -286,7 +286,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                     <span className="ml-auto text-[var(--text-muted)] font-black italic group-hover/entry:text-[var(--text-main)] transition-opacity whitespace-nowrap">{entry.userName}</span>
                                 </motion.div>
                             )) : (
-                                <p className="text-center text-white/20 italic p-12 uppercase tracking-widest text-[9px] font-black">No diagnostic resonance detected.</p>
+                                <p className="text-center text-white/20 italic p-12 uppercase tracking-widest text-[9px] font-black">No diagnostic data available.</p>
                             )}
                         </div>
                     </motion.div>
