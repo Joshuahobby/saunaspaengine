@@ -50,7 +50,7 @@ export default async function CorporateProfilePage({
                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)] opacity-60">Business Settings</span>
                         </div>
                         <h1 className="text-5xl font-black font-serif tracking-tighter text-[var(--text-main)]">
-                            {isOwner ? "Corporate" : "Your"} <span className="">Identity.</span>
+                            {isOwner ? "Business" : "Your"} <span className="">Profile.</span>
                         </h1>
                     </div>
                 </div>

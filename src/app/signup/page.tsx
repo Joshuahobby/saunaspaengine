@@ -39,7 +39,7 @@ const DEFAULT_PLANS = [
         priceYearly: 3500000,
         branchLimit: 50,
         features: ["White-labeled Platform", "Custom API Integration", "Dedicated Manager", "On-site Staff Training", "Unlimited Branches"],
-        description: "Unlimited potential for large luxury resorts & chains.",
+        description: "For large luxury resorts and spa chains.",
         isCustom: true,
     },
 ];

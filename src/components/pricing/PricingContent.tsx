@@ -8,7 +8,7 @@ const PLANS = [
         name: "Basic",
         monthly: "50,000",
         annual: "40,000",
-        desc: "Perfect for boutique spas and single locations starting their digital journey.",
+        desc: "Perfect for boutique spas and single locations.",
         cta: "Start Free Trial",
         ctaStyle: "bg-[var(--bg-surface-muted)]/50 text-[var(--text-main)] hover:bg-[var(--color-primary)]/20",
         features: [

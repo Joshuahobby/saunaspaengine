@@ -268,7 +268,7 @@ function BranchHubRow({ biz, onEdit, onDelete, onToggleStatus, isToggling }: Bra
                     actions={[
                         { label: "View Details", icon: "open_in_new", href: `/businesses/${biz.id}` },
                         { label: "Edit Record", icon: "edit", onClick: onEdit },
-                        { label: "Delete Corporate", icon: "delete", onClick: onDelete, variant: "danger" }
+                        { label: "Delete Business", icon: "delete", onClick: onDelete, variant: "danger" }
                     ]} 
                 />
             </td>

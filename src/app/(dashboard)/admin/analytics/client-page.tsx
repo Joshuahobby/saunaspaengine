@@ -359,7 +359,7 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                             </div>
                         )) : (
                             <div className="p-8 text-center text-[var(--text-muted)] opacity-40 text-sm italic">
-                                No corporate revenue recorded in the last 28 days.
+                                No platform revenue recorded in the last 28 days.
                             </div>
                         )}
                     </div>

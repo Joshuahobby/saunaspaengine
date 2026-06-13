@@ -40,7 +40,7 @@ export default function DataTransferTab() {
                             <span className="material-symbols-outlined text-3xl">ios_share</span>
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold font-serif leading-tight">Data Extraction</h3>
+                            <h3 className="text-2xl font-bold font-serif leading-tight">Export Data</h3>
                             <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] mt-1 opacity-60 italic">Export System</p>
                         </div>
                         <p className="text-sm font-bold text-[var(--text-muted)] leading-relaxed italic pr-12">

@@ -29,7 +29,7 @@ export default function ReferralsTab() {
                             <span className="material-symbols-outlined text-4xl">diversity_3</span>
                         </div>
                         <h2 className="text-5xl font-serif font-black italic leading-tight tracking-tighter">
-                            Grow Your <span className="text-[var(--color-primary)]">Circle.</span>
+                            Refer &amp; <span className="text-[var(--color-primary)]">Earn.</span>
                         </h2>
                         <p className="text-xl text-[var(--text-muted)] font-bold italic opacity-80 leading-relaxed">
                             Refer a fellow spa owner and get <span className="text-[var(--text-main)] underline decoration-[var(--color-primary)] underline-offset-4">1 Month Free</span> for each successful signup.

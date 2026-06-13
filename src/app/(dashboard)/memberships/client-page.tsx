@@ -424,7 +424,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
 
                                     <p className="text-[9px] text-[var(--text-muted)] ml-4 italic leading-tight">
                                         {formData.isGlobal 
-                                            ? "Global passes can be redeemed at any branch within your corporate network."
+                                            ? "Global passes can be redeemed at any of your branches."
                                             : "This pass will only be available and redeemable at the selected branch."}
                                     </p>
                                 </div>
