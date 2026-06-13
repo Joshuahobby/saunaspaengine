@@ -109,7 +109,7 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                         disabled={isSaving}
                         className="h-14 px-10 rounded-full bg-[var(--text-main)] text-[var(--bg-app)] font-black uppercase tracking-[0.2em] text-xs flex items-center gap-3 shadow-2xl transition-all disabled:opacity-50"
                     >
-                        {isSaving ? "Synchronizing..." : "Commit Refinements"}
+                        {isSaving ? "Saving..." : "Save Changes"}
                         {!isSaving && <span className="material-symbols-outlined">save</span>}
                     </motion.button>
                 </div>

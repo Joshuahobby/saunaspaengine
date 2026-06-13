@@ -175,14 +175,14 @@ export function CheckInContainer({ services, employees, clients, subState }: Che
                             <p className="text-sm font-medium text-[var(--text-muted)] leading-relaxed">
                                 {isOverLimit 
                                     ? "You have reached your monthly check-in limit. Upgrade now to keep serving your clients without interruption."
-                                    : "Your subscription is currently inactive. Reactivate your workspace to resume reception operations."}
+                                    : "Your subscription is currently inactive. Reactivate your account to resume reception operations."}
                             </p>
                         </div>
                         <button 
                             onClick={() => setShowUpgradeModal(true)}
                             className="w-full py-4 rounded-2xl bg-[var(--color-primary)] text-[var(--bg-app)] font-black uppercase tracking-widest text-[11px] hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-[var(--color-primary)]/20"
                         >
-                            Explore Growth Plans
+                            View Plans
                         </button>
                     </div>
                 </div>

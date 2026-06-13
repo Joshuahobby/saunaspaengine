@@ -31,7 +31,7 @@ export default function BusinessProfileForm({ business }: BusinessProfileFormPro
         <form action={action} className="space-y-8 flex flex-col h-full justify-between">
             <div className="space-y-6">
                 <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60 px-2">Brand Identity</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60 px-2">Business Name</label>
                     <input 
                         name="name"
                         defaultValue={business.name}
@@ -51,7 +51,7 @@ export default function BusinessProfileForm({ business }: BusinessProfileFormPro
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60 px-2">Global Headquarters</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60 px-2">Address / Headquarters</label>
                     <textarea 
                         name="headquarters"
                         defaultValue={business.headquarters || ""}
@@ -62,7 +62,7 @@ export default function BusinessProfileForm({ business }: BusinessProfileFormPro
                 </div>
 
                 <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60 px-2">Corporate Contact / Phone</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60 px-2">Contact Phone</label>
                     <input 
                         name="phone"
                         defaultValue={business.phone || ""}
@@ -81,12 +81,12 @@ export default function BusinessProfileForm({ business }: BusinessProfileFormPro
                     {isPending ? (
                         <>
                             <span className="material-symbols-outlined animate-spin text-[18px]">sync</span>
-                            Synchronizing...
+                            Saving...
                         </>
                     ) : (
                         <>
                             <span className="material-symbols-outlined text-[18px]">verified_user</span>
-                            Commit Profile Changes
+                            Save Profile
                         </>
                     )}
                 </button>
