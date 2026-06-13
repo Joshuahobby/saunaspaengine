@@ -116,7 +116,7 @@ export default async function LoyaltyPerformancePage() {
                     <p className="text-4xl font-sans font-bold text-[var(--text-main)]">{pointsIssued.toLocaleString()}</p>
                     <div className="flex items-center gap-2 text-[var(--color-primary)] text-[10px] font-bold uppercase tracking-widest">
                         <span className="material-symbols-outlined text-xs">trending_up</span>
-                        <span>{velocity}% Velocity</span>
+                        <span>{velocity}% Engagement</span>
                     </div>
                 </div>
 

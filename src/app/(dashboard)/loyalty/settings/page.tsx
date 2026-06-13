@@ -105,7 +105,7 @@ export default async function LoyaltySettingsPage() {
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
                     <div>
                         <h1 className="text-4xl font-black tracking-tight text-[var(--text-muted)]">Loyalty & Rewards</h1>
-                        <p className="text-[var(--text-muted)] mt-1">Driving repeat branch through a flexible rewards ecosystem.</p>
+                        <p className="text-[var(--text-muted)] mt-1">Keep clients coming back with points, rewards, and tiers.</p>
                     </div>
                     <div className="flex gap-3">
                         <Link href="/loyalty/performance" className="px-4 py-2 rounded-lg bg-[var(--bg-card)] border border-[var(--border-main)] text-sm font-semibold hover:bg-[var(--bg-surface-muted)]/80 transition-colors flex items-center justify-center">

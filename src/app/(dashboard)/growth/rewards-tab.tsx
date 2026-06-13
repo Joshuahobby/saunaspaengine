@@ -69,7 +69,7 @@ export default async function RewardsTab() {
             {/* Quick Stats */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <StatCard label="Rewards Members" value={totalMembers.toLocaleString()} sub="+15% Growth" icon="group" />
-                <StatCard label="Points Circulating" value={pointsIssued.toLocaleString()} sub={`${velocity}% Velocity`} icon="token" />
+                <StatCard label="Points Issued" value={pointsIssued.toLocaleString()} sub={`${velocity}% Engagement`} icon="token" />
                 <StatCard label="Benefits Redeemed" value={pointsRedeemed.toLocaleString()} sub="High Engagement" icon="redeem" />
                 <StatCard 
                     label="Loyalty Revenue" 

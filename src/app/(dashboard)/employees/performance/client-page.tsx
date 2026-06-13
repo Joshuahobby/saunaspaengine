@@ -71,7 +71,7 @@ export default function PerformanceIndexClient({ stats, rankings }: PerformanceI
                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:scale-125 transition-transform duration-700">
                         <span className="material-symbols-outlined text-6xl">analytics</span>
                     </div>
-                    <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.3em] mb-4">Service Velocity</p>
+                    <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.3em] mb-4">Total Sessions</p>
                     <div className="flex items-baseline gap-2">
                         <p className="text-4xl font-display font-black text-[var(--text-main)] tracking-tighter">{stats.totalServices}</p>
                         <span className="text-xs font-bold text-blue-500 opacity-60 uppercase">Sessions</span>

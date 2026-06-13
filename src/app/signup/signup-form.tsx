@@ -387,7 +387,7 @@ export function SignupForm({ plans }: SignupFormProps) {
                         <p className="text-center text-[10px] text-[var(--text-muted)] opacity-50 font-bold uppercase tracking-widest leading-loose max-w-[500px] mx-auto">
                             No immediate charge. Account setup completes in seconds. 
                             <br />
-                            Secured by pawaPay Enterprise Grade Infrastructure.
+                            Payments powered by pawaPay.
                         </p>
                     </div>
                 </form>

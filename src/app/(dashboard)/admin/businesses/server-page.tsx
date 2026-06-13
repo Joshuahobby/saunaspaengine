@@ -4,8 +4,8 @@ import AdminBranchesClientPage from "./client-page";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Business Ecosystem",
-    description: "Manage and oversee all corporate entities and their global branch networks.",
+    title: "Businesses | Admin",
+    description: "Manage all registered businesses and their branches on the platform.",
 };
 
 interface BusinessRecord {

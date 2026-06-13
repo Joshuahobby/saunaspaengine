@@ -137,11 +137,11 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                                 />
                             </div>
                             <div className="space-y-3">
-                                <label htmlFor="membership-price" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic ml-4">Unit Yield (RWF)</label>
+                                <label htmlFor="membership-price" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic ml-4">Price (RWF)</label>
                                 <input
                                     id="membership-price"
                                     type="number"
-                                    title="Unit Yield"
+                                    title="Price"
                                     placeholder="e.g. 50000"
                                     value={formData.price}
                                     onChange={e => setFormData({...formData, price: e.target.value})}
@@ -212,8 +212,8 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                 <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-1000">
                     <div className="bg-[var(--color-primary)]/5 p-10 rounded-[3rem] border border-[var(--color-primary)]/20 shadow-2xl space-y-8">
                         <div className="space-y-1">
-                            <h3 className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-[0.3em] font-sans">Tier Insights</h3>
-                            <p className="text-xl font-serif font-black italic text-[var(--text-main)]">Revenue Velocity</p>
+                            <h3 className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-[0.3em] font-sans">Summary</h3>
+                            <p className="text-xl font-serif font-black italic text-[var(--text-main)]">Enrollment Summary</p>
                         </div>
 
                         <div className="space-y-6">
@@ -224,21 +224,21 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                             <div className="h-px bg-[var(--color-primary)]/10" />
                             <div className="space-y-1">
                                 <p className="text-4xl font-mono font-black text-[var(--color-primary)] tracking-tighter">{mrr.toLocaleString()}</p>
-                                <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-60 italic text-right">Yield Performance (RWF)</p>
+                                <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-60 italic text-right">Total Revenue (RWF)</p>
                             </div>
                         </div>
                     </div>
 
                     <div className="bg-[var(--bg-card)] p-8 rounded-[2.5rem] border border-[var(--border-muted)] shadow-xl space-y-6">
-                        <h3 className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest italic ml-2 opacity-50">Rapid Actions</h3>
+                        <h3 className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest italic ml-2 opacity-50">Quick Actions</h3>
                         <div className="grid grid-cols-1 gap-3">
                             <button type="button" className="h-14 w-full rounded-2xl bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] flex items-center gap-4 px-6 text-[10px] font-black text-[var(--text-main)] uppercase tracking-widest hover:bg-[var(--color-primary)]/5 hover:border-[var(--color-primary)]/30 transition-all">
                                 <span className="material-symbols-outlined text-[var(--color-primary)]">mail</span>
-                                Broadcast Intelligence
+                                Send Broadcast
                             </button>
                             <button type="button" className="h-14 w-full rounded-2xl bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] flex items-center gap-4 px-6 text-[10px] font-black text-[var(--text-main)] uppercase tracking-widest hover:bg-[var(--color-primary)]/5 hover:border-[var(--color-primary)]/30 transition-all">
                                 <span className="material-symbols-outlined text-[var(--color-primary)]">download</span>
-                                Extract Cohort Data
+                                Export Client Data
                             </button>
                         </div>
                     </div>
@@ -250,16 +250,16 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                 <div className="flex items-center justify-between">
                     <h2 className="text-2xl font-serif font-black italic text-[var(--text-main)] flex items-center gap-3">
                         <span className="material-symbols-outlined text-[var(--color-primary)]">group</span>
-                        Enrolled Cohort
+                        Enrolled Clients
                     </h2>
                 </div>
                 <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2.5rem] overflow-hidden shadow-2xl">
                     <table className="w-full text-left">
                         <thead>
                             <tr className="bg-[var(--bg-surface-muted)] border-b border-[var(--border-muted)]">
-                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Guest Presence</th>
-                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Operational Status</th>
-                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Allowance Velocity</th>
+                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Client</th>
+                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Status</th>
+                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Usage</th>
                                 <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60 text-right">Expiration</th>
                             </tr>
                         </thead>

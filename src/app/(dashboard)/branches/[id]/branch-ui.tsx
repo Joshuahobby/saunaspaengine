@@ -130,7 +130,7 @@ export default function BranchUI({ branch, intelligence, isOwner }: BranchUIProp
                             </span>
                             <span className="flex items-center gap-2">
                                 <Clock className="size-3.5 text-[var(--color-primary)] opacity-60" />
-                                LAST SYNC {formatDistanceToNow(new Date(intelligence.lastActive), { addSuffix: true })}
+                                LAST ACTIVITY {formatDistanceToNow(new Date(intelligence.lastActive), { addSuffix: true })}
                             </span>
                         </div>
                     </div>
@@ -161,10 +161,10 @@ export default function BranchUI({ branch, intelligence, isOwner }: BranchUIProp
                             {/* Branch Analytics Core */}
                             <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                                 {[
-                                    { label: "Branch Yield", value: formatCurrency(intelligence.totalYield), icon: TrendingUp, color: "text-emerald-400", sub: "12 MO VELOCITY", spark: true },
-                                    { label: "Quality Index", value: intelligence.avgRating > 0 ? `${intelligence.avgRating.toFixed(1)}/5` : "N/A", icon: Star, color: "text-yellow-400", sub: "GUEST SATISFACTION" },
-                                    { label: "Guest Volume", value: branch._count.clients.toLocaleString(), icon: Users, color: "text-blue-400", sub: "UNIQUE VISITORS" },
-                                    { label: "Occupancy IQ", value: `${intelligence.occupancyRate.toFixed(1)}%`, icon: Target, color: "text-[var(--color-primary)]", sub: "CAPACITY UTILIZATION" },
+                                    { label: "Total Revenue", value: formatCurrency(intelligence.totalYield), icon: TrendingUp, color: "text-emerald-400", sub: "12 MONTHS", spark: true },
+                                    { label: "Avg Rating", value: intelligence.avgRating > 0 ? `${intelligence.avgRating.toFixed(1)}/5` : "N/A", icon: Star, color: "text-yellow-400", sub: "GUEST SATISFACTION" },
+                                    { label: "Total Clients", value: branch._count.clients.toLocaleString(), icon: Users, color: "text-blue-400", sub: "UNIQUE CLIENTS" },
+                                    { label: "Occupancy Rate", value: `${intelligence.occupancyRate.toFixed(1)}%`, icon: Target, color: "text-[var(--color-primary)]", sub: "CAPACITY UTILIZATION" },
                                 ].map((kpi) => (
                                     <div key={kpi.label} className="bg-[var(--bg-card)] border border-[var(--border-main)] p-6 rounded-[28px] group hover:border-[var(--color-primary)]/30 transition-all shadow-sm relative overflow-hidden">
                                         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">

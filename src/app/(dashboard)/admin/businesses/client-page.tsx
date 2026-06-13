@@ -79,8 +79,8 @@ export default function AdminBranchesClientPage({ branches, stats }: PageProps) 
             {/* Title Section */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 py-2">
                 <div className="space-y-1">
-                    <h1 className="text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">Business <span className="text-[var(--color-primary)]">Ecosystem</span></h1>
-                    <p className="text-[10px] text-[var(--text-muted)] font-medium opacity-50 uppercase tracking-[0.2em]">Platform-wide oversight of registered corporates and operational hubs.</p>
+                    <h1 className="text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">Registered <span className="text-[var(--color-primary)]">Businesses</span></h1>
+                    <p className="text-[10px] text-[var(--text-muted)] font-medium opacity-50 uppercase tracking-[0.2em]">All businesses registered on the platform.</p>
                 </div>
                 <Link href="/businesses/approvals" className="flex items-center gap-2 bg-amber-500/10 text-amber-500 border border-amber-500/20 px-5 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-amber-500 hover:text-white transition-all shadow-sm">
                     <span className="material-symbols-outlined text-base">verified_user</span>

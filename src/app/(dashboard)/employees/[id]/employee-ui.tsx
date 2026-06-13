@@ -140,9 +140,9 @@ export default function EmployeeUI({ employee, categories, branches, isOwner, in
                             {/* Denser Analytics Block */}
                             <div className="lg:col-span-3 grid grid-cols-2 lg:grid-cols-4 gap-4">
                                 {[
-                                    { label: "Net Value (12mo)", value: formatCurrency(intelligence.totalYield), icon: TrendingUp, color: "text-emerald-400", extra: <RevenueSparkline data={intelligence.velocityData} /> },
+                                    { label: "Revenue (12mo)", value: formatCurrency(intelligence.totalYield), icon: TrendingUp, color: "text-emerald-400", extra: <RevenueSparkline data={intelligence.velocityData} /> },
                                     { label: "Retention Rate", value: `${intelligence.retentionRate.toFixed(1)}%`, icon: Target, color: "text-[var(--color-primary)]" },
-                                    { label: "Quality Index", value: intelligence.avgRating > 0 ? intelligence.avgRating.toFixed(1) : "N/A", icon: Star, color: "text-yellow-400" },
+                                    { label: "Avg Rating", value: intelligence.avgRating > 0 ? intelligence.avgRating.toFixed(1) : "N/A", icon: Star, color: "text-yellow-400" },
                                     { label: "Service Volume", value: intelligence.totalServices.toString(), icon: Activity, color: "text-blue-400" },
                                 ].map((kpi, idx) => (
                                     <div

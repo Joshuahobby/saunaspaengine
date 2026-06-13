@@ -88,7 +88,7 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[var(--border-main)] pb-8">
                 <div>
-                    <h1 className="text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">Revenue <span className="text-[var(--color-primary)]">Intelligence</span></h1>
+                    <h1 className="text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">Revenue <span className="text-[var(--color-primary)]">Reports</span></h1>
                     <p className="text-[var(--text-muted)] mt-2 font-medium">Real-time financial performance and transaction analysis.</p>
                 </div>
                 <div className="flex gap-3">
@@ -204,7 +204,7 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
             {/* Top Services Table */}
             <div className="bg-[var(--bg-card)] rounded-3xl border border-[var(--border-main)] overflow-hidden shadow-sm">
                 <div className="p-8 border-b border-[var(--border-main)]">
-                    <h3 className="text-xl font-display font-bold text-[var(--text-main)] tracking-tight">Highest Yield Services</h3>
+                    <h3 className="text-xl font-display font-bold text-[var(--text-main)] tracking-tight">Top Services by Revenue</h3>
                     <p className="text-sm text-[var(--text-muted)] mt-1 font-medium">Top performing offers based on gross revenue</p>
                 </div>
                 <div className="overflow-x-auto">
@@ -214,7 +214,7 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
                                 <th className="px-8 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">Service Name</th>
                                 <th className="px-8 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest">Category</th>
                                 <th className="px-8 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest text-center">Bookings</th>
-                                <th className="px-8 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest text-right">Yield (RWF)</th>
+                                <th className="px-8 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest text-right">Revenue (RWF)</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-[var(--border-main)]">

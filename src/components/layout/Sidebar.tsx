@@ -41,7 +41,7 @@ const adminNavItems: NavItem[] = [
     { label: "Treasury", href: "/finance/settlements", icon: "account_balance" },
     { label: "Staff Leaderboard", href: "/employees/gamification", icon: "emoji_events" },
     
-    { label: "Ecosystem", isHeader: true },
+    { label: "Platform", isHeader: true },
     { label: "Businesses", href: "/businesses", icon: "domain" },
     { label: "Branches", href: "/branches", icon: "storefront" },
     { label: "Universal Registry", href: "/clients/universal", icon: "public" },

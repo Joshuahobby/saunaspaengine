@@ -174,8 +174,8 @@ export default function BranchesPerformanceClient({ stats, leaderboard }: Branch
             <div className="bg-[var(--bg-card)] rounded-[2.5rem] border border-[var(--border-muted)] shadow-sm overflow-hidden mb-12">
                 <div className="p-8 border-b border-[var(--border-muted)] flex justify-between items-center sm:flex-row flex-col gap-6">
                     <div>
-                        <h4 className="text-2xl font-display font-bold text-[var(--text-main)]">Operating <span className="text-[var(--color-primary)]">Leverage</span></h4>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] mt-1 opacity-40">Labor Efficiency vs. Gross Yield</p>
+                        <h4 className="text-2xl font-display font-bold text-[var(--text-main)]">Revenue vs. <span className="text-[var(--color-primary)]">Costs</span></h4>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] mt-1 opacity-40">Revenue vs. operating costs by branch</p>
                     </div>
                     <div className="flex items-center gap-8">
                         <div className="flex items-center gap-2">

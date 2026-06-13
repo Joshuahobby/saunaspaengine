@@ -149,7 +149,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                             </div>
                             <div className="flex items-center gap-1.5 px-3 py-1 bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/10 rounded-lg text-[9px] font-bold uppercase tracking-widest shadow-lg">
                                 <Target className="size-3" />
-                                SUGGESTED: {intelligence.suggestedService}
+                                Try next: {intelligence.suggestedService}
                             </div>
                             {!qrCode && (
                                 <button 
@@ -222,7 +222,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                 {/* Denser Stats Block */}
                 <div className="lg:col-span-3 grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {[
-                        { label: "Net Value", value: formatCurrency(intelligence.ltv), icon: TrendingUp, color: "text-emerald-400", extra: <VelocitySparkline data={intelligence.velocityData} /> },
+                        { label: "Lifetime Value", value: formatCurrency(intelligence.ltv), icon: TrendingUp, color: "text-emerald-400", extra: <VelocitySparkline data={intelligence.velocityData} /> },
                         { label: "Loyalty Points", value: (loyaltyInfo?.points || 0).toString(), icon: Award, color: "text-[var(--color-primary)]" },
                         { label: "Visit Rate", value: intelligence.avgFrequency > 0 ? `${intelligence.avgFrequency}d` : "SINGLE", icon: Activity, color: "text-blue-400" },
                         { label: "Favorite", value: intelligence.favoriteService, icon: Sparkles, color: "text-orange-400" },
@@ -302,10 +302,10 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                     <div className="bg-[var(--bg-card)] border border-[var(--color-primary)]/10 p-5 rounded-[20px] text-[10px] font-medium text-[var(--text-muted)] leading-relaxed shadow-lg">
                         <div className="flex items-center gap-2 text-[var(--color-primary)] mb-2 uppercase font-bold tracking-widest">
                             <Info className="size-3" />
-                            Service Intelligence
+                            Service Insights
                         </div>
-                        Enthusiast of {intelligence.favoriteService}. 
-                        Recommended next: <span className="text-[var(--text-main)]">{intelligence.suggestedService}</span>.
+                        Favourite: {intelligence.favoriteService}.
+                        Suggested next: <span className="text-[var(--text-main)]">{intelligence.suggestedService}</span>.
                     </div>
                 </div>
 

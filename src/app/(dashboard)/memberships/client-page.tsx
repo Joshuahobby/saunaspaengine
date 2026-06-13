@@ -179,10 +179,10 @@ export default function MembershipsClientPage({ categories, branches, userRole }
                     <table className="w-full text-left">
                          <thead>
                             <tr className="bg-[var(--bg-surface-muted)] border-b border-[var(--border-muted)]">
-                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">creation date</th>
-                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">access logic</th>
-                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">unit yield</th>
-                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">velocity</th>
+                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">created</th>
+                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">access type</th>
+                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">price</th>
+                                <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">usage rate</th>
                                 <th className="px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] text-right">actions</th>
                             </tr>
                         </thead>
@@ -375,10 +375,10 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                                 </div>
 
                                 <div className="space-y-3">
-                                    <label htmlFor="pass-price" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic ml-4">Unit Yield (RWF)</label>
-                                    <input 
+                                    <label htmlFor="pass-price" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic ml-4">Price (RWF)</label>
+                                    <input
                                         id="pass-price"
-                                        title="Unit Yield"
+                                        title="Price"
                                         type="number"
                                         value={formData.price}
                                         onChange={e => setFormData({...formData, price: e.target.value})}
