@@ -177,7 +177,7 @@ export default function AdminBroadcastsClientPage() {
                                     </div>
 
                                     <div className="space-y-3">
-                                        <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2">Signal Content</label>
+                                        <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2">Message Content</label>
                                         <div className="rounded-[2rem] border border-[var(--border-muted)] bg-black/10 overflow-hidden focus-within:border-[var(--color-primary)]/40 transition-all p-1">
                                             <div className="flex items-center gap-2 p-3 border-b border-[var(--border-muted)]/50">
                                                 {["format_bold", "format_italic", "format_list_bulleted", "link", "attachment"].map((icon) => (
@@ -190,7 +190,7 @@ export default function AdminBroadcastsClientPage() {
                                                 value={content}
                                                 onChange={e => setContent(e.target.value)}
                                                 rows={8}
-                                                placeholder="Begin transmission of platform insights..."
+                                                placeholder="Write your message here..."
                                                 className="w-full bg-transparent p-6 text-base font-serif font-medium text-white/80 outline-none resize-none leading-relaxed"
                                             />
                                         </div>
@@ -204,7 +204,7 @@ export default function AdminBroadcastsClientPage() {
                                             </div>
                                             <div className="flex items-center gap-2 text-[var(--text-muted)] hover:text-[var(--color-primary)] cursor-pointer transition-colors group/opt">
                                                 <span className="material-symbols-outlined text-lg font-bold">visibility</span>
-                                                <span className="text-[8px] font-black uppercase tracking-widest border-b border-transparent group-hover/opt:border-current">Signal Preview</span>
+                                                <span className="text-[8px] font-black uppercase tracking-widest border-b border-transparent group-hover/opt:border-current">Preview</span>
                                             </div>
                                         </div>
 
@@ -213,9 +213,9 @@ export default function AdminBroadcastsClientPage() {
                                             className={`px-10 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] transition-all flex items-center gap-3 shadow-xl ${sent ? "bg-emerald-500 text-white" : "bg-[var(--bg-card)] text-black hover:scale-[1.05] active:scale-[0.98] disabled:opacity-30 disabled:hover:scale-100"}`}
                                         >
                                             {sent ? (
-                                                <>Signal Dispersed <span className="material-symbols-outlined text-base">task_alt</span></>
+                                                <>Sent <span className="material-symbols-outlined text-base">task_alt</span></>
                                             ) : (
-                                                <>Initiate Broadcast <span className="material-symbols-outlined text-lg font-black group-hover:translate-x-1 transition-transform">sensors</span></>
+                                                <>Send Broadcast <span className="material-symbols-outlined text-lg font-black group-hover:translate-x-1 transition-transform">sensors</span></>
                                             )}
                                         </button>
                                     </div>
@@ -243,7 +243,7 @@ export default function AdminBroadcastsClientPage() {
                                     <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1">Bypass standard distribution cycles for immediate branch alert.</p>
                                 </div>
                                 <button className="w-full py-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-[9px] font-black uppercase tracking-[0.2em] hover:bg-rose-500/20 transition-all">
-                                    Activate High-Intensity Signal
+                                    Send Urgent Alert
                                 </button>
                              </div>
                         </div>
@@ -273,7 +273,7 @@ export default function AdminBroadcastsClientPage() {
                             <table className="w-full">
                                 <thead>
                                     <tr className="border-b border-[var(--border-muted)]/50 bg-black/5">
-                                        {["Signal Spectrum", "Target Hub", "Impact", "Timing", "Status", "Actions"].map((h) => (
+                                        {["Subject", "Target", "Scope", "Sent At", "Status", "Actions"].map((h) => (
                                             <th key={h} className="px-10 py-5 text-left text-[8px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-50">{h}</th>
                                         ))}
                                     </tr>

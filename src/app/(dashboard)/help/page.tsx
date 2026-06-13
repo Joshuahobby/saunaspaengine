@@ -11,12 +11,12 @@ export default async function HelpPage() {
 
     const categories = [
         {
-            title: "Governance Protocols",
-            description: "Documentation on regional settings, tax harmonics, and legal defaults for platform-wide alignment.",
+            title: "Settings & Compliance",
+            description: "Regional settings, tax configuration, and legal defaults for your platform.",
             icon: "gavel",
             links: [
-                { label: "Regional Tuning Guide", href: "#" },
-                { label: "Managing Fiscal Logic", href: "#" },
+                { label: "Regional Settings Guide", href: "#" },
+                { label: "Tax Configuration", href: "#" },
                 { label: "Compliance Standards", href: "#" }
             ],
             color: "text-indigo-400",
@@ -24,39 +24,39 @@ export default async function HelpPage() {
             borderColor: "border-indigo-500/20"
         },
         {
-            title: "Operational Mastery",
-            description: "Best practices for managing business entities, branch distributions, and high-impact broadcasts.",
+            title: "Business Operations",
+            description: "Managing branches, staff, and broadcasts effectively.",
             icon: "hub",
             links: [
-                { label: "Establishing New Businesses", href: "#" },
-                { label: "Branch Oversight Workflow", href: "#" },
-                { label: "Broadcasting Protocols", href: "#" }
+                { label: "Adding a New Business", href: "#" },
+                { label: "Branch Management", href: "#" },
+                { label: "Broadcasts & Announcements", href: "#" }
             ],
             color: "text-[var(--color-primary)]",
             bgColor: "bg-[var(--color-primary)]/5",
             borderColor: "border-[var(--color-primary)]/20"
         },
         {
-            title: "Commercial Intelligence",
-            description: "Insights into platform commercial models, subscription tiers, and revenue management logic.",
+            title: "Revenue & Subscriptions",
+            description: "Subscription tiers, pricing plans, and revenue tracking.",
             icon: "payments",
             links: [
-                { label: "Subscription Tier Structures", href: "#" },
-                { label: "Revenue Flow Logic", href: "#" },
-                { label: "Tenant Commercial Health", href: "#" }
+                { label: "Subscription Plans", href: "#" },
+                { label: "Revenue Reports", href: "#" },
+                { label: "Billing & Payments", href: "#" }
             ],
             color: "text-emerald-400",
             bgColor: "bg-emerald-500/5",
             borderColor: "border-emerald-500/20"
         },
         {
-            title: "System Integrity",
-            description: "Technical manuals for auditing system shifts, monitoring health resonance, and platform security.",
+            title: "System & Security",
+            description: "Audit logs, health monitoring, and platform security.",
             icon: "security",
             links: [
-                { label: "Archival Vault Access", href: "#" },
-                { label: "Health Monitoring Triggers", href: "#" },
-                { label: "Security Audit Protocols", href: "#" }
+                { label: "Audit Log Access", href: "#" },
+                { label: "Health Monitoring", href: "#" },
+                { label: "Security Settings", href: "#" }
             ],
             color: "text-amber-400",
             bgColor: "bg-amber-500/5",
@@ -140,13 +140,13 @@ export default async function HelpPage() {
                 <div className="space-y-4">
                     <h3 className="text-3xl font-display font-bold text-[var(--text-main)]">Still need assistance?</h3>
                     <p className="text-[var(--text-muted)] max-w-3xl font-bold text-lg leading-relaxed">
-                        If you&apos;ve encountered a system anomaly or require architectural guidance, our primary support oracles are available to assist.
+                        Can&apos;t find what you&apos;re looking for? Our support team is ready to help.
                     </p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
                     <button className="px-10 py-5 bg-[var(--color-primary)] text-white font-bold rounded-2xl hover:scale-[1.02] transition-transform text-xs uppercase tracking-widest shadow-xl shadow-[var(--color-primary)]/20">
-                        Initiate Support Ticket
+                        Open a Support Ticket
                     </button>
                     <button className="px-10 py-5 bg-[var(--bg-card)] border border-[var(--border-muted)] text-[var(--text-main)] font-bold rounded-2xl hover:bg-[var(--bg-surface-muted)] transition-all text-xs uppercase tracking-widest">
                         Access Developer API Docs
@@ -155,7 +155,7 @@ export default async function HelpPage() {
             </div>
             
             <div className="mt-12 text-center">
-                <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.3em] opacity-40">Sauna Spa Engine Â· Governance Framework v2.4.0</p>
+                <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.3em] opacity-40">Sauna SPA Engine · Help Center</p>
             </div>
         </div>
     );
