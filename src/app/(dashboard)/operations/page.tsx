@@ -48,7 +48,7 @@ export default async function OperationsHubPage(props: {
                             Operations <span className="text-[var(--color-primary)]">Dashboard</span>
                         </h1>
                         <p className="text-sm font-medium text-[var(--text-muted)] opacity-60">
-                            Performance and throughput metrics for active service clusters.
+                            Performance metrics and service records for your branch.
                         </p>
                     </div>
                 </div>

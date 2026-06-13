@@ -44,7 +44,7 @@ export default async function OnboardingPage() {
             <div className="flex-1 flex items-center justify-center p-8">
                 <div className="bg-amber-500/10 border border-amber-500/20 p-6 rounded-2xl max-w-sm text-center">
                     <h2 className="text-amber-600 font-bold mb-2">Branch Not Found</h2>
-                    <p className="text-sm opacity-60">The branch location could not be retrieved from the central registry.</p>
+                    <p className="text-sm opacity-60">The branch location could not be found. Please contact support.</p>
                 </div>
             </div>
         );
