@@ -120,7 +120,7 @@ export default function ClientListClient({
                         className="flex items-center justify-center rounded-xl h-12 px-5 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[var(--text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]/30 text-sm font-bold transition-all shadow-sm group"
                     >
                         <span className="material-symbols-outlined mr-2 text-lg opacity-60 group-hover:opacity-100 transition-opacity">public</span>
-                        Universal Search
+                        All Clients
                     </Link>
                     <button
                         type="button"

@@ -220,9 +220,9 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
                             <div>
                                 <h2 className="text-xl font-display font-bold text-[var(--text-main)] flex items-center gap-2">
                                     <span className="material-symbols-outlined text-[var(--color-primary)]">policy</span>
-                                    Command Center
+                                    Alerts & Activity
                                 </h2>
-                                <p className="text-xs text-[var(--text-muted)] font-bold mt-1">Real-time alerts and network activity.</p>
+                                <p className="text-xs text-[var(--text-muted)] font-bold mt-1">Real-time alerts and recent activity.</p>
                             </div>
                         </div>
                         <div className="flex items-center bg-[var(--bg-surface-muted)]/20 rounded-lg p-1">

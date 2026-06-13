@@ -118,7 +118,7 @@ export default async function ExecutiveSettingsPage({
                     <nav className="flex flex-col gap-2">
                         <Link href="/dashboard" className="flex items-center gap-4 px-6 py-4 text-sm font-display font-bold rounded-[1.5rem] text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--bg-surface-muted)]/30 transition-all tracking-tight group">
                             <span className="material-symbols-outlined text-xl opacity-40 group-hover:scale-110 transition-transform">monitoring</span>
-                            <span>Command Center</span>
+                            <span>Dashboard</span>
                         </Link>
                         <Link href="/governance" className="flex items-center gap-4 px-6 py-4 text-sm font-display font-bold rounded-[1.5rem] bg-[var(--color-primary)]/10 text-[var(--color-primary)] shadow-sm border border-[var(--color-primary)]/20 tracking-tight group">
                             <span className="material-symbols-outlined text-xl font-bold icon-filled">gavel</span>

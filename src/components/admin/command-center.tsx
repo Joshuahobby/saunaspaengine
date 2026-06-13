@@ -100,7 +100,7 @@ export function CommandCenter() {
                 className="relative hidden md:flex items-center gap-3 pl-4 pr-3 py-2 bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-xl text-[10px] font-bold text-[var(--text-muted)] hover:border-[var(--color-primary)] transition-all group w-72"
             >
                 <span className="material-symbols-outlined text-[18px] opacity-60 group-hover:opacity-100 transition-opacity">search</span>
-                <span className="flex-1 text-left opacity-60 group-hover:opacity-100 transition-opacity">Command Center...</span>
+                <span className="flex-1 text-left opacity-60 group-hover:opacity-100 transition-opacity">Quick search...</span>
                 <kbd className="px-1.5 py-0.5 rounded bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[9px] font-black opacity-60 group-hover:opacity-90 transition-opacity text-[var(--text-muted)]">
                     {navigator?.platform?.toUpperCase().indexOf('MAC') >= 0 ? '⌘K' : 'Ctrl+K'}
                 </kbd>
@@ -156,8 +156,8 @@ export function CommandCenter() {
                                 {!query && (
                                     <div className="p-8 text-center space-y-4 opacity-70">
                                         <span className="material-symbols-outlined text-4xl text-[var(--color-primary)]">travel_explore</span>
-                                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-main)]">Global Command Center</p>
-                                        <p className="text-[9px] font-medium max-w-xs mx-auto text-[var(--text-muted)]">Start typing to search your resources. Find anything in seconds.</p>
+                                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-main)]">Quick Search</p>
+                                        <p className="text-[9px] font-medium max-w-xs mx-auto text-[var(--text-muted)]">Search businesses, branches, and clients by name.</p>
                                     </div>
                                 )}
 
@@ -186,7 +186,7 @@ export function CommandCenter() {
                                     </div>
                                 </div>
                                 <div className="text-[8px] font-black text-[var(--color-primary)] uppercase tracking-widest opacity-60">
-                                    Command Center V1.0
+                                    Quick Search
                                 </div>
                             </div>
                         </motion.div>
