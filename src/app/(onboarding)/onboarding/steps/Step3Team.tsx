@@ -209,7 +209,7 @@ export function Step3Team({ branch, onNext, onPrev }: StepProps) {
                 {team.length > 0 && (
                     <div className="border-2 border-dashed border-white/5 p-6 rounded-[2rem] flex flex-col items-center justify-center text-center space-y-2 opacity-30 select-none">
                         <span className="material-symbols-outlined text-4xl">infinite</span>
-                        <p className="text-[9px] font-black uppercase tracking-[0.3em]">Scalable Branch Structure</p>
+                        <p className="text-[9px] font-black uppercase tracking-[0.3em]">Add More Branches Later</p>
                     </div>
                 )}
             </div>

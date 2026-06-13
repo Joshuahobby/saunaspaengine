@@ -36,7 +36,7 @@ export default async function AdminMembersPage() {
                             Client <span className="text-[var(--color-primary)]">Records</span>
                         </h1>
                         <p className="text-sm font-medium text-[var(--text-muted)] opacity-60">
-                            Comprehensive records of all registered clients across the platform.
+                            All registered clients across the platform.
                         </p>
                     </div>
                 </div>

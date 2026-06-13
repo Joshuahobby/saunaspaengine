@@ -91,7 +91,7 @@ export default function UpgradeModal({ isOpen, onClose, title, message, limit, c
                             <div className="size-1 rounded-full bg-[var(--border-muted)]" />
                             <div className="flex items-center gap-1.5">
                                 <span className="material-symbols-outlined text-xs">rocket_launch</span>
-                                Instant Activation
+                                Instant Access
                             </div>
                         </div>
                     </div>

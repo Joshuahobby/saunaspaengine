@@ -163,23 +163,23 @@ export default function BranchDetailsClientPage({ business, platformPackages }: 
             {/* KPI Grid - Compact High-Density */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <AdminStatCard 
-                    label="Branch Network"
+                    label="Branches"
                     value={business.branches.length.toString()}
-                    subtitle={`${activeBranches} Online / ${business.branches.length - activeBranches} Reserved`}
+                    subtitle={`${activeBranches} Active / ${business.branches.length - activeBranches} Inactive`}
                     icon="hub"
                 />
-                <AdminStatCard 
-                    label="Resource Tier"
+                <AdminStatCard
+                    label="Plan"
                     value={business.subscriptionPlan?.name || "N/A"}
                     subtitle={isPremium ? `${business.subscriptionCycle} Cycle` : "No Plan Active"}
                     icon="workspace_premium"
-                    actionLabel="RECONFIGURE PLAN"
+                    actionLabel="CHANGE PLAN"
                     onAction={() => setIsPackageModalOpen(true)}
                 />
                 <AdminStatCard 
                     label="Estimated MRR"
                     value={`$${mrrContribution}`}
-                    subtitle="Platform Contribution"
+                    subtitle="Platform revenue"
                     icon="payments"
                 />
             </div>
@@ -189,7 +189,7 @@ export default function BranchDetailsClientPage({ business, platformPackages }: 
                 <div className="flex justify-between items-end border-b border-[var(--border-muted)] pb-4">
                     <div className="space-y-1">
                         <h3 className="text-2xl font-display font-bold text-[var(--text-main)] tracking-tight">Active Branches</h3>
-                        <p className="text-[9px] text-[var(--text-muted)] font-black uppercase tracking-[0.2em] opacity-40 italic">Managing organizational branches and service locations.</p>
+                        <p className="text-[9px] text-[var(--text-muted)] font-black uppercase tracking-[0.2em] opacity-40 italic">Branch locations for this business.</p>
                     </div>
                     <div className="flex items-center gap-3">
                         <Link 

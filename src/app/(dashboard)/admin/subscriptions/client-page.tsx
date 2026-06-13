@@ -42,7 +42,7 @@ export default function SubscriptionsClientPage({ branches }: { branches: Branch
                         <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-sm opacity-40 group-focus-within:opacity-100 transition-all">search</span>
                         <input
                             className="w-full bg-[var(--bg-app)]/30 border border-[var(--border-muted)] rounded-xl pl-10 pr-4 py-2 text-[10px] font-bold text-[var(--text-main)] focus:ring-1 focus:ring-[var(--color-primary)]/20 transition-all placeholder:text-[var(--text-muted)]/20 outline-none uppercase tracking-widest"
-                            placeholder="Search Network..."
+                            placeholder="Search subscriptions..."
                             type="text"
                         />
                     </div>

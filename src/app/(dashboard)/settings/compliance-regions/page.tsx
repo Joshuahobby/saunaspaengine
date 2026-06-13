@@ -80,7 +80,7 @@ export default async function RegionalCompliancePage({
                     <Link href="/settings" className="size-10 rounded-xl bg-[var(--bg-surface-muted)] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors border border-[var(--border-muted)]">
                         <span className="material-symbols-outlined">arrow_back</span>
                     </Link>
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)] opacity-60">Control Center / Settings</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)] opacity-60">Settings / Compliance Regions</span>
                 </div>
 
                 <div className="space-y-1">

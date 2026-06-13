@@ -27,7 +27,7 @@ export default function SafeSecureOperationsPage() {
                     <Link href="/settings" className="size-10 rounded-xl bg-[var(--bg-surface-muted)] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors border border-[var(--border-muted)]">
                         <span className="material-symbols-outlined">arrow_back</span>
                     </Link>
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)] opacity-60">Control Center / Settings</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)] opacity-60">Settings / Safety & Security</span>
                 </div>
 
                 <div className="space-y-1">
@@ -35,7 +35,7 @@ export default function SafeSecureOperationsPage() {
                         Safe & <span className="text-emerald-500">Secure.</span>
                     </h1>
                     <p className="text-sm font-bold text-[var(--text-muted)] opacity-60 leading-relaxed">
-                        Keep your business and your guests protected with unified safety checklists and digital security protocols.
+                        Manage safety checklists and QR access settings for your branches.
                     </p>
                 </div>
 
@@ -112,14 +112,14 @@ export default function SafeSecureOperationsPage() {
                                             <span className="material-symbols-outlined text-3xl font-black">qr_code_2</span>
                                         </div>
                                         <div>
-                                            <h2 className="text-2xl font-bold font-serif">QR Security Protocol</h2>
-                                            <p className="text-[10px] font-black tracking-widest text-[var(--text-muted)] uppercase opacity-60">Digital Gatekeeping</p>
+                                            <h2 className="text-2xl font-bold font-serif">QR Check-In Settings</h2>
+                                            <p className="text-[10px] font-black tracking-widest text-[var(--text-muted)] uppercase opacity-60">Entry Verification</p>
                                         </div>
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                         <div className="flex flex-col gap-3">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] ml-1">Code Life Span</label>
+                                            <label className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] ml-1">Code Expiry</label>
                                             <select title="Code Life Span" className="bg-[var(--bg-surface-muted)]/5 border border-[var(--border-muted)] rounded-2xl px-6 py-4 font-bold focus:ring-2 ring-[var(--color-primary)]/20 transition-all outline-none">
                                                 <option>Permanent</option>
                                                 <option>24 Hours</option>
@@ -156,7 +156,7 @@ export default function SafeSecureOperationsPage() {
                                 <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2.5rem] p-10 shadow-xl space-y-8">
                                     <div className="space-y-2">
                                         <h4 className="text-[10px] font-black uppercase tracking-widest text-red-500">Physical Access</h4>
-                                        <h3 className="text-xl font-bold font-serif leading-tight">Branch Gatekeepers</h3>
+                                        <h3 className="text-xl font-bold font-serif leading-tight">Recent QR Scans</h3>
                                     </div>
                                     <div className="space-y-4">
                                         {[
