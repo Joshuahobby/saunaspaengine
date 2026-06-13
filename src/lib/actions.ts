@@ -9,7 +9,7 @@ import { headers } from "next/headers";
 import { loginLimiter, passwordResetLimiter } from "@/lib/rate-limit";
 import { randomInt, timingSafeEqual } from "crypto";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const getResend = () => new Resend(process.env.RESEND_API_KEY ?? "");
 
 export async function authenticate(
     prevState: string | undefined,
@@ -81,7 +81,7 @@ export async function requestPasswordReset(email: string) {
 
         // Send Email via Resend
         if (process.env.RESEND_API_KEY) {
-            const { error: mailError } = await resend.emails.send({
+            const { error: mailError } = await getResend().emails.send({
                 from: "Sauna SPA Engine <onboarding@resend.dev>",
                 to: email,
                 subject: "Password Recovery — Verification Code",

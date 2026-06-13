@@ -23,7 +23,7 @@ export default function LoginPage() {
                 <div className="flex items-center gap-4 md:gap-6">
                     <div className="hidden md:flex items-center gap-6">
                         <Link
-                            href="/help"
+                            href="/support"
                             className="text-[var(--text-muted)] text-xs font-black uppercase tracking-widest hover:text-[var(--color-primary)] transition-colors"
                         >
                             Help Center
@@ -57,7 +57,7 @@ export default function LoginPage() {
                     <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[var(--text-muted)] text-xs font-medium opacity-60">
                         <Link href="/privacy" className="hover:text-[var(--color-primary)] transition-colors">Privacy Policy</Link>
                         <Link href="/terms" className="hover:text-[var(--color-primary)] transition-colors">Terms of Service</Link>
-                        <Link href="/cookies" className="hover:text-[var(--color-primary)] transition-colors">Cookie Settings</Link>
+                        <Link href="/privacy" className="hover:text-[var(--color-primary)] transition-colors">Cookie Settings</Link>
                         <span className="hidden md:inline text-[var(--border-muted)]">•</span>
                         <p>© 2026 Sauna SPA Engine</p>
                     </div>

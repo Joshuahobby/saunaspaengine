@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import { CopyButton } from "./components/CopyButton";
 
@@ -15,22 +15,22 @@ export default function ApiReferencePage() {
                         <h2 className="text-lg font-extrabold text-white tracking-tight">API Reference</h2>
                     </Link>
                     <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-slate-800/50 rounded-md border border-slate-700/50">
-                        <span className="text-xs font-medium text-slate-400">v2.4.0</span>
-                        <span className="material-symbols-outlined text-slate-500 text-[16px]">expand_more</span>
+                        <span className="text-xs font-medium text-[var(--text-muted)]">v2.4.0</span>
+                        <span className="material-symbols-outlined text-[var(--text-muted)] text-[16px]">expand_more</span>
                     </div>
                 </div>
 
                 <div className="flex items-center gap-6">
                     <div className="hidden lg:flex items-center relative w-64">
-                        <span className="material-symbols-outlined absolute left-3 text-slate-500 text-lg">search</span>
+                        <span className="material-symbols-outlined absolute left-3 text-[var(--text-muted)] text-lg">search</span>
                         <input
                             type="text"
                             placeholder="Search endpoints..."
-                            className="w-full bg-slate-800/50 border border-slate-700/50 rounded-lg pl-10 pr-12 py-1.5 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all font-mono"
+                            className="w-full bg-slate-800/50 border border-slate-700/50 rounded-lg pl-10 pr-12 py-1.5 text-sm text-slate-200 placeholder:text-[var(--text-muted)] focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all font-mono"
                         />
                         <div className="absolute right-2 flex gap-1">
-                            <kbd className="hidden xl:inline-block bg-slate-800 border border-slate-700 rounded px-1.5 text-[10px] text-slate-500 font-sans shadow-sm">⌘</kbd>
-                            <kbd className="hidden xl:inline-block bg-slate-800 border border-slate-700 rounded px-1.5 text-[10px] text-slate-500 font-sans shadow-sm">K</kbd>
+                            <kbd className="hidden xl:inline-block bg-slate-800 border border-slate-700 rounded px-1.5 text-[10px] text-[var(--text-muted)] font-sans shadow-sm">âŒ˜</kbd>
+                            <kbd className="hidden xl:inline-block bg-slate-800 border border-slate-700 rounded px-1.5 text-[10px] text-[var(--text-muted)] font-sans shadow-sm">K</kbd>
                         </div>
                     </div>
                     <Link href="/developer" className="text-sm font-medium hover:text-white transition-colors">Documentation</Link>
@@ -46,23 +46,23 @@ export default function ApiReferencePage() {
                     <nav className="p-4 space-y-8">
                         {/* Getting Started */}
                         <div>
-                            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 px-2">Getting Started</h3>
+                            <h3 className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider mb-3 px-2">Getting Started</h3>
                             <ul className="space-y-1">
                                 <li>
                                     <Link href="#" className="flex items-center gap-3 px-2 py-1.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-md group transition-colors">
-                                        <span className="material-symbols-outlined text-[18px] text-slate-500 group-hover:text-primary transition-colors">vpn_key</span>
+                                        <span className="material-symbols-outlined text-[18px] text-[var(--text-muted)] group-hover:text-primary transition-colors">vpn_key</span>
                                         Authentication
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href="#" className="flex items-center gap-3 px-2 py-1.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-md group transition-colors">
-                                        <span className="material-symbols-outlined text-[18px] text-slate-500 group-hover:text-primary transition-colors">error</span>
+                                        <span className="material-symbols-outlined text-[18px] text-[var(--text-muted)] group-hover:text-primary transition-colors">error</span>
                                         Errors
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href="#" className="flex items-center gap-3 px-2 py-1.5 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 rounded-md group transition-colors">
-                                        <span className="material-symbols-outlined text-[18px] text-slate-500 group-hover:text-primary transition-colors">dataset</span>
+                                        <span className="material-symbols-outlined text-[18px] text-[var(--text-muted)] group-hover:text-primary transition-colors">dataset</span>
                                         Pagination
                                     </Link>
                                 </li>
@@ -71,7 +71,7 @@ export default function ApiReferencePage() {
 
                         {/* Core Resources */}
                         <div>
-                            <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 px-2">Core Resources</h3>
+                            <h3 className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider mb-3 px-2">Core Resources</h3>
                             <ul className="space-y-4">
                                 {/* Clients */}
                                 <li>
@@ -86,13 +86,13 @@ export default function ApiReferencePage() {
                                             <Link href="#" className="block pl-4 py-1.5 text-[13px] text-primary bg-primary/10 border-l border-primary -ml-[1px] font-medium">Create a client</Link>
                                         </li>
                                         <li>
-                                            <Link href="#" className="block pl-4 py-1.5 text-[13px] text-slate-400 hover:text-slate-200 hover:border-slate-500 border-l border-transparent -ml-[1px] transition-colors">Retrieve a client</Link>
+                                            <Link href="#" className="block pl-4 py-1.5 text-[13px] text-[var(--text-muted)] hover:text-slate-200 hover:border-slate-500 border-l border-transparent -ml-[1px] transition-colors">Retrieve a client</Link>
                                         </li>
                                         <li>
-                                            <Link href="#" className="block pl-4 py-1.5 text-[13px] text-slate-400 hover:text-slate-200 hover:border-slate-500 border-l border-transparent -ml-[1px] transition-colors">Update a client</Link>
+                                            <Link href="#" className="block pl-4 py-1.5 text-[13px] text-[var(--text-muted)] hover:text-slate-200 hover:border-slate-500 border-l border-transparent -ml-[1px] transition-colors">Update a client</Link>
                                         </li>
                                         <li>
-                                            <Link href="#" className="block pl-4 py-1.5 text-[13px] text-slate-400 hover:text-slate-200 hover:border-slate-500 border-l border-transparent -ml-[1px] transition-colors">List all clients</Link>
+                                            <Link href="#" className="block pl-4 py-1.5 text-[13px] text-[var(--text-muted)] hover:text-slate-200 hover:border-slate-500 border-l border-transparent -ml-[1px] transition-colors">List all clients</Link>
                                         </li>
                                     </ul>
                                 </li>
@@ -101,10 +101,10 @@ export default function ApiReferencePage() {
                                 <li>
                                     <div className="px-2 py-1 flex items-center justify-between text-sm font-bold text-slate-300 hover:text-slate-200 cursor-pointer group transition-colors">
                                         <div className="flex items-center gap-2">
-                                            <span className="material-symbols-outlined text-[18px] text-slate-500 group-hover:text-primary/80 transition-colors">event</span>
+                                            <span className="material-symbols-outlined text-[18px] text-[var(--text-muted)] group-hover:text-primary/80 transition-colors">event</span>
                                             Bookings
                                         </div>
-                                        <span className="material-symbols-outlined text-[18px] text-slate-600">expand_more</span>
+                                        <span className="material-symbols-outlined text-[18px] text-[var(--text-muted)]">expand_more</span>
                                     </div>
                                 </li>
 
@@ -112,10 +112,10 @@ export default function ApiReferencePage() {
                                 <li>
                                     <div className="px-2 py-1 flex items-center justify-between text-sm font-bold text-slate-300 hover:text-slate-200 cursor-pointer group transition-colors">
                                         <div className="flex items-center gap-2">
-                                            <span className="material-symbols-outlined text-[18px] text-slate-500 group-hover:text-primary/80 transition-colors">inventory_2</span>
+                                            <span className="material-symbols-outlined text-[18px] text-[var(--text-muted)] group-hover:text-primary/80 transition-colors">inventory_2</span>
                                             Inventory
                                         </div>
-                                        <span className="material-symbols-outlined text-[18px] text-slate-600">chevron_right</span>
+                                        <span className="material-symbols-outlined text-[18px] text-[var(--text-muted)]">chevron_right</span>
                                     </div>
                                 </li>
 
@@ -123,10 +123,10 @@ export default function ApiReferencePage() {
                                 <li>
                                     <div className="px-2 py-1 flex items-center justify-between text-sm font-bold text-slate-300 hover:text-slate-200 cursor-pointer group transition-colors">
                                         <div className="flex items-center gap-2">
-                                            <span className="material-symbols-outlined text-[18px] text-slate-500 group-hover:text-primary/80 transition-colors">badge</span>
+                                            <span className="material-symbols-outlined text-[18px] text-[var(--text-muted)] group-hover:text-primary/80 transition-colors">badge</span>
                                             Staff
                                         </div>
-                                        <span className="material-symbols-outlined text-[18px] text-slate-600">chevron_right</span>
+                                        <span className="material-symbols-outlined text-[18px] text-[var(--text-muted)]">chevron_right</span>
                                     </div>
                                 </li>
                             </ul>
@@ -143,7 +143,7 @@ export default function ApiReferencePage() {
                             {/* Endpoint Header */}
                             <div className="mb-10">
                                 <h1 className="text-3xl font-extrabold text-white tracking-tight mb-4">Create a client</h1>
-                                <p className="text-slate-400 leading-relaxed text-base">
+                                <p className="text-[var(--text-muted)] leading-relaxed text-base">
                                     Creates a new client object. Any parameters not provided will be left unset. This endpoint returns the created client object if the call succeeded.
                                 </p>
                             </div>
@@ -173,11 +173,11 @@ export default function ApiReferencePage() {
                                             <div className="flex items-start justify-between mb-2">
                                                 <div className="flex items-center gap-3">
                                                     <code className="text-primary font-bold font-mono bg-primary/10 px-1.5 py-0.5 rounded text-sm">email</code>
-                                                    <span className="text-xs text-slate-400 font-mono">string</span>
+                                                    <span className="text-xs text-[var(--text-muted)] font-mono">string</span>
                                                 </div>
                                                 <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500 bg-amber-500/10 px-2 py-1 rounded">Required</span>
                                             </div>
-                                            <p className="text-sm text-slate-400 leading-relaxed">
+                                            <p className="text-sm text-[var(--text-muted)] leading-relaxed">
                                                 The client&apos;s email address. Must be a valid email format and unique across all clients in your organization.
                                             </p>
                                         </div>
@@ -187,11 +187,11 @@ export default function ApiReferencePage() {
                                             <div className="flex items-start justify-between mb-2">
                                                 <div className="flex items-center gap-3">
                                                     <code className="text-slate-200 font-bold font-mono bg-slate-800 px-1.5 py-0.5 rounded text-sm">name</code>
-                                                    <span className="text-xs text-slate-400 font-mono">string</span>
+                                                    <span className="text-xs text-[var(--text-muted)] font-mono">string</span>
                                                 </div>
-                                                <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 border border-slate-700 px-2 py-1 rounded">Optional</span>
+                                                <span className="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-muted)] border border-slate-700 px-2 py-1 rounded">Optional</span>
                                             </div>
-                                            <p className="text-sm text-slate-400 leading-relaxed mb-3">
+                                            <p className="text-sm text-[var(--text-muted)] leading-relaxed mb-3">
                                                 The client&apos;s full name or branch name.
                                             </p>
                                         </div>
@@ -201,11 +201,11 @@ export default function ApiReferencePage() {
                                             <div className="flex items-start justify-between mb-2">
                                                 <div className="flex items-center gap-3">
                                                     <code className="text-slate-200 font-bold font-mono bg-slate-800 px-1.5 py-0.5 rounded text-sm">phone</code>
-                                                    <span className="text-xs text-slate-400 font-mono">string</span>
+                                                    <span className="text-xs text-[var(--text-muted)] font-mono">string</span>
                                                 </div>
-                                                <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 border border-slate-700 px-2 py-1 rounded">Optional</span>
+                                                <span className="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-muted)] border border-slate-700 px-2 py-1 rounded">Optional</span>
                                             </div>
-                                            <p className="text-sm text-slate-400 leading-relaxed mb-3">
+                                            <p className="text-sm text-[var(--text-muted)] leading-relaxed mb-3">
                                                 The client&apos;s phone number. Useful for SMS notifications regarding bookings.
                                             </p>
                                         </div>
@@ -215,14 +215,14 @@ export default function ApiReferencePage() {
                                             <div className="flex items-start justify-between mb-2">
                                                 <div className="flex items-center gap-3">
                                                     <code className="text-slate-200 font-bold font-mono bg-slate-800 px-1.5 py-0.5 rounded text-sm">metadata</code>
-                                                    <span className="text-xs text-slate-400 font-mono">object</span>
+                                                    <span className="text-xs text-[var(--text-muted)] font-mono">object</span>
                                                 </div>
-                                                <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 border border-slate-700 px-2 py-1 rounded">Optional</span>
+                                                <span className="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-muted)] border border-slate-700 px-2 py-1 rounded">Optional</span>
                                             </div>
-                                            <p className="text-sm text-slate-400 leading-relaxed">
+                                            <p className="text-sm text-[var(--text-muted)] leading-relaxed">
                                                 Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
                                             </p>
-                                            <div className="mt-3 text-xs flex items-center gap-2 text-slate-500">
+                                            <div className="mt-3 text-xs flex items-center gap-2 text-[var(--text-muted)]">
                                                 <span className="material-symbols-outlined text-[16px]">info</span>
                                                 Up to 50 keys, with key names up to 40 characters long and values up to 500 characters long.
                                             </div>
@@ -241,8 +241,8 @@ export default function ApiReferencePage() {
                                         <span className="text-xs font-bold text-slate-300">REQUEST</span>
                                         <div className="flex gap-2">
                                             <button className="text-[11px] font-mono text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/20">cURL</button>
-                                            <button className="text-[11px] font-mono text-slate-500 hover:text-slate-300 px-2 py-0.5 transition-colors">Node.js</button>
-                                            <button className="text-[11px] font-mono text-slate-500 hover:text-slate-300 px-2 py-0.5 transition-colors">Python</button>
+                                            <button className="text-[11px] font-mono text-[var(--text-muted)] hover:text-slate-300 px-2 py-0.5 transition-colors">Node.js</button>
+                                            <button className="text-[11px] font-mono text-[var(--text-muted)] hover:text-slate-300 px-2 py-0.5 transition-colors">Python</button>
                                         </div>
                                     </div>
                                     <CopyButton
@@ -255,10 +255,10 @@ export default function ApiReferencePage() {
                                 </div>
                                 <div className="bg-[#0c121a] p-4 overflow-auto text-[13px] font-mono leading-relaxed hide-scrollbar">
                                     <div className="text-slate-300"><span className="text-emerald-400">curl</span> https://api.saunaspa.rw/v1/clients \</div>
-                                    <div className="pl-4 text-slate-300"><span className="text-slate-500">-u</span> sk_test_123456789: \</div>
-                                    <div className="pl-4 text-slate-300"><span className="text-slate-500">-d</span> email=<span className="text-amber-300">&quot;jane.doe@example.com&quot;</span> \</div>
-                                    <div className="pl-4 text-slate-300"><span className="text-slate-500">-d</span> name=<span className="text-amber-300">&quot;Jane Doe&quot;</span> \</div>
-                                    <div className="pl-4 text-slate-300"><span className="text-slate-500">-d</span> phone=<span className="text-amber-300">&quot;+250788123456&quot;</span></div>
+                                    <div className="pl-4 text-slate-300"><span className="text-[var(--text-muted)]">-u</span> sk_test_123456789: \</div>
+                                    <div className="pl-4 text-slate-300"><span className="text-[var(--text-muted)]">-d</span> email=<span className="text-amber-300">&quot;jane.doe@example.com&quot;</span> \</div>
+                                    <div className="pl-4 text-slate-300"><span className="text-[var(--text-muted)]">-d</span> name=<span className="text-amber-300">&quot;Jane Doe&quot;</span> \</div>
+                                    <div className="pl-4 text-slate-300"><span className="text-[var(--text-muted)]">-d</span> phone=<span className="text-amber-300">&quot;+250788123456&quot;</span></div>
                                 </div>
                             </div>
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -112,7 +112,7 @@ export default function CheckInForm({ clients, services, employees, lockerNumber
                         </select>
                         {serviceInfo && (
                             <p className="text-[10px] font-bold text-[var(--color-primary)] uppercase tracking-widest bg-[var(--color-primary)]/5 px-4 py-1.5 rounded-full w-fit mt-1">
-                                RWF {serviceInfo.price.toLocaleString()} · {serviceInfo.category}
+                                RWF {serviceInfo.price.toLocaleString()} Â· {serviceInfo.category}
                             </p>
                         )}
                     </div>
@@ -194,7 +194,7 @@ export default function CheckInForm({ clients, services, employees, lockerNumber
                     <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="h-10 px-6 bg-[var(--color-primary)] text-[var(--color-bg-dark)] rounded-xl font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md shadow-[var(--color-primary)]/10 disabled:opacity-50 disabled:cursor-not-allowed group text-[10px] flex-[2]"
+                        className="h-10 px-6 bg-[var(--color-primary)] text-[var(--bg-app)] rounded-xl font-black uppercase tracking-widest flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md shadow-[var(--color-primary)]/10 disabled:opacity-50 disabled:cursor-not-allowed group text-[10px] flex-[2]"
                     >
                         {isSubmitting ? "Wait..." : "Confirm Entry"}
                         <span className="material-symbols-outlined text-[12px] group-hover:translate-x-0.5 transition-transform font-bold">send</span>

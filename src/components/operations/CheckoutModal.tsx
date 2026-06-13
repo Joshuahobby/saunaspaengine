@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+﻿import { useState, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { initiateServiceCheckoutAction, completeVisitAction } from "@/app/(dashboard)/operations/checkout-actions";
 import { QRScanner } from "./QRScanner";
@@ -167,7 +167,7 @@ export default function CheckoutModal({
                                             }}
                                             className={`flex flex-col items-center justify-center gap-1.5 p-2 py-2.5 sm:p-3 sm:py-5 rounded-xl sm:rounded-2xl border-2 transition-all active:scale-95 ${
                                                 isActive 
-                                                ? `bg-[var(--color-primary)] border-[var(--color-primary)] text-[var(--color-bg-dark)] shadow-md shadow-[var(--color-primary)]/10` 
+                                                ? `bg-[var(--color-primary)] border-[var(--color-primary)] text-[var(--bg-app)] shadow-md shadow-[var(--color-primary)]/10` 
                                                 : "bg-[var(--bg-surface-muted)]/10 border-[var(--border-muted)]/10 hover:border-[var(--border-muted)]/30 text-[var(--text-muted)] hover:text-[var(--text-main)]"
                                             }`}
                                         >
@@ -248,10 +248,10 @@ export default function CheckoutModal({
                             <button
                                 onClick={handleInitialPay}
                                 disabled={isSubmitting || (mode === "MOMO" && !phone) || (mode === "MEMBERSHIP" && !membershipVerified)}
-                                className="w-full py-3 sm:py-4.5 bg-[var(--color-primary)] text-[var(--color-bg-dark)] rounded-xl sm:rounded-2xl font-black uppercase tracking-[0.15em] text-[10px] sm:text-xs hover:opacity-95 active:scale-[0.98] disabled:opacity-30 transition-all shadow-lg shadow-[var(--color-primary)]/10 flex items-center justify-center gap-2 group"
+                                className="w-full py-3 sm:py-4.5 bg-[var(--color-primary)] text-[var(--bg-app)] rounded-xl sm:rounded-2xl font-black uppercase tracking-[0.15em] text-[10px] sm:text-xs hover:opacity-95 active:scale-[0.98] disabled:opacity-30 transition-all shadow-lg shadow-[var(--color-primary)]/10 flex items-center justify-center gap-2 group"
                             >
                                 {isSubmitting ? (
-                                    <div className="size-3.5 sm:size-5 border-2 sm:border-3 border-[var(--color-bg-dark)] border-t-transparent rounded-full animate-spin"></div>
+                                    <div className="size-3.5 sm:size-5 border-2 sm:border-3 border-[var(--bg-app)] border-t-transparent rounded-full animate-spin"></div>
                                 ) : (
                                     <>
                                         {mode === "MOMO" ? "Send MOMO Prompt" : "Success & Complete"}

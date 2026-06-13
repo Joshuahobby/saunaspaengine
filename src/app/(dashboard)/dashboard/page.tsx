@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+﻿export const dynamic = "force-dynamic";
 
 import React from "react";
 import { prisma } from "@/lib/prisma";
@@ -135,7 +135,7 @@ export default async function DashboardPage() {
             {/* Welcome Section */}
             <div className="mb-8">
                 <h3 className="text-3xl font-display font-bold tracking-tight text-[var(--text-main)]">
-                    Welcome back, <span className="text-[var(--color-primary)]">{session.user.fullName.split(' ')[0]}!</span> 👋
+                    Welcome back, <span className="text-[var(--color-primary)]">{session.user.fullName.split(' ')[0]}!</span> ðŸ‘‹
                 </h3>
                 <p className="text-[var(--text-muted)] mt-2 font-bold uppercase tracking-[0.2em] text-[10px]">
                     {isEmployee
@@ -205,7 +205,7 @@ export default async function DashboardPage() {
 
             {/* Main Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Revenue Trends — Manager only */}
+                {/* Revenue Trends â€” Manager only */}
                 {!isEmployee && (
                 <div className="lg:col-span-2 p-6 glass-card border-none">
                     <div className="flex items-center justify-between mb-6">
@@ -291,7 +291,7 @@ export default async function DashboardPage() {
                         </div>
                     </div>
 
-                    {/* Inventory Alerts — Manager only */}
+                    {/* Inventory Alerts â€” Manager only */}
                     {!isEmployee && (
                     <div className="p-6 glass-card border-none bg-[var(--bg-surface-muted)]">
                         <div className="flex items-center justify-between mb-6">
@@ -330,7 +330,7 @@ export default async function DashboardPage() {
                         <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-main)]">0 Rooms Free</span>
                     </div>
                     <div className="flex items-center gap-3">
-                        <span className="size-2 bg-slate-500 rounded-full border border-[var(--border-muted)]"></span>
+                        <span className="size-2 bg-[var(--bg-surface-muted)] rounded-full border border-[var(--border-muted)]"></span>
                         <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)]">{activeServicesCount} Rooms In-Use</span>
                     </div>
                 </div>

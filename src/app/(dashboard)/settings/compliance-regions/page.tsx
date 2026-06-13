@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { prisma as db } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -139,7 +139,7 @@ export default async function RegionalCompliancePage({
                             <div className="xl:col-span-5">
                                 <div className="glass-card border border-[var(--border-muted)] p-10 flex flex-col rounded-[2.5rem] bg-[var(--bg-card)] shadow-xl h-full">
                                     <div className="flex flex-col gap-6 mb-12">
-                                        <span className="w-fit px-4 py-1.5 bg-[var(--color-primary)] text-slate-900 text-[9px] font-bold rounded-full uppercase tracking-[0.2em]">Regional Override</span>
+                                        <span className="w-fit px-4 py-1.5 bg-[var(--color-primary)] text-[var(--text-main)] text-[9px] font-bold rounded-full uppercase tracking-[0.2em]">Regional Override</span>
                                         <h2 className="text-3xl font-display font-bold text-[var(--text-main)]">Update Presets</h2>
                                         <p className="text-sm text-[var(--text-muted)] leading-relaxed font-bold">Adjust the legal minimums for the <span className="text-[var(--text-main)] font-bold">{activeRegionName}</span> territory.</p>
                                     </div>

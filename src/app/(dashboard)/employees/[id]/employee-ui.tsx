@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -147,7 +147,7 @@ export default function EmployeeUI({ employee, categories, branches, isOwner, in
                                 ].map((kpi, idx) => (
                                     <div
                                         key={kpi.label}
-                                        className="bg-white/[0.02] border border-white/5 p-5 rounded-[20px] group hover:border-[var(--color-primary)]/20 transition-all shadow-xl"
+                                        className="bg-[var(--bg-card)]/[0.02] border border-white/5 p-5 rounded-[20px] group hover:border-[var(--color-primary)]/20 transition-all shadow-xl"
                                     >
                                         <div className="flex items-center justify-between mb-4">
                                             <span className="text-[10px] font-bold uppercase tracking-wider text-white/50">{kpi.label}</span>

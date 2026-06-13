@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 
@@ -101,7 +101,7 @@ export default function BulkQRPage() {
                                 </div>
                                 <div className="text-sm text-[var(--text-muted)] font-mono">{c.memberId}</div>
                                 <div className="text-right">
-                                    <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase ${c.status === "Active" ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : c.status === "Expiring" ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400" : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400"}`}>{c.status}</span>
+                                    <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase ${c.status === "Active" ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : c.status === "Expiring" ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400" : "bg-[var(--bg-surface-muted)] text-[var(--text-muted)] dark:text-[var(--text-muted)]"}`}>{c.status}</span>
                                 </div>
                             </div>
                         ))}
@@ -125,7 +125,7 @@ export default function BulkQRPage() {
                                 <div key={toggle.label} className="flex items-center justify-between">
                                     <span className="text-sm text-[var(--text-muted)]">{toggle.label}</span>
                                     <button title={`Toggle ${toggle.label}`} aria-label={`Toggle ${toggle.label}`} onClick={() => toggle.setter(!toggle.value)} className={`w-9 h-5 rounded-full relative transition-colors ${toggle.value ? "bg-[var(--color-primary)]" : "bg-[var(--bg-surface-muted)]/50"}`}>
-                                        <div className={`absolute top-0.5 size-4 bg-white rounded-full transition-transform shadow-sm ${toggle.value ? "translate-x-4" : "translate-x-0.5"}`}></div>
+                                        <div className={`absolute top-0.5 size-4 bg-[var(--bg-card)] rounded-full transition-transform shadow-sm ${toggle.value ? "translate-x-4" : "translate-x-0.5"}`}></div>
                                     </button>
                                 </div>
                             ))}
@@ -149,19 +149,19 @@ export default function BulkQRPage() {
                             </div>
                         </div>
                         <div className="flex-1 p-6 bg-[var(--bg-surface-muted)]/10 overflow-y-auto flex justify-center">
-                            <div className="w-full max-w-[280px] aspect-[8.5/11] bg-white shadow-2xl p-4 grid grid-cols-2 gap-4 content-start">
+                            <div className="w-full max-w-[280px] aspect-[8.5/11] bg-[var(--bg-card)] shadow-2xl p-4 grid grid-cols-2 gap-4 content-start">
                                 {clients.filter(c => c.selected).map((c) => (
-                                    <div key={c.id} className="border border-slate-200 p-2 flex flex-col items-center justify-center bg-white rounded shadow-sm">
+                                    <div key={c.id} className="border border-[var(--border-main)] p-2 flex flex-col items-center justify-center bg-[var(--bg-card)] rounded shadow-sm">
                                         {includeLogo && (
                                             <div className="w-full flex justify-end mb-1">
                                                 <span className="material-symbols-outlined text-xs text-[var(--color-primary)]">spa</span>
                                             </div>
                                         )}
-                                        <div className="w-16 h-16 bg-slate-100 flex items-center justify-center border border-slate-200 mb-2">
-                                            <span className="material-symbols-outlined text-slate-800 text-4xl">qr_code_2</span>
+                                        <div className="w-16 h-16 bg-[var(--bg-surface-muted)] flex items-center justify-center border border-[var(--border-main)] mb-2">
+                                            <span className="material-symbols-outlined text-[var(--text-main)] text-4xl">qr_code_2</span>
                                         </div>
-                                        {includeName && <div className="text-[8px] font-bold text-slate-800 truncate w-full text-center">{c.name}</div>}
-                                        {showId && <div className="text-[6px] font-mono text-slate-500">{c.memberId}</div>}
+                                        {includeName && <div className="text-[8px] font-bold text-[var(--text-main)] truncate w-full text-center">{c.name}</div>}
+                                        {showId && <div className="text-[6px] font-mono text-[var(--text-muted)]">{c.memberId}</div>}
                                     </div>
                                 ))}
                             </div>

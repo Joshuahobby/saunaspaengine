@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { CheckCircle, Thermometer, Droplets, AlertTriangle, Printer, Share2, ArrowLeft, Award } from "lucide-react";
 import { format } from "date-fns";
@@ -39,10 +39,10 @@ interface ClientCheckInResultProps {
 }
 
 const TIER_CONFIG: Record<string, { color: string; bg: string; border: string; icon: string }> = {
-    BRONZE: { color: "text-amber-700 dark:text-amber-400", bg: "bg-amber-100 dark:bg-amber-900/30", border: "border-amber-200 dark:border-amber-800/40", icon: "⭐" },
-    SILVER: { color: "text-slate-600 dark:text-slate-300", bg: "bg-slate-100 dark:bg-slate-700/30", border: "border-slate-200 dark:border-slate-600/40", icon: "🥈" },
-    GOLD: { color: "text-yellow-700 dark:text-yellow-400", bg: "bg-yellow-100 dark:bg-yellow-900/30", border: "border-yellow-200 dark:border-yellow-800/40", icon: "🥇" },
-    PLATINUM: { color: "text-violet-700 dark:text-violet-300", bg: "bg-violet-100 dark:bg-violet-900/30", border: "border-violet-200 dark:border-violet-800/40", icon: "💎" },
+    BRONZE: { color: "text-amber-700 dark:text-amber-400", bg: "bg-amber-100 dark:bg-amber-900/30", border: "border-amber-200 dark:border-amber-800/40", icon: "â­" },
+    SILVER: { color: "text-[var(--text-muted)]", bg: "bg-[var(--bg-surface-muted)]/30", border: "border-[var(--border-main)]/40", icon: "ðŸ¥ˆ" },
+    GOLD: { color: "text-yellow-700 dark:text-yellow-400", bg: "bg-yellow-100 dark:bg-yellow-900/30", border: "border-yellow-200 dark:border-yellow-800/40", icon: "ðŸ¥‡" },
+    PLATINUM: { color: "text-violet-700 dark:text-violet-300", bg: "bg-violet-100 dark:bg-violet-900/30", border: "border-violet-200 dark:border-violet-800/40", icon: "ðŸ’Ž" },
 };
 
 export function ClientCheckInResult({ client, onBack, onComplete, services, lockerNumber = "", onLockerChange }: ClientCheckInResultProps) {
@@ -109,7 +109,7 @@ export function ClientCheckInResult({ client, onBack, onComplete, services, lock
                                 }
                             </p>
                             <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mt-1 opacity-60">
-                                {activeMembership.category.name} • {activeMembership.category.isGlobal ? "All Branches" : "This Branch"}
+                                {activeMembership.category.name} â€¢ {activeMembership.category.isGlobal ? "All Branches" : "This Branch"}
                             </p>
                         </div>
                     ) : (
@@ -140,12 +140,12 @@ export function ClientCheckInResult({ client, onBack, onComplete, services, lock
                 {/* Guest Insight */}
                 <div className="glass-card p-5 border-[var(--border-main)]">
                     <div className="flex items-center gap-2 mb-3">
-                        <span className="text-lg">✨</span>
+                        <span className="text-lg">âœ¨</span>
                         <span className="font-bold text-[var(--text-main)] text-xs">Insight</span>
                     </div>
                     <p className="text-sm font-medium text-[var(--text-main)] leading-snug">
                         {isBirthday 
-                            ? `It's ${client.fullName.split(' ')[0]}'s Birthday! 🎂`
+                            ? `It's ${client.fullName.split(' ')[0]}'s Birthday! ðŸŽ‚`
                             : `Welcome back, ${client.fullName.split(' ')[0]}!`
                         }
                     </p>
@@ -168,7 +168,7 @@ export function ClientCheckInResult({ client, onBack, onComplete, services, lock
                     <div className="flex items-center justify-between">
                         <span className="text-[var(--text-muted)] text-xs">Prefers:</span>
                         <span className="bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 px-2.5 py-0.5 rounded-lg font-bold text-[10px] uppercase tracking-wider">
-                            {client.preferences || "Standard (75°C)"}
+                            {client.preferences || "Standard (75Â°C)"}
                         </span>
                     </div>
                 </div>
@@ -254,17 +254,17 @@ export function ClientCheckInResult({ client, onBack, onComplete, services, lock
                         </select>
                         {activeMembership && (
                             <p className="text-[10px] font-bold text-[var(--color-primary)]">
-                                ✓ Payment will deduct from {activeMembership.category.name} membership
+                                âœ“ Payment will deduct from {activeMembership.category.name} membership
                                 {activeMembership.balance !== null && activeMembership.balance !== undefined && ` (${activeMembership.balance} remaining)`}
                             </p>
                         )}
                     </div>
                     <div className="flex gap-3">
-                        <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-[var(--text-main)] font-bold hover:bg-slate-200 transition-colors text-[11px] uppercase tracking-widest">
+                        <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[var(--bg-surface-muted)] text-[var(--text-main)] font-bold hover:brightness-95 transition-all text-[11px] uppercase tracking-widest">
                             <Printer className="w-4 h-4" />
                             Print Slip
                         </button>
-                        <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-[var(--text-main)] font-bold hover:bg-slate-200 transition-colors text-[11px] uppercase tracking-widest">
+                        <button className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[var(--bg-surface-muted)] text-[var(--text-main)] font-bold hover:brightness-95 transition-all text-[11px] uppercase tracking-widest">
                             <Share2 className="w-4 h-4" />
                             Voucher
                         </button>

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import { PublicLayout } from "@/components/layout/PublicLayout";
 import { PricingContent } from "@/components/pricing/PricingContent";
@@ -42,10 +42,10 @@ export default function PricingPage() {
                         <p className="text-lg mb-8 opacity-80 font-medium">Join wellness branches across Rwanda optimizing their operations daily.</p>
                         <div className="flex flex-col sm:flex-row justify-center gap-4">
                             <Link href="/login" className="bg-[var(--bg-app)] text-[var(--text-main)] px-8 py-4 rounded-xl font-bold hover:opacity-90 transition-all">Get Started Now</Link>
-                            <Link href="/demo" className="bg-white/30 backdrop-blur-md px-8 py-4 rounded-xl font-bold border border-[var(--bg-app)]/10 hover:bg-white/50 transition-all">Schedule a Demo</Link>
+                            <Link href="/demo" className="bg-[var(--bg-card)]/30 backdrop-blur-md px-8 py-4 rounded-xl font-bold border border-[var(--bg-app)]/10 hover:bg-[var(--bg-card)]/50 transition-all">Schedule a Demo</Link>
                         </div>
                     </div>
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--bg-card)]/20 rounded-full -mr-20 -mt-20 blur-3xl"></div>
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-[var(--bg-app)]/5 rounded-full -ml-20 -mb-20 blur-3xl"></div>
                 </div>
             </main>

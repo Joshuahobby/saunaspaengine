@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
@@ -64,7 +64,7 @@ export default function PromotionsTab() {
                                 }`}
                             >
                                 <div className="flex items-center gap-4">
-                                    <div className={`size-10 rounded-xl flex items-center justify-center ${promoType === type ? "bg-white/10" : "bg-[var(--bg-surface-muted)] text-[var(--color-primary)]"}`}>
+                                    <div className={`size-10 rounded-xl flex items-center justify-center ${promoType === type ? "bg-[var(--bg-card)]/10" : "bg-[var(--bg-surface-muted)] text-[var(--color-primary)]"}`}>
                                         <span className="material-symbols-outlined">{type === 'discount' ? 'percent' : type === 'addon' ? 'redeem' : 'group'}</span>
                                     </div>
                                     <span className="font-bold uppercase tracking-widest text-[10px]">{type === 'discount' ? 'Percent Discount' : type === 'addon' ? 'Free Gift/Add-on' : 'Buy One Get One'}</span>
@@ -104,7 +104,7 @@ export default function PromotionsTab() {
                         />
                         <div className="flex justify-between items-center px-4">
                             <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-60">
-                                {messageText.length} Characters • {Math.ceil(messageText.length / 160)} Segment(s)
+                                {messageText.length} Characters â€¢ {Math.ceil(messageText.length / 160)} Segment(s)
                             </p>
                             <button className="text-[10px] font-black uppercase tracking-widest text-[var(--color-primary)] flex items-center gap-2">
                                 <span className="material-symbols-outlined text-sm">auto_fix_high</span>
@@ -119,7 +119,7 @@ export default function PromotionsTab() {
             <div className="lg:col-span-5 relative">
                 <div className="sticky top-10 space-y-10">
                     <div className="bg-slate-900 rounded-[4rem] p-6 shadow-2xl border-[12px] border-slate-800 max-w-[340px] mx-auto aspect-[9/18.5] relative">
-                         <div className="h-full bg-white dark:bg-slate-900 rounded-[3rem] overflow-hidden flex flex-col border border-white/5">
+                         <div className="h-full bg-[var(--bg-card)] rounded-[3rem] overflow-hidden flex flex-col border border-white/5">
                             {/* Phone top */}
                             <div className="h-10 w-full flex justify-between items-end px-8 pb-3">
                                 <span className="text-[10px] font-bold">9:41</span>
@@ -149,7 +149,7 @@ export default function PromotionsTab() {
                          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-8 bg-slate-900 rounded-b-3xl"></div>
                     </div>
 
-                    <button className="w-full h-20 rounded-[2.5rem] bg-[var(--color-primary)] text-[var(--color-teal-900)] flex items-center justify-center font-black uppercase tracking-widest text-xs gap-4 hover:scale-[1.02] active:scale-95 transition-all shadow-2xl shadow-[var(--color-primary)]/30 group">
+                    <button className="w-full h-20 rounded-[2.5rem] bg-[var(--color-primary)] text-[var(--text-muted)] flex items-center justify-center font-black uppercase tracking-widest text-xs gap-4 hover:scale-[1.02] active:scale-95 transition-all shadow-2xl shadow-[var(--color-primary)]/30 group">
                         <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">send</span>
                         Launch Promotion
                     </button>

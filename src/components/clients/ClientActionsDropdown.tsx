@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
@@ -56,7 +56,7 @@ export default function ClientActionsDropdown({ clientId, clientName, status }: 
                     onClick={() => setIsOpen(!isOpen)}
                     title="More Actions"
                     aria-label="More Actions"
-                    className="size-10 flex items-center justify-center rounded-xl bg-[var(--bg-surface-muted)] hover:bg-[var(--color-primary)] hover:text-[var(--color-bg-dark)] transition-all border border-[var(--border-muted)]"
+                    className="size-10 flex items-center justify-center rounded-xl bg-[var(--bg-surface-muted)] hover:bg-[var(--color-primary)] hover:text-[var(--bg-app)] transition-all border border-[var(--border-muted)]"
                 >
                     <MoreHorizontal className="w-5 h-5" />
                 </button>

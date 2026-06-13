@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 
@@ -73,10 +73,10 @@ export function SupportContent() {
                     <h3 className="font-bold text-lg mb-4">Still need help?</h3>
                     <p className="text-white/80 text-sm mb-6 leading-relaxed">Our support team is available 24/7 to help you with any technical issues.</p>
                     <div className="space-y-3">
-                        <button className="w-full flex items-center justify-center gap-2 bg-white text-[var(--color-primary)] font-bold py-3 rounded-lg hover:bg-slate-50 transition-colors shadow-sm">
+                        <button className="w-full flex items-center justify-center gap-2 bg-[var(--bg-card)] text-[var(--color-primary)] font-bold py-3 rounded-lg hover:bg-[var(--bg-surface-muted)] transition-colors shadow-sm">
                             <span className="material-symbols-outlined">chat</span> Live Chat
                         </button>
-                        <button className="w-full flex items-center justify-center gap-2 bg-white/20 border border-white/30 text-white font-bold py-3 rounded-lg hover:bg-white/30 transition-colors">
+                        <button className="w-full flex items-center justify-center gap-2 bg-[var(--bg-card)]/20 border border-white/30 text-white font-bold py-3 rounded-lg hover:bg-[var(--bg-card)]/30 transition-colors">
                             <span className="material-symbols-outlined">mail</span> Email Support
                         </button>
                     </div>
@@ -131,7 +131,7 @@ export function SupportContent() {
                             </button>
                         </div>
                         <div className="md:w-2/5 min-h-[200px] bg-slate-800 relative group cursor-pointer flex items-center justify-center">
-                            <div className="size-16 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center text-white">
+                            <div className="size-16 rounded-full bg-[var(--bg-card)]/20 backdrop-blur-sm border border-white/40 flex items-center justify-center text-white">
                                 <span className="material-symbols-outlined text-4xl">play_arrow</span>
                             </div>
                         </div>

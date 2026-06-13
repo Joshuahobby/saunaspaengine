@@ -91,7 +91,7 @@ export default async function SignupPage() {
                 <div className="flex items-center gap-4 md:gap-6">
                     <div className="hidden md:flex items-center gap-6">
                         <Link
-                            href="/help"
+                            href="/support"
                             className="text-[var(--text-muted)] text-xs font-black uppercase tracking-widest hover:text-[var(--color-primary)] transition-colors"
                         >
                             Help Center

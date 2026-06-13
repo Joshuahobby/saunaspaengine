@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -52,7 +52,7 @@ export default function CheckoutButton({
 
             <button
                 onClick={() => setShowModal(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/30 text-[var(--color-primary)] text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[var(--color-primary)] hover:text-[var(--color-bg-dark)] transition-all active:scale-95 group ml-auto shadow-sm"
+                className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/30 text-[var(--color-primary)] text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[var(--color-primary)] hover:text-[var(--bg-app)] transition-all active:scale-95 group ml-auto shadow-sm"
             >
                 <CheckCircle2 className="w-4 h-4 group-hover:scale-110 transition-transform font-black" />
                 Done

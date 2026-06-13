@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 // date-fns used via getTimeAgo util
@@ -103,7 +103,7 @@ export default function ApprovalsClientPage({ businesses: initialBusinesses }: {
                             <button 
                                 onClick={() => handleApproval(b.id, "APPROVED")}
                                 disabled={processingId === b.id}
-                                className="flex-1 md:flex-none px-8 py-2.5 rounded-xl bg-white text-black text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95 disabled:opacity-20"
+                                className="flex-1 md:flex-none px-8 py-2.5 rounded-xl bg-[var(--bg-card)] text-black text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95 disabled:opacity-20"
                             >
                                 {processingId === b.id ? "Processing..." : "Verify & Approve"}
                             </button>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
@@ -147,14 +147,14 @@ export default function ServicesClientPage({ services, stats, userRole, subState
     const isModalOpen = showAddModal || editingService !== null;
 
     return (
-        <div className="flex-1 p-8 lg:p-12 overflow-y-auto bg-[var(--color-bg-light)] dark:bg-[var(--color-bg-dark)]">
+        <div className="flex-1 p-8 lg:p-12 overflow-y-auto bg-[var(--color-bg-light)] dark:bg-[var(--bg-app)]">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                 <div>
                     <h2 className="text-[var(--text-main)] text-3xl font-display font-bold leading-tight tracking-tight">Service Management</h2>
                     <p className="text-[var(--text-muted)] text-base font-medium mt-1">Configure and manage your spa&apos;s treatment menu and pricing.</p>
                 </div>
                 {!isEmployee && (
-                <button onClick={openAdd} className="flex items-center justify-center gap-2 rounded-3xl h-12 px-6 bg-[var(--color-primary)] text-[var(--color-bg-dark)] font-bold shadow-lg shadow-[var(--color-primary)]/10 hover:opacity-90 transition-all">
+                <button onClick={openAdd} className="flex items-center justify-center gap-2 rounded-3xl h-12 px-6 bg-[var(--color-primary)] text-[var(--bg-app)] font-bold shadow-lg shadow-[var(--color-primary)]/10 hover:opacity-90 transition-all">
                     <span className="material-symbols-outlined">add_circle</span>
                     <span>Add New Service</span>
                 </button>
@@ -181,7 +181,7 @@ export default function ServicesClientPage({ services, stats, userRole, subState
                 </div>
                 <div className="glass-card p-5">
                     <p className="text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-widest mb-1">Usage Limit</p>
-                    <p className="text-3xl font-sans font-black text-[var(--text-main)]">{stats.total} / {subState?.plan?.serviceLimit || "∞"}</p>
+                    <p className="text-3xl font-sans font-black text-[var(--text-main)]">{stats.total} / {subState?.plan?.serviceLimit || "âˆž"}</p>
                     <div className="flex items-center gap-1 text-[var(--color-primary)] text-[10px] font-bold mt-2 uppercase tracking-widest">
                         <span className="material-symbols-outlined text-sm">rocket</span>
                         <span>{subState?.plan?.name || "Free"} Plan</span>
@@ -204,7 +204,7 @@ export default function ServicesClientPage({ services, stats, userRole, subState
                         <button
                             key={val}
                             onClick={() => setFilter(val)}
-                            className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${filter === val ? "bg-[var(--color-primary)] text-[var(--color-bg-dark)] shadow-sm" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)]"}`}
+                            className={`px-5 py-2.5 rounded-xl text-sm font-bold transition-all ${filter === val ? "bg-[var(--color-primary)] text-[var(--bg-app)] shadow-sm" : "text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)]"}`}
                         >
                             {label}
                         </button>
@@ -325,7 +325,7 @@ export default function ServicesClientPage({ services, stats, userRole, subState
                             <button onClick={() => { setShowAddModal(false); setEditingService(null); }} className="flex-1 py-3 rounded-xl border border-[var(--border-muted)] text-[var(--text-main)] font-bold hover:bg-[var(--bg-surface-muted)] transition-all">
                                 Cancel
                             </button>
-                            <button onClick={handleSave} disabled={saving || !formName || !formPrice || !formDuration} className="flex-1 py-3 rounded-xl bg-[var(--color-primary)] text-[var(--color-bg-dark)] font-bold hover:opacity-90 transition-all disabled:opacity-50 shadow-lg shadow-[var(--color-primary)]/20">
+                            <button onClick={handleSave} disabled={saving || !formName || !formPrice || !formDuration} className="flex-1 py-3 rounded-xl bg-[var(--color-primary)] text-[var(--bg-app)] font-bold hover:opacity-90 transition-all disabled:opacity-50 shadow-lg shadow-[var(--color-primary)]/20">
                                 {saving ? "Saving..." : editingService ? "Update Service" : "Create Service"}
                             </button>
                         </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
@@ -125,11 +125,11 @@ export default function ClientListClient({
                     <button
                         type="button"
                         onClick={exportCSV}
-                        className="flex items-center justify-center rounded-xl h-12 px-5 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[var(--text-main)] text-sm font-bold hover:bg-[var(--color-primary)] hover:text-[var(--color-bg-dark)] transition-all"
+                        className="flex items-center justify-center rounded-xl h-12 px-5 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[var(--text-main)] text-sm font-bold hover:bg-[var(--color-primary)] hover:text-[var(--bg-app)] transition-all"
                     >
                         <span className="material-symbols-outlined mr-2 text-lg text-[var(--color-primary)]">file_download</span> Export CSV
                     </button>
-                    <Link href="/clients/new" className="flex items-center justify-center rounded-xl h-12 px-6 bg-[var(--color-primary)] text-[var(--color-bg-dark)] text-sm font-bold hover:opacity-90 transition-opacity shadow-lg shadow-[var(--color-primary)]/20">
+                    <Link href="/clients/new" className="flex items-center justify-center rounded-xl h-12 px-6 bg-[var(--color-primary)] text-[var(--bg-app)] text-sm font-bold hover:opacity-90 transition-opacity shadow-lg shadow-[var(--color-primary)]/20">
                         <span className="material-symbols-outlined mr-2 text-lg">person_add</span> Register New Client
                     </Link>
                 </div>
@@ -162,21 +162,21 @@ export default function ClientListClient({
                 <button
                     type="button"
                     onClick={() => handleFilterChange("all")}
-                    className={`flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full px-6 font-bold text-sm transition-all ${initialFilter === "all" ? "bg-[var(--color-primary)] text-[var(--color-bg-dark)] shadow-lg shadow-[var(--color-primary)]/20" : "bg-[var(--bg-card)] border border-[var(--border-main)] text-[var(--text-main)] hover:border-[var(--color-primary)]"}`}
+                    className={`flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full px-6 font-bold text-sm transition-all ${initialFilter === "all" ? "bg-[var(--color-primary)] text-[var(--bg-app)] shadow-lg shadow-[var(--color-primary)]/20" : "bg-[var(--bg-card)] border border-[var(--border-main)] text-[var(--text-main)] hover:border-[var(--color-primary)]"}`}
                 >
-                    All Clients <span className={`px-2 py-0.5 rounded-full text-xs ${initialFilter === "all" ? "bg-[var(--color-bg-dark)]/10" : "text-[var(--color-primary)] font-bold"}`}>{metrics.all}</span>
+                    All Clients <span className={`px-2 py-0.5 rounded-full text-xs ${initialFilter === "all" ? "bg-[var(--bg-app)]/10" : "text-[var(--color-primary)] font-bold"}`}>{metrics.all}</span>
                 </button>
                 <button
                     type="button"
                     onClick={() => handleFilterChange("MEMBER")}
-                    className={`flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full px-6 text-sm font-bold transition-all ${initialFilter === "MEMBER" ? "bg-[var(--color-primary)] text-[var(--color-bg-dark)] shadow-lg shadow-[var(--color-primary)]/20" : "bg-[var(--bg-card)] border border-[var(--border-main)] text-[var(--text-main)] hover:border-[var(--color-primary)]"}`}
+                    className={`flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full px-6 text-sm font-bold transition-all ${initialFilter === "MEMBER" ? "bg-[var(--color-primary)] text-[var(--bg-app)] shadow-lg shadow-[var(--color-primary)]/20" : "bg-[var(--bg-card)] border border-[var(--border-main)] text-[var(--text-main)] hover:border-[var(--color-primary)]"}`}
                 >
                     Active Members <span className={`text-xs font-bold ${initialFilter === "MEMBER" ? "" : "text-[var(--color-primary)]"}`}>{metrics.members}</span>
                 </button>
                 <button
                     type="button"
                     onClick={() => handleFilterChange("WALK_IN")}
-                    className={`flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full px-6 text-sm font-bold transition-all ${initialFilter === "WALK_IN" ? "bg-[var(--color-primary)] text-[var(--color-bg-dark)] shadow-lg shadow-[var(--color-primary)]/20" : "bg-[var(--bg-card)] border border-[var(--border-main)] text-[var(--text-main)] hover:border-[var(--color-primary)]"}`}
+                    className={`flex h-11 shrink-0 items-center justify-center gap-x-2 rounded-full px-6 text-sm font-bold transition-all ${initialFilter === "WALK_IN" ? "bg-[var(--color-primary)] text-[var(--bg-app)] shadow-lg shadow-[var(--color-primary)]/20" : "bg-[var(--bg-card)] border border-[var(--border-main)] text-[var(--text-main)] hover:border-[var(--color-primary)]"}`}
                 >
                     Walk-ins <span className={`text-xs font-bold ${initialFilter === "WALK_IN" ? "" : "text-[var(--color-primary)]"}`}>{metrics.walkIns}</span>
                 </button>

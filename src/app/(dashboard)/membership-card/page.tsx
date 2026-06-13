@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import QRCode from "qrcode";
 
@@ -45,8 +45,8 @@ export default async function DigitalMembershipCardPage() {
                                     <p className="text-xl font-bold tracking-tight font-display mt-1">{memberName}</p>
                                     <p className="text-xs text-white/30 font-mono mt-2 tracking-widest">ID: #{memberId}</p>
                                 </div>
-                                <div className="bg-white/95 p-4 rounded-2xl shadow-inner flex items-center justify-center backdrop-blur-sm">
-                                    <div className="w-20 h-20 md:w-28 md:h-28 bg-white rounded-xl flex items-center justify-center border border-dashed border-slate-200 overflow-hidden">
+                                <div className="bg-[var(--bg-card)]/95 p-4 rounded-2xl shadow-inner flex items-center justify-center backdrop-blur-sm">
+                                    <div className="w-20 h-20 md:w-28 md:h-28 bg-[var(--bg-card)] rounded-xl flex items-center justify-center border border-dashed border-[var(--border-main)] overflow-hidden">
                                         <div className="flex flex-col items-center gap-1 w-full h-full p-2">
                                             <img src={qrDataUrl} alt="QR Code" className="w-full h-full object-contain" />
                                         </div>
@@ -54,7 +54,7 @@ export default async function DigitalMembershipCardPage() {
                                 </div>
                             </div>
                         </div>
-                        <button className="absolute -bottom-4 right-8 flex items-center gap-3 bg-[var(--color-primary)] text-[var(--color-bg-dark)] px-8 py-4 rounded-full font-bold shadow-xl shadow-[var(--color-primary)]/20 hover:-translate-y-1 transition-all active:scale-95 text-[10px] uppercase tracking-widest">
+                        <button className="absolute -bottom-4 right-8 flex items-center gap-3 bg-[var(--color-primary)] text-[var(--bg-app)] px-8 py-4 rounded-full font-bold shadow-xl shadow-[var(--color-primary)]/20 hover:-translate-y-1 transition-all active:scale-95 text-[10px] uppercase tracking-widest">
                             <span className="material-symbols-outlined text-lg">refresh</span>
                             <span>Refresh Pass</span>
                         </button>
@@ -64,7 +64,7 @@ export default async function DigitalMembershipCardPage() {
                 {/* Wallet & Quick Actions */}
                 <div className="lg:col-span-5 flex flex-col gap-6 justify-center">
                     <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-2 italic opacity-40">Mobile Access</p>
-                    <button className="w-full flex items-center justify-center gap-4 bg-[#FFCC00] text-slate-900 px-6 py-5 rounded-[2rem] hover:opacity-90 transition-all active:scale-95 border border-[#FFCC00]/50 shadow-lg shadow-[#FFCC00]/5">
+                    <button className="w-full flex items-center justify-center gap-4 bg-[#FFCC00] text-[var(--text-main)] px-6 py-5 rounded-[2rem] hover:opacity-90 transition-all active:scale-95 border border-[#FFCC00]/50 shadow-lg shadow-[#FFCC00]/5">
                         <span className="material-symbols-outlined text-2xl">phone_android</span>
                         <span className="text-lg font-bold tracking-tight italic">Link to MTN MoMo</span>
                     </button>
@@ -119,8 +119,8 @@ export default async function DigitalMembershipCardPage() {
                 </div>
                 <div className="bg-[var(--bg-card)] rounded-[2.5rem] border border-[var(--border-muted)] overflow-hidden shadow-none">
                     {[
-                        { icon: "hot_tub", label: "Infrared Sauna Session", sub: "Kigali Oasis • Recently", pts: "+150 pts" },
-                        { icon: "self_care", label: "Swedish Massage (60 min)", sub: "Kigali Oasis • Last week", pts: "+300 pts" },
+                        { icon: "hot_tub", label: "Infrared Sauna Session", sub: "Kigali Oasis â€¢ Recently", pts: "+150 pts" },
+                        { icon: "self_care", label: "Swedish Massage (60 min)", sub: "Kigali Oasis â€¢ Last week", pts: "+300 pts" },
                     ].map((activity, i) => (
                         <div key={i} className={`p-8 flex items-center justify-between ${i < 1 ? "border-b border-[var(--border-muted)]" : ""} hover:bg-[var(--bg-surface-muted)]/30 transition-colors group`}>
                             <div className="flex items-center gap-6">

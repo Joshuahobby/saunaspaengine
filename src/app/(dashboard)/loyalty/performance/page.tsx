@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+﻿import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -83,7 +83,7 @@ export default async function LoyaltyPerformancePage() {
                     <p className="text-[var(--text-muted)] text-xl font-bold max-w-2xl leading-relaxed">Your loyalty initiative is driving higher retention and incremental revenue across all branches.</p>
                 </div>
                 <div className="flex gap-3">
-                    <button className="flex items-center justify-center rounded-lg h-11 px-6 bg-[var(--color-primary)]/10 text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] text-sm font-bold hover:bg-[var(--color-primary)]/20 transition-all border border-[var(--color-primary)]/20">
+                    <button className="flex items-center justify-center rounded-lg h-11 px-6 bg-[var(--color-primary)]/10 text-[var(--text-muted)] text-sm font-bold hover:bg-[var(--color-primary)]/20 transition-all border border-[var(--color-primary)]/20">
                         <span className="material-symbols-outlined mr-2 text-xl">download</span>
                         Export Report
                     </button>

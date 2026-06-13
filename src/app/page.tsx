@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Metadata } from "next";
 import { ScrollReveal } from "@/components/landing/ScrollReveal";
 import { LiveCheckins } from "@/components/landing/LiveCheckins";
@@ -9,11 +9,11 @@ import { auth } from "@/lib/auth";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Sauna SPA Engine — Spa & Sauna Management Platform for Rwanda",
+  title: "Sauna SPA Engine â€” Spa & Sauna Management Platform for Rwanda",
   description:
     "Rwanda's #1 management platform for spas and saunas. Fast QR check-ins, Mobile Money payments, real-time reports, and mobile-first operations.",
   openGraph: {
-    title: "Sauna SPA Engine — Spa & Sauna Management for Rwanda",
+    title: "Sauna SPA Engine â€” Spa & Sauna Management for Rwanda",
     description: "Rwanda's #1 management platform for spas and saunas. Digitize operations, delight your clients, grow your revenue.",
     url: "https://saunaspa.rw",
     siteName: "Sauna SPA Engine",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sauna SPA Engine — Rwanda's #1 Spa Management Platform",
+    title: "Sauna SPA Engine â€” Rwanda's #1 Spa Management Platform",
     description: "Digitize your sauna and spa with fast QR check-ins, Mobile Money payments, and real-time reports.",
     images: ["https://lh3.googleusercontent.com/aida-public/AB6AXuD377Rw1J3jJ50DFdv7DI9VFckbkX50HKLF-0MQoJ6UG7ZM7QXD5QnskGKx85GT7bGeapAnHwaf71_gIMa8Bn1IKNC9fmzjuWNDeiAOSqrfbQz-ihSJCxIBr1vXCAFeQ5_K_UuDdV43xr0rXle25Eyed_UiZBa4xqMi2gpUSnL6PGmkEGPq1aM2yw7UoZVN9BqvRbnVM0GFW4wzaEQms1Ok-WLoaHi6O6u2PFUCwzG_GcllwK7ks9mQhEtTATcLd2-kjcqhRPM2-B8S"],
   },
@@ -50,7 +50,7 @@ export default async function LandingPage() {
               <div className="flex flex-col gap-6">
                 <ScrollReveal direction="up" delay={0.1} duration={0.6}>
                   <span className="inline-block w-fit bg-[var(--color-primary-muted)] text-[var(--color-primary)] text-[10px] font-black uppercase tracking-[0.3em] px-4 py-2 rounded-full shadow-sm border border-[var(--color-primary-border)]">
-                    Built for Rwanda 🇷🇼
+                    Built for Rwanda ðŸ‡·ðŸ‡¼
                   </span>
                 </ScrollReveal>
                 <ScrollReveal direction="up" delay={0.2} duration={0.8}>
@@ -100,7 +100,7 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        {/* Platform Stats Bar — replaces fake brand logos */}
+        {/* Platform Stats Bar â€” replaces fake brand logos */}
         <section className="bg-[var(--bg-surface-muted)]/50 border-y border-[var(--border-main)] py-12">
           <ScrollReveal direction="up" duration={0.8}>
             <div className="max-w-[1200px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 items-center text-center">
@@ -165,7 +165,7 @@ export default async function LandingPage() {
                 <FeatureCard
                   icon="calendar_month"
                   title="Staff & Scheduling"
-                  description="Create shift schedules, track attendance, and manage your team&apos;s performance — all from one centralized portal."
+                  description="Create shift schedules, track attendance, and manage your team&apos;s performance â€” all from one centralized portal."
                 />
               </ScrollReveal>
               <ScrollReveal direction="up" delay={0.6}>
@@ -179,7 +179,7 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        {/* How It Works Section — replaces fake testimonials */}
+        {/* How It Works Section â€” replaces fake testimonials */}
         <section id="how-it-works" className="bg-[var(--bg-surface-muted)]/30 border-t border-[var(--border-main)] py-24 px-6 md:px-20 lg:px-40 overflow-hidden">
           <div className="max-w-7xl mx-auto flex flex-col gap-16">
             <ScrollReveal direction="up" className="flex flex-col gap-4 text-center items-center">
@@ -281,8 +281,8 @@ export default async function LandingPage() {
               {/* Premium */}
               <ScrollReveal direction="up" delay={0.3} className="relative z-10">
                 <div className="h-full bg-gradient-to-br from-[#1b3a1b] to-[#2d5a27] dark:from-[#2d5a27] dark:to-[#1b3a1b] rounded-[2.5rem] p-10 border border-white/10 flex flex-col gap-8 transform lg:scale-105 shadow-[0_20px_60px_rgba(45,90,39,0.4)] relative overflow-hidden group transition-all duration-500">
-                  <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl group-hover:bg-white/20 transition-colors"></div>
-                  <div className="absolute -top-3 left-1/2 -track-x-1/2 bg-white text-[var(--color-primary)] text-[10px] font-black px-6 py-2 rounded-full uppercase tracking-[0.3em] shadow-xl z-20 whitespace-nowrap -translate-x-1/2 leading-none">Best Value</div>
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--bg-card)]/10 rounded-full -mr-20 -mt-20 blur-3xl group-hover:bg-[var(--bg-card)]/20 transition-colors"></div>
+                  <div className="absolute -top-3 left-1/2 -track-x-1/2 bg-[var(--bg-card)] text-[var(--color-primary)] text-[10px] font-black px-6 py-2 rounded-full uppercase tracking-[0.3em] shadow-xl z-20 whitespace-nowrap -translate-x-1/2 leading-none">Best Value</div>
                   <div className="flex flex-col gap-2 relative z-10">
                     <h4 className="text-white/70 font-black uppercase tracking-[0.2em] text-xs">Premium</h4>
                     <div className="flex items-baseline gap-2">
@@ -298,7 +298,7 @@ export default async function LandingPage() {
                     <PricingInclusion text="Multi-branch (3 Branches)" isDark />
                     <PricingInclusion text="Priority Support" isDark />
                   </ul>
-                  <Link href="/signup" className="mt-auto w-full py-5 rounded-2xl bg-white text-[var(--color-primary)] font-black uppercase tracking-[0.2em] shadow-2xl hover:bg-emerald-50 transition-all text-center text-[10px] flex items-center justify-center gap-2">
+                  <Link href="/signup" className="mt-auto w-full py-5 rounded-2xl bg-[var(--bg-card)] text-[var(--color-primary)] font-black uppercase tracking-[0.2em] shadow-2xl hover:bg-emerald-50 transition-all text-center text-[10px] flex items-center justify-center gap-2">
                     <span className="material-symbols-outlined text-base font-black">upgrade</span>
                     Go Premium
                   </Link>

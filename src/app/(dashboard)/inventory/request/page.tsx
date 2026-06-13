@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -57,35 +57,35 @@ export default async function InventoryRequestPage() {
                         <span className="material-symbols-outlined text-sm">inventory_2</span>
                         Staff Portal
                     </div>
-                    <h1 className="text-slate-900 dark:text-white text-4xl font-bold leading-tight tracking-tight">Inventory & Supplies Request</h1>
-                    <p className="text-slate-500 dark:text-slate-400 text-lg max-w-2xl">Efficiently request items for daily spa operations. Your request will be instantly routed to the manager for approval.</p>
+                    <h1 className="text-[var(--text-main)] dark:text-white text-4xl font-bold leading-tight tracking-tight">Inventory & Supplies Request</h1>
+                    <p className="text-[var(--text-muted)] text-lg max-w-2xl">Efficiently request items for daily spa operations. Your request will be instantly routed to the manager for approval.</p>
                 </div>
 
                 <form action={submitInventoryRequest} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Left Column: Items Selection */}
                     <div className="lg:col-span-2 space-y-6">
                         <div className="glass-card overflow-hidden">
-                            <div className="px-6 py-4 border-b border-[var(--color-border-light)] bg-slate-50/50 dark:bg-slate-800/30">
+                            <div className="px-6 py-4 border-b border-[var(--border-main)] bg-[var(--bg-surface-muted)]/50">
                                 <h3 className="text-lg font-bold">Essential Supplies</h3>
                             </div>
-                            <div className="divide-y divide-[var(--color-border-light)]">
+                            <div className="divide-y divide-[var(--border-main)]">
                                 {displayItems.map((item) => (
-                                    <div key={item.id} className="flex items-center gap-4 px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
+                                    <div key={item.id} className="flex items-center gap-4 px-6 py-4 hover:bg-[var(--bg-surface-muted)]/20 transition-colors">
                                         {/* Using React.createElement to bypass aggressive JSX inline-style linter */}
                                         {React.createElement('div', {
-                                            className: "bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-16 shrink-0 border border-[var(--color-border-light)]",
+                                            className: "bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-16 shrink-0 border border-[var(--border-main)]",
                                             style: { backgroundImage: `url("${getImageUrl(item.productName)}")` } as React.CSSProperties
                                         })}
                                         <div className="flex flex-col flex-1">
-                                            <p className="text-slate-900 dark:text-white text-base font-semibold">{item.productName}</p>
-                                            <p className="text-slate-500 dark:text-slate-400 text-sm">Unit: {item.unit}</p>
+                                            <p className="text-[var(--text-main)] dark:text-white text-base font-semibold">{item.productName}</p>
+                                            <p className="text-[var(--text-muted)] text-sm">Unit: {item.unit}</p>
                                         </div>
                                         <div className="shrink-0 flex items-center gap-3">
-                                            <button type="button" className="size-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-[var(--color-primary)] hover:text-white transition-all">
+                                            <button type="button" className="size-9 flex items-center justify-center rounded-full bg-[var(--bg-surface-muted)] text-[var(--text-muted)] hover:bg-[var(--color-primary)] hover:text-white transition-all">
                                                 <span className="material-symbols-outlined">remove</span>
                                             </button>
-                                            <span className="text-lg font-bold w-6 text-center text-slate-900 dark:text-white">0</span>
-                                            <button type="button" className="size-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-[var(--color-primary)] hover:text-white transition-all">
+                                            <span className="text-lg font-bold w-6 text-center text-[var(--text-main)] dark:text-white">0</span>
+                                            <button type="button" className="size-9 flex items-center justify-center rounded-full bg-[var(--bg-surface-muted)] text-[var(--text-muted)] hover:bg-[var(--color-primary)] hover:text-white transition-all">
                                                 <span className="material-symbols-outlined">add</span>
                                             </button>
                                         </div>
@@ -96,11 +96,11 @@ export default async function InventoryRequestPage() {
 
                         {/* Notes Field */}
                         <div className="flex flex-col gap-3">
-                            <label htmlFor="notes" className="text-slate-900 dark:text-white text-lg font-bold">Special Requests & Notes</label>
+                            <label htmlFor="notes" className="text-[var(--text-main)] dark:text-white text-lg font-bold">Special Requests & Notes</label>
                             <textarea
                                 id="notes"
                                 name="notes"
-                                className="w-full min-h-[120px] glass-card focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] text-slate-900 dark:text-white p-4 placeholder:text-slate-400"
+                                className="w-full min-h-[120px] glass-card focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] text-[var(--text-main)] dark:text-white p-4 placeholder:text-[var(--text-muted)]"
                                 placeholder="e.g. Need extra large robes for the weekend retreat, or urgent replacement for steam room thermometer..."
                             />
                         </div>
@@ -109,22 +109,22 @@ export default async function InventoryRequestPage() {
                     {/* Right Column: Summary & Submit */}
                     <div className="flex flex-col gap-6">
                         <div className="glass-card p-6 shadow-sm sticky top-24">
-                            <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">Request Summary</h3>
+                            <h3 className="text-xl font-bold mb-4 text-[var(--text-main)] dark:text-white">Request Summary</h3>
                             <div className="space-y-4 mb-6">
                                 <div className="flex justify-between text-sm">
-                                    <span className="text-slate-500 dark:text-slate-400">Selected Items</span>
-                                    <span className="font-semibold text-slate-900 dark:text-white">0 types</span>
+                                    <span className="text-[var(--text-muted)]">Selected Items</span>
+                                    <span className="font-semibold text-[var(--text-main)] dark:text-white">0 types</span>
                                 </div>
                                 <div className="flex justify-between text-sm">
-                                    <span className="text-slate-500 dark:text-slate-400">Total Quantity</span>
-                                    <span className="font-semibold text-slate-900 dark:text-white">0 units</span>
+                                    <span className="text-[var(--text-muted)]">Total Quantity</span>
+                                    <span className="font-semibold text-[var(--text-main)] dark:text-white">0 units</span>
                                 </div>
                                 <div className="flex justify-between text-sm">
-                                    <span className="text-slate-500 dark:text-slate-400">Requesting Staff</span>
-                                    <span className="font-semibold text-slate-900 dark:text-white">{session.user.name || "Staff Member"}</span>
+                                    <span className="text-[var(--text-muted)]">Requesting Staff</span>
+                                    <span className="font-semibold text-[var(--text-main)] dark:text-white">{session.user.name || "Staff Member"}</span>
                                 </div>
 
-                                <div className="pt-4 border-t border-[var(--color-border-light)]">
+                                <div className="pt-4 border-t border-[var(--border-main)]">
                                     <div className="flex items-center gap-2 text-[var(--color-primary)]">
                                         <span className="material-symbols-outlined text-sm">info</span>
                                         <span className="text-xs font-medium uppercase tracking-wider">Auto-notifies Manager</span>
@@ -136,8 +136,8 @@ export default async function InventoryRequestPage() {
                                 <span className="material-symbols-outlined">send</span>
                                 Submit Request
                             </button>
-                            <p className="text-center text-xs text-slate-500 dark:text-slate-400 mt-4">
-                                Average response time: <span className="text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] font-medium">~2 hours</span>
+                            <p className="text-center text-xs text-[var(--text-muted)] mt-4">
+                                Average response time: <span className="text-[var(--text-muted)] font-medium">~2 hours</span>
                             </p>
                         </div>
 
@@ -147,11 +147,11 @@ export default async function InventoryRequestPage() {
                                 <span className="material-symbols-outlined">help_center</span>
                                 <h4 className="font-bold">Need assistance?</h4>
                             </div>
-                            <p className="text-sm text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] leading-relaxed mb-4">
+                            <p className="text-sm text-[var(--text-muted)] leading-relaxed mb-4">
                                 If you don&apos;t see the item you need, please contact the inventory manager directly or add it to the notes.
                             </p>
                             <a href="#" className="text-[var(--color-primary)] text-sm font-semibold hover:underline">
-                                View Policy Guide →
+                                View Policy Guide â†’
                             </a>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState } from "react";
 import Link from "next/link";
 
@@ -79,7 +79,7 @@ export default function SafeSecureOperationsPage() {
                                                     </div>
                                                 </div>
                                                 <div className={`w-12 h-6 rounded-full relative cursor-pointer transition-colors ${item.active ? "bg-emerald-500" : "bg-[var(--bg-surface-muted)]/50"}`}>
-                                                    <div className={`absolute top-1 size-4 bg-white rounded-full transition-transform shadow-sm ${item.active ? "translate-x-7" : "translate-x-1"}`}></div>
+                                                    <div className={`absolute top-1 size-4 bg-[var(--bg-card)] rounded-full transition-transform shadow-sm ${item.active ? "translate-x-7" : "translate-x-1"}`}></div>
                                                 </div>
                                             </div>
                                         ))}
@@ -95,7 +95,7 @@ export default function SafeSecureOperationsPage() {
                                     <h3 className="text-2xl font-bold font-serif leading-tight mb-6 relative z-10">All systems are <br /> <span className="text-emerald-950/40">Healthy.</span></h3>
                                     <p className="text-sm font-bold opacity-80 leading-relaxed relative z-10">Every location is currently up to date with its health audits. No critical issues reported in the last 24 hours.</p>
                                     
-                                    <button className="mt-12 w-full py-4 bg-white text-emerald-500 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-xl hover:scale-[1.02] transition-transform active:scale-95 relative z-10">
+                                    <button className="mt-12 w-full py-4 bg-[var(--bg-card)] text-emerald-500 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-xl hover:scale-[1.02] transition-transform active:scale-95 relative z-10">
                                         Run Safety Audit
                                     </button>
                                 </div>
@@ -144,7 +144,7 @@ export default function SafeSecureOperationsPage() {
                                                     <p className="text-[11px] text-[var(--text-muted)] font-bold opacity-70">{p.desc}</p>
                                                 </div>
                                                 <div className={`w-10 h-5 rounded-full relative cursor-pointer transition-colors ${p.active ? "bg-[var(--color-primary)]" : "bg-[var(--bg-surface-muted)]/50"}`}>
-                                                    <div className={`absolute top-0.5 size-4 bg-white rounded-full transition-transform shadow-sm ${p.active ? "translate-x-5.5" : "translate-x-0.5"}`}></div>
+                                                    <div className={`absolute top-0.5 size-4 bg-[var(--bg-card)] rounded-full transition-transform shadow-sm ${p.active ? "translate-x-5.5" : "translate-x-0.5"}`}></div>
                                                 </div>
                                             </div>
                                         ))}

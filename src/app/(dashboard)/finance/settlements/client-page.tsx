@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 
@@ -183,7 +183,7 @@ export default function SettlementClientPage({
                 <div className="bg-gradient-to-br from-[#102220] to-[#0a1514] p-8 rounded-3xl border border-[var(--color-primary)]/20 shadow-lg relative overflow-hidden">
                     <p className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-widest opacity-80">Platform Efficiency</p>
                     <h2 className="text-3xl font-black text-white mt-2 tracking-tight">99.8%</h2>
-                    <p className="text-xs text-slate-400 mt-2 font-medium">Automated reconciliation rate</p>
+                    <p className="text-xs text-[var(--text-muted)] mt-2 font-medium">Automated reconciliation rate</p>
                     <span className="material-symbols-outlined absolute -right-4 -bottom-4 text-7xl text-white opacity-5">precision_manufacturing</span>
                 </div>
             </div>

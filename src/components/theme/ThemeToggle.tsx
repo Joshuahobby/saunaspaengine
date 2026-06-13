@@ -14,7 +14,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-teal-700)] dark:text-slate-400">
+      <div className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--text-muted)]">
         <span className="material-symbols-outlined">dark_mode</span>
       </div>
     );
@@ -23,7 +23,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--color-teal-700)] dark:text-slate-400 hover:text-[var(--color-primary)] transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded-lg"
+      className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:outline-none rounded-lg"
       title="Toggle Theme"
     >
       <span className="material-symbols-outlined">

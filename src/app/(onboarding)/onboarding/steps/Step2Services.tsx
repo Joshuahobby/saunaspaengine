@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -79,17 +79,17 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
 
             {/* Quick Stats / Feedback */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white/5 border border-white/5 rounded-2xl p-5 space-y-1">
+                <div className="bg-[var(--bg-card)]/5 border border-white/5 rounded-2xl p-5 space-y-1">
                     <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40">Total Treatments</p>
                     <p className="text-2xl font-black text-[var(--text-main)]">{services.length}</p>
                 </div>
-                <div className="bg-white/5 border border-white/5 rounded-2xl p-5 space-y-1">
+                <div className="bg-[var(--bg-card)]/5 border border-white/5 rounded-2xl p-5 space-y-1">
                     <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40">Categories</p>
                     <p className="text-2xl font-black text-[var(--text-main)]">
                         {new Set(services.map(s => s.category)).size || 0}
                     </p>
                 </div>
-                <div className="bg-white/5 border border-white/5 rounded-2xl p-5 space-y-1">
+                <div className="bg-[var(--bg-card)]/5 border border-white/5 rounded-2xl p-5 space-y-1">
                     <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40">Setup Status</p>
                     <p className="text-2xl font-black text-[var(--color-primary)]">
                         {services.length > 0 ? "Configured" : "Pending"}
@@ -98,7 +98,7 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
             </div>
 
             {/* Add Service Section */}
-            <section className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 space-y-6">
+            <section className="bg-[var(--bg-card)]/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 space-y-6">
                 <div className="flex items-center gap-3 border-b border-white/5 pb-4">
                     <span className="material-symbols-outlined text-[var(--color-primary)]">add_circle</span>
                     <h2 className="text-xl font-bold text-[var(--text-main)]">Add New Service</h2>
@@ -116,7 +116,7 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
                                 value={nameInput}
                                 onChange={e => setNameInput(e.target.value)}
                                 onKeyDown={e => e.key === "Enter" && addService()}
-                                className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all"
+                                className="w-full h-12 bg-[var(--bg-card)]/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all"
                             />
                         </div>
                         <div className="space-y-2">
@@ -126,7 +126,7 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
                                 title="Service Category"
                                 value={categoryInput}
                                 onChange={e => setCategoryInput(e.target.value)}
-                                className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all appearance-none cursor-pointer"
+                                className="w-full h-12 bg-[var(--bg-card)]/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all appearance-none cursor-pointer"
                             >
                                 <option value="General">General</option>
                                 <option value="Masseuse">Masseuse</option>
@@ -147,7 +147,7 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
                                 placeholder="15000"
                                 value={priceInput}
                                 onChange={e => setPriceInput(e.target.value)}
-                                className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all"
+                                className="w-full h-12 bg-[var(--bg-card)]/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all"
                             />
                         </div>
                         <div className="space-y-2">
@@ -160,7 +160,7 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
                                 placeholder="60"
                                 value={durationInput}
                                 onChange={e => setDurationInput(e.target.value)}
-                                className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all"
+                                className="w-full h-12 bg-[var(--bg-card)]/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all"
                             />
                         </div>
                         <button
@@ -178,11 +178,11 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
             </section>
 
             {/* Services Table */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-black/20">
+            <div className="bg-[var(--bg-card)]/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-black/20">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
                         <thead>
-                            <tr className="bg-white/5 border-b border-white/5">
+                            <tr className="bg-[var(--bg-card)]/5 border-b border-white/5">
                                 <th className="px-8 py-5 text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Service Name</th>
                                 <th className="px-8 py-5 text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Category</th>
                                 <th className="px-8 py-5 text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 text-right">Price (RWF)</th>
@@ -199,7 +199,7 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, x: -20 }}
                                         key={s.id}
-                                        className="hover:bg-white/[0.02] transition-colors group/row"
+                                        className="hover:bg-[var(--bg-card)]/[0.02] transition-colors group/row"
                                     >
                                         <td className="px-8 py-5">
                                             <div className="flex items-center gap-4">
@@ -210,7 +210,7 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
                                             </div>
                                         </td>
                                         <td className="px-8 py-5">
-                                            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/5 text-[10px] font-black text-[var(--text-muted)] uppercase tracking-wider">
+                                            <span className="px-3 py-1 rounded-full bg-[var(--bg-card)]/5 border border-white/5 text-[10px] font-black text-[var(--text-muted)] uppercase tracking-wider">
                                                 {s.category}
                                             </span>
                                         </td>
@@ -257,7 +257,7 @@ export function Step2Services({ branch, onNext, onPrev }: StepProps) {
                 <button
                     type="button"
                     onClick={onPrev}
-                    className="h-14 px-8 rounded-2xl border border-white/5 font-bold text-sm text-[var(--text-muted)] hover:bg-white/5 hover:text-[var(--text-main)] transition-all flex items-center gap-3"
+                    className="h-14 px-8 rounded-2xl border border-white/5 font-bold text-sm text-[var(--text-muted)] hover:bg-[var(--bg-card)]/5 hover:text-[var(--text-main)] transition-all flex items-center gap-3"
                 >
                     <span className="material-symbols-outlined text-lg">arrow_back</span>
                     Previous

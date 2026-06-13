@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+﻿import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { startOfMonth, endOfMonth, differenceInDays, subMonths } from "date-fns";
@@ -8,7 +8,7 @@ import ClientProfile from "./client-profile";
 
 const TIER_CONFIG: Record<string, { color: string; bg: string; border: string; icon: string }> = {
     BRONZE: { color: "text-amber-700 dark:text-amber-400", bg: "bg-amber-100 dark:bg-amber-900/30", border: "border-amber-200 dark:border-amber-800/40", icon: "⭐" },
-    SILVER: { color: "text-slate-600 dark:text-slate-300", bg: "bg-slate-100 dark:bg-slate-700/30", border: "border-slate-200 dark:border-slate-600/40", icon: "🥈" },
+    SILVER: { color: "text-[var(--text-muted)]", bg: "bg-[var(--bg-surface-muted)]/30", border: "border-[var(--border-main)]/40", icon: "🥈" },
     GOLD: { color: "text-yellow-700 dark:text-yellow-400", bg: "bg-yellow-100 dark:bg-yellow-900/30", border: "border-yellow-200 dark:border-yellow-800/40", icon: "🥇" },
     PLATINUM: { color: "text-violet-700 dark:text-violet-300", bg: "bg-violet-100 dark:bg-violet-900/30", border: "border-violet-200 dark:border-violet-800/40", icon: "💎" },
 };

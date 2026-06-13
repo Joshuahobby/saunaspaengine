@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { formatDateTime } from "@/lib/utils";
@@ -104,7 +104,7 @@ export default function AdminBroadcastsClientPage() {
                         ))}
                     </div>
                     
-                    <button className="px-6 py-2.5 rounded-xl bg-white text-black text-[9px] font-black uppercase tracking-[0.2em] shadow-xl hover:scale-[1.05] active:scale-[0.98] transition-all flex items-center gap-2 group/ledger">
+                    <button className="px-6 py-2.5 rounded-xl bg-[var(--bg-card)] text-black text-[9px] font-black uppercase tracking-[0.2em] shadow-xl hover:scale-[1.05] active:scale-[0.98] transition-all flex items-center gap-2 group/ledger">
                          <span className="material-symbols-outlined text-sm">auto_stories</span>
                          Recruitment Ledger
                     </button>
@@ -210,7 +210,7 @@ export default function AdminBroadcastsClientPage() {
 
                                         <button 
                                             disabled={!subject.trim() || !content.trim()}
-                                            className={`px-10 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] transition-all flex items-center gap-3 shadow-xl ${sent ? "bg-emerald-500 text-white" : "bg-white text-black hover:scale-[1.05] active:scale-[0.98] disabled:opacity-30 disabled:hover:scale-100"}`}
+                                            className={`px-10 py-4 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] transition-all flex items-center gap-3 shadow-xl ${sent ? "bg-emerald-500 text-white" : "bg-[var(--bg-card)] text-black hover:scale-[1.05] active:scale-[0.98] disabled:opacity-30 disabled:hover:scale-100"}`}
                                         >
                                             {sent ? (
                                                 <>Signal Dispersed <span className="material-symbols-outlined text-base">task_alt</span></>
@@ -280,7 +280,7 @@ export default function AdminBroadcastsClientPage() {
                                 </thead>
                                 <tbody className="divide-y divide-[var(--border-muted)]/50 text-white">
                                     {broadcasts.map((b) => (
-                                        <tr key={b.id} className="hover:bg-white/[0.02] transition-colors group">
+                                        <tr key={b.id} className="hover:bg-[var(--bg-card)]/[0.02] transition-colors group">
                                             <td className="px-10 py-6">
                                                 <div className="flex items-center gap-5">
                                                     <div className="size-10 rounded-xl bg-[var(--bg-surface-muted)]/20 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] group-hover:scale-110 group-hover:-rotate-6 transition-transform">

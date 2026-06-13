@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -73,15 +73,15 @@ export function Step3Team({ branch, onNext, onPrev }: StepProps) {
 
             {/* Stats Bar */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="bg-white/5 border border-white/5 rounded-2xl p-5">
+                <div className="bg-[var(--bg-card)]/5 border border-white/5 rounded-2xl p-5">
                     <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40">Employees</p>
                     <p className="text-2xl font-black text-[var(--text-main)] mt-1">{team.length}</p>
                 </div>
-                <div className="bg-white/5 border border-white/5 rounded-2xl p-5">
+                <div className="bg-[var(--bg-card)]/5 border border-white/5 rounded-2xl p-5">
                     <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40">Active Staff</p>
                     <p className="text-2xl font-black text-[var(--color-primary)] mt-1">{team.filter(t => t.status === "Active").length}</p>
                 </div>
-                <div className="col-span-2 bg-white/5 border border-white/5 rounded-2xl p-5 flex items-center justify-between">
+                <div className="col-span-2 bg-[var(--bg-card)]/5 border border-white/5 rounded-2xl p-5 flex items-center justify-between">
                     <div>
                         <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40">Access Level</p>
                         <p className="text-sm font-bold text-[var(--text-main)] mt-1">Role-Based Protocols</p>
@@ -91,7 +91,7 @@ export function Step3Team({ branch, onNext, onPrev }: StepProps) {
             </div>
 
             {/* Quick Add Section */}
-            <section className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 space-y-6">
+            <section className="bg-[var(--bg-card)]/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 space-y-6">
                 <div className="flex items-center gap-3 border-b border-white/5 pb-4">
                     <span className="material-symbols-outlined text-[var(--color-primary)]">person_add</span>
                     <h2 className="text-xl font-bold text-[var(--text-main)]">Add Staff Member</h2>
@@ -109,7 +109,7 @@ export function Step3Team({ branch, onNext, onPrev }: StepProps) {
                                 value={nameInput}
                                 onChange={e => setNameInput(e.target.value)}
                                 onKeyDown={e => e.key === "Enter" && addMember()}
-                                className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all"
+                                className="w-full h-12 bg-[var(--bg-card)]/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all"
                             />
                         </div>
                         <div className="space-y-2">
@@ -121,7 +121,7 @@ export function Step3Team({ branch, onNext, onPrev }: StepProps) {
                                 placeholder="+250 78X XXX XXX"
                                 value={phoneInput}
                                 onChange={e => setPhoneInput(e.target.value)}
-                                className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all"
+                                className="w-full h-12 bg-[var(--bg-card)]/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all"
                             />
                         </div>
                     </div>
@@ -133,7 +133,7 @@ export function Step3Team({ branch, onNext, onPrev }: StepProps) {
                                 title="Staff Role"
                                 value={roleInput}
                                 onChange={e => setRoleInput(e.target.value)}
-                                className="w-full h-12 bg-white/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all appearance-none cursor-pointer"
+                                className="w-full h-12 bg-[var(--bg-card)]/5 border border-white/5 rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/30 outline-none transition-all appearance-none cursor-pointer"
                             >
                                 <option>Masseuse</option>
                                 <option>Therapist</option>
@@ -166,7 +166,7 @@ export function Step3Team({ branch, onNext, onPrev }: StepProps) {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
                             key={member.id}
-                            className="bg-white/5 backdrop-blur-sm border border-white/5 p-6 rounded-[2rem] flex items-center justify-between group hover:border-[var(--color-primary)]/30 transition-all shadow-lg"
+                            className="bg-[var(--bg-card)]/5 backdrop-blur-sm border border-white/5 p-6 rounded-[2rem] flex items-center justify-between group hover:border-[var(--color-primary)]/30 transition-all shadow-lg"
                         >
                             <div className="flex items-center gap-5">
                                 <div className="size-14 rounded-2xl bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] font-display font-black text-xl border border-[var(--color-primary)]/20 shadow-inner group-hover:scale-110 transition-transform">
@@ -175,7 +175,7 @@ export function Step3Team({ branch, onNext, onPrev }: StepProps) {
                                 <div className="space-y-1">
                                     <h4 className="font-bold text-[var(--text-main)]">{member.name}</h4>
                                     <div className="flex items-center gap-3">
-                                        <span className="px-2 py-0.5 rounded-lg bg-white/5 border border-white/10 text-[9px] font-black text-[var(--text-muted)] uppercase tracking-wider">
+                                        <span className="px-2 py-0.5 rounded-lg bg-[var(--bg-card)]/5 border border-white/10 text-[9px] font-black text-[var(--text-muted)] uppercase tracking-wider">
                                             {member.role}
                                         </span>
                                         {member.phone && (
@@ -219,7 +219,7 @@ export function Step3Team({ branch, onNext, onPrev }: StepProps) {
                 <button
                     type="button"
                     onClick={onPrev}
-                    className="h-14 px-8 rounded-2xl border border-white/5 font-bold text-sm text-[var(--text-muted)] hover:bg-white/5 hover:text-[var(--text-main)] transition-all flex items-center gap-3"
+                    className="h-14 px-8 rounded-2xl border border-white/5 font-bold text-sm text-[var(--text-muted)] hover:bg-[var(--bg-card)]/5 hover:text-[var(--text-main)] transition-all flex items-center gap-3"
                 >
                     <span className="material-symbols-outlined text-lg">arrow_back</span>
                     Previous

@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+﻿import { redirect } from "next/navigation";
 import { prisma as db } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import Link from "next/link";
@@ -198,8 +198,8 @@ export default async function AdminSettingsPage({
                                         </div>
                                     </div>
                                     <div className="flex gap-4 pointer-events-auto">
-                                        <div className="bg-white/5 backdrop-blur-md p-4 px-6 rounded-2xl border border-white/5 text-[9px] font-bold uppercase tracking-widest italic text-white/40">
-                                            Lat: 1.9441° S · Long: 30.0619° E
+                                        <div className="bg-[var(--bg-card)]/5 backdrop-blur-md p-4 px-6 rounded-2xl border border-white/5 text-[9px] font-bold uppercase tracking-widest italic text-white/40">
+                                            Lat: 1.9441Â° S Â· Long: 30.0619Â° E
                                         </div>
                                     </div>
                                 </div>
@@ -230,7 +230,7 @@ export default async function AdminSettingsPage({
                     <div className="xl:col-span-12 2xl:col-span-5 flex flex-col gap-8">
                         <div className="glass-card border border-[var(--border-muted)] p-10 flex flex-col rounded-[2.5rem] bg-[var(--bg-card)] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] transition-all hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]">
                             <div className="flex flex-col gap-6 mb-12">
-                                <span className="w-fit px-4 py-1.5 bg-[var(--color-primary)] text-slate-900 text-[9px] font-bold rounded-full uppercase tracking-[0.2em] shadow-lg shadow-[var(--color-primary)]/20">Preset Tuning v2.4</span>
+                                <span className="w-fit px-4 py-1.5 bg-[var(--color-primary)] text-[var(--text-main)] text-[9px] font-bold rounded-full uppercase tracking-[0.2em] shadow-lg shadow-[var(--color-primary)]/20">Preset Tuning v2.4</span>
                                 <h2 className="text-3xl font-display font-bold text-[var(--text-main)]">Regional <span className="text-[var(--color-primary)] font-sans uppercase text-sm font-bold tracking-[0.3em] block mt-2 opacity-50">Calibration</span></h2>
                                 <p className="text-sm text-[var(--text-muted)] leading-relaxed font-bold">Refine the atmospheric constraints and fiscal rituals for the <span className="text-[var(--text-main)] font-bold">{activeRegionName}</span> territory.</p>
                             </div>

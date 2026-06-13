@@ -2,7 +2,7 @@ import { prisma } from "./prisma";
 import { Resend } from "resend";
 import { addDays, startOfDay, endOfDay } from "date-fns";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const getResend = () => new Resend(process.env.RESEND_API_KEY ?? "");
 
 export async function processSubscriptionReminders() {
     console.log("🔔 Starting subscription reminder process...");
@@ -61,7 +61,7 @@ export async function processSubscriptionReminders() {
 
             for (const owner of owners) {
                 try {
-                    await resend.emails.send({
+                    await getResend().emails.send({
                         from: "Sauna SPA Engine <billing@resend.dev>", // Update to verified domain in prod
                         to: owner.email,
                         subject: `Reminder: Subscription Renewal for ${business.name}`,

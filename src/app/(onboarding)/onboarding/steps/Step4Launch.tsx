@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { completeOnboardingAction } from "../actions";
@@ -47,10 +47,10 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Left: Branch Preview Card */}
-                <section className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 space-y-8 flex flex-col">
+                <section className="bg-[var(--bg-card)]/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 space-y-8 flex flex-col">
                     <div className="flex items-center justify-between border-b border-white/5 pb-6">
                         <div className="flex items-center gap-4">
-                            <div className="size-16 rounded-2xl bg-white flex items-center justify-center overflow-hidden border-4 border-white/10 shadow-2xl">
+                            <div className="size-16 rounded-2xl bg-[var(--bg-card)] flex items-center justify-center overflow-hidden border-4 border-white/10 shadow-2xl">
                                 {branch.logo ? (
                                     // eslint-disable-next-line @next/next/no-img-element
                                     <img src={branch.logo} alt="Branch Logo" className="w-full h-full object-cover" />
@@ -69,7 +69,7 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
                     </div>
 
                     <div className="grid grid-cols-1 gap-4">
-                        <div className="bg-white/[0.02] border border-white/5 p-5 rounded-3xl space-y-3">
+                        <div className="bg-[var(--bg-card)]/[0.02] border border-white/5 p-5 rounded-3xl space-y-3">
                             <div className="flex items-center gap-3 text-[var(--text-main)] opacity-40">
                                 <span className="material-symbols-outlined !text-lg">location_on</span>
                                 <span className="text-[10px] font-black uppercase tracking-widest">Location Information</span>
@@ -81,14 +81,14 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="bg-white/[0.02] border border-white/5 p-5 rounded-3xl space-y-2 group hover:border-[var(--color-primary)]/30 transition-colors">
+                            <div className="bg-[var(--bg-card)]/[0.02] border border-white/5 p-5 rounded-3xl space-y-2 group hover:border-[var(--color-primary)]/30 transition-colors">
                                 <div className="flex items-center justify-between">
                                     <span className="material-symbols-outlined text-[var(--color-primary)]">spa</span>
                                     <span className="text-xl font-display font-black text-[var(--text-main)]">{branch.services?.length || 0}</span>
                                 </div>
                                 <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-60">Services Added</p>
                             </div>
-                            <div className="bg-white/[0.02] border border-white/5 p-5 rounded-3xl space-y-2 group hover:border-[var(--color-primary)]/30 transition-colors">
+                            <div className="bg-[var(--bg-card)]/[0.02] border border-white/5 p-5 rounded-3xl space-y-2 group hover:border-[var(--color-primary)]/30 transition-colors">
                                 <div className="flex items-center justify-between">
                                     <span className="material-symbols-outlined text-[var(--color-primary)]">badge</span>
                                     <span className="text-xl font-display font-black text-[var(--text-main)]">{branch.employees?.length || 0}</span>
@@ -110,14 +110,14 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
                 </section>
 
                 {/* Right: QR Preview */}
-                <section className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 flex flex-col items-center">
+                <section className="bg-[var(--bg-card)]/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 flex flex-col items-center">
                     <div className="w-full flex justify-between items-center border-b border-white/5 pb-4 mb-8">
                         <h2 className="text-xl font-bold text-[var(--text-main)]">Booking QR Code</h2>
                         <span className="px-3 py-1 bg-[var(--color-primary)]/20 text-[var(--color-primary)] text-[10px] font-black uppercase rounded-lg tracking-widest border border-[var(--color-primary)]/30">READY</span>
                     </div>
 
                     <div className="relative group">
-                        <div className="size-48 bg-white p-4 rounded-3xl shadow-inner relative group">
+                        <div className="size-48 bg-[var(--bg-card)] p-4 rounded-3xl shadow-inner relative group">
                             <div className="size-full bg-neutral-100 rounded-2xl flex items-center justify-center overflow-hidden">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img 
@@ -129,10 +129,10 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
                         </div>
                         {/* Interactive Hint */}
                         <div className="absolute inset-0 bg-black/40 backdrop-blur-sm rounded-3xl opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center gap-4">
-                            <button title="Download QR Code" aria-label="Download QR Code" className="size-12 rounded-2xl bg-white text-black flex items-center justify-center shadow-2xl transition-transform hover:scale-110">
+                            <button title="Download QR Code" aria-label="Download QR Code" className="size-12 rounded-2xl bg-[var(--bg-card)] text-black flex items-center justify-center shadow-2xl transition-transform hover:scale-110">
                                 <span className="material-symbols-outlined">download</span>
                             </button>
-                            <button title="Print QR Code" aria-label="Print QR Code" className="size-12 rounded-2xl bg-white text-black flex items-center justify-center shadow-2xl transition-transform hover:scale-110">
+                            <button title="Print QR Code" aria-label="Print QR Code" className="size-12 rounded-2xl bg-[var(--bg-card)] text-black flex items-center justify-center shadow-2xl transition-transform hover:scale-110">
                                 <span className="material-symbols-outlined">print</span>
                             </button>
                         </div>
@@ -169,13 +169,13 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
                 </button>
                 <div className="flex items-center gap-4 text-[var(--text-muted)]">
                     <button onClick={onPrev} className="text-[10px] font-black uppercase tracking-widest hover:text-[var(--text-main)] transition-colors border-b border-transparent hover:border-white/20">Go Back</button>
-                    <span className="size-1 rounded-full bg-white/20"></span>
+                    <span className="size-1 rounded-full bg-[var(--bg-card)]/20"></span>
                     <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Ready to launch</span>
                 </div>
             </div>
 
             {/* Optional visual flair element */}
-            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-white/5 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-full shadow-2xl pointer-events-none opacity-50">
+            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-[var(--bg-card)]/5 backdrop-blur-xl border border-white/10 px-6 py-3 rounded-full shadow-2xl pointer-events-none opacity-50">
                 <div className="relative">
                     <span className="size-2 rounded-full bg-[var(--color-primary)] block"></span>
                     <span className="absolute inset-0 rounded-full bg-[var(--color-primary)] animate-ping"></span>

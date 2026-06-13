@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -146,7 +146,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                                 <motion.div 
                                                     initial={{ height: 0 }}
                                                     animate={{ height: `${h * 3}px` }}
-                                                    className={`w-1 rounded-full ${h > 25 ? 'bg-amber-500' : 'bg-white/10 group-hover/bar:bg-[var(--color-primary)]'} transition-colors duration-500`}
+                                                    className={`w-1 rounded-full ${h > 25 ? 'bg-amber-500' : 'bg-[var(--bg-card)]/10 group-hover/bar:bg-[var(--color-primary)]'} transition-colors duration-500`}
                                                 />
                                             </div>
                                         ))}
@@ -275,9 +275,9 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                     initial={{ opacity: 0, x: -10 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     key={entry.id} 
-                                    className="flex items-center gap-8 py-2 border-b border-white/[0.03] last:border-0 hover:bg-white/[0.02] transition-colors rounded-lg px-4 group/entry"
+                                    className="flex items-center gap-8 py-2 border-b border-white/[0.03] last:border-0 hover:bg-[var(--bg-card)]/[0.02] transition-colors rounded-lg px-4 group/entry"
                                 >
-                                    <span className="text-slate-600 w-24 tracking-tighter italic opacity-50 group-hover/entry:opacity-100">{entry.time}</span>
+                                    <span className="text-[var(--text-muted)] w-24 tracking-tighter italic opacity-50 group-hover/entry:opacity-100">{entry.time}</span>
                                     <span className="font-black w-8 text-[var(--color-primary)]">200</span>
                                     <div className="flex items-baseline gap-4 flex-1">
                                         <span className="text-emerald-500 font-black tracking-tighter uppercase w-16">{entry.action}</span>

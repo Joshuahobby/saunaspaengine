@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -120,7 +120,7 @@ export default function RolesClientPage({ initialCategories }: { initialCategori
                     <button
                         type="button"
                         onClick={() => { setIsAdding(true); setFormData({ name: "", description: "" }); setError(null); }}
-                        className="bg-[var(--color-primary)] text-[var(--color-bg-dark)] px-5 py-3 rounded-lg text-sm font-bold flex items-center gap-2 hover:brightness-110 shadow-lg shadow-[var(--color-primary)]/20 transition-all"
+                        className="bg-[var(--color-primary)] text-[var(--bg-app)] px-5 py-3 rounded-lg text-sm font-bold flex items-center gap-2 hover:brightness-110 shadow-lg shadow-[var(--color-primary)]/20 transition-all"
                     >
                         <span className="material-symbols-outlined text-lg">add</span>
                         New Role
@@ -174,7 +174,7 @@ export default function RolesClientPage({ initialCategories }: { initialCategori
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="bg-[var(--color-primary)] text-[var(--color-bg-dark)] px-6 py-2.5 rounded-lg text-sm font-bold flex items-center justify-center min-w-[120px] hover:brightness-110 disabled:opacity-70 transition-all"
+                                className="bg-[var(--color-primary)] text-[var(--bg-app)] px-6 py-2.5 rounded-lg text-sm font-bold flex items-center justify-center min-w-[120px] hover:brightness-110 disabled:opacity-70 transition-all"
                             >
                                 {isLoading ? "Saving..." : "Save Role"}
                             </button>

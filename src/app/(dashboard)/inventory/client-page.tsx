@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -123,12 +123,12 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                 </div>
                 <div className="flex gap-4">
                     {activeTab === "suppliers" ? (
-                        <button type="button" onClick={() => setSupplierModal(true)} className="flex items-center gap-3 px-8 py-4 bg-[var(--color-primary)] text-[var(--color-bg-dark)] rounded-3xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-[var(--color-primary)]/10">
+                        <button type="button" onClick={() => setSupplierModal(true)} className="flex items-center gap-3 px-8 py-4 bg-[var(--color-primary)] text-[var(--bg-app)] rounded-3xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-[var(--color-primary)]/10">
                             <span className="material-symbols-outlined text-lg">person_add</span>
                             Add Supplier
                         </button>
                     ) : (
-                        <Link href="/inventory/new" className="flex items-center gap-3 px-8 py-4 bg-[var(--color-primary)] text-[var(--color-bg-dark)] rounded-3xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-[var(--color-primary)]/10">
+                        <Link href="/inventory/new" className="flex items-center gap-3 px-8 py-4 bg-[var(--color-primary)] text-[var(--bg-app)] rounded-3xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-[var(--color-primary)]/10">
                             <span className="material-symbols-outlined text-lg">add</span>
                             Add New Item
                         </Link>
@@ -215,7 +215,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                                                     </td>
                                                     <td className="px-8 py-6">
                                                         <span className="text-xs font-medium text-[var(--text-muted)]">
-                                                            {item.supplier?.name || "—"}
+                                                            {item.supplier?.name || "â€”"}
                                                         </span>
                                                     </td>
                                                     <td className="px-8 py-6">
@@ -264,7 +264,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                                 <div className="pt-2">
                                     <label className="relative inline-flex items-center cursor-pointer group">
                                         <input defaultChecked className="sr-only peer" type="checkbox" />
-                                        <div className="w-14 h-7 bg-[var(--text-main)]/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-[var(--color-bg-dark)] after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[var(--color-primary)]"></div>
+                                        <div className="w-14 h-7 bg-[var(--text-main)]/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-[var(--bg-app)] after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-[var(--bg-card)] after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[var(--color-primary)]"></div>
                                         <span className="ml-4 text-[10px] font-bold text-[var(--text-main)] uppercase tracking-widest">Auto-Notify Suppliers</span>
                                     </label>
                                 </div>
@@ -360,7 +360,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                                                 <div>
                                                     <p className="font-bold font-display text-[var(--text-main)]">{item.productName}</p>
                                                     <p className="text-[10px] font-bold uppercase tracking-widest opacity-40 text-[var(--text-muted)]">
-                                                        {isOutOfStock ? 'CRITICAL — OUT OF STOCK' : 'LOW STOCK WARNING'}
+                                                        {isOutOfStock ? 'CRITICAL â€” OUT OF STOCK' : 'LOW STOCK WARNING'}
                                                     </p>
                                                 </div>
                                             </div>
@@ -394,7 +394,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setRestockModal(null)}>
                     <div className="bg-[var(--bg-card)] rounded-[2.5rem] p-10 max-w-md w-full border border-[var(--border-muted)] shadow-2xl" onClick={e => e.stopPropagation()}>
                         <h3 className="text-xl font-bold font-display text-[var(--text-main)] mb-2">Restock Item</h3>
-                        <p className="text-sm text-[var(--text-muted)] mb-8">{restockModal.productName} — Current: {restockModal.stockCount} {restockModal.unit}</p>
+                        <p className="text-sm text-[var(--text-muted)] mb-8">{restockModal.productName} â€” Current: {restockModal.stockCount} {restockModal.unit}</p>
 
                         <div className="space-y-6">
                             <div>
@@ -409,7 +409,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
 
                         <div className="flex gap-4 mt-10">
                             <button type="button" onClick={() => setRestockModal(null)} className="flex-1 px-6 py-4 bg-[var(--bg-surface-muted)] text-[var(--text-main)] rounded-2xl text-[10px] font-bold uppercase tracking-widest border border-[var(--border-muted)] hover:bg-[var(--border-muted)] transition-all cursor-pointer">Cancel</button>
-                            <button type="button" onClick={handleRestock} disabled={isLoading || !restockQty} className="flex-1 px-6 py-4 bg-[var(--color-primary)] text-[var(--color-bg-dark)] rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer shadow-lg shadow-[var(--color-primary)]/20">
+                            <button type="button" onClick={handleRestock} disabled={isLoading || !restockQty} className="flex-1 px-6 py-4 bg-[var(--color-primary)] text-[var(--bg-app)] rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer shadow-lg shadow-[var(--color-primary)]/20">
                                 {isLoading ? "Restocking..." : "Confirm Restock"}
                             </button>
                         </div>
@@ -453,7 +453,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
 
                         <div className="flex gap-4 mt-10">
                             <button type="button" onClick={() => setSupplierModal(false)} className="flex-1 px-6 py-4 bg-[var(--bg-surface-muted)] text-[var(--text-main)] rounded-2xl text-[10px] font-bold uppercase tracking-widest border border-[var(--border-muted)] hover:bg-[var(--border-muted)] transition-all cursor-pointer">Cancel</button>
-                            <button type="button" onClick={handleAddSupplier} disabled={isLoading || !supplierForm.name.trim()} className="flex-1 px-6 py-4 bg-[var(--color-primary)] text-[var(--color-bg-dark)] rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer shadow-lg shadow-[var(--color-primary)]/20">
+                            <button type="button" onClick={handleAddSupplier} disabled={isLoading || !supplierForm.name.trim()} className="flex-1 px-6 py-4 bg-[var(--color-primary)] text-[var(--bg-app)] rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all disabled:opacity-50 cursor-pointer shadow-lg shadow-[var(--color-primary)]/20">
                                 {isLoading ? "Creating..." : "Add Supplier"}
                             </button>
                         </div>
