@@ -235,7 +235,7 @@ export default async function LandingPage() {
               <ScrollReveal direction="up" delay={0.1}>
                 <div className="h-full glass-card p-10 flex flex-col gap-8 shadow-sm hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 border border-[var(--border-main)] relative overflow-hidden group transition-all duration-500 rounded-[2.5rem]">
                   <div className="flex flex-col gap-2 relative z-10">
-                    <h4 className="text-[var(--color-primary)] font-black uppercase tracking-[0.2em] text-xs">Free Forever</h4>
+                    <h4 className="text-[var(--color-primary)] font-black uppercase tracking-[0.2em] text-sm">Free Forever</h4>
                     <div className="flex items-baseline gap-2">
                       <span className="text-4xl font-black text-[var(--text-main)] italic">0</span>
                       <span className="text-[var(--text-muted)] text-[10px] font-black uppercase tracking-[0.2em]">RWF<span className="opacity-50">/mo</span></span>
@@ -258,7 +258,7 @@ export default async function LandingPage() {
               <ScrollReveal direction="up" delay={0.2}>
                 <div className="h-full glass-card p-10 flex flex-col gap-8 shadow-sm hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 border border-[var(--border-main)] relative overflow-hidden group transition-all duration-500 rounded-[2.5rem]">
                   <div className="flex flex-col gap-2 relative z-10">
-                    <h4 className="text-[var(--color-primary)] font-black uppercase tracking-[0.2em] text-xs">Essential</h4>
+                    <h4 className="text-[var(--color-primary)] font-black uppercase tracking-[0.2em] text-sm">Essential</h4>
                     <div className="flex items-baseline gap-2">
                       <span className="text-4xl font-black text-[var(--text-main)] italic">50,000</span>
                       <span className="text-[var(--text-muted)] text-[10px] font-black uppercase tracking-[0.2em]">RWF<span className="opacity-50">/mo</span></span>
@@ -284,7 +284,7 @@ export default async function LandingPage() {
                   <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--bg-card)]/10 rounded-full -mr-20 -mt-20 blur-3xl group-hover:bg-[var(--bg-card)]/20 transition-colors"></div>
                   <div className="absolute -top-3 left-1/2 -track-x-1/2 bg-[var(--bg-card)] text-[var(--color-primary)] text-[10px] font-black px-6 py-2 rounded-full uppercase tracking-[0.3em] shadow-xl z-20 whitespace-nowrap -translate-x-1/2 leading-none">Best Value</div>
                   <div className="flex flex-col gap-2 relative z-10">
-                    <h4 className="text-white/70 font-black uppercase tracking-[0.2em] text-xs">Premium</h4>
+                    <h4 className="text-white/70 font-black uppercase tracking-[0.2em] text-sm">Premium</h4>
                     <div className="flex items-baseline gap-2">
                       <span className="text-5xl font-black text-white italic">150,000</span>
                       <span className="text-white/60 text-[10px] font-black uppercase tracking-[0.2em]">RWF<span className="opacity-50">/mo</span></span>

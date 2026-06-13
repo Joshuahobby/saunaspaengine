@@ -76,7 +76,7 @@ export default async function HelpPage() {
                     <h1 className="text-6xl font-display font-bold tracking-tight text-[var(--text-main)] shrink-0">
                         System <span className="text-[var(--color-primary)]">Manual</span>
                     </h1>
-                    <p className=”text-[var(--text-muted)] text-sm leading-relaxed font-bold opacity-60”>
+                    <p className="text-[var(--text-muted)] text-sm leading-relaxed font-bold opacity-60">
                         The complete guide to managing your sauna and spa business on this platform.
                     </p>
                 </div>

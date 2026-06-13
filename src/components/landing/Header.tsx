@@ -64,7 +64,7 @@ export function Header({ isLoggedIn }: { isLoggedIn?: boolean }) {
             >
                 {/* Logo */}
                 <div className="flex flex-1 items-center gap-4 text-[var(--text-main)] z-50">
-                    <Link href="/" className="flex items-center gap-3 group">
+                    <Link href="/" className="flex items-center gap-3 group min-h-[44px]">
                         <div className="size-9 flex items-center justify-center bg-[var(--color-primary)] rounded-xl text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg shadow-[var(--color-primary)]/20">
                             <span className="material-symbols-outlined !text-xl">spa</span>
                         </div>
@@ -79,12 +79,12 @@ export function Header({ isLoggedIn }: { isLoggedIn?: boolean }) {
                     {navItems.map((item) => {
                         const isActive = (pathname === "/" && activeSection === item.id) || (pathname === item.href);
                         return (
-                            <Link 
-                                key={item.name} 
-                                href={item.href} 
-                                className={`relative px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 rounded-xl hover:text-[var(--color-primary)] ${
-                                    isActive 
-                                    ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20" 
+                            <Link
+                                key={item.name}
+                                href={item.href}
+                                className={`relative flex items-center px-5 min-h-[44px] text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 rounded-xl hover:text-[var(--color-primary)] ${
+                                    isActive
+                                    ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20"
                                     : "text-[var(--text-muted)] hover:bg-[var(--bg-app)]"
                                 }`}
                             >

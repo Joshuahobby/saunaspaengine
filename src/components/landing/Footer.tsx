@@ -36,9 +36,9 @@ export function Footer() {
       <div className="max-w-7xl mx-auto border-t border-[var(--border-main)] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="text-[var(--text-muted)] opacity-80 text-xs">© 2026 Sauna SPA Engine · Made for Rwanda 🇷🇼</p>
         <div className="flex gap-6 text-xs text-[var(--text-muted)] opacity-80">
-          <Link href="/terms" className="hover:text-[var(--color-primary)] focus-visible:ring-2 focus-visible:outline-none">Terms</Link>
-          <Link href="/privacy" className="hover:text-[var(--color-primary)] focus-visible:ring-2 focus-visible:outline-none">Privacy</Link>
-          <Link href="/security" className="hover:text-[var(--color-primary)] focus-visible:ring-2 focus-visible:outline-none">Security</Link>
+          <Link href="/terms" className="flex items-center min-h-[44px] hover:text-[var(--color-primary)] focus-visible:ring-2 focus-visible:outline-none">Terms</Link>
+          <Link href="/privacy" className="flex items-center min-h-[44px] hover:text-[var(--color-primary)] focus-visible:ring-2 focus-visible:outline-none">Privacy</Link>
+          <Link href="/security" className="flex items-center min-h-[44px] hover:text-[var(--color-primary)] focus-visible:ring-2 focus-visible:outline-none">Security</Link>
         </div>
       </div>
     </footer>
@@ -61,11 +61,11 @@ function SocialIcon({ icon, ariaLabel, href }: { icon: string; ariaLabel?: strin
 
 function FooterLinks({ links, hrefs }: { links: string[]; hrefs?: string[] }) {
   return (
-    <ul className="flex flex-col gap-4 text-sm text-[var(--text-muted)]">
+    <ul className="flex flex-col text-sm text-[var(--text-muted)]">
       {links.map((link, i) => (
         <li key={link}>
           <Link
-            className="hover:text-[var(--color-primary)] transition-colors focus-visible:ring-2 focus-visible:outline-none rounded"
+            className="flex items-center min-h-[44px] hover:text-[var(--color-primary)] transition-colors focus-visible:ring-2 focus-visible:outline-none rounded"
             href={hrefs?.[i] || "#"}
           >
             {link}
