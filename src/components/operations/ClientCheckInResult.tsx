@@ -141,7 +141,7 @@ export function ClientCheckInResult({ client, onBack, onComplete, services, lock
                 <div className="glass-card p-5 border-[var(--border-main)]">
                     <div className="flex items-center gap-2 mb-3">
                         <span className="text-lg">âœ¨</span>
-                        <span className="font-bold text-[var(--text-main)] text-xs">Insight</span>
+                        <span className="font-bold text-[var(--text-main)] text-xs">Note</span>
                     </div>
                     <p className="text-sm font-medium text-[var(--text-main)] leading-snug">
                         {isBirthday 

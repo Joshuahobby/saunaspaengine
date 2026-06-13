@@ -194,9 +194,9 @@ export default function PlanSelector({ packages, currentPlanId, businessEmail }:
             <div className="p-8 rounded-[2rem] bg-orange-500/5 border border-orange-500/10 flex items-start gap-4">
                 <span className="material-symbols-outlined text-orange-500 text-2xl">info</span>
                 <div className="space-y-1">
-                    <h4 className="text-sm font-black text-orange-800 dark:text-orange-400 uppercase tracking-tight">Need a custom enterprise solution?</h4>
+                    <h4 className="text-sm font-black text-orange-800 dark:text-orange-400 uppercase tracking-tight">Need a custom plan?</h4>
                     <p className="text-[10px] font-medium text-orange-700 dark:text-orange-500 opacity-80 leading-relaxed">
-                        For businesses with more than 50 branches or custom integration needs, contact our Elite support team at <span className="font-black underline">support@saunaspa.rw</span>.
+                        For businesses with more than 50 branches or custom integration needs, contact our support team at <span className="font-black underline">support@saunaspa.rw</span>.
                     </p>
                 </div>
             </div>

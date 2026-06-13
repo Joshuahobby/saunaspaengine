@@ -61,11 +61,11 @@ export function SubscriptionGate({ children, state }: SubscriptionGateProps) {
                 <div className="bg-[var(--bg-surface-muted)]/50 border border-[var(--border-muted)] rounded-3xl p-8 space-y-4">
                     <p className="text-sm md:text-base text-[var(--text-main)] font-bold leading-relaxed">
                         {isExpired ? (
-                            "Your subscription has expired. To maintain service continuity and preserve your business data access, please reactivate your plan."
+                            "Your subscription has expired. Please reactivate your plan to keep your data accessible and your account active."
                         ) : isRejected ? (
-                            "Your latest payment was rejected or canceled. Please re-verify your payment details to restore your account access."
+                            "Your latest payment was rejected or canceled. Please check your payment details to restore your account access."
                         ) : (
-                            "Access to your operational dashboard is currently restricted. Activate a plan to continue managing your spa business."
+                            "Your account is not active. Activate a plan to continue managing your spa business."
                         )}
                     </p>
                     <div className="flex items-center justify-center gap-3">

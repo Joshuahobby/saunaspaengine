@@ -108,7 +108,7 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
                             >
                                 {isSubmitting ? <span className="material-symbols-outlined animate-spin">refresh</span> : (
                                     <>
-                                        COMMIT CHANGES
+                                        SAVE CHANGES
                                         <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">bolt</span>
                                     </>
                                 )}

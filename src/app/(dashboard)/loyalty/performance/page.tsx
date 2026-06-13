@@ -225,7 +225,7 @@ export default async function LoyaltyPerformancePage() {
                         </div>
                     </div>
                     <div className="p-5 bg-[var(--bg-surface-muted)]/50 rounded-2xl border border-[var(--border-muted)] text-center">
-                        <p className="text-xs font-bold text-[var(--color-primary)]">Insight: Members visit 35% more frequently than non-members since launch.</p>
+                        <p className="text-xs font-bold text-[var(--color-primary)]">Members visit 35% more frequently than non-members since launch.</p>
                     </div>
                 </div>
             </div>

@@ -302,7 +302,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                     <div className="bg-[var(--bg-card)] border border-[var(--color-primary)]/10 p-5 rounded-[20px] text-[10px] font-medium text-[var(--text-muted)] leading-relaxed shadow-lg">
                         <div className="flex items-center gap-2 text-[var(--color-primary)] mb-2 uppercase font-bold tracking-widest">
                             <Info className="size-3" />
-                            Service Insights
+                            Service Summary
                         </div>
                         Favourite: {intelligence.favoriteService}.
                         Suggested next: <span className="text-[var(--text-main)]">{intelligence.suggestedService}</span>.

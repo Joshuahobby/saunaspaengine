@@ -251,7 +251,7 @@ export default function MembershipCardModal({
                         <div className="flex items-center justify-between">
                             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] flex items-center gap-2 opacity-60">
                                 <div className="size-1 bg-[var(--color-primary)] rounded-full"></div>
-                                Select Card Aesthetic
+                                Choose Card Theme
                             </label>
                         </div>
 
