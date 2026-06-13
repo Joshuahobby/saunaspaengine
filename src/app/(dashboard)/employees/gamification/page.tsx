@@ -66,7 +66,7 @@ export default async function GamificationPage() {
             teamProgress={teamProgress}
             totalServices={totalServices}
             teamGoal={teamGoal}
-            scope={isExecutive ? "Network" : "Branch"}
+            scope={isExecutive ? "Company" : "Branch"}
         />
     );
 }

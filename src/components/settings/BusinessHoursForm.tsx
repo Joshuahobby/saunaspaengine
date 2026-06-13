@@ -33,7 +33,7 @@ export function BusinessHoursForm({ branchId, initialHours }: BusinessHoursFormP
         try {
             const res = await updateBranchHoursAction(branchId, hours);
             if (res.success) {
-                toast.success("Operational hours updated.");
+                toast.success("Business hours saved.");
             } else {
                 toast.error(res.error || "Failed to save hours.");
             }

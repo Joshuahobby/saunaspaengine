@@ -115,7 +115,7 @@ export default function MembershipCardModal({
     };
 
     const handleDownload = async (format: 'png' | 'pdf' = 'png') => {
-        const tid = toast.loading(`Baking ${format.toUpperCase()}...`);
+        const tid = toast.loading(`Exporting ${format.toUpperCase()}...`);
         setIsExporting(true);
         
         try {

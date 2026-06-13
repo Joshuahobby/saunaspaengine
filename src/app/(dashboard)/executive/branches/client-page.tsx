@@ -113,7 +113,7 @@ export default function ExecutiveBranchesClientPage({ branches, stats }: Branche
             {/* High-Density KPI Row */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <MetricCard 
-                    title="Network Revenue"
+                    title="Total Revenue"
                     value={formatRevenue(stats.totalRevenue)}
                     subtitle="All Locations"
                     icon="account_balance_wallet"
