@@ -43,7 +43,7 @@ export default async function StaffHubPage(props: {
                             Our <span className="text-[var(--color-primary)]">Team.</span>
                         </h1>
                         <p className="text-[var(--text-muted)] font-black text-sm leading-relaxed opacity-60">
-                            Nurturing the professionals behind your brand. Manage your people and progress.
+                            Manage your team, track performance, and schedule shifts.
                         </p>
                     </div>
                 </div>

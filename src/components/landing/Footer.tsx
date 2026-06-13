@@ -12,7 +12,7 @@ export function Footer() {
             <span className="text-xl font-bold font-serif tracking-tight text-[var(--text-main)]">Sauna SPA Engine</span>
           </div>
           <p className="text-[var(--text-muted)] text-sm leading-relaxed max-w-xs">
-            The smart operations engine for modern wellness brands in Rwanda. Streamline check-ins, accept Mobile Money, and grow your revenue.
+            The operations platform for sauna and spa businesses in Rwanda. Fast check-ins, Mobile Money payments, and real-time reporting.
           </p>
           <div className="flex gap-4">
             <SocialIcon icon="mail" ariaLabel="Email Us" href="mailto:hello@saunaspa.rw" />
