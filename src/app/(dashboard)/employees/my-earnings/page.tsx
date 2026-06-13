@@ -29,7 +29,7 @@ export default async function MyEarningsPage() {
                 <h2 className="text-2xl font-display font-bold text-[var(--text-main)] mb-2">Profile Not Linked</h2>
                 <p className="text-[var(--text-muted)] max-w-md mx-auto">
                     Your user account has not been linked to a professional staff record yet. 
-                    Please contact your Administrator or Business Owner to synchronize your account.
+                    Please contact your Administrator or Business Owner to link your staff profile.
                 </p>
             </div>
         );

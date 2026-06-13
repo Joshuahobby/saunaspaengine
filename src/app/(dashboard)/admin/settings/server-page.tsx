@@ -211,7 +211,7 @@ export default async function AdminSettingsPage({
                             <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] mb-10 opacity-40">Regional Signatures</h3>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative z-10">
                                 <div className="p-8 bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2rem] shadow-sm hover:border-[var(--color-primary)]/30 transition-all group/stat">
-                                    <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4 opacity-50 group-hover/stat:opacity-100 transition-opacity">Fiscal Engine</p>
+                                    <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4 opacity-50 group-hover/stat:opacity-100 transition-opacity">Tax Rate</p>
                                     <p className="text-4xl font-display font-bold text-[var(--color-primary)] tracking-tight">{activeRegionData?.taxRate}% <span className="text-[var(--text-muted)] text-xs font-sans ml-1">VAT</span></p>
                                 </div>
                                 <div className="p-8 bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2rem] shadow-sm hover:border-[var(--color-primary)]/30 transition-all group/stat">

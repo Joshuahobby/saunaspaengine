@@ -106,7 +106,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
         const res = await generateClientQrAction(client.id);
         if (res.success) {
             setQrCode(res.qrCode);
-            toast.success("System QR Code Generated!");
+            toast.success("QR code generated!");
         } else {
             toast.error(res.error || "Failed to generate QR");
         }

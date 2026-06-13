@@ -37,7 +37,7 @@ export default function MembershipCardModal({
     if (!isOpen) return null;
 
     const handlePrintImproved = async () => {
-        const tid = toast.loading("Preparing high-fidelity print window...");
+        const tid = toast.loading("Preparing print window...");
         try {
             const dataUrl = await captureCardAsImage();
             if (!dataUrl) throw new Error("Capture failed");
@@ -186,11 +186,11 @@ export default function MembershipCardModal({
             if (res.error) {
                 toast.error(res.error, { id: tid });
             } else {
-                toast.success("Card persisted to database!", { id: tid });
+                toast.success("Card saved!", { id: tid });
             }
         } catch (err) {
             console.error("Sync Error:", err);
-            toast.error("Failed to persist card", { id: tid });
+            toast.error("Failed to save card", { id: tid });
         } finally {
             setIsSaving(false);
         }
@@ -367,7 +367,7 @@ export default function MembershipCardModal({
                             className="flex-[2] bg-gradient-to-r from-amber-500 to-amber-600 text-black py-4.5 rounded-2xl font-black text-[11px] uppercase tracking-[0.15em] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-xl shadow-amber-500/20 italic disabled:opacity-50"
                         >
                             {isSaving ? <Loader2 className="w-4.5 h-4.5 animate-spin" /> : <Check className="w-4.5 h-4.5" />}
-                            Sync to Dashboard
+                            Save Card
                         </button>
                         <button 
                             onClick={onClose}

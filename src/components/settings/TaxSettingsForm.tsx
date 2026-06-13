@@ -31,7 +31,7 @@ export function TaxSettingsForm({ branchId, initialData }: TaxSettingsFormProps)
             });
 
             if (res.success) {
-                toast.success("Fiscal profile updated successfully.");
+                toast.success("Tax settings saved.");
             } else {
                 toast.error(res.error || "Failed to update.");
             }
@@ -123,7 +123,7 @@ export function TaxSettingsForm({ branchId, initialData }: TaxSettingsFormProps)
                     disabled={loading}
                     className="px-8 py-2.5 rounded-lg bg-[var(--color-primary)] text-[var(--bg-app)] font-bold hover:opacity-90 shadow-lg shadow-[var(--color-primary)]/20 transition-all disabled:opacity-50"
                 >
-                    {loading ? "Updating..." : "Update Fiscal Profile"}
+                    {loading ? "Saving..." : "Save Tax Settings"}
                 </button>
             </div>
         </div>

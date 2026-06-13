@@ -59,7 +59,7 @@ export default function PasswordRecoveryPage() {
         setIsLoading(false);
 
         if (result.success) {
-            toast.success("Identity verified!");
+            toast.success("Code verified!");
             setStep(3);
         } else {
             toast.error(result.error || "Invalid code.");

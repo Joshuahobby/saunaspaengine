@@ -54,7 +54,7 @@ export default async function EmployeeSchedulePage({
                 </h2>
                 <p className="text-[var(--text-muted)] max-w-md mx-auto">
                     {isEmployee 
-                        ? "Your account hasn't been linked to a staff profile yet. Contact your administrator to synchronize your account."
+                        ? "Your account hasn't been linked to a staff profile yet. Contact your administrator to set it up."
                         : "No active employees found in your branch. Register staff from the employee directory."
                     }
                 </p>
