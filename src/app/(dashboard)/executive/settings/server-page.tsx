@@ -227,14 +227,14 @@ export default async function ExecutiveSettingsPage({
                         </div>
 
                         <div className="glass-card border border-[var(--border-muted)] p-12 rounded-[2.5rem] bg-[var(--bg-surface-muted)]/10 relative overflow-hidden group shadow-xl shadow-[var(--color-primary)]/5 h-fit">
-                            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] mb-10 opacity-40">Operational Stats</h3>
+                            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] mb-10 opacity-40">Region Overview</h3>
                             <div className="space-y-6">
                                 <div className="p-8 bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2rem] shadow-sm hover:border-[var(--color-primary)]/30 transition-all group/stat">
-                                    <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4 opacity-50 group-hover/stat:opacity-100 transition-opacity">Tax Engine</p>
+                                    <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4 opacity-50 group-hover/stat:opacity-100 transition-opacity">Tax Rate</p>
                                     <p className="text-4xl font-display font-bold text-[var(--color-primary)] tracking-tight">{activeRegionData?.taxRate}% <span className="text-[var(--text-muted)] text-xs font-sans ml-1">VAT</span></p>
                                 </div>
                                 <div className="p-8 bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2rem] shadow-sm hover:border-[var(--color-primary)]/30 transition-all group/stat">
-                                    <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4 opacity-50 group-hover/stat:opacity-100 transition-opacity">Privacy Shield</p>
+                                    <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4 opacity-50 group-hover/stat:opacity-100 transition-opacity">Privacy Standard</p>
                                     <p className="text-4xl font-display font-bold text-[var(--color-primary)] tracking-tight">{activeRegionData?.gdprFlag ? "GDPR" : "Standard"}</p>
                                 </div>
                             </div>

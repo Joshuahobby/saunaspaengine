@@ -172,7 +172,7 @@ export default function MembershipCardModal({
     };
 
     const handleSyncToDatabase = async () => {
-        const tid = toast.loading("Baking & Syncing with Server...");
+        const tid = toast.loading("Saving card to server...");
         setIsSaving(true);
         
         try {

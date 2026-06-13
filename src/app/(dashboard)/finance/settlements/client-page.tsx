@@ -74,7 +74,7 @@ export default function SettlementClientPage({
             {/* Header */}
             <div className="flex flex-col gap-8 border-b border-[var(--border-main)] pb-8">
                 <div>
-                    <h1 className="text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">Payout <span className="text-[var(--color-primary)]">Pipeline</span></h1>
+                    <h1 className="text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">Payout <span className="text-[var(--color-primary)]">Schedule</span></h1>
                     <p className="text-[var(--text-muted)] mt-2 font-medium">Monitoring settlements and automated revenue distribution.</p>
                 </div>
                 <div className="flex gap-3">
@@ -239,7 +239,7 @@ export default function SettlementClientPage({
                                     <td colSpan={6} className="px-8 py-16 text-center">
                                         <div className="flex flex-col items-center gap-4">
                                             <span className="material-symbols-outlined text-4xl text-[var(--text-muted)] opacity-20">history_toggle_off</span>
-                                            <p className="text-[var(--text-muted)] font-bold">No active settlements in current pipeline.</p>
+                                            <p className="text-[var(--text-muted)] font-bold">No pending settlements.</p>
                                         </div>
                                     </td>
                                 </tr>

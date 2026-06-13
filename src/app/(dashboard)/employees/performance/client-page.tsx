@@ -35,10 +35,10 @@ export default function PerformanceIndexClient({ stats, rankings }: PerformanceI
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
                 <div>
                     <h2 className="text-3xl font-display font-bold tracking-tight text-[var(--text-main)] italic">
-                        Human Capital <span className="text-[var(--color-primary)] not-italic">Optimization</span>
+                        Staff <span className="text-[var(--color-primary)] not-italic">Performance</span>
                     </h2>
                     <p className="mt-2 text-[var(--text-muted)] max-w-2xl font-medium">
-                        Analyze and rank professional performance across your entire business network.
+                        Analyze and rank staff performance across all branches.
                     </p>
                 </div>
                 

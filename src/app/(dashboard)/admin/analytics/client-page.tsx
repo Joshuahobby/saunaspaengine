@@ -204,8 +204,8 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                     <div className="p-8 pb-0">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[var(--border-muted)] pb-6 relative z-10">
                             <div className="space-y-1">
-                                <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">Platform Expansion Trajectory</h3>
-                                <p className="text-xs text-[var(--text-muted)] font-medium opacity-40">Monthly scaling of business registrations and user signups.</p>
+                                <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">Platform Growth</h3>
+                                <p className="text-xs text-[var(--text-muted)] font-medium opacity-40">Monthly business registrations and user signups.</p>
                             </div>
                             <div className="flex gap-1.5 p-1 bg-black/20 rounded-xl border border-[var(--border-muted)]">
                                 {["Monthly", "Quarterly", "Yearly"].map((p) => (

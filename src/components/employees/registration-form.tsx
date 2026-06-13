@@ -93,7 +93,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                 <div>
                     <h3 className="text-sm font-bold text-[var(--text-main)] uppercase tracking-widest flex items-center gap-2 mb-4">
                         <span className="material-symbols-outlined text-[var(--color-primary)] text-lg">person</span>
-                        Identity & Contact
+                        Personal Info
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">

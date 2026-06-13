@@ -8,8 +8,8 @@ export default function AuditLogsTab() {
             {/* Legend & Summary */}
             <div className="flex flex-wrap items-center justify-between gap-6 px-4">
                 <div className="space-y-1">
-                    <h3 className="text-xl font-bold font-serif italic text-emerald-500">Immutable Timeline</h3>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-60">Operations Tracking</p>
+                    <h3 className="text-xl font-bold font-serif italic text-emerald-500">Audit Log</h3>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-60">All Actions</p>
                 </div>
                 <div className="flex gap-4">
                      <button className="px-6 py-2.5 bg-[var(--bg-surface-muted)] text-[var(--text-muted)] text-[10px] font-black uppercase tracking-widest rounded-xl border border-[var(--border-muted)] hover:text-emerald-500 transition-colors">
@@ -31,9 +31,9 @@ export default function AuditLogsTab() {
                         <tr className="bg-[var(--bg-surface-muted)]/10 border-b border-[var(--border-muted)]">
                             <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Occurred At</th>
                             <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Actor</th>
-                            <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Narrative Action</th>
-                            <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Target Identity</th>
-                            <th className="px-8 py-6 text-right text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Integrity</th>
+                            <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Action</th>
+                            <th className="px-8 py-6 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Target</th>
+                            <th className="px-8 py-6 text-right text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Status</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-[var(--border-muted)]/30">
@@ -47,7 +47,7 @@ export default function AuditLogsTab() {
                         />
                         <AuditRow 
                             time="Oct 24, 11:15" 
-                            actor="System Core" 
+                            actor="System"
                             role="Automated" 
                             action="Inventory Sync" 
                             target="#PO-L-442" 

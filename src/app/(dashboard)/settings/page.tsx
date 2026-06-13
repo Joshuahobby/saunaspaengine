@@ -37,11 +37,11 @@ const SETTINGS_CATEGORIES = [
         icon: "schedule",
         href: "/settings/operations",
         color: "bg-emerald-500",
-        badge: "Pulse"
+        badge: "Live"
     },
     {
         title: "Records & History",
-        description: "Access immutable audit logs and perform bulk data transfers.",
+        description: "Access audit logs and transfer data in bulk.",
         icon: "history_edu",
         href: "/settings/records",
         color: "bg-blue-500",

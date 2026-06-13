@@ -168,7 +168,7 @@ export default function AdminPaymentsClientPage({ payments, stats }: PageProps) 
             {/* Table */}
             <div className="rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)] overflow-hidden shadow-2xl shadow-black/5">
                 <div className="px-8 py-6 border-b border-[var(--border-muted)] flex items-center justify-between bg-[var(--bg-surface-muted)]/5">
-                    <h3 className="text-xl font-display font-bold text-[var(--text-main)]">Transaction Ledger</h3>
+                    <h3 className="text-xl font-display font-bold text-[var(--text-main)]">Transactions</h3>
                     <span className="px-3 py-1 rounded-full bg-[var(--bg-surface-muted)]/20 border border-[var(--border-muted)] text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">
                         {filtered.length} Records
                     </span>

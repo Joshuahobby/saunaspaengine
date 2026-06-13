@@ -169,7 +169,7 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
                             <span className="material-symbols-outlined text-5xl">emoji_events</span>
                          </div>
                          <div className="space-y-2">
-                             <h3 className="text-lg font-bold text-[var(--text-main)]">Performance Gamification</h3>
+                             <h3 className="text-lg font-bold text-[var(--text-main)]">Staff Leaderboard</h3>
                              <p className="text-sm text-[var(--text-muted)] max-w-xs mx-auto">Track top earners, service volume, and team consistency in real-time.</p>
                          </div>
                          <Link 

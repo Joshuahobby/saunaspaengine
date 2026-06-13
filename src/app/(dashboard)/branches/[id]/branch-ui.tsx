@@ -218,7 +218,7 @@ export default function BranchUI({ branch, intelligence, isOwner }: BranchUIProp
                                     <Activity className="size-4 text-[var(--color-primary)]" />
                                     <span className="text-[var(--text-main)] opacity-80 text-[10px] font-black uppercase tracking-[0.2em]">Recent Sessions</span>
                                 </div>
-                                <span className="text-[var(--text-muted)] opacity-10 text-[8px] font-black uppercase tracking-widest italic">Live Activity Stream</span>
+                                <span className="text-[var(--text-muted)] opacity-10 text-[8px] font-black uppercase tracking-widest italic">Recent Activity</span>
                             </div>
                             <div className="p-8 flex-1 custom-scrollbar overflow-y-auto space-y-3">
                                 {branch.serviceRecords?.length > 0 ? (

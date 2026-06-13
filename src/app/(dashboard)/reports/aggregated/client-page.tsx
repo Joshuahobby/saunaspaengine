@@ -21,14 +21,14 @@ interface Props {
 }
 
 export default function AggregatedReportsClient({ reports, branches }: Props) {
-    const [filterBranch, setFilterBranch] = useState("All Sanctuaries");
+    const [filterBranch, setFilterBranch] = useState("All Branches");
     const [page, setPage] = useState(1);
     const perPage = 10;
 
     const formatCurrency = (amount: number) =>
         new Intl.NumberFormat("en-US", { style: "currency", currency: "RWF", maximumFractionDigits: 0 }).format(amount);
 
-    const filteredReports = filterBranch === "All Sanctuaries"
+    const filteredReports = filterBranch === "All Branches"
         ? reports
         : reports.filter(r => r.branchName === filterBranch);
 
@@ -53,14 +53,14 @@ export default function AggregatedReportsClient({ reports, branches }: Props) {
             {/* Filters */}
             <div className="flex flex-wrap gap-4 items-center">
                 <div className="flex flex-col">
-                    <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-60 ml-2 mb-2">Entity Filter</label>
+                    <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-60 ml-2 mb-2">Filter by Branch</label>
                     <select
                         value={filterBranch}
                         onChange={e => handleFilterChange(e.target.value)}
                         title="Branch Filter"
                         className="h-12 rounded-xl bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] px-6 text-sm font-display font-bold text-[var(--text-main)] focus:ring-2 focus:ring-[var(--color-primary)]/20 transition-all outline-none appearance-none hover:border-[var(--color-primary)]/30 min-w-[240px]"
                     >
-                        <option value="All Sanctuaries">All Sanctuaries</option>
+                        <option value="All Branches">All Branches</option>
                         {branches.map(b => (
                             <option key={b} value={b}>{b}</option>
                         ))}
@@ -74,11 +74,11 @@ export default function AggregatedReportsClient({ reports, branches }: Props) {
                     <table className="w-full text-left min-w-[800px]">
                         <thead className="bg-[var(--bg-surface-muted)]/5 border-b border-[var(--border-muted)]">
                             <tr>
-                                <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Origin Branch</th>
-                                <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Timeline Space</th>
-                                <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Spirit / Guest</th>
-                                <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Service Rendered</th>
-                                <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Energy Exchange</th>
+                                <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Branch</th>
+                                <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Date / Time</th>
+                                <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Client</th>
+                                <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Service</th>
+                                <th className="px-8 py-5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em]">Amount</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-[var(--border-muted)]">
@@ -110,7 +110,7 @@ export default function AggregatedReportsClient({ reports, branches }: Props) {
                     {filteredReports.length === 0 && (
                         <div className="py-24 text-center">
                             <span className="material-symbols-outlined text-4xl text-[var(--text-muted)] opacity-20 mb-2">receipt_long</span>
-                            <p className="text-[var(--text-muted)] italic">No financial flow recorded yet.</p>
+                            <p className="text-[var(--text-muted)] italic">No records found.</p>
                         </div>
                     )}
                 </div>

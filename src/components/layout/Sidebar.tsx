@@ -26,7 +26,7 @@ const managerNavItems: NavItem[] = [
     { label: "View Schedule", href: "/employees/schedule", icon: "calendar_month" },
     
     { label: "Company", isHeader: true },
-    { label: "Corporate Setup", href: "/settings/corporate", icon: "settings" },
+    { label: "Business Settings", href: "/settings/corporate", icon: "settings" },
     { label: "Activity Logs", href: "/audit", icon: "history" },
 ];
 
@@ -38,15 +38,15 @@ const adminNavItems: NavItem[] = [
     { label: "Platform Plans", href: "/subscriptions/platform", icon: "layers" },
     { label: "Payments", href: "/payments", icon: "mobile_friendly" },
     
-    { label: "Treasury", href: "/finance/settlements", icon: "account_balance" },
+    { label: "Settlements", href: "/finance/settlements", icon: "account_balance" },
     { label: "Staff Leaderboard", href: "/employees/gamification", icon: "emoji_events" },
     
     { label: "Platform", isHeader: true },
     { label: "Businesses", href: "/businesses", icon: "domain" },
     { label: "Branches", href: "/branches", icon: "storefront" },
-    { label: "Universal Registry", href: "/clients/universal", icon: "public" },
+    { label: "All Clients", href: "/clients/universal", icon: "public" },
     
-    { label: "Governance", isHeader: true },
+    { label: "Administration", isHeader: true },
     { label: "Broadcasts", href: "/broadcasts", icon: "campaign" },
     { label: "System Health", href: "/monitoring", icon: "monitor_heart" },
     { label: "Audit Logs", href: "/audit", icon: "history" },
@@ -68,7 +68,7 @@ const businessNavItems: NavItem[] = [
     { label: "Finance & Safety", isHeader: true },
     { label: "Settlements", href: "/finance/settlements", icon: "account_balance_wallet" },
     { label: "Performance Reports", href: "/reports/revenue", icon: "trending_up" },
-    { label: "Corporate Setup", href: "/settings/corporate", icon: "settings" },
+    { label: "Business Settings", href: "/settings/corporate", icon: "settings" },
     { label: "Activity Audit", href: "/audit", icon: "history" },
 ];
 

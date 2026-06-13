@@ -24,7 +24,7 @@ export default function RecordsHistoryPage() {
                         Audit <span className="text-[var(--color-primary)]">Logs</span>
                     </h1>
                     <p className="text-sm font-medium text-[var(--text-muted)] opacity-60">
-                        Immutable chronological record of platform operations and administrative actions.
+                        A chronological record of all platform and admin actions.
                     </p>
                 </div>
 
@@ -34,7 +34,7 @@ export default function RecordsHistoryPage() {
                             onClick={() => setActiveTab('audit')}
                             className={`px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'audit' ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20" : "text-[var(--text-muted)] hover:text-[var(--text-main)]"}`}
                         >
-                            Legacy & Audit
+                            Audit Log
                         </button>
                         <button 
                             onClick={() => setActiveTab('transfer')}

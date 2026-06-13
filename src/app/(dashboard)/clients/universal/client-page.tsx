@@ -42,7 +42,7 @@ export default function UniversalMemberRegistryClient({ initialClients }: { init
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight text-white flex items-center gap-3">
                         <Users className="w-8 h-8 text-blue-400" />
-                        Universal Member Registry
+                        All Clients
                     </h1>
                     <p className="text-zinc-400 mt-1">View and manage clients across all branches</p>
                 </div>
@@ -53,7 +53,7 @@ export default function UniversalMemberRegistryClient({ initialClients }: { init
                 <div className="bg-zinc-900/50 border border-zinc-800 backdrop-blur-xl p-6 rounded-2xl">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-sm font-medium text-zinc-400">Total Network Clients</p>
+                            <p className="text-sm font-medium text-zinc-400">Total Clients</p>
                             <p className="text-2xl font-bold text-white">{initialClients.length}</p>
                         </div>
                         <div className="p-3 bg-blue-500/10 rounded-xl">
@@ -77,7 +77,7 @@ export default function UniversalMemberRegistryClient({ initialClients }: { init
                 <div className="bg-zinc-900/50 border border-zinc-800 backdrop-blur-xl p-6 rounded-2xl">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-sm font-medium text-zinc-400">Cross-Branch Affinity</p>
+                            <p className="text-sm font-medium text-zinc-400">Multi-Branch Clients</p>
                             <p className="text-2xl font-bold text-white">12.5%</p>
                         </div>
                         <div className="p-3 bg-green-500/10 rounded-xl">

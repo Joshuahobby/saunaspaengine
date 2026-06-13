@@ -105,7 +105,7 @@ export default function ReferralsTab() {
                     </h3>
                     <div className="glass-card p-8 rounded-[2.5rem] border border-[var(--border-muted)] space-y-6">
                         <div className="space-y-4">
-                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Personal Connection URL</label>
+                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-60">Your Referral Link</label>
                             <div className="flex h-16 bg-[var(--bg-app)]/50 rounded-2xl border border-[var(--border-muted)] overflow-hidden p-2 gap-2">
                                 <div className="flex-1 flex items-center px-4 font-bold text-xs truncate opacity-40 italic">{link}</div>
                                 <button 

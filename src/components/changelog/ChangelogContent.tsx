@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 const RELEASES = [
     { version: "v3.8.0", date: "Mar 10, 2026", tag: "Latest", tagColor: "bg-green-100 text-green-700", items: [
-        { type: "feature", icon: "auto_awesome", text: "AI-powered booking suggestions based on client history" },
+        { type: "feature", icon: "auto_awesome", text: "Booking suggestions based on client visit history" },
         { type: "feature", icon: "notifications_active", text: "Real-time push notifications for staff assignment changes" },
         { type: "improvement", icon: "speed", text: "Dashboard load time reduced by 40%" },
         { type: "fix", icon: "bug_report", text: "Fixed timezone offset in multi-location booking calendars" },

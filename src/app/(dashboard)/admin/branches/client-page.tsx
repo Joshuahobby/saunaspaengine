@@ -141,7 +141,7 @@ export default function AdminBranchesClientPage({ branches, stats }: BranchesPro
                             <tr className="border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10">
                                 <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic">Branch Name</th>
                                 <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic">Owning Business</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic text-center">Operational Stats</th>
+                                <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic text-center">Staff & Clients</th>
                                 <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic text-center">Status</th>
                                 <th className="px-6 py-4 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest italic text-right whitespace-nowrap">Registration Date</th>
                                 <th className="px-6 py-4 text-right"></th>

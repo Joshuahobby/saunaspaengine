@@ -53,7 +53,7 @@ export default async function OperationsPage({
                     <div className="space-y-10 animate-in fade-in duration-500">
                         <div className="px-4 border-l-4 border-emerald-500">
                             <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-main)]">Opening Schedule</h2>
-                            <p className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-widest mt-1 opacity-50">Operational Availability</p>
+                            <p className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-widest mt-1 opacity-50">Business Hours</p>
                         </div>
 
                         {branch ? (

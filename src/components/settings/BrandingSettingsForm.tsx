@@ -85,7 +85,7 @@ export function BrandingSettingsForm({ businessId, branchId, initialData }: Bran
                 <div className="flex items-center gap-3">
                     <span className="material-symbols-outlined text-[var(--color-primary)] text-2xl">palette</span>
                     <h2 className="text-xl font-bold font-serif text-[var(--text-main)]">
-                        {initialData.isGlobal ? "Global Branding" : "Branch Identity"}
+                        {initialData.isGlobal ? "Global Branding" : "Branch Branding"}
                     </h2>
                 </div>
                 {!initialData.isGlobal && (
@@ -178,7 +178,7 @@ export function BrandingSettingsForm({ businessId, branchId, initialData }: Bran
                     disabled={loading || (!initialData.isGlobal && !isOverride)}
                     className="px-8 py-3 rounded-2xl bg-[var(--text-main)] text-[var(--bg-app)] font-black uppercase tracking-[0.15em] text-xs hover:scale-105 transition-all shadow-xl shadow-black/10 disabled:opacity-30 disabled:scale-100"
                 >
-                    {loading ? "Syncing..." : "Publish Identity"}
+                    {loading ? "Saving..." : "Save Branding"}
                 </button>
             </div>
         </section>

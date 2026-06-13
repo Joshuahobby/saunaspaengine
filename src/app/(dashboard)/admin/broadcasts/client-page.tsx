@@ -146,7 +146,7 @@ export default function AdminBroadcastsClientPage() {
                                         </div>
 
                                         <div className="space-y-3">
-                                            <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2">Intensity Level</label>
+                                            <label className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40 ml-2">Priority</label>
                                             <div className="flex gap-4 h-14">
                                                 <button 
                                                     type="button"
@@ -228,7 +228,7 @@ export default function AdminBroadcastsClientPage() {
                              <div className="rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm backdrop-blur-md relative overflow-hidden group">
                                 <h3 className="text-xl font-serif font-bold text-white mb-8 border-b border-[var(--border-muted)] pb-5">Broadcast Stats</h3>
                                 <div className="space-y-8">
-                                    <StatCard label="Total Reach" value="1,248" sub="Global Branches" icon="groups_3" />
+                                    <StatCard label="Total Reach" value="1,248" sub="All Branches" icon="groups_3" />
                                     <StatCard label="Engagement" value="94.2%" sub="Open Rate" icon="query_stats" />
                                     <StatCard label="Delivery Health" value="Optimal" sub="Low Latency" icon="verified" />
                                 </div>
@@ -240,7 +240,7 @@ export default function AdminBroadcastsClientPage() {
                                 </div>
                                 <div>
                                     <h4 className="text-lg font-serif font-black text-white">Urgent Override</h4>
-                                    <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1">Bypass standard distribution cycles for immediate branch alert.</p>
+                                    <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1">Send an immediate alert to all branches, bypassing the scheduled queue.</p>
                                 </div>
                                 <button className="w-full py-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-[9px] font-black uppercase tracking-[0.2em] hover:bg-rose-500/20 transition-all">
                                     Send Urgent Alert
