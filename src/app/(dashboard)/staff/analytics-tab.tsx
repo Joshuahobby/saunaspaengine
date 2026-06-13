@@ -123,7 +123,7 @@ export default async function AnalyticsTab() {
                     <div className="size-16 rounded-[1.5rem] bg-[var(--color-primary)] flex items-center justify-center text-[var(--bg-app)]">
                          <span className="material-symbols-outlined text-4xl font-black">electric_bolt</span>
                     </div>
-                    <h3 className="text-3xl font-serif font-black tracking-tighter">Strategic <br /> Workforce Plan.</h3>
+                    <h3 className="text-3xl font-serif font-black tracking-tighter">Workforce <br /> Summary.</h3>
                     <p className="text-sm font-bold opacity-60 leading-relaxed">
                         {staffCount === 0
                             ? "No active staff yet. Register your first team member to begin tracking workforce analytics."

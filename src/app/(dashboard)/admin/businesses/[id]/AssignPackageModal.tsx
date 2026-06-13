@@ -150,9 +150,9 @@ export function AssignPackageModal({ isOpen, onClose, business, availablePackage
                                         onChange={(e) => setStatus(e.target.value)}
                                         className="w-full h-14 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-6 text-sm font-bold text-[var(--text-main)] outline-none focus:border-[var(--color-primary)]/50 transition-all appearance-none"
                                     >
-                                        <option value="ACTIVE" className="bg-[var(--bg-card)]">Active / Delighted</option>
-                                        <option value="EXPIRING" className="bg-[var(--bg-card)]">Expiring / At Risk</option>
-                                        <option value="CANCELLED" className="bg-[var(--bg-card)]">Cancelled / Inactive</option>
+                                        <option value="ACTIVE" className="bg-[var(--bg-card)]">Active</option>
+                                        <option value="EXPIRING" className="bg-[var(--bg-card)]">Expiring</option>
+                                        <option value="CANCELLED" className="bg-[var(--bg-card)]">Cancelled</option>
                                     </select>
                                 </div>
                             </div>

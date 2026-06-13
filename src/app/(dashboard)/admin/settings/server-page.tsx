@@ -219,7 +219,7 @@ export default async function AdminSettingsPage({
                                     <p className="text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">{activeRegionData?.currency}</p>
                                 </div>
                                 <div className="p-8 bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2rem] shadow-sm hover:border-[var(--color-primary)]/30 transition-all group/stat">
-                                    <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4 opacity-50 group-hover/stat:opacity-100 transition-opacity">Privacy Framework</p>
+                                    <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4 opacity-50 group-hover/stat:opacity-100 transition-opacity">Privacy Standard</p>
                                     <p className="text-4xl font-display font-bold text-[var(--color-primary)] tracking-tight">{activeRegionData?.gdprFlag ? "GDPR" : "Standard"}</p>
                                 </div>
                             </div>

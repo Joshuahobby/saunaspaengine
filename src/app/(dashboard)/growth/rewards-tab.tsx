@@ -86,7 +86,7 @@ export default async function RewardsTab() {
                 <section className="lg:col-span-2 glass-card p-10 rounded-[2.5rem] border border-[var(--border-muted)] space-y-8">
                     <div className="flex justify-between items-center">
                         <h3 className="text-2xl font-serif font-black italic text-[var(--text-main)] underline decoration-[var(--color-primary)]/20 underline-offset-8">
-                            Top <span className="text-[var(--color-primary)]">Champions.</span>
+                            Top <span className="text-[var(--color-primary)]">Clients.</span>
                         </h3>
                         <Link href="/growth?tab=clients" className="text-[10px] font-black uppercase tracking-widest text-[var(--color-primary)] opacity-60 hover:opacity-100 transition-all">
                             View All

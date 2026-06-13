@@ -40,7 +40,7 @@ export default function StaffAddButton({ isOwnerOrAdmin, currentCount, limit, is
                     onClose={() => setShowUpgradeModal(false)}
                     title={isOverLimit ? "Staff Limit Reached" : "Action Required"}
                     message={isOverLimit 
-                        ? `You have reached the limit of ${limit} staff members for your current plan. Upgrade to onboard more team members and grow your operations.`
+                        ? `You have reached the limit of ${limit} staff members on your current plan. Upgrade to add more team members.`
                         : "Your subscription is currently inactive. Reactivate your account to resume staff management."}
                     limit={limit}
                     current={currentCount}

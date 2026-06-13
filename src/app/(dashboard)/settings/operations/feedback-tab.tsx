@@ -127,10 +127,10 @@ function ReviewEntry({ name, initials, rating, text, replied, reply }: { name: s
 
             <div className="flex gap-4">
                 <button className="px-8 py-3 bg-[var(--text-main)] text-[var(--bg-app)] text-[10px] font-black uppercase tracking-widest rounded-xl hover:scale-105 transition-transform">
-                    {replied ? "Update Reply" : "Craft Narrative"}
+                    {replied ? "Update Reply" : "Post Reply"}
                 </button>
                 <button className="px-8 py-3 bg-[var(--bg-surface-muted)] text-[var(--text-muted)] text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[var(--border-muted)]/50 transition-colors">
-                    Archive Insight
+                    Archive
                 </button>
             </div>
         </div>

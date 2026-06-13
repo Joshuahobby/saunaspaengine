@@ -33,7 +33,7 @@ export default function OnboardingLayout({ children }: { children: ReactNode }) 
                 {/* Minimal Footer */}
                 <footer className="px-8 py-6 border-t border-[var(--border-muted)]/30 text-center">
                     <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">
-                        &copy; 2026 Sauna SPA Engine &bull; Operations Framework V1.0
+                        &copy; 2026 Sauna SPA Engine &bull; Version 1.0
                     </p>
                 </footer>
             </div>

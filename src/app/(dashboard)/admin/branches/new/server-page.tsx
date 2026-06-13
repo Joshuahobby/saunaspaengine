@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export const metadata = {
     title: "New Branch | Business Management",
-    description: "Register and provision a new branch location.",
+    description: "Register a new branch location.",
 };
 
 export default async function NewBranchPage() {

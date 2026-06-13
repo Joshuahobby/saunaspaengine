@@ -23,7 +23,7 @@ export default async function NewBusinessPage() {
                     Register New Business
                 </h1>
                 <p className="text-sm text-[var(--text-muted)] font-medium opacity-60">
-                    Register a new business and provision their primary administrator account.
+                    Register a new business and create their primary admin account.
                 </p>
             </div>
 
