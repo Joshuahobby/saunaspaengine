@@ -138,7 +138,7 @@ export default function PlatformPackagesClientPage({ initialPackages }: { initia
                 if (!pkg) return null;
                 return (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-                        <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-3xl p-8 w-full max-w-sm shadow-2xl space-y-6">
+                        <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[var(--r-lg)] p-8 w-full max-w-sm shadow-2xl space-y-6">
                             <div className="flex items-center gap-4">
                                 <div className="size-12 rounded-2xl bg-red-500/10 flex items-center justify-center shrink-0">
                                     <span className="material-symbols-outlined text-red-500 text-2xl">delete</span>
@@ -247,7 +247,7 @@ function PackageModal({ isOpen, onClose, onSave, pkg }: { isOpen: boolean, onClo
                 className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2.5rem] w-full max-w-2xl p-8 lg:p-10 space-y-8 my-auto"
             >
                 <div className="flex justify-between items-center">
-                    <h2 className="text-3xl font-serif font-bold italic text-[var(--text-main)]">{pkg ? "Edit" : "New"} Platform Package</h2>
+                    <h2 className="text-3xl font-display font-bold text-[var(--text-main)]">{pkg ? "Edit" : "New"} Platform Package</h2>
                     <button type="button" onClick={onClose} className="size-10 rounded-full bg-[var(--bg-surface-muted)] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] transition-colors">
                         <span className="material-symbols-outlined">close</span>
                     </button>

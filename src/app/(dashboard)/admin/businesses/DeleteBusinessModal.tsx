@@ -52,7 +52,7 @@ export function DeleteBusinessModal({ isOpen, onClose, business }: { isOpen: boo
                         <div className="size-16 mx-auto bg-rose-500/10 text-rose-500 rounded-full flex items-center justify-center mb-6 border border-rose-500/20">
                             <span className="material-symbols-outlined text-3xl">delete_forever</span>
                         </div>
-                        <h2 className="text-2xl font-serif font-bold text-rose-500 italic">Delete Business</h2>
+                        <h2 className="text-2xl font-display font-bold text-rose-500">Delete Business</h2>
                         <p className="text-sm text-[var(--text-muted)] mt-3 leading-relaxed">
                             This action is permanent. All branches, services, revenue records, and clients associated with <b className="text-[var(--text-main)] not-italic">{business.name}</b> will be <u className="decoration-rose-500">destroyed completely</u>.
                         </p>

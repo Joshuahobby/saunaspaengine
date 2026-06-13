@@ -154,7 +154,7 @@ export default function ServicesClientPage({ services, stats, userRole, subState
                     <p className="text-[var(--text-muted)] text-base font-medium mt-1">Configure and manage your spa&apos;s treatment menu and pricing.</p>
                 </div>
                 {!isEmployee && (
-                <button onClick={openAdd} className="flex items-center justify-center gap-2 rounded-3xl h-12 px-6 bg-[var(--color-primary)] text-[var(--bg-app)] font-bold shadow-lg shadow-[var(--color-primary)]/10 hover:opacity-90 transition-all">
+                <button onClick={openAdd} className="flex items-center justify-center gap-2 rounded-[var(--r-lg)] h-12 px-6 bg-[var(--color-primary)] text-[var(--bg-app)] font-bold shadow-lg shadow-[var(--color-primary)]/10 hover:opacity-90 transition-all">
                     <span className="material-symbols-outlined">add_circle</span>
                     <span>Add New Service</span>
                 </button>
@@ -213,7 +213,7 @@ export default function ServicesClientPage({ services, stats, userRole, subState
             </div>
 
             {/* Services Table */}
-            <div className="bg-[var(--bg-card)] rounded-3xl border border-[var(--border-main)] overflow-hidden shadow-sm">
+            <div className="bg-[var(--bg-card)] rounded-[var(--r-lg)] border border-[var(--border-main)] overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
@@ -297,8 +297,8 @@ export default function ServicesClientPage({ services, stats, userRole, subState
             {/* Add/Edit Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--bg-app)]/80 backdrop-blur-sm" onClick={() => { setShowAddModal(false); setEditingService(null); }}>
-                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-3xl p-8 w-full max-w-lg shadow-2xl" onClick={e => e.stopPropagation()}>
-                        <h3 className="text-2xl font-serif font-bold text-[var(--text-main)] italic mb-6">
+                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[var(--r-lg)] p-8 w-full max-w-lg shadow-2xl" onClick={e => e.stopPropagation()}>
+                        <h3 className="text-2xl font-display font-bold text-[var(--text-main)] mb-6">
                             {editingService ? "Edit Service" : "Add New Service"}
                         </h3>
                         <div className="space-y-4">
@@ -336,12 +336,12 @@ export default function ServicesClientPage({ services, stats, userRole, subState
             {/* Delete Confirmation Modal */}
             {deletingId && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--bg-app)]/80 backdrop-blur-sm" onClick={() => setDeletingId(null)}>
-                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-3xl p-8 w-full max-w-md shadow-2xl" onClick={e => e.stopPropagation()}>
+                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[var(--r-lg)] p-8 w-full max-w-md shadow-2xl" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center gap-3 mb-4">
                             <div className="size-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500">
                                 <span className="material-symbols-outlined text-2xl">warning</span>
                             </div>
-                            <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">Delete Service?</h3>
+                            <h3 className="text-xl font-display font-bold text-[var(--text-main)]">Delete Service?</h3>
                         </div>
                         <p className="text-[var(--text-muted)] mb-6 font-medium">This action cannot be undone. All associated records will be affected.</p>
                         <div className="flex gap-3">

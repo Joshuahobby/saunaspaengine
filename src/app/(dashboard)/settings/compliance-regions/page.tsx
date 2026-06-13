@@ -84,7 +84,7 @@ export default async function RegionalCompliancePage({
                 </div>
 
                 <div className="space-y-1">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tighter font-serif text-[var(--text-main)]">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tighter font-display text-[var(--text-main)]">
                         Rules & <span className="text-[var(--color-primary)]">Fiscal Setup.</span>
                     </h1>
                     <p className="text-sm font-bold text-[var(--text-muted)] opacity-60 leading-relaxed">
@@ -168,7 +168,7 @@ export default async function RegionalCompliancePage({
                                         <span className="material-symbols-outlined text-3xl font-black">receipt_long</span>
                                     </div>
                                     <div>
-                                        <h3 className="text-2xl font-bold font-serif">Fiscal Details</h3>
+                                        <h3 className="text-2xl font-bold font-display">Fiscal Details</h3>
                                         <p className="text-[10px] font-black tracking-widest text-[var(--text-muted)] uppercase opacity-60">Location: {branchSettings?.branchName || "Main Office"}</p>
                                     </div>
                                 </div>
@@ -184,7 +184,7 @@ export default async function RegionalCompliancePage({
                                 />
                             </div>
 
-                            <div className="p-8 bg-blue-500/5 border border-blue-500/20 rounded-3xl flex items-start gap-6">
+                            <div className="p-8 bg-blue-500/5 border border-blue-500/20 rounded-[var(--r-lg)] flex items-start gap-6">
                                 <span className="material-symbols-outlined text-blue-500 text-3xl">info</span>
                                 <div className="space-y-2">
                                     <h4 className="font-bold text-blue-500/80 uppercase text-[10px] tracking-widest">Receipt Compliance</h4>
@@ -199,7 +199,7 @@ export default async function RegionalCompliancePage({
                         <div className="p-20 border-2 border-dashed border-[var(--border-muted)] rounded-[3rem] flex flex-col items-center justify-center text-center space-y-6 opacity-60">
                             <span className="material-symbols-outlined text-6xl text-[var(--text-muted)]">account_tree</span>
                             <div className="space-y-2">
-                                <h3 className="text-xl font-bold font-serif">Select a Location</h3>
+                                <h3 className="text-xl font-bold font-display">Select a Location</h3>
                                 <p className="text-sm max-w-sm font-bold text-[var(--text-muted)]">Please choose a specific branch from the sidebar to manage its unique Tax ID and Receipt headers.</p>
                             </div>
                         </div>

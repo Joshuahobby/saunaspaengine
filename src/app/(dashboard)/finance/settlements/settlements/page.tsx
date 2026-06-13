@@ -41,7 +41,7 @@ export default async function SettlementsPage() {
     return (
         <div className="max-w-7xl mx-auto space-y-8">
             <div>
-                <h1 className="text-3xl font-display font-black tracking-tight text-[var(--text-main)] italic">Commission <span className="text-[var(--color-primary)]">Settlements</span></h1>
+                <h1 className="text-3xl font-display font-black tracking-tight text-[var(--text-main)]">Commission <span className="text-[var(--color-primary)]">Settlements</span></h1>
                 <p className="mt-2 text-[var(--text-muted)] max-w-2xl font-medium">
                     Review and generate payouts for therapist service commissions. Unpaid balances are highlighted below.
                 </p>

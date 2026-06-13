@@ -69,7 +69,7 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
                     </div>
 
                     <div className="grid grid-cols-1 gap-4">
-                        <div className="bg-[var(--bg-card)]/[0.02] border border-white/5 p-5 rounded-3xl space-y-3">
+                        <div className="bg-[var(--bg-card)]/[0.02] border border-white/5 p-5 rounded-[var(--r-lg)] space-y-3">
                             <div className="flex items-center gap-3 text-[var(--text-main)] opacity-40">
                                 <span className="material-symbols-outlined !text-lg">location_on</span>
                                 <span className="text-[10px] font-black uppercase tracking-widest">Location Information</span>
@@ -81,14 +81,14 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <div className="bg-[var(--bg-card)]/[0.02] border border-white/5 p-5 rounded-3xl space-y-2 group hover:border-[var(--color-primary)]/30 transition-colors">
+                            <div className="bg-[var(--bg-card)]/[0.02] border border-white/5 p-5 rounded-[var(--r-lg)] space-y-2 group hover:border-[var(--color-primary)]/30 transition-colors">
                                 <div className="flex items-center justify-between">
                                     <span className="material-symbols-outlined text-[var(--color-primary)]">spa</span>
                                     <span className="text-xl font-display font-black text-[var(--text-main)]">{branch.services?.length || 0}</span>
                                 </div>
                                 <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-60">Services Added</p>
                             </div>
-                            <div className="bg-[var(--bg-card)]/[0.02] border border-white/5 p-5 rounded-3xl space-y-2 group hover:border-[var(--color-primary)]/30 transition-colors">
+                            <div className="bg-[var(--bg-card)]/[0.02] border border-white/5 p-5 rounded-[var(--r-lg)] space-y-2 group hover:border-[var(--color-primary)]/30 transition-colors">
                                 <div className="flex items-center justify-between">
                                     <span className="material-symbols-outlined text-[var(--color-primary)]">badge</span>
                                     <span className="text-xl font-display font-black text-[var(--text-main)]">{branch.employees?.length || 0}</span>
@@ -117,7 +117,7 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
                     </div>
 
                     <div className="relative group">
-                        <div className="size-48 bg-[var(--bg-card)] p-4 rounded-3xl shadow-inner relative group">
+                        <div className="size-48 bg-[var(--bg-card)] p-4 rounded-[var(--r-lg)] shadow-inner relative group">
                             <div className="size-full bg-neutral-100 rounded-2xl flex items-center justify-center overflow-hidden">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img 
@@ -128,7 +128,7 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
                             </div>
                         </div>
                         {/* Interactive Hint */}
-                        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm rounded-3xl opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center gap-4">
+                        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm rounded-[var(--r-lg)] opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center gap-4">
                             <button title="Download QR Code" aria-label="Download QR Code" className="size-12 rounded-2xl bg-[var(--bg-card)] text-black flex items-center justify-center shadow-2xl transition-transform hover:scale-110">
                                 <span className="material-symbols-outlined">download</span>
                             </button>

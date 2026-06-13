@@ -111,14 +111,14 @@ export default async function TeamDirectoryTab({
                     employees.map((employee) => (
                         <div key={employee.id} className="glass-card p-10 rounded-[3rem] border border-[var(--border-muted)] hover:border-[var(--color-primary)]/40 transition-all group">
                              <div className="flex justify-between items-start mb-10">
-                                <div className="size-16 rounded-3xl bg-[var(--bg-surface-muted)] flex items-center justify-center text-2xl font-black text-[var(--text-main)] group-hover:scale-110 transition-transform">
+                                <div className="size-16 rounded-[var(--r-lg)] bg-[var(--bg-surface-muted)] flex items-center justify-center text-2xl font-black text-[var(--text-main)] group-hover:scale-110 transition-transform">
                                     {employee.fullName.charAt(0)}
                                 </div>
                                 <StatusToggle employeeId={employee.id} initialStatus={employee.status} />
                              </div>
                              
                              <div className="space-y-2">
-                                <h3 className="text-2xl font-serif font-black tracking-tight">{employee.fullName}</h3>
+                                <h3 className="text-2xl font-display font-black tracking-tight">{employee.fullName}</h3>
                                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)]">
                                     {employee.category.name}
                                 </p>

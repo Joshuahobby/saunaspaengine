@@ -17,7 +17,7 @@ export default async function ReportsRevenuePage(props: { searchParams: Promise<
 
     if (authorizedBranchIds.length === 0) {
         return (
-            <div className="flex h-[70vh] items-center justify-center bg-black/20 rounded-[40px] border border-white/5 text-white/50 p-10 font-serif italic text-lg text-center">
+            <div className="flex h-[70vh] items-center justify-center bg-black/20 rounded-[40px] border border-white/5 text-white/50 p-10 font-display text-lg text-center">
                 Access to financial records in this context is restricted or unavailable.<br/>
                 Please select an authorized branch.
             </div>

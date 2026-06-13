@@ -38,7 +38,7 @@ export default async function OperationsPage({
                 </div>
 
                 <div className="space-y-1">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tighter font-serif text-[var(--text-main)]">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tighter font-display text-[var(--text-main)]">
                         Daily <span className="text-emerald-500">Routine.</span>
                     </h1>
                     <p className="text-sm font-bold text-[var(--text-muted)] opacity-60 leading-relaxed">
@@ -80,7 +80,7 @@ export default async function OperationsPage({
                             <div className="p-20 border-2 border-dashed border-[var(--border-muted)] rounded-[3rem] flex flex-col items-center justify-center text-center space-y-6 opacity-60">
                                 <span className="material-symbols-outlined text-6xl text-[var(--text-muted)]">schedule</span>
                                 <div className="space-y-2">
-                                    <h3 className="text-xl font-bold font-serif">Select a Location</h3>
+                                    <h3 className="text-xl font-bold font-display">Select a Location</h3>
                                     <p className="text-sm max-w-sm font-bold text-[var(--text-muted)]">Please choose a specific branch from the dropdown in the sidebar to manage its opening hours.</p>
                                 </div>
                             </div>

@@ -83,7 +83,7 @@ export default async function SignupPage() {
                         <span className="material-symbols-outlined text-2xl font-black">spa</span>
                     </div>
                     <div>
-                        <h2 className="text-[var(--text-main)] text-lg font-black font-serif leading-tight tracking-tight italic group-hover:text-[var(--color-primary)] transition-colors">
+                        <h2 className="text-[var(--text-main)] text-lg font-black font-display leading-tight tracking-tight group-hover:text-[var(--color-primary)] transition-colors">
                             Sauna <span className="not-italic text-[var(--color-primary)]">SPA</span> Engine
                         </h2>
                     </div>

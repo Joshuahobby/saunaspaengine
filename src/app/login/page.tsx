@@ -11,12 +11,12 @@ export default function LoginPage() {
             {/* ... navigation header omitted for brevity, but I must keep the whole return block if I replace it ... */}
             <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-[var(--border-main)] px-6 md:px-10 py-5 bg-[var(--bg-app)]/80 backdrop-blur-xl sticky top-0 z-50">
                 <Link href="/" className="flex items-center gap-4 group">
-                    <div className="size-10 text-white flex items-center justify-center bg-[var(--color-primary)] rounded-xl shadow-sm group-hover:scale-105 transition-transform">
+                    <div className="size-10 text-white flex items-center justify-center bg-[var(--color-primary)] rounded-[var(--r-lg)] shadow-sm group-hover:scale-105 transition-transform">
                         <span className="material-symbols-outlined text-2xl font-black">spa</span>
                     </div>
                     <div>
-                        <h2 className="text-[var(--text-main)] text-lg font-black font-serif leading-tight tracking-tight italic group-hover:text-[var(--color-primary)] transition-colors">
-                            Sauna <span className="not-italic text-[var(--color-primary)]">SPA</span> Engine
+                        <h2 className="text-[var(--text-main)] text-lg font-black leading-tight tracking-tight group-hover:text-[var(--color-primary)] transition-colors" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}>
+                            Sauna <span className="text-[var(--color-primary)]">SPA</span> Engine
                         </h2>
                     </div>
                 </Link>
@@ -32,7 +32,7 @@ export default function LoginPage() {
                     <ThemeToggle />
                     <Link
                         href="/"
-                        className="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-6 bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-[10px] font-black uppercase tracking-widest transition-all hover:bg-[var(--border-muted)] border border-[var(--border-main)]"
+                        className="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-[var(--r-sm)] h-10 px-6 bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-[10px] font-black uppercase tracking-widest transition-all hover:bg-[var(--border-muted)] border border-[var(--border-main)]"
                     >
                         Home
                     </Link>

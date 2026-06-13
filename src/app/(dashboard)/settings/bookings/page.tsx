@@ -112,7 +112,7 @@ export default function BookingSettingsPage() {
                         <div className="rounded-[2.5rem] border border-[var(--border-muted)] bg-[var(--bg-card)] p-10 space-y-8 shadow-sm transition-all duration-500 hover:shadow-xl hover:shadow-[var(--color-primary)]/5 group">
                             <div className="flex items-center gap-4">
                                 <span className="material-symbols-outlined text-[var(--color-primary)] text-3xl font-bold italic group-hover:animate-float">event_busy</span>
-                                <h3 className="text-2xl font-serif font-bold text-[var(--text-main)] italic">Cancellation Window</h3>
+                                <h3 className="text-2xl font-display font-bold text-[var(--text-main)]">Cancellation Window</h3>
                             </div>
                             <p className="text-[var(--text-muted)] font-medium leading-relaxed">Define the timeframe in which clients can cancel for free to protect staff schedules.</p>
 

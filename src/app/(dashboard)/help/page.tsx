@@ -133,7 +133,7 @@ export default async function HelpPage() {
             <div className="glass-card p-10 lg:p-16 rounded-[3rem] border border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10 flex flex-col items-center text-center space-y-8 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--color-primary)]/20 to-transparent"></div>
                 
-                <div className="size-20 rounded-3xl bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 flex items-center justify-center text-[var(--color-primary)]">
+                <div className="size-20 rounded-[var(--r-lg)] bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 flex items-center justify-center text-[var(--color-primary)]">
                     <span className="material-symbols-outlined text-4xl font-bold">contact_support</span>
                 </div>
                 

@@ -85,7 +85,7 @@ export default async function RewardsTab() {
                 {/* Leaderboard */}
                 <section className="lg:col-span-2 glass-card p-10 rounded-[2.5rem] border border-[var(--border-muted)] space-y-8">
                     <div className="flex justify-between items-center">
-                        <h3 className="text-2xl font-serif font-black italic text-[var(--text-main)] underline decoration-[var(--color-primary)]/20 underline-offset-8">
+                        <h3 className="text-2xl font-display font-black text-[var(--text-main)] underline decoration-[var(--color-primary)]/20 underline-offset-8">
                             Top <span className="text-[var(--color-primary)]">Clients.</span>
                         </h3>
                         <Link href="/growth?tab=clients" className="text-[10px] font-black uppercase tracking-widest text-[var(--color-primary)] opacity-60 hover:opacity-100 transition-all">
@@ -95,7 +95,7 @@ export default async function RewardsTab() {
 
                     <div className="space-y-4">
                         {topLoyalCustomers.map((lp, i) => (
-                            <div key={lp.id} className="flex items-center justify-between p-6 bg-[var(--bg-app)]/50 rounded-3xl border border-[var(--border-muted)] hover:border-[var(--color-primary)]/30 transition-all group">
+                            <div key={lp.id} className="flex items-center justify-between p-6 bg-[var(--bg-app)]/50 rounded-[var(--r-lg)] border border-[var(--border-muted)] hover:border-[var(--color-primary)]/30 transition-all group">
                                 <div className="flex items-center gap-6">
                                     <div className={`size-10 rounded-2xl flex items-center justify-center font-black text-xs ${
                                         i === 0 ? "bg-[var(--color-primary)] text-white shadow-lg" : 
@@ -126,7 +126,7 @@ export default async function RewardsTab() {
                         <div className="size-16 rounded-[1.5rem] bg-[var(--color-primary)]/20 flex items-center justify-center text-[var(--color-primary)]">
                             <span className="material-symbols-outlined text-3xl font-black">settings_heart</span>
                         </div>
-                        <h4 className="text-2xl font-serif font-black italic leading-tight">Reward <span className="text-[var(--color-primary)]">Rules.</span></h4>
+                        <h4 className="text-2xl font-display font-black leading-tight">Reward <span className="text-[var(--color-primary)]">Rules.</span></h4>
                         <p className="text-sm text-[var(--text-muted)] font-bold italic opacity-80 leading-relaxed">
                             Control how points are earned and spent. Set your exchange rates and tier milestones 
                             to keep clients coming back.

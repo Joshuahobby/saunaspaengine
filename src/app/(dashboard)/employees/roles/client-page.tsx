@@ -136,7 +136,7 @@ export default function RolesClientPage({ initialCategories }: { initialCategori
             )}
 
             {(isAdding || editingId) && (
-                <div className="bg-[var(--bg-card)] p-6 rounded-3xl border border-[var(--color-primary)]/40 shadow-lg shadow-[var(--color-primary)]/5 mb-8">
+                <div className="bg-[var(--bg-card)] p-6 rounded-[var(--r-lg)] border border-[var(--color-primary)]/40 shadow-lg shadow-[var(--color-primary)]/5 mb-8">
                     <h3 className="text-xl font-bold text-[var(--text-main)] mb-4">{isAdding ? 'Create New Role' : 'Edit Role'}</h3>
                     <form onSubmit={(e) => isAdding ? handleCreate(e) : handleUpdate(e, editingId!)} className="space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -183,7 +183,7 @@ export default function RolesClientPage({ initialCategories }: { initialCategori
                 </div>
             )}
 
-            <div className="bg-[var(--bg-card)] rounded-3xl border border-[var(--border-main)] overflow-hidden shadow-sm">
+            <div className="bg-[var(--bg-card)] rounded-[var(--r-lg)] border border-[var(--border-main)] overflow-hidden shadow-sm">
                 <table className="w-full text-left border-collapse">
                     <thead>
                         <tr className="bg-[var(--bg-surface-muted)]">
@@ -254,7 +254,7 @@ export default function RolesClientPage({ initialCategories }: { initialCategori
                 if (!category) return null;
                 return (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-                        <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-3xl p-8 w-full max-w-sm shadow-2xl space-y-6">
+                        <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[var(--r-lg)] p-8 w-full max-w-sm shadow-2xl space-y-6">
                             <div className="flex items-center gap-4">
                                 <div className="size-12 rounded-2xl bg-red-500/10 flex items-center justify-center shrink-0">
                                     <span className="material-symbols-outlined text-red-500 text-2xl">delete</span>

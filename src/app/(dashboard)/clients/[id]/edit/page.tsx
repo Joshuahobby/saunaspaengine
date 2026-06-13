@@ -39,7 +39,7 @@ export default async function EditClientPage({ params }: { params: Promise<{ id:
                     <ChevronLeft className="w-5 h-5" />
                 </Link>
                 <div>
-                    <h1 className="text-3xl font-display font-bold text-[var(--text-main)] italic tracking-tight">Edit Profile</h1>
+                    <h1 className="text-3xl font-display font-bold text-[var(--text-main)] tracking-tight">Edit Profile</h1>
                     <p className="text-[var(--text-muted)] text-xs font-bold uppercase tracking-widest opacity-60">Updating records for {client.fullName}</p>
                 </div>
             </div>

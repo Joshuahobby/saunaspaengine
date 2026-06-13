@@ -49,7 +49,7 @@ export default async function CorporateProfilePage({
                             </Link>
                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)] opacity-60">Business Settings</span>
                         </div>
-                        <h1 className="text-5xl font-black font-serif tracking-tighter text-[var(--text-main)]">
+                        <h1 className="text-5xl font-black font-display tracking-tighter text-[var(--text-main)]">
                             {isOwner ? "Business" : "Your"} <span className="">Profile.</span>
                         </h1>
                     </div>
@@ -81,7 +81,7 @@ export default async function CorporateProfilePage({
                             )}
                         </div>
 
-                        <div className="p-8 bg-amber-500/5 border border-amber-500/20 rounded-3xl flex items-start gap-6">
+                        <div className="p-8 bg-amber-500/5 border border-amber-500/20 rounded-[var(--r-lg)] flex items-start gap-6">
                             <span className="material-symbols-outlined text-amber-500 text-3xl">info</span>
                             <div className="space-y-2">
                                 <h4 className="font-bold text-amber-500/80 uppercase text-[10px] tracking-widest">Update All Branches</h4>
@@ -127,14 +127,14 @@ export default async function CorporateProfilePage({
                         {/* Account Details */}
                         <div className="md:col-span-4 self-start">
                             <div className="bg-[var(--bg-card)] rounded-[2.5rem] p-8 border border-[var(--border-muted)] shadow-sm">
-                                <div className="h-20 w-20 rounded-3xl bg-gradient-to-tr from-[var(--color-primary)] to-[var(--color-forest-400)] flex items-center justify-center text-white font-black text-3xl shadow-xl shadow-[var(--color-primary)]/20 mb-6 overflow-hidden">
+                                <div className="h-20 w-20 rounded-[var(--r-lg)] bg-gradient-to-tr from-[var(--color-primary)] to-[var(--color-forest-400)] flex items-center justify-center text-white font-black text-3xl shadow-xl shadow-[var(--color-primary)]/20 mb-6 overflow-hidden">
                                     {effective?.logo ? (
                                         <img src={effective.logo} className="w-full h-full object-contain p-2" alt="Avatar" />
                                     ) : (
                                         session.user.fullName?.charAt(0) || "U"
                                     )}
                                 </div>
-                                <h2 className="text-xl font-bold text-[var(--text-main)] font-serif mb-1">
+                                <h2 className="text-xl font-bold text-[var(--text-main)] font-display mb-1">
                                     {session.user.fullName}
                                 </h2>
                                 <p className="text-sm text-[var(--text-muted)] mb-6 font-bold">{session.user.email}</p>
@@ -153,7 +153,7 @@ export default async function CorporateProfilePage({
                                         <span className="material-symbols-outlined font-black">shield_person</span>
                                     </div>
                                     <div>
-                                        <h2 className="text-xl font-bold font-serif text-[var(--text-main)]">Login Details</h2>
+                                        <h2 className="text-xl font-bold font-display text-[var(--text-main)]">Login Details</h2>
                                         <p className="text-xs text-[var(--text-muted)] font-bold">Update your password and security settings.</p>
                                     </div>
                                 </div>

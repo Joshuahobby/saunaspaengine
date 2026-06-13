@@ -49,7 +49,7 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
                     <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[var(--color-primary)] to-transparent opacity-50"></div>
 
                     <div className="p-10 pb-6 text-center">
-                        <h2 className="text-3xl font-serif font-black text-[var(--text-main)] italic tracking-tight">Edit Business</h2>
+                        <h2 className="text-3xl font-display font-black text-[var(--text-main)] tracking-tight">Edit Business</h2>
                         <p className="text-[10px] font-bold text-[var(--text-muted)] mt-2 uppercase tracking-[0.3em] italic opacity-60">Update business details</p>
                     </div>
 
@@ -72,7 +72,7 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
                                     type="text"
                                     value={formData.name}
                                     onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                                    className="w-full h-14 px-6 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl text-[var(--text-main)] font-serif italic text-lg focus:border-[var(--color-primary)]/50 focus:ring-0 outline-none transition-all placeholder:text-[var(--text-muted)]/40"
+                                    className="w-full h-14 px-6 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl text-[var(--text-main)] font-display text-lg focus:border-[var(--color-primary)]/50 focus:ring-0 outline-none transition-all placeholder:text-[var(--text-muted)]/40"
                                     placeholder="Sauna SPA Global..."
                                 />
                             </div>

@@ -27,14 +27,14 @@ export default function PromotionsTab() {
                 <section className="glass-card p-8 rounded-[2.5rem] border border-[var(--border-muted)] space-y-8">
                     <div className="flex items-center gap-4">
                         <div className="size-10 rounded-2xl bg-[var(--color-primary)] text-white flex items-center justify-center font-black">1</div>
-                        <h2 className="text-2xl font-serif font-black italic">Who are we <span className="text-[var(--color-primary)]">reaching?</span></h2>
+                        <h2 className="text-2xl font-display font-black">Who are we <span className="text-[var(--color-primary)]">reaching?</span></h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {audiences.map((a) => (
                             <button
                                 key={a.id}
                                 onClick={() => setSelectedAudience(a.id)}
-                                className={`p-6 rounded-3xl border-2 text-left transition-all ${
+                                className={`p-6 rounded-[var(--r-lg)] border-2 text-left transition-all ${
                                     selectedAudience === a.id
                                         ? "border-[var(--color-primary)] bg-[var(--color-primary)]/10 shadow-lg scale-[1.02]"
                                         : "border-[var(--border-muted)] hover:border-[var(--color-primary)]/30"
@@ -52,14 +52,14 @@ export default function PromotionsTab() {
                 <section className="glass-card p-8 rounded-[2.5rem] border border-[var(--border-muted)] space-y-8">
                     <div className="flex items-center gap-4">
                         <div className="size-10 rounded-2xl bg-[var(--color-primary)] text-white flex items-center justify-center font-black">2</div>
-                        <h2 className="text-2xl font-serif font-black italic">What is the <span className="text-[var(--color-primary)]">offer?</span></h2>
+                        <h2 className="text-2xl font-display font-black">What is the <span className="text-[var(--color-primary)]">offer?</span></h2>
                     </div>
                     <div className="space-y-3">
                         {["discount", "addon", "bogo"].map((type) => (
                             <button
                                 key={type}
                                 onClick={() => setPromoType(type)}
-                                className={`w-full flex items-center justify-between p-6 rounded-3xl border transition-all ${
+                                className={`w-full flex items-center justify-between p-6 rounded-[var(--r-lg)] border transition-all ${
                                     promoType === type ? "bg-[var(--text-main)] text-[var(--bg-app)] border-transparent" : "bg-[var(--bg-app)]/50 border-[var(--border-muted)]"
                                 }`}
                             >
@@ -79,7 +79,7 @@ export default function PromotionsTab() {
                 <section className="glass-card p-8 rounded-[2.5rem] border border-[var(--border-muted)] space-y-8">
                     <div className="flex items-center gap-4">
                         <div className="size-10 rounded-2xl bg-[var(--color-primary)] text-white flex items-center justify-center font-black">3</div>
-                        <h2 className="text-2xl font-serif font-black italic">The <span className="text-[var(--color-primary)]">Message.</span></h2>
+                        <h2 className="text-2xl font-display font-black">The <span className="text-[var(--color-primary)]">Message.</span></h2>
                     </div>
                     <div className="space-y-6">
                         <div className="flex p-1 bg-[var(--bg-surface-muted)]/50 rounded-2xl gap-1">
@@ -138,7 +138,7 @@ export default function PromotionsTab() {
                             {/* Message Bubble */}
                             <div className="flex-1 p-6 space-y-4">
                                 <div className="text-center opacity-30 text-[8px] font-black uppercase tracking-widest mb-6">Today 10:48 AM</div>
-                                <div className="bg-[var(--bg-card)] border border-[var(--border-muted)]/20 p-5 rounded-3xl rounded-tl-lg text-sm font-bold italic leading-relaxed shadow-sm">
+                                <div className="bg-[var(--bg-card)] border border-[var(--border-muted)]/20 p-5 rounded-[var(--r-lg)] rounded-tl-lg text-sm font-bold italic leading-relaxed shadow-sm">
                                     {messageText}
                                 </div>
                             </div>

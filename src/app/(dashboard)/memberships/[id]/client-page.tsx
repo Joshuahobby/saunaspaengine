@@ -88,7 +88,7 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                             <span className="material-symbols-outlined text-3xl">token</span>
                         </div>
                         <div>
-                            <h1 className="text-4xl font-serif font-black italic tracking-tight text-[var(--text-main)]">{category.name}</h1>
+                            <h1 className="text-4xl font-display font-black tracking-tight text-[var(--text-main)]">{category.name}</h1>
                             <p className="text-[var(--text-muted)] font-medium italic opacity-60">Configure access rules and pricing for this membership tier.</p>
                         </div>
                     </div>
@@ -121,7 +121,7 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                     <section className="bg-[var(--bg-card)] p-10 rounded-[3rem] border border-[var(--border-muted)] shadow-2xl space-y-10">
                         <div className="flex items-center gap-3">
                             <span className="material-symbols-outlined text-[var(--color-primary)]">tune</span>
-                            <h2 className="text-xl font-serif font-black italic text-[var(--text-main)]">Base Configuration</h2>
+                            <h2 className="text-xl font-display font-black text-[var(--text-main)]">Base Configuration</h2>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -133,7 +133,7 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                                     placeholder="e.g. Platinum Access"
                                     value={formData.name}
                                     onChange={e => setFormData({...formData, name: e.target.value})}
-                                    className="w-full h-16 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-3xl px-8 text-[var(--text-main)] font-serif italic text-lg outline-none focus:border-[var(--color-primary)] transition-all"
+                                    className="w-full h-16 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-[var(--r-lg)] px-8 text-[var(--text-main)] font-display text-lg outline-none focus:border-[var(--color-primary)] transition-all"
                                 />
                             </div>
                             <div className="space-y-3">
@@ -145,7 +145,7 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                                     placeholder="e.g. 50000"
                                     value={formData.price}
                                     onChange={e => setFormData({...formData, price: e.target.value})}
-                                    className="w-full h-16 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-3xl px-8 text-[var(--text-main)] font-mono font-black text-lg outline-none focus:border-[var(--color-primary)] transition-all"
+                                    className="w-full h-16 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-[var(--r-lg)] px-8 text-[var(--text-main)] font-mono font-black text-lg outline-none focus:border-[var(--color-primary)] transition-all"
                                 />
                             </div>
                             <div className="space-y-3 col-span-2">
@@ -165,11 +165,11 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                     <section className="bg-[var(--bg-card)] p-10 rounded-[3rem] border border-[var(--border-muted)] shadow-2xl space-y-10">
                         <div className="flex items-center gap-3">
                             <span className="material-symbols-outlined text-[var(--color-primary)]">gavel</span>
-                            <h2 className="text-xl font-serif font-black italic text-[var(--text-main)]">Validation Mechanics</h2>
+                            <h2 className="text-xl font-display font-black text-[var(--text-main)]">Validation Mechanics</h2>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="flex items-center justify-between p-6 bg-[var(--bg-surface-muted)] rounded-3xl border border-[var(--border-muted)] group hover:border-[var(--color-primary)]/30 transition-all">
+                            <div className="flex items-center justify-between p-6 bg-[var(--bg-surface-muted)] rounded-[var(--r-lg)] border border-[var(--border-muted)] group hover:border-[var(--color-primary)]/30 transition-all">
                                 <div className="space-y-1">
                                     <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-50">Temporal Validity</p>
                                     <p className="text-[var(--text-main)] font-bold text-sm italic">Enrollment duration in solar days.</p>
@@ -187,7 +187,7 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                                 </div>
                             </div>
 
-                            <div className="flex items-center justify-between p-6 bg-[var(--bg-surface-muted)] rounded-3xl border border-[var(--border-muted)] group hover:border-[var(--color-primary)]/30 transition-all">
+                            <div className="flex items-center justify-between p-6 bg-[var(--bg-surface-muted)] rounded-[var(--r-lg)] border border-[var(--border-muted)] group hover:border-[var(--color-primary)]/30 transition-all">
                                 <div className="space-y-1">
                                     <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-50">Visit Lifecycle</p>
                                     <p className="text-[var(--text-main)] font-bold text-sm italic">Maximum session allowance.</p>
@@ -213,7 +213,7 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                     <div className="bg-[var(--color-primary)]/5 p-10 rounded-[3rem] border border-[var(--color-primary)]/20 shadow-2xl space-y-8">
                         <div className="space-y-1">
                             <h3 className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-[0.3em] font-sans">Summary</h3>
-                            <p className="text-xl font-serif font-black italic text-[var(--text-main)]">Enrollment Summary</p>
+                            <p className="text-xl font-display font-black text-[var(--text-main)]">Enrollment Summary</p>
                         </div>
 
                         <div className="space-y-6">
@@ -248,7 +248,7 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
             {/* Enrolled Clients List */}
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-serif font-black italic text-[var(--text-main)] flex items-center gap-3">
+                    <h2 className="text-2xl font-display font-black text-[var(--text-main)] flex items-center gap-3">
                         <span className="material-symbols-outlined text-[var(--color-primary)]">group</span>
                         Enrolled Clients
                     </h2>
@@ -268,11 +268,11 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                                 <tr key={membership.id} className="group hover:bg-[var(--bg-surface-muted)] transition-all">
                                     <td className="px-8 py-5">
                                         <div className="flex items-center gap-4">
-                                            <div className="size-10 rounded-[1.2rem] bg-[var(--color-primary)]/10 flex items-center justify-center font-serif font-black italic text-[var(--color-primary)] border border-[var(--border-muted)] shadow-lg">
+                                            <div className="size-10 rounded-[1.2rem] bg-[var(--color-primary)]/10 flex items-center justify-center font-display font-black text-[var(--color-primary)] border border-[var(--border-muted)] shadow-lg">
                                                 {membership.client.fullName.charAt(0)}
                                             </div>
                                             <div className="flex flex-col">
-                                                <Link href={`/clients/${membership.client.id}`} className="font-serif font-bold italic text-[var(--text-main)] hover:text-[var(--color-primary)] transition-colors">
+                                                <Link href={`/clients/${membership.client.id}`} className="font-display font-bold text-[var(--text-main)] hover:text-[var(--color-primary)] transition-colors">
                                                     {membership.client.fullName}
                                                 </Link>
                                                 <span className="text-[9px] font-mono font-bold text-[var(--text-muted)] opacity-50 uppercase tracking-tighter">UID: {membership.client.id.slice(-6)}</span>

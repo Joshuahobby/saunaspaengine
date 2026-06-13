@@ -68,7 +68,7 @@ export function Header({ isLoggedIn }: { isLoggedIn?: boolean }) {
                         <div className="size-9 flex items-center justify-center bg-[var(--color-primary)] rounded-xl text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg shadow-[var(--color-primary)]/20">
                             <span className="material-symbols-outlined !text-xl">spa</span>
                         </div>
-                        <h2 className="hidden sm:block text-[var(--text-main)] text-xl font-black font-serif leading-none tracking-tight group-hover:text-[var(--color-primary)] transition-colors">
+                        <h2 className="hidden sm:block text-[var(--text-main)] text-xl font-black font-display leading-none tracking-tight group-hover:text-[var(--color-primary)] transition-colors">
                             Sauna SPA <span className="text-[var(--color-primary)] italic">Engine</span>
                         </h2>
                     </Link>

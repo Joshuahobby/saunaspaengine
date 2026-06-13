@@ -9,7 +9,7 @@ export function Footer() {
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-3 text-[var(--color-primary)]">
             <span className="material-symbols-outlined text-3xl">spa</span>
-            <span className="text-xl font-bold font-serif tracking-tight text-[var(--text-main)]">Sauna SPA Engine</span>
+            <span className="text-xl font-bold font-display tracking-tight text-[var(--text-main)]">Sauna SPA Engine</span>
           </div>
           <p className="text-[var(--text-muted)] text-sm leading-relaxed max-w-xs">
             The operations platform for sauna and spa businesses in Rwanda. Fast check-ins, Mobile Money payments, and real-time reporting.

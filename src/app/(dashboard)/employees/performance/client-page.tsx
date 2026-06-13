@@ -34,7 +34,7 @@ export default function PerformanceIndexClient({ stats, rankings }: PerformanceI
             {/* Executive Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
                 <div>
-                    <h2 className="text-3xl font-display font-bold tracking-tight text-[var(--text-main)] italic">
+                    <h2 className="text-3xl font-display font-bold tracking-tight text-[var(--text-main)]">
                         Staff <span className="text-[var(--color-primary)] not-italic">Performance</span>
                     </h2>
                     <p className="mt-2 text-[var(--text-muted)] max-w-2xl font-medium">

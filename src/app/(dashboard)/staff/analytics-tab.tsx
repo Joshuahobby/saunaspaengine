@@ -87,7 +87,7 @@ export default async function AnalyticsTab() {
             {/* Role Distribution Chart */}
             <div className="lg:col-span-7 glass-card p-12 rounded-[3.5rem] border border-[var(--border-muted)] space-y-12">
                 <div className="space-y-2">
-                    <h3 className="text-3xl font-serif font-black">Role <span className="text-[var(--color-primary)]">Breakdown.</span></h3>
+                    <h3 className="text-3xl font-display font-black">Role <span className="text-[var(--color-primary)]">Breakdown.</span></h3>
                     <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-40">Staff count by service category</p>
                 </div>
 
@@ -123,7 +123,7 @@ export default async function AnalyticsTab() {
                     <div className="size-16 rounded-[1.5rem] bg-[var(--color-primary)] flex items-center justify-center text-[var(--bg-app)]">
                          <span className="material-symbols-outlined text-4xl font-black">electric_bolt</span>
                     </div>
-                    <h3 className="text-3xl font-serif font-black tracking-tighter">Workforce <br /> Summary.</h3>
+                    <h3 className="text-3xl font-display font-black tracking-tighter">Workforce <br /> Summary.</h3>
                     <p className="text-sm font-bold opacity-60 leading-relaxed">
                         {staffCount === 0
                             ? "No active staff yet. Register your first team member to begin tracking workforce analytics."

@@ -138,7 +138,7 @@ export function SignupForm({ plans }: SignupFormProps) {
                 <div className="max-w-[540px] mx-auto w-full">
                     <form onSubmit={handleNext} className="space-y-5">
                         <div className="mb-8">
-                            <h2 className="text-[var(--text-main)] text-2xl font-black font-serif">
+                            <h2 className="text-[var(--text-main)] text-2xl font-black font-display">
                                 Create Your <span className="text-[var(--color-primary)]">Account</span>
                             </h2>
                             <p className="text-[var(--text-muted)] text-sm mt-2 font-medium">
@@ -237,7 +237,7 @@ export function SignupForm({ plans }: SignupFormProps) {
             {step === 2 && (
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="text-center max-w-[600px] mx-auto mb-4">
-                        <h2 className="text-[var(--text-main)] text-3xl md:text-4xl font-black font-serif tracking-tight">
+                        <h2 className="text-[var(--text-main)] text-3xl md:text-4xl font-black font-display tracking-tight">
                             Choose Your <span className="text-[var(--color-primary)]">Plan</span>
                         </h2>
                         <p className="text-[var(--text-muted)] text-sm mt-3 font-medium px-4">

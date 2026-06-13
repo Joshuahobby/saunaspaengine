@@ -67,7 +67,7 @@ export function EditBranchModal({ isOpen, onClose, branch }: EditBranchModalProp
                     >
                         {/* Header */}
                         <div className="px-8 py-6 border-b border-[var(--border-muted)] flex items-center justify-between">
-                            <h2 className="text-2xl font-serif font-black text-[var(--text-main)] italic">
+                            <h2 className="text-2xl font-display font-black text-[var(--text-main)]">
                                 Edit Branch
                             </h2>
                             <button

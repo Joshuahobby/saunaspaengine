@@ -89,7 +89,7 @@ export default function BranchSwitcher({ branches, activeBranchId: propActiveBra
                             initial={{ opacity: 0, scale: 0.95, y: 10 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                            className="absolute mt-2 w-64 bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl shadow-2xl p-2 z-50 overflow-hidden"
+                            className="absolute mt-2 w-64 bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[var(--r-md)] shadow-xl p-2 z-50 overflow-hidden"
                         >
                             <div className="px-3 py-2 text-[9px] font-black uppercase tracking-[0.25em] text-[var(--text-muted)] opacity-50 mb-1">
                                 Select Branch

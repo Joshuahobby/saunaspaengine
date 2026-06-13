@@ -19,7 +19,7 @@ import { toast } from "react-hot-toast";
 
 const MembershipCardModal = dynamic(() => import("@/components/clients/MembershipCardModal"), { 
     ssr: false,
-    loading: () => <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm"><span className="text-white font-serif font-bold text-sm">Loading...</span></div>
+    loading: () => <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm"><span className="text-white font-display font-bold text-sm">Loading...</span></div>
 });
 
 interface ClientProfileProps {
@@ -134,14 +134,14 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                     <motion.div 
                         initial={{ scale: 0.9 }}
                         animate={{ scale: 1 }}
-                        className={`size-20 rounded-[20px] flex items-center justify-center text-3xl font-serif font-bold border ${tierConfig.bg} ${tierConfig.color} ${tierConfig.border}`}
+                        className={`size-20 rounded-[20px] flex items-center justify-center text-3xl font-display font-bold border ${tierConfig.bg} ${tierConfig.color} ${tierConfig.border}`}
                     >
                         {client.fullName.charAt(0).toUpperCase()}
                     </motion.div>
                     
                     <div className="space-y-2 text-center sm:text-left">
                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4">
-                            <h1 className="text-2xl lg:text-3xl font-serif font-bold tracking-tight text-[var(--text-main)]">
+                            <h1 className="text-2xl lg:text-3xl font-display font-bold tracking-tight text-[var(--text-main)]">
                                 {client.fullName}
                             </h1>
                             <div className={`flex items-center gap-2 px-3 py-1 rounded-lg border text-[10px] font-bold uppercase tracking-wider ${tierConfig.bg} ${tierConfig.color} ${tierConfig.border}`}>
@@ -238,7 +238,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                                     <kpi.icon className={`size-4 ${kpi.color} ml-2`} />
                                 </div>
                             </div>
-                            <h3 className={`font-serif font-bold text-[var(--text-main)] leading-tight ${kpi.label === 'Favorite' ? 'text-lg' : 'text-xl'}`}>
+                            <h3 className={`font-display font-bold text-[var(--text-main)] leading-tight ${kpi.label === 'Favorite' ? 'text-lg' : 'text-xl'}`}>
                                 {kpi.value}
                             </h3>
                         </div>

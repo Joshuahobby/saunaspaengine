@@ -68,7 +68,7 @@ export function BranchForm({ availableBusinesses, session }: BranchFormProps) {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-primary)] opacity-[0.02] rounded-full blur-3xl -mr-16 -mt-16"></div>
                 
                 <div className="mb-8 space-y-2 relative z-10">
-                    <h1 className="text-3xl font-serif font-black text-white italic tracking-tight">Register New Branch</h1>
+                    <h1 className="text-3xl font-display font-black text-white tracking-tight">Register New Branch</h1>
                     <p className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest italic opacity-60">
                         {session.user?.role === "OWNER" ? "Expand your business footprint with a new location." : "Add a new branch location to the platform."}
                     </p>

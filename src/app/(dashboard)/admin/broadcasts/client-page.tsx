@@ -172,7 +172,7 @@ export default function AdminBroadcastsClientPage() {
                                             value={subject}
                                             onChange={e => setSubject(e.target.value)}
                                             placeholder="Broadcast subject..."
-                                            className="w-full h-14 bg-black/20 border border-[var(--border-muted)] rounded-2xl px-6 text-sm font-serif font-bold text-white outline-none hover:border-[var(--color-primary)]/40 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all"
+                                            className="w-full h-14 bg-black/20 border border-[var(--border-muted)] rounded-2xl px-6 text-sm font-display font-bold text-white outline-none hover:border-[var(--color-primary)]/40 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all"
                                         />
                                     </div>
 
@@ -191,7 +191,7 @@ export default function AdminBroadcastsClientPage() {
                                                 onChange={e => setContent(e.target.value)}
                                                 rows={8}
                                                 placeholder="Write your message here..."
-                                                className="w-full bg-transparent p-6 text-base font-serif font-medium text-white/80 outline-none resize-none leading-relaxed"
+                                                className="w-full bg-transparent p-6 text-base font-display font-medium text-white/80 outline-none resize-none leading-relaxed"
                                             />
                                         </div>
                                     </div>
@@ -226,7 +226,7 @@ export default function AdminBroadcastsClientPage() {
                         {/* Quick Metrics sidebar */}
                         <div className="xl:col-span-4 space-y-8">
                              <div className="rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm backdrop-blur-md relative overflow-hidden group">
-                                <h3 className="text-xl font-serif font-bold text-white mb-8 border-b border-[var(--border-muted)] pb-5">Broadcast Stats</h3>
+                                <h3 className="text-xl font-display font-bold text-white mb-8 border-b border-[var(--border-muted)] pb-5">Broadcast Stats</h3>
                                 <div className="space-y-8">
                                     <StatCard label="Total Reach" value="1,248" sub="All Branches" icon="groups_3" />
                                     <StatCard label="Engagement" value="94.2%" sub="Open Rate" icon="query_stats" />
@@ -239,7 +239,7 @@ export default function AdminBroadcastsClientPage() {
                                     <span className="material-symbols-outlined text-3xl font-bold">bolt</span>
                                 </div>
                                 <div>
-                                    <h4 className="text-lg font-serif font-black text-white">Urgent Override</h4>
+                                    <h4 className="text-lg font-display font-black text-white">Urgent Override</h4>
                                     <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1">Send an immediate alert to all branches, bypassing the scheduled queue.</p>
                                 </div>
                                 <button className="w-full py-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-[9px] font-black uppercase tracking-[0.2em] hover:bg-rose-500/20 transition-all">
@@ -257,7 +257,7 @@ export default function AdminBroadcastsClientPage() {
                     >
                         <div className="p-10 border-b border-[var(--border-muted)] flex justify-between items-center bg-black/10">
                             <div className="space-y-1">
-                                <h3 className="text-xl font-serif font-bold text-white">Broadcast History</h3>
+                                <h3 className="text-xl font-display font-bold text-white">Broadcast History</h3>
                                 <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40">History of all platform broadcasts.</p>
                             </div>
                             <div className="flex gap-4">
@@ -286,7 +286,7 @@ export default function AdminBroadcastsClientPage() {
                                                     <div className="size-10 rounded-xl bg-[var(--bg-surface-muted)]/20 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] group-hover:scale-110 group-hover:-rotate-6 transition-transform">
                                                         <span className="material-symbols-outlined text-xl font-black">{b.intensity === 'URGENT' ? 'bolt' : 'sensors'}</span>
                                                     </div>
-                                                    <span className="text-sm font-serif font-bold group-hover:text-[var(--color-primary)] transition-colors">{b.subject}</span>
+                                                    <span className="text-sm font-display font-bold group-hover:text-[var(--color-primary)] transition-colors">{b.subject}</span>
                                                 </div>
                                             </td>
                                             <td className="px-10 py-6 text-[10px] font-black text-white/40 uppercase tracking-widest">{b.audience}</td>
@@ -327,7 +327,7 @@ function StatCard({ label, value, sub, icon }: { label: string, value: string, s
             </div>
             <div className="flex flex-col gap-0.5">
                 <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-30 leading-none">{label}</p>
-                <h4 className="text-2xl font-serif font-black text-white tracking-tighter leading-none">{value}</h4>
+                <h4 className="text-2xl font-display font-black text-white tracking-tighter leading-none">{value}</h4>
                 <p className="text-[10px] font-bold text-[var(--color-primary)] opacity-60 leading-none mt-1">{sub}</p>
             </div>
         </div>

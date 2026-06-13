@@ -96,7 +96,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 border-b border-[var(--border-main)] pb-12 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[var(--color-primary)] opacity-[0.03] blur-[150px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
                 <div className="space-y-2 relative z-10">
-                    <h1 className="text-4xl lg:text-6xl font-serif font-black italic tracking-tighter leading-none">
+                    <h1 className="text-4xl lg:text-6xl font-display font-black tracking-tighter leading-none">
                         Executive <span className="text-[var(--color-primary)]">Analytics</span>
                     </h1>
                     <p className="text-sm text-[var(--text-muted)] font-bold uppercase tracking-[0.3em] italic">Revenue and performance across all branches</p>
@@ -104,7 +104,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                 <div className="flex items-center gap-4 relative z-10">
                     <div className="hidden lg:flex flex-col items-end px-6 border-r border-[var(--border-main)]">
                         <span className="text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Status</span>
-                        <span className="text-xl font-serif font-black italic text-emerald-500">Active</span>
+                        <span className="text-xl font-display font-black text-emerald-500">Active</span>
                     </div>
                     <button className="px-8 py-3 rounded-2xl bg-[var(--text-main)] text-[var(--bg-app)] text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3">
                         <span className="material-symbols-outlined text-sm">print</span>
@@ -140,7 +140,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                         </div>
                         <div className="space-y-1">
                             <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] italic">{kpi.label}</p>
-                            <h3 className="text-3xl font-serif font-black text-[var(--text-main)] italic tracking-tighter">{kpi.value}</h3>
+                            <h3 className="text-3xl font-display font-black text-[var(--text-main)] tracking-tighter">{kpi.value}</h3>
                         </div>
                     </motion.div>
                 ))}
@@ -156,7 +156,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                 >
                     <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[var(--border-main)] pb-8 relative z-10">
                         <div className="space-y-2">
-                            <h3 className="text-2xl font-serif font-bold italic tracking-tight text-[var(--text-main)]">Revenue Momentum</h3>
+                            <h3 className="text-2xl font-display font-bold tracking-tight text-[var(--text-main)]">Revenue Momentum</h3>
                             <p className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] italic">Current Cycle Performance vs Strategy</p>
                         </div>
                     </div>
@@ -205,7 +205,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                     className="lg:col-span-4 rounded-[40px] border border-[var(--border-main)] bg-[var(--bg-card)] p-10 backdrop-blur-3xl shadow-2xl flex flex-col gap-8 relative overflow-hidden"
                 >
                     <div className="space-y-2 border-b border-[var(--border-main)] pb-8 relative z-10">
-                        <h3 className="text-2xl font-serif font-bold italic tracking-tight text-[var(--text-main)]">Revenue by Service</h3>
+                        <h3 className="text-2xl font-display font-bold tracking-tight text-[var(--text-main)]">Revenue by Service</h3>
                         <p className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] italic">Service revenue breakdown</p>
                     </div>
 
@@ -230,7 +230,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                             </PieChart>
                         )}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
-                            <span className="text-3xl font-serif font-black italic text-[var(--text-main)]">Mix</span>
+                            <span className="text-3xl font-display font-black text-[var(--text-main)]">Mix</span>
                         </div>
                     </div>
 
@@ -241,7 +241,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                                     <motion.div className="size-2 rounded-full" style={{ backgroundColor: COLORS[idx % COLORS.length] }} />
                                     <span className="text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] italic">{s.name}</span>
                                 </div>
-                                <span className="font-serif font-black italic text-[var(--color-primary)] text-sm">{formatCurrency(s.value)}</span>
+                                <span className="font-display font-black text-[var(--color-primary)] text-sm">{formatCurrency(s.value)}</span>
                             </div>
                         ))}
                     </div>
@@ -258,7 +258,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                 >
                     <div className="mb-10 flex items-center justify-between border-b border-[var(--border-main)] pb-8">
                         <div className="space-y-2">
-                            <h3 className="text-2xl font-serif font-black italic tracking-tighter text-[var(--text-main)]">Peak Hours</h3>
+                            <h3 className="text-2xl font-display font-black tracking-tighter text-[var(--text-main)]">Peak Hours</h3>
                             <p className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-[0.3em] italic">Traffic Load by Daily Timeframe</p>
                         </div>
                         <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase tracking-[0.2em] rounded-full border border-emerald-500/20 italic">Live</span>
@@ -300,7 +300,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                 >
                     <div className="mb-10 flex items-center justify-between border-b border-[var(--border-main)] pb-8">
                         <div className="space-y-2">
-                            <h3 className="text-2xl font-serif font-black italic tracking-tighter text-[var(--text-main)]">Branch Benchmarking</h3>
+                            <h3 className="text-2xl font-display font-black tracking-tighter text-[var(--text-main)]">Branch Benchmarking</h3>
                             <p className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-[0.3em] italic">Relative Performance Index</p>
                         </div>
                     </div>
@@ -318,16 +318,16 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                                 {branchPerformance.map((branch) => (
                                     <tr key={branch.id} className="group hover:bg-[var(--bg-surface-muted)] transition-colors">
                                         <td className="py-6 flex items-center gap-4">
-                                            <div className="size-10 rounded-xl bg-[var(--bg-app)] border border-[var(--border-muted)] flex items-center justify-center font-serif font-black text-sm italic text-[var(--color-primary)] group-hover:scale-110 transition-transform">
+                                            <div className="size-10 rounded-xl bg-[var(--bg-app)] border border-[var(--border-muted)] flex items-center justify-center font-display font-black text-sm text-[var(--color-primary)] group-hover:scale-110 transition-transform">
                                                 {branch.name[0]}
                                             </div>
-                                            <span className="text-sm font-serif font-bold italic text-[var(--text-main)]">{branch.name}</span>
+                                            <span className="text-sm font-display font-bold text-[var(--text-main)]">{branch.name}</span>
                                         </td>
                                         <td className="py-6 text-right">
-                                            <span className="text-lg font-serif font-black italic text-[var(--text-main)]">{formatCurrency(branch.revenue)}</span>
+                                            <span className="text-lg font-display font-black text-[var(--text-main)]">{formatCurrency(branch.revenue)}</span>
                                         </td>
                                         <td className="py-6 text-right">
-                                            <span className="text-lg font-serif font-black italic text-[var(--color-primary)]">{((branch.revenue / stats.totalRevenue) * 100).toFixed(1)}%</span>
+                                            <span className="text-lg font-display font-black text-[var(--color-primary)]">{((branch.revenue / stats.totalRevenue) * 100).toFixed(1)}%</span>
                                         </td>
                                     </tr>
                                 ))}

@@ -28,7 +28,7 @@ function FAQItem({ id, question, answer, isOpen, onClick }: FAQItemProps) {
                 "aria-controls": panelId
             }, (
                 <>
-                    <span className="text-lg font-bold text-[var(--text-main)] font-serif pr-8">{question}</span>
+                    <span className="text-lg font-bold text-[var(--text-main)] font-display pr-8">{question}</span>
                     <span className={`material-symbols-outlined text-[var(--color-primary)] transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
                         expand_more
                     </span>
@@ -91,7 +91,7 @@ export function FaqAccordion() {
     };
 
     return (
-        <div className="w-full max-w-3xl mx-auto glass-card border border-[var(--border-main)] rounded-3xl overflow-hidden shadow-xl">
+        <div className="w-full max-w-3xl mx-auto glass-card border border-[var(--border-main)] rounded-[var(--r-lg)] overflow-hidden shadow-xl">
             <div className="flex flex-col">
                 {faqs.map((faq, index) => (
                     <FAQItem

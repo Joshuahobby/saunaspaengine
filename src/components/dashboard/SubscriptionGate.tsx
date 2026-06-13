@@ -49,7 +49,7 @@ export function SubscriptionGate({ children, state }: SubscriptionGateProps) {
                     </div>
 
                     <div className="space-y-3">
-                        <h2 className="text-3xl md:text-5xl font-serif font-black text-[var(--text-main)] tracking-tight italic">
+                        <h2 className="text-3xl md:text-5xl font-display font-black text-[var(--text-main)] tracking-tight">
                             Account <span className="text-[var(--color-primary)]">Inactive.</span>
                         </h2>
                         <p className="text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] text-[10px] opacity-60">
@@ -58,7 +58,7 @@ export function SubscriptionGate({ children, state }: SubscriptionGateProps) {
                     </div>
                 </div>
 
-                <div className="bg-[var(--bg-surface-muted)]/50 border border-[var(--border-muted)] rounded-3xl p-8 space-y-4">
+                <div className="bg-[var(--bg-surface-muted)]/50 border border-[var(--border-muted)] rounded-[var(--r-lg)] p-8 space-y-4">
                     <p className="text-sm md:text-base text-[var(--text-main)] font-bold leading-relaxed">
                         {isExpired ? (
                             "Your subscription has expired. Please reactivate your plan to keep your data accessible and your account active."

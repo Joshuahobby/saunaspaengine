@@ -35,7 +35,7 @@ export default async function BillingPage() {
             {/* Header */}
             <header className="space-y-4">
                 <div className="flex items-center gap-4">
-                    <div className="size-14 rounded-3xl bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] shadow-inner">
+                    <div className="size-14 rounded-[var(--r-lg)] bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] shadow-inner">
                         <span className="material-symbols-outlined text-3xl font-black">payments</span>
                     </div>
                     <div>

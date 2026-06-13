@@ -93,7 +93,7 @@ export default function PasswordRecoveryPage() {
                     <div className="size-9 bg-[var(--color-primary)] rounded-xl flex items-center justify-center text-white shadow-sm group-hover:scale-105 transition-transform">
                         <span className="material-symbols-outlined font-bold">spa</span>
                     </div>
-                    <h1 className="text-lg font-black font-serif tracking-tight italic group-hover:text-[var(--color-primary)] transition-colors">
+                    <h1 className="text-lg font-black font-display tracking-tight group-hover:text-[var(--color-primary)] transition-colors">
                         Sauna <span className="not-italic text-[var(--color-primary)]">SPA</span> Engine
                     </h1>
                 </Link>

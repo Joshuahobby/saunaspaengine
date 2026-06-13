@@ -34,7 +34,7 @@ export default async function PaymentInstructionsPage({ searchParams }: PageProp
                         <span className="material-symbols-outlined text-2xl font-black">spa</span>
                     </div>
                     <div>
-                        <h2 className="text-[var(--text-main)] text-lg font-black font-serif leading-tight tracking-tight italic group-hover:text-[var(--color-primary)] transition-colors">
+                        <h2 className="text-[var(--text-main)] text-lg font-black font-display leading-tight tracking-tight group-hover:text-[var(--color-primary)] transition-colors">
                             Sauna <span className="not-italic text-[var(--color-primary)]">SPA</span> Engine
                         </h2>
                     </div>
@@ -58,7 +58,7 @@ export default async function PaymentInstructionsPage({ searchParams }: PageProp
                         <div className="inline-flex size-16 items-center justify-center rounded-2xl bg-[var(--color-primary)]/20 border border-[var(--color-primary)]/30 mx-auto">
                             <span className="material-symbols-outlined text-3xl text-[var(--color-primary)]">check_circle</span>
                         </div>
-                        <h1 className="text-[var(--text-main)] text-2xl font-black font-serif">
+                        <h1 className="text-[var(--text-main)] text-2xl font-black font-display">
                             Account Created!
                         </h1>
                         <p className="text-[var(--text-muted)] text-sm font-medium">

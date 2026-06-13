@@ -54,11 +54,11 @@ export default async function TodaysActivityTab({
         <div className="space-y-10 animate-fade-in">
             {/* Day Summary */}
             <div className="flex flex-wrap gap-6">
-                <div className="glass-card p-8 rounded-3xl border border-[var(--border-muted)] flex-1 min-w-[200px]">
+                <div className="glass-card p-8 rounded-[var(--r-lg)] border border-[var(--border-muted)] flex-1 min-w-[200px]">
                     <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-60 mb-2">Today&apos;s Attendance</p>
                     <p className="text-4xl font-black">{totalCount} Clients</p>
                 </div>
-                <div className="glass-card p-8 rounded-3xl border border-[var(--border-muted)] flex-1 min-w-[200px] bg-[var(--color-primary)]/5">
+                <div className="glass-card p-8 rounded-[var(--r-lg)] border border-[var(--border-muted)] flex-1 min-w-[200px] bg-[var(--color-primary)]/5">
                     <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-60 mb-2">Revenue Total</p>
                     <p className="text-4xl font-black text-[var(--color-primary)]">RWF {totalRevenue.toLocaleString()}</p>
                 </div>

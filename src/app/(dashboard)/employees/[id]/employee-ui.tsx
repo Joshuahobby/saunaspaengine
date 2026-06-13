@@ -78,14 +78,14 @@ export default function EmployeeUI({ employee, categories, branches, isOwner, in
                     <motion.div 
                         initial={{ scale: 0.9 }}
                         animate={{ scale: 1 }}
-                        className="size-20 rounded-[20px] bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 flex items-center justify-center text-3xl font-serif font-bold text-[var(--color-primary)]"
+                        className="size-20 rounded-[20px] bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 flex items-center justify-center text-3xl font-display font-bold text-[var(--color-primary)]"
                     >
                         {employee.fullName.charAt(0).toUpperCase()}
                     </motion.div>
                     
                     <div className="space-y-2 text-center sm:text-left">
                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4">
-                            <h1 className="text-2xl lg:text-3xl font-serif font-bold tracking-tight text-[var(--text-main)]">
+                            <h1 className="text-2xl lg:text-3xl font-display font-bold tracking-tight text-[var(--text-main)]">
                                 {employee.fullName}
                             </h1>
                             <div className={`flex items-center gap-2 px-3 py-1 rounded-lg border text-[10px] font-bold uppercase tracking-wider bg-[var(--bg-surface-muted)] text-[var(--text-muted)] border-[var(--border-muted)] shadow-sm`}>
@@ -156,7 +156,7 @@ export default function EmployeeUI({ employee, categories, branches, isOwner, in
                                                 <kpi.icon className={`size-4 ${kpi.color} ml-2`} />
                                             </div>
                                         </div>
-                                        <h3 className="text-xl font-serif font-bold text-white leading-tight">
+                                        <h3 className="text-xl font-display font-bold text-white leading-tight">
                                             {kpi.label === 'Avg Rating' && intelligence.avgRating > 0 ? (
                                                 <span className="flex items-center gap-1.5">
                                                     {kpi.value} <Star className="size-3 fill-yellow-400 text-yellow-400 invisible sm:visible" />
@@ -246,7 +246,7 @@ export default function EmployeeUI({ employee, categories, branches, isOwner, in
                                 <Settings className="size-5" />
                             </div>
                             <div>
-                                <h2 className="text-lg font-serif font-bold text-[var(--text-main)] opacity-90">Edit Staff Details</h2>
+                                <h2 className="text-lg font-display font-bold text-[var(--text-main)] opacity-90">Edit Staff Details</h2>
                                 <p className="text-xs text-[var(--text-muted)]">Update credentials, categories, or branch assignment.</p>
                             </div>
                         </div>

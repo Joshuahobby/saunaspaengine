@@ -267,7 +267,7 @@ export default async function ExecutiveSettingsPage({
                             <tbody className="divide-y divide-[var(--border-muted)]">
                                 {complianceLogs.length === 0 ? (
                                     <tr>
-                                        <td colSpan={4} className="py-24 text-center text-[var(--text-muted)] font-serif italic text-2xl opacity-40">No compliance changes recorded yet.</td>
+                                        <td colSpan={4} className="py-24 text-center text-[var(--text-muted)] font-display text-2xl opacity-40">No compliance changes recorded yet.</td>
                                     </tr>
                                 ) : (
                                     complianceLogs.map((log) => (

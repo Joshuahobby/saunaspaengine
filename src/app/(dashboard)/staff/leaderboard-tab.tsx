@@ -40,7 +40,7 @@ export default async function LeaderboardTab() {
         <div className="space-y-12 animate-fade-in">
             <div className="flex flex-col md:flex-row justify-between items-end gap-8 pb-8 border-b border-[var(--border-muted)]">
                 <div className="space-y-2">
-                    <h2 className="text-3xl font-serif font-black text-[var(--text-main)] underline decoration-[var(--color-primary)]/20 underline-offset-8">
+                    <h2 className="text-3xl font-display font-black text-[var(--text-main)] underline decoration-[var(--color-primary)]/20 underline-offset-8">
                         Top <span className="text-[var(--color-primary)]">Talent.</span>
                     </h2>
                     <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-60">Recognizing our most dedicated people</p>

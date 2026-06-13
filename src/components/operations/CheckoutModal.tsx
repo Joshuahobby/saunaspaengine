@@ -138,7 +138,7 @@ export default function CheckoutModal({
                 <div className="p-4 pt-0 sm:p-8 sm:pt-2 space-y-3 sm:space-y-5 overflow-y-auto custom-scrollbar">
                     {/* Summary Card */}
                     {/* Summary Card - Ultra Compact */}
-                    <div className="bg-[var(--bg-surface-muted)]/20 rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 border border-[var(--border-muted)]/20 relative overflow-hidden shrink-0">
+                    <div className="bg-[var(--bg-surface-muted)]/20 rounded-2xl sm:rounded-[var(--r-lg)] p-3.5 sm:p-6 border border-[var(--border-muted)]/20 relative overflow-hidden shrink-0">
                         <div className="flex flex-row justify-between items-center">
                             <div className="space-y-0.5">
                                 <span className="text-[9px] font-black uppercase tracking-widest opacity-30">Client</span>

@@ -106,7 +106,7 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {stats.map((stat, i) => (
-                    <div key={i} className="bg-[var(--bg-card)] p-7 rounded-3xl border border-[var(--border-main)] shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                    <div key={i} className="bg-[var(--bg-card)] p-7 rounded-[var(--r-lg)] border border-[var(--border-main)] shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
                         <div className="flex items-start justify-between">
                             <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${stat.color}`}>
                                 <span className="material-symbols-outlined text-3xl font-bold">{stat.icon}</span>
@@ -128,7 +128,7 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Revenue Chart */}
-                <div className="lg:col-span-2 bg-[var(--bg-card)] p-8 rounded-3xl border border-[var(--border-main)] shadow-sm">
+                <div className="lg:col-span-2 bg-[var(--bg-card)] p-8 rounded-[var(--r-lg)] border border-[var(--border-main)] shadow-sm">
                     <div className="flex items-center justify-between mb-8">
                         <div>
                             <h3 className="text-xl font-display font-bold text-[var(--text-main)] tracking-tight">Revenue Trend</h3>
@@ -162,7 +162,7 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
                 </div>
 
                 {/* Payment Breakdown */}
-                <div className="bg-[var(--bg-card)] p-8 rounded-3xl border border-[var(--border-main)] shadow-sm">
+                <div className="bg-[var(--bg-card)] p-8 rounded-[var(--r-lg)] border border-[var(--border-main)] shadow-sm">
                     <h3 className="text-xl font-display font-bold text-[var(--text-main)] tracking-tight mb-2">Payment Modes</h3>
                     <p className="text-sm text-[var(--text-muted)] mb-8 font-medium">Revenue distribution by method</p>
                     <div className="h-[250px] w-full relative">
@@ -202,7 +202,7 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
             </div>
 
             {/* Top Services Table */}
-            <div className="bg-[var(--bg-card)] rounded-3xl border border-[var(--border-main)] overflow-hidden shadow-sm">
+            <div className="bg-[var(--bg-card)] rounded-[var(--r-lg)] border border-[var(--border-main)] overflow-hidden shadow-sm">
                 <div className="p-8 border-b border-[var(--border-main)]">
                     <h3 className="text-xl font-display font-bold text-[var(--text-main)] tracking-tight">Top Services by Revenue</h3>
                     <p className="text-sm text-[var(--text-muted)] mt-1 font-medium">Top performing offers based on gross revenue</p>

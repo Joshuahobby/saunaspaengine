@@ -110,7 +110,7 @@ export default function BranchUI({ branch, intelligence, isOwner }: BranchUIProp
                     
                     <div className="space-y-2 text-center sm:text-left">
                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4">
-                            <h1 className="text-2xl lg:text-4xl font-serif font-black tracking-tight text-[var(--text-main)] italic">
+                            <h1 className="text-2xl lg:text-4xl font-display font-black tracking-tight text-[var(--text-main)]">
                                 {branch.name}
                             </h1>
                             <div className={`flex items-center gap-2 px-3 py-1 rounded-full border text-[10px] font-bold uppercase tracking-wider bg-[var(--bg-surface-muted)] text-[var(--text-muted)] border-[var(--border-muted)]`}>
@@ -174,7 +174,7 @@ export default function BranchUI({ branch, intelligence, isOwner }: BranchUIProp
                                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-30">{kpi.label}</span>
                                             {kpi.spark && <BranchSparkline data={intelligence.velocityData} />}
                                         </div>
-                                        <h3 className="text-2xl font-serif font-black text-[var(--text-main)] italic tracking-tight">{kpi.value}</h3>
+                                        <h3 className="text-2xl font-display font-black text-[var(--text-main)] tracking-tight">{kpi.value}</h3>
                                         <p className="text-[8px] font-black text-[var(--text-muted)] opacity-20 mt-1 tracking-widest uppercase">{kpi.sub}</p>
                                     </div>
                                 ))}
@@ -268,7 +268,7 @@ export default function BranchUI({ branch, intelligence, isOwner }: BranchUIProp
                                     <MapPin className="size-8 text-[var(--color-primary)]" />
                                 </div>
                                 <div className="space-y-1">
-                                    <h2 className="text-2xl font-serif font-black text-[var(--text-main)] italic tracking-tight">Location Metadata</h2>
+                                    <h2 className="text-2xl font-display font-black text-[var(--text-main)] tracking-tight">Location Metadata</h2>
                                     <p className="text-[10px] font-bold text-[var(--text-muted)] opacity-30 uppercase tracking-[0.2em]">Update global identifiers for this branch.</p>
                                 </div>
                             </div>

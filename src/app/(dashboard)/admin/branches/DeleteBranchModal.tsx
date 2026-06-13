@@ -67,7 +67,7 @@ export function DeleteBranchModal({ isOpen, onClose, branch }: DeleteBranchModal
                                 <div className="size-10 rounded-full bg-red-500/10 flex items-center justify-center text-red-500">
                                     <span className="material-symbols-outlined">warning</span>
                                 </div>
-                                <h2 className="text-xl font-serif font-black text-[var(--text-main)] italic">
+                                <h2 className="text-xl font-display font-black text-[var(--text-main)]">
                                     Delete Branch
                                 </h2>
                             </div>

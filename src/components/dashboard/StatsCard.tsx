@@ -27,7 +27,7 @@ export default function StatsCard({ title, value, icon, description, trend }: St
             </div>
             <div>
                 <p className="text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-[0.2em] mb-2 opacity-60">{title}</p>
-                <h3 className="text-4xl font-serif font-bold text-[var(--text-main)] tracking-tight">{value}</h3>
+                <h3 className="text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">{value}</h3>
                 {description && <p className="text-[var(--text-muted)] text-xs mt-3 font-medium opacity-80">{description}</p>}
             </div>
         </div>

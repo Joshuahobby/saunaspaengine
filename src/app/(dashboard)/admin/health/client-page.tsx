@@ -38,7 +38,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                  <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-primary)] opacity-[0.03] blur-[100px] pointer-events-none translate-x-1/2 -translate-y-1/2" />
                  
                 <div className="space-y-1 relative z-10">
-                    <h1 className="text-3xl lg:text-4xl font-serif font-bold text-[var(--text-main)] italic tracking-tight leading-tight">
+                    <h1 className="text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight leading-tight">
                         System <span className="text-[var(--color-primary)]">Health</span> & Status
                     </h1>
                     <p className="text-sm text-[var(--text-muted)] font-medium italic">Real-time health monitoring for all platform services.</p>
@@ -100,7 +100,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                 
                                 <div className="flex justify-between items-start mb-8 relative z-10">
                                     <div className="space-y-1">
-                                        <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">Response Latency</h3>
+                                        <h3 className="text-xl font-display font-bold text-[var(--text-main)]">Response Latency</h3>
                                         <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Global latency fluctuations across the edge network.</p>
                                     </div>
                                     <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[8px] font-black uppercase tracking-widest rounded-full">Optimal Range (2-14ms)</span>
@@ -162,7 +162,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                             {/* Anchor Status */}
                             <div className="xl:col-span-4 rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm flex flex-col relative overflow-hidden backdrop-blur-md">
                                 <div className="mb-6 border-b border-[var(--border-muted)] pb-6">
-                                    <h3 className="text-xl font-serif font-bold text-white italic">Platform Services</h3>
+                                    <h3 className="text-xl font-display font-bold text-white">Platform Services</h3>
                                     <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1">Health of core platform services.</p>
                                 </div>
                                 <div className="space-y-3 flex-1">
@@ -189,7 +189,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                     >
                         <div className="p-8 border-b border-[var(--border-muted)] flex justify-between items-center bg-[var(--bg-app)]/50">
                             <div className="space-y-1">
-                                <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">Service Status</h3>
+                                <h3 className="text-xl font-display font-bold text-[var(--text-main)]">Service Status</h3>
                                 <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Live status of all platform services.</p>
                             </div>
                             <div className="flex items-center gap-4">
@@ -220,7 +220,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                                     <div className="size-8 rounded-lg bg-[var(--bg-surface-muted)]/20 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] shadow-inner">
                                                         <span className="material-symbols-outlined text-sm font-black italic">dns</span>
                                                     </div>
-                                                    <span className="text-sm font-serif font-bold italic group-hover:text-[var(--color-primary)] transition-colors">{node.name}</span>
+                                                    <span className="text-sm font-display font-bold group-hover:text-[var(--color-primary)] transition-colors">{node.name}</span>
                                                 </div>
                                             </td>
                                             <td className="px-8 py-5 text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">{node.region}</td>
@@ -261,7 +261,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                     <span className="material-symbols-outlined text-xl italic font-bold">terminal</span>
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-serif font-bold italic text-[var(--text-main)]">System Logs</h3>
+                                    <h3 className="text-xl font-display font-bold text-[var(--text-main)]">System Logs</h3>
                                     <p className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-widest italic animate-pulse mt-0.5">Live Logs</p>
                                 </div>
                             </div>
@@ -298,7 +298,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
 
 function DiagnosticStatCard({ title, value, trend, icon, type }: { title: string, value: string, trend: string, icon: string, type: 'info' | 'success' | 'warning' }) {
     return (
-        <div className="group relative rounded-3xl border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm backdrop-blur-md transition-all duration-700 hover:border-[var(--color-primary)]/40 overflow-hidden">
+        <div className="group relative rounded-[var(--r-lg)] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm backdrop-blur-md transition-all duration-700 hover:border-[var(--color-primary)]/40 overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--color-primary)] opacity-[0.02] rounded-full blur-3xl -mr-16 -mt-16 group-hover:opacity-[0.05] transition-opacity" />
             <div className="mb-6 flex items-center justify-between">
                 <div className="size-12 rounded-xl bg-[var(--bg-app)]/50 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] group-hover:scale-110 group-hover:rotate-6 transition-transform shadow-inner">
@@ -310,7 +310,7 @@ function DiagnosticStatCard({ title, value, trend, icon, type }: { title: string
             </div>
             <div className="space-y-0.5">
                 <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] italic">{title}</p>
-                <h3 className="text-3xl font-serif font-black text-[var(--text-main)] tracking-tighter italic">{value}</h3>
+                <h3 className="text-3xl font-display font-black text-[var(--text-main)] tracking-tighter">{value}</h3>
             </div>
         </div>
     );
@@ -324,7 +324,7 @@ function DiagnosticServiceItem({ name, status, type, latency }: { name: string, 
                     <span className="material-symbols-outlined text-base font-black italic">{type === 'success' ? 'check_circle' : 'warning'}</span>
                 </div>
                 <div className="flex flex-col">
-                    <span className="font-serif font-bold text-sm text-[var(--text-main)] italic group-node:text-[var(--color-primary)] transition-colors">{name}</span>
+                    <span className="font-display font-bold text-sm text-[var(--text-main)] group-node:text-[var(--color-primary)] transition-colors">{name}</span>
                     <span className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">{latency} Latency</span>
                 </div>
             </div>

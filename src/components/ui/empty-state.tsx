@@ -31,7 +31,7 @@ export function EmptyState({
           <Icon className="size-10" />
         )}
       </div>
-      <h3 className="text-2xl font-serif font-bold text-[var(--text-main)] mb-2">
+      <h3 className="text-2xl font-display font-bold text-[var(--text-main)] mb-2">
         {title}
       </h3>
       <p className="text-[var(--text-muted)] max-w-sm mb-8">

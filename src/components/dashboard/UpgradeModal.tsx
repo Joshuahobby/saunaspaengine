@@ -50,7 +50,7 @@ export default function UpgradeModal({ isOpen, onClose, title, message, limit, c
                         </div>
 
                         {limit !== undefined && (
-                            <div className="glass-card p-6 rounded-3xl border border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/30 space-y-4">
+                            <div className="glass-card p-6 rounded-[var(--r-lg)] border border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/30 space-y-4">
                                 <div className="flex justify-between items-end">
                                     <span className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)]">Current Usage</span>
                                     <span className="text-[10px] font-black uppercase tracking-widest text-[var(--color-primary)]">{current} / {limit} {featureName}s</span>

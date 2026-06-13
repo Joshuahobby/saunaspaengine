@@ -82,7 +82,7 @@ export default function MyEarningsClient({ employee, initialEarnings }: MyEarnin
                     </div>
 
                     {/* Settlement Rate — real metric */}
-                    <div className="flex flex-col items-center justify-center p-8 bg-[var(--bg-card)]/50 backdrop-blur-xl rounded-3xl border border-[var(--border-main)] shadow-inner">
+                    <div className="flex flex-col items-center justify-center p-8 bg-[var(--bg-card)]/50 backdrop-blur-xl rounded-[var(--r-lg)] border border-[var(--border-main)] shadow-inner">
                         <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.3em] mb-4 opacity-50">Settlement Rate</p>
                         <div className="relative size-32 flex items-center justify-center">
                             <svg className="size-full -rotate-90">

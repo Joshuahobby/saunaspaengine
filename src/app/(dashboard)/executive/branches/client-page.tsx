@@ -71,7 +71,7 @@ export default function ExecutiveBranchesClientPage({ branches, stats }: Branche
             {/* Header Actions */}
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-[var(--bg-card)]/50 border border-[var(--border-muted)] p-4 rounded-2xl backdrop-blur-sm">
                 <div className="flex flex-col gap-1">
-                    <h1 className="text-2xl font-serif font-bold text-[var(--text-main)]">
+                    <h1 className="text-2xl font-display font-bold text-[var(--text-main)]">
                         Branch Network
                     </h1>
                     <p className="text-xs text-[var(--text-muted)] font-medium opacity-60 max-w-3xl">Overview and management of your business locations.</p>
@@ -218,7 +218,7 @@ export default function ExecutiveBranchesClientPage({ branches, stats }: Branche
                                     <td colSpan={6} className="px-6 py-20 text-center">
                                         <div className="flex flex-col items-center gap-3 opacity-20">
                                             <span className="material-symbols-outlined text-5xl">database_off</span>
-                                            <p className="text-sm font-serif text-[var(--text-muted)]">No branches found.</p>
+                                            <p className="text-sm font-display text-[var(--text-muted)]">No branches found.</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -263,7 +263,7 @@ function MetricCard({ title, value, subtitle, icon }: { title: string, value: st
             </div>
             
             <div className="relative z-10">
-                <span className="text-3xl font-serif font-black text-[var(--text-main)] tracking-tighter leading-none">{value}</span>
+                <span className="text-3xl font-display font-black text-[var(--text-main)] tracking-tighter leading-none">{value}</span>
             </div>
         </div>
     );

@@ -17,7 +17,7 @@ export default function DataTransferTab() {
                             <span className="material-symbols-outlined text-3xl">add_to_photos</span>
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold font-serif leading-tight">Asset Ingestion</h3>
+                            <h3 className="text-2xl font-bold font-display leading-tight">Asset Ingestion</h3>
                             <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] mt-1 opacity-60 italic">Import Wizard</p>
                         </div>
                         <p className="text-sm font-bold text-[var(--text-muted)] leading-relaxed italic pr-12">
@@ -40,7 +40,7 @@ export default function DataTransferTab() {
                             <span className="material-symbols-outlined text-3xl">ios_share</span>
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold font-serif leading-tight">Export Data</h3>
+                            <h3 className="text-2xl font-bold font-display leading-tight">Export Data</h3>
                             <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] mt-1 opacity-60 italic">Export System</p>
                         </div>
                         <p className="text-sm font-bold text-[var(--text-muted)] leading-relaxed italic pr-12">
@@ -60,7 +60,7 @@ export default function DataTransferTab() {
                         <span className="material-symbols-outlined font-black">description</span>
                     </div>
                     <div>
-                        <h4 className="font-bold text-lg font-serif italic">CSV Templates</h4>
+                        <h4 className="font-bold text-lg font-display">CSV Templates</h4>
                         <p className="text-xs font-bold text-[var(--text-muted)] opacity-60 uppercase tracking-widest mt-1">Download CSV Templates</p>
                     </div>
                 </div>

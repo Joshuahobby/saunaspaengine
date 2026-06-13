@@ -194,7 +194,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex items-center justify-between">
                         <div>
-                            <h2 className="text-4xl font-display font-black text-[var(--text-main)] tracking-tighter italic">Unified <span className="text-[var(--color-primary)]">Checkout</span></h2>
+                            <h2 className="text-4xl font-display font-black text-[var(--text-main)] tracking-tighter">Unified <span className="text-[var(--color-primary)]">Checkout</span></h2>
                             <p className="text-[9px] text-[var(--text-muted)] font-black uppercase tracking-[0.2em] mt-1 opacity-70">Guest Identity: <span className="text-[var(--text-main)]">{clientName}</span></p>
                         </div>
                         <div className="bg-[var(--color-primary)]/10 px-4 py-2 rounded-lg border border-[var(--color-primary)]/20">

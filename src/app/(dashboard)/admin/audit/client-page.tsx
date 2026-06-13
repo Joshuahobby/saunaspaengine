@@ -79,7 +79,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                  <div className="absolute top-0 left-0 w-96 h-96 bg-[var(--color-primary)] opacity-[0.02] blur-[120px] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
                  
                  <div className="space-y-1 relative z-10">
-                    <h1 className="text-3xl lg:text-4xl font-serif font-bold text-[var(--text-main)] italic tracking-tight leading-tight">
+                    <h1 className="text-3xl lg:text-4xl font-display font-bold text-[var(--text-main)] tracking-tight leading-tight">
                         Audit <span className="text-[var(--color-primary)]">Log</span>
                     </h1>
                     <p className="text-sm text-[var(--text-muted)] font-medium italic">Complete record of all platform actions and changes.</p>
@@ -186,7 +186,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                                         <td className="px-8 py-5">
                                                             <div className="flex flex-col gap-0.5">
                                                                 <span className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-tighter italic whitespace-nowrap">{format(new Date(log.createdAt), "MMM dd, yyyy")}</span>
-                                                                <span className="text-[11px] font-serif font-bold text-[var(--color-primary)] italic transition-opacity">{format(new Date(log.createdAt), "HH:mm:ss")}</span>
+                                                                <span className="text-[11px] font-display font-bold text-[var(--color-primary)] transition-opacity">{format(new Date(log.createdAt), "HH:mm:ss")}</span>
                                                             </div>
                                                         </td>
                                                         <td className="px-8 py-5">
@@ -195,7 +195,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                                                     {log.user.fullName.substring(0, 2).toUpperCase()}
                                                                 </div>
                                                                 <div className="flex flex-col">
-                                                                    <span className="text-sm font-serif font-black italic group-hover:text-[var(--color-primary)] transition-colors">{log.user.fullName}</span>
+                                                                    <span className="text-sm font-display font-black group-hover:text-[var(--color-primary)] transition-colors">{log.user.fullName}</span>
                                                                     <span className={`text-[8px] font-black uppercase tracking-widest mt-0.5 ${theme.color}`}>{log.user.role}</span>
                                                                 </div>
                                                             </div>
@@ -218,7 +218,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                                         </td>
                                                         <td className="px-8 py-5">
                                                             <div className="max-w-[280px]">
-                                                                <p className="text-[11px] font-serif font-medium text-[var(--text-muted)] italic leading-relaxed group-hover:text-[var(--text-main)] transition-colors line-clamp-2" title={log.details || ""}>
+                                                                <p className="text-[11px] font-display font-medium text-[var(--text-muted)] leading-relaxed group-hover:text-[var(--text-main)] transition-colors line-clamp-2" title={log.details || ""}>
                                                                     {log.details || "No details recorded."}
                                                                 </p>
                                                                 {log.reason && (
@@ -242,7 +242,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                                 <td colSpan={6} className="px-8 py-24 text-center">
                                                     <div className="flex flex-col items-center gap-4 opacity-20">
                                                         <span className="material-symbols-outlined text-4xl">inventory_2</span>
-                                                        <p className="text-[10px] font-black uppercase tracking-[0.3em] font-serif italic text-white/80">No Logs Found</p>
+                                                        <p className="text-[10px] font-black uppercase tracking-[0.3em] font-display text-white/80">No Logs Found</p>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -293,14 +293,14 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                             <th className="px-10 py-8 w-1/3">
                                                 <div className="flex flex-col gap-1">
                                                     <span className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-[0.2em] italic">Permission</span>
-                                                    <span className="text-[12px] font-serif font-black text-[var(--text-main)] italic">Access Matrix</span>
+                                                    <span className="text-[12px] font-display font-black text-[var(--text-main)]">Access Matrix</span>
                                                 </div>
                                             </th>
                                             {["Admin", "Manager", "Lead Manager", "Staff"].map((role) => (
                                                 <th key={role} className="px-6 py-8 text-center">
                                                     <div className="flex flex-col items-center gap-1">
                                                         <span className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic">Role</span>
-                                                        <span className="text-[11px] font-serif font-black text-[var(--text-main)] italic">{role}</span>
+                                                        <span className="text-[11px] font-display font-black text-[var(--text-main)]">{role}</span>
                                                     </div>
                                                 </th>
                                             ))}
@@ -348,7 +348,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                     <span className="material-symbols-outlined text-black text-2xl font-black italic">verified_user</span>
                                 </div>
                                 <div className="space-y-0.5">
-                                    <p className="text-xl font-serif font-black italic">Audit Trail Active</p>
+                                    <p className="text-xl font-display font-black">Audit Trail Active</p>
                                     <p className="text-[10px] font-black text-black/50 uppercase tracking-widest italic leading-tight">Every action is securely recorded in the platform audit log.</p>
                                 </div>
                              </div>
@@ -380,7 +380,7 @@ function PermissionRow({ title, desc, checks }: { title: string, desc: string, c
         <tr className="group hover:bg-[var(--bg-surface-muted)] transition-colors border-l-2 border-transparent hover:border-[var(--color-primary)]/40">
             <td className="px-10 py-8">
                 <div className="flex flex-col gap-1">
-                    <span className="text-sm font-serif font-black text-[var(--text-main)] italic group-hover:text-[var(--color-primary)] transition-colors">{title}</span>
+                    <span className="text-sm font-display font-black text-[var(--text-main)] group-hover:text-[var(--color-primary)] transition-colors">{title}</span>
                     <span className="text-[10px] text-[var(--text-muted)] font-medium italic max-w-sm group-hover:text-[var(--text-main)] transition-colors leading-relaxed">{desc}</span>
                 </div>
             </td>

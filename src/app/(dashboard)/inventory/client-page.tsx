@@ -123,12 +123,12 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                 </div>
                 <div className="flex gap-4">
                     {activeTab === "suppliers" ? (
-                        <button type="button" onClick={() => setSupplierModal(true)} className="flex items-center gap-3 px-8 py-4 bg-[var(--color-primary)] text-[var(--bg-app)] rounded-3xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-[var(--color-primary)]/10">
+                        <button type="button" onClick={() => setSupplierModal(true)} className="flex items-center gap-3 px-8 py-4 bg-[var(--color-primary)] text-[var(--bg-app)] rounded-[var(--r-lg)] text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-[var(--color-primary)]/10">
                             <span className="material-symbols-outlined text-lg">person_add</span>
                             Add Supplier
                         </button>
                     ) : (
-                        <Link href="/inventory/new" className="flex items-center gap-3 px-8 py-4 bg-[var(--color-primary)] text-[var(--bg-app)] rounded-3xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-[var(--color-primary)]/10">
+                        <Link href="/inventory/new" className="flex items-center gap-3 px-8 py-4 bg-[var(--color-primary)] text-[var(--bg-app)] rounded-[var(--r-lg)] text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-[var(--color-primary)]/10">
                             <span className="material-symbols-outlined text-lg">add</span>
                             Add New Item
                         </Link>
@@ -466,7 +466,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                 if (!supplier) return null;
                 return (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-                        <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-3xl p-8 w-full max-w-sm shadow-2xl space-y-6">
+                        <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[var(--r-lg)] p-8 w-full max-w-sm shadow-2xl space-y-6">
                             <div className="flex items-center gap-4">
                                 <div className="size-12 rounded-2xl bg-red-500/10 flex items-center justify-center shrink-0">
                                     <span className="material-symbols-outlined text-red-500 text-2xl">local_shipping</span>

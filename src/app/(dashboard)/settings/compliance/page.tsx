@@ -31,7 +31,7 @@ export default function SafeSecureOperationsPage() {
                 </div>
 
                 <div className="space-y-1">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tighter font-serif text-[var(--text-main)]">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tighter font-display text-[var(--text-main)]">
                         Safe & <span className="text-emerald-500">Secure.</span>
                     </h1>
                     <p className="text-sm font-bold text-[var(--text-muted)] opacity-60 leading-relaxed">
@@ -63,7 +63,7 @@ export default function SafeSecureOperationsPage() {
                             <div className="xl:col-span-7 space-y-8">
                                 <section className="glass-card rounded-[2.5rem] border border-[var(--border-muted)] overflow-hidden shadow-xl bg-[var(--bg-card)]">
                                     <div className="p-8 border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10">
-                                        <h2 className="text-2xl font-bold font-serif">Daily Compliance Checklists</h2>
+                                        <h2 className="text-2xl font-bold font-display">Daily Compliance Checklists</h2>
                                         <p className="text-[10px] uppercase font-black tracking-widest text-[var(--text-muted)] mt-1 opacity-60">Operations Safety</p>
                                     </div>
                                     <div className="p-8 space-y-6">
@@ -92,7 +92,7 @@ export default function SafeSecureOperationsPage() {
                                     <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-700">
                                         <span className="material-symbols-outlined text-9xl">verified_user</span>
                                     </div>
-                                    <h3 className="text-2xl font-bold font-serif leading-tight mb-6 relative z-10">All systems are <br /> <span className="text-emerald-950/40">Healthy.</span></h3>
+                                    <h3 className="text-2xl font-bold font-display leading-tight mb-6 relative z-10">All systems are <br /> <span className="text-emerald-950/40">Healthy.</span></h3>
                                     <p className="text-sm font-bold opacity-80 leading-relaxed relative z-10">Every location is currently up to date with its health audits. No critical issues reported in the last 24 hours.</p>
                                     
                                     <button className="mt-12 w-full py-4 bg-[var(--bg-card)] text-emerald-500 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-xl hover:scale-[1.02] transition-transform active:scale-95 relative z-10">
@@ -112,7 +112,7 @@ export default function SafeSecureOperationsPage() {
                                             <span className="material-symbols-outlined text-3xl font-black">qr_code_2</span>
                                         </div>
                                         <div>
-                                            <h2 className="text-2xl font-bold font-serif">QR Check-In Settings</h2>
+                                            <h2 className="text-2xl font-bold font-display">QR Check-In Settings</h2>
                                             <p className="text-[10px] font-black tracking-widest text-[var(--text-muted)] uppercase opacity-60">Entry Verification</p>
                                         </div>
                                     </div>
@@ -156,7 +156,7 @@ export default function SafeSecureOperationsPage() {
                                 <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2.5rem] p-10 shadow-xl space-y-8">
                                     <div className="space-y-2">
                                         <h4 className="text-[10px] font-black uppercase tracking-widest text-red-500">Physical Access</h4>
-                                        <h3 className="text-xl font-bold font-serif leading-tight">Recent QR Scans</h3>
+                                        <h3 className="text-xl font-bold font-display leading-tight">Recent QR Scans</h3>
                                     </div>
                                     <div className="space-y-4">
                                         {[

@@ -154,7 +154,7 @@ export default function Sidebar({
                                     transition={{ duration: 0.2 }}
                                     className="whitespace-nowrap"
                                 >
-                                    <h1 className="text-sm font-serif font-bold leading-tight tracking-tight text-[var(--text-main)] whitespace-nowrap overflow-hidden">
+                                    <h1 className="text-sm font-bold leading-tight text-[var(--text-main)] whitespace-nowrap overflow-hidden" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>
                                         {businessName || "Sauna SPA"}
                                     </h1>
                                     <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] truncate max-w-[140px]">

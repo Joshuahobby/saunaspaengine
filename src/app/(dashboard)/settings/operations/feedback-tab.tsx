@@ -11,7 +11,7 @@ export default function FeedbackTab() {
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <div className="lg:col-span-1 p-10 glass-card rounded-[2.5rem] border border-[var(--border-muted)] bg-[var(--bg-card)] shadow-xl flex flex-col items-center justify-center text-center group hover:scale-[1.02] transition-transform">
                     <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-60 mb-2">Excellence Score</p>
-                    <div className="text-6xl font-black font-serif text-[var(--text-main)] drop-shadow-sm">4.8</div>
+                    <div className="text-6xl font-black font-display text-[var(--text-main)] drop-shadow-sm">4.8</div>
                     <div className="flex gap-1 mt-4 text-emerald-500">
                         {Array(5).fill(0).map((_, i) => (
                             <span key={i} className="material-symbols-outlined text-lg fill-1">star</span>
@@ -24,7 +24,7 @@ export default function FeedbackTab() {
                         <div className="flex items-end justify-between">
                             <div>
                                 <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-60">Sentiment Trend</p>
-                                <h3 className="text-3xl font-bold font-serif mt-1">92% Positive</h3>
+                                <h3 className="text-3xl font-bold font-display mt-1">92% Positive</h3>
                             </div>
                             <div className="text-right">
                                 <span className="text-[10px] font-black uppercase tracking-widest text-emerald-500 bg-emerald-500/10 px-4 py-2 rounded-full border border-emerald-500/20 italic">Stable Path</span>
@@ -43,7 +43,7 @@ export default function FeedbackTab() {
             {/* List Header */}
             <div className="flex items-center justify-between px-4">
                 <div className="space-y-1">
-                    <h3 className="text-xl font-bold font-serif text-[var(--color-primary)]">Client Reviews</h3>
+                    <h3 className="text-xl font-bold font-display text-[var(--color-primary)]">Client Reviews</h3>
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-50 italic">Listening to the Spa Community</p>
                 </div>
                 <div className="flex gap-4">
@@ -103,7 +103,7 @@ function ReviewEntry({ name, initials, rating, text, replied, reply }: { name: s
                         {initials}
                     </div>
                     <div>
-                        <h4 className="text-xl font-bold font-serif">{name}</h4>
+                        <h4 className="text-xl font-bold font-display">{name}</h4>
                         <div className="flex gap-0.5 text-emerald-500 mt-1">
                             {Array(5).fill(0).map((_, i) => (
                                 <span key={i} className={`material-symbols-outlined text-xs ${i < rating ? "fill-1" : "opacity-20"}`}>star</span>

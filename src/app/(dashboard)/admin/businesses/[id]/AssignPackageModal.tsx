@@ -77,7 +77,7 @@ export function AssignPackageModal({ isOpen, onClose, business, availablePackage
                         <div className="p-8 lg:p-10 space-y-8 max-h-[90vh] overflow-y-auto custom-scrollbar">
                             <div className="flex items-center justify-between sticky top-0 bg-[var(--bg-card)] z-20 pb-4">
                                 <div className="space-y-1">
-                                    <h2 className="text-3xl font-serif font-bold text-[var(--text-main)] italic">Package Management</h2>
+                                    <h2 className="text-3xl font-display font-bold text-[var(--text-main)]">Package Management</h2>
                                     <p className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest italic opacity-60">Manage packages for {business.name}</p>
                                 </div>
                                 <button
@@ -100,7 +100,7 @@ export function AssignPackageModal({ isOpen, onClose, business, availablePackage
                                             <div className="absolute -right-8 top-5 rotate-45 bg-amber-500 text-black text-[7px] font-black py-1 px-10 uppercase tracking-widest shadow-lg">Enterprise</div>
                                         )}
                                         <div className="space-y-1">
-                                            <h3 className="font-serif font-black italic text-lg text-[var(--text-main)] group-hover/plan:text-[var(--color-primary)] transition-colors">{plan.name}</h3>
+                                            <h3 className="font-display font-black text-lg text-[var(--text-main)] group-hover/plan:text-[var(--color-primary)] transition-colors">{plan.name}</h3>
                                             <p className="text-2xl font-mono font-bold text-[var(--color-primary)]">
                                                 ${cycle === "Monthly" ? plan.priceMonthly : plan.priceYearly}
                                                 <span className="text-[10px] text-[var(--text-muted)] tracking-tighter">/{cycle === "Monthly" ? "mo" : "yr"}</span>

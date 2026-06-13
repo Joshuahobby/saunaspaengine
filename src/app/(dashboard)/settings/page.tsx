@@ -72,7 +72,7 @@ export default async function SettingsHubPage() {
             <div className="max-w-6xl mx-auto space-y-16">
                 {/* Header Section */}
                 <div className="space-y-1">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tighter font-serif text-[var(--color-primary)]">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tighter font-display text-[var(--color-primary)]">
                         Business <span className="text-[var(--text-main)]">Setup.</span>
                     </h1>
                     <p className="text-sm font-bold text-[var(--text-muted)] opacity-60 leading-relaxed">
@@ -104,7 +104,7 @@ export default async function SettingsHubPage() {
                                     </div>
 
                                     <div>
-                                        <h3 className="text-2xl font-bold font-serif text-[var(--text-main)] group-hover:text-[var(--color-primary)] transition-colors">
+                                        <h3 className="text-2xl font-bold font-display text-[var(--text-main)] group-hover:text-[var(--color-primary)] transition-colors">
                                             {cat.title}
                                         </h3>
                                         <p className="text-sm text-[var(--text-muted)] mt-4 leading-relaxed font-bold opacity-70">
@@ -128,7 +128,7 @@ export default async function SettingsHubPage() {
                             <Link 
                                 key={idx} 
                                 href={cat.href}
-                                className="group relative glass-card rounded-3xl p-8 border border-[var(--border-muted)] hover:border-[var(--color-primary)] transition-all duration-500 hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 flex flex-col gap-6"
+                                className="group relative glass-card rounded-[var(--r-lg)] p-8 border border-[var(--border-muted)] hover:border-[var(--color-primary)] transition-all duration-500 hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 flex flex-col gap-6"
                             >
                                 <div className="flex justify-between items-start">
                                     <div className={`size-14 rounded-2xl ${cat.color} flex items-center justify-center text-white shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6`}>
@@ -140,7 +140,7 @@ export default async function SettingsHubPage() {
                                 </div>
 
                                 <div>
-                                    <h3 className="text-xl font-bold font-serif text-[var(--text-main)] group-hover:text-[var(--color-primary)] transition-colors">
+                                    <h3 className="text-xl font-bold font-display text-[var(--text-main)] group-hover:text-[var(--color-primary)] transition-colors">
                                         {cat.title}
                                     </h3>
                                     <p className="text-sm text-[var(--text-muted)] mt-2 leading-relaxed font-bold">
@@ -164,7 +164,7 @@ export default async function SettingsHubPage() {
                             <span className="material-symbols-outlined text-[var(--color-primary)] text-5xl animate-pulse">history</span>
                         </div>
                         <div>
-                            <h4 className="text-2xl font-bold font-serif mb-2">History of Changes</h4>
+                            <h4 className="text-2xl font-bold font-display mb-2">History of Changes</h4>
                             <p className="text-sm text-[var(--text-muted)] max-w-xl font-bold leading-relaxed">
                                 We track every change made across your business. You can see who changed what 
                                 and when, ensuring your business stays safe and organized.

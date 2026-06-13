@@ -16,7 +16,7 @@ export default function LoginForm() {
     );
 
     return (
-        <div className="bg-[var(--bg-card)] p-8 md:p-12 rounded-[2.5rem] shadow-xl shadow-black/5 border border-[var(--border-main)]">
+        <div className="bg-[var(--bg-card)] p-8 md:p-12 rounded-[var(--r-md)] shadow-xl shadow-black/5 border border-[var(--border-main)]">
             {justRegistered && (
                 <div className="bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/30 p-4 rounded-xl flex items-center gap-3 text-[var(--color-primary)] text-sm mb-6 animate-fade-in">
                     <span className="material-symbols-outlined text-lg shrink-0">check_circle</span>
@@ -24,7 +24,7 @@ export default function LoginForm() {
                 </div>
             )}
             <div className="text-center mb-10">
-                <h2 className="text-[var(--text-main)] text-3xl font-black font-serif">Welcome <span className="not-italic text-[var(--color-primary)]">Back</span></h2>
+                <h2 className="text-[var(--text-main)] text-3xl font-black" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}>Welcome <span className="text-[var(--color-primary)]">Back</span></h2>
                 <p className="text-[var(--text-muted)] text-sm mt-3 font-medium">Access your spa operations dashboard</p>
             </div>
 
@@ -44,7 +44,7 @@ export default function LoginForm() {
                             placeholder="Email or username"
                             required
                             autoComplete="username"
-                            className="w-full pl-12 pr-4 py-4 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-surface-muted)] focus:border-[var(--color-primary)] focus:ring-4 focus:ring-[var(--color-primary)]/10 outline-none text-[var(--text-main)] placeholder:text-[var(--text-muted)] transition-all font-bold text-sm"
+                            className="w-full pl-12 pr-4 py-4 rounded-[var(--r-sm)] border border-[var(--border-muted)] bg-[var(--bg-surface-muted)] focus:border-[var(--color-primary)] focus:ring-4 focus:ring-[var(--color-primary)]/10 outline-none text-[var(--text-main)] placeholder:text-[var(--text-muted)] transition-all font-bold text-sm"
                         />
                     </div>
                 </div>
@@ -77,7 +77,7 @@ export default function LoginForm() {
                 </div>
 
                 {errorMessage && (
-                    <div className="bg-red-500/5 border border-red-500/20 p-4 rounded-xl flex items-center gap-3 text-red-500 text-sm animate-fade-in shadow-sm">
+                    <div className="bg-red-500/5 border border-red-500/20 p-4 rounded-[var(--r-sm)] flex items-center gap-3 text-red-500 text-sm animate-fade-in shadow-sm">
                         <span className="material-symbols-outlined text-lg shrink-0">error</span>
                         <p className="font-bold">{errorMessage}</p>
                     </div>
@@ -100,7 +100,7 @@ export default function LoginForm() {
                 <button
                     type="submit"
                     disabled={isPending}
-                    className="w-full py-5 bg-[var(--color-primary)] hover:opacity-90 text-white font-black uppercase tracking-[0.3em] rounded-2xl shadow-2xl shadow-[var(--color-primary)]/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed mt-6 text-sm"
+                    className="w-full py-5 bg-[var(--color-primary)] hover:opacity-90 text-white font-black uppercase tracking-[0.3em] rounded-[var(--r-sm)] shadow-lg shadow-[var(--color-primary)]/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed mt-6 text-sm"
                 >
                     {isPending ? (
                         <>
@@ -124,7 +124,7 @@ export default function LoginForm() {
                     </p>
                     <Link 
                         href="/signup" 
-                        className="w-full py-4 rounded-xl border border-[var(--border-main)] bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-[10px] font-black uppercase tracking-widest hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all flex items-center justify-center gap-2 group"
+                        className="w-full py-4 rounded-[var(--r-sm)] border border-[var(--border-main)] bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-[10px] font-black uppercase tracking-widest hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all flex items-center justify-center gap-2 group"
                     >
                         <span className="material-symbols-outlined text-base group-hover:rotate-12 transition-transform">person_add</span>
                         Create Your Account

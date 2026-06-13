@@ -94,7 +94,7 @@ export default function MembershipsClientPage({ categories, branches, userRole }
                 {categories.length === 0 ? (
                    <div className="col-span-3 py-20 text-center space-y-4 bg-[var(--bg-surface-muted)]/5 rounded-[3rem] border border-dashed border-[var(--border-muted)]">
                         <span className="material-symbols-outlined text-6xl text-[var(--text-muted)] opacity-20">category</span>
-                        <p className="text-[var(--text-muted)] font-serif italic text-xl">No passes have been created yet.</p>
+                        <p className="text-[var(--text-muted)] font-display text-xl">No passes have been created yet.</p>
                    </div>
                 ) : (
                     categories.map((category, idx) => {
@@ -114,7 +114,7 @@ export default function MembershipsClientPage({ categories, branches, userRole }
                                         <div className={`size-10 rounded-xl ${config.bg} flex items-center justify-center ${config.color} backdrop-blur-md`}>
                                             <span className="material-symbols-outlined">{config.icon}</span>
                                         </div>
-                                        <h3 className="text-2xl font-serif font-black italic text-[var(--text-main)]">{category.name}</h3>
+                                        <h3 className="text-2xl font-display font-black text-[var(--text-main)]">{category.name}</h3>
                                     </div>
                                     <div className="absolute top-6 right-6 flex gap-2">
                                         {category.isGlobal && (
@@ -170,7 +170,7 @@ export default function MembershipsClientPage({ categories, branches, userRole }
             {/* Configuration Summary Table */}
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-serif font-black italic text-[var(--text-main)] flex items-center gap-3">
+                    <h2 className="text-2xl font-display font-black text-[var(--text-main)] flex items-center gap-3">
                         <span className="material-symbols-outlined text-[var(--color-primary)]">analytics</span>
                         Configuration Summary
                     </h2>
@@ -192,7 +192,7 @@ export default function MembershipsClientPage({ categories, branches, userRole }
                                     <td className="px-8 py-5">
                                         <div className="flex items-center gap-3">
                                             <div className={`size-2 rounded-full ${TYPE_CONFIG[cat.type as keyof typeof TYPE_CONFIG].bg.replace('/10', '')} shadow-lg`} />
-                                            <span className="font-serif font-bold italic text-[var(--text-main)] tracking-tight">{cat.name}</span>
+                                            <span className="font-display font-bold text-[var(--text-main)] tracking-tight">{cat.name}</span>
                                         </div>
                                     </td>
                                     <td className="px-8 py-5">
@@ -355,7 +355,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                                         value={formData.name}
                                         onChange={e => setFormData({...formData, name: e.target.value})}
                                         placeholder="e.g. Zen Monthly Ritual"
-                                        className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-3xl px-8 text-[var(--text-main)] font-serif italic text-lg outline-none focus:border-[var(--color-primary)] transition-all"
+                                        className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-[var(--r-lg)] px-8 text-[var(--text-main)] font-display text-lg outline-none focus:border-[var(--color-primary)] transition-all"
                                     />
                                 </div>
 
@@ -366,7 +366,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                                         title="Pass Type"
                                         value={formData.type}
                                         onChange={e => setFormData({...formData, type: e.target.value as MembershipType})}
-                                        className="w-full h-16 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-3xl px-8 text-sm font-black text-[var(--text-main)] uppercase tracking-widest outline-none focus:border-[var(--color-primary)] transition-all appearance-none"
+                                        className="w-full h-16 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-[var(--r-lg)] px-8 text-sm font-black text-[var(--text-main)] uppercase tracking-widest outline-none focus:border-[var(--color-primary)] transition-all appearance-none"
                                     >
                                         <option value="SUBSCRIPTION" className="bg-[var(--bg-card)]">Subscription Pass</option>
                                         <option value="LIST_PASS" className="bg-[var(--bg-card)]">List / Usage Pass</option>
@@ -383,7 +383,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                                         value={formData.price}
                                         onChange={e => setFormData({...formData, price: e.target.value})}
                                         placeholder="45000"
-                                        className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-3xl px-8 text-[var(--text-main)] font-mono font-black text-lg outline-none focus:border-[var(--color-primary)] transition-all"
+                                        className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-[var(--r-lg)] px-8 text-[var(--text-main)] font-mono font-black text-lg outline-none focus:border-[var(--color-primary)] transition-all"
                                     />
                                 </div>
 
@@ -394,7 +394,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                                          <button 
                                             type="button"
                                             onClick={() => setFormData({...formData, isGlobal: !formData.isGlobal})}
-                                            className={`h-16 rounded-3xl px-8 flex items-center justify-between transition-all border ${formData.isGlobal ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' : 'bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[var(--text-muted)]'}`}
+                                            className={`h-16 rounded-[var(--r-lg)] px-8 flex items-center justify-between transition-all border ${formData.isGlobal ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' : 'bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[var(--text-muted)]'}`}
                                         >
                                             <div className="flex items-center gap-3">
                                                 <span className="material-symbols-outlined">{formData.isGlobal ? 'public' : 'location_on'}</span>
@@ -411,7 +411,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                                                     title="Target Branch"
                                                     value={formData.branchId}
                                                     onChange={e => setFormData({...formData, branchId: e.target.value})}
-                                                    className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-3xl px-8 text-xs font-black text-[var(--text-main)] uppercase tracking-widest outline-none focus:border-[var(--color-primary)] transition-all appearance-none"
+                                                    className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-[var(--r-lg)] px-8 text-xs font-black text-[var(--text-main)] uppercase tracking-widest outline-none focus:border-[var(--color-primary)] transition-all appearance-none"
                                                 >
                                                     {branches.map(b => (
                                                         <option key={b.id} value={b.id} className="bg-[var(--bg-card)]">{b.name}</option>
@@ -438,7 +438,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                                             type="number"
                                             value={formData.durationDays}
                                             onChange={e => setFormData({...formData, durationDays: e.target.value})}
-                                            className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-3xl px-8 text-[var(--text-main)] font-mono font-black text-lg outline-none focus:border-[var(--color-primary)] transition-all"
+                                            className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-[var(--r-lg)] px-8 text-[var(--text-main)] font-mono font-black text-lg outline-none focus:border-[var(--color-primary)] transition-all"
                                         />
                                     </div>
                                 )}
@@ -452,7 +452,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                                             type="number"
                                             value={formData.usageLimit}
                                             onChange={e => setFormData({...formData, usageLimit: e.target.value})}
-                                            className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-3xl px-8 text-[var(--text-main)] font-mono font-black text-lg outline-none focus:border-[var(--color-primary)] transition-all"
+                                            className="w-full h-16 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-[var(--r-lg)] px-8 text-[var(--text-main)] font-mono font-black text-lg outline-none focus:border-[var(--color-primary)] transition-all"
                                         />
                                     </div>
                                 )}
@@ -473,14 +473,14 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                             <div className="flex gap-4 pt-4">
                                 <button
                                     onClick={onClose}
-                                    className="h-16 flex-1 rounded-3xl border border-[var(--border-muted)] text-[var(--text-muted)] font-black tracking-widest uppercase text-[10px] hover:bg-[var(--bg-surface-muted)] transition-all"
+                                    className="h-16 flex-1 rounded-[var(--r-lg)] border border-[var(--border-muted)] text-[var(--text-muted)] font-black tracking-widest uppercase text-[10px] hover:bg-[var(--bg-surface-muted)] transition-all"
                                 >
                                     Relinquish
                                 </button>
                                  <button
                                     onClick={handleSave}
                                     disabled={isLoading || !formData.name || !formData.price}
-                                    className="h-16 flex-[2] rounded-3xl bg-[var(--text-main)] text-[var(--bg-app)] font-black tracking-[0.2em] uppercase text-[10px] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group disabled:opacity-50"
+                                    className="h-16 flex-[2] rounded-[var(--r-lg)] bg-[var(--text-main)] text-[var(--bg-app)] font-black tracking-[0.2em] uppercase text-[10px] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2 group disabled:opacity-50"
                                 >
                                     {isLoading ? (
                                         <span className="animate-spin material-symbols-outlined">sync</span>

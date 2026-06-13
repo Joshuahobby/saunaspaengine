@@ -110,7 +110,7 @@ export default function ApprovalsClientPage({ businesses: initialBusinesses }: {
                         </div>
                     </div>
                 )) : (
-                    <div className="py-24 flex flex-col items-center justify-center text-center space-y-4 border border-dashed border-[var(--border-muted)] rounded-3xl opacity-40">
+                    <div className="py-24 flex flex-col items-center justify-center text-center space-y-4 border border-dashed border-[var(--border-muted)] rounded-[var(--r-lg)] opacity-40">
                         <span className="material-symbols-outlined text-6xl">verified_user</span>
                         <div className="space-y-1">
                             <h3 className="text-sm font-black uppercase tracking-[0.3em]">Queue Cleared</h3>

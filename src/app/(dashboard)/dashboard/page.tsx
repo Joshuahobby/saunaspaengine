@@ -317,7 +317,7 @@ export default async function DashboardPage() {
                 </div>
             </div>
 
-            <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-4 items-start sm:items-center justify-between zen-status-bar p-6 overflow-hidden relative border border-[var(--border-main)] rounded-3xl bg-[var(--bg-card)]">
+            <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-4 items-start sm:items-center justify-between zen-status-bar p-6 overflow-hidden relative border border-[var(--border-main)] rounded-[var(--r-lg)] bg-[var(--bg-card)]">
                 <div className="absolute top-0 left-0 w-32 h-32 bg-[var(--color-primary)]/5 blur-3xl -ml-16 -mt-16 rounded-full"></div>
                 <div className="flex items-center gap-4 relative z-10 w-full sm:w-auto">
                     <p className="text-[10px] font-bold text-[var(--text-main)] uppercase tracking-[0.4em]">

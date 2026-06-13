@@ -114,7 +114,7 @@ export default async function DigitalMembershipCardPage() {
             {/* Recent Activity */}
             <div className="flex flex-col gap-6">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-serif font-bold tracking-tight text-[var(--text-main)] italic">Recent <span className="not-italic text-[var(--color-primary)] underline decoration-2 decoration-[var(--color-primary)]/20 underline-offset-8">Activity</span></h2>
+                    <h2 className="text-xl font-display font-bold tracking-tight text-[var(--text-main)]">Recent <span className="not-italic text-[var(--color-primary)] underline decoration-2 decoration-[var(--color-primary)]/20 underline-offset-8">Activity</span></h2>
                     <button className="text-[10px] font-bold text-[var(--color-primary)] uppercase tracking-widest italic opacity-40 hover:opacity-100 transition-all">View All History</button>
                 </div>
                 <div className="bg-[var(--bg-card)] rounded-[2.5rem] border border-[var(--border-muted)] overflow-hidden shadow-none">
@@ -128,7 +128,7 @@ export default async function DigitalMembershipCardPage() {
                                     <span className="material-symbols-outlined text-2xl font-bold italic">{activity.icon}</span>
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="font-bold text-[var(--text-main)] italic tracking-tight font-serif text-lg">{activity.label}</p>
+                                    <p className="font-bold text-[var(--text-main)] tracking-tight font-display text-lg">{activity.label}</p>
                                     <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-40">{activity.sub}</p>
                                 </div>
                             </div>

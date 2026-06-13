@@ -44,7 +44,7 @@ export default function GamificationClient({ leaderboard, teamProgress, totalSer
     return (
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div>
-                <h2 className="text-3xl font-display font-bold tracking-tight text-[var(--text-main)] italic">
+                <h2 className="text-3xl font-display font-bold tracking-tight text-[var(--text-main)]">
                     Staff <span className="text-[var(--color-primary)] not-italic">Leaderboard</span>
                 </h2>
                 <p className="mt-2 text-[var(--text-muted)] max-w-2xl font-medium">

@@ -72,7 +72,7 @@ export default async function Header() {
                 ) : (
                     <div className="flex items-center gap-3 border-l border-[var(--border-main)] pl-6 ml-4">
                         <div className="hidden md:flex flex-col items-end">
-                            <span className="text-sm font-black font-serif leading-tight text-[var(--text-main)]">Guest User</span>
+                            <span className="text-sm font-black leading-tight text-[var(--text-main)]" style={{ fontFamily: "var(--font-display)" }}>Guest User</span>
                             <span className="text-[10px] text-[var(--color-primary)] font-black uppercase tracking-[0.25em] leading-none mt-1.5 opacity-80">Observer</span>
                         </div>
                         <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-[var(--color-primary)] to-[var(--color-forest-400)] flex items-center justify-center text-white font-black shadow-lg shadow-[var(--color-primary)]/20 border border-[var(--border-muted)]">

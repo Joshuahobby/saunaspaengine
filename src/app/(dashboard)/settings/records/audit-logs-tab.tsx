@@ -8,7 +8,7 @@ export default function AuditLogsTab() {
             {/* Legend & Summary */}
             <div className="flex flex-wrap items-center justify-between gap-6 px-4">
                 <div className="space-y-1">
-                    <h3 className="text-xl font-bold font-serif italic text-emerald-500">Audit Log</h3>
+                    <h3 className="text-xl font-bold font-display text-emerald-500">Audit Log</h3>
                     <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-60">All Actions</p>
                 </div>
                 <div className="flex gap-4">

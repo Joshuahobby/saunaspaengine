@@ -158,7 +158,7 @@ export default function MatrixClient({ initialMatrix }: MatrixClientProps) {
 
             {showResetConfirm && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-3xl p-8 w-full max-w-sm shadow-2xl space-y-6">
+                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[var(--r-lg)] p-8 w-full max-w-sm shadow-2xl space-y-6">
                         <div className="flex items-center gap-4">
                             <div className="size-12 rounded-2xl bg-amber-500/10 flex items-center justify-center shrink-0">
                                 <span className="material-symbols-outlined text-amber-500 text-2xl">restart_alt</span>

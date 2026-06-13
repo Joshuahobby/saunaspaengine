@@ -35,7 +35,7 @@ export default function UserMenu({ user }: UserMenuProps) {
                 className="flex items-center gap-4 border-l border-[var(--border-main)] pl-6 ml-4 group"
             >
                 <div className="hidden md:flex flex-col items-end">
-                    <span className="text-sm font-black font-serif leading-tight group-hover:text-[var(--color-primary)] transition-colors text-[var(--text-main)]">
+                    <span className="text-sm font-black leading-tight group-hover:text-[var(--color-primary)] transition-colors text-[var(--text-main)]" style={{ fontFamily: "var(--font-display)" }}>
                         {user.fullName}
                     </span>
                     <span className="text-[10px] text-[var(--color-primary)] font-black uppercase tracking-[0.25em] leading-none mt-1.5 opacity-80">
@@ -50,7 +50,7 @@ export default function UserMenu({ user }: UserMenuProps) {
             {isOpen && (
                 <div className="absolute right-0 mt-2 w-56 glass-card border border-[var(--border-muted)] py-2 z-50 animate-fade-in shadow-xl">
                     <div className="px-4 py-3 border-b border-[var(--border-muted)] md:hidden">
-                        <p className="text-sm font-bold font-serif text-[var(--text-main)]">{user.fullName}</p>
+                        <p className="text-sm font-bold text-[var(--text-main)]" style={{ fontFamily: "var(--font-display)" }}>{user.fullName}</p>
                         <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest opacity-60">{roleLabel}</p>
                     </div>
 

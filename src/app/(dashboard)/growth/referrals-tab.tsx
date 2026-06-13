@@ -28,7 +28,7 @@ export default function ReferralsTab() {
                         <div className="size-16 rounded-[1.5rem] bg-[var(--color-primary)] flex items-center justify-center text-white shadow-2xl shadow-[var(--color-primary)]/20">
                             <span className="material-symbols-outlined text-4xl">diversity_3</span>
                         </div>
-                        <h2 className="text-5xl font-serif font-black italic leading-tight tracking-tighter">
+                        <h2 className="text-5xl font-display font-black leading-tight tracking-tighter">
                             Refer &amp; <span className="text-[var(--color-primary)]">Earn.</span>
                         </h2>
                         <p className="text-xl text-[var(--text-muted)] font-bold italic opacity-80 leading-relaxed">
@@ -68,14 +68,14 @@ export default function ReferralsTab() {
             <div className="grid lg:grid-cols-3 gap-10">
                 {/* Pending History */}
                 <section className="lg:col-span-2 space-y-8">
-                     <h3 className="text-2xl font-serif font-black italic text-[var(--text-main)] underline decoration-[var(--color-primary)]/20 underline-offset-8">
+                     <h3 className="text-2xl font-display font-black text-[var(--text-main)] underline decoration-[var(--color-primary)]/20 underline-offset-8">
                         Tracking <span className="text-[var(--color-primary)]">Progress.</span>
                     </h3>
                     <div className="space-y-4">
                         {REFERRALS.map((r) => (
                             <div key={r.name} className="flex items-center justify-between p-8 bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2.5rem] hover:-translate-y-1 transition-all duration-500 shadow-sm">
                                 <div className="flex items-center gap-6">
-                                    <div className="size-14 rounded-3xl bg-[var(--bg-surface-muted)] flex items-center justify-center font-black text-xs border border-[var(--border-muted)]">
+                                    <div className="size-14 rounded-[var(--r-lg)] bg-[var(--bg-surface-muted)] flex items-center justify-center font-black text-xs border border-[var(--border-muted)]">
                                         {r.initials}
                                     </div>
                                     <div>
@@ -100,7 +100,7 @@ export default function ReferralsTab() {
 
                 {/* Sharing Widget */}
                 <section className="space-y-8">
-                    <h3 className="text-2xl font-serif font-black italic text-[var(--text-main)] underline decoration-[var(--color-primary)]/20 underline-offset-8">
+                    <h3 className="text-2xl font-display font-black text-[var(--text-main)] underline decoration-[var(--color-primary)]/20 underline-offset-8">
                         The <span className="text-[var(--color-primary)]">Link.</span>
                     </h3>
                     <div className="glass-card p-8 rounded-[2.5rem] border border-[var(--border-muted)] space-y-6">

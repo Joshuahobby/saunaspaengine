@@ -80,11 +80,11 @@ export function BrandingSettingsForm({ businessId, branchId, initialData }: Bran
     const effectiveColor = isOverride ? color : initialData.corporateColor;
 
     return (
-        <section className="glass-card rounded-3xl p-6 md:p-8 border border-[var(--border-main)] shadow-sm space-y-8">
+        <section className="glass-card rounded-[var(--r-lg)] p-6 md:p-8 border border-[var(--border-main)] shadow-sm space-y-8">
             <div className="flex items-center justify-between border-b border-[var(--border-muted)] pb-6">
                 <div className="flex items-center gap-3">
                     <span className="material-symbols-outlined text-[var(--color-primary)] text-2xl">palette</span>
-                    <h2 className="text-xl font-bold font-serif text-[var(--text-main)]">
+                    <h2 className="text-xl font-bold font-display text-[var(--text-main)]">
                         {initialData.isGlobal ? "Global Branding" : "Branch Branding"}
                     </h2>
                 </div>

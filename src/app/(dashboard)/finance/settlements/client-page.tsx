@@ -164,7 +164,7 @@ export default function SettlementClientPage({
 
             {/* Overview Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-[var(--bg-card)] p-8 rounded-3xl border border-[var(--border-main)] shadow-sm">
+                <div className="bg-[var(--bg-card)] p-8 rounded-[var(--r-lg)] border border-[var(--border-main)] shadow-sm">
                     <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-60">Pending Settlements</p>
                     <h2 className="text-3xl font-black text-[var(--text-main)] mt-2 tracking-tight">RWF {totalPending.toLocaleString()}</h2>
                     <div className="mt-4 flex items-center gap-2">
@@ -172,7 +172,7 @@ export default function SettlementClientPage({
                         <span className="text-xs font-bold text-amber-500 uppercase tracking-widest">Awaiting Payout</span>
                     </div>
                 </div>
-                <div className="bg-[var(--bg-card)] p-8 rounded-3xl border border-[var(--border-main)] shadow-sm">
+                <div className="bg-[var(--bg-card)] p-8 rounded-[var(--r-lg)] border border-[var(--border-main)] shadow-sm">
                     <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-60">Total Disbursed</p>
                     <h2 className="text-3xl font-black text-[var(--text-main)] mt-2 tracking-tight">RWF {totalPaid.toLocaleString()}</h2>
                     <div className="mt-4 flex items-center gap-2">
@@ -180,7 +180,7 @@ export default function SettlementClientPage({
                         <span className="text-xs font-bold text-emerald-500 uppercase tracking-widest">Successfully Settled</span>
                     </div>
                 </div>
-                <div className="bg-gradient-to-br from-[#102220] to-[#0a1514] p-8 rounded-3xl border border-[var(--color-primary)]/20 shadow-lg relative overflow-hidden">
+                <div className="bg-gradient-to-br from-[#102220] to-[#0a1514] p-8 rounded-[var(--r-lg)] border border-[var(--color-primary)]/20 shadow-lg relative overflow-hidden">
                     <p className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-widest opacity-80">Platform Efficiency</p>
                     <h2 className="text-3xl font-black text-white mt-2 tracking-tight">99.8%</h2>
                     <p className="text-xs text-[var(--text-muted)] mt-2 font-medium">Automated reconciliation rate</p>
@@ -189,7 +189,7 @@ export default function SettlementClientPage({
             </div>
 
             {/* Settlements Table */}
-            <div className="bg-[var(--bg-card)] rounded-3xl border border-[var(--border-main)] overflow-hidden shadow-sm">
+            <div className="bg-[var(--bg-card)] rounded-[var(--r-lg)] border border-[var(--border-main)] overflow-hidden shadow-sm">
                 <div className="p-8 border-b border-[var(--border-main)] flex justify-between items-center">
                     <div>
                         <h3 className="text-xl font-display font-bold text-[var(--text-main)] tracking-tight">Settlement Audit Trail</h3>

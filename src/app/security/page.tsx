@@ -17,7 +17,7 @@ export default function SecurityPage() {
           <span className="inline-block w-fit bg-[var(--color-primary-muted)] text-[var(--color-primary)] text-[10px] font-black uppercase tracking-[0.3em] px-4 py-2 rounded-full border border-[var(--color-primary-border)]">
             Security
           </span>
-          <h1 className="text-4xl md:text-5xl font-black font-serif">Security at Sauna SPA Engine</h1>
+          <h1 className="text-4xl md:text-5xl font-black font-display">Security at Sauna SPA Engine</h1>
           <p className="text-[var(--text-muted)] text-sm">Your trust is our foundation. Here&apos;s how we protect it.</p>
         </div>
 
@@ -47,22 +47,22 @@ export default function SecurityPage() {
           </div>
 
           <section>
-            <h2 className="text-[var(--text-main)] text-xl font-bold font-serif mb-3">Infrastructure Security</h2>
+            <h2 className="text-[var(--text-main)] text-xl font-bold font-display mb-3">Infrastructure Security</h2>
             <p>Our platform is hosted on enterprise-grade cloud infrastructure with SOC 2 Type II compliance. We use containerized deployments with automatic scaling, ensuring high availability and protecting against DDoS attacks. All database connections are encrypted and routed through secure, private network tunnels.</p>
           </section>
 
           <section>
-            <h2 className="text-[var(--text-main)] text-xl font-bold font-serif mb-3">Authentication Security</h2>
+            <h2 className="text-[var(--text-main)] text-xl font-bold font-display mb-3">Authentication Security</h2>
             <p>We implement JWT-based session management with automatic token rotation every 15 minutes and a strict 60-minute inactivity timeout. Sessions are cryptographically signed with a unique server secret, preventing token forgery. All authentication attempts are rate-limited to prevent credential stuffing attacks.</p>
           </section>
 
           <section>
-            <h2 className="text-[var(--text-main)] text-xl font-bold font-serif mb-3">Data Protection</h2>
+            <h2 className="text-[var(--text-main)] text-xl font-bold font-display mb-3">Data Protection</h2>
             <p>Business data is logically isolated at the branch level, ensuring no cross-contamination between organizations. Financial records including commission logs and settlement payouts use atomic database transactions to guarantee consistency. We conduct regular security audits and vulnerability assessments.</p>
           </section>
 
           <section>
-            <h2 className="text-[var(--text-main)] text-xl font-bold font-serif mb-3">Responsible Disclosure</h2>
+            <h2 className="text-[var(--text-main)] text-xl font-bold font-display mb-3">Responsible Disclosure</h2>
             <p>If you discover a security vulnerability, we encourage responsible disclosure. Please report any findings to <span className="text-[var(--color-primary)] font-bold">security@saunaspa.rw</span>. We commit to acknowledging reports within 24 hours and providing updates throughout the resolution process.</p>
           </section>
         </article>
