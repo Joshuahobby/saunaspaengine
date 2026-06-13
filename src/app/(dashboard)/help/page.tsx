@@ -145,7 +145,7 @@ export default async function HelpPage() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                    <button className="px-10 py-5 bg-[var(--color-primary)] text-[var(--text-main)] font-bold rounded-2xl hover:scale-[1.02] transition-transform text-xs uppercase tracking-widest shadow-xl shadow-[var(--color-primary)]/20">
+                    <button className="px-10 py-5 bg-[var(--color-primary)] text-white font-bold rounded-2xl hover:scale-[1.02] transition-transform text-xs uppercase tracking-widest shadow-xl shadow-[var(--color-primary)]/20">
                         Initiate Support Ticket
                     </button>
                     <button className="px-10 py-5 bg-[var(--bg-card)] border border-[var(--border-muted)] text-[var(--text-main)] font-bold rounded-2xl hover:bg-[var(--bg-surface-muted)] transition-all text-xs uppercase tracking-widest">
