@@ -82,7 +82,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                     <h1 className="text-3xl lg:text-4xl font-serif font-bold text-[var(--text-main)] italic tracking-tight leading-tight">
                         Audit <span className="text-[var(--color-primary)]">Integrity</span> Hub
                     </h1>
-                    <p className="text-sm text-[var(--text-muted)] font-medium italic">Architectural record of platform resonance and structural shifts.</p>
+                    <p className="text-sm text-[var(--text-muted)] font-medium italic">Complete record of all platform actions and changes.</p>
                  </div>
 
                  <div className="flex items-center gap-4 relative z-10">
@@ -100,7 +100,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                     
                     <button className="px-6 py-2.5 rounded-xl bg-[var(--text-main)] text-[var(--bg-app)] text-[9px] font-black uppercase tracking-[0.2em] shadow-xl hover:scale-[1.05] active:scale-[0.98] transition-all flex items-center gap-2 group/export">
                          <span className="material-symbols-outlined text-sm">cloud_download</span>
-                         Export Nexus Logs
+                         Export Logs
                     </button>
                  </div>
             </div>
@@ -120,33 +120,33 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                 <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] group-focus-within:text-[var(--color-primary)] transition-colors">search</span>
                                 <input 
                                     className="w-full h-12 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl pl-12 pr-6 text-[11px] font-bold text-[var(--text-main)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all"
-                                    placeholder="SEARCH ACTOR OR SIGNAL ENTITY..."
+                                    placeholder="SEARCH LOGS..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                 />
                             </div>
                             
                             <div className="flex items-center gap-3 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] px-4 py-2.5 rounded-xl group/filter">
-                                <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Actor Spectrum</span>
-                                <select 
+                                <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Role</span>
+                                <select
                                     title="Filter by Role"
                                     aria-label="Filter logs by actor role"
                                     className="bg-transparent border-none p-0 focus:ring-0 text-[10px] font-black text-[var(--text-main)] uppercase tracking-widest cursor-pointer outline-none"
                                 >
-                                    <option>All Archetypes</option>
+                                    <option>All Roles</option>
                                     <option>System Admin</option>
                                     <option>Branch Manager</option>
                                 </select>
                             </div>
 
                             <div className="flex items-center gap-3 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] px-4 py-2.5 rounded-xl group/filter">
-                                <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Signal Scope</span>
-                                <select 
+                                <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Action</span>
+                                <select
                                     title="Filter by Action"
                                     aria-label="Filter logs by action type"
                                     className="bg-transparent border-none p-0 focus:ring-0 text-[10px] font-black text-[var(--text-main)] uppercase tracking-widest cursor-pointer outline-none"
                                 >
-                                    <option>All Action Variants</option>
+                                    <option>All Actions</option>
                                     <option>CREATE</option>
                                     <option>UPDATE</option>
                                     <option>DELETE</option>
@@ -156,7 +156,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
 
                             <button className="h-12 px-6 rounded-xl border border-dashed border-[var(--border-muted)] text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest hover:border-[var(--color-primary)]/30 hover:text-[var(--color-primary)] transition-all flex items-center gap-2 italic">
                                 <span className="material-symbols-outlined text-sm">filter_alt_off</span>
-                                Reset Signal Null
+                                Reset Filters
                             </button>
                         </div>
 
@@ -166,7 +166,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                 <table className="w-full text-left border-collapse min-w-[1100px]">
                                     <thead>
                                         <tr className="bg-[var(--bg-app)] border-b border-[var(--border-muted)]">
-                                            {["Nexus Timing", "Resonant Actor", "Signal Signature", "Nexus Entity", "Resonance Details", "Manifest Status"].map((h) => (
+                                            {["Timestamp", "User", "Action", "Entity", "Details", "Status"].map((h) => (
                                                 <th key={h} className="px-8 py-5 text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)] italic">{h}</th>
                                             ))}
                                         </tr>
@@ -219,7 +219,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                                         <td className="px-8 py-5">
                                                             <div className="max-w-[280px]">
                                                                 <p className="text-[11px] font-serif font-medium text-[var(--text-muted)] italic leading-relaxed group-hover:text-[var(--text-main)] transition-colors line-clamp-2" title={log.details || ""}>
-                                                                    {log.details || "Manifest records verified."}
+                                                                    {log.details || "No details recorded."}
                                                                 </p>
                                                                 {log.reason && (
                                                                     <div className="flex items-center gap-1.5 mt-2 text-orange-400/60 group-hover:text-orange-400 transition-colors">
@@ -231,7 +231,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                                         </td>
                                                         <td className="px-8 py-5">
                                                             <span className={`px-4 py-1.5 rounded-full border text-[7px] font-black uppercase tracking-[0.2em] shadow-sm backdrop-blur-md transition-all ${getStatusStyle(log.action)}`}>
-                                                                {log.action === "OVERRIDE" ? "Override Imprinted" : "Sync Success"}
+                                                                {log.action === "OVERRIDE" ? "Override Applied" : "Logged"}
                                                             </span>
                                                         </td>
                                                     </motion.tr>
@@ -242,7 +242,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                                 <td colSpan={6} className="px-8 py-24 text-center">
                                                     <div className="flex flex-col items-center gap-4 opacity-20">
                                                         <span className="material-symbols-outlined text-4xl">inventory_2</span>
-                                                        <p className="text-[10px] font-black uppercase tracking-[0.3em] font-serif italic text-white/80">Signal Nexus Empty</p>
+                                                        <p className="text-[10px] font-black uppercase tracking-[0.3em] font-serif italic text-white/80">No Logs Found</p>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -252,12 +252,12 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                             </div>
                         </div>
 
-                        {/* Nexus Pagination */}
+                        {/* Pagination */}
                         <div className="flex items-center justify-between border-t border-[var(--border-muted)] pt-8">
-                            <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic">Current resonance scan: <span className="text-[var(--text-main)]">1-50 entries</span></p>
+                            <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic">Showing <span className="text-[var(--text-main)]">1–50 entries</span></p>
                             <div className="flex gap-4">
-                                <button disabled className="px-6 py-2.5 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-surface-muted)] text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest cursor-not-allowed italic transition-all">Previous Nexus</button>
-                                <button className="px-8 py-2.5 rounded-xl bg-[var(--text-main)] text-[var(--bg-app)] text-[9px] font-black uppercase tracking-widest shadow-xl hover:scale-[1.05] active:scale-[0.98] transition-all italic">Next Spectrum</button>
+                                <button disabled className="px-6 py-2.5 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-surface-muted)] text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest cursor-not-allowed italic transition-all">Previous</button>
+                                <button className="px-8 py-2.5 rounded-xl bg-[var(--text-main)] text-[var(--bg-app)] text-[9px] font-black uppercase tracking-widest shadow-xl hover:scale-[1.05] active:scale-[0.98] transition-all italic">Next</button>
                             </div>
                         </div>
                     </motion.div>
@@ -275,12 +275,12 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                 <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] group-focus-within:text-[var(--color-primary)] transition-colors">search</span>
                                 <input 
                                     className="w-full h-14 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl pl-12 pr-6 text-[11px] font-bold text-[var(--text-main)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all"
-                                    placeholder="SEARCH ARCHETYPAL PERMISSIONS..."
+                                    placeholder="SEARCH PERMISSIONS..."
                                 />
                             </div>
                             <div className="flex gap-4">
                                 <button className="flex-1 h-14 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest hover:text-[var(--text-main)] hover:border-[var(--border-main)] transition-all italic">All Categories</button>
-                                <button className="flex-1 h-14 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl text-[9px] font-black tracking-widest hover:bg-emerald-500/20 transition-all italic">Active Shifts</button>
+                                <button className="flex-1 h-14 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl text-[9px] font-black tracking-widest hover:bg-emerald-500/20 transition-all italic">Active Only</button>
                             </div>
                         </div>
 
@@ -292,14 +292,14 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                         <tr className="bg-[var(--bg-app)] border-b border-[var(--border-muted)]">
                                             <th className="px-10 py-8 w-1/3">
                                                 <div className="flex flex-col gap-1">
-                                                    <span className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-[0.2em] italic">nexus domain</span>
-                                                    <span className="text-[12px] font-serif font-black text-[var(--text-main)] italic">Signal Functionality Mapping</span>
+                                                    <span className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-[0.2em] italic">Permission</span>
+                                                    <span className="text-[12px] font-serif font-black text-[var(--text-main)] italic">Access Matrix</span>
                                                 </div>
                                             </th>
-                                            {["Nexus Admin", "Branch Manager", "Lead Manager", "Staff Branch"].map((role) => (
+                                            {["Admin", "Manager", "Lead Manager", "Staff"].map((role) => (
                                                 <th key={role} className="px-6 py-8 text-center">
                                                     <div className="flex flex-col items-center gap-1">
-                                                        <span className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic">archetype</span>
+                                                        <span className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic">Role</span>
                                                         <span className="text-[11px] font-serif font-black text-[var(--text-main)] italic">{role}</span>
                                                     </div>
                                                 </th>
@@ -308,26 +308,26 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                     </thead>
                                     <tbody className="divide-y divide-[var(--border-muted)]">
                                         <PermissionCategory title="Financial Orchestration" />
-                                        <PermissionRow 
-                                            title="Nexus Financial Reporting" 
-                                            desc="Depth view of platform-wide yield metrics and revenue resonance." 
+                                        <PermissionRow
+                                            title="Financial Reporting"
+                                            desc="View platform-wide revenue metrics and financial summaries."
                                             checks={[true, true, true, false]}
                                         />
-                                        <PermissionRow 
-                                            title="Signal Refund Nexus" 
-                                            desc="Authorization to reverse financial imprints and process returns." 
+                                        <PermissionRow
+                                            title="Refund Processing"
+                                            desc="Reverse transactions and process refunds."
                                             checks={[true, true, false, false]}
                                         />
-                                        
-                                        <PermissionCategory title="Operational Currents" />
-                                        <PermissionRow 
-                                            title="Branch Service Mapping" 
-                                            desc="Modify and calibrate logistical logs for active service nodes." 
+
+                                        <PermissionCategory title="Operations" />
+                                        <PermissionRow
+                                            title="Service Management"
+                                            desc="Configure and manage services across branches."
                                             checks={[true, true, true, true]}
                                         />
-                                        <PermissionRow 
-                                            title="Architectural Override" 
-                                            desc="Force calibrate records finalized by the core platform engine." 
+                                        <PermissionRow
+                                            title="Record Override"
+                                            desc="Modify records already finalized by the system."
                                             checks={[true, true, false, false]}
                                         />
                                     </tbody>
@@ -348,14 +348,14 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                     <span className="material-symbols-outlined text-black text-2xl font-black italic">verified_user</span>
                                 </div>
                                 <div className="space-y-0.5">
-                                    <p className="text-xl font-serif font-black italic">Nexus Audit Active</p>
-                                    <p className="text-[10px] font-black text-black/50 uppercase tracking-widest italic leading-tight">Every shift is securely recorded in the platform nexus history.</p>
+                                    <p className="text-xl font-serif font-black italic">Audit Trail Active</p>
+                                    <p className="text-[10px] font-black text-black/50 uppercase tracking-widest italic leading-tight">Every action is securely recorded in the platform audit log.</p>
                                 </div>
                              </div>
 
                              <div className="flex gap-4 w-full sm:w-auto relative z-10">
-                                <button className="flex-1 sm:flex-none px-10 py-4 bg-black/5 hover:bg-black/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] italic transition-all border border-black/10">Discard Shifts</button>
-                                <button className="flex-1 sm:flex-none px-12 py-4 bg-black text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] italic hover:scale-[1.05] active:scale-[0.98] transition-all shadow-xl shadow-black/20">Imprint Matrix</button>
+                                <button className="flex-1 sm:flex-none px-10 py-4 bg-black/5 hover:bg-black/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] italic transition-all border border-black/10">Discard Changes</button>
+                                <button className="flex-1 sm:flex-none px-12 py-4 bg-black text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] italic hover:scale-[1.05] active:scale-[0.98] transition-all shadow-xl shadow-black/20">Save Changes</button>
                              </div>
                         </motion.div>
                     </motion.div>
@@ -392,7 +392,7 @@ function PermissionRow({ title, desc, checks }: { title: string, desc: string, c
                                 type="checkbox" 
                                 defaultChecked={checked} 
                                 className="sr-only peer"
-                                aria-label={`Toggle ${title} permission for archetype ${i}`}
+                                aria-label={`Toggle ${title} permission for role ${i}`}
                             />
                             <div className="w-12 h-6 bg-[var(--bg-app)] border border-[var(--border-muted)] rounded-full peer peer-checked:bg-[var(--color-primary)]/20 peer-checked:border-[var(--color-primary)]/40 transition-all duration-500 after:content-[''] after:absolute after:top-1 after:left-1 after:bg-[var(--text-muted)]/20 peer-checked:after:bg-[var(--color-primary)] after:rounded-lg after:h-4 after:w-4 after:transition-all after:duration-500 peer-checked:after:translate-x-6 peer-checked:after:rotate-[360deg] shadow-inner group-hover/toggle:scale-110" />
                         </label>

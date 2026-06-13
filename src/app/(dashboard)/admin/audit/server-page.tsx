@@ -4,7 +4,7 @@ import AdminAuditClientPage from "./client-page";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Audit Nexus | System Integrity",
+    title: "Audit Log | System Integrity",
     description: "Immutable logs and permissions management for platform governance.",
 };
 

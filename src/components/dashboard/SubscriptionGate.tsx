@@ -70,7 +70,7 @@ export function SubscriptionGate({ children, state }: SubscriptionGateProps) {
                     </p>
                     <div className="flex items-center justify-center gap-3">
                         <span className="h-1.5 w-12 rounded-full bg-[var(--color-primary)] opacity-30" />
-                        <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-primary)]">Sacred Sanctuary Policy</span>
+                        <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-primary)]">Subscription Policy</span>
                         <span className="h-1.5 w-12 rounded-full bg-[var(--color-primary)] opacity-30" />
                     </div>
                 </div>

@@ -360,10 +360,10 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                                 </div>
 
                                 <div className="space-y-3">
-                                    <label htmlFor="pass-type" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic ml-4">Logic Archetype</label>
-                                     <select 
+                                    <label htmlFor="pass-type" className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic ml-4">Pass Type</label>
+                                     <select
                                         id="pass-type"
-                                        title="Logic Archetype"
+                                        title="Pass Type"
                                         value={formData.type}
                                         onChange={e => setFormData({...formData, type: e.target.value as MembershipType})}
                                         className="w-full h-16 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-3xl px-8 text-sm font-black text-[var(--text-main)] uppercase tracking-widest outline-none focus:border-[var(--color-primary)] transition-all appearance-none"

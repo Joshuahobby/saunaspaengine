@@ -46,7 +46,7 @@ export default function LoginPage() {
                     <Suspense fallback={
                         <div className="bg-[var(--bg-card)] p-8 md:p-12 rounded-[2.5rem] shadow-xl border border-[var(--border-main)] flex flex-col items-center justify-center min-h-[400px]">
                             <span className="material-symbols-outlined animate-spin text-4xl text-[var(--color-primary)]">progress_activity</span>
-                            <p className="mt-4 text-[var(--text-muted)] font-bold">Preparing Sanctuary...</p>
+                            <p className="mt-4 text-[var(--text-muted)] font-bold">Loading...</p>
                         </div>
                     }>
                         <LoginForm />

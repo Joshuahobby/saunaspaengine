@@ -100,7 +100,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                 
                                 <div className="flex justify-between items-start mb-8 relative z-10">
                                     <div className="space-y-1">
-                                        <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">Response Resonance</h3>
+                                        <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">Response Latency</h3>
                                         <p className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Global latency fluctuations across the edge network.</p>
                                     </div>
                                     <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[8px] font-black uppercase tracking-widest rounded-full">Optimal Range (2-14ms)</span>
@@ -261,7 +261,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                     <span className="material-symbols-outlined text-xl italic font-bold">terminal</span>
                                 </div>
                                 <div>
-                                    <h3 className="text-xl font-serif font-bold italic text-[var(--text-main)]">System Archetype Logs</h3>
+                                    <h3 className="text-xl font-serif font-bold italic text-[var(--text-main)]">System Logs</h3>
                                     <p className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-widest italic animate-pulse mt-0.5">Live Diagnostic Stream</p>
                                 </div>
                             </div>
@@ -325,7 +325,7 @@ function DiagnosticServiceItem({ name, status, type, latency }: { name: string, 
                 </div>
                 <div className="flex flex-col">
                     <span className="font-serif font-bold text-sm text-[var(--text-main)] italic group-node:text-[var(--color-primary)] transition-colors">{name}</span>
-                    <span className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">{latency} Resonance</span>
+                    <span className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">{latency} Latency</span>
                 </div>
             </div>
             <span className={`px-4 py-1.5 rounded-full text-[8px] font-black uppercase tracking-widest border ${type === 'success' ? 'text-emerald-500 border-emerald-500/20' : 'text-amber-500 border-amber-500/20'}`}>{status}</span>

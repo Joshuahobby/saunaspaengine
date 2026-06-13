@@ -105,21 +105,15 @@ export default function LoginForm() {
                     {isPending ? (
                         <>
                             <span className="material-symbols-outlined animate-spin text-xl">progress_activity</span>
-                            <span>Awakening Sanctuary...</span>
+                            <span>Signing In...</span>
                         </>
                     ) : (
                         <>
                             <span className="material-symbols-outlined font-black">login</span>
-                            Enter Sanctuary
+                            Sign In
                         </>
                     )}
                 </button>
-                
-                {isPending && (
-                    <p className="text-center text-[10px] text-[var(--text-muted)] mt-5 font-black uppercase tracking-widest animate-pulse opacity-60">
-                        Connecting to Secure Vault. This may take a few moments.
-                    </p>
-                )}
 
             </form>
 

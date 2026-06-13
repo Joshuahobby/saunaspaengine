@@ -97,7 +97,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                 <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[var(--color-primary)] opacity-[0.03] blur-[150px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
                 <div className="space-y-2 relative z-10">
                     <h1 className="text-4xl lg:text-6xl font-serif font-black italic tracking-tighter leading-none">
-                        Intelligence <span className="text-[var(--color-primary)]">Manifest</span>
+                        Executive <span className="text-[var(--color-primary)]">Analytics</span>
                     </h1>
                     <p className="text-sm text-[var(--text-muted)] font-bold uppercase tracking-[0.3em] italic">Network-wide Financial Oversight & Strategy</p>
                 </div>

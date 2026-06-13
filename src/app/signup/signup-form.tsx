@@ -226,7 +226,7 @@ export function SignupForm({ plans }: SignupFormProps) {
                                 className="w-full py-4 rounded-xl border border-[var(--border-main)] bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-[10px] font-black uppercase tracking-widest hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all flex items-center justify-center gap-2 group"
                             >
                                 <span className="material-symbols-outlined text-base group-hover:-translate-x-1 transition-transform">login</span>
-                                Sign In to Sanctuary
+                                Sign In
                             </Link>
                         </div>
                     </form>

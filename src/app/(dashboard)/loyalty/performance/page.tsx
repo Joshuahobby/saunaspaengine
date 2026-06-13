@@ -79,7 +79,7 @@ export default async function LoyaltyPerformancePage() {
                         <span className="material-symbols-outlined text-2xl font-bold animate-float">celebration</span>
                         <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">30-Day Growth Milestone</span>
                     </div>
-                    <h1 className="text-5xl font-display font-bold leading-tight tracking-tight">Loyalty <span className="text-[var(--color-primary)] underline decoration-2 decoration-[var(--color-primary)]/20 underline-offset-8">Oracle</span></h1>
+                    <h1 className="text-5xl font-display font-bold leading-tight tracking-tight">Loyalty <span className="text-[var(--color-primary)] underline decoration-2 decoration-[var(--color-primary)]/20 underline-offset-8">Analytics</span></h1>
                     <p className="text-[var(--text-muted)] text-xl font-bold max-w-2xl leading-relaxed">Your loyalty initiative is driving higher retention and incremental revenue across all branches.</p>
                 </div>
                 <div className="flex gap-3">

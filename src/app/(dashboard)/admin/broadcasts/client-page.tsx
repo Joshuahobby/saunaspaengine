@@ -171,7 +171,7 @@ export default function AdminBroadcastsClientPage() {
                                         <input 
                                             value={subject}
                                             onChange={e => setSubject(e.target.value)}
-                                            placeholder="Archetype Synchronization..."
+                                            placeholder="Broadcast subject..."
                                             className="w-full h-14 bg-black/20 border border-[var(--border-muted)] rounded-2xl px-6 text-sm font-serif font-bold text-white outline-none hover:border-[var(--color-primary)]/40 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all"
                                         />
                                     </div>
@@ -226,11 +226,11 @@ export default function AdminBroadcastsClientPage() {
                         {/* Quick Metrics sidebar */}
                         <div className="xl:col-span-4 space-y-8">
                              <div className="rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm backdrop-blur-md relative overflow-hidden group">
-                                <h3 className="text-xl font-serif font-bold text-white mb-8 border-b border-[var(--border-muted)] pb-5">Signal Resonance</h3>
+                                <h3 className="text-xl font-serif font-bold text-white mb-8 border-b border-[var(--border-muted)] pb-5">Broadcast Stats</h3>
                                 <div className="space-y-8">
                                     <ResonanceCard label="Total Reach" value="1,248" sub="Global Branches" icon="groups_3" />
-                                    <ResonanceCard label="Engagement" value="94.2%" sub="Sync Rate" icon="query_stats" />
-                                    <ResonanceCard label="Signal Health" value="Optimal" sub="Low Latency" icon="verified" />
+                                    <ResonanceCard label="Engagement" value="94.2%" sub="Open Rate" icon="query_stats" />
+                                    <ResonanceCard label="Delivery Health" value="Optimal" sub="Low Latency" icon="verified" />
                                 </div>
                              </div>
 

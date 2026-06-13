@@ -215,7 +215,7 @@ export default async function AdminSettingsPage({
                                     <p className="text-4xl font-display font-bold text-[var(--color-primary)] tracking-tight">{activeRegionData?.taxRate}% <span className="text-[var(--text-muted)] text-xs font-sans ml-1">VAT</span></p>
                                 </div>
                                 <div className="p-8 bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2rem] shadow-sm hover:border-[var(--color-primary)]/30 transition-all group/stat">
-                                    <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4 opacity-50 group-hover/stat:opacity-100 transition-opacity">Currency Resonance</p>
+                                    <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mb-4 opacity-50 group-hover/stat:opacity-100 transition-opacity">Currency</p>
                                     <p className="text-4xl font-display font-bold text-[var(--text-main)] tracking-tight">{activeRegionData?.currency}</p>
                                 </div>
                                 <div className="p-8 bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2rem] shadow-sm hover:border-[var(--color-primary)]/30 transition-all group/stat">
@@ -266,9 +266,9 @@ export default async function AdminSettingsPage({
                             <thead>
                                 <tr className="bg-[var(--bg-surface-muted)]/10 border-b border-[var(--border-muted)]">
                                     <th className="py-8 px-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-40">Timestamp</th>
-                                    <th className="py-8 px-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-40">Oracle</th>
-                                    <th className="py-8 px-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-40">Operation Manifest</th>
-                                    <th className="py-8 px-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-40 text-right">Sanctity</th>
+                                    <th className="py-8 px-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-40">Author</th>
+                                    <th className="py-8 px-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-40">Operation</th>
+                                    <th className="py-8 px-10 text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] opacity-40 text-right">Status</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-[var(--border-muted)]">
@@ -290,7 +290,7 @@ export default async function AdminSettingsPage({
                                                     <div className="size-11 rounded-2xl bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] text-[10px] flex items-center justify-center font-bold text-[var(--color-primary)] transition-all group-hover:border-[var(--color-primary)]/30 group-hover:shadow-[0_0_15px_var(--color-primary)]/10">
                                                         {log.user?.fullName?.substring(0, 2).toUpperCase() || "SY"}
                                                     </div>
-                                                    <span className="text-sm font-display font-bold text-[var(--text-main)]">{log.user?.fullName || "System Oracle"}</span>
+                                                    <span className="text-sm font-display font-bold text-[var(--text-main)]">{log.user?.fullName || "System"}</span>
                                                 </div>
                                             </td>
                                             <td className="py-8 px-10 max-w-md">

@@ -192,7 +192,7 @@ export default function EmployeeUI({ employee, categories, branches, isOwner, in
                         <div className="bg-[var(--bg-card)] border border-[var(--border-main)] rounded-[24px] flex flex-col h-[600px] shadow-sm">
                             <div className="px-6 py-4 border-b border-[var(--border-muted)] flex items-center justify-between">
                                 <div className="text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-wider">
-                                    Historical Service Manifest
+                                    Service History
                                 </div>
                                 <div className="text-[var(--text-muted)] opacity-20 text-[8px] font-bold uppercase tracking-[0.2em] lg:flex items-center gap-2 hidden">
                                     <Activity className="size-3" />

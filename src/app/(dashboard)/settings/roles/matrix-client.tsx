@@ -95,7 +95,7 @@ export default function MatrixClient({ initialMatrix }: MatrixClientProps) {
                     <div>
                         <h2 className="text-2xl font-display font-bold text-[var(--text-main)]">Authority Configuration Matrix</h2>
                         <p className="text-sm font-bold text-[var(--text-muted)] opacity-60 mt-1">
-                            {lastSaved ? `Last configuration synchronized at ${lastSaved.toLocaleTimeString()}` : "Cross-referencing operational capabilities across archetypes."}
+                            {lastSaved ? `Last saved at ${lastSaved.toLocaleTimeString()}` : "Configure permissions for each role."}
                         </p>
                     </div>
                     <div className="flex gap-4">

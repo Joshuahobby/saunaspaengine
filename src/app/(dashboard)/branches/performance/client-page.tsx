@@ -130,7 +130,7 @@ export default function BranchesPerformanceClient({ stats, leaderboard }: Branch
 
                         <div className="absolute top-[60%] left-[75%] group cursor-pointer z-10 transition-transform duration-500 hover:scale-125">
                             <div className="w-6 h-6 bg-[var(--color-primary)] rounded-full relative border-[3px] border-[var(--bg-card)] shadow-xl"></div>
-                            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-[var(--text-main)] text-[var(--bg-app)] text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap z-20 italic">Tokyo Sanctuary</div>
+                            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-[var(--text-main)] text-[var(--bg-app)] text-[9px] font-bold uppercase tracking-widest px-4 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap z-20 italic">Tokyo Branch</div>
                         </div>
                     </div>
                 </div>

@@ -53,7 +53,7 @@ export default function LegalTemplatesClientPage() {
                         <table className="w-full text-left border-collapse min-w-[1000px]">
                             <thead>
                                 <tr className="bg-[var(--bg-surface-muted)]/5 border-b border-[var(--border-muted)]">
-                                    <th className="px-10 py-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40">Document Archetype</th>
+                                    <th className="px-10 py-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40">Document Type</th>
                                     <th className="px-10 py-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40">Territory</th>
                                     <th className="px-10 py-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40">Iteration</th>
                                     <th className="px-10 py-8 text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40">Harmonic Shift</th>
@@ -109,8 +109,8 @@ export default function LegalTemplatesClientPage() {
                             <span className="material-symbols-outlined text-4xl font-bold">verified_user</span>
                         </div>
                         <div className="space-y-4 relative z-10">
-                            <h3 className="text-4xl font-display font-bold tracking-tight">Standardized <span className="text-[var(--color-primary)] underline decoration-4 decoration-[var(--color-primary)]/20 underline-offset-8">Compliance</span> Archetype</h3>
-                            <p className="text-[var(--bg-app)] opacity-60 text-xl leading-relaxed max-w-3xl">Ensure every sanctuary operates under the same legal shield. Updates made here permeate your entire branch infrastructure throughout the universal plane.</p>
+                            <h3 className="text-4xl font-display font-bold tracking-tight">Standardized <span className="text-[var(--color-primary)] underline decoration-4 decoration-[var(--color-primary)]/20 underline-offset-8">Compliance</span> Template</h3>
+                            <p className="text-[var(--bg-app)] opacity-60 text-xl leading-relaxed max-w-3xl">Ensure every branch operates under the same legal standards. Changes apply across your entire branch infrastructure.</p>
                         </div>
                         <button className="w-fit px-10 py-5 bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90 text-[var(--bg-app)] rounded-2xl text-[10px] font-bold uppercase tracking-[0.3em] transition-all flex items-center gap-4 shadow-xl shadow-black/10 active:scale-[0.98] relative z-10 group/broadcast">
                             Broadcast Global Update
@@ -122,7 +122,7 @@ export default function LegalTemplatesClientPage() {
                         <div className="absolute bottom-0 right-0 w-64 h-64 bg-[var(--color-primary)] opacity-[0.02] rounded-full blur-[80px] -mr-32 -mb-32 transition-opacity group-hover:opacity-[0.05]"></div>
                         
                         <div className="space-y-6 relative z-10">
-                            <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40">Resonance Statistics</h3>
+                            <h3 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--text-muted)] opacity-40">Compliance Statistics</h3>
                             <div className="flex items-baseline gap-6">
                                 <span className="text-6xl font-display font-bold tracking-tighter text-[var(--text-main)] transition-colors group-hover:text-[var(--color-primary)]">94.8%</span>
                                 <span className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 text-emerald-500 rounded-full text-[10px] font-bold tracking-widest uppercase border border-emerald-500/20">
