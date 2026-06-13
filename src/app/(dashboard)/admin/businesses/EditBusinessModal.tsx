@@ -49,8 +49,8 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
                     <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[var(--color-primary)] to-transparent opacity-50"></div>
 
                     <div className="p-10 pb-6 text-center">
-                        <h2 className="text-3xl font-serif font-black text-[var(--text-main)] italic tracking-tight">Hub Architect</h2>
-                        <p className="text-[10px] font-bold text-[var(--text-muted)] mt-2 uppercase tracking-[0.3em] italic opacity-60">Updating Organizational Identity</p>
+                        <h2 className="text-3xl font-serif font-black text-[var(--text-main)] italic tracking-tight">Edit Business</h2>
+                        <p className="text-[10px] font-bold text-[var(--text-muted)] mt-2 uppercase tracking-[0.3em] italic opacity-60">Update business details</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="p-10 pt-4 space-y-8">
@@ -66,7 +66,7 @@ export function EditBusinessModal({ isOpen, onClose, business }: { isOpen: boole
 
                         <div className="space-y-6">
                             <div className="space-y-3">
-                                <label className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic ml-2">Official Hub Name</label>
+                                <label className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] italic ml-2">Business Name</label>
                                 <input
                                     required
                                     type="text"

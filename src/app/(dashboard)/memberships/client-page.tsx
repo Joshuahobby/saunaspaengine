@@ -72,10 +72,10 @@ export default function MembershipsClientPage({ categories, branches, userRole }
             <div className="flex flex-col gap-8 border-b border-[var(--border-muted)] pb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
                 <div className="space-y-1">
                     <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold tracking-tight text-[var(--text-main)]">
-                        Memberships <span className="text-[var(--color-primary)]">Hub</span>
+                        Memberships <span className="text-[var(--color-primary)]">&amp; Passes</span>
                     </h1>
                     <p className="text-sm font-medium text-[var(--text-muted)] opacity-60">
-                        Configure and manage the dimensional access tiers for your global client base.
+                        Configure and manage membership types and passes for your clients.
                     </p>
                 </div>
                 <motion.button 

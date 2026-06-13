@@ -28,7 +28,7 @@ export default function BranchesPerformanceClient({ stats, leaderboard }: Branch
                 <div className="flex flex-col gap-4">
                     <div className="flex items-center gap-3 text-[var(--color-primary)]">
                         <span className="material-symbols-outlined text-2xl font-bold animate-pulse">language</span>
-                        <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">Global Strategy Hub</span>
+                        <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">Performance Overview</span>
                     </div>
                     <h1 className="text-5xl font-display font-bold leading-tight tracking-tight">Executive <span className="text-[var(--color-primary)] underline decoration-2 decoration-[var(--color-primary)]/20 underline-offset-8">Portfolio</span></h1>
                     <p className="text-[var(--text-muted)] text-xl font-medium max-w-2xl leading-relaxed">Multi-branch strategic oversight and real-time performance monitoring across your entire network.</p>

@@ -128,7 +128,7 @@ export default function BranchSwitcher({ branches, activeBranchId: propActiveBra
                                             href={`/branches/${branch.id}`}
                                             onClick={() => setIsOpen(false)}
                                             className="size-9 rounded-xl flex items-center justify-center text-[var(--text-muted)] hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)] transition-all border border-transparent hover:border-[var(--color-primary)]/20 shadow-sm"
-                                            title="View Executive Hub"
+                                            title="View branch details"
                                         >
                                             <span className="material-symbols-outlined text-[18px]">query_stats</span>
                                         </Link>

@@ -80,7 +80,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                  
                  <div className="space-y-1 relative z-10">
                     <h1 className="text-3xl lg:text-4xl font-serif font-bold text-[var(--text-main)] italic tracking-tight leading-tight">
-                        Audit <span className="text-[var(--color-primary)]">Integrity</span> Hub
+                        Audit <span className="text-[var(--color-primary)]">Log</span>
                     </h1>
                     <p className="text-sm text-[var(--text-muted)] font-medium italic">Complete record of all platform actions and changes.</p>
                  </div>

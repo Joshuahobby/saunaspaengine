@@ -263,7 +263,7 @@ export default async function DashboardPage() {
                         </Link>
                         <Link href="/safety" className="p-6 bg-[var(--bg-surface-muted)] rounded-2xl hover:bg-[var(--color-primary)]/10 transition-all text-center group border border-[var(--border-muted)]">
                             <span className="material-symbols-outlined text-3xl text-[var(--color-primary)] mb-2 block group-hover:scale-110 transition-transform">health_and_safety</span>
-                            <p className="text-sm font-bold text-[var(--text-main)]">Safety Hub</p>
+                            <p className="text-sm font-bold text-[var(--text-main)]">Safety</p>
                         </Link>
                     </div>
                 </div>

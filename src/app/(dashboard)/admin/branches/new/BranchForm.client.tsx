@@ -109,7 +109,7 @@ export function BranchForm({ availableBusinesses, session }: BranchFormProps) {
                         <input
                             required
                             type="text"
-                            placeholder="e.g. Kigali Downtown Hub"
+                            placeholder="e.g. Kigali Downtown"
                             value={formData.name}
                             onChange={(e) => setFormData(d => ({ ...d, name: e.target.value }))}
                             className="w-full h-12 bg-[var(--bg-surface-muted)]/10 border border-[var(--border-muted)] rounded-xl px-4 font-bold text-sm text-[var(--text-main)] focus:border-[var(--color-primary)]/40 focus:ring-4 focus:ring-[var(--color-primary)]/10 outline-none transition-all placeholder:text-[var(--text-muted)] placeholder:opacity-30 italic"

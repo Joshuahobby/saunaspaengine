@@ -20,7 +20,7 @@ export default function StaffError({
             </div>
             <div className="space-y-2">
                 <h2 className="text-2xl font-display font-bold text-[var(--text-main)]">
-                    Couldn&apos;t load the Staff Hub
+                    Couldn&apos;t load the Team page
                 </h2>
                 <p className="text-sm text-[var(--text-muted)] max-w-sm">
                     {error.message || "An unexpected error occurred loading this page."}
