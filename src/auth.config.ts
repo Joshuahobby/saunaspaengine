@@ -59,7 +59,12 @@ export const authConfig: NextAuthConfig = {
                 nextUrl.pathname.startsWith("/developer/") ||
                 nextUrl.pathname.startsWith("/demo/") ||
                 nextUrl.pathname.startsWith("/receipt/") ||
-                nextUrl.pathname.startsWith("/forgot-password");
+                nextUrl.pathname.startsWith("/forgot-password") ||
+                nextUrl.pathname === "/icon" ||
+                nextUrl.pathname === "/apple-icon" ||
+                nextUrl.pathname === "/favicon.ico" ||
+                nextUrl.pathname === "/robots.txt" ||
+                nextUrl.pathname === "/sitemap.xml";
 
             if (isApiAuthRoute) return true;
 
