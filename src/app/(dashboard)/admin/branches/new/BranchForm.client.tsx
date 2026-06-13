@@ -70,7 +70,7 @@ export function BranchForm({ availableBusinesses, session }: BranchFormProps) {
                 <div className="mb-8 space-y-2 relative z-10">
                     <h1 className="text-3xl font-serif font-black text-white italic tracking-tight">Register New Branch</h1>
                     <p className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest italic opacity-60">
-                        {session.user?.role === "OWNER" ? "Expand your business footprint with a new location." : "Provision a new operational branch for the network."}
+                        {session.user?.role === "OWNER" ? "Expand your business footprint with a new location." : "Add a new branch location to the platform."}
                     </p>
                 </div>
 
@@ -157,7 +157,7 @@ export function BranchForm({ availableBusinesses, session }: BranchFormProps) {
                             onClick={() => router.back()}
                             className="flex-1 h-12 rounded-xl text-[10px] font-black tracking-widest uppercase text-[var(--text-muted)] border border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)]/5 transition-all"
                         >
-                            Abort
+                            Cancel
                         </button>
                         <button
                             type="submit"
@@ -168,7 +168,7 @@ export function BranchForm({ availableBusinesses, session }: BranchFormProps) {
                                 <span className="size-4 border-2 border-black border-t-transparent rounded-full animate-spin"></span>
                             ) : (
                                 <>
-                                    Provision Branch
+                                    Create Branch
                                     <span className="material-symbols-outlined text-sm font-bold group-hover:translate-x-1 transition-transform italic">arrow_forward</span>
                                 </>
                             )}

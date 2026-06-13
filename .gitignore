@@ -62,3 +62,4 @@ lint_full_output.txt
 lint_output.txt
 
 .vercel
+.gstack/

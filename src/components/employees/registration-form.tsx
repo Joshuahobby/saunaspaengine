@@ -126,7 +126,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                                 placeholder="e.g. jean.pierre@saunaspa.rw"
                                 className="w-full px-4 py-3 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl text-sm focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all"
                             />
-                            <p className="text-[9px] text-[var(--text-muted)] opacity-60 px-1">This email will be used as the employee&apos;s login credential.</p>
+                            <p className="text-xs text-[var(--text-muted)] opacity-60 px-1">This email will be used as the employee&apos;s login credential.</p>
                         </div>
                     </div>
                 </div>
@@ -173,13 +173,13 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                                             />
                                         ))}
                                     </div>
-                                    <p className={`text-[9px] font-bold uppercase tracking-widest ${
+                                    <p className={`text-xs font-bold uppercase tracking-widest ${
                                         strength.label === "Weak" ? "text-red-500" : strength.label === "Fair" ? "text-yellow-500" : "text-green-500"
                                     }`}>{strength.label}</p>
                                 </div>
                             )}
                             {passwordError && (
-                                <p className="text-[9px] text-red-400 font-medium px-1">{passwordError}</p>
+                                <p className="text-xs text-red-400 font-medium px-1">{passwordError}</p>
                             )}
                         </div>
 
@@ -197,12 +197,12 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                                 }`}
                             />
                             {passwordMismatch && (
-                                <p className="text-[9px] text-red-400 font-medium px-1">Passwords do not match.</p>
+                                <p className="text-xs text-red-400 font-medium px-1">Passwords do not match.</p>
                             )}
                         </div>
                     </div>
                     <div className="mt-3 p-3 bg-[var(--bg-surface-muted)]/50 rounded-lg border border-[var(--border-muted)]">
-                        <p className="text-[9px] text-[var(--text-muted)] opacity-60 leading-relaxed">
+                        <p className="text-xs text-[var(--text-muted)] opacity-60 leading-relaxed">
                             <span className="font-bold">Password Requirements:</span> Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number, and one special character.
                         </p>
                     </div>
@@ -243,7 +243,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                                 placeholder="5.0"
                                 className="w-full px-4 py-3 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-xl text-sm focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all"
                             />
-                            <p className="text-[9px] text-[var(--text-muted)] opacity-60 px-1">Percentage of service revenue paid as commission.</p>
+                            <p className="text-xs text-[var(--text-muted)] opacity-60 px-1">Percentage of service revenue paid as commission.</p>
                         </div>
 
                         <div className="space-y-2">

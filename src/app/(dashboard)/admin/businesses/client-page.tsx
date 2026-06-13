@@ -241,7 +241,7 @@ function BranchHubRow({ biz, onEdit, onDelete, onToggleStatus, isToggling }: Bra
             <td className="px-4 py-5 text-center">
                 <div className="inline-flex flex-col items-center">
                     <span className="font-sans font-black text-xs text-[var(--text-main)]">{biz.activeBranches} / {biz.totalBranches}</span>
-                    <span className="text-[8px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-40">Deployed Branches</span>
+                    <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-40">Active Branches</span>
                 </div>
             </td>
             <td className="px-4 py-5 text-center">

@@ -163,7 +163,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                             <div className="xl:col-span-4 rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm flex flex-col relative overflow-hidden backdrop-blur-md">
                                 <div className="mb-6 border-b border-[var(--border-muted)] pb-6">
                                     <h3 className="text-xl font-serif font-bold text-white italic">Service Anchors</h3>
-                                    <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1">Health of foundational infrastructure services.</p>
+                                    <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1">Health of core platform services.</p>
                                 </div>
                                 <div className="space-y-3 flex-1">
                                     <DiagnosticServiceItem name="Prisma/Relational" status="Online" type="success" latency="2ms" />

@@ -70,7 +70,7 @@ export default async function HelpPage() {
             <div className="mb-16 space-y-6">
                 <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-full text-[9px] font-bold uppercase tracking-[0.2em] text-[var(--text-muted)]">
                     <span className="material-symbols-outlined text-[14px]">info</span>
-                    Knowledge & Support Hub
+                    Help & Documentation
                 </div>
                 <div className="flex items-baseline gap-6">
                     <h1 className="text-6xl font-display font-bold tracking-tight text-[var(--text-main)] shrink-0">

@@ -99,12 +99,12 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                     <h1 className="text-4xl lg:text-6xl font-serif font-black italic tracking-tighter leading-none">
                         Executive <span className="text-[var(--color-primary)]">Analytics</span>
                     </h1>
-                    <p className="text-sm text-[var(--text-muted)] font-bold uppercase tracking-[0.3em] italic">Network-wide Financial Oversight & Strategy</p>
+                    <p className="text-sm text-[var(--text-muted)] font-bold uppercase tracking-[0.3em] italic">Revenue and performance across all branches</p>
                 </div>
                 <div className="flex items-center gap-4 relative z-10">
                     <div className="hidden lg:flex flex-col items-end px-6 border-r border-[var(--border-main)]">
-                        <span className="text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Portfolio Status</span>
-                        <span className="text-xl font-serif font-black italic text-emerald-500">Active Yielding</span>
+                        <span className="text-[8px] font-black uppercase tracking-[0.2em] text-[var(--text-muted)]">Status</span>
+                        <span className="text-xl font-serif font-black italic text-emerald-500">Active</span>
                     </div>
                     <button className="px-8 py-3 rounded-2xl bg-[var(--text-main)] text-[var(--bg-app)] text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3">
                         <span className="material-symbols-outlined text-sm">print</span>
@@ -116,11 +116,11 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
             {/* High-Level KPIs */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 {[
-                    { label: "Portfolio Yield", value: formatCurrency(stats.totalRevenue), trend: `${stats.revenueTrend.isPositive ? '+' : '-'}${stats.revenueTrend.value.toFixed(1)}%`, icon: "payments", trendPos: stats.revenueTrend.isPositive },
-                    { label: "Loyalty Quotient", value: `${stats.retentionRate}%`, trend: "Returning Clients", icon: "loyalty", trendPos: true },
-                    { label: "Market Reach", value: stats.totalClients.toString(), trend: "Active Records", icon: "hub", trendPos: true },
-                    { label: "Branch Density", value: stats.totalBranches.toString(), trend: "Managed Nodes", icon: "storefront", trendPos: true },
-                    { label: "Projected MRR", value: formatCurrency(stats.projectedMRR), trend: "Strategy Forecast", icon: "monitoring", trendPos: true },
+                    { label: "Total Revenue", value: formatCurrency(stats.totalRevenue), trend: `${stats.revenueTrend.isPositive ? '+' : '-'}${stats.revenueTrend.value.toFixed(1)}%`, icon: "payments", trendPos: stats.revenueTrend.isPositive },
+                    { label: "Retention Rate", value: `${stats.retentionRate}%`, trend: "Returning Clients", icon: "loyalty", trendPos: true },
+                    { label: "Total Clients", value: stats.totalClients.toString(), trend: "Clients", icon: "group", trendPos: true },
+                    { label: "Total Branches", value: stats.totalBranches.toString(), trend: "Managed", icon: "storefront", trendPos: true },
+                    { label: "Projected MRR", value: formatCurrency(stats.projectedMRR), trend: "Monthly Forecast", icon: "monitoring", trendPos: true },
                 ].map((kpi, idx) => (
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -258,10 +258,10 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                 >
                     <div className="mb-10 flex items-center justify-between border-b border-[var(--border-main)] pb-8">
                         <div className="space-y-2">
-                            <h3 className="text-2xl font-serif font-black italic tracking-tighter text-[var(--text-main)]">Operational Peak Shift</h3>
+                            <h3 className="text-2xl font-serif font-black italic tracking-tighter text-[var(--text-main)]">Peak Hours</h3>
                             <p className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-[0.3em] italic">Traffic Load by Daily Timeframe</p>
                         </div>
-                        <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase tracking-[0.2em] rounded-full border border-emerald-500/20 italic">Live Flow</span>
+                        <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase tracking-[0.2em] rounded-full border border-emerald-500/20 italic">Live</span>
                     </div>
 
                     <div ref={barChartRef} className="h-[300px] w-full">
@@ -309,7 +309,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                         <table className="w-full">
                             <thead>
                                 <tr className="text-left">
-                                    <th className="pb-6 text-[9px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)]">Entity</th>
+                                    <th className="pb-6 text-[9px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)]">Branch</th>
                                     <th className="pb-6 text-[9px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] text-right">Revenue</th>
                                     <th className="pb-6 text-[9px] font-black uppercase tracking-[0.3em] text-[var(--text-muted)] text-right">Share</th>
                                 </tr>

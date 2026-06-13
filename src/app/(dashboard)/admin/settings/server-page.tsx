@@ -149,7 +149,7 @@ export default async function AdminSettingsPage({
                         <div className="w-full bg-[var(--bg-surface-muted)] h-2.5 rounded-full overflow-hidden mb-3 p-0.5">
                             <div className="bg-[var(--color-primary)] h-full w-[94.8%] rounded-full shadow-[0_0_12px_var(--color-primary)]/40"></div>
                         </div>
-                        <p className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-40">All locations calibrated</p>
+                        <p className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-40">All locations up to date</p>
                     </div>
                 </div>
             </aside>
@@ -297,7 +297,7 @@ export default async function AdminSettingsPage({
                                                 <p className="text-sm text-[var(--text-muted)] font-medium leading-relaxed italic group-hover:text-[var(--text-main)] transition-colors">{log.details || `${log.action} on ${log.entity}`}</p>
                                             </td>
                                             <td className="py-8 px-10 text-right">
-                                                <span className="inline-flex items-center px-5 py-2 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded-full text-[9px] font-bold uppercase tracking-[0.2em] italic">Verified Shield</span>
+                                                <span className="inline-flex items-center px-5 py-2 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded-full text-[9px] font-bold uppercase tracking-[0.2em] italic">Verified</span>
                                             </td>
                                         </tr>
                                     ))

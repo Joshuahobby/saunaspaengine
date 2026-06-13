@@ -10,7 +10,7 @@ export default function StaffError({
     reset: () => void;
 }) {
     useEffect(() => {
-        console.error("[Staff Hub] Page error:", error);
+        console.error("[Staff] Page error:", error);
     }, [error]);
 
     return (

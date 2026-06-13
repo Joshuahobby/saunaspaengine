@@ -30,8 +30,8 @@ export default function BranchesPerformanceClient({ stats, leaderboard }: Branch
                         <span className="material-symbols-outlined text-2xl font-bold animate-pulse">language</span>
                         <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">Performance Overview</span>
                     </div>
-                    <h1 className="text-5xl font-display font-bold leading-tight tracking-tight">Executive <span className="text-[var(--color-primary)] underline decoration-2 decoration-[var(--color-primary)]/20 underline-offset-8">Portfolio</span></h1>
-                    <p className="text-[var(--text-muted)] text-xl font-medium max-w-2xl leading-relaxed">Multi-branch strategic oversight and real-time performance monitoring across your entire network.</p>
+                    <h1 className="text-5xl font-display font-bold leading-tight tracking-tight">Branch <span className="text-[var(--color-primary)] underline decoration-2 decoration-[var(--color-primary)]/20 underline-offset-8">Performance</span></h1>
+                    <p className="text-[var(--text-muted)] text-xl font-medium max-w-2xl leading-relaxed">Performance and revenue overview across all your branches.</p>
                 </div>
                 <div className="flex gap-4">
                     <button className="flex items-center justify-center rounded-[2rem] h-14 px-8 bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-sm font-bold hover:bg-[var(--bg-card)] transition-all border border-[var(--border-muted)] shadow-sm tracking-widest">

@@ -88,7 +88,7 @@ export default async function RegionalCompliancePage({
                         Rules & <span className="text-[var(--color-primary)]">Fiscal Setup.</span>
                     </h1>
                     <p className="text-sm font-bold text-[var(--text-muted)] opacity-60 leading-relaxed">
-                        Manage regional tax laws and specific branch fiscal identities in one command center.
+                        Manage regional tax laws and branch fiscal settings in one place.
                     </p>
                 </div>
 
@@ -96,8 +96,8 @@ export default async function RegionalCompliancePage({
                 {isOwner && (
                     <div className="space-y-10">
                         <div className="px-4 border-l-4 border-[var(--color-primary)]">
-                            <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-main)]">Territory Defaults</h2>
-                            <p className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-widest mt-1 opacity-50">Master preset rules by region</p>
+                            <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-main)]">Regional Compliance</h2>
+                            <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mt-1 opacity-50">Default rules by region</p>
                         </div>
 
                         <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
@@ -139,7 +139,7 @@ export default async function RegionalCompliancePage({
                             <div className="xl:col-span-5">
                                 <div className="glass-card border border-[var(--border-muted)] p-10 flex flex-col rounded-[2.5rem] bg-[var(--bg-card)] shadow-xl h-full">
                                     <div className="flex flex-col gap-6 mb-12">
-                                        <span className="w-fit px-4 py-1.5 bg-[var(--color-primary)] text-[var(--text-main)] text-[9px] font-bold rounded-full uppercase tracking-[0.2em]">Regional Override</span>
+                                        <span className="w-fit px-4 py-1.5 bg-[var(--color-primary)] text-[var(--text-main)] text-[10px] font-bold rounded-full uppercase tracking-[0.2em]">Regional Override</span>
                                         <h2 className="text-3xl font-display font-bold text-[var(--text-main)]">Update Presets</h2>
                                         <p className="text-sm text-[var(--text-muted)] leading-relaxed font-bold">Adjust the legal minimums for the <span className="text-[var(--text-main)] font-bold">{activeRegionName}</span> territory.</p>
                                     </div>
@@ -156,8 +156,8 @@ export default async function RegionalCompliancePage({
                 {/* Section 2: Branch Fiscal Identity (ALL context-aware) */}
                 <div className="space-y-10">
                     <div className="px-4 border-l-4 border-blue-500">
-                        <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-main)]">Branch Fiscal Identity</h2>
-                        <p className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-widest mt-1 opacity-50">Custom IDs and Receipt Formatting</p>
+                        <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-main)]">Branch Tax Details</h2>
+                        <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest mt-1 opacity-50">Custom IDs and Receipt Formatting</p>
                     </div>
 
                     {context.activeBranchId ? (

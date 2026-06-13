@@ -78,7 +78,7 @@ export function AssignPackageModal({ isOpen, onClose, business, availablePackage
                             <div className="flex items-center justify-between sticky top-0 bg-[var(--bg-card)] z-20 pb-4">
                                 <div className="space-y-1">
                                     <h2 className="text-3xl font-serif font-bold text-[var(--text-main)] italic">Package Management</h2>
-                                    <p className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest italic opacity-60">Provisioning Access for {business.name}</p>
+                                    <p className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-widest italic opacity-60">Manage packages for {business.name}</p>
                                 </div>
                                 <button
                                     type="button"

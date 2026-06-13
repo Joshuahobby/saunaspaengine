@@ -90,7 +90,7 @@ export default function BusinessProfileForm({ business }: BusinessProfileFormPro
                         </>
                     )}
                 </button>
-                <p className="text-[8px] font-bold text-center mt-4 text-[var(--text-muted)] uppercase tracking-widest opacity-30">Changes propagate across all networked branches instantly</p>
+                <p className="text-[10px] font-bold text-center mt-4 text-[var(--text-muted)] uppercase tracking-widest opacity-30">Changes apply to all branches instantly</p>
             </div>
         </form>
     );

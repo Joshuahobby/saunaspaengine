@@ -94,7 +94,7 @@ export default function BusinessFormClient({ packages }: BusinessFormClientProps
                     <div className="space-y-2">
                         <h3 className="text-2xl font-display font-bold text-[var(--text-main)]">Business Registration Successful</h3>
                         <p className="text-sm text-[var(--text-muted)] max-w-[80%] mx-auto leading-relaxed">
-                            The business <span className="text-[var(--text-main)] font-semibold">{businessName}</span> has been successfully registered and the primary branch was provisioned.
+                            The business <span className="text-[var(--text-main)] font-semibold">{businessName}</span> has been successfully registered and the primary branch was created.
                         </p>
                     </div>
                 </div>
@@ -250,7 +250,7 @@ export default function BusinessFormClient({ packages }: BusinessFormClientProps
                             <div className="space-y-6 flex-1">
                                 <div className="space-y-2">
                                     <h3 className="text-lg font-bold">Owner Credential Settings</h3>
-                                    <p className="text-sm text-[var(--text-muted)] leading-relaxed">Provision the high-level `OWNER` account for this business.</p>
+                                    <p className="text-sm text-[var(--text-muted)] leading-relaxed">Create the owner account for this business.</p>
                                 </div>
                                 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

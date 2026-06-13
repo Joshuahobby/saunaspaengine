@@ -92,7 +92,7 @@ export default function BranchSwitcher({ branches, activeBranchId: propActiveBra
                             className="absolute mt-2 w-64 bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-2xl shadow-2xl p-2 z-50 overflow-hidden"
                         >
                             <div className="px-3 py-2 text-[9px] font-black uppercase tracking-[0.25em] text-[var(--text-muted)] opacity-50 mb-1">
-                                Select Network Focus
+                                Select Branch
                             </div>
                             
                             <button
@@ -104,7 +104,7 @@ export default function BranchSwitcher({ branches, activeBranchId: propActiveBra
                                 }`}
                             >
                                 <span className="material-symbols-outlined text-[20px]">corporate_fare</span>
-                                <span className="text-xs tracking-tight">Aggregated Overview</span>
+                                <span className="text-xs tracking-tight">All Branches</span>
                             </button>
 
                             <div className="my-2 h-[1px] bg-[var(--border-muted)] opacity-30" />

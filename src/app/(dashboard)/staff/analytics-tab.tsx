@@ -87,8 +87,8 @@ export default async function AnalyticsTab() {
             {/* Role Distribution Chart */}
             <div className="lg:col-span-7 glass-card p-12 rounded-[3.5rem] border border-[var(--border-muted)] space-y-12">
                 <div className="space-y-2">
-                    <h3 className="text-3xl font-serif font-black">Role <span className="text-[var(--color-primary)]">Density.</span></h3>
-                    <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-40">Personnel weight across service categories</p>
+                    <h3 className="text-3xl font-serif font-black">Role <span className="text-[var(--color-primary)]">Breakdown.</span></h3>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-40">Staff count by service category</p>
                 </div>
 
                 {activeCategories.length === 0 ? (

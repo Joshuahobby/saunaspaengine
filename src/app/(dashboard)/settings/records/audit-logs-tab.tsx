@@ -71,7 +71,7 @@ export default function AuditLogsTab() {
                     <span className="material-symbols-outlined font-black">verified_user</span>
                 </div>
                 <p className="text-xs font-bold text-[var(--text-muted)] leading-relaxed italic">
-                    All records in this hub are cryptographically locked. <span className="text-emerald-500 underline decoration-dotted">Chain of custody</span> is maintained by the platform&apos;s immutable vault.
+                    All audit records are read-only and cannot be modified. <span className="text-emerald-500 underline decoration-dotted">Every action</span> is permanently recorded by the platform.
                 </p>
             </div>
         </div>
