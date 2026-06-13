@@ -19,7 +19,7 @@ export default async function DigitalMembershipCardPage() {
             <div className="flex flex-col gap-4 mb-4">
                 <div className="flex flex-col gap-2">
                     <h2 className="text-4xl font-display font-bold tracking-tight text-[var(--text-main)]">Your Digital <span className="text-[var(--color-primary)] underline decoration-2 decoration-[var(--color-primary)]/20 underline-offset-8">Pass</span></h2>
-                    <p className="text-[var(--text-muted)] text-lg font-bold mt-1">Scan this QR code at the reception for seamless check-in and loyalty tracking.</p>
+                    <p className="text-[var(--text-muted)] text-lg font-bold mt-1">Scan this QR code at reception to check in and track your loyalty points.</p>
                 </div>
             </div>
 

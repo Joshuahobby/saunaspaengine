@@ -39,9 +39,9 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                  
                 <div className="space-y-1 relative z-10">
                     <h1 className="text-3xl lg:text-4xl font-serif font-bold text-[var(--text-main)] italic tracking-tight leading-tight">
-                        System <span className="text-[var(--color-primary)]">Integrity</span> & Pulse
+                        System <span className="text-[var(--color-primary)]">Health</span> & Status
                     </h1>
-                    <p className="text-sm text-[var(--text-muted)] font-medium italic">Deep architectural diagnostic stream for the platform layer.</p>
+                    <p className="text-sm text-[var(--text-muted)] font-medium italic">Real-time health monitoring for all platform services.</p>
                 </div>
 
                 <div className="flex items-center gap-6 relative z-10">
@@ -58,7 +58,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                             ))}
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-[7px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)] animate-pulse">Pulse Sync Active</span>
+                            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)] animate-pulse">System Online</span>
                             <span className="text-[10px] font-black text-[var(--text-main)]">98.4% Efficiency</span>
                         </div>
                     </div>
@@ -87,10 +87,10 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                     >
                         {/* Metrics Hierarchy */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <DiagnosticStatCard title="Uptime (Cycle)" value={metrics.uptime} trend="Stable" icon="sensors" type="info" />
+                            <DiagnosticStatCard title="Uptime" value={metrics.uptime} trend="Stable" icon="sensors" type="info" />
                             <DiagnosticStatCard title="Request Load" value={metrics.requestsToday.toLocaleString()} trend="+12% Vol" icon="speed" type="success" />
                             <DiagnosticStatCard title="Branches" value={metrics.activeBranches.toString()} trend="Active" icon="hub" type="info" />
-                            <DiagnosticStatCard title="Thread Count" value={metrics.totalEmployees.toString()} trend="Active" icon="psychology" type="info" />
+                            <DiagnosticStatCard title="Staff Count" value={metrics.totalEmployees.toString()} trend="Active" icon="psychology" type="info" />
                         </div>
 
                         <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
@@ -162,14 +162,14 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                             {/* Anchor Status */}
                             <div className="xl:col-span-4 rounded-[2rem] border border-[var(--border-muted)] bg-[var(--bg-card)]/40 p-8 shadow-sm flex flex-col relative overflow-hidden backdrop-blur-md">
                                 <div className="mb-6 border-b border-[var(--border-muted)] pb-6">
-                                    <h3 className="text-xl font-serif font-bold text-white italic">Service Anchors</h3>
+                                    <h3 className="text-xl font-serif font-bold text-white italic">Platform Services</h3>
                                     <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-1">Health of core platform services.</p>
                                 </div>
                                 <div className="space-y-3 flex-1">
                                     <DiagnosticServiceItem name="Prisma/Relational" status="Online" type="success" latency="2ms" />
                                     <DiagnosticServiceItem name="Next.js SSR/Edge" status="Online" type="success" latency="1ms" />
-                                    <DiagnosticServiceItem name="Auth0/JWT Forge" status="Online" type="success" latency="14ms" />
-                                    <DiagnosticServiceItem name="Stripe API Mirror" status="Delayed" type="warning" latency="450ms" />
+                                    <DiagnosticServiceItem name="Auth / JWT" status="Online" type="success" latency="14ms" />
+                                    <DiagnosticServiceItem name="Payment API" status="Delayed" type="warning" latency="450ms" />
                                     <DiagnosticServiceItem name="QR Blob Store" status="Online" type="success" latency="8ms" />
                                 </div>
                                 <button className="mt-6 w-full py-3 bg-[var(--color-primary)]/5 hover:bg-[var(--color-primary)]/10 border border-dashed border-[var(--color-primary)]/30 rounded-xl text-[8px] font-black uppercase tracking-widest text-[var(--color-primary)] transition-all">
@@ -189,7 +189,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                     >
                         <div className="p-8 border-b border-[var(--border-muted)] flex justify-between items-center bg-[var(--bg-app)]/50">
                             <div className="space-y-1">
-                                <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">System Matrix</h3>
+                                <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">Service Status</h3>
                                 <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest italic">Live status of all platform services.</p>
                             </div>
                             <div className="flex items-center gap-4">
@@ -262,11 +262,11 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-serif font-bold italic text-[var(--text-main)]">System Logs</h3>
-                                    <p className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-widest italic animate-pulse mt-0.5">Live Diagnostic Stream</p>
+                                    <p className="text-[10px] font-black text-[var(--color-primary)] uppercase tracking-widest italic animate-pulse mt-0.5">Live Logs</p>
                                 </div>
                             </div>
                             <button className="text-[8px] font-black text-[var(--text-muted)] flex items-center gap-2 hover:text-[var(--text-main)] transition-colors uppercase tracking-widest italic border border-[var(--border-muted)] px-4 py-2 rounded-full">
-                                <span className="material-symbols-outlined text-sm italic font-bold">cloud_download</span> Export Diagnostic Ledger
+                                <span className="material-symbols-outlined text-sm italic font-bold">cloud_download</span> Export Logs
                             </button>
                         </div>
                         <div className="flex-1 overflow-y-auto p-8 font-mono text-[11px] bg-slate-950/20 space-y-2 custom-scrollbar">

@@ -143,7 +143,7 @@ export default function BranchUI({ branch, intelligence, isOwner }: BranchUIProp
                         className={`flex-1 lg:flex-none flex items-center justify-center gap-3 px-8 py-4 rounded-2xl transition-all text-xs font-black uppercase tracking-widest ${activeTab === 'manage' ? 'bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/20' : 'bg-[var(--text-main)] text-[var(--bg-card)] hover:opacity-90 shadow-sm'}`}
                     >
                         {activeTab === 'performance' ? <Settings className="size-4" /> : <BarChart3 className="size-4" />}
-                        {activeTab === 'performance' ? 'Location Management' : 'Location Intelligence'}
+                        {activeTab === 'performance' ? 'Location Management' : 'Analytics'}
                     </button>
                 </div>
             </div>
@@ -216,7 +216,7 @@ export default function BranchUI({ branch, intelligence, isOwner }: BranchUIProp
                             <div className="px-8 py-5 border-b border-[var(--border-muted)] flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                     <Activity className="size-4 text-[var(--color-primary)]" />
-                                    <span className="text-[var(--text-main)] opacity-80 text-[10px] font-black uppercase tracking-[0.2em]">Operational Pulse</span>
+                                    <span className="text-[var(--text-main)] opacity-80 text-[10px] font-black uppercase tracking-[0.2em]">Recent Sessions</span>
                                 </div>
                                 <span className="text-[var(--text-muted)] opacity-10 text-[8px] font-black uppercase tracking-widest italic">Live Activity Stream</span>
                             </div>
@@ -249,7 +249,7 @@ export default function BranchUI({ branch, intelligence, isOwner }: BranchUIProp
                                         </div>
                                     ))
                                 ) : (
-                                    <div className="h-full flex items-center justify-center text-[var(--text-muted)] opacity-10 text-[11px] font-black uppercase tracking-[0.3em] italic">No active records detected in pulse</div>
+                                    <div className="h-full flex items-center justify-center text-[var(--text-muted)] opacity-10 text-[11px] font-black uppercase tracking-[0.3em] italic">No recent service records</div>
                                 )}
                             </div>
                         </div>

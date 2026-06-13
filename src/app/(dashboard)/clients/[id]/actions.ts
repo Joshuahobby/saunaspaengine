@@ -13,7 +13,7 @@ export async function updateClientNotes(clientId: string, notes: string) {
         return { success: true };
     } catch (error) {
         console.error("Failed to update notes:", error);
-        return { success: false, error: "Failed to save governance notes" };
+        return { success: false, error: "Failed to save notes" };
     }
 }
 

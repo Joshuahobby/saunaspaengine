@@ -239,7 +239,7 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
                                 onClick={() => setActiveTab("activity")}
                                 className={`px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded-md transition-all ${activeTab === 'activity' ? 'bg-[var(--bg-card)] text-[var(--text-main)] shadow-sm' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]'}`}
                             >
-                                Pulse
+                                Activity
                             </button>
                         </div>
                     </div>

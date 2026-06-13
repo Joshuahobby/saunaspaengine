@@ -55,7 +55,7 @@ export default function CaseStudyPage() {
                     </div>
                     <div className="glass-card p-8 rounded-2xl border border-[var(--border-muted)] mb-8">
                         <h2 className="text-2xl font-bold mb-4">The Results</h2>
-                        <p className="text-[var(--text-muted)] text-sm leading-relaxed mb-6">After 6 months on Sauna SPA Engine, Inzozi saw transformative results across every metric.</p>
+                        <p className="text-[var(--text-muted)] text-sm leading-relaxed mb-6">After 6 months on Sauna SPA Engine, Inzozi saw strong improvements across every metric.</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {[{ metric: "Revenue", before: "5M RWF/mo", after: "22M RWF/mo", color: "text-green-600" }, { metric: "Admin Time", before: "12 hrs/week", after: "3 hrs/week", color: "text-blue-600" }, { metric: "Client Retention", before: "72%", after: "98.5%", color: "text-purple-600" }, { metric: "Double Bookings", before: "30%", after: "0.1%", color: "text-orange-600" }].map(r => (
                                 <div key={r.metric} className="p-4 bg-[var(--bg-surface-muted)]/10 rounded-xl">
@@ -76,7 +76,7 @@ export default function CaseStudyPage() {
                 </article>
                 <section className="py-16 bg-gradient-to-br from-[var(--color-primary)]/10 to-[var(--bg-app)] text-center">
                     <div className="max-w-2xl mx-auto px-6">
-                        <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Spa?</h2>
+                        <h2 className="text-3xl font-bold mb-4">Ready to Grow Your Spa?</h2>
                         <p className="text-[var(--text-muted)] mb-8">Discover how Sauna SPA Engine can streamline your operations and boost revenue.</p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link href="/demo" className="px-8 py-4 bg-[var(--color-primary)] text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-[var(--color-primary)]/30 flex items-center justify-center gap-2"><span className="material-symbols-outlined">calendar_month</span>Book a Free Demo</Link>

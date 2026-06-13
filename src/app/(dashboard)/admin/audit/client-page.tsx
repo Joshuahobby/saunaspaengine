@@ -307,7 +307,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-[var(--border-muted)]">
-                                        <PermissionCategory title="Financial Orchestration" />
+                                        <PermissionCategory title="Finance" />
                                         <PermissionRow
                                             title="Financial Reporting"
                                             desc="View platform-wide revenue metrics and financial summaries."

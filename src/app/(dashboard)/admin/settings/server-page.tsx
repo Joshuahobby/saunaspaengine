@@ -253,11 +253,11 @@ export default async function AdminSettingsPage({
                 <div className="mt-16 mb-12 glass-card border border-[var(--border-muted)] overflow-hidden rounded-[2.5rem] bg-[var(--bg-card)] shadow-2xl shadow-black/5">
                     <div className="p-10 border-b border-[var(--border-muted)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 bg-[var(--bg-surface-muted)]/20">
                         <div className="space-y-1">
-                            <h3 className="text-2xl font-display font-bold">Compliance <span>Stream</span></h3>
-                            <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] opacity-50">Chronicle of regulatory shifts</p>
+                            <h3 className="text-2xl font-display font-bold">Compliance <span>Log</span></h3>
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] opacity-50">Record of compliance changes</p>
                         </div>
                         <Link href="/audit" className="group flex items-center gap-3 px-8 py-3 bg-[var(--bg-card)] hover:bg-[var(--text-main)] hover:text-[var(--bg-app)] border border-[var(--border-muted)] transition-all rounded-2xl text-[10px] font-bold uppercase tracking-[0.2em] shadow-sm active:scale-[0.98]">
-                            View Archival Vault
+                            View Audit Log
                             <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
                         </Link>
                     </div>

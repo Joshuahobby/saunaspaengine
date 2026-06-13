@@ -12,7 +12,7 @@ export async function updateRolePermissionsAction(matrix: PermissionMatrix) {
     
     // Only ADMIN or OWNER can manage roles
     if (session.user.role !== "ADMIN" && session.user.role !== "OWNER") {
-        throw new Error("Insufficient authority to modify security matrix.");
+        throw new Error("You do not have permission to modify role settings.");
     }
 
     const businessId = session.user.businessId;

@@ -80,7 +80,7 @@ export default function SubscriptionsClientPage({ branches }: { branches: Branch
                     title="Expiring Plans"
                     value={expiringSoon.toLocaleString()}
                     trend="Needs Attention"
-                    subtitle="Critical Pulse"
+                    subtitle="Expiring Soon"
                     icon="warning"
                     color="amber"
                 />

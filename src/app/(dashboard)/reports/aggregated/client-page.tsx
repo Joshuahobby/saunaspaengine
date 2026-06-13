@@ -46,7 +46,7 @@ export default function AggregatedReportsClient({ reports, branches }: Props) {
             <div className="flex flex-col gap-3 border-b border-[var(--border-muted)] pb-8">
                 <h1 className="text-4xl font-display font-bold text-[var(--text-main)]">All Service Records</h1>
                 <p className="text-lg text-[var(--text-muted)] font-medium opacity-80">
-                    Comprehensive cross-location transaction ledger.
+                    All service records across all branches.
                 </p>
             </div>
 

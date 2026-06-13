@@ -87,7 +87,7 @@ export default function AdminBroadcastsClientPage() {
                         Platform <span className="text-[var(--color-primary)]">Broadcasts</span>
                     </h1>
                     <p className="text-sm font-medium text-[var(--text-muted)] opacity-60">
-                        Orchestrating high-impact communications across your global business network.
+                        Send announcements and updates to branches and members.
                     </p>
                 </div>
 
@@ -106,7 +106,7 @@ export default function AdminBroadcastsClientPage() {
                     
                     <button className="px-6 py-2.5 rounded-xl bg-[var(--bg-card)] text-black text-[9px] font-black uppercase tracking-[0.2em] shadow-xl hover:scale-[1.05] active:scale-[0.98] transition-all flex items-center gap-2 group/ledger">
                          <span className="material-symbols-outlined text-sm">auto_stories</span>
-                         Recruitment Ledger
+                         Subscriber List
                     </button>
                 </div>
             </div>

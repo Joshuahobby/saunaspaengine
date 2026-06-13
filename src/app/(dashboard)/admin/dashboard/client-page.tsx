@@ -214,11 +214,11 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-[var(--bg-card)]/[0.02] border-b border-[var(--border-muted)]">
-                                <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Business Unit</th>
-                                <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Proprietor</th>
+                                <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Business</th>
+                                <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Owner</th>
                                 <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] text-center opacity-40">Package</th>
                                 <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] text-center opacity-40">Branches</th>
-                                <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Pulse</th>
+                                <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Status</th>
                                 <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] text-right opacity-40">Actions</th>
                             </tr>
                         </thead>
