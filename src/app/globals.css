@@ -64,10 +64,12 @@
   --color-teal-900: var(--color-forest-900);
 
   /* Fonts */
-  --font-display: var(--font-poppins), sans-serif;
-  --font-serif: var(--font-poppins), serif;
+  --font-display: 'Cabinet Grotesk', var(--font-poppins), sans-serif;
+  --font-body: var(--font-instrument-sans), 'Instrument Sans', sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), 'IBM Plex Mono', monospace;
+  --font-serif: var(--font-poppins), serif; /* legacy — do not use for new components */
 
-  /* Border Radius */
+  /* Border Radius — legacy rem scale */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
@@ -75,6 +77,14 @@
   --radius-2xl: 1.5rem;
   --radius-3xl: 2.5rem;
   --radius-full: 9999px;
+
+  /* Border Radius — DESIGN.md px scale */
+  --r-xs:  4px;
+  --r-sm:  6px;
+  --r-md:  8px;
+  --r-lg:  12px;
+  --r-xl:  16px;
+  --r-2xl: 24px;
 }
 
 /* ── Typography Utilities ── */
@@ -87,10 +97,15 @@
   --bg-surface: var(--color-surface-light);
   --bg-surface-muted: var(--color-forest-50);
   --bg-card: #ffffff;
+  --bg-hover: #f0eeea;
   --text-main: var(--color-forest-900);
+  --text-secondary: #2e4838;
   --text-muted: var(--color-forest-700);
+  --text-dim: #7a9c82;
   --border-main: var(--color-border-light);
   --border-muted: #f1f5f9;
+  --border-active: #2d5a27;
+  --primary-light: #4a8c43;
   --bg-tooltip: #0f172a;
   --text-tooltip: #ffffff;
 }
@@ -100,16 +115,21 @@
   --bg-app-rgb: 10, 20, 18;
   --bg-surface: var(--color-surface-dark);
   --bg-surface-muted: #0f1a18;
-  --bg-card: #121f1c;
-  --text-main: #f1f5f9;
-  --text-muted: var(--color-forest-400);
-  --border-main: var(--color-border-dark);
+  --bg-card: #1c2f29;
+  --bg-hover: #223830;
+  --text-main: #eef2ef;
+  --text-secondary: #c8d9ca;
+  --text-muted: #9ab89e;
+  --text-dim: #6e9474;
+  --border-main: #2e4840;
   --border-muted: #1a2b26;
+  --border-active: #3d7a35;
+  --primary-light: #4a8c43;
   --bg-tooltip: #ffffff;
   --text-tooltip: #0f172a;
-  
+
   /* Lighter Eucalyptus for Dark Mode Contrast */
-  --color-primary: #4a8c43; 
+  --color-primary: #4a8c43;
   --color-primary-hover: #5ba353;
   --color-primary-muted: rgba(74, 140, 67, 0.15);
   --color-primary-border: rgba(74, 140, 67, 0.25);
