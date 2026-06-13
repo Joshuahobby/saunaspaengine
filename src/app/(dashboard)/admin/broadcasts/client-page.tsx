@@ -298,7 +298,7 @@ export default function AdminBroadcastsClientPage() {
                                             </td>
                                             <td className="px-10 py-6 text-[10px] font-black text-white/50">{formatDateTime(b.createdAt)}</td>
                                             <td className="px-10 py-6">
-                                                <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[7px] font-black uppercase tracking-widest shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+                                                <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[9px] font-black uppercase tracking-widest shadow-[0_0_10px_rgba(16,185,129,0.1)]">
                                                     {b.status}
                                                 </span>
                                             </td>

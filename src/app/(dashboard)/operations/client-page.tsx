@@ -321,7 +321,7 @@ export default function OperationsClient({
                                                     {record.extraServices?.length > 0 && (
                                                         <div className="flex flex-wrap gap-1 mt-1">
                                                             {record.extraServices.map((extra: ExtraService) => (
-                                                                <span key={extra.id} className="text-[7px] font-bold text-[var(--text-muted)] bg-[var(--bg-surface-muted)] px-1.5 py-0.5 rounded border border-[var(--border-muted)] uppercase tracking-tight">
+                                                                <span key={extra.id} className="text-[9px] font-bold text-[var(--text-muted)] bg-[var(--bg-surface-muted)] px-1.5 py-0.5 rounded border border-[var(--border-muted)] uppercase tracking-tight">
                                                                     + {extra.serviceName}
                                                                 </span>
                                                             ))}
@@ -333,7 +333,7 @@ export default function OperationsClient({
                                                 <div className="flex flex-col gap-0.5">
                                                     <span>{record.employeeName || "—"}</span>
                                                     {record.extraServices?.map((extra: ExtraService) => (
-                                                        <span key={extra.id} className="text-[7px] font-medium">
+                                                        <span key={extra.id} className="text-[9px] font-medium">
                                                             {extra.employeeName || "—"}
                                                         </span>
                                                     ))}

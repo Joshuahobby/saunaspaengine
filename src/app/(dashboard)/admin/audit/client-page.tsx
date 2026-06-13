@@ -230,7 +230,7 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                                                             </div>
                                                         </td>
                                                         <td className="px-8 py-5">
-                                                            <span className={`px-4 py-1.5 rounded-full border text-[7px] font-black uppercase tracking-[0.2em] shadow-sm backdrop-blur-md transition-all ${getStatusStyle(log.action)}`}>
+                                                            <span className={`px-4 py-1.5 rounded-full border text-[9px] font-black uppercase tracking-[0.2em] shadow-sm backdrop-blur-md transition-all ${getStatusStyle(log.action)}`}>
                                                                 {log.action === "OVERRIDE" ? "Override Applied" : "Logged"}
                                                             </span>
                                                         </td>

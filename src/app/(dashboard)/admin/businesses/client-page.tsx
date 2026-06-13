@@ -229,7 +229,7 @@ function BranchHubRow({ biz, onEdit, onDelete, onToggleStatus, isToggling }: Bra
                 </Link>
             </td>
             <td className="px-4 py-5 text-center">
-                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[7px] font-black uppercase tracking-widest border ${
+                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-widest border ${
                     biz.approvalStatus === 'APPROVED' ? 'text-emerald-500 border-emerald-500/10 bg-emerald-500/5' :
                     biz.approvalStatus === 'PENDING' ? 'text-amber-500 border-amber-500/10 bg-amber-500/5' :
                     'text-rose-500 border-rose-500/10 bg-rose-500/5'

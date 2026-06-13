@@ -231,7 +231,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                             </td>
                                             <td className="px-8 py-5 text-[10px] font-black text-[var(--text-muted)] italic">{node.uptime}</td>
                                             <td className="px-8 py-5">
-                                                <span className={`px-3 py-1 rounded-full text-[7px] font-black uppercase tracking-widest border ${node.status === 'online' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-amber-500/10 text-amber-500 border-amber-500/20'}`}>
+                                                <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border ${node.status === 'online' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-amber-500/10 text-amber-500 border-amber-500/20'}`}>
                                                     {node.status}
                                                 </span>
                                             </td>

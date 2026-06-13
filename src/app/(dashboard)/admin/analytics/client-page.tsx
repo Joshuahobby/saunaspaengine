@@ -416,7 +416,7 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                                 </div>
                             </div>
                             <div className="p-4 rounded-2xl bg-[var(--bg-card)]/[0.02] border border-white/[0.05] flex flex-col justify-center items-center text-center">
-                                <span className="text-[7px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-40">Business Growth</span>
+                                <span className="text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-40">Business Growth</span>
                                 <p className={`text-2xl font-serif font-black italic ${stats.bizGrowth >= 0 ? 'text-emerald-500' : 'text-red-400'}`}>{stats.bizGrowth >= 0 ? '+' : ''}{stats.bizGrowth}%</p>
                             </div>
                         </div>
@@ -455,7 +455,7 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                                     <div className="flex-1 flex flex-col justify-center min-w-0">
                                         <div className="flex items-center justify-between w-full gap-4">
                                             <p className="text-sm font-serif font-bold text-white/80 truncate italic">{activity.user.fullName}</p>
-                                            <span className="text-[7px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-30 whitespace-nowrap">{getTimeAgo(activity.createdAt)}</span>
+                                            <span className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-30 whitespace-nowrap">{getTimeAgo(activity.createdAt)}</span>
                                         </div>
                                         <p className="text-[10px] font-medium text-[var(--text-muted)] opacity-50 truncate mt-0.5 italic">{activity.details || `Logged ${activity.action} on ${activity.id.slice(0, 8)}`}</p>
                                     </div>
