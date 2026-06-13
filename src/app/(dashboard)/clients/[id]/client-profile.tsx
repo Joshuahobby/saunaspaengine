@@ -19,7 +19,7 @@ import { toast } from "react-hot-toast";
 
 const MembershipCardModal = dynamic(() => import("@/components/clients/MembershipCardModal"), { 
     ssr: false,
-    loading: () => <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm"><span className="text-white font-serif font-bold text-sm">Synchronizing...</span></div>
+    loading: () => <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm"><span className="text-white font-serif font-bold text-sm">Loading...</span></div>
 });
 
 interface ClientProfileProps {

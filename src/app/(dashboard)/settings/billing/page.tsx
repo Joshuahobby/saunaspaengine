@@ -43,7 +43,7 @@ export default async function BillingPage() {
                             Billing & <span className="text-[var(--color-primary)]">Subscription.</span>
                         </h1>
                         <p className="text-[var(--text-muted)] font-bold text-xs opacity-60">
-                            Manage your workspace capacity, billing cycles, and growth.
+                            Manage your plan usage, billing cycles, and capacity.
                         </p>
                     </div>
                 </div>
@@ -72,7 +72,7 @@ export default async function BillingPage() {
             {/* Plan Selection */}
             <section id="plans" className="space-y-10 pt-8 border-t border-[var(--border-muted)]">
                 <div className="text-center space-y-3">
-                    <h2 className="text-3xl font-display font-black tracking-tight">Choose Your <span className="text-[var(--color-primary)]">Growth Stage.</span></h2>
+                    <h2 className="text-3xl font-display font-black tracking-tight">Choose Your <span className="text-[var(--color-primary)]">Plan.</span></h2>
                     <p className="text-[var(--text-muted)] text-sm font-medium max-w-xl mx-auto opacity-70">
                         Select a plan that fits your current team size and operation volume. Upgrade anytime to unlock more capacity.
                     </p>
@@ -99,7 +99,7 @@ export default async function BillingPage() {
                 <div className="space-y-2">
                     <h4 className="text-xl font-display font-black">Pause or Cancel?</h4>
                     <p className="text-[var(--text-muted)] text-xs font-bold opacity-60 max-w-lg">
-                        You can cancel your subscription at any time. Your workspace features will remain active until the end of your current billing cycle.
+                        You can cancel your subscription at any time. Your account features will remain active until the end of your current billing cycle.
                     </p>
                 </div>
                 <button className="px-8 py-4 bg-red-500/10 text-red-500 border border-red-500/20 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-red-500 hover:text-white transition-all">

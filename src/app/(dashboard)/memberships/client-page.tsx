@@ -486,7 +486,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                                         <span className="animate-spin material-symbols-outlined">sync</span>
                                     ) : (
                                         <>
-                                            {category ? "Commit Refinement" : "Create Pass"}
+                                            {category ? "Save Changes" : "Create Pass"}
                                             <span className="material-symbols-outlined transition-transform group-hover:rotate-12">auto_awesome</span>
                                         </>
                                     )}

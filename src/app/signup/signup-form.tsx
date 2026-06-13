@@ -241,7 +241,7 @@ export function SignupForm({ plans }: SignupFormProps) {
                             Choose Your <span className="text-[var(--color-primary)]">Plan</span>
                         </h2>
                         <p className="text-[var(--text-muted)] text-sm mt-3 font-medium px-4">
-                            All plans include a 14-day free trial. Select the best fit for your business to activate your workspace instantly.
+                            All plans include a 14-day free trial. Select the best fit for your business to get started right away.
                         </p>
                     </div>
 
@@ -373,7 +373,7 @@ export function SignupForm({ plans }: SignupFormProps) {
                                 {isPending ? (
                                     <>
                                         <span className="material-symbols-outlined animate-spin text-xl">progress_activity</span>
-                                        Onboarding Workspace...
+                                        Setting up your account...
                                     </>
                                 ) : (
                                     <>

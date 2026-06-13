@@ -77,7 +77,7 @@ export function TaxSettingsForm({ branchId, initialData }: TaxSettingsFormProps)
                             <label htmlFor="tax-label" className="text-sm font-bold text-[var(--text-muted)]">Tax Label</label>
                             {isInheritingTaxLabel && (
                                 <span className="text-[10px] px-2 py-0.5 bg-blue-500/10 text-blue-500 rounded-full font-bold uppercase tracking-tighter">
-                                    Corporate Default
+                                    Inherited Default
                                 </span>
                             )}
                         </div>

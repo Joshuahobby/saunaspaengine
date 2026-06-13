@@ -73,7 +73,7 @@ const businessNavItems: NavItem[] = [
 ];
 
 const employeeNavItems: NavItem[] = [
-    { label: "My Workspace", isHeader: true },
+    { label: "My Account", isHeader: true },
     { label: "Dashboard", href: "/dashboard", icon: "dashboard" },
     { label: "Reception", href: "/check-in", icon: "qr_code_scanner" },
 

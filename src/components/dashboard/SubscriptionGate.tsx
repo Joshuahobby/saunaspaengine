@@ -50,7 +50,7 @@ export function SubscriptionGate({ children, state }: SubscriptionGateProps) {
 
                     <div className="space-y-3">
                         <h2 className="text-3xl md:text-5xl font-serif font-black text-[var(--text-main)] tracking-tight italic">
-                            Workspace <span className="text-[var(--color-primary)]">Locked.</span>
+                            Account <span className="text-[var(--color-primary)]">Inactive.</span>
                         </h2>
                         <p className="text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] text-[10px] opacity-60">
                             Immediate Action Required to Resume Operations
@@ -63,7 +63,7 @@ export function SubscriptionGate({ children, state }: SubscriptionGateProps) {
                         {isExpired ? (
                             "Your subscription has expired. To maintain service continuity and preserve your business data access, please reactivate your plan."
                         ) : isRejected ? (
-                            "Your latest payment was rejected or canceled. Please re-verify your payment details to restore workspace functionality."
+                            "Your latest payment was rejected or canceled. Please re-verify your payment details to restore your account access."
                         ) : (
                             "Access to your operational dashboard is currently restricted. Activate a plan to continue managing your spa business."
                         )}
@@ -94,7 +94,7 @@ export function SubscriptionGate({ children, state }: SubscriptionGateProps) {
                 <p className="text-[10px] text-[var(--text-muted)] opacity-40 font-bold uppercase tracking-widest leading-loose italic">
                     All client data and history are safely preserved.
                     <br />
-                    Workspace unlocks instantly upon successful plan activation.
+                    Access restores instantly upon successful plan activation.
                 </p>
             </div>
         </div>

@@ -89,7 +89,7 @@ export default function MembershipDetailsClientPage({ category }: MembershipDeta
                         </div>
                         <div>
                             <h1 className="text-4xl font-serif font-black italic tracking-tight text-[var(--text-main)]">{category.name}</h1>
-                            <p className="text-[var(--text-muted)] font-medium italic opacity-60">Architecting the rules of access for this tier.</p>
+                            <p className="text-[var(--text-muted)] font-medium italic opacity-60">Configure access rules and pricing for this membership tier.</p>
                         </div>
                     </div>
                 </div>

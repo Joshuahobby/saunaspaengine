@@ -97,7 +97,7 @@ export default async function CorporateProfilePage({
                 {/* Section 2: Identity & Style (OWNER & MANAGER) */}
                 <div className="space-y-8">
                     <div className="px-4 border-l-4 border-[var(--color-primary)]">
-                        <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-main)]">Brand Identity</h2>
+                        <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-main)]">Branding</h2>
                         <p className="text-[9px] font-bold text-[var(--text-muted)] uppercase tracking-widest mt-1 opacity-50">Logos and Business Theme</p>
                     </div>
 

@@ -312,7 +312,7 @@ export default function BranchUI({ branch, intelligence, isOwner }: BranchUIProp
                                         disabled={loading}
                                         className="bg-[var(--text-main)] text-[var(--bg-app)] px-12 py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] hover:scale-105 active:scale-95 transition-all shadow-2xl flex items-center gap-3 disabled:opacity-50"
                                     >
-                                        {loading ? <div className="size-4 border-2 border-black/20 border-t-black rounded-full animate-spin" /> : "Commit Changes"}
+                                        {loading ? <div className="size-4 border-2 border-black/20 border-t-black rounded-full animate-spin" /> : "Save Changes"}
                                     </button>
                                 </div>
                             </form>

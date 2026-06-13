@@ -167,7 +167,7 @@ export default async function ExecutiveSettingsPage({
                             <div className="flex items-center justify-between mb-10 relative z-10">
                                 <div className="space-y-1">
                                     <h2 className="text-2xl font-display font-bold">Business Profile</h2>
-                                    <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] opacity-60">Corporate Metadata</p>
+                                    <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)] opacity-60">Business Details</p>
                                 </div>
                                 <div className="px-4 py-2 bg-emerald-500/10 text-emerald-500 text-[10px] font-bold rounded-xl border border-emerald-500/20 uppercase tracking-widest flex items-center gap-2">
                                     <span className="material-symbols-outlined text-[14px]">verified</span>
