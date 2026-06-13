@@ -110,7 +110,7 @@ export default function LeaderboardTable({ rankings }: { rankings: LeaderboardEn
                                     <td className="px-8 py-6 text-xs font-bold text-[var(--text-muted)]">{entry.branchName}</td>
                                     <td className="px-8 py-6 text-center">
                                         <p className="text-sm font-black text-[var(--text-main)]">{entry.serviceCount}</p>
-                                        <p className="text-[8px] font-black uppercase tracking-tighter text-[var(--text-muted)] opacity-40">Sessions</p>
+                                        <p className="text-[9px] font-black uppercase tracking-tighter text-[var(--text-muted)] opacity-40">Sessions</p>
                                     </td>
                                     <td className="px-8 py-6 text-center">
                                         <span className="text-sm font-black text-[var(--color-primary)]">{entry.score}</span>

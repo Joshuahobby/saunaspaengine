@@ -126,11 +126,11 @@ export default async function TeamDirectoryTab({
 
                              <div className="mt-8 pt-8 border-t border-[var(--border-muted)] grid grid-cols-2 gap-4">
                                 <div>
-                                    <p className="text-[8px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-40">Session Count</p>
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-40">Sessions</p>
                                     <p className="text-xl font-black">{employee._count.serviceRecords}</p>
                                 </div>
                                 <div>
-                                    <p className="text-[8px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-40">Branch</p>
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-40">Branch</p>
                                     <p className="text-xs font-black opacity-60 truncate">{employee.branch.name}</p>
                                 </div>
                              </div>
