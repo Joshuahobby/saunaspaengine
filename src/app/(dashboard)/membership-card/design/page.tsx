@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 
@@ -120,15 +120,15 @@ export default function MembershipCardDesignPage() {
                             <div className="absolute inset-0 p-8 flex flex-col">
                                 <div className={`flex items-start ${logoPos === "center" ? "justify-center" : logoPos === "right" ? "justify-end" : "justify-start"}`}>
                                     <div className="flex items-center gap-2">
-                                        <div className="size-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                                        <div className="size-8 bg-[var(--bg-card)]/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
                                             <span className="material-symbols-outlined text-white text-lg">spa</span>
                                         </div>
                                         <span className="font-bold tracking-tight text-lg">SAUNA SPA</span>
                                     </div>
                                 </div>
                                 <div className="mt-auto mb-auto flex flex-col items-center">
-                                    <div className="size-32 bg-white p-2 rounded-xl shadow-lg mb-4 flex items-center justify-center">
-                                        <span className="material-symbols-outlined text-slate-900 text-6xl">qr_code_2</span>
+                                    <div className="size-32 bg-[var(--bg-card)] p-2 rounded-xl shadow-lg mb-4 flex items-center justify-center">
+                                        <span className="material-symbols-outlined text-[var(--text-main)] text-6xl">qr_code_2</span>
                                     </div>
                                     <span className="text-xs font-medium text-white/60 tracking-widest uppercase">Member ID: #SSA-2024-88</span>
                                 </div>

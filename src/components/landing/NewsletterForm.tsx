@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
@@ -29,7 +29,7 @@ export function NewsletterForm() {
         <div className="md:w-1/2 w-full">
             {status === "success" ? (
                 <div className="bg-[var(--color-primary-muted)] border border-[var(--color-primary)]/30 rounded-xl p-6 flex flex-col items-center justify-center gap-3 animate-fade-in">
-                    <div className="size-12 rounded-full bg-[var(--color-primary)] flex items-center justify-center text-[var(--color-teal-900)]">
+                    <div className="size-12 rounded-full bg-[var(--color-primary)] flex items-center justify-center text-[var(--text-muted)]">
                         <span className="material-symbols-outlined text-2xl">check</span>
                     </div>
                     <p className="text-white font-bold text-center">Thank you for subscribing!</p>
@@ -41,7 +41,7 @@ export function NewsletterForm() {
                         <input
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="flex-1 rounded-xl h-14 px-6 bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] border transition-all outline-none"
+                            className="flex-1 rounded-xl h-14 px-6 bg-[var(--bg-card)]/10 border-white/20 text-white placeholder:text-white/50 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] border transition-all outline-none"
                             placeholder="Your work email"
                             type="email"
                             required

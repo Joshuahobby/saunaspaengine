@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+﻿import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -45,13 +45,13 @@ export default async function NewClientPage(props: { searchParams: Promise<{ bra
         <div className="space-y-8">
             <div className="max-w-4xl mx-auto">
                 <div className="mb-8">
-                    <nav className="flex gap-2 text-sm text-slate-500 mb-4 items-center">
+                    <nav className="flex gap-2 text-sm text-[var(--text-muted)] mb-4 items-center">
                         <Link href="/clients" className="hover:text-[var(--color-primary)] transition-colors">Clients</Link>
                         <span className="material-symbols-outlined text-sm">chevron_right</span>
-                        <span className="text-slate-900 font-medium">New Registration</span>
+                        <span className="text-[var(--text-main)] font-medium">New Registration</span>
                     </nav>
                     <h2 className="text-4xl font-black tracking-tight mb-2">Register New Client</h2>
-                    <p className="text-slate-500">Add a new customer to your database to start managing their bookings and memberships.</p>
+                    <p className="text-[var(--text-muted)]">Add a new customer to your database to start managing their bookings and memberships.</p>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

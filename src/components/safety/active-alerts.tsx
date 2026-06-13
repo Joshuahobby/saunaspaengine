@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useCallback } from "react";
 import { formatDistanceToNow } from "date-fns";
@@ -63,7 +63,7 @@ export default function ActiveAlerts() {
     if (alerts.length === 0) return null;
 
     return (
-        <div className="bg-white border-b border-slate-200 px-6 py-4 space-y-3 animate-fade-in">
+        <div className="bg-[var(--bg-card)] border-b border-[var(--border-main)] px-6 py-4 space-y-3 animate-fade-in">
             <div className="flex items-center gap-2 text-rose-600">
                 <span className="material-symbols-outlined fill-1 animate-pulse">emergency</span>
                 <span className="text-sm font-black uppercase tracking-tighter">Active Safety Alerts</span>
@@ -77,7 +77,7 @@ export default function ActiveAlerts() {
                                     <span className={`w-2 h-2 rounded-full ${alert.type === 'CRITICAL' ? 'bg-rose-600 animate-ping' : 'bg-amber-500'}`}></span>
                                     {alert.location || "Unknown Location"}
                                 </p>
-                                <p className="text-xs text-slate-500">{formatDistanceToNow(new Date(alert.createdAt))} ago</p>
+                                <p className="text-xs text-[var(--text-muted)]">{formatDistanceToNow(new Date(alert.createdAt))} ago</p>
                             </div>
                             <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${alert.type === 'CRITICAL' ? 'bg-rose-600 text-white' : 'bg-amber-100 text-amber-700'}`}>
                                 {alert.type}
@@ -88,7 +88,7 @@ export default function ActiveAlerts() {
                             {alert.status === "PENDING" && (
                                 <button
                                     onClick={() => acknowledgeAlert(alert.id)}
-                                    className="flex-1 bg-white border border-slate-200 py-1.5 rounded-lg text-xs font-bold hover:bg-slate-50 transition-colors"
+                                    className="flex-1 bg-[var(--bg-card)] border border-[var(--border-main)] py-1.5 rounded-lg text-xs font-bold hover:bg-[var(--bg-surface-muted)] transition-colors"
                                 >
                                     Acknowledge
                                 </button>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -88,18 +88,18 @@ export default function ClientForm({
     if (successData) {
         return (
             <div className="bg-[var(--color-primary)]/10 border-2 border-[var(--color-primary)] border-dashed rounded-xl p-6 flex flex-col items-center mt-6">
-                <div className="w-16 h-16 bg-[var(--color-primary)] rounded-full flex items-center justify-center text-[var(--color-bg-dark)] mb-4">
+                <div className="w-16 h-16 bg-[var(--color-primary)] rounded-full flex items-center justify-center text-[var(--bg-app)] mb-4">
                     <span className="material-symbols-outlined text-4xl">check_circle</span>
                 </div>
                 <h3 className="text-xl font-bold mb-2">Registration Success!</h3>
-                <p className="text-sm text-slate-600 mb-6">Guest profile created.</p>
+                <p className="text-sm text-[var(--text-muted)] mb-6">Guest profile created.</p>
                 {successData.qrCode && (
                     <div className="w-full max-w-sm flex flex-col gap-4">
                         <div className="flex flex-col gap-2">
                             <label className="text-sm font-bold text-center">Card Theme</label>
                             <select 
                                 title="Card Theme"
-                                className="w-full rounded-lg border-slate-200 bg-white focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]/50 h-10 px-4 mb-4"
+                                className="w-full rounded-lg border-[var(--border-main)] bg-[var(--bg-card)] focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]/50 h-10 px-4 mb-4"
                                 onChange={(e) => setActiveThemeId(e.target.value)}
                                 value={activeThemeId}
                             >
@@ -122,7 +122,7 @@ export default function ClientForm({
                         router.push("/clients");
                         router.refresh();
                     }}
-                    className="mt-6 px-6 py-2 border border-slate-300 rounded-lg text-sm font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                    className="mt-6 px-6 py-2 border border-[var(--border-main)] rounded-lg text-sm font-bold text-[var(--text-main)] hover:bg-[var(--bg-surface-muted)] transition-colors"
                 >
                     Return to Clients
                 </button>
@@ -228,7 +228,7 @@ export default function ClientForm({
             </div>
 
             <div className="flex gap-4 pt-6 border-t border-[var(--border-muted)]">
-                <button type="submit" disabled={isSubmitting} className="flex-[2] bg-[var(--color-primary)] text-[var(--color-bg-dark)] py-4 rounded-xl font-black text-[10px] hover:brightness-110 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest shadow-md shadow-[var(--color-primary)]/10">
+                <button type="submit" disabled={isSubmitting} className="flex-[2] bg-[var(--color-primary)] text-[var(--bg-app)] py-4 rounded-xl font-black text-[10px] hover:brightness-110 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest shadow-md shadow-[var(--color-primary)]/10">
                     <span className="material-symbols-outlined">{isEdit ? "save" : "how_to_reg"}</span>
                     {isSubmitting ? "Processing..." : isEdit ? "Save Changes" : "Create Profile & Activate"}
                 </button>

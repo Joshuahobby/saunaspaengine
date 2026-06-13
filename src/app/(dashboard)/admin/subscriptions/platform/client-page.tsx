@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { 
@@ -52,7 +52,7 @@ export default function PlatformPackagesClientPage({ initialPackages }: { initia
                             setEditingPackage(null);
                             setIsModalOpen(true);
                         }}
-                        className="bg-[var(--color-primary)] text-slate-900 px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:scale-[1.05] active:scale-[0.98] transition-all shadow-xl shadow-[var(--color-primary)]/20 flex items-center gap-3"
+                        className="bg-[var(--color-primary)] text-[var(--text-main)] px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:scale-[1.05] active:scale-[0.98] transition-all shadow-xl shadow-[var(--color-primary)]/20 flex items-center gap-3"
                     >
                         <span className="material-symbols-outlined font-black">add_card</span>
                         Define New Package

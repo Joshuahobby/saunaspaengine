@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -74,7 +74,7 @@ export function StatusToggle({ employeeId, initialStatus }: StatusToggleProps) {
                             ? "bg-emerald-50 border-emerald-200 text-emerald-700 focus:ring-emerald-500/20"
                             : status === "ARCHIVED"
                                 ? "bg-red-50 border-red-200 text-red-700 focus:ring-red-500/20"
-                                : "bg-slate-50 border-slate-200 text-slate-500 focus:ring-slate-500/20"
+                                : "bg-[var(--bg-surface-muted)] border-[var(--border-main)] text-[var(--text-muted)] focus:ring-slate-500/20"
                         } disabled:opacity-50`}
                 >
                     <option value="ACTIVE">Active</option>
@@ -131,7 +131,7 @@ export function StatusToggle({ employeeId, initialStatus }: StatusToggleProps) {
                                 disabled={isLoading}
                                 className="flex-1 py-2.5 bg-[var(--color-primary)] text-white rounded-xl font-bold text-sm hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                {isLoading ? "Updating…" : "Confirm"}
+                                {isLoading ? "Updatingâ€¦" : "Confirm"}
                             </button>
                         </div>
                     </div>

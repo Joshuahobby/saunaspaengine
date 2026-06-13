@@ -7,11 +7,17 @@ export function ToastProvider() {
     <Toaster
       position="top-right"
       toastOptions={{
-        className: "!glass-card !bg-white/95 dark:!bg-surface-dark/95 !text-teal-950 dark:!text-teal-50 !shadow-xl !border !border-teal-100 dark:!border-teal-900 !backdrop-blur-xl",
+        style: {
+          background: "var(--bg-card)",
+          color: "var(--text-main)",
+          border: "1px solid var(--border-main)",
+          boxShadow: "0 10px 40px rgba(0,0,0,0.15)",
+          backdropFilter: "blur(16px)",
+        },
         success: {
           iconTheme: {
             primary: "var(--color-primary)",
-            secondary: "#10221c",
+            secondary: "#fff",
           },
         },
         error: {

@@ -32,7 +32,7 @@ export default function UserMenu({ user }: UserMenuProps) {
         <div className="relative" ref={menuRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-4 border-l border-[var(--color-border-light)] pl-6 ml-4 group"
+                className="flex items-center gap-4 border-l border-[var(--border-main)] pl-6 ml-4 group"
             >
                 <div className="hidden md:flex flex-col items-end">
                     <span className="text-sm font-black font-serif leading-tight group-hover:text-[var(--color-primary)] transition-colors text-[var(--text-main)]">
@@ -54,12 +54,12 @@ export default function UserMenu({ user }: UserMenuProps) {
                         <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest opacity-60">{roleLabel}</p>
                     </div>
 
-                    <Link href="/settings/corporate" onClick={() => setIsOpen(false)} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[var(--color-forest-700)] dark:text-[var(--color-forest-100)] hover:bg-[var(--color-forest-50)] dark:hover:bg-slate-800 transition-colors">
+                    <Link href="/settings/corporate" onClick={() => setIsOpen(false)} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[var(--text-main)] hover:bg-[var(--bg-surface-muted)] transition-colors">
                         <span className="material-symbols-outlined text-lg">person</span>
                         Account Settings
                     </Link>
 
-                    <div className="h-[1px] bg-[var(--color-border-light)] dark:bg-[var(--color-border-dark)] my-1"></div>
+                    <div className="h-[1px] bg-[var(--border-main)] my-1"></div>
 
                     <button
                         onClick={() => signOut({ callbackUrl: "/" })}

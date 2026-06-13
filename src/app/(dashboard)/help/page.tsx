@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
@@ -77,7 +77,7 @@ export default async function HelpPage() {
                         System <span className="text-[var(--color-primary)]">Manual</span>
                     </h1>
                     <p className="text-[var(--text-muted)] text-sm leading-relaxed font-bold opacity-60">
-                        — The definitive guide to platform governance, commercial operations, and administrative mastery.
+                        â€” The definitive guide to platform governance, commercial operations, and administrative mastery.
                     </p>
                 </div>
 
@@ -145,7 +145,7 @@ export default async function HelpPage() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                    <button className="px-10 py-5 bg-[var(--color-primary)] text-slate-900 font-bold rounded-2xl hover:scale-[1.02] transition-transform text-xs uppercase tracking-widest shadow-xl shadow-[var(--color-primary)]/20">
+                    <button className="px-10 py-5 bg-[var(--color-primary)] text-[var(--text-main)] font-bold rounded-2xl hover:scale-[1.02] transition-transform text-xs uppercase tracking-widest shadow-xl shadow-[var(--color-primary)]/20">
                         Initiate Support Ticket
                     </button>
                     <button className="px-10 py-5 bg-[var(--bg-card)] border border-[var(--border-muted)] text-[var(--text-main)] font-bold rounded-2xl hover:bg-[var(--bg-surface-muted)] transition-all text-xs uppercase tracking-widest">
@@ -155,7 +155,7 @@ export default async function HelpPage() {
             </div>
             
             <div className="mt-12 text-center">
-                <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.3em] opacity-40">Sauna Spa Engine · Governance Framework v2.4.0</p>
+                <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-[0.3em] opacity-40">Sauna Spa Engine Â· Governance Framework v2.4.0</p>
             </div>
         </div>
     );

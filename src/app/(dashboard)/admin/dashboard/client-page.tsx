@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -110,21 +110,21 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                 <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full md:w-auto">
                     <Link 
                         href="/employees/gamification"
-                        className="flex-1 md:flex-none justify-center items-center flex gap-2 px-4 sm:px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95"
+                        className="flex-1 md:flex-none justify-center items-center flex gap-2 px-4 sm:px-5 py-2.5 bg-[var(--bg-card)] text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95"
                     >
                         <span className="material-symbols-outlined text-base">emoji_events</span>
                         <span className="hidden sm:inline">Records</span>
                     </Link>
                     <Link 
                         href="/settings/roles"
-                        className="flex-1 md:flex-none justify-center items-center flex gap-2 px-4 sm:px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95"
+                        className="flex-1 md:flex-none justify-center items-center flex gap-2 px-4 sm:px-5 py-2.5 bg-[var(--bg-card)] text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95"
                     >
                         <span className="material-symbols-outlined text-base">security</span>
                         <span className="hidden sm:inline">Permissions</span>
                     </Link>
                     <Link 
                         href="/businesses/new"
-                        className="flex-1 md:flex-none justify-center items-center flex gap-2 w-full sm:w-auto px-4 sm:px-5 py-2.5 bg-white text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95">
+                        className="flex-1 md:flex-none justify-center items-center flex gap-2 w-full sm:w-auto px-4 sm:px-5 py-2.5 bg-[var(--bg-card)] text-black rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all shadow-lg active:scale-95">
                         <span className="material-symbols-outlined text-base">add_box</span>
                         Register
                     </Link>
@@ -171,7 +171,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                     <div className="space-y-0.5">
                         <div className="flex items-center gap-3">
                             <h2 className="text-lg font-display font-bold text-[var(--text-main)]">Business Portfolio</h2>
-                            <span className="text-[8px] font-black px-2 py-0.5 rounded-full bg-white text-black tracking-[0.2em] uppercase">{filteredBusinesses.length} Businesses</span>
+                            <span className="text-[8px] font-black px-2 py-0.5 rounded-full bg-[var(--bg-card)] text-black tracking-[0.2em] uppercase">{filteredBusinesses.length} Businesses</span>
                         </div>
                         <p className="text-[10px] text-[var(--text-muted)] font-medium opacity-50 italic">Live feed of active platform businesses.</p>
                     </div>
@@ -213,7 +213,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
-                            <tr className="bg-white/[0.02] border-b border-[var(--border-muted)]">
+                            <tr className="bg-[var(--bg-card)]/[0.02] border-b border-[var(--border-muted)]">
                                 <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Business Unit</th>
                                 <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">Proprietor</th>
                                 <th className="px-5 py-3 text-[8px] font-display font-black text-[var(--text-muted)] uppercase tracking-[0.2em] text-center opacity-40">Package</th>
@@ -224,7 +224,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                         </thead>
                         <tbody className="divide-y divide-[var(--border-muted)]">
                             {paginatedBusinesses.map((b, idx) => (
-                                <tr key={b.id} className="group/row hover:bg-white/[0.02] transition-colors cursor-pointer border-l-2 border-transparent hover:border-[var(--color-primary)]/40">
+                                <tr key={b.id} className="group/row hover:bg-[var(--bg-card)]/[0.02] transition-colors cursor-pointer border-l-2 border-transparent hover:border-[var(--color-primary)]/40">
                                     <td className="px-5 py-3.5">
                                         <div className="flex items-center gap-3">
                                             <div className={`size-9 rounded-xl flex items-center justify-center font-display font-bold text-xs border border-white/5 shadow-lg group-hover/row:scale-105 transition-all duration-300 ${getColors(idx)} relative overflow-hidden`}>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { format } from "date-fns";
@@ -96,7 +96,7 @@ export default function SubscriptionsClientPage({ branches }: { branches: Branch
 
             {/* Table Section */}
             <div className="rounded-2xl border border-[var(--border-muted)] bg-[var(--bg-card)] overflow-hidden shadow-sm mt-4">
-                <div className="px-6 py-4 border-b border-[var(--border-muted)] flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white/[0.02]">
+                <div className="px-6 py-4 border-b border-[var(--border-muted)] flex flex-col md:flex-row md:items-center justify-between gap-4 bg-[var(--bg-card)]/[0.02]">
                     <div className="flex gap-6 overflow-x-auto no-scrollbar">
                         <TabButton active={filter === 'all'} onClick={() => setFilter('all')}>All Businesses</TabButton>
                         <TabButton active={filter === 'active'} onClick={() => setFilter('active')}>Active Only</TabButton>
@@ -107,7 +107,7 @@ export default function SubscriptionsClientPage({ branches }: { branches: Branch
 
                 <div className="overflow-x-auto">
                     <table className="w-full text-left whitespace-nowrap">
-                        <thead className="bg-white/[0.03] text-[var(--text-muted)] uppercase text-[8px] font-display font-black tracking-[0.2em] border-b border-[var(--border-muted)]">
+                        <thead className="bg-[var(--bg-card)]/[0.03] text-[var(--text-muted)] uppercase text-[8px] font-display font-black tracking-[0.2em] border-b border-[var(--border-muted)]">
                             <tr>
                                 <th className="px-6 py-3">Business Entity</th>
                                 <th className="px-4 py-3 text-center">Plan Tier</th>
@@ -154,7 +154,7 @@ export default function SubscriptionsClientPage({ branches }: { branches: Branch
 
 function MetricCard({ title, value, trend, subtitle, icon, color }: { title: string, value: string, trend: string, subtitle: string, icon: string, color: 'primary' | 'amber' | 'emerald' }) {
     return (
-        <div className="p-5 overflow-hidden rounded-xl bg-white/[0.02] border border-[var(--border-muted)] shadow-sm hover:border-[var(--color-primary)]/20 transition-all duration-500 group relative">
+        <div className="p-5 overflow-hidden rounded-xl bg-[var(--bg-card)]/[0.02] border border-[var(--border-muted)] shadow-sm hover:border-[var(--color-primary)]/20 transition-all duration-500 group relative">
             <div className="absolute top-0 right-0 w-24 h-24 bg-[var(--color-primary)] opacity-[0.01] rounded-full blur-2xl -mr-12 -mt-12 group-hover:opacity-[0.05] transition-opacity"></div>
             
             <div className="flex justify-between items-start mb-4 relative z-10">

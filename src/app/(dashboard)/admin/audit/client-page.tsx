@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { format } from "date-fns";
@@ -58,10 +58,10 @@ export default function AdminAuditClientPage({ initialLogs, initialTab = "Logs" 
                 shadow: "shadow-emerald-500/10"
             };
             default: return {
-                color: "text-slate-400",
-                bg: "bg-slate-500/10",
-                border: "border-slate-500/20",
-                shadow: "shadow-slate-500/10"
+                color: "text-[var(--text-muted)]",
+                bg: "bg-[var(--bg-surface-muted)]/30",
+                border: "border-[var(--border-main)]",
+                shadow: "shadow-[var(--border-main)]/10"
             };
         }
     };

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState, useEffect, useRef } from "react";
 import { formatCurrency, getTimeAgo } from "@/lib/utils";
@@ -160,7 +160,7 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                             Export Systems Data
                         </span>
                     </button>
-                    <button className="px-6 py-2.5 rounded-xl bg-white text-black text-[9px] font-black uppercase tracking-[0.2em] shadow-xl shadow-black/10 hover:scale-[1.05] active:scale-[0.98] transition-all flex items-center gap-2 group/btn">
+                    <button className="px-6 py-2.5 rounded-xl bg-[var(--bg-card)] text-black text-[9px] font-black uppercase tracking-[0.2em] shadow-xl shadow-black/10 hover:scale-[1.05] active:scale-[0.98] transition-all flex items-center gap-2 group/btn">
                         <span className="material-symbols-outlined text-sm">shield_with_heart</span>
                         Compliance Audit
                     </button>
@@ -315,7 +315,7 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                         {subscriptionData.map((cat) => (
                             <div 
                                 key={cat.name} 
-                                className="flex items-center gap-2 p-2 rounded-xl bg-white/[0.02] border border-white/[0.05]"
+                                className="flex items-center gap-2 p-2 rounded-xl bg-[var(--bg-card)]/[0.02] border border-white/[0.05]"
                             >
                                 <div
                                     className={`size-2 rounded-full shadow-sm ${getBgColorClass(cat.color)}`}
@@ -343,7 +343,7 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                             <h3 className="text-xl font-serif font-bold text-[var(--text-main)] italic">High-Yield Corporates</h3>
                             <p className="text-xs text-[var(--text-muted)] font-medium opacity-40">Top performing businesses by platform revenue (28d).</p>
                         </div>
-                        <span className="px-5 py-2 bg-white text-black text-[8px] font-black uppercase tracking-[0.2em] rounded-full shadow-lg">Enterprise Yield</span>
+                        <span className="px-5 py-2 bg-[var(--bg-card)] text-black text-[8px] font-black uppercase tracking-[0.2em] rounded-full shadow-lg">Enterprise Yield</span>
                     </div>
                     <div className="flex-1">
                         {topCorporates.length > 0 ? topCorporates.map((corp, idx) => (
@@ -415,7 +415,7 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                                     ))}
                                 </div>
                             </div>
-                            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.05] flex flex-col justify-center items-center text-center">
+                            <div className="p-4 rounded-2xl bg-[var(--bg-card)]/[0.02] border border-white/[0.05] flex flex-col justify-center items-center text-center">
                                 <span className="text-[7px] font-black uppercase tracking-widest text-[var(--text-muted)] opacity-40">Business Growth</span>
                                 <p className={`text-2xl font-serif font-black italic ${stats.bizGrowth >= 0 ? 'text-emerald-500' : 'text-red-400'}`}>{stats.bizGrowth >= 0 ? '+' : ''}{stats.bizGrowth}%</p>
                             </div>
@@ -442,7 +442,7 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                     {recentActivity.length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {recentActivity.map((activity) => (
-                                <div key={activity.id} className="flex gap-5 p-4 rounded-2xl bg-white/[0.02] border border-white/[0.05] group hover:border-[var(--color-primary)]/30 transition-all">
+                                <div key={activity.id} className="flex gap-5 p-4 rounded-2xl bg-[var(--bg-card)]/[0.02] border border-white/[0.05] group hover:border-[var(--color-primary)]/30 transition-all">
                                     <div className="flex-none">
                                         <div className="size-12 rounded-xl bg-black/20 text-[var(--color-primary)] border border-white/5 flex items-center justify-center group-hover:bg-[var(--color-primary)] group-hover:text-white transition-all shadow-sm">
                                             <span className="material-symbols-outlined text-xl font-black italic">

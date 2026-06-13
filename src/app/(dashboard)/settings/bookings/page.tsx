@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 
@@ -6,20 +6,20 @@ export default function BookingSettingsPage() {
     return (
         <div className="flex flex-col lg:flex-row w-full gap-8">
             {/* Inner Sidebar Navigation */}
-            <aside className="w-full lg:w-64 border-r border-[var(--color-border-light)] bg-[var(--color-surface-light)] p-2 space-y-2 hidden lg:block">
+            <aside className="w-full lg:w-64 border-r border-[var(--border-main)] bg-[var(--color-surface-light)] p-2 space-y-2 hidden lg:block">
                 <div className="mb-4 mt-2 px-3">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">Branch Settings</h3>
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">Branch Settings</h3>
                 </div>
                 <nav className="space-y-1">
-                    <button className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-left">
+                    <button className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)] transition-colors text-left">
                         <span className="material-symbols-outlined">settings</span>
                         General
                     </button>
-                    <button className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-left">
+                    <button className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)] transition-colors text-left">
                         <span className="material-symbols-outlined">calendar_today</span>
                         Booking Rules
                     </button>
-                    <button className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-left">
+                    <button className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)] transition-colors text-left">
                         <span className="material-symbols-outlined">payments</span>
                         Payments
                     </button>
@@ -27,7 +27,7 @@ export default function BookingSettingsPage() {
                         <span className="material-symbols-outlined">gavel</span>
                         Policies
                     </button>
-                    <button className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-left">
+                    <button className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-bold text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)] transition-colors text-left">
                         <span className="material-symbols-outlined">link</span>
                         Integrations
                     </button>
@@ -37,10 +37,10 @@ export default function BookingSettingsPage() {
             {/* Main Content */}
             <main className="flex-1 w-full max-w-5xl">
                 {/* Breadcrumbs */}
-                <div className="flex items-center gap-2 text-sm text-slate-500 mb-6">
+                <div className="flex items-center gap-2 text-sm text-[var(--text-muted)] mb-6">
                     <span className="hover:text-[var(--color-primary)] transition-colors cursor-pointer">Settings</span>
                     <span className="material-symbols-outlined text-xs">chevron_right</span>
-                    <span className="text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] font-bold">No-Show & Cancellation Policy</span>
+                    <span className="text-[var(--text-muted)] font-bold">No-Show & Cancellation Policy</span>
                 </div>
 
                 {/* Page Header */}
@@ -183,37 +183,37 @@ export default function BookingSettingsPage() {
                         </div>
 
                         {/* Section: Automated Reminders */}
-                        <div className="rounded-xl border border-[var(--color-border-light)] bg-[var(--color-surface-light)] p-6 space-y-6 shadow-sm">
+                        <div className="rounded-xl border border-[var(--border-main)] bg-[var(--color-surface-light)] p-6 space-y-6 shadow-sm">
                             <div className="flex items-center gap-3">
                                 <span className="material-symbols-outlined text-[var(--color-primary)]">notifications_active</span>
-                                <h3 className="text-lg font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Automated Reminders</h3>
+                                <h3 className="text-lg font-bold text-[var(--text-muted)]">Automated Reminders</h3>
                             </div>
-                            <p className="text-sm text-slate-500">Reduce no-shows by reminding clients before the cancellation window closes.</p>
+                            <p className="text-sm text-[var(--text-muted)]">Reduce no-shows by reminding clients before the cancellation window closes.</p>
 
                             <div className="space-y-4 pt-2">
-                                <div className="flex items-center justify-between rounded-lg border border-[var(--color-border-light)] bg-slate-50/50 dark:bg-slate-800/50 p-4">
+                                <div className="flex items-center justify-between rounded-lg border border-[var(--border-main)] bg-[var(--bg-surface-muted)]/50 p-4">
                                     <div className="flex items-center gap-3">
-                                        <span className="material-symbols-outlined text-slate-400">sms</span>
+                                        <span className="material-symbols-outlined text-[var(--text-muted)]">sms</span>
                                         <div className="flex flex-col">
-                                            <span className="text-sm font-semibold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">SMS Reminders</span>
-                                            <span className="text-xs text-slate-500">Send 2 hours before deadline</span>
+                                            <span className="text-sm font-semibold text-[var(--text-muted)]">SMS Reminders</span>
+                                            <span className="text-xs text-[var(--text-muted)]">Send 2 hours before deadline</span>
                                         </div>
                                     </div>
-                                    <input aria-label="Enable SMS Reminders" defaultChecked className="h-5 w-5 rounded border-slate-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)] cursor-pointer" type="checkbox" />
+                                    <input aria-label="Enable SMS Reminders" defaultChecked className="h-5 w-5 rounded border-[var(--border-main)] text-[var(--color-primary)] focus:ring-[var(--color-primary)] cursor-pointer" type="checkbox" />
                                 </div>
 
-                                <div className="flex items-center justify-between rounded-lg border border-[var(--color-border-light)] bg-slate-50/50 dark:bg-slate-800/50 p-4">
+                                <div className="flex items-center justify-between rounded-lg border border-[var(--border-main)] bg-[var(--bg-surface-muted)]/50 p-4">
                                     <div className="flex items-center gap-3">
-                                        <span className="material-symbols-outlined text-slate-400">mail</span>
+                                        <span className="material-symbols-outlined text-[var(--text-muted)]">mail</span>
                                         <div className="flex flex-col">
-                                            <span className="text-sm font-semibold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Email Reminders</span>
-                                            <span className="text-xs text-slate-500">Send 24 hours before deadline</span>
+                                            <span className="text-sm font-semibold text-[var(--text-muted)]">Email Reminders</span>
+                                            <span className="text-xs text-[var(--text-muted)]">Send 24 hours before deadline</span>
                                         </div>
                                     </div>
-                                    <input aria-label="Enable Email Reminders" defaultChecked className="h-5 w-5 rounded border-slate-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)] cursor-pointer" type="checkbox" />
+                                    <input aria-label="Enable Email Reminders" defaultChecked className="h-5 w-5 rounded border-[var(--border-main)] text-[var(--color-primary)] focus:ring-[var(--color-primary)] cursor-pointer" type="checkbox" />
                                 </div>
 
-                                <button className="w-full rounded-lg border border-[var(--color-border-light)] py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                                <button className="w-full rounded-lg border border-[var(--border-main)] py-2.5 text-sm font-bold text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)] transition-colors">
                                     Configure Reminder Templates
                                 </button>
                             </div>
@@ -221,15 +221,15 @@ export default function BookingSettingsPage() {
                     </div>
 
                     {/* Policy Disclosure Preview */}
-                    <div className="rounded-xl border border-[var(--color-border-light)] bg-slate-100/50 dark:bg-slate-800/30 p-8 mt-10">
+                    <div className="rounded-xl border border-[var(--border-main)] bg-[var(--bg-surface-muted)]/50 p-8 mt-10">
                         <div className="max-w-3xl mx-auto space-y-4">
-                            <h4 className="text-sm font-bold uppercase tracking-widest text-slate-400 text-center">Customer Disclosure Preview</h4>
+                            <h4 className="text-sm font-bold uppercase tracking-widest text-[var(--text-muted)] text-center">Customer Disclosure Preview</h4>
                             <div className="glass-card p-6 shadow-sm">
-                                <p className="text-sm italic text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] leading-relaxed text-center">
+                                <p className="text-sm italic text-[var(--text-muted)] leading-relaxed text-center">
                                     &quot;To secure your appointment, a <span className="font-bold text-[var(--color-primary)]">50% non-refundable deposit</span> is required. Cancellations must be made at least <span className="font-bold text-[var(--color-primary)]">24 hours</span> prior to the scheduled time. Cancellations made within the 24-hour window or failure to attend (no-show) will result in <span className="font-bold text-[var(--color-primary)]">forfeiture of the deposit and a potential 100% service fee charge</span> to the card on file.&quot;
                                 </p>
                             </div>
-                            <p className="text-center text-xs text-slate-500">This text will be shown to customers during the final step of online booking.</p>
+                            <p className="text-center text-xs text-[var(--text-muted)]">This text will be shown to customers during the final step of online booking.</p>
                         </div>
                     </div>
                 </div>

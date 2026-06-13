@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { updateBranchHoursAction } from "@/lib/settings-actions";
@@ -102,7 +102,7 @@ export function BusinessHoursForm({ branchId, initialHours }: BusinessHoursFormP
                                             onClick={() => updateDay(day, 'isClosed', !dayData.isClosed)}
                                             className={`w-11 h-6 rounded-full relative transition-all duration-300 ${dayData.isClosed ? 'bg-red-500 shadow-inner' : 'bg-[var(--bg-surface-muted)]'}`}
                                         >
-                                            <div className={`absolute top-1 size-4 bg-white rounded-full shadow-md transition-all duration-300 ${dayData.isClosed ? 'right-1' : 'left-1'}`}></div>
+                                            <div className={`absolute top-1 size-4 bg-[var(--bg-card)] rounded-full shadow-md transition-all duration-300 ${dayData.isClosed ? 'right-1' : 'left-1'}`}></div>
                                         </button>
                                     </div>
                                 </div>

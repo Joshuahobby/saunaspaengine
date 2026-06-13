@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useRef } from "react";
 import { updateBranchSettingsAction, updateBusinessBrandingAction } from "@/lib/settings-actions";
@@ -95,7 +95,7 @@ export function BrandingSettingsForm({ businessId, branchId, initialData }: Bran
                             onClick={() => setIsOverride(!isOverride)}
                             className={`w-10 h-5 rounded-full relative transition-all ${isOverride ? 'bg-[var(--color-primary)]' : 'bg-gray-400/20'}`}
                         >
-                            <div className={`absolute top-0.5 size-4 bg-white rounded-full transition-all ${isOverride ? 'right-0.5' : 'left-0.5'}`}></div>
+                            <div className={`absolute top-0.5 size-4 bg-[var(--bg-card)] rounded-full transition-all ${isOverride ? 'right-0.5' : 'left-0.5'}`}></div>
                         </button>
                     </div>
                 )}

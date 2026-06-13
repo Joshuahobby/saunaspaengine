@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -283,7 +283,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                     <button
                         type="submit"
                         disabled={loading || !!passwordError || !!passwordMismatch}
-                        className="bg-[var(--color-primary)] text-[var(--color-bg-dark)] px-8 py-3 rounded-xl text-sm font-bold hover:brightness-110 shadow-lg shadow-[var(--color-primary)]/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                        className="bg-[var(--color-primary)] text-[var(--bg-app)] px-8 py-3 rounded-xl text-sm font-bold hover:brightness-110 shadow-lg shadow-[var(--color-primary)]/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                     >
                         {loading ? (
                             <>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import QRCode from "qrcode";
@@ -25,7 +25,7 @@ export const PremiumCardThemes: MembershipCardTheme[] = [
         id: "dark-premium",
         label: "Dark Premium",
         bgClass: "bg-zinc-950 bg-[radial-gradient(ellipse_at_top_left,rgba(50,50,50,1)_0%,rgba(15,15,15,1)_60%,rgba(0,0,0,1)_100%)]",
-        accentClass: "bg-white/10 text-white",
+        accentClass: "bg-[var(--bg-card)]/10 text-white",
         textClass: "text-white",
         hex: "#09090b",
         icon: Shield
@@ -43,7 +43,7 @@ export const PremiumCardThemes: MembershipCardTheme[] = [
         id: "emerald-oasis",
         label: "Emerald Oasis",
         bgClass: "bg-emerald-900 bg-[radial-gradient(circle_at_top_right,#10b981_0%,#065f46_45%,#022c22_100%)]",
-        accentClass: "bg-white/10 text-white",
+        accentClass: "bg-[var(--bg-card)]/10 text-white",
         textClass: "text-emerald-50",
         hex: "#064e3b",
         icon: Leaf
@@ -61,7 +61,7 @@ export const PremiumCardThemes: MembershipCardTheme[] = [
         id: "noir-stealth",
         label: "Noir Stealth",
         bgClass: "bg-[#050505] bg-[radial-gradient(circle_at_50%_40%,#1a1a1c_0%,#09090a_60%,#000000_100%)]",
-        accentClass: "bg-white/5 text-white border-white/10",
+        accentClass: "bg-[var(--bg-card)]/5 text-white border-white/10",
         textClass: "text-zinc-100",
         hex: "#0f0f11",
         icon: Shield
@@ -155,7 +155,7 @@ export default function PrintableMembershipCard({
                         </div>
                     </div>
                     {tier && (
-                        <div className={`flex items-center gap-1.5 border border-white/20 bg-white/10 backdrop-blur-sm px-1.5 py-0.5 rounded-lg text-[6px] font-bold uppercase tracking-widest leading-none shadow-sm ${isExporting ? 'border-white/40 bg-white/20' : ''}`}>
+                        <div className={`flex items-center gap-1.5 border border-white/20 bg-[var(--bg-card)]/10 backdrop-blur-sm px-1.5 py-0.5 rounded-lg text-[6px] font-bold uppercase tracking-widest leading-none shadow-sm ${isExporting ? 'border-white/40 bg-[var(--bg-card)]/20' : ''}`}>
                             <TierIcon className="w-2 h-2" />
                             {tier}
                         </div>
@@ -168,8 +168,8 @@ export default function PrintableMembershipCard({
                 {/* Right Middle QR for non-noir themes */}
                 {theme.id !== "noir-stealth" && localQr && (
                     <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20">
-                         <div className={`p-1 rounded-2xl border ${theme.id === "classic-pearl" ? "bg-[#15241f]/5 border-[#15241f]/10" : "bg-white/10 border-white/20"} backdrop-blur-sm shadow-sm`}>
-                            <div className="bg-white p-1.5 rounded-xl overflow-hidden shadow-inner">
+                         <div className={`p-1 rounded-2xl border ${theme.id === "classic-pearl" ? "bg-[#15241f]/5 border-[#15241f]/10" : "bg-[var(--bg-card)]/10 border-white/20"} backdrop-blur-sm shadow-sm`}>
+                            <div className="bg-[var(--bg-card)] p-1.5 rounded-xl overflow-hidden shadow-inner">
                                 <img 
                                     src={localQr} 
                                     alt="Smart QR"
@@ -194,8 +194,8 @@ export default function PrintableMembershipCard({
                             Others: QR at Right Middle (sidebar level - see absolute div above)
                         */}
                         {theme.id === "noir-stealth" && localQr && (
-                            <div className="bg-white/10 backdrop-blur-md p-0.5 rounded-lg border border-white/10 shadow-sm mb-1 group-hover:scale-105 transition-transform duration-500 overflow-hidden">
-                                <div className="bg-white p-1 rounded-md">
+                            <div className="bg-[var(--bg-card)]/10 backdrop-blur-md p-0.5 rounded-lg border border-white/10 shadow-sm mb-1 group-hover:scale-105 transition-transform duration-500 overflow-hidden">
+                                <div className="bg-[var(--bg-card)] p-1 rounded-md">
                                     <img 
                                         src={localQr} 
                                         alt="Bottom Right QR"

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Image from "next/image";
@@ -204,9 +204,9 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* Cart Items */}
-                <div className="glass-card border border-slate-200 dark:border-slate-800 overflow-hidden">
-                    <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50">
-                        <span className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Current Order</span>
+                <div className="glass-card border border-[var(--border-main)] overflow-hidden">
+                    <div className="p-4 border-b border-[var(--border-main)] flex justify-between items-center bg-[var(--bg-surface-muted)]/50">
+                        <span className="text-sm font-bold text-[var(--text-main)] dark:text-white uppercase tracking-wider">Current Order</span>
                         <button className="text-[var(--color-primary)] text-sm font-bold flex items-center gap-1 hover:underline">
                             <span className="material-symbols-outlined text-sm">add</span> Add Custom Item
                         </button>
@@ -220,7 +220,7 @@ export default function CheckoutPage() {
                                         <span className={`material-symbols-outlined ${item.textColor} text-3xl`}>{item.icon}</span>
                                     </div>
                                 ) : (
-                                    <div className="size-16 rounded-lg bg-white dark:bg-slate-800 flex items-center justify-center shrink-0 border border-[var(--color-primary)]/20 overflow-hidden relative">
+                                    <div className="size-16 rounded-lg bg-[var(--bg-card)] flex items-center justify-center shrink-0 border border-[var(--color-primary)]/20 overflow-hidden relative">
                                         {item.image && !failedImages.has(item.id) ? (
                                             <Image
                                                 src={item.image}
@@ -230,64 +230,64 @@ export default function CheckoutPage() {
                                                 onError={() => setFailedImages(prev => new Set(prev).add(item.id))}
                                             />
                                         ) : (
-                                            <span className="material-symbols-outlined text-2xl text-slate-400 dark:text-slate-600">shopping_bag</span>
+                                            <span className="material-symbols-outlined text-2xl text-[var(--text-muted)]">shopping_bag</span>
                                         )}
                                     </div>
                                 )}
 
                                 <div className="flex-1">
                                     <div className="flex items-center gap-2">
-                                        <h4 className="text-slate-900 dark:text-white font-bold">{item.name}</h4>
+                                        <h4 className="text-[var(--text-main)] dark:text-white font-bold">{item.name}</h4>
                                         {item.badge && (
-                                            <span className="text-[10px] bg-[var(--color-primary)] text-[var(--color-bg-dark)] px-1.5 py-0.5 rounded font-bold uppercase">
+                                            <span className="text-[10px] bg-[var(--color-primary)] text-[var(--bg-app)] px-1.5 py-0.5 rounded font-bold uppercase">
                                                 {item.badge}
                                             </span>
                                         )}
                                     </div>
-                                    <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">{item.description}</p>
+                                    <p className="text-[var(--text-muted)] text-sm mt-0.5">{item.description}</p>
                                 </div>
 
                                 <div className="text-right">
-                                    <p className="text-slate-900 dark:text-white font-bold">RWF {(item.price * 1000).toLocaleString('en-RW', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-                                    <p className="text-slate-400 text-xs mt-0.5">Qty: {item.qty}</p>
+                                    <p className="text-[var(--text-main)] dark:text-white font-bold">RWF {(item.price * 1000).toLocaleString('en-RW', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                                    <p className="text-[var(--text-muted)] text-xs mt-0.5">Qty: {item.qty}</p>
                                 </div>
 
-                                <button onClick={() => handleRemoveItem(item.id)} className="p-2 ml-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">
+                                <button onClick={() => handleRemoveItem(item.id)} className="p-2 ml-2 text-[var(--text-muted)] hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">
                                     <span className="material-symbols-outlined">delete</span>
                                 </button>
                             </div>
                         ))}
 
                         {cartItems.length === 0 && (
-                            <div className="p-10 text-center text-slate-500 font-medium">
+                            <div className="p-10 text-center text-[var(--text-muted)] font-medium">
                                 The cart is currently empty.
                             </div>
                         )}
                     </div>
 
                     {/* Summary Area */}
-                    <div className="p-6 bg-slate-50 dark:bg-slate-800/40">
+                    <div className="p-6 bg-[var(--bg-surface-muted)]/40">
                         <div className="space-y-3 max-w-sm ml-auto">
-                            <div className="flex justify-between text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] text-sm">
+                            <div className="flex justify-between text-[var(--text-muted)] text-sm">
                                 <span>Subtotal</span>
                                 <span className="font-medium">RWF {(subtotal * 1000).toLocaleString('en-RW', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                             </div>
-                            <div className="flex justify-between text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] text-sm">
+                            <div className="flex justify-between text-[var(--text-muted)] text-sm">
                                 <span>Service Tax (8%)</span>
                                 <span className="font-medium">RWF {(serviceTax * 1000).toLocaleString('en-RW', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                             </div>
-                            <div className="flex justify-between text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] text-sm">
+                            <div className="flex justify-between text-[var(--text-muted)] text-sm">
                                 <span>Retail Tax (5%)</span>
                                 <span className="font-medium">RWF {(retailTax * 1000).toLocaleString('en-RW', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                             </div>
 
-                            <div className="pt-3 border-t border-slate-200 dark:border-slate-700 flex justify-between items-end">
-                                <span className="text-lg font-bold text-slate-900 dark:text-white uppercase">Total Due</span>
+                            <div className="pt-3 border-t border-[var(--border-main)] flex justify-between items-end">
+                                <span className="text-lg font-bold text-[var(--text-main)] dark:text-white uppercase">Total Due</span>
                                 <span className="text-2xl font-black text-[var(--color-primary)]">RWF {(total * 1000).toLocaleString('en-RW', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                             </div>
 
                             <div className="pt-6 space-y-4">
-                                <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1 italic opacity-60">Payment Method</label>
+                                <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 italic opacity-60">Payment Method</label>
                                 <div className="grid grid-cols-3 gap-3">
                                     {[
                                         { id: 'cash', label: 'Cash', icon: 'payments' },
@@ -296,9 +296,9 @@ export default function CheckoutPage() {
                                     ].map((pm) => (
                                         <label key={pm.id} className="cursor-pointer group">
                                             <input type="radio" name="paymentOption" value={pm.id} checked={selectedPaymentMode === pm.id} onChange={() => setSelectedPaymentMode(pm.id)} className="sr-only peer" />
-                                            <div className="flex flex-col items-center gap-2 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 peer-checked:border-[var(--color-primary)] peer-checked:bg-[var(--color-primary)]/[0.05] transition-all hover:bg-slate-50 dark:hover:bg-slate-800">
-                                                <span className="material-symbols-outlined text-slate-400 peer-checked:text-[var(--color-primary)]">{pm.icon}</span>
-                                                <span className="text-[9px] font-bold uppercase tracking-wider text-slate-500 peer-checked:text-white">{pm.label}</span>
+                                            <div className="flex flex-col items-center gap-2 p-4 rounded-xl border border-[var(--border-main)] bg-[var(--bg-card)] peer-checked:border-[var(--color-primary)] peer-checked:bg-[var(--color-primary)]/[0.05] transition-all hover:bg-[var(--bg-surface-muted)]">
+                                                <span className="material-symbols-outlined text-[var(--text-muted)] peer-checked:text-[var(--color-primary)]">{pm.icon}</span>
+                                                <span className="text-[9px] font-bold uppercase tracking-wider text-[var(--text-muted)] peer-checked:text-white">{pm.label}</span>
                                             </div>
                                         </label>
                                     ))}
@@ -310,7 +310,7 @@ export default function CheckoutPage() {
                                     type="button"
                                     onClick={handleCompletePayment}
                                     disabled={isCompleting || isCompleted || cartItems.length === 0}
-                                    className="w-full bg-[var(--color-primary)] hover:opacity-90 text-[var(--color-bg-dark)] font-black py-4 rounded-xl shadow-[0_4px_0_0_rgba(17,212,196,0.3)] hover:shadow-none hover:translate-y-1 transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0 disabled:shadow-none"
+                                    className="w-full bg-[var(--color-primary)] hover:opacity-90 text-[var(--bg-app)] font-black py-4 rounded-xl shadow-[0_4px_0_0_rgba(17,212,196,0.3)] hover:shadow-none hover:translate-y-1 transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0 disabled:shadow-none"
                                 >
                                     {isCompleted ? (
                                         <>PAYMENT COMPLETE <span className="material-symbols-outlined">check_circle</span></>
@@ -328,16 +328,16 @@ export default function CheckoutPage() {
 
             {/* Right Sidebar: Recommended Retail */}
             <aside className="w-full lg:w-80 flex flex-col gap-6 shrink-0">
-                <div className="glass-card p-5 shadow-sm border border-slate-200 dark:border-slate-800">
+                <div className="glass-card p-5 shadow-sm border border-[var(--border-main)]">
                     <div className="flex items-center gap-2 mb-5">
                         <span className="material-symbols-outlined text-[var(--color-primary)]">stars</span>
-                        <h3 className="text-slate-900 dark:text-white font-bold">Recommended for Guest</h3>
+                        <h3 className="text-[var(--text-main)] dark:text-white font-bold">Recommended for Guest</h3>
                     </div>
 
                     <div className="flex flex-col gap-4">
                         {suggestedItems.map((product) => (
-                            <div key={product.id} className="group border border-slate-100 dark:border-slate-800 rounded-xl p-3 hover:border-[var(--color-primary)]/50 transition-colors glass-card">
-                                <div className="aspect-square rounded-lg bg-slate-100 dark:bg-slate-800 mb-3 relative overflow-hidden flex items-center justify-center">
+                            <div key={product.id} className="group border border-[var(--border-main)] rounded-xl p-3 hover:border-[var(--color-primary)]/50 transition-colors glass-card">
+                                <div className="aspect-square rounded-lg bg-[var(--bg-surface-muted)] mb-3 relative overflow-hidden flex items-center justify-center">
                                     {product.image && !failedImages.has(product.id) ? (
                                         <Image
                                             src={product.image}
@@ -347,20 +347,20 @@ export default function CheckoutPage() {
                                             onError={() => setFailedImages(prev => new Set(prev).add(product.id))}
                                         />
                                     ) : (
-                                        <span className="material-symbols-outlined text-4xl text-slate-400 dark:text-slate-600">shopping_bag</span>
+                                        <span className="material-symbols-outlined text-4xl text-[var(--text-muted)]">shopping_bag</span>
                                     )}
                                     {product.badge && (
-                                        <div className="absolute top-2 right-2 bg-white/90 dark:bg-slate-900/90 px-2 py-1 rounded text-[10px] font-black text-slate-900 dark:text-white shadow-sm">
+                                        <div className="absolute top-2 right-2 bg-[var(--bg-card)]/90 px-2 py-1 rounded text-[10px] font-black text-[var(--text-main)] dark:text-white shadow-sm">
                                             {product.badge}
                                         </div>
                                     )}
                                 </div>
-                                <h4 className="text-slate-900 dark:text-white font-bold text-sm tracking-tight">{product.name}</h4>
-                                <p className="text-slate-500 text-xs mb-3 mt-0.5 line-clamp-1">{product.description}</p>
+                                <h4 className="text-[var(--text-main)] dark:text-white font-bold text-sm tracking-tight">{product.name}</h4>
+                                <p className="text-[var(--text-muted)] text-xs mb-3 mt-0.5 line-clamp-1">{product.description}</p>
 
                                 <div className="flex items-center justify-between mt-auto">
-                                    <span className="text-slate-900 dark:text-white font-black text-base tracking-tight">RWF {(product.price * 1000).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
-                                    <button onClick={() => handleAddItem(product)} className="bg-[var(--color-primary)]/10 hover:bg-[var(--color-primary)] hover:text-[var(--color-bg-dark)] text-[var(--color-primary)] p-2 rounded-lg transition-all border border-[var(--color-primary)]/20">
+                                    <span className="text-[var(--text-main)] dark:text-white font-black text-base tracking-tight">RWF {(product.price * 1000).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                                    <button onClick={() => handleAddItem(product)} className="bg-[var(--color-primary)]/10 hover:bg-[var(--color-primary)] hover:text-[var(--bg-app)] text-[var(--color-primary)] p-2 rounded-lg transition-all border border-[var(--color-primary)]/20">
                                         <span className="material-symbols-outlined text-sm font-bold">add_shopping_cart</span>
                                     </button>
                                 </div>
@@ -368,7 +368,7 @@ export default function CheckoutPage() {
                         ))}
                     </div>
 
-                    <button className="w-full mt-5 py-2 text-slate-500 dark:text-slate-400 text-sm font-bold hover:text-[var(--color-primary)] transition-colors border-t border-slate-100 dark:border-slate-800 pt-5">
+                    <button className="w-full mt-5 py-2 text-[var(--text-muted)] text-sm font-bold hover:text-[var(--color-primary)] transition-colors border-t border-[var(--border-main)] pt-5">
                         View All Products
                     </button>
                 </div>
@@ -378,9 +378,9 @@ export default function CheckoutPage() {
                     <div className="relative z-10">
                         <span className="text-[var(--color-primary)] text-[10px] font-black uppercase tracking-widest">Upgrade Available</span>
                         <h4 className="text-white font-bold mt-2 text-lg">Diamond Membership</h4>
-                        <p className="text-slate-300 text-xs mt-2 leading-relaxed opacity-90">Save 15% on today&apos;s session and all future retail purchases.</p>
+                        <p className="text-white/70 text-xs mt-2 leading-relaxed">Save 15% on today&apos;s session and all future retail purchases.</p>
 
-                        <button className="mt-5 w-full bg-white text-slate-900 px-4 py-3 rounded-lg text-sm font-bold hover:bg-[var(--color-primary)] transition-colors flex items-center justify-center">
+                        <button className="mt-5 w-full bg-[var(--bg-card)] text-[var(--text-main)] px-4 py-3 rounded-lg text-sm font-bold hover:bg-[var(--color-primary)] transition-colors flex items-center justify-center">
                             UPGRADE +RWF 49,000/mo
                         </button>
                     </div>

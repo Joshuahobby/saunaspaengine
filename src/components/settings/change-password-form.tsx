@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
@@ -39,12 +39,12 @@ export function ChangePasswordForm({ userId }: { userId: string }) {
     };
 
     const getStrengthColor = (score: number) => {
-        if (score === 0) return "bg-slate-200 border-slate-300";
+        if (score === 0) return "bg-[var(--bg-surface-muted)] border-[var(--border-main)]";
         if (score === 1) return "bg-red-500 border-red-600";
         if (score === 2) return "bg-orange-500 border-orange-600";
         if (score === 3) return "bg-amber-400 border-amber-500";
         if (score === 4) return "bg-emerald-500 border-emerald-600";
-        return "bg-slate-200";
+        return "bg-[var(--bg-surface-muted)]";
     };
 
     const onSubmit = async (e: React.FormEvent) => {
@@ -101,7 +101,7 @@ export function ChangePasswordForm({ userId }: { userId: string }) {
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
                         className="w-full h-11 px-4 rounded-xl border border-[var(--border-main)] bg-[var(--bg-card)] focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all"
-                        placeholder="••••••••"
+                        placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                     />
                 </div>
 
@@ -130,7 +130,7 @@ export function ChangePasswordForm({ userId }: { userId: string }) {
                                         className={`flex-1 rounded-full border transition-all duration-300 ${
                                             passwordStrength.score > index
                                                 ? getStrengthColor(passwordStrength.score)
-                                                : "bg-slate-100 dark:bg-slate-800 border-transparent"
+                                                : "bg-[var(--bg-surface-muted)] border-transparent"
                                         }`}
                                     />
                                 ))}

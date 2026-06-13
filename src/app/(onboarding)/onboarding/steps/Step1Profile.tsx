@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef } from "react";
 import { saveBranchProfileAction } from "../actions";
@@ -112,7 +112,7 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
             </div>
 
             {/* Branding Section */}
-            <section className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 space-y-8">
+            <section className="bg-[var(--bg-card)]/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] p-8 space-y-8">
                 <div className="flex items-center gap-3 border-b border-white/5 pb-4">
                     <span className="material-symbols-outlined text-[var(--color-primary)]">branding_watermark</span>
                     <h2 className="text-xl font-bold text-[var(--text-main)]">Branch Branding</h2>
@@ -173,7 +173,7 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
                             onChange={(e) => setName(e.target.value)}
                             placeholder="e.g. Nordic Calm Wellness Center"
                             required
-                            className="w-full h-14 bg-white/5 border border-white/5 rounded-2xl px-6 font-bold text-base text-[var(--text-main)] focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all outline-none"
+                            className="w-full h-14 bg-[var(--bg-card)]/5 border border-white/5 rounded-2xl px-6 font-bold text-base text-[var(--text-main)] focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all outline-none"
                         />
                     </div>
                     <div className="space-y-2">
@@ -185,7 +185,7 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="hello@yourspa.com"
-                            className="w-full h-14 bg-white/5 border border-white/5 rounded-2xl px-6 font-bold text-base text-[var(--text-main)] focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all outline-none"
+                            className="w-full h-14 bg-[var(--bg-card)]/5 border border-white/5 rounded-2xl px-6 font-bold text-base text-[var(--text-main)] focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all outline-none"
                         />
                     </div>
                     <div className="space-y-2">
@@ -197,7 +197,7 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder="+250 000 000 000"
-                            className="w-full h-14 bg-white/5 border border-white/5 rounded-2xl px-6 font-bold text-base text-[var(--text-main)] focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all outline-none"
+                            className="w-full h-14 bg-[var(--bg-card)]/5 border border-white/5 rounded-2xl px-6 font-bold text-base text-[var(--text-main)] focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all outline-none"
                         />
                     </div>
                     <div className="col-span-2 space-y-2">
@@ -211,7 +211,7 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
                                 placeholder="Street 123, Kigali, Rwanda"
-                                className="w-full h-14 bg-white/5 border border-white/5 rounded-2xl pl-14 pr-6 font-bold text-base text-[var(--text-main)] focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all outline-none"
+                                className="w-full h-14 bg-[var(--bg-card)]/5 border border-white/5 rounded-2xl pl-14 pr-6 font-bold text-base text-[var(--text-main)] focus:border-[var(--color-primary)]/30 focus:ring-4 focus:ring-[var(--color-primary)]/5 transition-all outline-none"
                             />
                         </div>
                     </div>
@@ -225,7 +225,7 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
                     <h2 className="text-xl font-bold text-[var(--text-main)]">Branch Hours</h2>
                 </div>
 
-                <div className="bg-white/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] overflow-hidden">
+                <div className="bg-[var(--bg-card)]/5 backdrop-blur-sm border border-white/5 rounded-[2.5rem] overflow-hidden">
                     <div className="hidden md:grid grid-cols-6 gap-4 px-8 py-4 border-b border-white/5 text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] opacity-40">
                         <div className="col-span-1">Day</div>
                         <div className="col-span-1">Status</div>
@@ -234,7 +234,7 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
                     </div>
                     <div className="divide-y divide-white/5">
                         {DAYS.map((day) => (
-                            <div key={day} className="grid grid-cols-1 md:grid-cols-6 gap-4 items-center px-8 py-5 hover:bg-white/[0.02] transition-colors group/row">
+                            <div key={day} className="grid grid-cols-1 md:grid-cols-6 gap-4 items-center px-8 py-5 hover:bg-[var(--bg-card)]/[0.02] transition-colors group/row">
                                 <div className="font-bold text-sm text-[var(--text-main)]">{day}</div>
                                 <div>
                                     <label htmlFor={`day-status-${day}`} className="relative inline-flex items-center cursor-pointer">
@@ -246,7 +246,7 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
                                             checked={hours[day].open}
                                             onChange={(e) => updateHour(day, "open", e.target.checked)}
                                         />
-                                        <div className="w-10 h-6 bg-white/10 rounded-full peer peer-checked:bg-[var(--color-primary)] transition-all after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-white/40 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-4 peer-checked:after:bg-white"></div>
+                                        <div className="w-10 h-6 bg-[var(--bg-card)]/10 rounded-full peer peer-checked:bg-[var(--color-primary)] transition-all after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-[var(--bg-card)]/40 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-4 peer-checked:after:bg-[var(--bg-card)]"></div>
                                         <span className="sr-only">Toggle {day} Status</span>
                                     </label>
                                 </div>
@@ -258,7 +258,7 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
                                         value={hours[day].opensAt}
                                         onChange={(e) => updateHour(day, "opensAt", e.target.value)}
                                         disabled={!hours[day].open}
-                                        className="bg-white/5 border border-white/5 rounded-xl px-3 h-10 w-full text-sm font-bold text-[var(--text-main)] outline-none focus:border-[var(--color-primary)]/30 transition-all disabled:opacity-30"
+                                        className="bg-[var(--bg-card)]/5 border border-white/5 rounded-xl px-3 h-10 w-full text-sm font-bold text-[var(--text-main)] outline-none focus:border-[var(--color-primary)]/30 transition-all disabled:opacity-30"
                                     />
                                 </div>
                                 <div className="col-span-2 flex items-center gap-2">
@@ -269,7 +269,7 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
                                         value={hours[day].closesAt}
                                         onChange={(e) => updateHour(day, "closesAt", e.target.value)}
                                         disabled={!hours[day].open}
-                                        className="bg-white/5 border border-white/5 rounded-xl px-3 h-10 w-full text-sm font-bold text-[var(--text-main)] outline-none focus:border-[var(--color-primary)]/30 transition-all disabled:opacity-30"
+                                        className="bg-[var(--bg-card)]/5 border border-white/5 rounded-xl px-3 h-10 w-full text-sm font-bold text-[var(--text-main)] outline-none focus:border-[var(--color-primary)]/30 transition-all disabled:opacity-30"
                                     />
                                 </div>
                             </div>
@@ -291,7 +291,7 @@ export function Step1Profile({ branch, onNext, onPrev }: StepProps) {
                 <button
                     type="button"
                     onClick={onPrev}
-                    className="h-14 px-8 rounded-2xl border border-white/5 font-bold text-sm text-[var(--text-muted)] hover:bg-white/5 hover:text-[var(--text-main)] transition-all flex items-center gap-3"
+                    className="h-14 px-8 rounded-2xl border border-white/5 font-bold text-sm text-[var(--text-muted)] hover:bg-[var(--bg-card)]/5 hover:text-[var(--text-main)] transition-all flex items-center gap-3"
                 >
                     <span className="material-symbols-outlined text-lg">arrow_back</span>
                     Previous

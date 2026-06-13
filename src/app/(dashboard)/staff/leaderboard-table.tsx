@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo } from "react";
 import type { LeaderboardEntry } from "@/lib/leaderboard";
@@ -29,7 +29,7 @@ export default function LeaderboardTable({ rankings }: { rankings: LeaderboardEn
                     <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] text-[18px] opacity-40">search</span>
                     <input
                         type="text"
-                        placeholder="Search by name or branch…"
+                        placeholder="Search by name or branchâ€¦"
                         value={query}
                         onChange={e => setQuery(e.target.value)}
                         className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-app)] text-sm font-medium text-[var(--text-main)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--color-primary)]/50 transition-colors"
@@ -89,7 +89,7 @@ export default function LeaderboardTable({ rankings }: { rankings: LeaderboardEn
                                     <td className="px-8 py-6 text-center">
                                         <div className={`size-10 rounded-2xl mx-auto flex items-center justify-center text-[10px] font-black border ${
                                             index === 0 ? "bg-yellow-500 text-white border-yellow-400 shadow-xl shadow-yellow-500/20" :
-                                            index === 1 ? "bg-slate-300 text-slate-700 border-slate-200" :
+                                            index === 1 ? "bg-slate-300 text-[var(--text-main)] border-[var(--border-main)]" :
                                             index === 2 ? "bg-orange-400 text-white border-orange-300" :
                                             "bg-[var(--bg-app)] text-[var(--text-muted)] border-[var(--border-muted)]"
                                         }`}>

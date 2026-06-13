@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -401,7 +401,7 @@ function CategoryModal({ isOpen, onClose, category, isLoading, setIsLoading, bra
                                                 <span className="font-bold tracking-widest text-[10px] uppercase">{formData.isGlobal ? 'Global Pass' : 'Branch Specific'}</span>
                                             </div>
                                             <div className={`w-12 h-6 rounded-full relative transition-all ${formData.isGlobal ? 'bg-blue-500' : 'bg-[var(--bg-app)]'}`}>
-                                                <div className={`absolute top-1 size-4 rounded-full bg-white transition-all ${formData.isGlobal ? 'right-1' : 'left-1'}`} />
+                                                <div className={`absolute top-1 size-4 rounded-full bg-[var(--bg-card)] transition-all ${formData.isGlobal ? 'right-1' : 'left-1'}`} />
                                             </div>
                                         </button>
 

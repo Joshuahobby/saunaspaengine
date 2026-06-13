@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+﻿import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
@@ -73,19 +73,19 @@ export default async function LoyaltySettingsPage() {
                 <div className="mb-4">
                     <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--color-primary)]/60">Configuration</h3>
                 </div>
-                <button className="flex items-center gap-3 px-3 py-2 rounded-lg bg-[var(--color-primary)] text-slate-900 font-semibold shadow-md shadow-[var(--color-primary)]/10 w-full text-left">
+                <button className="flex items-center gap-3 px-3 py-2 rounded-lg bg-[var(--color-primary)] text-[var(--text-main)] font-semibold shadow-md shadow-[var(--color-primary)]/10 w-full text-left">
                     <span className="material-symbols-outlined font-variation-settings-'FILL'-1">stars</span>
                     <span className="text-sm">Earning Rules</span>
                 </button>
-                <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] hover:bg-[var(--color-primary)]/10 transition-colors w-full text-left">
+                <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-[var(--text-muted)] hover:bg-[var(--color-primary)]/10 transition-colors w-full text-left">
                     <span className="material-symbols-outlined">redeem</span>
                     <span className="text-sm">Redemption Tiers</span>
                 </button>
-                <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] hover:bg-[var(--color-primary)]/10 transition-colors w-full text-left">
+                <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-[var(--text-muted)] hover:bg-[var(--color-primary)]/10 transition-colors w-full text-left">
                     <span className="material-symbols-outlined">military_tech</span>
                     <span className="text-sm">Member Tiers</span>
                 </button>
-                <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] hover:bg-[var(--color-primary)]/10 transition-colors w-full text-left">
+                <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-[var(--text-muted)] hover:bg-[var(--color-primary)]/10 transition-colors w-full text-left">
                     <span className="material-symbols-outlined">credit_card</span>
                     <span className="text-sm">Card Preview</span>
                 </button>
@@ -93,7 +93,7 @@ export default async function LoyaltySettingsPage() {
                 <div className="mt-8 mb-4 border-t border-[var(--color-primary)]/10 pt-8">
                     <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--color-primary)]/60">System</h3>
                 </div>
-                <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] hover:bg-[var(--color-primary)]/10 transition-colors w-full text-left">
+                <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-[var(--text-muted)] hover:bg-[var(--color-primary)]/10 transition-colors w-full text-left">
                     <span className="material-symbols-outlined">settings</span>
                     <span className="text-sm">Global Settings</span>
                 </button>
@@ -104,11 +104,11 @@ export default async function LoyaltySettingsPage() {
                 {/* Header Section */}
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
                     <div>
-                        <h1 className="text-4xl font-black tracking-tight text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Loyalty & Rewards</h1>
-                        <p className="text-slate-500 dark:text-slate-400 mt-1">Driving repeat branch through a flexible rewards ecosystem.</p>
+                        <h1 className="text-4xl font-black tracking-tight text-[var(--text-muted)]">Loyalty & Rewards</h1>
+                        <p className="text-[var(--text-muted)] mt-1">Driving repeat branch through a flexible rewards ecosystem.</p>
                     </div>
                     <div className="flex gap-3">
-                        <Link href="/loyalty/performance" className="px-4 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors flex items-center justify-center">
+                        <Link href="/loyalty/performance" className="px-4 py-2 rounded-lg bg-[var(--bg-card)] border border-[var(--border-main)] text-sm font-semibold hover:bg-[var(--bg-surface-muted)]/80 transition-colors flex items-center justify-center">
                             View Analytics
                         </Link>
                         <button className="px-4 py-2 rounded-lg bg-[var(--color-primary)] text-white text-sm font-bold shadow-lg shadow-[var(--color-primary)]/20 hover:brightness-110 transition-all">
@@ -121,27 +121,27 @@ export default async function LoyaltySettingsPage() {
                     {/* Left Column: Settings */}
                     <div className="xl:col-span-2 space-y-8">
                         {/* Earning Rules Section */}
-                        <section className="glass-card p-6 shadow-sm border border-slate-100 dark:border-slate-800">
+                        <section className="glass-card p-6 shadow-sm border border-[var(--border-main)]">
                             <div className="flex items-center justify-between mb-6">
                                 <div className="flex items-center gap-3">
                                     <div className="p-2 bg-[var(--color-primary)]/10 rounded-lg text-[var(--color-primary)]">
                                         <span className="material-symbols-outlined">monetization_on</span>
                                     </div>
-                                    <h2 className="text-xl font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Earning Rules</h2>
+                                    <h2 className="text-xl font-bold text-[var(--text-muted)]">Earning Rules</h2>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-xs font-medium text-slate-500 uppercase">Status</span>
+                                    <span className="text-xs font-medium text-[var(--text-muted)] uppercase">Status</span>
                                     <div className="w-10 h-5 bg-[var(--color-primary)] rounded-full relative">
-                                        <div className="absolute right-1 top-1 size-3 bg-white rounded-full"></div>
+                                        <div className="absolute right-1 top-1 size-3 bg-[var(--bg-card)] rounded-full"></div>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="space-y-4">
-                                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-[var(--color-border-light)] gap-4">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg bg-[var(--bg-surface-muted)]/50 border border-[var(--border-main)] gap-4">
                                     <div className="flex flex-col">
-                                        <span className="font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Standard Earning Base Rate</span>
-                                        <span className="text-sm text-slate-500">How many points awarded per 10,000 RWF spent</span>
+                                        <span className="font-bold text-[var(--text-muted)]">Standard Earning Base Rate</span>
+                                        <span className="text-sm text-[var(--text-muted)]">How many points awarded per 10,000 RWF spent</span>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <input
@@ -153,14 +153,14 @@ export default async function LoyaltySettingsPage() {
                                             defaultValue={earningRate}
                                             className="w-24 px-3 py-1.5 rounded glass-card text-sm focus:ring-1 focus:ring-[var(--color-primary)] font-mono"
                                         />
-                                        <span className="text-sm text-slate-500 font-bold">PTS / RWF</span>
+                                        <span className="text-sm text-[var(--text-muted)] font-bold">PTS / RWF</span>
                                     </div>
                                 </div>
 
-                                <div className="flex items-center justify-between p-4 rounded-lg border border-[var(--color-border-light)]">
+                                <div className="flex items-center justify-between p-4 rounded-lg border border-[var(--border-main)]">
                                     <div className="flex flex-col">
-                                        <span className="font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">New Client Bonus</span>
-                                        <span className="text-sm text-slate-500">50 points awarded on first visit registration</span>
+                                        <span className="font-bold text-[var(--text-muted)]">New Client Bonus</span>
+                                        <span className="text-sm text-[var(--text-muted)]">50 points awarded on first visit registration</span>
                                     </div>
                                     <button type="button" className="text-[var(--color-primary)] font-bold text-sm hover:underline">Edit</button>
                                 </div>
@@ -170,10 +170,10 @@ export default async function LoyaltySettingsPage() {
                                 </div>
                             </div>
 
-                            <div className="mt-8 pt-6 border-t border-[var(--color-border-light)] flex items-center justify-between">
+                            <div className="mt-8 pt-6 border-t border-[var(--border-main)] flex items-center justify-between">
                                 <label className="flex items-center cursor-pointer gap-3">
-                                    <input defaultChecked className="w-5 h-5 rounded border-slate-300 text-[var(--color-primary)] focus:ring-[var(--color-primary)]" type="checkbox" />
-                                    <span className="text-sm font-medium text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)]">Exclude Discounted Services from point accrual</span>
+                                    <input defaultChecked className="w-5 h-5 rounded border-[var(--border-main)] text-[var(--color-primary)] focus:ring-[var(--color-primary)]" type="checkbox" />
+                                    <span className="text-sm font-medium text-[var(--text-muted)]">Exclude Discounted Services from point accrual</span>
                                 </label>
                                 <button type="submit" className="px-6 py-2 rounded-lg bg-[var(--color-primary)] text-white text-sm font-bold shadow-sm hover:brightness-110 transition-all">
                                     Save Rules
@@ -182,12 +182,12 @@ export default async function LoyaltySettingsPage() {
                         </section>
 
                         {/* Redemption Tiers */}
-                        <section className="glass-card p-6 shadow-sm border border-slate-100 dark:border-slate-800">
+                        <section className="glass-card p-6 shadow-sm border border-[var(--border-main)]">
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 bg-[var(--color-primary)]/10 rounded-lg text-[var(--color-primary)]">
                                     <span className="material-symbols-outlined">redeem</span>
                                 </div>
-                                <h2 className="text-xl font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Redemption Tiers</h2>
+                                <h2 className="text-xl font-bold text-[var(--text-muted)]">Redemption Tiers</h2>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -195,8 +195,8 @@ export default async function LoyaltySettingsPage() {
                                     <div className="size-12 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] mb-3 transition-transform group-hover:scale-110">
                                         <span className="material-symbols-outlined">payments</span>
                                     </div>
-                                    <h3 className="font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">100 Points</h3>
-                                    <p className="text-xs text-slate-500 mb-4">5,000 RWF Off Any Service</p>
+                                    <h3 className="font-bold text-[var(--text-muted)]">100 Points</h3>
+                                    <p className="text-xs text-[var(--text-muted)] mb-4">5,000 RWF Off Any Service</p>
                                     <button type="button" className="w-full py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-bold rounded-lg group-hover:bg-[var(--color-primary)] group-hover:text-white transition-colors">Manage Reward</button>
                                 </div>
 
@@ -204,38 +204,38 @@ export default async function LoyaltySettingsPage() {
                                     <div className="size-12 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] mb-3 transition-transform group-hover:scale-110">
                                         <span className="material-symbols-outlined">spa</span>
                                     </div>
-                                    <h3 className="font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">500 Points</h3>
-                                    <p className="text-xs text-slate-500 mb-4">Free 30-min Sauna Session</p>
+                                    <h3 className="font-bold text-[var(--text-muted)]">500 Points</h3>
+                                    <p className="text-xs text-[var(--text-muted)] mb-4">Free 30-min Sauna Session</p>
                                     <button type="button" className="w-full py-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-bold rounded-lg group-hover:bg-[var(--color-primary)] group-hover:text-white transition-colors">Manage Reward</button>
                                 </div>
                             </div>
                         </section>
 
                         {/* Member Tiering */}
-                        <section className="glass-card p-6 shadow-sm border border-slate-100 dark:border-slate-800">
+                        <section className="glass-card p-6 shadow-sm border border-[var(--border-main)]">
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="p-2 bg-[var(--color-primary)]/10 rounded-lg text-[var(--color-primary)]">
                                     <span className="material-symbols-outlined">military_tech</span>
                                 </div>
-                                <h2 className="text-xl font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Member Tiering</h2>
+                                <h2 className="text-xl font-bold text-[var(--text-muted)]">Member Tiering</h2>
                             </div>
 
                             <div className="space-y-4">
-                                <div className="flex items-center gap-4 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                                    <div className="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-500">
+                                <div className="flex items-center gap-4 p-4 rounded-lg bg-[var(--bg-surface-muted)]/50">
+                                    <div className="w-12 h-12 rounded-full bg-[var(--bg-surface-muted)] flex items-center justify-center text-[var(--text-muted)]">
                                         <span className="material-symbols-outlined">star_half</span>
                                     </div>
                                     <div className="flex-1">
                                         <div className="flex justify-between items-center">
-                                            <span className="font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Silver Tier</span>
-                                            <span className="text-xs font-bold text-slate-500">0 - 999,999 RWF / year</span>
+                                            <span className="font-bold text-[var(--text-muted)]">Silver Tier</span>
+                                            <span className="text-xs font-bold text-[var(--text-muted)]">0 - 999,999 RWF / year</span>
                                         </div>
-                                        <p className="text-xs text-slate-500 mt-1">Standard earning rates applied.</p>
+                                        <p className="text-xs text-[var(--text-muted)] mt-1">Standard earning rates applied.</p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-center gap-4 p-4 rounded-lg border-2 border-yellow-400 bg-yellow-50 dark:bg-yellow-900/10">
-                                    <div className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center text-slate-900 shadow-lg shadow-yellow-400/20">
+                                    <div className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center text-[var(--text-main)] shadow-lg shadow-yellow-400/20">
                                         <span className="material-symbols-outlined font-variation-settings-'FILL'-1">star</span>
                                     </div>
                                     <div className="flex-1">
@@ -247,16 +247,16 @@ export default async function LoyaltySettingsPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-4 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                                <div className="flex items-center gap-4 p-4 rounded-lg bg-[var(--bg-surface-muted)]/50">
                                     <div className="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-500">
                                         <span className="material-symbols-outlined">workspace_premium</span>
                                     </div>
                                     <div className="flex-1">
                                         <div className="flex justify-between items-center">
-                                            <span className="font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Platinum Tier</span>
+                                            <span className="font-bold text-[var(--text-muted)]">Platinum Tier</span>
                                             <span className="text-xs font-bold text-[var(--color-primary)]">2,500,000+ RWF / year</span>
                                         </div>
-                                        <p className="text-xs text-slate-500 mt-1">1.5x Multiplier & Priority Booking.</p>
+                                        <p className="text-xs text-[var(--text-muted)] mt-1">1.5x Multiplier & Priority Booking.</p>
                                     </div>
                                 </div>
                             </div>
@@ -270,7 +270,7 @@ export default async function LoyaltySettingsPage() {
                                 <div className="p-2 bg-[var(--color-primary)]/10 rounded-lg text-[var(--color-primary)]">
                                     <span className="material-symbols-outlined">visibility</span>
                                 </div>
-                                <h2 className="text-xl font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">Client Preview</h2>
+                                <h2 className="text-xl font-bold text-[var(--text-muted)]">Client Preview</h2>
                             </div>
 
                             {/* Digital Card Mockup */}
@@ -293,7 +293,7 @@ export default async function LoyaltySettingsPage() {
                                     </div>
 
                                     <div className="mt-4">
-                                        <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Current Balance</span>
+                                        <span className="text-[var(--text-muted)] text-[10px] uppercase font-bold tracking-wider">Current Balance</span>
                                         <div className="flex items-baseline gap-2">
                                             <span className="text-white text-4xl font-black">1,248</span>
                                             <span className="text-[var(--color-primary)] text-sm font-bold">PTS</span>
@@ -305,9 +305,9 @@ export default async function LoyaltySettingsPage() {
                                             <span className="text-white/60 text-[10px] font-medium">Card Member Since</span>
                                             <span className="text-white text-xs font-bold">Nov 2023</span>
                                         </div>
-                                        <div className="size-10 bg-white rounded flex items-center justify-center p-1 cursor-pointer hover:scale-105 transition-transform">
-                                            <div className="w-full h-full bg-slate-100 flex items-center justify-center rounded-sm">
-                                                <span className="material-symbols-outlined text-slate-900 text-xl font-black">qr_code_2</span>
+                                        <div className="size-10 bg-[var(--bg-card)] rounded flex items-center justify-center p-1 cursor-pointer hover:scale-105 transition-transform">
+                                            <div className="w-full h-full bg-[var(--bg-surface-muted)] flex items-center justify-center rounded-sm">
+                                                <span className="material-symbols-outlined text-[var(--text-main)] text-xl font-black">qr_code_2</span>
                                             </div>
                                         </div>
                                     </div>
@@ -315,8 +315,8 @@ export default async function LoyaltySettingsPage() {
                             </div>
 
                             <div className="mt-6 p-4 rounded-xl bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20">
-                                <h4 className="text-sm font-bold text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)] mb-1">Visual Branding</h4>
-                                <p className="text-xs text-[var(--color-teal-700)] dark:text-[var(--color-teal-100)] mb-4">Customize how your loyalty card looks to your clients.</p>
+                                <h4 className="text-sm font-bold text-[var(--text-muted)] mb-1">Visual Branding</h4>
+                                <p className="text-xs text-[var(--text-muted)] mb-4">Customize how your loyalty card looks to your clients.</p>
                                 <div className="flex gap-2">
                                     <div className="size-6 cursor-pointer rounded-full bg-slate-900 border-2 border-white ring-2 ring-[var(--color-primary)]"></div>
                                     <div className="size-6 cursor-pointer rounded-full bg-yellow-500 border-2 border-white hover:scale-110 transition-transform"></div>
@@ -326,14 +326,14 @@ export default async function LoyaltySettingsPage() {
                             </div>
 
                             <div className="mt-8 space-y-4">
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-slate-500">Program Stats</h3>
+                                <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--text-muted)]">Program Stats</h3>
                                 <div className="grid grid-cols-2 gap-4">
-                                    <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
-                                        <span className="text-xs text-slate-500">Active Members</span>
-                                        <p className="text-xl font-black mt-1 text-[var(--color-teal-900)] dark:text-[var(--color-teal-100)]">{activeMembersCount}</p>
+                                    <div className="bg-[var(--bg-card)] p-4 rounded-xl border border-[var(--border-main)] shadow-sm">
+                                        <span className="text-xs text-[var(--text-muted)]">Active Members</span>
+                                        <p className="text-xl font-black mt-1 text-[var(--text-muted)]">{activeMembersCount}</p>
                                     </div>
-                                    <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
-                                        <span className="text-xs text-slate-500">Points Issued</span>
+                                    <div className="bg-[var(--bg-card)] p-4 rounded-xl border border-[var(--border-main)] shadow-sm">
+                                        <span className="text-xs text-[var(--text-muted)]">Points Issued</span>
                                         <p className="text-xl font-black mt-1 text-[var(--color-primary)]">{formatPoints(totalPointsIssued)}</p>
                                     </div>
                                 </div>
