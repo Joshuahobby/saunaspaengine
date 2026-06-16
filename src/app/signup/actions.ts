@@ -5,6 +5,7 @@ import { Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const BILLING_CYCLES = { Monthly: "Monthly", Yearly: "Yearly" } as const;
+type BillingCycle = (typeof BILLING_CYCLES)[keyof typeof BILLING_CYCLES];
 
 export async function registerBusinessAction(formData: FormData) {
     const businessName = (formData.get("businessName") as string)?.trim();
@@ -12,7 +13,7 @@ export async function registerBusinessAction(formData: FormData) {
     const email = (formData.get("email") as string)?.trim().toLowerCase();
     const password = formData.get("password") as string;
     const confirmPassword = formData.get("confirmPassword") as string;
-    const billingCycle = BILLING_CYCLES.Monthly; // Default to Monthly for auto-assigned plans
+    const billingCycle: BillingCycle = BILLING_CYCLES.Monthly; // Default to Monthly for auto-assigned plans
 
     if (!businessName || !fullName || !email || !password || !confirmPassword) {
         return { error: "All fields are required." };
