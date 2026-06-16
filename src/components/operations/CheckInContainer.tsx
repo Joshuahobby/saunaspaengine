@@ -233,14 +233,16 @@ export function CheckInContainer({ services, employees, clients, subState }: Che
                     )}
 
                     {mode === 'RESULT' && selectedClient && (
-                        <ClientCheckInResult 
-                            client={selectedClient} 
-                            onBack={() => setMode('SCANNING')}
-                            onComplete={handleCompleteCheckIn}
-                            services={services}
-                            lockerNumber={lockerNumber}
-                            onLockerChange={setLockerNumber}
-                        />
+                        <div aria-live="polite">
+                            <ClientCheckInResult 
+                                client={selectedClient} 
+                                onBack={() => setMode('SCANNING')}
+                                onComplete={handleCompleteCheckIn}
+                                services={services}
+                                lockerNumber={lockerNumber}
+                                onLockerChange={setLockerNumber}
+                            />
+                        </div>
                     )}
 
                     {mode === 'MANUAL' && (

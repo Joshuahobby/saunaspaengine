@@ -157,16 +157,22 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                                 Try next: {intelligence.suggestedService}
                             </div>
                             {!qrCode && !qrSuccess && (
-                                <Button 
-                                    variant="ghost"
-                                    size="sm"
-                                    loading={isSaving}
-                                    icon={<QrCode className="size-3.5" />}
-                                    onClick={handleGenerateQr}
-                                    aria-label="Generate QR code for client"
-                                >
-                                    {isSaving ? "Generating..." : "Generate QR Code"}
-                                </Button>
+                                <div className="flex items-center gap-2">
+                                    <span className="flex items-center gap-1 px-2 py-1 bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-lg text-[8px] font-bold uppercase tracking-wider">
+                                        <AlertCircle className="size-2.5" />
+                                        No QR
+                                    </span>
+                                    <Button 
+                                        variant="ghost"
+                                        size="sm"
+                                        loading={isSaving}
+                                        icon={<QrCode className="size-3.5" />}
+                                        onClick={handleGenerateQr}
+                                        aria-label="Generate QR code for client"
+                                    >
+                                        {isSaving ? "Generating..." : "Generate QR Code"}
+                                    </Button>
+                                </div>
                             )}
                             {qrSuccess && (
                                 <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded-lg text-[11px] font-bold uppercase tracking-[0.06em] animate-in fade-in duration-300">
