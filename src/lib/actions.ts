@@ -77,12 +77,12 @@ export async function requestPasswordReset(email: string) {
         });
 
         // Always log OTP for easy developer access
-
+        console.log(`\n\n🔒 === PASSWORD RESET CODE FOR ${email} === 🔒\n\n               ${otp}\n\n===============================================\n\n`);
 
         // Send Email via Resend
         if (process.env.RESEND_API_KEY) {
             const { error: mailError } = await getResend().emails.send({
-                from: "Sauna SPA Engine <onboarding@resend.dev>",
+                from: "Sauna SPA Engine <hello@saunaspaengine.com>",
                 to: email,
                 subject: "Password Recovery — Verification Code",
                 html: `
@@ -99,11 +99,15 @@ export async function requestPasswordReset(email: string) {
             });
 
             if (mailError) {
+                console.error("Resend API Error:", mailError);
                 // In production, we report the error. In dev, the console.log above handles it.
                 if (process.env.NODE_ENV === "production") {
-                    return { error: `Email delivery failed: ${mailError.message}` };
+                    return { error: "Email delivery failed. Please try again later." };
                 }
+                return { error: `Email delivery failed: ${mailError.message}` };
             }
+        } else {
+            console.warn("RESEND_API_KEY is not set in environment variables!");
         }
 
         return { success: true };
