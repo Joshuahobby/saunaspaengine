@@ -5,6 +5,7 @@ import { Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 type BillingCycle = "Monthly" | "Yearly";
+const BILLING_CYCLE_MONTHS: Record<BillingCycle, number> = { Monthly: 1, Yearly: 12 };
 
 export async function registerBusinessAction(formData: FormData) {
     const businessName = (formData.get("businessName") as string)?.trim();
@@ -51,11 +52,7 @@ export async function registerBusinessAction(formData: FormData) {
 
     // Set renewal date: 1 month or 1 year from today
     const renewalDate = new Date();
-    if (billingCycle === "Yearly") {
-        renewalDate.setFullYear(renewalDate.getFullYear() + 1);
-    } else {
-        renewalDate.setMonth(renewalDate.getMonth() + 1);
-    }
+    renewalDate.setMonth(renewalDate.getMonth() + BILLING_CYCLE_MONTHS[billingCycle]);
 
     try {
         await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
