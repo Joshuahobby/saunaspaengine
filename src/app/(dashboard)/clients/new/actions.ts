@@ -3,7 +3,6 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
-import { randomUUID } from "crypto";
 
 export async function registerClient(formData: FormData) {
     const session = await auth();
@@ -40,11 +39,6 @@ export async function registerClient(formData: FormData) {
 
     try {
         const result = await prisma.$transaction(async (tx) => {
-            // Generate a simple unique QR Code string (can be swapped with UUID later)
-            const qrCodeStr = clientType === "MEMBER"
-                ? `SE-${branchId.substring(0, 4).toUpperCase()}-${randomUUID().substring(0, 8).toUpperCase()}`
-                : null;
-
             // 1. Create the Client
             const client = await tx.client.create({
                 data: {
@@ -52,10 +46,17 @@ export async function registerClient(formData: FormData) {
                     fullName,
                     phone: phone.trim(),
                     clientType,
-                    qrCode: qrCodeStr,
                     status: "ACTIVE",
                 }
             });
+
+            // 1b. Generate QR code using client ID (unified spa-client: format)
+            if (clientType === "MEMBER") {
+                await tx.client.update({
+                    where: { id: client.id },
+                    data: { qrCode: `spa-client:${client.id}` },
+                });
+            }
 
             // 2. If MEMBER and category selected, create Membership
             let membership: Record<string, unknown> | null = null;

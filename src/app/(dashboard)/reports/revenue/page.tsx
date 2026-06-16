@@ -40,6 +40,34 @@ export default async function ReportsRevenuePage(props: { searchParams: Promise<
     });
 
     const totalRevenue = completedRecords.reduce((sum: number, r) => sum + r.amount, 0);
+
+    // Daily revenue for current week trend
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    const weekStart = new Date(today);
+    weekStart.setDate(today.getDate() - dayOfWeek);
+    weekStart.setHours(0, 0, 0, 0);
+
+    const dailyRevenue = await Promise.all(
+        Array.from({ length: 7 }, async (_, i) => {
+            const day = new Date(weekStart);
+            day.setDate(weekStart.getDate() + i);
+            const dayEnd = new Date(day);
+            dayEnd.setHours(23, 59, 59, 999);
+
+            const total = await prisma.serviceRecord.aggregate({
+                where: {
+                    branchId: branchWhere,
+                    status: 'COMPLETED',
+                    createdAt: { gte: day, lte: dayEnd },
+                },
+                _sum: { amount: true },
+            });
+
+            const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            return { name: days[i], revenue: total._sum.amount || 0 };
+        })
+    );
     type FinancialRecord = typeof completedRecords[number] & { taxAmount?: number | null; platformFee?: number | null; netAmount?: number | null };
     const totalTax = completedRecords.reduce((sum, r) => sum + ((r as FinancialRecord).taxAmount || 0), 0);
     const totalCommission = completedRecords.reduce((sum, r) => sum + ((r as FinancialRecord).platformFee || 0), 0);
@@ -89,7 +117,8 @@ export default async function ReportsRevenuePage(props: { searchParams: Promise<
         activeMembersCount,
         paymentDistribution,
         topServices,
-        totalBookings: completedRecords.length
+        totalBookings: completedRecords.length,
+        dailyRevenue,
     };
 
     return <ReportsRevenueClientPage metrics={metrics} />;

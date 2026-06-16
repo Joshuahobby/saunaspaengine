@@ -6,6 +6,11 @@ import {
     PieChart, Pie, Cell
 } from 'recharts';
 
+interface DailyRevenue {
+    name: string;
+    revenue: number;
+}
+
 interface RevenueMetrics {
     totalRevenue: number;
     totalTax: number;
@@ -21,6 +26,7 @@ interface RevenueMetrics {
         revenue: number;
     }>;
     totalBookings: number;
+    dailyRevenue: DailyRevenue[];
 }
 
 const COLORS = ['#FF7F32', '#6366F1', '#10B981', '#F59E0B', '#EF4444'];
@@ -41,16 +47,7 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
         value
     }));
 
-    // Mock data for the line chart trend
-    const revenueTrendData = [
-        { name: 'Mon', revenue: metrics.totalRevenue * 0.1 },
-        { name: 'Tue', revenue: metrics.totalRevenue * 0.15 },
-        { name: 'Wed', revenue: metrics.totalRevenue * 0.12 },
-        { name: 'Thu', revenue: metrics.totalRevenue * 0.18 },
-        { name: 'Fri', revenue: metrics.totalRevenue * 0.2 },
-        { name: 'Sat', revenue: metrics.totalRevenue * 0.25 },
-        { name: 'Sun', revenue: metrics.totalRevenue > 0 ? metrics.totalRevenue * 0.1 : 0 },
-    ];
+    const revenueTrendData = metrics.dailyRevenue;
 
     const stats = [
         {

@@ -60,7 +60,9 @@ export default async function LoyaltyPerformancePage() {
     });
 
     const velocity = Math.min(recentServiceCount * 2, 95); // Capped at 95% for UI
-    const roiGrowth = 24; // Static benchmark for now
+    const roiGrowth = incrementalRevenue > 0
+        ? Math.round((incrementalRevenue - pointsIssued) / incrementalRevenue * 100)
+        : 0;
 
     // Fetch top loyal customers
     const topLoyalCustomers = await prisma.loyaltyPoint.findMany({

@@ -221,7 +221,6 @@ export default function ClientListClient({
                                                     onClick={(e) => {
                                                         e.preventDefault();
                                                         setIsLoading(true);
-                                                        console.log('[DEBUG] Force Navigating to Profile:', client.id);
                                                         router.push(`/clients/${client.id}`);
                                                     }}
                                                 >

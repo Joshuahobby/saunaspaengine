@@ -9,12 +9,13 @@ import {
     Printer, History as LucideHistory, Mail, Droplets,
     Activity, TrendingUp, Sparkles, Fingerprint, Clock,
     ChevronRight, Zap, Heart, AlertCircle, MessageSquare, PlusCircle,
-    Star, Target, ShieldCheck, Eye, QrCode, Loader2
+    Star, Target, ShieldCheck, Eye, QrCode
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import { formatCurrency } from "@/lib/utils";
 import { updateClientNotes, generateClientQrAction } from "./actions";
+import { Button } from "@/components/ui/Button";
 import { toast } from "react-hot-toast";
 
 const MembershipCardModal = dynamic(() => import("@/components/clients/MembershipCardModal"), { 
@@ -156,19 +157,16 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                                 Try next: {intelligence.suggestedService}
                             </div>
                             {!qrCode && !qrSuccess && (
-                                <button 
+                                <Button 
+                                    variant="ghost"
+                                    size="sm"
+                                    loading={isSaving}
+                                    icon={<QrCode className="size-3.5" />}
                                     onClick={handleGenerateQr}
-                                    disabled={isSaving}
-                                    className="flex items-center gap-2 px-3 py-1.5 bg-transparent text-[var(--text-dim)] hover:text-[var(--text-main)] hover:bg-[var(--bg-hover)] rounded-lg text-[11px] font-bold uppercase tracking-[0.06em] transition-all"
                                     aria-label="Generate QR code for client"
                                 >
-                                    {isSaving ? (
-                                        <Loader2 className="size-3.5 animate-spin" />
-                                    ) : (
-                                        <QrCode className="size-3.5" />
-                                    )}
                                     {isSaving ? "Generating..." : "Generate QR Code"}
-                                </button>
+                                </Button>
                             )}
                             {qrSuccess && (
                                 <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded-lg text-[11px] font-bold uppercase tracking-[0.06em] animate-in fade-in duration-300">
