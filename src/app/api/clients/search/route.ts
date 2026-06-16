@@ -42,6 +42,10 @@ export async function GET(request: NextRequest) {
         if (query.startsWith("spa-client:")) {
             const extractedId = query.replace("spa-client:", "");
             searchCondition = { id: extractedId };
+        } else if (query.startsWith("SSE:")) {
+            const parts = query.split(":");
+            const extractedId = parts.length >= 3 ? parts[2] : "";
+            searchCondition = extractedId ? { id: extractedId } : {};
         } else {
             searchCondition = {
                 OR: [

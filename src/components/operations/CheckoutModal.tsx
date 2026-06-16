@@ -1,4 +1,6 @@
-﻿import { useState, useCallback, useEffect } from "react";
+﻿"use client";
+
+import { useState, useCallback, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { initiateServiceCheckoutAction, completeVisitAction } from "@/app/(dashboard)/operations/checkout-actions";
 import { QRScanner } from "./QRScanner";
@@ -26,7 +28,7 @@ interface CheckoutModalProps {
 }
 
 type PaymentMode = "CASH" | "MOMO" | "POS" | "MEMBERSHIP";
-type CheckoutStatus = "IDLE" | "PENDING_MOMO" | "PENDING_COMPLETION" | "SUCCESS" | "ERROR";
+type CheckoutStatus = "IDLE" | "PENDING_MOMO" | "PENDING_COMPLETION" | "SUCCESS" | "ERROR" | "POLL_FAILED";
 
 export default function CheckoutModal({
     recordId,
@@ -54,7 +56,78 @@ export default function CheckoutModal({
     // Membership state
     const [membershipVerified, setMembershipVerified] = useState(false);
 
-    const handleInitialPay = async () => {
+    // MoMo polling state
+    const pollingRef = useRef<{ interval: ReturnType<typeof setInterval> | null; timeout: ReturnType<typeof setTimeout> | null }>({ interval: null, timeout: null });
+
+    const clearPolling = useCallback(() => {
+        if (pollingRef.current.interval) {
+            clearInterval(pollingRef.current.interval);
+            pollingRef.current.interval = null;
+        }
+        if (pollingRef.current.timeout) {
+            clearTimeout(pollingRef.current.timeout);
+            pollingRef.current.timeout = null;
+        }
+    }, []);
+
+    const startPolling = useCallback(() => {
+        clearPolling();
+
+        const POLL_INTERVAL = 3000;
+        const TIMEOUT_MS = 120000;
+
+        pollingRef.current.interval = setInterval(async () => {
+            try {
+                const res = await fetch(`/api/service-records/${recordId}/status`);
+                if (!res.ok) {
+                    if (res.status === 404) {
+                        setError("Service record not found");
+                        setStatus("ERROR");
+                        clearPolling();
+                        return;
+                    }
+                    setStatus("POLL_FAILED");
+                    setError("Failed to check payment status");
+                    clearPolling();
+                    return;
+                }
+                const data = await res.json();
+                if (data.status === "COMPLETED") {
+                    setStatus("SUCCESS");
+                    clearPolling();
+                    setTimeout(() => onSuccess(), 1500);
+                } else if (data.status === "FAILED" || data.status === "CANCELLED") {
+                    setError("Payment was not completed");
+                    setStatus("ERROR");
+                    clearPolling();
+                }
+            } catch {
+                setStatus("POLL_FAILED");
+                setError("Connection error while checking payment status");
+                clearPolling();
+            }
+        }, POLL_INTERVAL);
+
+        pollingRef.current.timeout = setTimeout(() => {
+            clearPolling();
+            setError("Payment prompt expired");
+            setStatus("ERROR");
+        }, TIMEOUT_MS);
+    }, [recordId, onSuccess, clearPolling]);
+
+    useEffect(() => {
+        if (status === "PENDING_MOMO") {
+            startPolling();
+        }
+        return () => clearPolling();
+    }, [status, startPolling, clearPolling]);
+
+    const handleRetryMoMo = async () => {
+        setError(null);
+        setStatus("IDLE");
+    };
+
+                    const handleInitialPay = async () => {
         setIsSubmitting(true);
         setError(null);
 
@@ -63,7 +136,6 @@ export default function CheckoutModal({
                 await initiateServiceCheckoutAction(recordId, phone);
                 setStatus("PENDING_MOMO");
             } else {
-                // CASH, POS, or MEMBERSHIP (if already verified or if we just want to force complete)
                 await completeVisitAction(recordId, mode);
                 setStatus("SUCCESS");
                 setTimeout(() => {
@@ -151,7 +223,7 @@ export default function CheckoutModal({
                         </div>
                     </div>
 
-                    {status === "IDLE" || status === "ERROR" ? (
+                    {status === "IDLE" || status === "ERROR" || status === "POLL_FAILED" ? (
                         <div className="space-y-4 sm:space-y-6 animate-in slide-in-from-bottom-4 duration-500 pb-2">
                             {/* Payment Selector - Single Row on Mobile */}
                             <div className="grid grid-cols-4 gap-2">
@@ -246,15 +318,15 @@ export default function CheckoutModal({
 
                             {/* Primary Action */}
                             <button
-                                onClick={handleInitialPay}
-                                disabled={isSubmitting || (mode === "MOMO" && !phone) || (mode === "MEMBERSHIP" && !membershipVerified)}
+                                onClick={status === "POLL_FAILED" ? handleRetryMoMo : handleInitialPay}
+                                disabled={isSubmitting || (status !== "POLL_FAILED" && mode === "MOMO" && !phone) || (status !== "POLL_FAILED" && mode === "MEMBERSHIP" && !membershipVerified)}
                                 className="w-full py-3 sm:py-4.5 bg-[var(--color-primary)] text-[var(--bg-app)] rounded-xl sm:rounded-2xl font-black uppercase tracking-[0.15em] text-[10px] sm:text-xs hover:opacity-95 active:scale-[0.98] disabled:opacity-30 transition-all shadow-lg shadow-[var(--color-primary)]/10 flex items-center justify-center gap-2 group"
                             >
                                 {isSubmitting ? (
                                     <div className="size-3.5 sm:size-5 border-2 sm:border-3 border-[var(--bg-app)] border-t-transparent rounded-full animate-spin"></div>
                                 ) : (
                                     <>
-                                        {mode === "MOMO" ? "Send MOMO Prompt" : "Confirm & Complete"}
+                                        {status === "POLL_FAILED" ? "Retry Connection" : mode === "MOMO" ? "Send MOMO Prompt" : "Confirm & Complete"}
                                         <ArrowRight className="w-3.5 h-3.5 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
                                     </>
                                 )}

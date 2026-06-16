@@ -9,7 +9,7 @@ import {
     Printer, History as LucideHistory, Mail, Droplets,
     Activity, TrendingUp, Sparkles, Fingerprint, Clock,
     ChevronRight, Zap, Heart, AlertCircle, MessageSquare, PlusCircle,
-    Star, Target, ShieldCheck, Eye
+    Star, Target, ShieldCheck, Eye, QrCode, Loader2
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
@@ -90,6 +90,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
     const [activeTab, setActiveTab] = useState<"history" | "pulse">("history");
     const [notes, setNotes] = useState(client.notes || "");
     const [qrCode, setQrCode] = useState(client.qrCode);
+    const [qrSuccess, setQrSuccess] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
 
     const qrCodePayload = qrCode || `spa-client:${client.id}`;
@@ -103,10 +104,13 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
 
     const handleGenerateQr = async () => {
         setIsSaving(true);
+        setQrSuccess(false);
         const res = await generateClientQrAction(client.id);
         if (res.success) {
             setQrCode(res.qrCode);
+            setQrSuccess(true);
             toast.success("QR code generated!");
+            setTimeout(() => setQrSuccess(false), 2000);
         } else {
             toast.error(res.error || "Failed to generate QR");
         }
@@ -151,15 +155,26 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                                 <Target className="size-3" />
                                 Try next: {intelligence.suggestedService}
                             </div>
-                            {!qrCode && (
+                            {!qrCode && !qrSuccess && (
                                 <button 
                                     onClick={handleGenerateQr}
                                     disabled={isSaving}
-                                    className="flex items-center gap-2 px-3 py-1 bg-rose-500/10 text-rose-500 border border-rose-500/10 rounded-lg text-[9px] font-bold uppercase tracking-widest shadow-lg animate-pulse hover:animate-none transition-all"
+                                    className="flex items-center gap-2 px-3 py-1.5 bg-transparent text-[var(--text-dim)] hover:text-[var(--text-main)] hover:bg-[var(--bg-hover)] rounded-lg text-[11px] font-bold uppercase tracking-[0.06em] transition-all"
+                                    aria-label="Generate QR code for client"
                                 >
-                                    <Fingerprint className="size-3" />
-                                    Generate System QR
+                                    {isSaving ? (
+                                        <Loader2 className="size-3.5 animate-spin" />
+                                    ) : (
+                                        <QrCode className="size-3.5" />
+                                    )}
+                                    {isSaving ? "Generating..." : "Generate QR Code"}
                                 </button>
+                            )}
+                            {qrSuccess && (
+                                <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded-lg text-[11px] font-bold uppercase tracking-[0.06em] animate-in fade-in duration-300">
+                                    <QrCode className="size-3.5" />
+                                    QR Ready
+                                </div>
                             )}
                         </div>
                         

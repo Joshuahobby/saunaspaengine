@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { QRScanner } from "./QRScanner";
 import { ClientCheckInResult } from "./ClientCheckInResult";
@@ -123,40 +123,46 @@ export function CheckInContainer({ services, employees, clients, subState }: Che
     }, [selectedClient, lockerNumber]);
 
     // --- USB Scanner Listener Logic ---
-    useEffect(() => {
-        let buffer = "";
-        let lastKeyTime = 0;
+    const [scanBufferLength, setScanBufferLength] = useState(0);
+    const bufferRef = useRef("");
+    const lastKeyTimeRef = useRef(0);
 
+    useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            // Only intercept if we are in SCANNING mode
             if (mode !== 'SCANNING') return;
 
-            // If the focus is in an input field, we might be typing manually
-            const target = e.target as HTMLElement;
-            
             const currentTime = Date.now();
-            const diff = currentTime - lastKeyTime;
+            const diff = currentTime - lastKeyTimeRef.current;
 
-            // HID scanners typically emit events 5-20ms apart.
             if (diff > 50) {
-                buffer = "";
+                bufferRef.current = "";
             }
 
-            lastKeyTime = currentTime;
+            lastKeyTimeRef.current = currentTime;
 
             if (e.key === "Enter") {
-                if (buffer.length >= 8) { // Our QR codes like 'spa-client:id' are long
+                const buf = bufferRef.current;
+                if (buf.length >= 8 && (buf.startsWith("spa-client:") || buf.startsWith("SSE:"))) {
                     e.preventDefault();
-                    handleScanSuccess(buffer);
-                    buffer = "";
+                    handleScanSuccess(buf);
+                    bufferRef.current = "";
+                    setScanBufferLength(0);
+                } else if (buf.length >= 8) {
+                    bufferRef.current = "";
+                    setScanBufferLength(0);
                 }
             } else if (e.key.length === 1) {
-                buffer += e.key;
+                bufferRef.current += e.key;
+                setScanBufferLength(bufferRef.current.length);
             }
         };
 
         window.addEventListener("keydown", handleKeyDown);
-        return () => window.removeEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+            bufferRef.current = "";
+            setScanBufferLength(0);
+        };
     }, [mode, handleScanSuccess]);
     // ----------------------------------
 
@@ -214,6 +220,13 @@ export function CheckInContainer({ services, employees, clients, subState }: Che
                                             Scan QR code to automatically verify membership.
                                         </p>
                                     </div>
+                                    {scanBufferLength > 0 && (
+                                        <div className="mt-3 flex items-center justify-center gap-2 animate-in fade-in duration-200">
+                                            <span className="font-mono text-[11px] text-[var(--text-muted)] bg-[var(--bg-surface-muted)] px-2 py-0.5 rounded-[var(--r-sm)] border border-[var(--border-muted)]">
+                                                Scan buffer: {scanBufferLength}
+                                            </span>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
