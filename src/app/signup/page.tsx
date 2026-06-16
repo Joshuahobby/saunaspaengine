@@ -1,124 +1,101 @@
 export const dynamic = "force-dynamic";
 
-import Link from "next/link";
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { Suspense } from "react";
 import { SignupForm } from "./signup-form";
+import Link from "next/link";
 import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Create Your Business Account — Sauna SPA Engine",
+    title: "Create Account — Sauna SPA Engine",
     description: "Register your spa or sauna business and start managing operations in minutes.",
 };
-
-// Default plans — seeded into DB on first load if missing
-const DEFAULT_PLANS = [
-    {
-        name: "Essential",
-        priceMonthly: 50000,
-        priceYearly: 500000,
-        branchLimit: 1,
-        features: ["Up to 500 Check-ins/mo", "QR Code Scanner", "Mobile Money Payments", "Standard Support"],
-        description: "Core operations for single-location boutique spas.",
-        isCustom: false,
-    },
-    {
-        name: "Premium",
-        priceMonthly: 150000,
-        priceYearly: 1500000,
-        branchLimit: 3,
-        features: ["Unlimited Check-ins", "Advanced Analytics", "Up to 3 Branches", "Staff Scheduling", "Priority WhatsApp Support"],
-        description: "Advanced features for growing wellness centers.",
-        isCustom: false,
-    },
-    {
-        name: "Elite",
-        priceMonthly: 350000,
-        priceYearly: 3500000,
-        branchLimit: 50,
-        features: ["White-labeled Platform", "Custom API Integration", "Dedicated Manager", "On-site Staff Training", "Unlimited Branches"],
-        description: "For large luxury resorts and spa chains.",
-        isCustom: true,
-    },
-];
 
 export default async function SignupPage() {
     const session = await auth();
     if (session) redirect("/dashboard");
 
-    let dbPlans = await prisma.platformPackage.findMany({
-        where: { isCustom: false },
-        orderBy: { priceMonthly: "asc" },
-    });
-
-    // If no plans exist yet, seed them so registration can proceed
-    if (dbPlans.length === 0) {
-        for (const plan of DEFAULT_PLANS) {
-            await prisma.platformPackage.upsert({
-                where: { name: plan.name },
-                update: {},
-                create: plan,
-            });
-        }
-        dbPlans = await prisma.platformPackage.findMany({
-            where: { isCustom: false },
-            orderBy: { priceMonthly: "asc" },
-        });
-    }
-
-    const elitePlan = await prisma.platformPackage.findFirst({
-        where: { isCustom: true },
-        orderBy: { priceMonthly: "asc" },
-    });
-
-    const plans = [...dbPlans, ...(elitePlan ? [elitePlan] : [])];
-
     return (
-        <div className="layout-container flex h-full grow flex-col bg-[var(--bg-app)]">
-            <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-[var(--border-main)] px-6 md:px-10 py-5 bg-[var(--bg-app)]/80 backdrop-blur-xl sticky top-0 z-50">
-                <Link href="/" className="flex items-center gap-4 group">
-                    <div className="size-10 text-white flex items-center justify-center bg-[var(--color-primary)] rounded-xl shadow-sm group-hover:scale-105 transition-transform">
-                        <span className="material-symbols-outlined text-2xl font-black">spa</span>
+        <div className="min-h-screen flex">
+            {/* Left Brand Panel */}
+            <div className="hidden lg:flex lg:w-[45%] xl:w-[42%] flex-col relative overflow-hidden"
+                style={{ background: "linear-gradient(160deg, #1a3a1a 0%, #0f2410 50%, #0a1a0a 100%)" }}>
+
+                <div className="absolute inset-0 opacity-[0.04]"
+                    style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+                <div className="absolute top-[-20%] left-[-20%] w-[80%] h-[80%] rounded-full opacity-20"
+                    style={{ background: "radial-gradient(circle, #4a8c43 0%, transparent 70%)" }} />
+
+                <div className="relative z-10 flex flex-col h-full p-10 xl:p-14">
+                    <Link href="/" className="flex items-center gap-3 group w-fit">
+                        <div className="size-10 rounded-xl flex items-center justify-center border border-white/20 bg-white/10 backdrop-blur-sm group-hover:bg-white/15 transition-colors">
+                            <span className="material-symbols-outlined text-white text-xl">spa</span>
+                        </div>
+                        <div>
+                            <p className="text-white font-black text-sm tracking-tight leading-none">Sauna SPA</p>
+                            <p className="text-green-400/80 text-[10px] font-bold tracking-widest uppercase">Engine</p>
+                        </div>
+                    </Link>
+
+                    <div className="flex-1 flex flex-col justify-center mt-16">
+                        <h1 className="text-white text-3xl xl:text-4xl font-black leading-tight tracking-tight">
+                            Start managing<br />
+                            <span className="text-green-400">smarter today.</span>
+                        </h1>
+                        <p className="text-white/50 text-sm font-medium mt-4 leading-relaxed max-w-xs">
+                            Join 500+ spas and wellness centers already running their operations on Sauna SPA Engine.
+                        </p>
+
+                        {/* Feature list */}
+                        <ul className="mt-10 space-y-4">
+                            {[
+                                { icon: "qr_code_scanner", text: "QR-powered check-ins in seconds" },
+                                { icon: "analytics", text: "Real-time revenue & occupancy analytics" },
+                                { icon: "people", text: "Staff scheduling & role management" },
+                                { icon: "payments", text: "Mobile Money & card payments built-in" },
+                                { icon: "corporate_fare", text: "Multi-branch management from one dashboard" },
+                            ].map(f => (
+                                <li key={f.icon} className="flex items-center gap-3">
+                                    <div className="size-8 rounded-lg bg-green-500/15 border border-green-500/20 flex items-center justify-center shrink-0">
+                                        <span className="material-symbols-outlined text-green-400 text-base">{f.icon}</span>
+                                    </div>
+                                    <span className="text-white/70 text-sm font-medium">{f.text}</span>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
-                    <div>
-                        <h2 className="text-[var(--text-main)] text-lg font-black font-display leading-tight tracking-tight group-hover:text-[var(--color-primary)] transition-colors">
-                            Sauna <span className="not-italic text-[var(--color-primary)]">SPA</span> Engine
-                        </h2>
-                    </div>
-                </Link>
-                <div className="flex items-center gap-4 md:gap-6">
-                    <div className="hidden md:flex items-center gap-6">
-                        <Link
-                            href="/support"
-                            className="text-[var(--text-muted)] text-xs font-black uppercase tracking-widest hover:text-[var(--color-primary)] transition-colors"
-                        >
-                            Help Center
-                        </Link>
-                    </div>
-                    <ThemeToggle />
-                    <Link
-                        href="/login"
-                        className="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-6 bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-[10px] font-black uppercase tracking-widest transition-all hover:bg-[var(--border-muted)] border border-[var(--border-main)]"
-                    >
+
+                    <p className="text-white/20 text-[10px] font-medium">© 2026 Sauna SPA Engine. All rights reserved.</p>
+                </div>
+            </div>
+
+            {/* Right Form Panel */}
+            <div className="flex-1 flex flex-col bg-white">
+                <div className="lg:hidden flex items-center justify-between px-6 py-5 border-b border-gray-100">
+                    <Link href="/" className="flex items-center gap-2.5">
+                        <div className="size-8 rounded-lg flex items-center justify-center bg-[#1a3a1a]">
+                            <span className="material-symbols-outlined text-white text-sm">spa</span>
+                        </div>
+                        <span className="text-gray-900 font-black text-sm tracking-tight">Sauna SPA Engine</span>
+                    </Link>
+                    <Link href="/login" className="text-sm font-semibold text-gray-600 hover:text-gray-900 transition-colors">
                         Sign In
                     </Link>
                 </div>
-            </header>
 
-            <main className="flex-1 flex items-center justify-center p-4 md:p-8">
-                <div className="w-full max-w-[1240px] flex flex-col gap-6">
-                    <SignupForm plans={plans} />
-
-                    <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[var(--text-muted)] text-xs font-medium opacity-60">
-                        <Link href="/privacy" className="hover:text-[var(--color-primary)] transition-colors">Privacy Policy</Link>
-                        <Link href="/terms" className="hover:text-[var(--color-primary)] transition-colors">Terms of Service</Link>
-                        <span className="hidden md:inline text-[var(--border-muted)]">•</span>
-                        <p>© 2026 Sauna SPA Engine</p>
+                <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 sm:px-10 overflow-y-auto">
+                    <div className="w-full max-w-[400px]">
+                        <Suspense fallback={
+                            <div className="flex items-center justify-center py-20">
+                                <span className="material-symbols-outlined animate-spin text-gray-300 text-3xl">progress_activity</span>
+                            </div>
+                        }>
+                            <SignupForm />
+                        </Suspense>
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     );
 }

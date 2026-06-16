@@ -78,14 +78,14 @@ export function OnboardingClient({ branch, initialStep, paymentPending = false, 
         : branch.business?.subscriptionPlan?.priceMonthly ?? 0;
 
     return (
-        <div className="flex-1 h-full flex flex-col items-center py-12 px-6 overflow-y-auto relative">
+        <div className="flex-1 h-full flex flex-col items-center py-8 px-4 overflow-y-auto relative">
             {saving && (
                 <div className="fixed top-0 left-0 right-0 h-1 bg-[var(--color-primary)]/20 z-[200]">
                     <div className="h-full bg-[var(--color-primary)] animate-[shimmer_2s_infinite] w-[30%]"></div>
                 </div>
             )}
             
-            <div className="w-full max-w-[960px] flex flex-col gap-12">
+            <div className="w-full max-w-[720px] flex flex-col gap-8">
                 {/* Unified Payment/Verification Banner */}
                 {paymentPending && (step === 0 || step === 4 || showPayment) && (
                     <div className="flex flex-col gap-6">
@@ -130,7 +130,7 @@ export function OnboardingClient({ branch, initialStep, paymentPending = false, 
                 {/* Stepper Header */}
                 <div className="flex items-center justify-between relative px-2">
                     {/* Background Progress Bar */}
-                    <div className="absolute top-[21px] left-0 right-0 h-0.5 bg-[var(--border-muted)]/50 -z-10 mx-10">
+                    <div className="absolute top-[15px] left-0 right-0 h-0.5 bg-[var(--border-muted)]/50 -z-10 mx-6">
                         <motion.div 
                             initial={{ width: `${(initialStep / (steps.length - 1)) * 100}%` }}
                             animate={{ width: `${(step / (steps.length - 1)) * 100}%` }}
@@ -139,12 +139,12 @@ export function OnboardingClient({ branch, initialStep, paymentPending = false, 
                     </div>
 
                     {steps.map((s) => (
-                        <div key={s.id} className="flex flex-col items-center gap-2 group cursor-pointer" onClick={() => { if (s.id < step) handleStepChange(s.id); }}>
-                            <div className={`size-11 rounded-full flex items-center justify-center border-2 transition-all duration-500 
-                                ${step === s.id ? 'border-[var(--color-primary)] bg-[var(--bg-app)] shadow-[0_0_15px_rgba(var(--color-primary-rgb),0.2)]' : 
+                        <div key={s.id} className="flex flex-col items-center gap-1.5 group cursor-pointer" onClick={() => { if (s.id < step) handleStepChange(s.id); }}>
+                            <div className={`size-8 rounded-full flex items-center justify-center border transition-all duration-500 
+                                ${step === s.id ? 'border-[var(--color-primary)] bg-[var(--bg-app)] shadow-[0_0_10px_rgba(var(--color-primary-rgb),0.2)]' : 
                                   step > s.id ? 'border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--bg-app)]' : 
                                   'border-[var(--border-muted)] bg-[var(--bg-card)] text-[var(--text-muted)]'}`}>
-                                <span className={`material-symbols-outlined !text-xl ${step === s.id ? 'text-[var(--color-primary)]' : ''}`}>
+                                <span className={`material-symbols-outlined !text-base ${step === s.id ? 'text-[var(--color-primary)]' : ''}`}>
                                     {step > s.id ? 'check' : s.icon}
                                 </span>
                             </div>

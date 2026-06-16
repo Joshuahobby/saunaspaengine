@@ -10,130 +10,101 @@ export default function LoginForm() {
     const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
     const justRegistered = searchParams.get("registered") === "true";
 
-    const [errorMessage, dispatch, isPending] = useActionState(
-        authenticate,
-        undefined,
-    );
+    const [errorMessage, dispatch, isPending] = useActionState(authenticate, undefined);
 
     return (
-        <div className="bg-[var(--bg-card)] p-8 md:p-12 rounded-[var(--r-md)] shadow-xl shadow-black/5 border border-[var(--border-main)]">
+        <div className="w-full">
+            {/* Header */}
+            <div className="mb-8">
+                <h2 className="text-2xl font-black text-gray-900 tracking-tight">Welcome back</h2>
+                <p className="text-gray-500 text-sm font-medium mt-1">Sign in to your dashboard</p>
+            </div>
+
             {justRegistered && (
-                <div className="bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/30 p-4 rounded-xl flex items-center gap-3 text-[var(--color-primary)] text-sm mb-6 animate-fade-in">
-                    <span className="material-symbols-outlined text-lg shrink-0">check_circle</span>
-                    <p className="font-bold">Account created! Sign in to start setting up your branch.</p>
+                <div className="mb-6 flex items-start gap-3 bg-green-50 border border-green-200 rounded-lg px-4 py-3">
+                    <span className="material-symbols-outlined text-green-600 text-base mt-0.5 shrink-0">check_circle</span>
+                    <p className="text-green-800 text-sm font-medium">Account created! Sign in to get started.</p>
                 </div>
             )}
-            <div className="text-center mb-10">
-                <h2 className="text-[var(--text-main)] text-3xl font-black" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}>Welcome <span className="text-[var(--color-primary)]">Back</span></h2>
-                <p className="text-[var(--text-muted)] text-sm mt-3 font-medium">Access your spa operations dashboard</p>
-            </div>
 
             <form action={dispatch} className="space-y-5">
                 <input type="hidden" name="redirectTo" value={callbackUrl} />
-                <div className="flex flex-col gap-2">
-                    <label className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] ml-1">
-                        Email or Username
-                    </label>
-                    <div className="relative group">
-                        <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] text-xl transition-colors group-focus-within:text-[var(--color-primary)] font-black">
-                            account_circle
-                        </span>
-                        <input
-                            name="email"
-                            type="text"
-                            placeholder="Email or username"
-                            required
-                            autoComplete="username"
-                            className="w-full pl-12 pr-4 py-4 rounded-[var(--r-sm)] border border-[var(--border-muted)] bg-[var(--bg-surface-muted)] focus:border-[var(--color-primary)] focus:ring-4 focus:ring-[var(--color-primary)]/10 outline-none text-[var(--text-main)] placeholder:text-[var(--text-muted)] transition-all font-bold text-sm"
-                        />
-                    </div>
+
+                <div>
+                    <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1.5">Email address</label>
+                    <input
+                        id="email"
+                        name="email"
+                        type="text"
+                        placeholder="you@yourspa.com"
+                        required
+                        autoComplete="username"
+                        className="w-full h-11 bg-white border border-gray-300 rounded-lg px-3.5 text-sm text-gray-900 font-medium placeholder:text-gray-400 focus:outline-none focus:border-[#2d5a27] focus:ring-2 focus:ring-[#2d5a27]/10 transition-all"
+                    />
                 </div>
 
-                <div className="flex flex-col gap-2">
-                    <div className="flex justify-between items-center px-1">
-                        <label className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em]">
-                            Password
-                        </label>
-                        <Link
-                            href="/forgot-password"
-                            className="text-[var(--color-primary)] text-[10px] font-black uppercase tracking-[0.2em] hover:text-[var(--text-main)] transition-colors"
-                        >
-                            Forgot Password?
+                <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                        <label htmlFor="password" className="block text-sm font-semibold text-gray-700">Password</label>
+                        <Link href="/forgot-password" className="text-xs font-semibold text-[#2d5a27] hover:text-[#21431d] transition-colors">
+                            Forgot password?
                         </Link>
                     </div>
-                    <div className="relative group">
-                        <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-muted)] text-xl transition-colors group-focus-within:text-[var(--color-primary)] font-black">
-                            lock
-                        </span>
-                        <input
-                            name="password"
-                            type="password"
-                            placeholder="••••••••"
-                            required
-                            autoComplete="current-password"
-                            className="w-full pl-12 pr-4 py-4 rounded-xl border border-[var(--border-muted)] bg-[var(--bg-surface-muted)] focus:border-[var(--color-primary)] focus:ring-4 focus:ring-[var(--color-primary)]/10 outline-none text-[var(--text-main)] placeholder:text-[var(--text-muted)] transition-all font-bold"
-                        />
-                    </div>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder="Enter your password"
+                        required
+                        autoComplete="current-password"
+                        className="w-full h-11 bg-white border border-gray-300 rounded-lg px-3.5 text-sm text-gray-900 font-medium placeholder:text-gray-400 focus:outline-none focus:border-[#2d5a27] focus:ring-2 focus:ring-[#2d5a27]/10 transition-all"
+                    />
                 </div>
 
                 {errorMessage && (
-                    <div className="bg-red-500/5 border border-red-500/20 p-4 rounded-[var(--r-sm)] flex items-center gap-3 text-red-500 text-sm animate-fade-in shadow-sm">
-                        <span className="material-symbols-outlined text-lg shrink-0">error</span>
-                        <p className="font-bold">{errorMessage}</p>
+                    <div className="flex items-start gap-2.5 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+                        <span className="material-symbols-outlined text-red-500 text-base mt-0.5 shrink-0">error</span>
+                        <p className="text-red-700 text-sm font-medium">{errorMessage}</p>
                     </div>
                 )}
 
-                <div className="flex items-center gap-3 px-1">
+                <div className="flex items-center gap-2.5 pt-1">
                     <input
                         id="remember"
                         type="checkbox"
-                        className="size-5 rounded-lg border-[var(--border-muted)] text-[var(--color-primary)] focus:ring-[var(--color-primary)] bg-[var(--bg-surface-muted)] cursor-pointer accent-[var(--color-primary)]"
+                        className="size-4 rounded border-gray-300 accent-[#2d5a27] cursor-pointer"
                     />
-                    <label
-                        htmlFor="remember"
-                        className="text-[10px] font-black text-[var(--text-muted)] uppercase tracking-[0.2em] cursor-pointer select-none"
-                    >
-                        Remember this device
+                    <label htmlFor="remember" className="text-sm font-medium text-gray-600 cursor-pointer select-none">
+                        Keep me signed in
                     </label>
                 </div>
 
                 <button
                     type="submit"
                     disabled={isPending}
-                    className="w-full py-5 bg-[var(--color-primary)] hover:opacity-90 text-white font-black uppercase tracking-[0.3em] rounded-[var(--r-sm)] shadow-lg shadow-[var(--color-primary)]/20 transition-all transform active:scale-[0.98] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed mt-6 text-sm"
+                    className="w-full h-11 rounded-lg text-sm font-bold text-white transition-all flex items-center justify-center gap-2 mt-2 disabled:opacity-70"
+                    style={{ background: "linear-gradient(135deg, #2d5a27 0%, #1a3a1a 100%)" }}
                 >
                     {isPending ? (
                         <>
-                            <span className="material-symbols-outlined animate-spin text-xl">progress_activity</span>
-                            <span>Signing In...</span>
+                            <span className="size-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                            Signing in...
                         </>
                     ) : (
                         <>
-                            <span className="material-symbols-outlined font-black">login</span>
                             Sign In
+                            <span className="material-symbols-outlined text-base">arrow_forward</span>
                         </>
                     )}
                 </button>
-
             </form>
 
-            <div className="mt-10 pt-8 border-t border-[var(--border-muted)]/50 text-center space-y-6">
-                <div className="flex flex-col gap-4 items-center">
-                    <p className="text-[var(--text-muted)] text-xs font-black uppercase tracking-[0.2em]">
-                        New to Sauna SPA Engine?
-                    </p>
-                    <Link 
-                        href="/signup" 
-                        className="w-full py-4 rounded-[var(--r-sm)] border border-[var(--border-main)] bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-[10px] font-black uppercase tracking-widest hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all flex items-center justify-center gap-2 group"
-                    >
-                        <span className="material-symbols-outlined text-base group-hover:rotate-12 transition-transform">person_add</span>
-                        Create Your Account
+            <div className="mt-8 pt-6 border-t border-gray-100">
+                <p className="text-sm text-gray-500 font-medium text-center">
+                    Don&apos;t have an account?{" "}
+                    <Link href="/signup" className="font-bold text-[#2d5a27] hover:text-[#21431d] transition-colors">
+                        Create account
                     </Link>
-                </div>
-                
-                <p className="text-[var(--text-muted)] text-[10px] flex items-center justify-center gap-2 font-black uppercase tracking-widest opacity-40">
-                    <span className="material-symbols-outlined text-sm">verified_user</span>
-                    256-bit Encrypted Connection
                 </p>
             </div>
         </div>

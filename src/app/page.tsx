@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { Metadata } from "next";
 import { ScrollReveal } from "@/components/landing/ScrollReveal";
 import { LiveCheckins } from "@/components/landing/LiveCheckins";
@@ -45,16 +45,20 @@ export default async function LandingPage() {
     <PublicLayout>
         {/* Hero Section */}
         <section className="px-6 md:px-20 lg:px-40 py-12 md:py-24">
-          <div className="max-w-7xl mx-auto flex flex-col gap-12 lg:flex-row lg:items-center">
-            <ScrollReveal direction="right" className="flex flex-col gap-8 lg:w-1/2">
+          <div className="max-w-[1400px] mx-auto flex flex-col gap-12 lg:flex-row lg:items-center">
+            <ScrollReveal direction="right" className="flex flex-col gap-8 lg:w-7/12">
               <div className="flex flex-col gap-6">
                 <ScrollReveal direction="up" delay={0.1} duration={0.6}>
-                  <span className="inline-block w-fit bg-[var(--color-primary-muted)] text-[var(--color-primary)] text-[10px] font-black uppercase tracking-[0.3em] px-4 py-2 rounded-full shadow-sm border border-[var(--color-primary-border)]">
+                  <span className="inline-flex items-center gap-2 w-fit bg-[var(--color-primary-muted)] text-[var(--color-primary)] text-xs font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full border border-[var(--color-primary-border)] shadow-sm">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-primary)] opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-primary)]"></span>
+                    </span>
                     Built for Rwanda 🇷🇼
                   </span>
                 </ScrollReveal>
                 <ScrollReveal direction="up" delay={0.2} duration={0.8}>
-                  <h1 className="text-[var(--text-main)] text-6xl md:text-8xl font-black leading-[1.0] tracking-tight" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.04em" }}>
+                  <h1 className="text-[var(--text-main)] text-5xl md:text-7xl xl:text-[5rem] font-black leading-[1.1] tracking-tight font-display tracking-tighter">
                     Run Your Spa<br /><span className="text-[var(--color-primary)]">Like a Business.</span>
                   </h1>
                 </ScrollReveal>
@@ -64,27 +68,19 @@ export default async function LandingPage() {
                   </p>
                 </ScrollReveal>
               </div>
-              <ScrollReveal direction="up" delay={0.4} duration={0.8} className="flex flex-wrap gap-6">
+              <ScrollReveal direction="up" delay={0.4} duration={0.8} className="flex flex-col sm:flex-row items-center gap-4 mt-2 w-full">
                 <Link
                   href={isLoggedIn ? "/dashboard" : "/signup"}
                   aria-label={isLoggedIn ? "Go to Dashboard" : "Register Spa"}
-                  className="flex min-w-[220px] cursor-pointer items-center justify-center rounded-[var(--r-sm)] h-14 px-10 bg-[var(--color-primary)] text-white text-sm font-black uppercase tracking-[0.2em] shadow-lg shadow-[var(--color-primary)]/20 transition-all hover:opacity-90 active:scale-[0.98] group"
+                  className="flex w-full sm:w-auto min-w-[220px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-[var(--color-primary)] text-white text-sm font-bold uppercase tracking-wider shadow-lg shadow-[var(--color-primary)]/20 hover:bg-[var(--color-primary-hover)] hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98] group"
                 >
-                  <span className="material-symbols-outlined mr-3 group-hover:rotate-12 transition-transform">{isLoggedIn ? "dashboard" : "rocket_launch"}</span>
-                  {isLoggedIn ? "Go to Dashboard" : "Register Your Spa"}
-                </Link>
-                <Link
-                  href="#how-it-works"
-                  aria-label="See how it works"
-                  className="flex min-w-[200px] cursor-pointer items-center justify-center rounded-[var(--r-sm)] h-14 px-10 bg-[var(--bg-surface-muted)] text-[var(--text-main)] text-sm font-black uppercase tracking-[0.2em] border border-[var(--border-main)] transition-all hover:border-[var(--color-primary)] active:scale-[0.98] group"
-                >
-                  <span className="material-symbols-outlined mr-3 group-hover:translate-y-1 transition-transform">keyboard_double_arrow_down</span>
-                  How It Works
+                  <span className="material-symbols-outlined mr-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">{isLoggedIn ? "dashboard" : "rocket_launch"}</span>
+                  {isLoggedIn ? "Go to Dashboard" : "Get Started"}
                 </Link>
               </ScrollReveal>
             </ScrollReveal>
 
-            <ScrollReveal direction="left" delay={0.2} className="lg:w-1/2 relative">
+            <ScrollReveal direction="left" delay={0.2} className="lg:w-5/12 relative">
               <div className="w-full aspect-[4/3] bg-[var(--bg-surface-muted)] rounded-[var(--r-xl)] overflow-hidden shadow-2xl border border-[var(--border-main)] relative">
                 <Image
                   alt="Luxury Spa Interior showing a serene sauna room"
@@ -112,7 +108,7 @@ export default async function LandingPage() {
               ].map((stat) => (
                 <div key={stat.label} className="flex flex-col items-center gap-2 group">
                   <span className="material-symbols-outlined text-[var(--color-primary)] text-2xl mb-1 group-hover:scale-110 transition-transform">{stat.icon}</span>
-                  <span className="text-3xl font-black text-[var(--color-primary)]" style={{ fontFamily: "var(--font-mono)" }}>{stat.value}</span>
+                  <span className="text-4xl md:text-5xl font-black text-[var(--color-primary)] font-mono-data">{stat.value}</span>
                   <span className="text-xs text-[var(--text-muted)] font-medium uppercase tracking-wider">{stat.label}</span>
                 </div>
               ))}
@@ -124,11 +120,11 @@ export default async function LandingPage() {
         <section id="features" className="px-6 md:px-20 lg:px-40 py-24">
           <div className="max-w-7xl mx-auto flex flex-col gap-16">
             <ScrollReveal direction="up" className="flex flex-col gap-4 text-center items-center">
-              <h2 className="text-[var(--text-main)] text-4xl md:text-6xl font-black leading-tight max-w-[800px]" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}>
+              <h2 className="text-[var(--text-main)] text-4xl md:text-6xl font-black leading-tight max-w-[800px] font-display tracking-tighter">
                 Everything You Need to <span className="text-[var(--color-primary)]">Run the Operation</span>
               </h2>
               <p className="text-[var(--text-muted)] text-lg md:text-xl font-normal leading-normal max-w-[720px]">
-                Everything you need to run your spa enterprise efficiently in one integrated platform.
+                Streamline your daily workflows, empower your staff, and delight your clients with our all-in-one management platform.
               </p>
             </ScrollReveal>
 
@@ -186,13 +182,13 @@ export default async function LandingPage() {
               <span className="inline-block w-fit bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-[10px] font-black uppercase tracking-[0.3em] px-4 py-2 rounded-full shadow-sm border border-[var(--color-primary-border)] mb-2">
                 Get Started in Minutes
               </span>
-              <h3 className="text-[var(--text-main)] text-4xl md:text-5xl font-black" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}>How It Works</h3>
+              <h3 className="text-[var(--text-main)] text-4xl md:text-5xl font-black font-display tracking-tighter">How It Works</h3>
               <p className="text-[var(--text-muted)] text-lg max-w-[600px]">Go live in under 10 minutes. No special hardware required.</p>
             </ScrollReveal>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
               {/* Connecting line */}
-              <div className="hidden md:block absolute top-[4.5rem] left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-transparent via-[var(--color-primary)]/40 to-transparent"></div>
+              <div className="hidden md:block absolute top-[4.5rem] left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-[var(--color-primary)]/0 via-[var(--color-primary)]/40 to-[var(--color-primary)]/0"></div>
 
               <ScrollReveal direction="up" delay={0.1}>
                 <HowItWorksStep
@@ -226,99 +222,107 @@ export default async function LandingPage() {
         <section id="pricing" className="bg-[var(--bg-surface-muted)]/50 border-t border-[var(--border-main)] py-24 px-6 md:px-20 lg:px-40">
           <div className="max-w-7xl mx-auto flex flex-col gap-16">
             <ScrollReveal direction="up" className="text-center flex flex-col gap-4">
-              <h2 className="text-[var(--text-main)] text-4xl md:text-6xl font-black" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}>Simple, Transparent Pricing</h2>
+              <h2 className="text-[var(--text-main)] text-4xl md:text-6xl font-black font-display tracking-tighter">Simple, Transparent Pricing</h2>
               <p className="text-[var(--text-muted)] text-lg md:text-xl">Choose the perfect plan for your branch size. All prices in RWF.</p>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch pt-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch pt-8 pb-4">
               {/* Free Forever */}
-              <ScrollReveal direction="up" delay={0.1}>
-                <div className="h-full glass-card p-10 flex flex-col gap-8 shadow-sm hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 border border-[var(--border-main)] relative overflow-hidden group transition-all duration-500 rounded-[var(--r-md)]">
+              <ScrollReveal direction="up" delay={0.1} className="flex">
+                <div className="flex-1 glass-card p-8 flex flex-col gap-6 shadow-sm hover:shadow-xl hover:shadow-[var(--color-primary)]/10 border border-[var(--border-main)] relative group transition-all duration-500 rounded-2xl hover:-translate-y-1 hover:border-[var(--color-primary-border)]">
                   <div className="flex flex-col gap-2 relative z-10">
                     <h4 className="text-[var(--color-primary)] font-black uppercase tracking-[0.2em] text-sm">Free Forever</h4>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl font-black text-[var(--text-main)]" style={{ fontFamily: "var(--font-mono)" }}>0</span>
+                      <span className="text-4xl font-black text-[var(--text-main)] font-mono-data">0</span>
                       <span className="text-[var(--text-muted)] text-[10px] font-black uppercase tracking-[0.2em]">RWF<span className="opacity-50">/mo</span></span>
                     </div>
                     <p className="text-[var(--text-muted)] text-sm font-medium">For solo practitioners starting out.</p>
                   </div>
-                  <ul className="flex flex-col gap-5 border-t border-[var(--border-muted)]/50 pt-8 relative z-10">
+                  <ul className="flex flex-col gap-4 border-t border-[var(--border-muted)]/50 pt-6 relative z-10">
                     <PricingInclusion text="100 Check-ins/mo" />
                     <PricingInclusion text="1 Staff Member" />
                     <PricingInclusion text="5 Services" />
                     <PricingInclusion text="Basic Dashboard" />
                   </ul>
-                  <Link href="/signup" className="mt-auto w-full py-5 rounded-[var(--r-sm)] border-2 border-[var(--border-muted)] text-[var(--text-muted)] font-black uppercase tracking-[0.2em] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-all text-center text-[10px] flex items-center justify-center gap-2">
-                    Get Started Free
-                  </Link>
+                  <div className="mt-auto pt-6">
+                    <Link href="/signup" className="w-full py-4 rounded-xl border-2 border-[var(--color-primary)]/30 text-[var(--text-main)] font-bold uppercase tracking-wider hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-muted)] transition-all text-center text-xs flex items-center justify-center gap-2 min-h-[44px]">
+                      <span className="material-symbols-outlined text-base">spa</span>
+                      Get Started Free
+                    </Link>
+                  </div>
                 </div>
               </ScrollReveal>
 
               {/* Essential */}
-              <ScrollReveal direction="up" delay={0.2}>
-                <div className="h-full glass-card p-10 flex flex-col gap-8 shadow-sm hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 border border-[var(--border-main)] relative overflow-hidden group transition-all duration-500 rounded-[var(--r-md)]">
+              <ScrollReveal direction="up" delay={0.2} className="flex">
+                <div className="flex-1 glass-card p-8 flex flex-col gap-6 shadow-sm hover:shadow-xl hover:shadow-[var(--color-primary)]/10 border border-[var(--border-main)] relative group transition-all duration-500 rounded-2xl hover:-translate-y-1 hover:border-[var(--color-primary-border)]">
                   <div className="flex flex-col gap-2 relative z-10">
                     <h4 className="text-[var(--color-primary)] font-black uppercase tracking-[0.2em] text-sm">Essential</h4>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl font-black text-[var(--text-main)]" style={{ fontFamily: "var(--font-mono)" }}>50,000</span>
+                      <span className="text-4xl font-black text-[var(--text-main)] font-mono-data">50,000</span>
                       <span className="text-[var(--text-muted)] text-[10px] font-black uppercase tracking-[0.2em]">RWF<span className="opacity-50">/mo</span></span>
                     </div>
                     <p className="text-[var(--text-muted)] text-sm font-medium">For single-location boutique spas.</p>
                   </div>
-                  <ul className="flex flex-col gap-5 border-t border-[var(--border-muted)]/50 pt-8 relative z-10">
+                  <ul className="flex flex-col gap-4 border-t border-[var(--border-muted)]/50 pt-6 relative z-10">
                     <PricingInclusion text="Up to 500 Check-ins/mo" />
                     <PricingInclusion text="Up to 10 Staff Members" />
                     <PricingInclusion text="Up to 25 Services" />
                     <PricingInclusion text="Standard Support" />
                   </ul>
-                  <Link href="/signup" className="mt-auto w-full py-5 rounded-[var(--r-sm)] border-2 border-[var(--color-primary)] text-[var(--color-primary)] font-black uppercase tracking-[0.2em] hover:bg-[var(--color-primary)] hover:text-white transition-all text-center text-[10px] shadow-sm shadow-[var(--color-primary)]/5 flex items-center justify-center gap-2">
-                    <span className="material-symbols-outlined text-base">rocket</span>
-                    Subscribe
-                  </Link>
+                  <div className="mt-auto pt-6">
+                    <Link href="/signup" className="w-full py-4 rounded-xl border-2 border-[var(--color-primary)] text-[var(--color-primary)] font-bold uppercase tracking-wider hover:bg-[var(--color-primary)] hover:text-white transition-all text-center text-xs shadow-sm flex items-center justify-center gap-2 min-h-[44px]">
+                      <span className="material-symbols-outlined text-base">rocket</span>
+                      Subscribe
+                    </Link>
+                  </div>
                 </div>
               </ScrollReveal>
 
               {/* Premium */}
-              <ScrollReveal direction="up" delay={0.3} className="relative z-10">
-                <div className="h-full bg-gradient-to-br from-[#1b3a1b] to-[#2d5a27] dark:from-[#2d5a27] dark:to-[#1b3a1b] rounded-[var(--r-md)] p-10 border border-white/10 flex flex-col gap-8 transform lg:scale-105 shadow-[0_20px_60px_rgba(45,90,39,0.4)] relative overflow-hidden group transition-all duration-500">
-                  <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--bg-card)]/10 rounded-full -mr-20 -mt-20 blur-3xl group-hover:bg-[var(--bg-card)]/20 transition-colors"></div>
-                  <div className="absolute -top-3 left-1/2 -track-x-1/2 bg-[var(--bg-card)] text-[var(--color-primary)] text-[10px] font-black px-6 py-2 rounded-full uppercase tracking-[0.3em] shadow-xl z-20 whitespace-nowrap -translate-x-1/2 leading-none">Best Value</div>
-                  <div className="flex flex-col gap-2 relative z-10">
+              <ScrollReveal direction="up" delay={0.3} className="flex relative z-10">
+                <div className="flex-1 bg-gradient-to-br from-[#1b3a1b] to-[#2d5a27] dark:from-[#2d5a27] dark:to-[#1b3a1b] rounded-2xl p-8 border border-white/10 flex flex-col gap-6 shadow-xl shadow-[var(--color-primary)]/10 relative overflow-hidden group transition-all duration-500 hover:-translate-y-1">
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-[var(--bg-card)]/10 rounded-full -mr-20 -mt-20 blur-3xl group-hover:bg-[var(--bg-card)]/20 transition-colors pointer-events-none"></div>
+                  
+                  <div className="flex flex-col gap-2 relative z-10 pt-2">
+                    <div className="bg-[var(--bg-card)] text-[var(--color-primary)] text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.3em] shadow-sm w-fit mb-2">Best Value</div>
                     <h4 className="text-white/70 font-black uppercase tracking-[0.2em] text-sm">Premium</h4>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-5xl font-black text-white" style={{ fontFamily: "var(--font-mono)" }}>150,000</span>
+                      <span className="text-5xl font-black text-white font-mono-data">150,000</span>
                       <span className="text-white/60 text-[10px] font-black uppercase tracking-[0.2em]">RWF<span className="opacity-50">/mo</span></span>
                     </div>
                     <p className="text-white/80 text-sm font-medium">For growing wellness centers.</p>
                   </div>
-                  <ul className="flex flex-col gap-5 border-t border-white/10 pt-8 relative z-10">
+                  <ul className="flex flex-col gap-4 border-t border-white/10 pt-6 relative z-10">
                     <PricingInclusion text="Unlimited Check-ins" isDark />
                     <PricingInclusion text="Up to 25 Staff Members" isDark />
                     <PricingInclusion text="Up to 100 Services" isDark />
                     <PricingInclusion text="Multi-branch (3 Branches)" isDark />
                     <PricingInclusion text="Priority Support" isDark />
                   </ul>
-                  <Link href="/signup" className="mt-auto w-full py-5 rounded-[var(--r-sm)] bg-[var(--bg-card)] text-[var(--color-primary)] font-black uppercase tracking-[0.2em] shadow-lg hover:opacity-90 transition-all text-center text-[10px] flex items-center justify-center gap-2">
-                    <span className="material-symbols-outlined text-base font-black">upgrade</span>
-                    Go Premium
-                  </Link>
+                  <div className="mt-auto pt-6 relative z-10">
+                    <Link href="/signup" className="w-full py-4 rounded-xl bg-white text-[var(--color-primary)] font-bold uppercase tracking-wider shadow-lg hover:bg-white/95 hover:scale-[1.02] transition-all text-center text-xs flex items-center justify-center gap-2 min-h-[44px]">
+                      <span className="material-symbols-outlined text-base font-black">upgrade</span>
+                      Go Premium
+                    </Link>
+                  </div>
                 </div>
               </ScrollReveal>
             </div>
 
             {/* Enterprise / Elite Callout */}
             <ScrollReveal direction="up" delay={0.4}>
-              <div className="mt-8 glass-card border border-[var(--border-main)] p-8 rounded-[var(--r-md)] flex flex-col md:flex-row items-center justify-between gap-8 group hover:border-[var(--text-main)]/30 transition-all">
+              <div className="mt-8 glass-card border border-[var(--border-main)] p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 group hover:border-[var(--text-main)]/30 transition-all duration-300">
                 <div className="flex items-center gap-6">
-                  <div className="size-16 rounded-[var(--r-lg)] bg-[var(--text-main)]/5 flex items-center justify-center text-[var(--text-main)] group-hover:bg-[var(--text-main)] group-hover:text-white transition-all">
+                  <div className="size-16 rounded-xl bg-[var(--text-main)]/5 flex items-center justify-center text-[var(--text-main)] group-hover:bg-[var(--text-main)] group-hover:text-white transition-all duration-300">
                     <span className="material-symbols-outlined text-4xl">corporate_fare</span>
                   </div>
                   <div className="space-y-1">
-                    <h4 className="text-xl font-black" style={{ fontFamily: "var(--font-display)" }}>Enterprise & Elite Solutions</h4>
+                    <h4 className="text-xl font-bold font-display">Enterprise & Elite Solutions</h4>
                     <p className="text-[var(--text-muted)] text-sm">For 4+ branches, white-label needs, or custom API integrations.</p>
                   </div>
                 </div>
-                <Link href="/contact" className="px-10 py-5 rounded-[var(--r-sm)] border-2 border-[var(--text-main)] text-[var(--text-main)] font-black uppercase tracking-[0.2em] hover:bg-[var(--text-main)] hover:text-white transition-all text-center text-[10px]">
+                <Link href="/contact" className="px-8 py-4 rounded-xl border-2 border-[var(--text-main)] text-[var(--text-main)] font-bold uppercase tracking-wider hover:bg-[var(--text-main)] hover:text-white transition-all duration-300 text-center text-xs min-h-[44px] flex items-center justify-center">
                   Contact Sales
                 </Link>
               </div>
@@ -330,8 +334,9 @@ export default async function LandingPage() {
         <section className="py-24 px-6 relative">
           <div className="max-w-7xl mx-auto flex flex-col gap-16">
             <ScrollReveal direction="up" className="text-center flex flex-col gap-4">
-              <h2 className="text-[var(--text-main)] text-4xl md:text-6xl font-black" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}>Frequently Asked Questions</h2>
+              <h2 className="text-[var(--text-main)] text-4xl md:text-6xl font-black font-display tracking-tighter">Frequently Asked Questions</h2>
               <p className="text-[var(--text-muted)] text-lg">Everything you need to know about adopting our platform.</p>
+              <h3 className="text-[var(--color-primary)] text-xs font-bold uppercase tracking-[0.2em] mt-2">HAVING MORE QUESTIONS? CHECK OUR KNOWLEDGE BASE.</h3>
             </ScrollReveal>
             <ScrollReveal direction="up" delay={0.2} duration={0.6}>
               <FaqAccordion />
@@ -346,7 +351,7 @@ export default async function LandingPage() {
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-[var(--color-primary)]/10 rounded-full -ml-32 -mb-32 blur-3xl"></div>
             <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
               <div className="flex flex-col gap-4 md:w-1/2">
-                <h2 className="text-white text-4xl md:text-5xl font-black leading-tight" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}>Stay updated with Spa Insights</h2>
+                <h2 className="text-white text-4xl md:text-5xl font-black leading-tight font-display tracking-tighter">Stay updated with Spa Insights</h2>
                 <p className="text-white/80 text-lg">Join Rwanda&apos;s growing community of spa professionals receiving our weekly operations newsletter.</p>
               </div>
               <NewsletterForm />
@@ -361,12 +366,12 @@ export default async function LandingPage() {
 
 function FeatureCard({ icon, title, description }: { icon: string; title: string; description: string }) {
   return (
-    <div className="group h-full flex flex-col gap-6 rounded-[var(--r-md)] border border-[var(--border-main)] bg-[var(--bg-surface)] p-8 transition-all hover:shadow-lg hover:border-[var(--color-primary-border)]">
+    <div className="glass-card group h-full flex flex-col gap-6 rounded-[var(--r-md)] border border-[var(--border-main)] bg-[var(--bg-surface)] p-8 transition-all hover:shadow-xl hover:-translate-y-1 hover:border-[var(--color-primary-border)]">
       <div className="size-12 rounded-[var(--r-sm)] bg-[var(--color-primary-muted)] border border-[var(--color-primary-border)] flex items-center justify-center text-[var(--color-primary)] group-hover:bg-[var(--color-primary)] group-hover:text-white transition-colors">
         <span aria-hidden="true" className="material-symbols-outlined text-2xl">{icon}</span>
       </div>
       <div className="flex flex-col gap-3">
-        <h3 className="text-[var(--text-main)] text-lg font-bold leading-tight" style={{ fontFamily: "var(--font-display)" }}>{title}</h3>
+        <h3 className="text-[var(--text-main)] text-lg font-bold leading-tight font-display">{title}</h3>
         <p className="text-[var(--text-muted)] text-sm font-normal leading-relaxed">
           {description}
         </p>
@@ -381,8 +386,8 @@ function HowItWorksStep({ number, icon, title, description }: { number: string; 
       <div className="size-16 rounded-[var(--r-md)] bg-[var(--color-primary)] text-white flex items-center justify-center shadow-md shadow-[var(--color-primary)]/20 relative z-10">
         <span className="material-symbols-outlined text-3xl">{icon}</span>
       </div>
-      <span className="text-[var(--text-dim)] text-xs font-black uppercase tracking-[0.3em]" style={{ fontFamily: "var(--font-mono)" }}>{number}</span>
-      <h4 className="text-[var(--text-main)] text-lg font-bold" style={{ fontFamily: "var(--font-display)" }}>{title}</h4>
+      <span className="text-[var(--text-dim)] text-xs font-black uppercase tracking-[0.3em] font-mono-data">{number}</span>
+      <h4 className="text-[var(--text-main)] text-lg font-bold font-display">{title}</h4>
       <p className="text-[var(--text-muted)] text-sm leading-relaxed max-w-xs">{description}</p>
     </div>
   );

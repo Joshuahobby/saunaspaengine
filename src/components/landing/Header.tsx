@@ -108,16 +108,10 @@ export function Header({ isLoggedIn }: { isLoggedIn?: boolean }) {
                     ) : (
                         <div className="flex items-center gap-3">
                             <Link
-                                href="/login"
-                                className="flex cursor-pointer items-center justify-center rounded-xl h-11 px-6 text-[var(--text-main)] text-[10px] font-black uppercase tracking-widest transition-all hover:bg-[var(--bg-surface-muted)] border border-transparent hover:border-[var(--border-muted)]"
-                            >
-                                Log In
-                            </Link>
-                            <Link
                                 href="/signup"
                                 className="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-11 px-8 bg-[var(--color-primary)] text-white text-[10px] font-black uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-[var(--color-primary)]/20"
                             >
-                                Register Spa
+                                Get Started
                             </Link>
                         </div>
                     )}
@@ -140,7 +134,7 @@ export function Header({ isLoggedIn }: { isLoggedIn?: boolean }) {
 
             {/* Mobile Menu Overlay */}
             <div
-                className={`fixed inset-0 bg-[var(--bg-app)]/95 backdrop-blur-2xl z-40 transition-all duration-500 lg:hidden flex flex-col pt-32 px-6 gap-10 ${mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10 pointer-events-none"
+                className={`fixed inset-0 bg-[var(--bg-app)]/95 backdrop-blur-2xl z-40 transition-all duration-500 lg:hidden flex flex-col pt-32 px-6 gap-10 overflow-y-auto pb-6 ${mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10 pointer-events-none"
                     }`}
             >
                 <nav className="flex flex-col gap-4">
@@ -168,20 +162,13 @@ export function Header({ isLoggedIn }: { isLoggedIn?: boolean }) {
                             Go to Dashboard
                         </Link>
                     ) : (
-                        <div className="grid grid-cols-2 gap-4">
-                            <Link
-                                onClick={closeMenu}
-                                href="/login"
-                                className="flex cursor-pointer items-center justify-center rounded-2xl h-16 bg-[var(--bg-surface-muted)] border border-[var(--border-main)] text-[var(--text-main)] text-xs font-black uppercase tracking-widest transition-all active:scale-[0.98]"
-                            >
-                                Log In
-                            </Link>
+                        <div className="grid grid-cols-1 gap-4">
                             <Link
                                 onClick={closeMenu}
                                 href="/signup"
                                 className="flex cursor-pointer items-center justify-center rounded-2xl h-16 bg-[var(--color-primary)] text-white text-xs font-black uppercase tracking-widest border border-[var(--color-primary)] shadow-2xl shadow-[var(--color-primary)]/20 transition-all active:scale-[0.98]"
                             >
-                                Register Spa
+                                Get Started
                             </Link>
                         </div>
                     )}

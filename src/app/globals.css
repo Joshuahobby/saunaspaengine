@@ -46,8 +46,8 @@
   --color-forest-300: #c5d7cc;
   --color-forest-400: #a7c3b3;
   --color-forest-500: #6b8f71; /* Sage */
-  --color-forest-600: #557a5d;
-  --color-forest-700: #4a6750; /* Moss */
+  --color-forest-600: #486a50;
+  --color-forest-700: #35503c; /* Moss */
   --color-forest-800: #2d5a27; /* Eucalyptus */
   --color-forest-900: #15241f; /* Deep Forest */
 
@@ -64,6 +64,10 @@
   --color-teal-900: var(--color-forest-900);
 
   /* Fonts */
+  --font-inter: 'Inter', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-instrument-sans: 'Instrument Sans', sans-serif;
+  --font-ibm-plex-mono: 'IBM Plex Mono', monospace;
   --font-display: 'Cabinet Grotesk', var(--font-poppins), sans-serif;
   --font-body: var(--font-instrument-sans), 'Instrument Sans', sans-serif;
   --font-mono: var(--font-ibm-plex-mono), 'IBM Plex Mono', monospace;
@@ -111,7 +115,7 @@
   --text-main: var(--color-forest-900);
   --text-secondary: #2e4838;
   --text-muted: var(--color-forest-700);
-  --text-dim: #7a9c82;
+  --text-dim: #50705a;
   --border-main: var(--color-border-light);
   --border-muted: #f1f5f9;
   --border-active: #2d5a27;

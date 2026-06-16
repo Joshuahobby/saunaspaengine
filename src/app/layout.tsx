@@ -1,37 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, Poppins, Instrument_Sans, IBM_Plex_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { ToastProvider } from "@/components/providers/toast-provider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-  weight: ["400", "700"],
-});
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-poppins",
-  display: "swap",
-});
-
-const instrumentSans = Instrument_Sans({
-  subsets: ["latin"],
-  variable: "--font-instrument-sans",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  variable: "--font-ibm-plex-mono",
-  display: "swap",
-  weight: ["400", "500", "600"],
-});
 
 export const metadata: Metadata = {
   title: "Sauna SPA Engine",
@@ -62,8 +33,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable} ${instrumentSans.variable} ${ibmPlexMono.variable}`} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;700&family=Poppins:wght@400;700&display=swap"
+          crossOrigin="anonymous"
+        />
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           rel="stylesheet"
@@ -81,7 +58,7 @@ export default function RootLayout({
         <meta httpEquiv="Pragma" content="no-cache" />
         <meta httpEquiv="Expires" content="0" />
       </head>
-      <body className={`${inter.className} antialiased selection:bg-[var(--color-primary)] selection:text-teal-900`}>
+      <body className="antialiased selection:bg-[var(--color-primary)] selection:text-teal-900">
         {/* Invisible touch points to satisfy browser preload requirements and clear console warnings */}
         <div className="font-touch-observer" aria-hidden="true">
           <span className="font-inter-400">.</span>

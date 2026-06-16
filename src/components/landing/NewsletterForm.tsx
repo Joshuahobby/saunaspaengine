@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 
@@ -41,7 +41,7 @@ export function NewsletterForm() {
                         <input
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="flex-1 rounded-xl h-14 px-6 bg-[var(--bg-card)]/10 border-white/20 text-white placeholder:text-white/50 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] border transition-all outline-none"
+                            className="flex-1 rounded-xl h-14 px-6 bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] border transition-all outline-none"
                             placeholder="Your work email"
                             type="email"
                             required

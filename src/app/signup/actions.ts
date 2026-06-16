@@ -10,8 +10,7 @@ export async function registerBusinessAction(formData: FormData) {
     const email = (formData.get("email") as string)?.trim().toLowerCase();
     const password = formData.get("password") as string;
     const confirmPassword = formData.get("confirmPassword") as string;
-    const planId = (formData.get("planId") as string)?.trim();
-    const billingCycle = (formData.get("billingCycle") as string)?.trim() || "Monthly";
+    const billingCycle = "Monthly"; // Default to Monthly for auto-assigned plans
 
     if (!businessName || !fullName || !email || !password || !confirmPassword) {
         return { error: "All fields are required." };
@@ -25,14 +24,14 @@ export async function registerBusinessAction(formData: FormData) {
         return { error: "Passwords do not match." };
     }
 
-    if (!planId) {
-        return { error: "Please select a subscription plan." };
+    // Automatically assign the Essential plan or fallback to the first available plan
+    let plan = await prisma.platformPackage.findFirst({ where: { name: "Essential" } });
+    if (!plan) {
+        plan = await prisma.platformPackage.findFirst({ where: { isCustom: false } });
     }
 
-    // Verify plan exists
-    const plan = await prisma.platformPackage.findUnique({ where: { id: planId } });
     if (!plan) {
-        return { error: "Selected plan not found. Please refresh and try again." };
+        return { error: "System error: No subscription plans available." };
     }
 
     // Check uniqueness
