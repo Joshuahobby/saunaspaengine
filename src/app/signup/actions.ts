@@ -5,7 +5,7 @@ import { Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const BILLING_CYCLES = { Monthly: "Monthly", Yearly: "Yearly" } as const;
-type BillingCycle = (typeof BILLING_CYCLES)[keyof typeof BILLING_CYCLES];
+type BillingCycle = "Monthly" | "Yearly";
 
 export async function registerBusinessAction(formData: FormData) {
     const businessName = (formData.get("businessName") as string)?.trim();
