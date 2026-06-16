@@ -4,7 +4,6 @@ import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
-const BILLING_CYCLES = { Monthly: "Monthly", Yearly: "Yearly" } as const;
 type BillingCycle = "Monthly" | "Yearly";
 
 export async function registerBusinessAction(formData: FormData) {
@@ -13,7 +12,7 @@ export async function registerBusinessAction(formData: FormData) {
     const email = (formData.get("email") as string)?.trim().toLowerCase();
     const password = formData.get("password") as string;
     const confirmPassword = formData.get("confirmPassword") as string;
-    const billingCycle: BillingCycle = BILLING_CYCLES.Monthly; // Default to Monthly for auto-assigned plans
+    const billingCycle: BillingCycle = "Monthly"; // Default to Monthly for auto-assigned plans
 
     if (!businessName || !fullName || !email || !password || !confirmPassword) {
         return { error: "All fields are required." };
@@ -52,7 +51,7 @@ export async function registerBusinessAction(formData: FormData) {
 
     // Set renewal date: 1 month or 1 year from today
     const renewalDate = new Date();
-    if (billingCycle === BILLING_CYCLES.Yearly) {
+    if (billingCycle === "Yearly") {
         renewalDate.setFullYear(renewalDate.getFullYear() + 1);
     } else {
         renewalDate.setMonth(renewalDate.getMonth() + 1);
@@ -69,7 +68,7 @@ export async function registerBusinessAction(formData: FormData) {
                     name: businessName,
                     status: "ACTIVE",
                     subscriptionPlanId: plan.id,
-                    subscriptionCycle: billingCycle as "Monthly" | "Yearly",
+                    subscriptionCycle: billingCycle,
                     subscriptionStatus: isFreePlan ? "FREE" : "PENDING_PAYMENT",
                     subscriptionRenewal: renewalDate,
                     trialEndsAt: trialEndsAt,
