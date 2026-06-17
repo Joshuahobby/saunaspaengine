@@ -74,6 +74,7 @@ export default function RootLayout({
           <ToastProvider />
           <Analytics />
         </ThemeProvider>
+        <Analytics />
 
         {/* Self-destructing script for phantom service workers on localhost:3000 */}
         <script
