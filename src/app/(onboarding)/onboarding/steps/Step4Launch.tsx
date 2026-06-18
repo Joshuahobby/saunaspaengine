@@ -45,84 +45,89 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Left: Branch Preview Card */}
-                <section className="bg-[var(--bg-card)]/5 backdrop-blur-sm border border-white/5 rounded-xl p-5 space-y-4 flex flex-col">
-                    <div className="flex items-center justify-between border-b border-white/5 pb-4">
-                        <div className="flex items-center gap-3">
-                            <div className="size-10 rounded-lg bg-[var(--bg-card)] flex items-center justify-center overflow-hidden border border-white/10 shadow-sm">
-                                {branch.logo ? (
-                                    <img src={branch.logo} alt="Branch Logo" className="w-full h-full object-cover" />
-                                ) : (
-                                    <span className="material-symbols-outlined text-[var(--color-primary)] !text-xl">storefront</span>
-                                )}
-                            </div>
-                            <div className="min-w-0">
-                                <h3 className="text-sm font-display font-black text-[var(--text-main)] truncate">{branch.name}</h3>
-                                <div className="flex items-center gap-1 text-[var(--color-primary)] text-[8px] font-black uppercase tracking-widest mt-0.5">
-                                    <span className="material-symbols-outlined !text-[10px]">verified</span>
-                                    Ready to Launch
+                <section className="bg-[var(--bg-card)]/40 backdrop-blur-md border border-[var(--border-main)] rounded-2xl p-6 shadow-sm flex flex-col justify-between hover:border-[var(--color-primary-border)] transition-colors">
+                    <div className="space-y-6">
+                        <div className="flex items-center justify-between border-b border-[var(--border-muted)] pb-4">
+                            <div className="flex items-center gap-4">
+                                <div className="size-12 rounded-xl bg-[var(--bg-surface-muted)] flex items-center justify-center overflow-hidden border border-[var(--border-main)] shadow-sm shrink-0">
+                                    {branch.logo ? (
+                                        <img src={branch.logo} alt="Branch Logo" className="w-full h-full object-cover" />
+                                    ) : (
+                                        <span className="material-symbols-outlined text-[var(--color-primary)] !text-2xl">storefront</span>
+                                    )}
+                                </div>
+                                <div className="min-w-0">
+                                    <h3 className="text-base font-display font-black text-[var(--text-main)] truncate">{branch.name}</h3>
+                                    <div className="flex items-center gap-1.5 text-[var(--color-primary)] text-[9px] font-black uppercase tracking-[0.2em] mt-1">
+                                        <span className="material-symbols-outlined !text-[12px]">verified</span>
+                                        Ready to Launch
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 gap-2">
-                        <div className="bg-[var(--bg-card)]/[0.02] border border-white/5 p-3 rounded-lg space-y-1.5">
-                            <div className="flex items-center gap-2 text-[var(--text-main)] opacity-40">
-                                <span className="material-symbols-outlined !text-[12px]">location_on</span>
-                                <span className="text-[8px] font-black uppercase tracking-widest">Location Information</span>
+                        <div className="grid grid-cols-1 gap-3">
+                            <div className="bg-[var(--bg-surface)] border border-[var(--border-main)] p-4 rounded-xl space-y-2">
+                                <div className="flex items-center gap-2 text-[var(--text-muted)]">
+                                    <span className="material-symbols-outlined !text-[14px]">location_on</span>
+                                    <span className="text-[9px] font-black uppercase tracking-[0.15em]">Location & Contact</span>
+                                </div>
+                                <div className="space-y-1">
+                                    <p className="text-sm font-bold text-[var(--text-main)]">{branch.address || "Address not provided"}</p>
+                                    <p className="text-xs font-medium text-[var(--text-muted)]">{branch.phone || "Phone not provided"}</p>
+                                </div>
                             </div>
-                            <div className="space-y-0.5">
-                                <p className="text-xs font-bold text-[var(--text-main)]">{branch.address || "Address not provided"}</p>
-                                <p className="text-[10px] font-medium text-[var(--text-muted)] opacity-60">{branch.phone || "Phone not provided"}</p>
-                            </div>
-                        </div>
 
-                        <div className="grid grid-cols-2 gap-2">
-                            <div className="bg-[var(--bg-card)]/[0.02] border border-white/5 p-3 rounded-lg space-y-1">
-                                <div className="flex items-center justify-between">
-                                    <span className="material-symbols-outlined text-[var(--color-primary)] !text-sm">spa</span>
-                                    <span className="text-sm font-display font-black text-[var(--text-main)]">{branch.services?.length || 0}</span>
+                            <div className="grid grid-cols-2 gap-3">
+                                <div className="bg-[var(--bg-surface)] border border-[var(--border-main)] p-4 rounded-xl flex flex-col justify-center items-center text-center gap-1">
+                                    <span className="material-symbols-outlined text-[var(--color-primary)] !text-xl mb-1">spa</span>
+                                    <span className="text-2xl font-display font-black text-[var(--text-main)]">{branch.services?.length || 0}</span>
+                                    <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.15em]">Services</p>
                                 </div>
-                                <p className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-60">Services</p>
-                            </div>
-                            <div className="bg-[var(--bg-card)]/[0.02] border border-white/5 p-3 rounded-lg space-y-1">
-                                <div className="flex items-center justify-between">
-                                    <span className="material-symbols-outlined text-[var(--color-primary)] !text-sm">badge</span>
-                                    <span className="text-sm font-display font-black text-[var(--text-main)]">{branch.employees?.length || 0}</span>
+                                <div className="bg-[var(--bg-surface)] border border-[var(--border-main)] p-4 rounded-xl flex flex-col justify-center items-center text-center gap-1">
+                                    <span className="material-symbols-outlined text-[var(--color-primary)] !text-xl mb-1">badge</span>
+                                    <span className="text-2xl font-display font-black text-[var(--text-main)]">{branch.employees?.length || 0}</span>
+                                    <p className="text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.15em]">Team</p>
                                 </div>
-                                <p className="text-[8px] font-black text-[var(--text-muted)] uppercase tracking-widest opacity-60">Team</p>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 {/* Right: QR Preview */}
-                <section className="bg-[var(--bg-card)]/5 backdrop-blur-sm border border-white/5 rounded-xl p-5 flex flex-col items-center justify-center text-center gap-3">
-                    <h2 className="text-sm font-bold text-[var(--text-main)]">Booking QR Code</h2>
-                    <div className="size-32 bg-[var(--bg-card)] p-2 rounded-lg shadow-inner relative group">
-                        <div className="size-full bg-neutral-100 rounded flex items-center justify-center overflow-hidden">
+                <section className="bg-[var(--bg-card)]/40 backdrop-blur-md border border-[var(--border-main)] rounded-2xl p-6 shadow-sm flex flex-col items-center justify-center text-center gap-6 hover:border-[var(--color-primary-border)] transition-colors">
+                    <div className="space-y-2">
+                        <h2 className="text-base font-display font-black text-[var(--text-main)]">Your Booking QR Code</h2>
+                        <p className="text-[11px] font-medium text-[var(--text-muted)] max-w-[220px] leading-relaxed mx-auto">
+                            Customers can scan this code at your reception to view services and book.
+                        </p>
+                    </div>
+                    
+                    <div className="size-40 bg-white p-3 rounded-2xl shadow-md border border-neutral-200 relative group transition-transform hover:scale-105 duration-300">
+                        <div className="size-full bg-neutral-50 rounded-xl flex items-center justify-center overflow-hidden">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img 
-                                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`${process.env.NEXT_PUBLIC_APP_URL ?? "https://saunaspaengine.com"}/spa/${branch.id}`)}`} 
+                                src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(`${process.env.NEXT_PUBLIC_APP_URL ?? "https://www.saunaspaengine.com"}/spa/${branch.id}`)}`} 
                                 alt="QR Code" 
-                                className="w-full h-full" 
+                                className="w-full h-full mix-blend-multiply" 
                             />
                         </div>
                     </div>
-                    <p className="text-[9px] text-[var(--text-muted)] max-w-[200px] leading-relaxed opacity-60">
-                        Customers can scan this code at your reception to view services and book.
-                    </p>
+                    
+                    <div className="bg-[var(--color-primary-muted)] text-[var(--color-primary)] px-4 py-2 rounded-lg border border-[var(--color-primary-border)]">
+                        <p className="text-[10px] font-black uppercase tracking-[0.1em]">Test Scan to Verify</p>
+                    </div>
                 </section>
             </div>
 
             {/* Final Action */}
-            <div className="flex flex-col items-center gap-3 pt-6">
+            <div className="flex flex-col items-center gap-4 pt-8">
                 <button 
                     onClick={handleLaunch}
                     disabled={loading}
-                    className="h-10 px-8 bg-[var(--color-primary)] text-[var(--bg-app)] rounded-lg font-black text-[10px] uppercase tracking-[0.2em] shadow-sm hover:opacity-90 active:scale-[0.98] transition-all group"
+                    className="h-12 px-10 bg-[var(--color-primary)] text-white rounded-xl font-black text-[11px] uppercase tracking-[0.2em] shadow-lg shadow-[var(--color-primary)]/20 hover:shadow-xl hover:bg-[var(--color-primary-hover)] hover:-translate-y-0.5 active:scale-[0.98] transition-all group disabled:opacity-70 disabled:hover:translate-y-0"
                 >
                     {loading ? (
                         <div className="flex items-center gap-2">
