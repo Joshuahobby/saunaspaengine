@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sauna SPA Engine — Spa & Sauna Management for Rwanda",
     description: "Rwanda's #1 management platform for spas and saunas. Digitize operations, delight your clients, grow your revenue.",
-    url: "https://saunaspa.rw",
+    url: "https://www.saunaspaengine.com",
     siteName: "Sauna SPA Engine",
     images: [
       {
