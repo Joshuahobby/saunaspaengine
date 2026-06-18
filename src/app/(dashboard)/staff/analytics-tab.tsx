@@ -27,7 +27,7 @@ export default async function AnalyticsTab() {
         );
     }
 
-    const [staffCount, categoriesWithCount, ratingAgg] = await Promise.all([
+    const [staffCount, categoriesWithCount, ratingAgg, commissionAgg, topEmployee, shiftCount] = await Promise.all([
         prisma.employee.count({
             where: { branchId: { in: authorizedBranchIds }, status: "ACTIVE" }
         }),
@@ -41,11 +41,35 @@ export default async function AnalyticsTab() {
             _avg: { rating: true },
             _count: { rating: true },
         }),
+        prisma.commissionLog.aggregate({
+            where: { employee: { branchId: { in: authorizedBranchIds } }, status: "UNPAID" },
+            _sum: { amount: true },
+        }),
+        prisma.serviceRecord.groupBy({
+            by: ["employeeId"],
+            where: { branchId: { in: authorizedBranchIds }, employeeId: { not: null }, status: "COMPLETED" },
+            _count: { id: true },
+            orderBy: { _count: { id: "desc" } },
+            take: 1,
+        }),
+        prisma.shift.count({
+            where: { branchId: { in: authorizedBranchIds }, status: "IN_PROGRESS" },
+        }),
     ]);
 
     const avgRating = ratingAgg._avg.rating;
     const reviewCount = ratingAgg._count.rating;
     const categoryCount = categoriesWithCount.length;
+    const pendingCommission = commissionAgg._sum.amount ?? 0;
+
+    let topEmployeeName: string | null = null;
+    if (topEmployee.length > 0 && topEmployee[0].employeeId) {
+        const emp = await prisma.employee.findUnique({
+            where: { id: topEmployee[0].employeeId },
+            select: { fullName: true },
+        });
+        topEmployeeName = emp?.fullName ?? null;
+    }
 
     // Only include categories that have at least one employee for the chart
     const activeCategories = categoriesWithCount.filter(c => c._count.employees > 0);
@@ -132,8 +156,25 @@ export default async function AnalyticsTab() {
                     </p>
                 </div>
 
-                <div className="h-16 w-full rounded-2xl bg-[var(--color-primary)]/20 border border-[var(--color-primary)]/30 flex items-center justify-center text-[10px] font-black uppercase tracking-widest mt-12 text-[var(--color-primary)]">
-                    HR Report — Coming Soon
+                <div className="space-y-6 mt-12">
+                    <div className="grid grid-cols-2 gap-3">
+                        <div className="rounded-2xl bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 p-4">
+                            <p className="text-[8px] font-black uppercase tracking-widest text-[var(--color-primary)] opacity-60">Pending Commission</p>
+                            <p className="text-lg font-black text-white mt-1">{pendingCommission.toLocaleString()} RWF</p>
+                        </div>
+                        <div className="rounded-2xl bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 p-4">
+                            <p className="text-[8px] font-black uppercase tracking-widest text-[var(--color-primary)] opacity-60">Active Shifts</p>
+                            <p className="text-lg font-black text-white mt-1">{shiftCount}</p>
+                        </div>
+                    </div>
+                    {topEmployeeName && (
+                        <div className="rounded-2xl bg-amber-500/10 border border-amber-500/20 p-4">
+                            <p className="text-[8px] font-black uppercase tracking-widest text-amber-400 opacity-60">Top Performer</p>
+                            <p className="text-sm font-black text-white mt-1 flex items-center gap-2">
+                                <span className="text-amber-400">★</span> {topEmployeeName}
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

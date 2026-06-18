@@ -139,7 +139,7 @@ export function OnboardingClient({ branch, initialStep, paymentPending = false, 
                     </div>
 
                     {steps.map((s) => (
-                        <div key={s.id} className="flex flex-col items-center gap-1.5 group cursor-pointer" onClick={() => { if (s.id < step) handleStepChange(s.id); }}>
+                        <button type="button" key={s.id} className="flex flex-col items-center gap-1.5 group cursor-pointer text-left" onClick={() => { if (s.id < step) handleStepChange(s.id); }}>
                             <div className={`size-8 rounded-full flex items-center justify-center border transition-all duration-500 
                                 ${step === s.id ? 'border-[var(--color-primary)] bg-[var(--bg-app)] shadow-[0_0_10px_rgba(var(--color-primary-rgb),0.2)]' : 
                                   step > s.id ? 'border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--bg-app)]' : 
@@ -152,7 +152,7 @@ export function OnboardingClient({ branch, initialStep, paymentPending = false, 
                                 ${step === s.id ? 'text-[var(--color-primary)]' : 'text-[var(--text-muted)] opacity-50 font-medium'}`}>
                                 {s.title}
                             </span>
-                        </div>
+                        </button>
                     ))}
                 </div>
 

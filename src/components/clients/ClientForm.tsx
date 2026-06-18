@@ -137,7 +137,7 @@ export default function ClientForm({
             </h2>
 
             {error && (
-                <div className="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 text-[10px] text-red-600 dark:text-red-400 font-bold">
+                <div role="alert" aria-live="polite" className="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 text-[10px] text-red-600 dark:text-red-400 font-bold">
                     {error}
                 </div>
             )}
@@ -171,6 +171,7 @@ export default function ClientForm({
                     <input 
                         name="fullName" 
                         required 
+                        aria-required="true"
                         defaultValue={initialData?.fullName}
                         className="w-full bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-4 py-3 focus:ring-4 focus:ring-[var(--color-primary)]/5 focus:border-[var(--color-primary)] transition-all outline-none font-bold text-[var(--text-main)] tracking-tight text-sm" 
                         placeholder="e.g. Alexander Lindholm" type="text" 
@@ -184,6 +185,7 @@ export default function ClientForm({
                         <input 
                             name="phone" 
                             required 
+                            aria-required="true"
                             defaultValue={initialData?.phone}
                             className="w-full pl-10 bg-[var(--bg-surface-muted)] border border-[var(--border-muted)] rounded-2xl px-4 py-3 focus:ring-4 focus:ring-[var(--color-primary)]/5 focus:border-[var(--color-primary)] transition-all outline-none font-bold text-[var(--text-main)] tracking-tight text-sm" 
                             placeholder="+250 788 000 000" type="tel" 

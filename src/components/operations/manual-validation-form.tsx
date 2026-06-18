@@ -8,6 +8,7 @@ export default function ManualValidationForm() {
     const [query, setQuery] = useState("");
     const [isValidating, setIsValidating] = useState(false);
     const [error, setError] = useState("");
+    const errorId = "validation-error";
 
     async function handleValidate() {
         if (!query.trim()) return;
@@ -47,9 +48,12 @@ export default function ManualValidationForm() {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && handleValidate()}
+                        aria-invalid={!!error}
+                        aria-describedby={error ? errorId : undefined}
+                        aria-required="true"
                     />
                 </div>
-                {error && <p className="text-xs text-red-500 font-bold mt-1 px-1">{error}</p>}
+                {error && <p id={errorId} role="alert" className="text-xs text-red-500 font-bold mt-1 px-1">{error}</p>}
             </div>
 
             <button

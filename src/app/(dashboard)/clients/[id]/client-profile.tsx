@@ -9,12 +9,13 @@ import {
     Printer, History as LucideHistory, Mail, Droplets,
     Activity, TrendingUp, Sparkles, Fingerprint, Clock,
     ChevronRight, Zap, Heart, AlertCircle, MessageSquare, PlusCircle,
-    Star, Target, ShieldCheck, Eye, QrCode, Loader2
+    Star, Target, ShieldCheck, Eye, QrCode
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { formatCurrency } from "@/lib/utils";
 import { updateClientNotes, generateClientQrAction } from "./actions";
+import { Button } from "@/components/ui/Button";
 import { toast } from "react-hot-toast";
 
 const MembershipCardModal = dynamic(() => import("@/components/clients/MembershipCardModal"), { 
@@ -86,6 +87,7 @@ const VelocitySparkline = ({ data }: { data: number[] }) => {
 };
 
 export default function ClientProfile({ client, activeMembership, loyaltyInfo, tierConfig, visitsThisMonth, intelligence }: ClientProfileProps) {
+    const shouldReduce = useReducedMotion();
     const [isCardModalOpen, setCardModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState<"history" | "pulse">("history");
     const [notes, setNotes] = useState(client.notes || "");
@@ -156,19 +158,22 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                                 Try next: {intelligence.suggestedService}
                             </div>
                             {!qrCode && !qrSuccess && (
-                                <button 
-                                    onClick={handleGenerateQr}
-                                    disabled={isSaving}
-                                    className="flex items-center gap-2 px-3 py-1.5 bg-transparent text-[var(--text-dim)] hover:text-[var(--text-main)] hover:bg-[var(--bg-hover)] rounded-lg text-[11px] font-bold uppercase tracking-[0.06em] transition-all"
-                                    aria-label="Generate QR code for client"
-                                >
-                                    {isSaving ? (
-                                        <Loader2 className="size-3.5 animate-spin" />
-                                    ) : (
-                                        <QrCode className="size-3.5" />
-                                    )}
-                                    {isSaving ? "Generating..." : "Generate QR Code"}
-                                </button>
+                                <div className="flex items-center gap-2">
+                                    <span className="flex items-center gap-1 px-2 py-1 bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-lg text-[8px] font-bold uppercase tracking-wider">
+                                        <AlertCircle className="size-2.5" />
+                                        No QR
+                                    </span>
+                                    <Button 
+                                        variant="ghost"
+                                        size="sm"
+                                        loading={isSaving}
+                                        icon={<QrCode className="size-3.5" />}
+                                        onClick={handleGenerateQr}
+                                        aria-label="Generate QR code for client"
+                                    >
+                                        {isSaving ? "Generating..." : "Generate QR Code"}
+                                    </Button>
+                                </div>
                             )}
                             {qrSuccess && (
                                 <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 rounded-lg text-[11px] font-bold uppercase tracking-[0.06em] animate-in fade-in duration-300">
@@ -203,7 +208,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                 
                 <div className="flex items-center gap-3 w-full lg:w-auto mt-4 lg:mt-0 relative z-10">
                     {client.membershipCardUrl && (
-                        <div className="relative group cursor-pointer" onClick={() => setCardModalOpen(true)}>
+                        <button type="button" aria-label="View membership card" className="relative group cursor-pointer text-left" onClick={() => setCardModalOpen(true)}>
                             <div className="w-24 h-14 rounded-lg overflow-hidden border border-[var(--border-main)] shadow-sm group-hover:border-[var(--color-primary)]/50 transition-all">
                                 <img 
                                     src={client.membershipCardUrl} 
@@ -215,7 +220,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                                 </div>
                             </div>
                             <div className="absolute -top-1 -right-1 size-3 bg-emerald-500 rounded-full border-2 border-[var(--bg-card)] shadow-sm" />
-                        </div>
+                        </button>
                     )}
                     <button 
                         onClick={() => setCardModalOpen(true)}
@@ -301,7 +306,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                                     <ShieldCheck className="size-3" />
                                     Service Protocol
                                 </h3>
-                                {isSaving && <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1 }} className="size-2 rounded-full border border-[var(--color-primary)] border-t-transparent" />}
+                                {isSaving && <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: shouldReduce ? 0 : 1 }} className="size-2 rounded-full border border-[var(--color-primary)] border-t-transparent" />}
                             </div>
                             <textarea 
                                 value={notes}
@@ -325,7 +330,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                 </div>
 
                 {/* Right: Activity Control Center */}
-                <div className="lg:col-span-9 bg-[var(--bg-card)] border border-[var(--border-main)] rounded-[24px] flex flex-col h-[650px] shadow-sm">
+                <div className="lg:col-span-9 bg-[var(--bg-card)] border border-[var(--border-main)] rounded-[24px] flex flex-col min-h-[300px] max-h-[60vh] md:h-[650px] shadow-sm">
                     <div className="px-6 py-4 border-b border-[var(--border-muted)] flex items-center justify-between">
                         <div className="flex items-center gap-2">
                             <button 
@@ -342,7 +347,7 @@ export default function ClientProfile({ client, activeMembership, loyaltyInfo, t
                             </button>
                         </div>
                         <div className="text-[var(--text-muted)] opacity-30 text-[8px] font-bold uppercase tracking-[0.2em] lg:flex items-center gap-2 hidden group cursor-default">
-                            <motion.div animate={{ opacity: [0.2, 0.5, 0.2] }} transition={{ repeat: Infinity, duration: 2 }} className="size-1.5 rounded-full bg-emerald-500" />
+                            <motion.div animate={{ opacity: [0.2, 0.5, 0.2] }} transition={{ repeat: Infinity, duration: shouldReduce ? 0 : 2 }} className="size-1.5 rounded-full bg-emerald-500" />
                             Live Activity Feed
                         </div>
                     </div>

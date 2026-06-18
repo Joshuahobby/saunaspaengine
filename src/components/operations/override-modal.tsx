@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useFocusTrap } from "@/hooks/use-focus-trap";
 
 interface OverrideModalProps { open: boolean; onClose: () => void; onConfirm?: (reason: string, notes: string) => void; recordId?: string; originalValue?: string; newValue?: string; fieldName?: string; }
 
@@ -7,9 +8,10 @@ export default function OverrideModal({ open, onClose, onConfirm, recordId = "#S
     const [reason, setReason] = useState("");
     const [notes, setNotes] = useState("");
     if (!open) return null;
+    const focusTrapRef = useFocusTrap(true);
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center"><div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose}></div>
-            <div className="relative bg-[var(--bg-card)] rounded-2xl shadow-2xl max-w-md w-full mx-4 border border-[var(--border-muted)]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center"><button type="button" aria-label="Close" className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+            <div ref={focusTrapRef} className="relative bg-[var(--bg-card)] rounded-2xl shadow-2xl w-[calc(100vw-32px)] max-w-md border border-[var(--border-muted)]">
                 <div className="p-6 border-b border-[var(--border-muted)]"><div className="flex items-center gap-3 mb-2"><span className="material-symbols-outlined text-orange-500 bg-orange-100 dark:bg-orange-900/30 p-2 rounded-lg">gavel</span><h2 className="text-xl font-bold">Override Justification</h2></div><p className="text-sm text-[var(--text-muted)]">Provide a reason for overriding this service record. All overrides are visible in the audit log.</p></div>
                 <div className="p-6 space-y-4">
                     <div className="p-4 bg-orange-50 dark:bg-orange-900/10 rounded-xl border border-orange-200 dark:border-orange-800 text-sm">

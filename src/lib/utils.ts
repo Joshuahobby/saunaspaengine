@@ -70,18 +70,4 @@ export function getTimeAgo(date: Date | string): string {
     return `${months}mo ago`;
 }
 
-/**
- * Generate a unique client QR code string
- */
-export function generateQRCodeValue(clientId: string, branchId: string): string {
-    return `SSE:${branchId}:${clientId}`;
-}
 
-/**
- * Parse a QR code value back to its components
- */
-export function parseQRCodeValue(qr: string): { branchId: string; clientId: string } | null {
-    const parts = qr.split(":");
-    if (parts.length !== 3 || parts[0] !== "SSE") return null;
-    return { branchId: parts[1], clientId: parts[2] };
-}

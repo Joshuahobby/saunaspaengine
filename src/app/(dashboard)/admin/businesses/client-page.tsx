@@ -119,7 +119,7 @@ export default function AdminBranchesClientPage({ branches, stats }: PageProps) 
                     </div>
                 </div>
 
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto hidden md:block">
                     <table className="w-full text-left whitespace-nowrap">
                         <thead className="bg-[var(--bg-surface-muted)]/10 text-[var(--text-muted)] uppercase text-[9px] font-display font-black tracking-[0.2em] border-b border-[var(--border-muted)] opacity-50">
                             <tr>
@@ -150,6 +150,71 @@ export default function AdminBranchesClientPage({ branches, stats }: PageProps) 
                             )}
                         </tbody>
                     </table>
+                </div>
+
+                <div className="block md:hidden space-y-3 p-1">
+                    {filteredBranches.length > 0 ? (
+                        filteredBranches.map((biz) => (
+                            <div key={biz.id} className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2rem] p-5 space-y-3 shadow-sm">
+                                <div className="flex items-center gap-3">
+                                    <div className="size-10 rounded-xl bg-[var(--bg-surface-muted)]/40 border border-[var(--border-muted)] flex items-center justify-center text-[var(--color-primary)] font-display font-black shadow-inner text-base">
+                                        {biz.name.charAt(0).toUpperCase()}
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="font-display font-bold text-[var(--text-main)] text-base">{biz.name}</p>
+                                        <p className="text-[9px] text-[var(--text-muted)] font-bold uppercase tracking-widest opacity-40 font-sans">ID: {biz.id.slice(0, 8)}</p>
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider opacity-60 block mb-0.5">Compliance</span>
+                                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-widest border ${
+                                            biz.approvalStatus === 'APPROVED' ? 'text-emerald-500 border-emerald-500/10 bg-emerald-500/5' :
+                                            biz.approvalStatus === 'PENDING' ? 'text-amber-500 border-amber-500/10 bg-amber-500/5' :
+                                            'text-rose-500 border-rose-500/10 bg-rose-500/5'
+                                        }`}>
+                                            <span className="material-symbols-outlined text-[10px]">{biz.approvalStatus === 'APPROVED' ? 'verified' : biz.approvalStatus === 'PENDING' ? 'pending' : 'cancel'}</span>
+                                            {biz.approvalStatus || 'PENDING'}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider opacity-60 block mb-0.5">Capacity</span>
+                                        <span className="font-sans font-black text-xs text-[var(--text-main)]">{biz.activeBranches} / {biz.totalBranches}</span>
+                                        <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-40 block">Active Branches</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider opacity-60 block mb-0.5">Headquarters</span>
+                                    <span className="text-[10px] font-sans font-bold text-[var(--text-muted)] uppercase tracking-wide opacity-60">
+                                        {biz.headquarters || "Not Set"}
+                                    </span>
+                                </div>
+                                <div className="flex items-center justify-between pt-3 border-t border-[var(--border-muted)]/30">
+                                    <button 
+                                        onClick={() => toggleStatus(biz.id, biz.status)}
+                                        disabled={toggling === biz.id}
+                                        className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-display font-bold text-[10px] border transition-all ${
+                                            biz.status === 'ACTIVE' 
+                                            ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' 
+                                            : 'bg-[var(--bg-surface-muted)] text-[var(--text-muted)] border-[var(--border-muted)]'
+                                        }`}
+                                    >
+                                        <span className={`size-1.5 rounded-full ${biz.status === 'ACTIVE' ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`}></span>
+                                        {toggling === biz.id ? "..." : biz.status.charAt(0).toUpperCase() + biz.status.slice(1).toLowerCase()}
+                                    </button>
+                                    <ActionDropdown 
+                                        actions={[
+                                            { label: "View Details", icon: "open_in_new", href: `/businesses/${biz.id}` },
+                                            { label: "Edit Record", icon: "edit", onClick: () => setEditingBranch(biz) },
+                                            { label: "Delete Business", icon: "delete", onClick: () => setDeletingBranch(biz), variant: "danger" }
+                                        ]} 
+                                    />
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="px-8 py-12 text-center text-[var(--text-muted)] opacity-50 font-bold text-sm font-sans">No organizations found.</div>
+                    )}
                 </div>
 
                 <div className="px-8 py-6 bg-[var(--bg-surface-muted)]/5 border-t border-[var(--border-muted)]">

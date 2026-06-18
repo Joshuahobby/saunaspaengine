@@ -52,7 +52,7 @@ export function ActionDropdown({ actions }: { actions: DropdownAction[] }) {
                         transition={{ duration: 0.15, ease: "easeOut" }}
                         className="absolute right-0 mt-2 w-48 rounded-xl bg-[var(--bg-card)] border border-[var(--border-muted)] shadow-2xl overflow-hidden z-[50]"
                     >
-                        <div className="p-1 flex flex-col gap-0.5" onClick={(e) => e.stopPropagation()}>
+                        <div role="none" className="p-1 flex flex-col gap-0.5" onClick={(e) => e.stopPropagation()}>
                             {actions.map((act, i) => {
                                 const content = (
                                     <>

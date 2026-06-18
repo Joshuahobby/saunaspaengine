@@ -23,7 +23,7 @@ const securityHeaders = [
         value: [
             "default-src 'self'",
             // Next.js needs inline scripts for hydration; use nonce in production for strictest CSP
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com",
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com https://static.cloudflareinsights.com",
             // Allow inline styles (Tailwind + dynamic branding CSS vars)
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com",
             "font-src 'self' https://fonts.gstatic.com https://cdn.fontshare.com",

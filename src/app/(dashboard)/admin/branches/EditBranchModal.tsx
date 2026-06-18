@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useFocusTrap } from "@/hooks/use-focus-trap";
 import { motion, AnimatePresence } from "framer-motion";
 import { updateBranchAction } from "./actions";
 
@@ -27,6 +28,8 @@ export function EditBranchModal({ isOpen, onClose, branch }: EditBranchModalProp
     });
 
     if (!isOpen) return null;
+
+    const focusTrapRef = useFocusTrap(true);
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -60,6 +63,7 @@ export function EditBranchModal({ isOpen, onClose, branch }: EditBranchModalProp
                     />
                     
                     <motion.div
+                        ref={focusTrapRef}
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -73,7 +77,7 @@ export function EditBranchModal({ isOpen, onClose, branch }: EditBranchModalProp
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className="size-8 flex items-center justify-center rounded-full bg-[var(--bg-surface-muted)]/10 text-[var(--text-muted)] hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)] transition-colors"
+                                className="size-10 flex items-center justify-center rounded-full bg-[var(--bg-surface-muted)]/10 text-[var(--text-muted)] hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)] transition-colors"
                             >
                                 <span className="material-symbols-outlined text-sm">close</span>
                             </button>

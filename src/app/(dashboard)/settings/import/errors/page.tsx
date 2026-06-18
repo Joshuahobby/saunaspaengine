@@ -46,7 +46,7 @@ export default function ImportErrorsPage() {
                                         {editingId === r.id ? (
                                             <div className="flex items-center justify-end gap-2">
                                                 <button onClick={() => setEditingId(null)} className="text-[var(--text-muted)] text-xs font-bold">Cancel</button>
-                                                <button onClick={() => setEditingId(null)} className="bg-[var(--color-primary)] text-[var(--bg-app)] px-3 py-1 rounded text-xs font-bold">Save</button>
+                                                <button onClick={() => setEditingId(null)} className="bg-[var(--color-primary)] text-[var(--bg-app)] px-3 py-2 min-h-[44px] rounded text-xs font-bold">Save</button>
                                             </div>
                                         ) : <button onClick={() => setEditingId(r.id)} className="text-[var(--color-primary)] hover:underline text-sm font-bold">Edit Row</button>}
                                     </td>
@@ -59,10 +59,10 @@ export default function ImportErrorsPage() {
             <div className="p-6 pt-0 flex justify-between items-center text-sm text-[var(--text-muted)]">
                 <p>Showing 5 of 24 errors</p>
                 <div className="flex gap-2">
-                    <button className="px-3 py-1 rounded border border-[var(--border-muted)] opacity-50" disabled>Previous</button>
-                    <button className="px-3 py-1 rounded bg-[var(--color-primary)]/20 font-bold border border-[var(--color-primary)]/30">1</button>
-                    <button className="px-3 py-1 rounded border border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)]/50">2</button>
-                    <button className="px-3 py-1 rounded border border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)]/50">Next</button>
+                    <button className="px-3 py-2 min-h-[44px] rounded border border-[var(--border-muted)] opacity-50" disabled>Previous</button>
+                    <button className="px-3 py-2 min-h-[44px] rounded bg-[var(--color-primary)]/20 font-bold border border-[var(--color-primary)]/30">1</button>
+                    <button className="px-3 py-2 min-h-[44px] rounded border border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)]/50">2</button>
+                    <button className="px-3 py-2 min-h-[44px] rounded border border-[var(--border-muted)] hover:bg-[var(--bg-surface-muted)]/50">Next</button>
                 </div>
             </div>
         </main>

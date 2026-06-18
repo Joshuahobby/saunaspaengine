@@ -68,7 +68,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`px-4 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-[0.2em] transition-all ${activeTab === tab ? "bg-[var(--color-primary)] text-white shadow-lg" : "text-[var(--text-muted)] hover:text-[var(--text-main)]"}`}
+                                className={`px-4 py-2.5 rounded-lg text-[8px] font-black uppercase tracking-[0.2em] transition-all ${activeTab === tab ? "bg-[var(--color-primary)] text-white shadow-lg" : "text-[var(--text-muted)] hover:text-[var(--text-main)]"}`}
                             >
                                 {tab}
                             </button>
@@ -106,7 +106,7 @@ export default function AdminHealthClientPage({ metrics, logEntries }: HealthPro
                                     <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[8px] font-black uppercase tracking-widest rounded-full">Optimal Range (2-14ms)</span>
                                 </div>
                                 
-                                <div className="relative h-[250px] w-full flex flex-col justify-end p-2">
+                                <div className="relative min-h-[200px] md:h-[250px] w-full flex flex-col justify-end p-2">
                                      {/* Waveform SVG */}
                                     <svg className="w-full h-48 absolute bottom-0 left-0 opacity-40" preserveAspectRatio="none" viewBox="0 0 1000 100">
                                         <defs>

@@ -73,7 +73,7 @@ export function DeleteBranchModal({ isOpen, onClose, branch }: DeleteBranchModal
                             </div>
                             <button
                                 onClick={onClose}
-                                className="size-8 flex items-center justify-center rounded-full bg-[var(--bg-surface-muted)]/10 text-[var(--text-muted)] hover:bg-red-500/10 hover:text-red-500 transition-colors"
+                                className="size-10 flex items-center justify-center rounded-full bg-[var(--bg-surface-muted)]/10 text-[var(--text-muted)] hover:bg-red-500/10 hover:text-red-500 transition-colors"
                             >
                                 <span className="material-symbols-outlined text-sm">close</span>
                             </button>

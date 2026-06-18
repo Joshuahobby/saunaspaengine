@@ -69,12 +69,12 @@ export default async function DashboardLayout({
                     branchName={branchName}
                     logo={logo}
                 />
-                <main className="flex-1 overflow-y-auto pb-20 lg:pb-0 relative">
+                <main id="main-content" className="flex-1 overflow-y-auto pb-20 lg:pb-0 relative">
                     {subState && <SubscriptionBanner state={subState} />}
 
                     <SubscriptionGate state={subState}>
                         <Header />
-                        <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto animate-fade-in">
+                            <div className="p-4 md:p-6 lg:p-8 max-w-[1600px] mx-auto animate-fade-in">
                             {children}
                         </div>
                     </SubscriptionGate>

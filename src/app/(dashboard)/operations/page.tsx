@@ -55,7 +55,7 @@ export default async function OperationsHubPage(props: {
                 
                 {/* Visual Tab Switcher - Scrollable */}
                 <div className="flex w-full overflow-x-auto no-scrollbar pb-2">
-                    <nav className="flex items-center p-2 bg-[var(--bg-surface-muted)]/50 backdrop-blur-md rounded-[2rem] border border-[var(--border-muted)] gap-1 w-fit whitespace-nowrap">
+                    <nav className="flex items-center p-2 bg-[var(--bg-surface-muted)]/50 backdrop-blur-md rounded-[2rem] border border-[var(--border-muted)] gap-1 w-fit whitespace-nowrap flex-wrap max-sm:gap-1 max-sm:whitespace-normal">
                         {TABS.map((tab) => {
                             const isActive = activeTab === tab.id;
                             return (

@@ -2,6 +2,10 @@
 /* eslint-disable */
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-3xl: 1800px;
+}
+
 /* ── Sauna SPA Engine Design System ── */
 /* Extracted from Stitch screen design tokens */
 

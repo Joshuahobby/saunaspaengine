@@ -1,34 +1,26 @@
 import { PrismaClient } from "@prisma/client";
-import { neonConfig } from '@neondatabase/serverless';
-import { PrismaNeon } from '@prisma/adapter-neon';
-import ws from 'ws';
 
 /**
  * PRISMA SINGLETON CONFIGURATION
- * 
- * Stability Strategy:
- * - Development: Uses the NATIVE Prisma engine (TCP) for maximum stability on local machines.
- * - Production: Uses the NEON Serverless Adapter for optimized performance in edge environments.
+ *
+ * Uses the NATIVE Prisma engine (TCP) in all environments.
+ * The Neon adapter has array/json column parsing bugs on Vercel serverless,
+ * so we use the native engine which handles all PostgreSQL types correctly.
  */
 
 const prismaClientSingleton = () => {
-  // Return a dummy object on the client to prevent evaluation errors in browser bundles
   if (typeof window !== "undefined") {
     return {} as unknown as PrismaClient;
   }
 
   const isDev = process.env.NODE_ENV === "development";
 
-  // Server-only environment fallback for local development stability
   if (!process.env.DATABASE_URL && isDev) {
     try {
-      // Inline dynamic require prevents the bundler from pulling Node-specific logic into client components
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const dotenv = require("dotenv");
       dotenv.config();
       console.log("[PRISMA] Environment fallback triggered: .env loaded manually.");
     } catch (e) {
-      // Silently ignore if dotenv is missing in some environments
     }
   }
 
@@ -38,29 +30,13 @@ const prismaClientSingleton = () => {
     throw new Error("DATABASE_URL is not defined in your environment. Please check your .env file.");
   }
 
-  // 1. Local/Dev Mode: Native TCP Engine
-  if (isDev) {
-    console.log("[PRISMA] Initializing Native Engine (Local Mode)");
-    return new PrismaClient({
-      datasources: {
-        db: {
-          url: databaseUrl,
-        },
-      },
-      log: ["error", "warn"],
-    });
-  }
-
-  // 2. Production/Edge Mode: Neon Serverless Adapter
-  console.log("[PRISMA] Initializing Neon Adapter (Production Mode)");
-  
-  neonConfig.webSocketConstructor = ws;
-
-  const adapter = new PrismaNeon({ connectionString: databaseUrl });
-
   return new PrismaClient({
-    adapter,
-    log: ["error"],
+    datasources: {
+      db: {
+        url: databaseUrl,
+      },
+    },
+    log: isDev ? ["error", "warn"] : ["error"],
   });
 };
 
