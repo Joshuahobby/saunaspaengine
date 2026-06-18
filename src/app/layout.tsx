@@ -51,7 +51,6 @@ export default function RootLayout({
         <link
           rel="stylesheet"
           href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&display=swap"
-          crossOrigin="anonymous"
         />
         {/* Network & Cache Hard-Reset Meta Tags */}
         <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -59,6 +58,12 @@ export default function RootLayout({
         <meta httpEquiv="Expires" content="0" />
       </head>
       <body className="antialiased selection:bg-[var(--color-primary)] selection:text-teal-900">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-[var(--color-primary)] focus:text-white focus:rounded-xl focus:outline-none"
+        >
+          Skip to content
+        </a>
         {/* Invisible touch points to satisfy browser preload requirements and clear console warnings */}
         <div className="font-touch-observer" aria-hidden="true">
           <span className="font-inter-400">.</span>
