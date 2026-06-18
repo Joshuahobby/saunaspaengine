@@ -11,7 +11,7 @@ const REFERRALS = [
 
 export default function ReferralsTab() {
     const [copied, setCopied] = useState(false);
-    const link = "saunaspa.rw/ref/spabiz_928";
+    const link = `${process.env.NEXT_PUBLIC_APP_URL ?? "https://saunaspaengine.com"}/ref/spabiz_928`;
 
     const copyLink = () => {
         navigator.clipboard.writeText(link);

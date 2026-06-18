@@ -105,7 +105,7 @@ export function Step4Launch({ branch, onNext, onPrev }: StepProps) {
                         <div className="size-full bg-neutral-100 rounded flex items-center justify-center overflow-hidden">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img 
-                                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`https://saunaspa.rw/spa/${branch.id}`)}`} 
+                                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`${process.env.NEXT_PUBLIC_APP_URL ?? "https://saunaspaengine.com"}/spa/${branch.id}`)}`} 
                                 alt="QR Code" 
                                 className="w-full h-full" 
                             />
