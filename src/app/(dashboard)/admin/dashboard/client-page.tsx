@@ -277,7 +277,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                                             </div>
                                             <Link 
                                                 href={`/businesses/${b.id}`}
-                                                className="size-8 rounded-lg text-[var(--text-muted)] hover:text-white hover:bg-[var(--color-primary)] transition-all flex items-center justify-center border border-transparent hover:border-[var(--color-primary)]/20 shadow-sm"
+                                                className="size-11 rounded-lg text-[var(--text-muted)] hover:text-white hover:bg-[var(--color-primary)] transition-all flex items-center justify-center border border-transparent hover:border-[var(--color-primary)]/20 shadow-sm"
                                             >
                                                 <span className="material-symbols-outlined text-lg tracking-widest">open_in_new</span>
                                             </Link>
@@ -304,7 +304,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                         <button 
                             onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                             disabled={currentPage === 1}
-                            className="size-8 rounded-xl border border-[var(--border-muted)] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--bg-surface-muted)]/20 transition-all active:scale-[0.95] disabled:opacity-50 disabled:pointer-events-none group/pag">
+                            className="size-11 rounded-xl border border-[var(--border-muted)] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--bg-surface-muted)]/20 transition-all active:scale-[0.95] disabled:opacity-50 disabled:pointer-events-none group/pag">
                             <span className="material-symbols-outlined text-lg font-bold italic group-hover/pag:-translate-x-1 transition-transform">chevron_left</span>
                         </button>
                         <div className="flex items-center gap-1">
@@ -312,7 +312,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                                 <button 
                                     key={i + 1} 
                                     onClick={() => setCurrentPage(i + 1)}
-                                    className={`size-8 rounded-xl flex items-center justify-center text-[10px] font-bold transition-all ${currentPage === i + 1 ? 'bg-[var(--text-main)] text-[var(--bg-app)] shadow-lg shadow-black/10' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]'}`}>
+                                    className={`size-11 rounded-xl flex items-center justify-center text-[10px] font-bold transition-all ${currentPage === i + 1 ? 'bg-[var(--text-main)] text-[var(--bg-app)] shadow-lg shadow-black/10' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]'}`}>
                                     {i + 1}
                                 </button>
                             ))}
@@ -320,7 +320,7 @@ export default function AdminDashboardClient({ stats, businesses }: AdminDashboa
                         <button 
                             onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                             disabled={currentPage === totalPages}
-                            className="size-8 rounded-xl border border-[var(--border-muted)] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--bg-surface-muted)]/20 transition-all active:scale-[0.95] disabled:opacity-50 disabled:pointer-events-none group/pag">
+                            className="size-11 rounded-xl border border-[var(--border-muted)] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-main)] hover:bg-[var(--bg-surface-muted)]/20 transition-all active:scale-[0.95] disabled:opacity-50 disabled:pointer-events-none group/pag">
                             <span className="material-symbols-outlined text-lg font-bold group-hover/pag:translate-x-1 transition-transform">chevron_right</span>
                         </button>
                     </div>

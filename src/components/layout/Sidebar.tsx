@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useNav } from "@/components/providers/NavProvider";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 interface NavItem {
     label: string;
@@ -101,6 +101,7 @@ export default function Sidebar({
     logo,
 }: SidebarProps) {
     const pathname = usePathname();
+    const shouldReduce = useReducedMotion();
     const { isCollapsed, toggleSidebar, isMobileOpen, closeMobileNav } = useNav();
 
     const navItems = userRole === "ADMIN"
@@ -116,12 +117,14 @@ export default function Sidebar({
             {/* Mobile Backdrop */}
             <AnimatePresence>
                 {isMobileOpen && (
-                    <motion.div
+                    <motion.button
+                        type="button"
+                        aria-label="Close mobile navigation"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={closeMobileNav}
-                        className="lg:hidden fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
+                        className="lg:hidden fixed inset-0 bg-black/50 z-40 backdrop-blur-sm cursor-pointer"
                     />
                 )}
             </AnimatePresence>
@@ -129,7 +132,7 @@ export default function Sidebar({
             <motion.aside
                 initial={false}
                 animate={{ width: isCollapsed ? 80 : 256 }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                transition={shouldReduce ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 30 }}
                 style={{ width: isCollapsed ? 80 : 256 }}
                 className={`bg-[var(--bg-card)] flex flex-col h-[100dvh] fixed top-0 left-0 lg:sticky lg:top-0 lg:relative border-r border-[var(--border-main)] z-50 shadow-[4px_0_24px_rgba(0,0,0,0.02)] transition-transform duration-300 ease-in-out ${isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}
             >
@@ -151,7 +154,7 @@ export default function Sidebar({
                                     initial={{ opacity: 0, x: -10 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, x: -10 }}
-                                    transition={{ duration: 0.2 }}
+                                    transition={{ duration: shouldReduce ? 0 : 0.2 }}
                                     className="whitespace-nowrap"
                                 >
                                     <h1 className="text-sm font-bold leading-tight text-[var(--text-main)] whitespace-nowrap overflow-hidden" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}>
@@ -189,6 +192,7 @@ export default function Sidebar({
                             <Link
                                 key={item.href}
                                 href={item.href || "#"}
+                                aria-current={isActive ? "page" : undefined}
                                 className={`flex items-center min-h-[44px] rounded-xl text-sm transition-all duration-300 group relative ${isActive
                                     ? "bg-[var(--color-primary)] text-[var(--bg-app)] font-bold shadow-lg shadow-[var(--color-primary)]/15"
                                     : "text-[var(--text-muted)] hover:bg-[var(--bg-surface-muted)] hover:text-[var(--text-main)] font-semibold"
@@ -203,7 +207,7 @@ export default function Sidebar({
                                             initial={{ opacity: 0, x: -5 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             exit={{ opacity: 0, x: -5 }}
-                                            transition={{ duration: 0.15 }}
+                                            transition={{ duration: shouldReduce ? 0 : 0.15 }}
                                             className="whitespace-nowrap truncate"
                                         >
                                             {item.label}
@@ -280,7 +284,7 @@ export default function Sidebar({
             <button
                 type="button"
                 onClick={toggleSidebar}
-                className="hidden lg:flex absolute -right-3 top-20 size-7 bg-[var(--bg-card)] border border-[var(--border-main)] rounded-full items-center justify-center text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-all shadow-md z-40 cursor-pointer"
+                className="hidden lg:flex absolute -right-5 top-20 size-10 bg-[var(--bg-card)] border border-[var(--border-main)] rounded-full items-center justify-center text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-all shadow-md z-40 cursor-pointer"
             >
                 <span className={`material-symbols-outlined text-[18px] transition-transform duration-300 ${isCollapsed ? 'rotate-180' : ''}`}>
                     chevron_left

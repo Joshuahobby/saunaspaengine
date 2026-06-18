@@ -40,7 +40,7 @@ export default function SafeSecureOperationsPage() {
                 </div>
 
                 <div className="flex w-full overflow-x-auto no-scrollbar pb-1">
-                    <div className="flex gap-2 p-1 bg-[var(--bg-surface-muted)]/30 rounded-2xl w-fit border border-[var(--border-muted)] whitespace-nowrap">
+                    <div className="flex gap-2 p-1 bg-[var(--bg-surface-muted)]/30 rounded-2xl w-fit border border-[var(--border-muted)] whitespace-nowrap flex-wrap max-sm:gap-1 max-sm:whitespace-normal">
                         <button 
                             onClick={() => setActiveSection('safety')}
                             className={`px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeSection === 'safety' ? "bg-[var(--color-primary)] text-white shadow-lg" : "text-[var(--text-muted)] hover:text-[var(--text-main)]"}`}

@@ -198,7 +198,7 @@ export default function ClientListClient({
 
             {/* Table Results */}
             <div className="bg-[var(--bg-card)] rounded-[2.5rem] border border-[var(--border-muted)] shadow-sm overflow-visible">
-                <div className="overflow-x-auto min-h-[400px]">
+                <div className="overflow-x-auto min-h-[400px] hidden md:block">
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/50">
@@ -302,6 +302,97 @@ export default function ClientListClient({
                         </tbody>
                     </table>
                 </div>
+
+                    {/* Mobile Card View */}
+                    <div className="block md:hidden space-y-3 p-1">
+                        {initialClients.length > 0 ? (
+                            initialClients.map((client) => {
+                                const isMember = client.clientType === "MEMBER";
+                                return (
+                                    <div key={client.id} className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2rem] p-5 space-y-3 shadow-sm">
+                                        <div 
+                                            className="flex items-center gap-3 cursor-pointer"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setIsLoading(true);
+                                                router.push(`/clients/${client.id}`);
+                                            }}
+                                        >
+                                            <div className={`size-10 rounded-full flex items-center justify-center font-bold shrink-0 ${isMember ? 'bg-[var(--color-primary)]/10 text-[var(--color-primary)]' : 'bg-[var(--bg-surface-muted)] text-[var(--text-muted)] opacity-60'}`}>
+                                                {client.fullName.charAt(0).toUpperCase()}
+                                            </div>
+                                            <div className="flex-1">
+                                                <p className="font-bold text-[var(--text-main)] italic">{client.fullName}</p>
+                                                <p className="text-[10px] font-bold text-[var(--text-muted)] opacity-50 uppercase tracking-widest">{client.phone || "No Phone"}</p>
+                                            </div>
+                                            {client.status === "ARCHIVED" && (
+                                                <span className="px-2 py-0.5 text-[8px] font-black uppercase tracking-tighter bg-amber-500/10 text-amber-600 rounded">Archived</span>
+                                            )}
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <div>
+                                                <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider opacity-60 block mb-0.5">Type</span>
+                                                <span className={`w-fit px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest rounded-full ${isMember ? 'bg-[var(--color-primary)]/10 text-[var(--color-primary)]' : 'bg-[var(--bg-surface-muted)] text-[var(--text-muted)] opacity-60'}`}>
+                                                    {client.clientType.replace("_", " ")}
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider opacity-60 block mb-0.5">Total Spent</span>
+                                                <p className="font-bold text-[var(--text-main)]">{client.totalSpent.toLocaleString()} <span className="text-[10px] opacity-40">RWF</span></p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider opacity-60 block mb-0.5">Status / Membership</span>
+                                            {isMember && client.membershipName ? (
+                                                <div>
+                                                    <span className="text-sm font-bold text-[var(--text-main)]">{client.membershipName}</span>
+                                                    <span className="text-[10px] font-bold text-[var(--color-primary)] opacity-60 uppercase tracking-tighter block">Expires: {client.membershipExpiry || "Never"}</span>
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <span className="text-sm font-bold text-[var(--text-main)]">{client.lastVisit}</span>
+                                                    <span className="text-[10px] font-bold text-[var(--text-muted)] opacity-50 uppercase tracking-tighter block">Last Visit</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="flex items-center gap-2 pt-3 border-t border-[var(--border-muted)]/30">
+                                            {client.status === "ARCHIVED" && (
+                                                <button
+                                                    type="button"
+                                                    onClick={async () => {
+                                                        setRestoreError(null);
+                                                        const { updateClientStatus } = await import("@/app/(dashboard)/clients/actions");
+                                                        const res = await updateClientStatus(client.id, "ACTIVE");
+                                                        if (res.error) setRestoreError(res.error);
+                                                    }}
+                                                    className="flex-1 h-10 flex items-center justify-center gap-2 rounded-xl bg-green-500/10 text-green-600 hover:bg-green-500 hover:text-white transition-all text-[10px] font-black uppercase tracking-tighter border border-green-500/20"
+                                                >
+                                                    <RefreshCw className="w-3.5 h-3.5" />
+                                                    Restore
+                                                </button>
+                                            )}
+                                            <div className={client.status === "ARCHIVED" ? "flex-1" : "w-full"}>
+                                                <ClientActionsDropdown 
+                                                    clientId={client.id} 
+                                                    clientName={client.fullName}
+                                                    status={client.status}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <div className="py-12">
+                                <EmptyState
+                                    icon="group"
+                                    title={search ? "No Matching Clients" : "No Clients Found"}
+                                    description={search ? `No clients match "${search}". Try a different search term.` : "Your client records are currently empty."}
+                                    mini
+                                />
+                            </div>
+                        )}
+                    </div>
 
                 {/* Pagination Footer */}
                 <div className="px-6 py-5 border-t border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/20 flex items-center justify-between">

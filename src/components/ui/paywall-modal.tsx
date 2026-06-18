@@ -1,13 +1,15 @@
 "use client";
 import React from "react";
+import { useFocusTrap } from "@/hooks/use-focus-trap";
 
 interface PaywallModalProps { open: boolean; onClose: () => void; feature?: string; }
 
 export default function PaywallModal({ open, onClose, feature = "Advanced Analytics" }: PaywallModalProps) {
     if (!open) return null;
+    const focusTrapRef = useFocusTrap(true);
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center"><div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose}></div>
-            <div className="relative bg-[var(--bg-card)] rounded-2xl shadow-2xl max-w-md w-full mx-4 border border-[var(--border-muted)] overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center"><button type="button" aria-label="Close" className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+            <div ref={focusTrapRef} className="relative bg-[var(--bg-card)] rounded-2xl shadow-2xl w-[calc(100vw-32px)] max-w-md border border-[var(--border-muted)] overflow-hidden">
                 <div className="bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary)]/70 p-8 text-center text-white">
                     <span className="material-symbols-outlined text-5xl mb-3">lock</span>
                     <h2 className="text-2xl font-black tracking-tight">Unlock {feature}</h2>

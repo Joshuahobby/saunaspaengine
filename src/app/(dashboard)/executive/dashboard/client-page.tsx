@@ -151,7 +151,7 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 
-                <div className="bg-[var(--bg-card)] rounded-[1.5rem] border border-[var(--border-muted)] overflow-hidden shadow-sm flex flex-col h-[500px]">
+                <div className="bg-[var(--bg-card)] rounded-[1.5rem] border border-[var(--border-muted)] overflow-hidden shadow-sm flex flex-col min-h-[300px] max-h-[60vh] md:h-[500px]">
                     <div className="px-6 py-5 border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10 flex items-center justify-between">
                         <div>
                             <h2 className="text-xl font-display font-bold text-[var(--text-main)] flex items-center gap-2">
@@ -182,14 +182,14 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
                 </div>
 
                 {/* Visual Branch Leaderboard */}
-                <div className="bg-[var(--bg-card)] rounded-[1.5rem] border border-[var(--border-muted)] overflow-hidden shadow-sm flex flex-col h-[500px]">
+                <div className="bg-[var(--bg-card)] rounded-[1.5rem] border border-[var(--border-muted)] overflow-hidden shadow-sm flex flex-col min-h-[300px] max-h-[60vh] md:h-[500px]">
                     <div className="px-6 py-5 border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10 flex items-center justify-between">
                         <div>
                             <h2 className="text-xl font-display font-bold text-[var(--text-main)]">Branch Leaderboard</h2>
                             <p className="text-xs text-[var(--text-muted)] font-bold mt-1">Top performing locations by revenue.</p>
                         </div>
                     </div>
-                    <div ref={chartContainerRef} className="p-6 h-[350px] w-full">
+                    <div ref={chartContainerRef} className="p-6 min-h-[250px] md:h-[350px] w-full">
                         {topBranches.length > 0 ? (
                             chartSize.width > 0 && chartSize.height > 0 && (
                                 <BarChart data={topBranches} width={chartSize.width - 48} height={chartSize.height - 48} margin={{ top: 20, right: 30, left: 20, bottom: 5 }} layout="vertical">
@@ -214,7 +214,7 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
                 </div>
 
                 {/* The "Requires Attention" Action Center */}
-                <div className="bg-[var(--bg-card)] rounded-[1.5rem] border border-[var(--border-muted)] overflow-hidden shadow-sm flex flex-col h-[500px]">
+                <div className="bg-[var(--bg-card)] rounded-[1.5rem] border border-[var(--border-muted)] overflow-hidden shadow-sm flex flex-col min-h-[300px] max-h-[60vh] md:h-[500px]">
                     <div className="px-6 py-5 border-b border-[var(--border-muted)] bg-[var(--bg-surface-muted)]/10 flex items-center justify-between">
                         <div className="flex items-center gap-4">
                             <div>
@@ -228,7 +228,7 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
                         <div className="flex items-center bg-[var(--bg-surface-muted)]/20 rounded-lg p-1">
                             <button 
                                 onClick={() => setActiveTab("alerts")}
-                                className={`px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded-md transition-all ${activeTab === 'alerts' ? 'bg-[var(--bg-card)] text-[var(--text-main)] shadow-sm' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]'}`}
+                                className={`px-4 py-2.5 text-xs font-bold uppercase tracking-widest rounded-md transition-all ${activeTab === 'alerts' ? 'bg-[var(--bg-card)] text-[var(--text-main)] shadow-sm' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]'}`}
                             >
                                 Alerts
                                 {totalAlerts > 0 && (
@@ -237,7 +237,7 @@ export default function ExecutiveDashboardClient({ stats, branches, alerts, acti
                             </button>
                             <button 
                                 onClick={() => setActiveTab("activity")}
-                                className={`px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded-md transition-all ${activeTab === 'activity' ? 'bg-[var(--bg-card)] text-[var(--text-main)] shadow-sm' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]'}`}
+                                className={`px-4 py-2.5 text-xs font-bold uppercase tracking-widest rounded-md transition-all ${activeTab === 'activity' ? 'bg-[var(--bg-card)] text-[var(--text-main)] shadow-sm' : 'text-[var(--text-muted)] hover:text-[var(--text-main)]'}`}
                             >
                                 Activity
                             </button>

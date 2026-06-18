@@ -132,7 +132,7 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
                             <p className="text-sm text-[var(--text-muted)] font-medium">Daily revenue breakdown for current period</p>
                         </div>
                     </div>
-                    <div className="h-[400px] w-full mt-8 relative">
+                    <div className="min-h-[250px] md:h-[400px] w-full mt-8 relative">
                         {hasMounted && (
                             <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0} aspect={undefined} debounce={100}>
                                 <AreaChart data={revenueTrendData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
@@ -162,7 +162,7 @@ export default function ReportsRevenueClientPage({ metrics }: { metrics: Revenue
                 <div className="bg-[var(--bg-card)] p-8 rounded-[var(--r-lg)] border border-[var(--border-main)] shadow-sm">
                     <h3 className="text-xl font-display font-bold text-[var(--text-main)] tracking-tight mb-2">Payment Modes</h3>
                     <p className="text-sm text-[var(--text-muted)] mb-8 font-medium">Revenue distribution by method</p>
-                    <div className="h-[250px] w-full relative">
+                    <div className="min-h-[200px] md:h-[250px] w-full relative">
                         {hasMounted && (
                             <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0} aspect={undefined} debounce={100}>
                             <PieChart>

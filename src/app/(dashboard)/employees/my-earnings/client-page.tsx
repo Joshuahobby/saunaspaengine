@@ -148,7 +148,7 @@ export default function MyEarningsClient({ employee, initialEarnings }: MyEarnin
                             <p className="text-xs text-[var(--text-muted)] mt-1 opacity-60">Detailed history of every commission event.</p>
                         </div>
                         <div className="flex w-full overflow-x-auto no-scrollbar pb-1">
-                            <div className="flex p-1 bg-[var(--bg-surface-muted)] rounded-xl border border-[var(--border-muted)] w-fit whitespace-nowrap">
+                            <div className="flex p-1 bg-[var(--bg-surface-muted)] rounded-xl border border-[var(--border-muted)] w-fit whitespace-nowrap flex-wrap max-sm:gap-1 max-sm:whitespace-normal">
                                 {(["ALL", "TODAY", "WEEK", "MONTH"] as const).map((t) => (
                                     <button
                                         key={t}

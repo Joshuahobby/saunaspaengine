@@ -163,7 +163,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
             </div>
 
             {/* Tabs */}
-            <div className="flex border-b border-[var(--border-muted)] mb-12 overflow-x-auto whitespace-nowrap scrollbar-hide">
+            <div className="flex border-b border-[var(--border-muted)] mb-12 overflow-x-auto whitespace-nowrap scrollbar-hide flex-wrap max-sm:gap-1 max-sm:whitespace-normal">
                 {tabs.map(tab => (
                     <button
                         type="button"
@@ -184,7 +184,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                 <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
                     <div className="xl:col-span-3">
                         <div className="glass-card overflow-hidden border border-[var(--border-muted)] shadow-none rounded-[2.5rem]">
-                            <div className="overflow-x-auto">
+                            <div className="overflow-x-auto hidden md:block">
                                 <table className="w-full text-left min-w-max border-collapse">
                                     <thead className="bg-[var(--bg-surface-muted)]">
                                         <tr>
@@ -246,6 +246,56 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                                     </tbody>
                                 </table>
                             </div>
+
+                            <div className="block md:hidden space-y-3">
+                                {items.length > 0 ? (
+                                    items.map((item) => {
+                                        const { icon, colorClass } = getStatusIconInfo(item.productName);
+                                        const isLowStock = item.stockCount <= item.minThreshold;
+                                        const isOutOfStock = item.stockCount === 0;
+                                        return (
+                                            <div key={item.id} className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2rem] p-5 space-y-3 shadow-sm">
+                                                <div className="flex items-center gap-3">
+                                                    <div className={`h-10 w-10 shrink-0 rounded-xl flex items-center justify-center ${colorClass} shadow-sm border border-[var(--border-muted)]/10`}>
+                                                        <span className="material-symbols-outlined text-lg">{icon}</span>
+                                                    </div>
+                                                    <div className="flex-1">
+                                                        <p className="text-sm font-bold font-display text-[var(--text-main)]">{item.productName}</p>
+                                                        <p className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest opacity-40 mt-0.5">Min: {item.minThreshold} {item.unit}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="grid grid-cols-2 gap-3">
+                                                    <div>
+                                                        <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider opacity-60 block mb-0.5">Supplier</span>
+                                                        <span className="text-xs font-medium text-[var(--text-muted)]">{item.supplier?.name || "—"}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider opacity-60 block mb-0.5">Stock</span>
+                                                        <span className={`text-xs font-bold ${isLowStock ? 'text-red-500' : 'text-[var(--text-main)]'}`}>{item.stockCount} {item.unit}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="flex items-center justify-between pt-2">
+                                                    <div>
+                                                        {isOutOfStock ? (
+                                                            <span className="inline-flex items-center px-3 py-1 rounded-full text-[9px] font-bold bg-red-500/10 text-red-500 border border-red-500/20 uppercase tracking-widest">Out of Stock</span>
+                                                        ) : isLowStock ? (
+                                                            <span className="inline-flex items-center px-3 py-1 rounded-full text-[9px] font-bold bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20 uppercase tracking-widest">Low Stock</span>
+                                                        ) : (
+                                                            <span className="inline-flex items-center px-3 py-1 rounded-full text-[9px] font-bold bg-[var(--bg-surface-muted)] text-[var(--text-muted)] border border-[var(--border-muted)] uppercase tracking-widest">Optimal</span>
+                                                        )}
+                                                    </div>
+                                                    <button type="button" onClick={() => setRestockModal(item)} className={`px-4 py-2.5 rounded-2xl text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${isLowStock ? 'bg-[var(--text-main)] text-[var(--bg-app)] shadow-lg shadow-[var(--text-main)]/10' : 'bg-[var(--bg-surface-muted)] text-[var(--text-main)] border border-[var(--border-muted)] hover:bg-[var(--border-muted)]'}`}>
+                                                        Restock
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                ) : (
+                                    <div className="px-6 py-12 text-center text-[var(--text-muted)] opacity-60 font-bold">No inventory items found.</div>
+                                )}
+                            </div>
+
                         </div>
                     </div>
 
@@ -391,7 +441,8 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
 
             {/* Restock Modal */}
             {restockModal && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setRestockModal(null)}>
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <button type="button" aria-label="Close" className="absolute inset-0 cursor-pointer" onClick={() => setRestockModal(null)} />
                     <div className="bg-[var(--bg-card)] rounded-[2.5rem] p-10 max-w-md w-full border border-[var(--border-muted)] shadow-2xl" onClick={e => e.stopPropagation()}>
                         <h3 className="text-xl font-bold font-display text-[var(--text-main)] mb-2">Restock Item</h3>
                         <p className="text-sm text-[var(--text-muted)] mb-8">{restockModal.productName} â€” Current: {restockModal.stockCount} {restockModal.unit}</p>
@@ -419,7 +470,8 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
 
             {/* Add Supplier Modal */}
             {supplierModal && (
-                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setSupplierModal(false)}>
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <button type="button" aria-label="Close" className="absolute inset-0 cursor-pointer" onClick={() => setSupplierModal(false)} />
                     <div className="bg-[var(--bg-card)] rounded-[2.5rem] p-10 max-w-lg w-full border border-[var(--border-muted)] shadow-2xl" onClick={e => e.stopPropagation()}>
                         <h3 className="text-xl font-bold font-display text-[var(--text-main)] mb-2">New Supplier</h3>
                         <p className="text-sm text-[var(--text-muted)] mb-8">Add a replenishment partner for your spa supplies.</p>
@@ -466,7 +518,7 @@ export default function InventoryClientPage({ items: initialItems, suppliers: in
                 if (!supplier) return null;
                 return (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-                        <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[var(--r-lg)] p-8 w-full max-w-sm shadow-2xl space-y-6">
+                        <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[var(--r-lg)] p-8 w-[calc(100vw-32px)] max-w-md shadow-2xl space-y-6">
                             <div className="flex items-center gap-4">
                                 <div className="size-12 rounded-2xl bg-red-500/10 flex items-center justify-center shrink-0">
                                     <span className="material-symbols-outlined text-red-500 text-2xl">local_shipping</span>

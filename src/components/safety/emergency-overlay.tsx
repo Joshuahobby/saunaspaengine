@@ -1,14 +1,16 @@
 "use client";
 import React from "react";
+import { useFocusTrap } from "@/hooks/use-focus-trap";
 
 interface EmergencyOverlayProps { open: boolean; onClose: () => void; }
 
 export default function EmergencyOverlay({ open, onClose }: EmergencyOverlayProps) {
     if (!open) return null;
+    const focusTrapRef = useFocusTrap(true);
     return (
         <div className="fixed inset-0 z-[999] flex items-center justify-center" aria-modal="true" role="dialog">
-            <div className="absolute inset-0 bg-red-950/80 backdrop-blur-sm animate-pulse" onClick={onClose}></div>
-            <div className="relative bg-[var(--bg-card)] rounded-2xl shadow-2xl shadow-red-500/30 max-w-lg w-full mx-4 overflow-hidden border-2 border-red-500">
+            <button type="button" aria-label="Close emergency overlay" className="absolute inset-0 bg-red-950/80 backdrop-blur-sm animate-pulse" onClick={onClose} />
+            <div ref={focusTrapRef} className="relative bg-[var(--bg-card)] rounded-2xl shadow-2xl shadow-red-500/30 max-w-lg w-full mx-4 overflow-hidden border-2 border-red-500">
                 <div className="bg-red-600 p-6 text-center text-white">
                     <span className="material-symbols-outlined text-5xl mb-2 animate-bounce">emergency</span>
                     <h2 className="text-2xl font-black tracking-tight">EMERGENCY RESPONSE</h2>

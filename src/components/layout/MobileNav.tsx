@@ -64,6 +64,7 @@ export default function MobileNav({ userRole }: MobileNavProps) {
                         <Link
                             key={item.href}
                             href={item.href}
+                            aria-current={isActive ? "page" : undefined}
                             className={`flex flex-col items-center gap-0.5 py-2 px-3 text-[10px] font-bold transition-colors min-h-[44px] justify-center ${
                                 isActive
                                     ? "text-[var(--color-primary)]"

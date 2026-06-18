@@ -38,6 +38,7 @@ export default function LoginForm() {
                         type="text"
                         placeholder="you@yourspa.com"
                         required
+                        aria-required="true"
                         autoComplete="username"
                         className="w-full h-11 bg-white border border-gray-300 rounded-lg px-3.5 text-sm text-gray-900 font-medium placeholder:text-gray-400 focus:outline-none focus:border-[#2d5a27] focus:ring-2 focus:ring-[#2d5a27]/10 transition-all"
                     />
@@ -56,13 +57,14 @@ export default function LoginForm() {
                         type="password"
                         placeholder="Enter your password"
                         required
+                        aria-required="true"
                         autoComplete="current-password"
                         className="w-full h-11 bg-white border border-gray-300 rounded-lg px-3.5 text-sm text-gray-900 font-medium placeholder:text-gray-400 focus:outline-none focus:border-[#2d5a27] focus:ring-2 focus:ring-[#2d5a27]/10 transition-all"
                     />
                 </div>
 
                 {errorMessage && (
-                    <div className="flex items-start gap-2.5 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+                    <div role="alert" aria-live="polite" className="flex items-start gap-2.5 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
                         <span className="material-symbols-outlined text-red-500 text-base mt-0.5 shrink-0">error</span>
                         <p className="text-red-700 text-sm font-medium">{errorMessage}</p>
                     </div>

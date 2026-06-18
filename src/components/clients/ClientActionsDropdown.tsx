@@ -112,7 +112,7 @@ export default function ClientActionsDropdown({ clientId, clientName, status }: 
 
             {showDeleteConfirm && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[var(--r-lg)] p-8 w-full max-w-sm shadow-2xl space-y-6">
+                    <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[var(--r-lg)] p-8 w-[calc(100vw-32px)] max-w-md shadow-2xl space-y-6">
                         <div className="flex items-center gap-4">
                             <div className="size-12 rounded-2xl bg-red-500/10 flex items-center justify-center shrink-0">
                                 <Trash2 className="w-6 h-6 text-red-500" />

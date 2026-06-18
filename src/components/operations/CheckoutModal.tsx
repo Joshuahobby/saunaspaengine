@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
+import { useFocusTrap } from "@/hooks/use-focus-trap";
 import { createPortal } from "react-dom";
 import { initiateServiceCheckoutAction, completeVisitAction } from "@/app/(dashboard)/operations/checkout-actions";
 import { QRScanner } from "./QRScanner";
@@ -181,12 +182,14 @@ export default function CheckoutModal({
 
     if (!mounted) return null;
 
+    const focusTrapRef = useFocusTrap(true);
+
     const modalContent = (
         <div className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center sm:p-4 bg-black/40 backdrop-blur-xl animate-in fade-in duration-300">
             {/* Click outside to close */}
-            <div className="absolute inset-0" onClick={onClose} />
+            <button type="button" aria-label="Close" className="absolute inset-0" onClick={onClose} />
             
-            <div className="bg-[var(--bg-card)] border-t sm:border border-[var(--border-muted)] w-full max-w-lg rounded-t-[2.5rem] sm:rounded-[4rem] shadow-2xl relative overflow-hidden animate-in slide-in-from-bottom-10 sm:zoom-in-95 duration-300 flex flex-col max-h-[96vh] sm:max-h-[90vh]">
+            <div ref={focusTrapRef} className="bg-[var(--bg-card)] border-t sm:border border-[var(--border-muted)] w-full max-w-lg rounded-t-[2.5rem] sm:rounded-[4rem] shadow-2xl relative overflow-hidden animate-in slide-in-from-bottom-10 sm:zoom-in-95 duration-300 flex flex-col max-h-[96vh] sm:max-h-[90vh]">
                 
                 {/* Mobile Handle Indicator */}
                 <div className="flex justify-center pt-4 sm:hidden">
@@ -201,7 +204,7 @@ export default function CheckoutModal({
                     </div>
                     <button 
                         onClick={onClose}
-                        className="size-9 sm:size-12 rounded-xl sm:rounded-2xl bg-[var(--bg-surface-muted)] flex items-center justify-center text-[var(--text-muted)] hover:text-rose-500 hover:bg-rose-500/10 transition-all active:scale-95"
+                        className="size-10 sm:size-12 rounded-xl sm:rounded-2xl bg-[var(--bg-surface-muted)] flex items-center justify-center text-[var(--text-muted)] hover:text-rose-500 hover:bg-rose-500/10 transition-all active:scale-95"
                     >
                         <X className="w-4 h-4 sm:w-5 sm:h-5 font-black" />
                     </button>

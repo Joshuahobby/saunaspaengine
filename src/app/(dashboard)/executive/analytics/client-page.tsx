@@ -161,7 +161,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                         </div>
                     </div>
 
-                    <div ref={areaChartRef} className="h-[350px] w-full relative">
+                    <div ref={areaChartRef} className="min-h-[250px] md:h-[350px] w-full relative">
                         {areaWidth > 0 && areaHeight > 0 && (
                             <AreaChart width={areaWidth} height={areaHeight} data={dailyRevenue}>
                                 <defs>
@@ -209,7 +209,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                         <p className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-[0.2em] italic">Service revenue breakdown</p>
                     </div>
 
-                    <div ref={pieChartRef} className="flex-1 h-[250px] relative z-10 flex items-center justify-center">
+                    <div ref={pieChartRef} className="flex-1 min-h-[200px] md:h-[250px] relative z-10 flex items-center justify-center">
                         {pieWidth > 0 && pieHeight > 0 && (
                             <PieChart width={pieWidth} height={pieHeight}>
                                 <Pie
@@ -264,7 +264,7 @@ export default function ExecutiveAnalyticsClient({ stats, dailyRevenue, branchPe
                         <span className="px-4 py-1.5 bg-emerald-500/10 text-emerald-500 text-[8px] font-black uppercase tracking-[0.2em] rounded-full border border-emerald-500/20 italic">Live</span>
                     </div>
 
-                    <div ref={barChartRef} className="h-[300px] w-full">
+                    <div ref={barChartRef} className="min-h-[200px] md:h-[300px] w-full">
                         {barWidth > 0 && barHeight > 0 && (
                             <BarChart width={barWidth} height={barHeight} data={peakHours}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.03)" />

@@ -14,7 +14,7 @@ export default function OperationsTabs({ activeTab }: { activeTab: string }) {
 
     return (
         <div className="flex w-full overflow-x-auto no-scrollbar pb-1">
-            <div className="flex gap-2 p-1 bg-[var(--bg-surface-muted)]/30 rounded-2xl w-fit border border-[var(--border-muted)] whitespace-nowrap">
+            <div className="flex gap-2 p-1 bg-[var(--bg-surface-muted)]/30 rounded-2xl w-fit border border-[var(--border-muted)] whitespace-nowrap flex-wrap max-sm:gap-1 max-sm:whitespace-normal">
                 <button 
                     onClick={() => handleTabChange('hours')}
                     className={`px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === 'hours' ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20" : "text-[var(--text-muted)] hover:text-[var(--text-main)]"}`}

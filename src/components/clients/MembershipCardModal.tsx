@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useFocusTrap } from "@/hooks/use-focus-trap";
 import PrintableMembershipCard, { PremiumCardThemes, MembershipCardTheme } from "./PrintableMembershipCard";
 import { X, Printer, Check, Palette, Download, FileDown, Loader2 } from "lucide-react";
 import { toPng } from "html-to-image";
@@ -35,6 +36,8 @@ export default function MembershipCardModal({
     const cardRef = useRef<HTMLDivElement>(null);
 
     if (!isOpen) return null;
+
+    const focusTrapRef = useFocusTrap(true);
 
     const handlePrintImproved = async () => {
         const tid = toast.loading("Preparing print window...");
@@ -199,13 +202,15 @@ export default function MembershipCardModal({
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-8 animate-in fade-in duration-200">
             {/* Backdrop */}
-            <div 
+            <button 
+                type="button"
+                aria-label="Close"
                 className="absolute inset-0 bg-[var(--bg-app)]/80 backdrop-blur-md"
                 onClick={onClose}
-            ></div>
+            />
 
             {/* Modal Content */}
-            <div className="relative w-full max-w-xl bg-[var(--bg-card)] border border-[var(--border-main)] rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+            <div ref={focusTrapRef} className="relative w-full max-w-xl bg-[var(--bg-card)] border border-[var(--border-main)] rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
                 
                 {/* Header */}
                 <div className="p-6 border-b border-[var(--border-muted)] flex items-center justify-between bg-[var(--bg-surface-muted)]">

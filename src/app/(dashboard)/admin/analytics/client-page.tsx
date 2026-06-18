@@ -221,7 +221,7 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                         </div>
                     </div>
 
-                    <div ref={growthChartRef} className="h-[400px] w-full p-4 relative overflow-hidden">
+                    <div ref={growthChartRef} className="min-h-[250px] md:h-[400px] w-full p-4 relative overflow-hidden">
                         {growthWidth > 0 && growthHeight > 0 && (
                             <AreaChart width={growthWidth} height={growthHeight} data={growthData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                                 <defs>
@@ -285,7 +285,7 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                         <p className="text-xs text-[var(--text-muted)] font-medium opacity-40">Business enrollment across platform tiers.</p>
                     </div>
 
-                    <div ref={pieChartRef} className="flex-1 h-[220px] min-h-[220px] relative z-10">
+                    <div ref={pieChartRef} className="flex-1 min-h-[180px] md:h-[220px] relative z-10">
                         {pieWidth > 0 && pieHeight > 0 && (
                             <PieChart width={pieWidth} height={pieHeight}>
                                 <Pie
@@ -377,7 +377,7 @@ export default function AnalyticsClientPage({ stats, growthData, subscriptionDat
                             <h3 className="text-xl font-display font-bold text-[var(--text-main)]">Platform Role Composition</h3>
                             <p className="text-xs text-[var(--text-muted)] font-medium opacity-40">User distribution across administration and operation levels.</p>
                         </div>
-                        <div ref={roleChartRef} className="h-[200px] w-full">
+                        <div ref={roleChartRef} className="min-h-[150px] md:h-[200px] w-full">
                             {roleWidth > 0 && roleHeight > 0 && (
                                 <BarChart width={roleWidth} height={roleHeight} data={roleData}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.03)" />

@@ -68,7 +68,7 @@ export default function CheckInForm({ clients, services, employees, lockerNumber
 
             <form onSubmit={handleSubmit} className="p-5 space-y-5">
                 {error && (
-                    <div className="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 text-[10px] text-red-600 dark:text-red-400 font-bold">
+                    <div role="alert" aria-live="polite" className="bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3 text-[10px] text-red-600 dark:text-red-400 font-bold">
                         {error}
                     </div>
                 )}
@@ -156,8 +156,8 @@ export default function CheckInForm({ clients, services, employees, lockerNumber
                 </div>
 
                 {/* Payment Mode (Horizontal) */}
-                <div className="flex flex-col gap-2 pt-2 border-t border-[var(--border-muted)]/30">
-                    <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-60 text-center">Payment Mode</label>
+                <fieldset className="flex flex-col gap-2 pt-2 border-t border-[var(--border-muted)]/30">
+                    <legend className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 opacity-60 text-center">Payment Mode</legend>
                     <div className="flex bg-[var(--bg-surface-muted)] p-1 rounded-2xl border border-[var(--border-muted)]/50">
                         {[
                             { value: "CASH", icon: "payments", label: "CASH" },
@@ -173,7 +173,7 @@ export default function CheckInForm({ clients, services, employees, lockerNumber
                             </label>
                         ))}
                     </div>
-                </div>
+                </fieldset>
 
                 {/* Notes */}
                 <div className="flex flex-col gap-2">

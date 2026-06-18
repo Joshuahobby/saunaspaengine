@@ -101,7 +101,7 @@ export function StatusToggle({ employeeId, initialStatus }: StatusToggleProps) {
                         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
                         onClick={handleCancel}
                     />
-                    <div className="relative bg-[var(--bg-card)] rounded-2xl shadow-2xl max-w-sm w-full mx-4 border border-[var(--border-muted)]">
+                    <div className="relative bg-[var(--bg-card)] rounded-2xl shadow-2xl w-[calc(100vw-32px)] max-w-md border border-[var(--border-muted)]">
                         <div className="p-6 border-b border-[var(--border-muted)]">
                             <div className="flex items-center gap-3 mb-2">
                                 <span className="material-symbols-outlined text-amber-500 bg-amber-100 p-2 rounded-lg">

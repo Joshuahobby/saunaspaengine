@@ -214,7 +214,7 @@ export default function ServicesClientPage({ services, stats, userRole, subState
 
             {/* Services Table */}
             <div className="bg-[var(--bg-card)] rounded-[var(--r-lg)] border border-[var(--border-main)] overflow-hidden shadow-sm">
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto hidden md:block">
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-[var(--bg-surface-muted)]">
@@ -289,6 +289,67 @@ export default function ServicesClientPage({ services, stats, userRole, subState
                         </tbody>
                     </table>
                 </div>
+
+                <div className="block md:hidden space-y-3 p-1">
+                    {filtered.length > 0 ? (
+                        filtered.map((service) => (
+                            <div key={service.id} className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[2rem] p-5 space-y-3 shadow-sm">
+                                <div className="flex items-center gap-3">
+                                    <div className="size-10 rounded-xl bg-[var(--color-primary)]/10 flex items-center justify-center text-[var(--color-primary)] border border-[var(--color-primary)]/10">
+                                        <span className="material-symbols-outlined text-xl">{getServiceIcon(service.name)}</span>
+                                    </div>
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-2">
+                                            <span className="font-bold text-[var(--text-main)] font-display">{service.name}</span>
+                                        </div>
+                                        <span className="font-mono text-[10px] font-bold text-[var(--text-muted)] uppercase">#{service.id.slice(-6)}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className={`size-2 rounded-full ${service.status === 'ACTIVE' ? 'bg-[var(--color-primary)] animate-pulse shadow-[0_0_8px_var(--color-primary)]' : 'bg-[var(--text-muted)]'}`}></span>
+                                        <span className={`text-[10px] font-black uppercase tracking-widest ${service.status === 'ACTIVE' ? 'text-[var(--color-primary)]' : 'text-[var(--text-muted)]'}`}>
+                                            {service.status.charAt(0) + service.status.slice(1).toLowerCase()}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider opacity-60 block mb-0.5">Category</span>
+                                        <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-[var(--color-primary)]/10 text-[var(--color-primary)]">
+                                            {service.category || 'General'}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider opacity-60 block mb-0.5">Price</span>
+                                        <span className="font-black text-[var(--color-primary)] font-sans">{formatPrice(service.price)}</span>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-between pt-2">
+                                    <div className="flex items-center gap-2 text-[var(--text-main)] font-display font-medium">
+                                        <span className="material-symbols-outlined text-lg">timer</span>
+                                        <span className="text-sm">{service.duration} min</span>
+                                    </div>
+                                    {!isEmployee ? (
+                                        <div className="flex items-center gap-2">
+                                            <button onClick={() => openEdit(service)} className="text-[var(--text-muted)] hover:text-[var(--color-primary)] transition-all hover:scale-110">
+                                                <span className="material-symbols-outlined text-lg">edit</span>
+                                            </button>
+                                            <button onClick={() => setDeletingId(service.id)} className="text-[var(--text-muted)] hover:text-red-500 transition-all hover:scale-110">
+                                                <span className="material-symbols-outlined text-lg">delete</span>
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <span className="text-[10px] text-[var(--text-muted)] opacity-40 italic font-bold">View only</span>
+                                    )}
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="px-6 py-12 text-center text-[var(--text-muted)] opacity-60 italic font-medium">
+                            {filter !== "all" ? "No services match this filter." : "No services found. Add your first treatment to get started."}
+                        </div>
+                    )}
+                </div>
+
                 <div className="px-6 py-5 border-t border-[var(--border-muted)] flex items-center justify-between bg-[var(--bg-surface-muted)]">
                     <p className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest italic leading-none">Showing {filtered.length} of {services.length} services</p>
                 </div>
@@ -296,7 +357,8 @@ export default function ServicesClientPage({ services, stats, userRole, subState
 
             {/* Add/Edit Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--bg-app)]/80 backdrop-blur-sm" onClick={() => { setShowAddModal(false); setEditingService(null); }}>
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--bg-app)]/80 backdrop-blur-sm">
+                    <button type="button" aria-label="Close" className="absolute inset-0 cursor-pointer" onClick={() => { setShowAddModal(false); setEditingService(null); }} />
                     <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[var(--r-lg)] p-8 w-full max-w-lg shadow-2xl" onClick={e => e.stopPropagation()}>
                         <h3 className="text-2xl font-display font-bold text-[var(--text-main)] mb-6">
                             {editingService ? "Edit Service" : "Add New Service"}
@@ -335,7 +397,8 @@ export default function ServicesClientPage({ services, stats, userRole, subState
 
             {/* Delete Confirmation Modal */}
             {deletingId && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--bg-app)]/80 backdrop-blur-sm" onClick={() => setDeletingId(null)}>
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--bg-app)]/80 backdrop-blur-sm">
+                    <button type="button" aria-label="Close" className="absolute inset-0 cursor-pointer" onClick={() => setDeletingId(null)} />
                     <div className="bg-[var(--bg-card)] border border-[var(--border-muted)] rounded-[var(--r-lg)] p-8 w-full max-w-md shadow-2xl" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center gap-3 mb-4">
                             <div className="size-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500">

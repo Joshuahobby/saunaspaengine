@@ -98,6 +98,7 @@ export function ChangePasswordForm({ userId }: { userId: string }) {
                     <input
                         type="password"
                         required
+                        aria-required="true"
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
                         className="w-full h-11 px-4 rounded-xl border border-[var(--border-main)] bg-[var(--bg-card)] focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all"
@@ -114,6 +115,7 @@ export function ChangePasswordForm({ userId }: { userId: string }) {
                     <input
                         type="password"
                         required
+                        aria-required="true"
                         value={newPassword}
                         onChange={handlePasswordChange}
                         className="w-full h-11 px-4 rounded-xl border border-[var(--border-main)] bg-[var(--bg-card)] focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all"
@@ -161,6 +163,7 @@ export function ChangePasswordForm({ userId }: { userId: string }) {
                     <input
                         type="password"
                         required
+                        aria-required="true"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         className="w-full h-11 px-4 rounded-xl border border-[var(--border-main)] bg-[var(--bg-card)] focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition-all"
@@ -170,7 +173,7 @@ export function ChangePasswordForm({ userId }: { userId: string }) {
             </div>
 
             {error && (
-                <div className="p-3 bg-red-50 border border-red-100 text-red-700 text-sm rounded-xl flex items-start gap-2">
+                <div role="alert" aria-live="polite" className="p-3 bg-red-50 border border-red-100 text-red-700 text-sm rounded-xl flex items-start gap-2">
                     <span className="material-symbols-outlined text-[18px]">error</span>
                     <span>{error}</span>
                 </div>

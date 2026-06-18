@@ -286,8 +286,8 @@ export default function CheckoutPage() {
                                 <span className="text-2xl font-black text-[var(--color-primary)]">RWF {(total * 1000).toLocaleString('en-RW', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                             </div>
 
-                            <div className="pt-6 space-y-4">
-                                <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 italic opacity-60">Payment Method</label>
+                            <fieldset className="pt-6 space-y-4">
+                                <legend className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest ml-1 italic opacity-60">Payment Method</legend>
                                 <div className="grid grid-cols-3 gap-3">
                                     {[
                                         { id: 'cash', label: 'Cash', icon: 'payments' },
@@ -303,7 +303,7 @@ export default function CheckoutPage() {
                                         </label>
                                     ))}
                                 </div>
-                            </div>
+                            </fieldset>
 
                             <div className="pt-6">
                                 <button

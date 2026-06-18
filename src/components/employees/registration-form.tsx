@@ -83,7 +83,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
         <form action={handleSubmit} className="space-y-6">
             <div className="glass-card p-8 space-y-6 border-[var(--border-main)]">
                 {error && (
-                    <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 text-sm font-medium flex items-center gap-2">
+                    <div role="alert" aria-live="polite" className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 text-sm font-medium flex items-center gap-2">
                         <span className="material-symbols-outlined text-lg">error</span>
                         {error}
                     </div>
@@ -100,6 +100,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                             <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest px-1">Full Name *</label>
                             <input
                                 required
+                                aria-required="true"
                                 name="fullName"
                                 type="text"
                                 placeholder="e.g. Jean Pierre"
@@ -121,6 +122,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                             <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest px-1">Email Address *</label>
                             <input
                                 required
+                                aria-required="true"
                                 name="email"
                                 type="email"
                                 placeholder="e.g. jean.pierre@saunaspa.rw"
@@ -143,6 +145,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                             <div className="relative">
                                 <input
                                     required
+                                    aria-required="true"
                                     name="password"
                                     type={showPassword ? "text" : "password"}
                                     value={password}
@@ -187,6 +190,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                             <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest px-1">Confirm Password *</label>
                             <input
                                 required
+                                aria-required="true"
                                 name="confirmPassword"
                                 type={showPassword ? "text" : "password"}
                                 value={confirmPassword}
@@ -219,6 +223,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                             <label className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-widest px-1">Professional Role *</label>
                             <select
                                 required
+                                aria-required="true"
                                 aria-label="Professional Role"
                                 title="Professional Role"
                                 name="categoryId"
@@ -251,6 +256,7 @@ export default function RegistrationForm({ categories, branches, defaultBranchId
                             {isOwner ? (
                                 <select
                                     required
+                                    aria-required="true"
                                     aria-label="Physical Location"
                                     title="Physical Location"
                                     name="branchId"
